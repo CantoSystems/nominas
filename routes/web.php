@@ -23,3 +23,6 @@ Route::get('home', 'HomeController@index');
 Route::get('/segunda', function() {
     return view('home');
 });
+
+Route::get('crudempresas', 'EmpresaController@create')->name('empresas');
+Route::get('crud', 'EmpresaController@index')->name('acciones');
