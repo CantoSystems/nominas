@@ -148,14 +148,13 @@
                                     </a>
                                 </div>
                                 <div class="form-group">
-                                    <button type="submit" class="btn btn-block btn-secondary" name="acciones" value="guardar" id="guardar" style='width:150px; height:40px'>
-                                       Guardar
-                                    </button>
+                                    <input type="hidden" class="btn btn-block btn-secondary" name="acciones" value="guardar" id="guardar" style='width:150px; height:40px'>
+                                       
+                                    </input>
                                 </div>
                                 <div class="form-group">
-                                    <button type="submit" class="btn btn-block btn-secondary" name="acciones" value="guardarcambios" id="guardarcambios" style='width:150px; height:40px'>
-                                       Guardar cambios
-                                    </button>
+                                    <input type="hidden" class="btn btn-block btn-secondary" name="acciones" value="guardarcambios" id="guardarcambios" style='width:150px; height:40px'>
+                                    </input>
                                 </div>
                             </div>
                         </div>
