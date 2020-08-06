@@ -12,37 +12,42 @@ class EmpresaController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index($accion, $clave)
     {
-        $accion= $request->acciones;
-        switch($accion){
-            case 'primero':
-                echo 'Estoy dentro de primero';
-            break;
-            case 'atras':
-                echo 'Estoy atrás';
-            break;
-            case 'siguiente':
-                echo 'siguiente';
-            break;
-            case  'ultimo':
-                echo 'ultimo';
-            break;
-            case 'actualizar':
-                echo 'Estoy en acualizar';
-            break;
-            case 'nuevo':
-                echo 'Estoy en nuevo';
-            break;
-            case 'guardar':
-                echo 'Estoy en guaradar';
-            break;
-            case 'guardarcambios':
-                echo 'Estoy en guardar cambios';
-            break;
-        }
+   
     }
-
+    public function acciones(Request $request){
+     $accion= $request->acciones;
+     $clv=$request->clave;
+    switch ($accion) {
+        case '':
+            $empresa= Empresa::first();
+            return view('empresas.crudempresas', compact('empresa'));
+            break;
+        case 'atras':
+             $emp= Empresa::where('clave',$clv)->first();
+             $indic= $emp->id;
+             $empresa= Empresa::where('id','<',$indic)->first();
+             if($empresa==""){
+                $empresa= Empresa::get()->last();  
+             }
+             return view('empresas.crudempresas', compact('empresa'));
+        break;
+        case 'siguiente':
+            echo "presiono siguiente";
+        break;
+        case 'primero':
+            echo "presiono primero";
+        break;
+        case 'ultimo':
+            echo "presiono ultimo";
+        break;
+        
+        default:
+            # code...
+            break;
+    }
+    }
     /**
      * Show the form for creating a new resource.
      *
@@ -50,7 +55,6 @@ class EmpresaController extends Controller
      */
     public function create()
     {
-        return view('empresas.crudempresas');
     }
 
     /**

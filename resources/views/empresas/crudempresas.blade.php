@@ -5,103 +5,102 @@
         <h3 class="card-title">Empresas</h3>
     </div>
     <div class="card-body">
-    <form action="{{ route('acciones')}}" method="POST">
-    @csrf
+    <form action="{{ route('acciones')}}" method="GET">
     		<div class="row">
     			<div class="col-sm-6">
                     <div class="form-group">
                         <label>Nombre:</label>
-                        <input type="text" name="nombre" class="form-control" placeholder="Nombre">
+                        <input type="text" name="nombre" class="form-control" value="{{$empresa->nombre}}">
                     </div>
                 </div>    
                 <div class="col-sm-1">
                     <div class="form-group">
                         <label>Clave:</label>
-                        <input type="text" name="clave" class="form-control" placeholder="Clave">
+                        <input type="text" name="clave" class="form-control" value="{{$empresa->clave}}">
                     </div>
                 </div>
                 <div class="col-sm-3">
                     <div class="form-group">
                         <label>RFC (Empresa):</label>
-                        <input type="text" name="rfc" min="13" class="form-control" placeholder="RFC (Empresa)">
+                        <input type="text" name="rfc" min="13" class="form-control" value="{{$empresa->rfc}}">
                     </div>
                 </div>
                 <div class="col-sm-2">
                     <div class="form-group">
                         <label>Seguro social:</label>
-                        <input type="text" name="segurosocial" max="11" class="form-control" placeholder="NSS">
+                        <input type="text" name="segurosocial" max="11" class="form-control" value="{{$empresa->segurosocial}}">
                     </div>
                 </div>
                 <div class="col-sm-3">
                     <div class="form-group">
                         <label>Registro estatal:</label>
-                        <input type="text" name="registro_estatal" class="form-control" placeholder="Registro estatal">
+                        <input type="text" name="registro_estatal" class="form-control" value="{{$empresa->registro_estatal}}">
                     </div>
                 </div>
                 <div class="col-sm-5">
                     <div class="form-group">
                         <label>Calle:</label>
-                        <input type="text" name="calle" class="form-control" placeholder="Calle">
+                        <input type="text" name="calle" class="form-control" value="{{$empresa->calle}}">
                     </div>
                 </div>
                 <div class="col-sm-2">
                     <div class="form-group">
                         <label>Número interno:</label>
-                        <input type="text" name="num_interno" max="6000" min="1" class="form-control" placeholder="Número interno">
+                        <input type="text" name="num_interno" max="6000" min="1" class="form-control" value="{{$empresa->num_interno}}">
                     </div>
                 </div>
                 <div class="col-sm-2">
                     <div class="form-group">
                         <label>Número externo:</label>
-                        <input type="text" name="num_externo" class="form-control" placeholder="Número externo">
+                        <input type="text" name="num_externo" class="form-control" value="{{$empresa->num_externo}}">
                     </div>
                 </div>
                 <div class="col-sm-5">
                     <div class="form-group">
                         <label>Colonia:</label>
-                        <input type="text" name="colonia" class="form-control" placeholder="Colonia">
+                        <input type="text" name="colonia" class="form-control" value="{{$empresa->colonia}}">
                     </div>
                 </div>
                 <div class="col-sm-3">
                     <div class="form-group">
                         <label>Municipio:</label>
-                        <input type="text" name="municipio" class="form-control" placeholder="Municipio">
+                        <input type="text" name="municipio" class="form-control" value="{{$empresa->municipio}}">
                     </div>
                 </div>
                 <div class="col-sm-4">
                     <div class="form-group">
                         <label>Ciudad:</label>
-                        <input type="text" name="ciudad" class="form-control" placeholder="Ciudad">
+                        <input type="text" name="ciudad" class="form-control" value="{{$empresa->ciudad}}">
                     </div>
                 </div>
                 <div class="col-sm-4">
                     <div class="form-group">
                         <label>País:</label>
-                        <input type="text" name="pais" class="form-control" placeholder="País">
+                        <input type="text" name="pais" class="form-control" value="{{$empresa->pais}}">
                     </div>
                 </div>
                 <div class="col-sm-5">
                     <div class="form-group">
                         <label>Representante legal:</label>
-                        <input type="text" name="representante_legal" max="13" class="form-control" placeholder="Representante legal">
+                        <input type="text" name="representante_legal" max="13" class="form-control" value="{{$empresa->representante_legal}}">
                     </div>
                 </div>
                 <div class="col-sm-3">
                     <div class="form-group">
                         <label>RFC (Representante legal):</label>
-                        <input type="text" name="rfc_representante" class="form-control" placeholder="RFC (Representante legal)">
+                        <input type="text" name="rfc_representante" class="form-control" value="{{$empresa->rfc_representante}}">
                     </div>
                 </div>
                 <div class="col-sm-4">
                     <div class="form-group">
                         <label>Teléfono:</label>
-                        <input type="text" name="telefono"  max="10" class="form-control" placeholder="Teléfono">
+                        <input type="text" name="telefono"  max="10" class="form-control" value="{{$empresa->telefono}}">
                     </div>
                 </div>
                 <div class="col-sm-8">
                     <div class="form-group">
                         <label>Correo electrónico:</label>
-                        <input type="email" name="email" class="form-control" placeholder="Correo electrónico">
+                        <input type="email" name="email" class="form-control" value="{{$empresa->email}}">
                     </div>
                 </div>
 
@@ -147,18 +146,10 @@
                                         </button>
                                     </a>
                                 </div>
-                                <div class="form-group">
-                                    <input type="hidden" class="btn btn-block btn-secondary" name="acciones" value="guardar" id="guardar" style='width:150px; height:40px'>
-                                </div>
-                                <div class="form-group">
-                                    <input type="hidden" class="btn btn-block btn-secondary" name="acciones" value="guardarcambios" id="guardarcambios" style='width:150px; height:40px'>
-                                </div>
                             </div>
                         </div>
                     </div>
                 </div>  
-		
-
             </div>	
     	</form>	
    	</div> 	
