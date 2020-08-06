@@ -25,4 +25,4 @@ Route::get('/segunda', function() {
 });
 
 Route::get('crudempresas', 'EmpresaController@create')->name('empresas');
-Route::get('crud', 'EmpresaController@index')->name('acciones');
+Route::post('crud', 'EmpresaController@index')->name('acciones');

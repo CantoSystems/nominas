@@ -28,6 +28,18 @@ class EmpresaController extends Controller
             case  'ultimo':
                 echo 'ultimo';
             break;
+            case 'actualizar':
+                echo 'Estoy en acualizar';
+            break;
+            case 'nuevo':
+                echo 'Estoy en nuevo';
+            break;
+            case 'guardar':
+                echo 'Estoy en guaradar';
+            break;
+            case 'guardarcambios':
+                echo 'Estoy en guardar cambios';
+            break;
         }
     }
 
