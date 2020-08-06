@@ -6,7 +6,7 @@
     </div>
     <div class="card-body">
     <form action="{{ route('acciones')}}" method="POST">
-        @csrf
+    @csrf
     		<div class="row">
     			<div class="col-sm-6">
                     <div class="form-group">
@@ -134,7 +134,7 @@
                             <div class="btn-group">
                                 <div class="form-group">
                                     <button type="submit" class="btn btn-block btn-secondary" name="acciones" value="nuevo" id="nuevo" style='width:70px; height:40px'>
-                                       <i class="fas fa-plus-circle"></i>
+                                       <i class="fas fa-user-plus"></i>
                                     </button>
                                 </div>
                                 <div class="form-group">
