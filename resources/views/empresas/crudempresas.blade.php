@@ -105,7 +105,7 @@
                 </div>
 
 
-                <div class="col-sm-6">
+                <div class="col-sm-5">
                     <div class="card-body">
                         <div class="margin">
                             <div class="btn-group">
@@ -127,17 +127,15 @@
                 </div>
 
 
-              <div class="col-sm-6">
+              <div class="col-sm-5">
                     <div class="card-body">
                         <div class="margin">
                             <div class="btn-group">
                                 <div class="form-group">
-                                    <button type="submit" class="btn btn-block btn-secondary" name="acciones" value="nuevo" id="nuevo" style='width:70px; height:40px'>
-                                       <i class="fas fa-user-plus"></i>
-                                    </button>
+                                    <button type="button" id="nuevo" style='width:70px; height:40px'> <i class="fas fa-user-plus"></i></button>
                                 </div>
                                 <div class="form-group">
-                                    <button type="submit" class="btn btn-block btn-secondary" name="acciones" value="actualizar" id="actualizar" style='width:70px; height:40px'><i class="fas fa-pen-square"></i></button>
+                                 <button type="button" id="actualizar" style='width:70px; height:40px'> <i class="fas fa-pen-square"></i></button>
                                 </div>
                                 <div class="form-group">
                                     <a href="#">
@@ -149,11 +147,15 @@
                             </div>
                         </div>
                     </div>
-                </div>  
+                </div> 
+
+                <div class="col-sm-2">
+                 <button class="btn btn-primary" name="acciones" value="registrar" id="nuevo_reg" type="submit" style="display: none;"><i class="fas fa-save"></i></button>
+                 <button class="btn btn-warning" name="acciones" value="actualizar" id="actualizar_reg" type="submit" style="display: none;"><i class="fas fa-save"></i></button>
+                </div> 
             </div>	
     	</form>	
    	</div> 	
 </div>	
-
 @endsection
 

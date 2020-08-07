@@ -143,5 +143,17 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <script src="{{ asset('/Admin/plugins/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
 <!-- AdminLTE App -->
 <script src="{{ asset('/Admin/dist/js/adminlte.min.js')}}"></script>
+<script>
+      $(function(){
+        $('#nuevo').click(function(){
+           $('#actualizar_reg').hide();
+          $('#nuevo_reg').show();
+        });
+        $('#actualizar').click(function(){
+	      $('#nuevo_reg').hide();
+        $('#actualizar_reg').show();
+        });
+      })
+</script>
 </body>
 </html>

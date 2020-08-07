@@ -34,13 +34,21 @@ class EmpresaController extends Controller
              return view('empresas.crudempresas', compact('empresa'));
         break;
         case 'siguiente':
-            echo "presiono siguiente";
+            $emp= Empresa::where('clave',$clv)->first();
+            $indic= $emp->id;
+            $empresa= Empresa::where('id','>',$indic)->first();
+            if($empresa==""){
+               $empresa= Empresa::first();  
+            }
+            return view('empresas.crudempresas', compact('empresa'));
         break;
         case 'primero':
-            echo "presiono primero";
+            $empresa= Empresa::first();
+            return view('empresas.crudempresas', compact('empresa'));
         break;
         case 'ultimo':
-            echo "presiono ultimo";
+            $empresa= Empresa::get()->last(); 
+            return view('empresas.crudempresas', compact('empresa')); 
         break;
         
         default:
