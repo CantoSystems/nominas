@@ -149,6 +149,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
            $('#actualizar_reg').hide();
           $('#nuevo_reg').show();
            $('input[type="text"]').val('');
+           $('input[type="email"]').val('');
         });
         $('#actualizar').click(function(){
 	      $('#nuevo_reg').hide();
