@@ -12,9 +12,9 @@ class EmpresaController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index($accion, $clave)
+    public function index()
     {
-   
+    //$accion, $clave
     }
     public function acciones(Request $request){
      $accion= $request->acciones;
