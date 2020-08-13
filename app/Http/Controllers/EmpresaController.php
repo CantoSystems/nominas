@@ -19,51 +19,52 @@ class EmpresaController extends Controller
     public function acciones(Request $request){
      $accion= $request->acciones;
      $clv=$request->clave;
-    switch ($accion) {
-        case '':
+        switch ($accion) {
+            case '':
+                $empresa= Empresa::first();
+                return view('empresas.crudempresas', compact('empresa'));
+                break;
+            case 'atras':
+                 $emp= Empresa::where('clave',$clv)->first();
+                 $indic= $emp->id;
+                 $empresa= Empresa::where('id','<',$indic)->first();
+                 if($empresa==""){
+                    $empresa= Empresa::get()->last();  
+                 }
+                 return view('empresas.crudempresas', compact('empresa'));
+            break;
+            case 'siguiente':
+                $emp= Empresa::where('clave',$clv)->first();
+                $indic= $emp->id;
+                $empresa= Empresa::where('id','>',$indic)->first();
+                if($empresa==""){
+                   $empresa= Empresa::first();  
+                }
+                return view('empresas.crudempresas', compact('empresa'));
+            break;
+            case 'primero':
+                $empresa= Empresa::first();
+                return view('empresas.crudempresas', compact('empresa'));
+            break;
+            case 'ultimo':
+                $empresa= Empresa::get()->last(); 
+                return view('empresas.crudempresas', compact('empresa')); 
+            break;
+            case 'registrar':
+            $this->registrar($request);
             $empresa= Empresa::first();
             return view('empresas.crudempresas', compact('empresa'));
             break;
-        case 'atras':
-             $emp= Empresa::where('clave',$clv)->first();
-             $indic= $emp->id;
-             $empresa= Empresa::where('id','<',$indic)->first();
-             if($empresa==""){
-                $empresa= Empresa::get()->last();  
-             }
-             return view('empresas.crudempresas', compact('empresa'));
-        break;
-        case 'siguiente':
-            $emp= Empresa::where('clave',$clv)->first();
-            $indic= $emp->id;
-            $empresa= Empresa::where('id','>',$indic)->first();
-            if($empresa==""){
-               $empresa= Empresa::first();  
-            }
-            return view('empresas.crudempresas', compact('empresa'));
-        break;
-        case 'primero':
-            $empresa= Empresa::first();
-            return view('empresas.crudempresas', compact('empresa'));
-        break;
-        case 'ultimo':
-            $empresa= Empresa::get()->last(); 
-            return view('empresas.crudempresas', compact('empresa')); 
-        break;
-        case 'registrar':
-        $this->registrar($request);
-        $empresa= Empresa::first();
-        return view('empresas.crudempresas', compact('empresa'));
-        break;
-        case 'actualizar':
-            $this->actualizar($request);
-            $empresa= Empresa::first();
-            return view('empresas.crudempresas', compact('empresa'));
-        break;
-        default:
-            # code...
+            case 'actualizar':
+                $this->actualizar($request);
+                $empresa= Empresa::first();
+                return view('empresas.crudempresas', compact('empresa'));
             break;
-    }
+            default:
+                # code...
+                break;
+        }
+
     }
 
      public function actualizar($datos){ 
@@ -88,6 +89,30 @@ class EmpresaController extends Controller
      public function registrar($datos){
      $empresa= new Empresa;
      $empresa->clave= $datos->clave;
+     DB::statement('create database '.$datos->clave);
+     $clv= $request->clave;
+     $configDb = [
+        'driver'      => 'mysql',
+        'host'        => env('DB_HOST', 'localhost'),
+        'port'        => env('DB_PORT', '3306'),
+        'database'    => $clv,
+        'username'    => env('DB_USERNAME', 'javier'),
+        'password'    => env('DB_PASSWORD', 'tnvsi2182019'),
+        'unix_socket' => env('DB_SOCKET', ''),
+        'charset'     => 'utf8',
+        'collation'   => 'utf8_unicode_ci',
+        'prefix'      => '',
+        'strict'      => true,
+        'engine'      => null,
+];
+
+\Config::set('database.connections.DB_Serverr', $configDb);
+Schema::connection('DB_Serverr')->create('Areas', function($table)
+{
+$table->increments('id');
+$table->string('area');
+});
+
      $empresa->nombre= $datos->nombre;
      $empresa->rfc= $datos->rfc;
      $empresa->segurosocial= $datos->segurosocial;
@@ -167,6 +192,9 @@ class EmpresaController extends Controller
      */
     public function destroy(Empresa $empresa)
     {
-        //
+        $empresa = Empresa::find($id);
+        DB::statement('drop database '.$empresa->clave);
+        $empresa->delete();
+        return redirect()->action('EmpresaController@acciones');
     }
 }

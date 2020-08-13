@@ -138,11 +138,7 @@
                                  <button type="button" id="actualizar" style='width:70px; height:40px'> <i class="fas fa-pen-square"></i></button>
                                 </div>
                                 <div class="form-group">
-                                    <a href="#">
-                                        <button type="button" class="btn btn-block btn-secondary" id="eliminar" style='width:70px; height:40px'>
-                                        <i class="far fa-trash-alt"></i>
-                                        </button>
-                                    </a>
+                                    <a href="#" class="btn btn-danger" id="eliminar" data-target="#modal-deletenom-{{$empresa->id}}" data-toggle="modal"><i class="far fa-trash-alt"></i></a>
                                 </div>
                             </div>
                         </div>
@@ -155,6 +151,7 @@
                 </div> 
             </div>	
     	</form>	
+         @include('Empresas.modaldelete')
    	</div> 	
 </div>	
 @endsection
