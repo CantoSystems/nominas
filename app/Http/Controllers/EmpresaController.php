@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Empresa;
 use Illuminate\Http\Request;
+use DB;
+use Illuminate\Support\Facades\Schema;
+
 
 class EmpresaController extends Controller
 {
@@ -89,8 +92,8 @@ class EmpresaController extends Controller
      public function registrar($datos){
      $empresa= new Empresa;
      $empresa->clave= $datos->clave;
-     DB::statement('create database '.$datos->clave);
-     $clv= $request->clave;
+     DB::statement('create database '.$empresa->clave);
+     $clv= $empresa->clave;
      $configDb = [
         'driver'      => 'mysql',
         'host'        => env('DB_HOST', 'localhost'),
@@ -190,7 +193,7 @@ $table->string('area');
      * @param  \App\Empresa  $empresa
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Empresa $empresa)
+    public function destroy($id)
     {
         $empresa = Empresa::find($id);
         DB::statement('drop database '.$empresa->clave);

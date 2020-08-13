@@ -150,10 +150,18 @@ scratch. This page gets rid of all links and provides the needed markup only.
           $('#nuevo_reg').show();
            $('input[type="text"]').val('');
            $('input[type="email"]').val('');
+           $('#primero').hide();
+           $('#atras').hide();
+           $('#siguiente').hide();
+           $('#ultimo').hide();
         });
         $('#actualizar').click(function(){
 	      $('#nuevo_reg').hide();
         $('#actualizar_reg').show();
+        $('#primero').hide();
+        $('#atras').hide();
+        $('#siguiente').hide();
+        $('#ultimo').hide();
         });
       })
 </script>
