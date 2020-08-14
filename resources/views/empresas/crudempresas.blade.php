@@ -10,37 +10,37 @@
     			<div class="col-sm-6">
                     <div class="form-group">
                         <label>Nombre:</label>
-                        <input type="text" name="nombre" class="form-control" value="{{$empresa->nombre}}">
+                        <input type="text" name="nombre" class="form-control" value="{{$empresa->nombre}}" onkeyup="mayus(this);">
                     </div>
                 </div>    
                 <div class="col-sm-1">
                     <div class="form-group">
                         <label>Clave:</label>
-                        <input type="text" name="clave" class="form-control" value="{{$empresa->clave}}">
+                        <input type="text" name="clave" class="form-control" value="{{$empresa->clave}}" onkeyup="mayus(this);">
                     </div>
                 </div>
                 <div class="col-sm-3">
                     <div class="form-group">
                         <label>RFC (Empresa):</label>
-                        <input type="text" name="rfc" min="13" class="form-control" value="{{$empresa->rfc}}">
+                        <input type="text" name="rfc" min="13" class="form-control" value="{{$empresa->rfc}}" onkeyup="mayus(this);">
                     </div>
                 </div>
                 <div class="col-sm-2">
                     <div class="form-group">
                         <label>Seguro social:</label>
-                        <input type="text" name="segurosocial" max="11" class="form-control" value="{{$empresa->segurosocial}}">
+                        <input type="text" name="segurosocial" max="11" class="form-control" value="{{$empresa->segurosocial}}" onkeyup="mayus(this);">
                     </div>
                 </div>
                 <div class="col-sm-3">
                     <div class="form-group">
                         <label>Registro estatal:</label>
-                        <input type="text" name="registro_estatal" class="form-control" value="{{$empresa->registro_estatal}}">
+                        <input type="text" name="registro_estatal" class="form-control" value="{{$empresa->registro_estatal}}" onkeyup="mayus(this);">
                     </div>
                 </div>
                 <div class="col-sm-5">
                     <div class="form-group">
                         <label>Calle:</label>
-                        <input type="text" name="calle" class="form-control" value="{{$empresa->calle}}">
+                        <input type="text" name="calle" class="form-control" value="{{$empresa->calle}}" onkeyup="mayus(this);">
                     </div>
                 </div>
                 <div class="col-sm-2">
@@ -58,43 +58,43 @@
                 <div class="col-sm-5">
                     <div class="form-group">
                         <label>Colonia:</label>
-                        <input type="text" name="colonia" class="form-control" value="{{$empresa->colonia}}">
+                        <input type="text" name="colonia" class="form-control" value="{{$empresa->colonia}}" onkeyup="mayus(this);">
                     </div>
                 </div>
                 <div class="col-sm-3">
                     <div class="form-group">
                         <label>Municipio:</label>
-                        <input type="text" name="municipio" class="form-control" value="{{$empresa->municipio}}">
+                        <input type="text" name="municipio" class="form-control" value="{{$empresa->municipio}}" onkeyup="mayus(this);">
                     </div>
                 </div>
                 <div class="col-sm-4">
                     <div class="form-group">
                         <label>Ciudad:</label>
-                        <input type="text" name="ciudad" class="form-control" value="{{$empresa->ciudad}}">
+                        <input type="text" name="ciudad" class="form-control" value="{{$empresa->ciudad}}" onkeyup="mayus(this);">
                     </div>
                 </div>
                 <div class="col-sm-4">
                     <div class="form-group">
                         <label>País:</label>
-                        <input type="text" name="pais" class="form-control" value="{{$empresa->pais}}">
+                        <input type="text" name="pais" class="form-control" value="{{$empresa->pais}}" onkeyup="mayus(this);">
                     </div>
                 </div>
                 <div class="col-sm-5">
                     <div class="form-group">
                         <label>Representante legal:</label>
-                        <input type="text" name="representante_legal" max="13" class="form-control" value="{{$empresa->representante_legal}}">
+                        <input type="text" name="representante_legal" max="13" class="form-control" value="{{$empresa->representante_legal}}" onkeyup="mayus(this);">
                     </div>
                 </div>
                 <div class="col-sm-3">
                     <div class="form-group">
                         <label>RFC (Representante legal):</label>
-                        <input type="text" name="rfc_representante" class="form-control" value="{{$empresa->rfc_representante}}">
+                        <input type="text" name="rfc_representante" class="form-control" value="{{$empresa->rfc_representante}}" onkeyup="mayus(this);">
                     </div>
                 </div>
                 <div class="col-sm-4">
                     <div class="form-group">
                         <label>Teléfono:</label>
-                        <input type="text" name="telefono"  max="10" class="form-control" value="{{$empresa->telefono}}">
+                        <input type="text" name="telefono" id="telefono" max="10" class="telefono" value="{{$empresa->telefono}}">
                     </div>
                 </div>
                 <div class="col-sm-8">
@@ -161,7 +161,7 @@
                 </div>
             </div>	
     	</form>	
-         @include('Empresas.modaldelete')
+         @include('empresas.modaldelete')
    	</div> 	
 </div>	
 @endsection

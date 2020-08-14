@@ -165,5 +165,14 @@ scratch. This page gets rid of all links and provides the needed markup only.
         });
       })
 </script>
+<script>
+  function mayus(e) {
+    e.value = e.value.toUpperCase();
+}
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.10/jquery.mask.js"></script>
+<script>
+    $('.telefono').mask('(00) 0000-0000');
+</script>
 </body>
 </html>
