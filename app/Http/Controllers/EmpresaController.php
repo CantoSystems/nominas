@@ -17,6 +17,7 @@ class EmpresaController extends Controller
      */
     public function index()
     {
+        
     //$accion, $clave
     }
     public function acciones(Request $request){
@@ -139,8 +140,16 @@ $table->string('area');
      * @return \Illuminate\Http\Response
      */
     public function create()
-    {
+    {   
     }
+
+    public function periodo()
+    {   
+        
+        $empresas = Empresa::get('clave');
+        return view('empresas.periodo',compact('empresas'));
+    }
+
 
     /**
      * Store a newly created resource in storage.
