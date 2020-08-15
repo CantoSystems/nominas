@@ -27,7 +27,10 @@ Route::get('/segunda', function() {
 Route::resource('empresas', 'EmpresaController');
 Route::get('accciones', 'EmpresaController@acciones')->name('acciones');
 
-//ejemlo
-Route::get('/ejemplo', function() {
-    return view('empresas.ejemplo');
-});
+
+/*Route::get('/periodo', function() {
+    return view('EmpresaController@periodo');
+});*/
+
+Route::get('periodo','EmpresaController@periodo');
+
