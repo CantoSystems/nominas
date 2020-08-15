@@ -154,7 +154,10 @@
                         <div class="margin">
                             <div class="btn-group">
                                 <div class="form-group">
-                                    <button class="btn btn-primary" name="acciones" value="registrar" id="nuevo_reg" type="submit" style="display: none;width:70px; height:40px'"><i class="fas fa-save"></i></button>
+                                    
+                                       <button class="btn btn-primary" id="nuevo_reg" name="acciones" value="registrar" type="submit" style="display: none;width:70px; height:40px'"><i class="fas fa-save"></i></button>
+                                        
+                                    
                                 </div>
                                 <div class="form-group">
                                     <button class="btn btn-warning" name="acciones" value="actualizar" id="actualizar_reg" type="submit" style="display: none;width:70px; height:40px'"><i class="fas fa-save"></i></button>
@@ -166,6 +169,7 @@
             </div>	
     	</form>	
          @include('empresas.modaldelete')
+        @include('empresas.modalregistar')
    	</div> 	
 </div>	
 @endsection
