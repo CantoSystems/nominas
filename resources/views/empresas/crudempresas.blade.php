@@ -94,7 +94,7 @@
                 <div class="col-sm-4">
                     <div class="form-group">
                         <label>Teléfono:</label>
-                        <input type="text" name="telefono" id="telefono" max="10" class="telefono" value="{{$empresa->telefono}}">
+                        <input type="text" name="telefono" id="telefono" max="10" class="form-control telefono" value="{{$empresa->telefono}}">
                     </div>
                 </div>
                 <div class="col-sm-8">
@@ -110,16 +110,16 @@
                         <div class="margin">
                             <div class="btn-group">
                                 <div class="form-group">
-                                    <button type="submit" class="btn btn-block btn-secondary" name="acciones" value="primero" id="primero" style='width:70px; height:40px'><i class="fas fa-backward" ></i></button>
+                                    <button type="submit"  name="acciones" value="primero" id="primero" style='width:70px; height:40px'><i class="fas fa-backward" ></i></button>
                                 </div>
                                 <div class="form-group">
-                                <button type="submit" class="btn btn-block btn-secondary" name="acciones" value="atras" id="atras" style='width:70px; height:40px'><i class="fas fa-arrow-circle-left"></i></button>
+                                <button type="submit" name="acciones" value="atras" id="atras" style='width:70px; height:40px'><i class="fas fa-arrow-circle-left"></i></button>
                                 </div>
                                 <div class="form-group">
-                                    <button type="submit" class="btn btn-block btn-secondary" name="acciones" value="siguiente" id="siguiente" style='width:70px; height:40px'><i class="fas fa-arrow-circle-right"></i></button>
+                                    <button type="submit" name="acciones" value="siguiente" id="siguiente" style='width:70px; height:40px'><i class="fas fa-arrow-circle-right"></i></button>
                                 </div>
                                 <div class="form-group">
-                                    <button type="submit" class="btn btn-block btn-secondary" name="acciones" value="ultimo" id="ultimo" style='width:70px; height:40px'><i class="fas fa-forward"></i></button>
+                                    <button type="submit" name="acciones" value="ultimo" id="ultimo" style='width:70px; height:40px'><i class="fas fa-forward"></i></button>
                                 </div>
                             </div>
                         </div>
@@ -138,7 +138,11 @@
                                  <button type="button" id="actualizar" style='width:70px; height:40px'> <i class="fas fa-pen-square"></i></button>
                                 </div>
                                 <div class="form-group">
-                                    <a href="#" class="btn btn-danger" id="eliminar" data-target="#modal-deletenom-{{$empresa->id}}" data-toggle="modal" style='width:70px; height:40px'><i class="far fa-trash-alt"></i></a>
+                                    <a href="#" id="eliminar" data-target="#modal-deletenom-{{$empresa->id}}" data-toggle="modal" style='width:70px; height:40px'>
+                                        <button type="button" style='width:70px; height:40px'>
+                                            <i class="far fa-trash-alt">
+                                            </i>
+                                        </button></a>
                                 </div>
                             </div>
                         </div>
