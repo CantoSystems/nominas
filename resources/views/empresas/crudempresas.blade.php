@@ -169,7 +169,6 @@
             </div>	
     	</form>	
          @include('empresas.modaldelete')
-        @include('empresas.modalregistar')
    	</div> 	
 </div>	
 @endsection

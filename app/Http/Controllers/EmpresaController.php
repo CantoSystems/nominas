@@ -6,7 +6,7 @@ use App\Empresa;
 use Illuminate\Http\Request;
 use DB;
 use Illuminate\Support\Facades\Schema;
-
+use Session;
 
 class EmpresaController extends Controller
 {
@@ -208,5 +208,13 @@ $table->string('area');
         DB::statement('drop database '.$empresa->clave);
         $empresa->delete();
         return redirect()->action('EmpresaController@acciones');
+    }
+
+    public function seleccionarempresa(Request $request){
+     $clv= $request->empresa;
+     $empresa= Empresa::where('clave',$clv)->first();
+     Session::put('clave_empresa',$empresa->clave);
+     Session::put('empresa',$empresa->nombre);
+     return view('empresas.periodos');
     }
 }
