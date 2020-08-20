@@ -114,7 +114,7 @@ class EmpresaController extends Controller
 Schema::connection('DB_Serverr')->create('Periodos', function($table)
 {
 $table->increments('id');
-$table->integer('numero');
+$table->string('clave_empresa');
 $table->string('fecha_inicio');
 $table->string('fecha_fin');
 $table->string('fecha_pago');
@@ -122,7 +122,7 @@ $table->string('fecha_pago');
 Schema::connection('DB_Serverr')->create('Areas', function($table)
 {
 $table->increments('id');
-$table->integer('numero');
+$table->string('clave_empresa');
 $table->string('area');
 });
 
