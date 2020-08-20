@@ -111,9 +111,18 @@ class EmpresaController extends Controller
 ];
 
 \Config::set('database.connections.DB_Serverr', $configDb);
+Schema::connection('DB_Serverr')->create('Periodos', function($table)
+{
+$table->increments('id');
+$table->integer('numero');
+$table->string('fecha_inicio');
+$table->string('fecha_fin');
+$table->string('fecha_pago');
+});
 Schema::connection('DB_Serverr')->create('Areas', function($table)
 {
 $table->increments('id');
+$table->integer('numero');
 $table->string('area');
 });
 
