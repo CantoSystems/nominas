@@ -24,6 +24,6 @@ Route::get('/segunda', function() {
     return view('home');
 });
 
-Route::resource('empresas', 'EmpresaController');
+Route::delete('empresa/{id}', 'EmpresaController@destroy')->name('empresas.destroy');
 Route::get('accciones', 'EmpresaController@acciones')->name('acciones');
 Route::get('selecempresa','EmpresaController@seleccionarempresa')->name('seleccionarempresa');
