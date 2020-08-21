@@ -29,25 +29,38 @@ class AreasController extends Controller
                 $aux=$areas[0];
                 return view('Areas.area',compact('aux'));
                    break;
+
                case 'atras':
                 $areas = DB::connection('DB_Serverr')->select('select * from Areas where id > :id',['id' => $clv]);
+                
                     if($areas==""){
                         $areas = DB::connection('DB_Serverr')->select('select * from Areas');
                         $cont=count($areas);
                         $aux=$areas[$cont-1];
                         return view('Areas.area',compact('aux')); 
+
+                        
                     }
-                    $aux=$areas[0];
-                    return view('Areas.area',compact('aux'));                
-                break;
+                    
+                    elseif(!isset($areas)) {
+                        $areas = DB::connection('DB_Serverr')->select('select * from Areas');
+                        $aux=$areas[0];
+                        return view('Areas.area',compact('aux'));
+                       
+                    }
+                    dd($areas);
+                   
+                    //$aux=$areas[0];
+                    //return view('Areas.area',compact('aux'));
+                    
+                     
+        
+                 break;
+
                case 'siguiente':
-                   $emp= Empresa::where('clave',$clv)->first();
-                   $indic= $emp->id;
-                   $empresa= Empresa::where('id','>',$indic)->first();
-                   if($empresa==""){
-                      $empresa= Empresa::first();  
-                   }
-                   return view('empresas.crudempresas', compact('empresa'));
+               
+
+
                break;
                case 'primero':
                    $empresa= Empresa::first();
