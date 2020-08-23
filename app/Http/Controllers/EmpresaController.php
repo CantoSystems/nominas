@@ -106,10 +106,10 @@ Schema::connection('DB_Serverr')->create('Periodos', function($table)
 {
 $table->increments('id');
 $table->string('clave_empresa');
+$table->string('numero');
 $table->string('fecha_inicio');
 $table->string('fecha_fin');
 $table->string('fecha_pago');
-$table->string('clv_empresa');
 });
 Schema::connection('DB_Serverr')->create('Areas', function($table)
 {
@@ -160,6 +160,37 @@ $table->string('area');
      $empresa= Empresa::where('clave',$clv)->first();
      Session::put('clave_empresa',$empresa->clave);
      Session::put('empresa',$empresa->nombre);
-     return view('empresas.periodos');
+    
+
+        $clve=Session::get('clave_empresa');
+        $clv_empresa=$this->conectar($clve);
+        \Config::set('database.connections.DB_Serverr', $clv_empresa);
+
+        $periodo =  DB::connection('DB_Serverr')->select('select * from periodos');
+
+         return view('periodos.periodos', compact('periodo'));
     }
+
+        public function conectar($clve)
+    {
+
+    $configDb = [
+        'driver'      => 'mysql',
+        'host'        => env('DB_HOST', 'localhost'),
+        'port'        => env('DB_PORT', '3306'),
+        'database'    => $clve,
+        'username'    => env('DB_USERNAME', 'javier'),
+        'password'    => env('DB_PASSWORD', 'tnvsi2182019'),
+        'unix_socket' => env('DB_SOCKET', ''),
+        'charset'     => 'utf8',
+        'collation'   => 'utf8_unicode_ci',
+        'prefix'      => '',
+        'strict'      => true,
+        'engine'      => null,
+    ];
+
+    return $configDb;
+
+}
+  
 }
