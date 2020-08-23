@@ -27,5 +27,9 @@ Route::get('selecempresa','EmpresaController@seleccionarempresa')->name('selecci
 Route::get('areas','AreasController@index')->name('areas.index');
 
 
+//periodos
+Route::get('periodos','PeriodosController@create')->name('periodos.create');
+
+
 
     

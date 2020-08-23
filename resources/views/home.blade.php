@@ -21,7 +21,7 @@
                 @endforeach
             </select>
          </div>    
-         <button class="btn btn-primary" type="submit">Seleccionar</button>
+         <button type="submit">Seleccionar</button>
         </form>
       </div>
 
