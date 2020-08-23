@@ -91,8 +91,8 @@ class EmpresaController extends Controller
         'host'        => env('DB_HOST', 'localhost'),
         'port'        => env('DB_PORT', '3306'),
         'database'    => $clv,
-        'username'    => env('DB_USERNAME', 'javier'),
-        'password'    => env('DB_PASSWORD', 'tnvsi2182019'),
+        'username'    => env('DB_USERNAME', 'root'),
+        'password'    => env('DB_PASSWORD', ''),
         'unix_socket' => env('DB_SOCKET', ''),
         'charset'     => 'utf8',
         'collation'   => 'utf8_unicode_ci',
@@ -160,37 +160,6 @@ $table->string('area');
      $empresa= Empresa::where('clave',$clv)->first();
      Session::put('clave_empresa',$empresa->clave);
      Session::put('empresa',$empresa->nombre);
-    
-
-        $clve=Session::get('clave_empresa');
-        $clv_empresa=$this->conectar($clve);
-        \Config::set('database.connections.DB_Serverr', $clv_empresa);
-
-        $periodo =  DB::connection('DB_Serverr')->select('select * from periodos');
-
-         return view('periodos.periodos', compact('periodo'));
+     return redirect()->route('periodos.index');
     }
-
-        public function conectar($clve)
-    {
-
-    $configDb = [
-        'driver'      => 'mysql',
-        'host'        => env('DB_HOST', 'localhost'),
-        'port'        => env('DB_PORT', '3306'),
-        'database'    => $clve,
-        'username'    => env('DB_USERNAME', 'javier'),
-        'password'    => env('DB_PASSWORD', 'tnvsi2182019'),
-        'unix_socket' => env('DB_SOCKET', ''),
-        'charset'     => 'utf8',
-        'collation'   => 'utf8_unicode_ci',
-        'prefix'      => '',
-        'strict'      => true,
-        'engine'      => null,
-    ];
-
-    return $configDb;
-
-}
-  
 }

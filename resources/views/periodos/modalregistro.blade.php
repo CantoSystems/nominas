@@ -8,19 +8,20 @@
           </button>
         </div>
         <div class="modal-body">
-            <form>
+        <form method="POST" action="{{route('periodos.store')}}">
+          @csrf
                <div class="form-row">
                   <div class="form-group col-md-4">
-                    <label>Fecha de Iniciosss1</label>
-                    <input type="date" class="form-control" name="" id="inputEmail4">
+                    <label>Fecha de Inicio</label>
+                    <input type="date" class="form-control" name="fecha_inicio" id="inputEmail4">
                   </div>
                   <div class="form-group col-md-4">
                     <label>Fecha de Fin</label>
-                    <input type="date" class="form-control" name="" id="inputPassword4">
+                    <input type="date" class="form-control" name="fecha_fin" id="inputPassword4">
                   </div>
                   <div class="form-group col-md-4">
                     <label>Fecha de Pago</label>
-                    <input type="date" class="form-control" name="" id="inputPassword4">
+                    <input type="date" class="form-control" name="fecha_pago" id="inputPassword4">
                   </div>
                 </div> 
                     <button type="button" data-dismiss="modal">Cerrar</button>

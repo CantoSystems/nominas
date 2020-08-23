@@ -11,26 +11,20 @@
       
       <br>
       <div class="row">
-        <div class="col-md-6">
-
-        </div> 
-        @if (count($periodo) >= 1)
-            <div class="col-md-3">
-                <button type="submit" style='width:220px; height:40px'>Seleccionar periodo</button>
-            </div> 
-          
-        @elseif(count($periodo) ===0)
-
-        <div class="col-md-3">
-
-            <button type="button" style='width:220px; height:40px'>
-              Añadir periodo
-            </button> 
-          @include('periodos.modalregistro')
+        @if ($totalperiodos>0)
+        <select class="custom-select">
+          @foreach ($periodos as $periodo)
+          <option value="{{$periodo->id}}">DE: {{$periodo->fecha_inicio}}  A: {{$periodo->fecha_fin}}</option> 
+          @endforeach
+        </select>
             
-        </div>
-      
-        @endif 
+        @else
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#periodos-Alta">
+          Añadir Periodo
+        </button>
+            @include('periodos.modalregistro')
+        @endif
+     
       </div> 
     </div>
   </div>
