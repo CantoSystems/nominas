@@ -30,6 +30,7 @@ Route::get('areas','AreasController@index')->name('areas.index');
 //periodos
 Route::get('/periodos','PeriodosController@index')->name('periodos.index');
 Route::post('/periodos_store','PeriodosController@store')->name('periodos.store');
+Route::post('/periodos_seleccion','PeriodosController@seleccionar_periodo')->name('seleccionar_periodo');
 
 
 

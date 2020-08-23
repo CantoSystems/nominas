@@ -78,7 +78,9 @@ class PeriodosController extends Controller
         values (?,?,?,?,?)',[$totalperiodos,$request->fecha_inicio,$request->fecha_fin,$request->fecha_pago,$clv]);
         return redirect()->action('PeriodosController@index');
     }
-
+public function seleccionar_periodo(Request $request){
+return view('layouts.segunda');
+}
     /**
      * Display the specified resource.
      *
