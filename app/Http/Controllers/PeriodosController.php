@@ -16,7 +16,13 @@ class PeriodosController extends Controller
      */
     public function index()
     {
-       
+        $clve=Session::get('clave_empresa');
+        $clv_empresa=$this->conectar($clve);
+        \Config::set('database.connections.DB_Serverr', $clv_empresa);
+
+        $periodos =  DB::connection('DB_Serverr')->select('select * from periodos');
+        $totalperiodos = count($periodos);
+         return view('periodos.periodos', compact('periodos','totalperiodos'));
     }
 
     public function conectar($clv)
@@ -27,8 +33,8 @@ class PeriodosController extends Controller
         'host'        => env('DB_HOST', 'localhost'),
         'port'        => env('DB_PORT', '3306'),
         'database'    => $clv,
-        'username'    => env('DB_USERNAME', 'javier'),
-        'password'    => env('DB_PASSWORD', 'tnvsi2182019'),
+        'username'    => env('DB_USERNAME', 'root'),
+        'password'    => env('DB_PASSWORD', ''),
         'unix_socket' => env('DB_SOCKET', ''),
         'charset'     => 'utf8',
         'collation'   => 'utf8_unicode_ci',
@@ -40,16 +46,6 @@ class PeriodosController extends Controller
     return $configDb;
 
 }
-    public function create()
-    {
-        $clv=Session::get('clave_empresa');
-        $clv_empresa=$this->conectar($clv);
-        \Config::set('database.connections.DB_Serverr', $clv_empresa);
-
-        $periodo =  DB::connection('DB_Serverr')->select('select * from periodos');
-        $totalperiodos = count($periodo);
-        return view('periodos.periodos', ['totalperiodos' => $totalperiodos]));
-    }
 
     /**
      * Store a newly created resource in storage.
@@ -59,7 +55,28 @@ class PeriodosController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $clv=Session::get('clave_empresa');
+        $configDb = [
+            'driver'      => 'mysql',
+            'host'        => env('DB_HOST', 'localhost'),
+            'port'        => env('DB_PORT', '3306'),
+            'database'    => $clv,
+            'username'    => env('DB_USERNAME', 'root'),
+            'password'    => env('DB_PASSWORD', ''),
+            'unix_socket' => env('DB_SOCKET', ''),
+            'charset'     => 'utf8',
+            'collation'   => 'utf8_unicode_ci',
+            'prefix'      => '',
+            'strict'      => true,
+            'engine'      => null,
+    ];
+    
+        \Config::set('database.connections.DB_Serverr', $configDb);
+        $periodo =  DB::connection('DB_Serverr')->select('select * from periodos');
+        $totalperiodos = count($periodo)+1;
+        $periodo =  DB::connection('DB_Serverr')->insert('insert into periodos (numero, fecha_inicio, fecha_fin, fecha_pago, clv_empresa)
+        values (?,?,?,?,?)',[$totalperiodos,$request->fecha_inicio,$request->fecha_fin,$request->fecha_pago,$clv]);
+        return redirect()->action('PeriodosController@index');
     }
 
     /**
