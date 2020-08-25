@@ -1,4 +1,4 @@
-<div class="modal fade bs-example-modal-lg" id="periodos-Alta" tabindex="-1" aria-labelledby="exampleModalLabel" role="dialog" aria-hidden="true">
+<div class="modal fade bs-example-modal-lg" id="AgregarPeriodo" tabindex="-1" aria-labelledby="exampleModalLabel" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-lg modal-dialog-centered">
       <div class="modal-content">
         <div class="modal-header">
@@ -8,7 +8,7 @@
           </button>
         </div>
         <div class="modal-body">
-        <form method="POST" action="{{route('periodos.store')}}">
+        <form method="POST" action="{{route('agregarperiodos')}}">
           @csrf
                <div class="form-row">
                   <div class="form-group col-md-4">
