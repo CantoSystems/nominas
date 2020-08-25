@@ -21,75 +21,85 @@ class AreasController extends Controller
 
         \Config::set('database.connections.DB_Serverr', $clv_empresa);
         $accion= $request->acciones;
-        $clv=$request->identificador;
+        $clave_ar=$request->clave_area;
+        $indic=$request->identificador;
            switch ($accion) {
                case '':
-                $areas = DB::connection('DB_Serverr')->select('select * from Areas');
-                $cont=count($areas);
-                $aux=$areas[0];
+                $aux = DB::connection('DB_Serverr')->table('areas')->get()->first();
                 return view('Areas.area',compact('aux'));
                    break;
 
                case 'atras':
-                $areas = DB::connection('DB_Serverr')->select('select * from Areas where id > :id',['id' => $clv]);
-                
-                    if($areas==""){
-                        $areas = DB::connection('DB_Serverr')->select('select * from Areas');
-                        $cont=count($areas);
-                        $aux=$areas[$cont-1];
-                        return view('Areas.area',compact('aux')); 
-
-                        
-                    }
-                    
-                    elseif(!isset($areas)) {
-                        $areas = DB::connection('DB_Serverr')->select('select * from Areas');
-                        $aux=$areas[0];
-                        return view('Areas.area',compact('aux'));
-                       
-                    }
-                    dd($areas);
-                   
-                    //$aux=$areas[0];
-                    //return view('Areas.area',compact('aux'));
-                    
-                     
-        
+                $aux = DB::connection('DB_Serverr')->table('areas')->where('id','<',$indic)->first();
+                if($aux==""){
+                    $aux = DB::connection('DB_Serverr')->table('areas')->get()->last();
+                }
+                return view('Areas.area',compact('aux'));
                  break;
 
                case 'siguiente':
-               
-
-
+                $aux = DB::connection('DB_Serverr')->table('areas')->where('id','>',$indic)->first();
+                if($aux==""){
+                    $aux = DB::connection('DB_Serverr')->table('areas')->get()->first();
+                }
+                return view('Areas.area',compact('aux'));
                break;
                case 'primero':
-                   $empresa= Empresa::first();
-                   return view('empresas.crudempresas', compact('empresa'));
+                $aux = DB::connection('DB_Serverr')->table('areas')->first();
+                return view('Areas.area',compact('aux'));
                break;
                case 'ultimo':
-                   $empresa= Empresa::get()->last(); 
-                   return view('empresas.crudempresas', compact('empresa')); 
+                $aux = DB::connection('DB_Serverr')->table('areas')->get()->last();
+                return view('Areas.area',compact('aux')); 
                break;
                case 'registrar':
                $this->registrar($request);
-               $empresa= Empresa::first();
-               return view('empresas.crudempresas', compact('empresa'));
+               $aux = DB::connection('DB_Serverr')->table('areas')->get()->first();
+                return view('Areas.area',compact('aux'));
                break;
                case 'actualizar':
-                   $this->actualizar($request);
-                   $empresa= Empresa::first();
-                   return view('empresas.crudempresas', compact('empresa'));
+                $aux1 = DB::connection('DB_Serverr')->table('areas')->where('clave_area',$clave_ar)->first();
+                   if($aux1!==""){
+                   DB::connection('DB_Serverr')->table('areas')->where('clave_area',$request->clave_area)->update(['area'=>$request->areas]);
+                   $aux = DB::connection('DB_Serverr')->table('areas')->get()->first();
+                   return view('Areas.area',compact('aux'));
+                   }
+               break;
+               case 'eliminar':
+                $aux1 = DB::connection('DB_Serverr')->table('areas')->where('clave_area',$clave_ar)->first();
+                if($aux1!==""){
+                DB::connection('DB_Serverr')->table('areas')->where('clave_area',$request->clave_area)->delete();
+                $aux = DB::connection('DB_Serverr')->table('areas')->get()->first();
+                return view('Areas.area',compact('aux'));
+                }
                break;
                default:
                    # code...
                    break;
+}     
 }
-        
 
-        
-     
-    }
+public function registrar($datos){
+    $clv=Session::get('clave_empresa');
+    $configDb = [
+        'driver'      => 'mysql',
+        'host'        => env('DB_HOST', 'localhost'),
+        'port'        => env('DB_PORT', '3306'),
+        'database'    => $clv,
+        'username'    => env('DB_USERNAME', 'root'),
+        'password'    => env('DB_PASSWORD', ''),
+        'unix_socket' => env('DB_SOCKET', ''),
+        'charset'     => 'utf8',
+        'collation'   => 'utf8_unicode_ci',
+        'prefix'      => '',
+        'strict'      => true,
+        'engine'      => null,
+];
 
+    \Config::set('database.connections.DB_Serverr', $configDb);
+    DB::connection('DB_Serverr')->insert('insert into areas (clave_empresa, area,clave_area)
+    values (?,?,?)',[$clv,$datos->areas,$datos->clave_area]);
+}
 
 public function conectar($clv)
 {
@@ -99,8 +109,8 @@ public function conectar($clv)
         'host'        => env('DB_HOST', 'localhost'),
         'port'        => env('DB_PORT', '3306'),
         'database'    => $clv,
-        'username'    => env('DB_USERNAME', 'javier'),
-        'password'    => env('DB_PASSWORD', 'tnvsi2182019'),
+        'username'    => env('DB_USERNAME', 'root'),
+        'password'    => env('DB_PASSWORD', ''),
         'unix_socket' => env('DB_SOCKET', ''),
         'charset'     => 'utf8',
         'collation'   => 'utf8_unicode_ci',
