@@ -10,9 +10,9 @@
     			<div class="col-sm-12">
                     <div class="form-group">
                         <label>Nombre:</label>
-                    <input type="text" name="nombre" class="form-control" value="{{$aux->area}}"  onkeyup="mayus(this);">
+                    <input type="text" name="areas" class="form-control" value="{{$aux->area}}"  onkeyup="mayus(this);">
+                    <input type="text" name="clave_area" class="form-control" value="{{$aux->clave_area}}"  onkeyup="mayus(this);">
                     <input type="hidden" name="identificador" class="form-control" value="{{$aux->id}}"  onkeyup="mayus(this);">
-
                     </div>
                 </div>
                 
@@ -82,6 +82,28 @@
         
    	</div> 	
 </div>	
+
+<script>
+    $(function(){
+      $('#nuevo').click(function(){
+        $('#actualizar_reg').hide();
+        $('#nuevo_reg').show();
+        $('input[type="text"]').val('');
+        $('#primero').hide();
+        $('#atras').hide();
+        $('#siguiente').hide();
+        $('#ultimo').hide();
+      });
+      $('#actualizar').click(function(){
+        $('#nuevo_reg').hide();
+      $('#actualizar_reg').show();
+      $('#primero').hide();
+      $('#atras').hide();
+      $('#siguiente').hide();
+      $('#ultimo').hide();
+      });
+    })
+</script>
 @endsection
 
 

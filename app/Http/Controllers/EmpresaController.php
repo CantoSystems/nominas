@@ -117,7 +117,7 @@ Schema::connection('DB_Serverr')->create('Areas', function($table)
 $table->increments('id');
 $table->string('clave_empresa');
 $table->string('area');
-
+$table->string('clave_area');
     
 
 });
