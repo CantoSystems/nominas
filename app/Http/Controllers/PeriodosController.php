@@ -3,36 +3,41 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Session;
 use DB;
-use Illuminate\Support\Facades\Schema;
+use Session;
 
 class PeriodosController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        $clve=Session::get('clave_empresa');
-        $clv_empresa=$this->conectar($clve);
-        \Config::set('database.connections.DB_Serverr', $clv_empresa);
+ public function index(){
+$empresa= Session::get('clave_empresa');
+$configDb = [
+    'driver'      => 'mysql',
+    'host'        => env('DB_HOST', 'localhost'),
+    'port'        => env('DB_PORT', '3306'),
+    'database'    => $empresa,
+    'username'    => env('DB_USERNAME', 'root'),
+    'password'    => env('DB_PASSWORD', ''),
+    'unix_socket' => env('DB_SOCKET', ''),
+    'charset'     => 'utf8',
+    'collation'   => 'utf8_unicode_ci',
+    'prefix'      => '',
+    'strict'      => true,
+    'engine'      => null,
+];
 
-        $periodos =  DB::connection('DB_Serverr')->select('select * from periodos');
-        $totalperiodos = count($periodos);
-         return view('periodos.periodos', compact('periodos','totalperiodos'));
-    }
+\Config::set('database.connections.DB_Serverr', $configDb);
+$periodos=DB::connection('DB_Serverr')->table('periodos')->get();
+$cant=DB::connection('DB_Serverr')->table('periodos')->count();
+return view('periodos.periodos',compact('periodos','cant'));
+ }
 
-    public function conectar($clv)
-    {
-
+ public function agregarperiodos(Request $request){
+    $empresa= Session::get('clave_empresa');
     $configDb = [
         'driver'      => 'mysql',
         'host'        => env('DB_HOST', 'localhost'),
         'port'        => env('DB_PORT', '3306'),
-        'database'    => $clv,
+        'database'    => $empresa,
         'username'    => env('DB_USERNAME', 'root'),
         'password'    => env('DB_PASSWORD', ''),
         'unix_socket' => env('DB_SOCKET', ''),
@@ -42,87 +47,16 @@ class PeriodosController extends Controller
         'strict'      => true,
         'engine'      => null,
     ];
-
-    return $configDb;
-
-}
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        $clv=Session::get('clave_empresa');
-        $configDb = [
-            'driver'      => 'mysql',
-            'host'        => env('DB_HOST', 'localhost'),
-            'port'        => env('DB_PORT', '3306'),
-            'database'    => $clv,
-            'username'    => env('DB_USERNAME', 'root'),
-            'password'    => env('DB_PASSWORD', ''),
-            'unix_socket' => env('DB_SOCKET', ''),
-            'charset'     => 'utf8',
-            'collation'   => 'utf8_unicode_ci',
-            'prefix'      => '',
-            'strict'      => true,
-            'engine'      => null,
-    ];
     
-        \Config::set('database.connections.DB_Serverr', $configDb);
-        $periodo =  DB::connection('DB_Serverr')->select('select * from periodos');
-        $totalperiodos = count($periodo)+1;
-        $periodo =  DB::connection('DB_Serverr')->insert('insert into periodos (numero, fecha_inicio, fecha_fin, fecha_pago, clv_empresa)
-        values (?,?,?,?,?)',[$totalperiodos,$request->fecha_inicio,$request->fecha_fin,$request->fecha_pago,$clv]);
-        return redirect()->action('PeriodosController@index');
-    }
-public function seleccionar_periodo(Request $request){
+    \Config::set('database.connections.DB_Serverr', $configDb);
+    $cant=DB::connection('DB_Serverr')->table('periodos')->count();
+    DB::connection('DB_Serverr')->insert('insert into periodos (numero,fecha_inicio,fecha_fin,fecha_pago)
+    values (?,?,?,?)',[$cant,$request->fecha_inicio,$request->fecha_fin,$request->fecha_pago]);
+    return redirect()->action('PeriodosController@index'); 
+ }
+
+ public function seleccionarperiodo(Request $request){
+Session::put('num_periodo',$request->periodo);
 return view('layouts.segunda');
-}
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
+ }
 }
