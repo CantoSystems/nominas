@@ -31,7 +31,8 @@ Route::get('areas','AreasController@index')->name('areas.index');
 Route::get('/periodos','PeriodosController@index')->name('periodos.index');
 Route::post('/agregarperiodos','PeriodosController@agregarperiodos')->name('agregarperiodos');
 Route::get('/seleccionarperiodo','PeriodosController@seleccionarperiodo')->name('seleccionarperiodo');
-
+Route::get('/periodos','PeriodosController@index')->name('periodos.index');
+Route::get('/accionesperiodos','PeriodosController@acciones')->name('periodos.acciones');
 
 
     
