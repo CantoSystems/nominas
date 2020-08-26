@@ -4,13 +4,33 @@
 	<div class="card-header">
         <h3 class="card-title">Empresas</h3>
     </div>
+    
+    <script type="text/javascript">
+        function validar(e) { 
+        tecla = (document.all) ? e.keyCode : e.which; 
+        if (tecla==8) return true; 
+        patron =/[A-Za-z\s]/; 
+        te = String.fromCharCode(tecla); 
+        return patron.test(te); 
+        }
+</script>
+
+<script type="text/javascript">
+    function numeros(event) { 
+    if(event.charCode >=48 && event.charCode <=57 ){
+        return true;
+    }
+    return false;
+    }
+    </script>
+
     <div class="card-body">
     <form action="{{ route('acciones')}}" method="GET">
     		<div class="row">
     			<div class="col-sm-6">
                     <div class="form-group">
                         <label>Nombre:</label>
-                        <input type="text" name="nombre" class="form-control" value="{{$empresa->nombre}}" onkeyup="mayus(this);">
+                        <input type="text" name="nombre"  class="form-control" value="{{$empresa->nombre}}" onkeyup="mayus(this)"; onkeypress="return validar(event)" >
                     </div>
                 </div>    
                 <div class="col-sm-1">
@@ -28,7 +48,7 @@
                 <div class="col-sm-2">
                     <div class="form-group">
                         <label>Seguro social:</label>
-                        <input type="text" name="segurosocial" max="11" class="form-control" value="{{$empresa->segurosocial}}" onkeyup="mayus(this);">
+                        <input type="text" name="segurosocial" max="11" class="form-control" value="{{$empresa->segurosocial}}" onkeyup="mayus(this)"; onkeypress="return numeros(event)" >
                     </div>
                 </div>
                 <div class="col-sm-3">
@@ -40,61 +60,61 @@
                 <div class="col-sm-5">
                     <div class="form-group">
                         <label>Calle:</label>
-                        <input type="text" name="calle" class="form-control" value="{{$empresa->calle}}" onkeyup="mayus(this);">
+                        <input type="text" name="calle" class="form-control" value="{{$empresa->calle}}" onkeyup="mayus(this)"; onkeypress="return validar(event)">
                     </div>
                 </div>
                 <div class="col-sm-2">
                     <div class="form-group">
                         <label>Número interno:</label>
-                        <input type="text" name="num_interno" max="6000" min="1" class="form-control" value="{{$empresa->num_interno}}">
+                        <input type="text" name="num_interno" max="6000" min="1" class="form-control" value="{{$empresa->num_interno}}" >
                     </div>
                 </div>
                 <div class="col-sm-2">
                     <div class="form-group">
                         <label>Número externo:</label>
-                        <input type="text" name="num_externo" class="form-control" value="{{$empresa->num_externo}}">
+                        <input type="text" name="num_externo" class="form-control" value="{{$empresa->num_externo}}" onkeypress="return numeros(event)">
                     </div>
                 </div>
                 <div class="col-sm-5">
                     <div class="form-group">
                         <label>Colonia:</label>
-                        <input type="text" name="colonia" class="form-control" value="{{$empresa->colonia}}" onkeyup="mayus(this);">
+                        <input type="text" name="colonia" class="form-control" value="{{$empresa->colonia}}" onkeyup="mayus(this);" onkeypress="return validar(event)">
                     </div>
                 </div>
                 <div class="col-sm-3">
                     <div class="form-group">
                         <label>Municipio:</label>
-                        <input type="text" name="municipio" class="form-control" value="{{$empresa->municipio}}" onkeyup="mayus(this);">
+                        <input type="text" name="municipio" class="form-control" value="{{$empresa->municipio}}" onkeyup="mayus(this);" onkeypress="return validar(event)">
                     </div>
                 </div>
                 <div class="col-sm-4">
                     <div class="form-group">
                         <label>Ciudad:</label>
-                        <input type="text" name="ciudad" class="form-control" value="{{$empresa->ciudad}}" onkeyup="mayus(this);">
+                        <input type="text" name="ciudad" class="form-control" value="{{$empresa->ciudad}}" onkeyup="mayus(this);" onkeypress="return validar(event)">
                     </div>
                 </div>
                 <div class="col-sm-4">
                     <div class="form-group">
                         <label>País:</label>
-                        <input type="text" name="pais" class="form-control" value="{{$empresa->pais}}" onkeyup="mayus(this);">
+                        <input type="text" name="pais" class="form-control" value="{{$empresa->pais}}" onkeyup="mayus(this);" onkeypress="return validar(event)">
                     </div>
                 </div>
                 <div class="col-sm-5">
                     <div class="form-group">
                         <label>Representante legal:</label>
-                        <input type="text" name="representante_legal" max="13" class="form-control" value="{{$empresa->representante_legal}}" onkeyup="mayus(this);">
+                        <input type="text" name="representante_legal" max="13" class="form-control" value="{{$empresa->representante_legal}}" onkeyup="mayus(this);" onkeypress="return validar(event)">
                     </div>
                 </div>
                 <div class="col-sm-3">
                     <div class="form-group">
                         <label>RFC (Representante legal):</label>
-                        <input type="text" name="rfc_representante" class="form-control" value="{{$empresa->rfc_representante}}" onkeyup="mayus(this);">
+                        <input type="text" name="rfc_representante" max="13" class="form-control" value="{{$empresa->rfc_representante}}" onkeyup="mayus(this);">
                     </div>
                 </div>
                 <div class="col-sm-4">
                     <div class="form-group">
                         <label>Teléfono:</label>
-                        <input type="text" name="telefono" id="telefono" max="10" class="form-control telefono" value="{{$empresa->telefono}}">
+                        <input type="text" name="telefono" id="telefono" max="10" class="form-control telefono" value="{{$empresa->telefono}}" onkeypress="return numeros(event)">
                     </div>
                 </div>
                 <div class="col-sm-8">
@@ -171,5 +191,7 @@
          @include('empresas.modaldelete')
    	</div> 	
 </div>	
+
+
 @endsection
 

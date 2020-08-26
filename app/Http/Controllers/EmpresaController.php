@@ -162,4 +162,7 @@ $table->string('area');
      Session::put('empresa',$empresa->nombre);
      return redirect()->route('periodos.index');
     }
+
+
+    
 }
