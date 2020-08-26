@@ -4,6 +4,22 @@
     <div class="row">
         <!-- Inicio Datatables-->
         <div class="col">
+            <div class="container mt-5">
+    <h2 class="mb-4">Periodos</h2>
+    <table class="yajra-datatable">
+        <thead>
+            <tr>
+                <th>Num</th>
+                <th>Numero</th>
+                <th>Fecha Inicio</th>
+                <th>Fecha Fin</th>
+                <th>Fecha Pago</th>
+               </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+</div>
         </div>
         <!--Fin Datatables-->
 
