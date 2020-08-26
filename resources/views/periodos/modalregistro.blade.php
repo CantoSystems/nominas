@@ -24,8 +24,19 @@
                     <input type="date" class="form-control" name="fecha_pago" id="inputPassword4">
                   </div>
                 </div> 
-                    <button type="button" data-dismiss="modal">Cerrar</button>
-          <button type="submit">Guardar</button>
+
+                <div class="form-group col-md-4">
+                  <div></div>
+                </div>
+
+                <div class="form-group col-md-8">
+                  <button type="button" data-dismiss="modal" style="width:220px; height:40px">Cerrar
+                  </button>
+                  <button type="submit" style="width:220px; height:40px">Guardar
+                  </button>
+                </div>
+
+          
             </form>
         </div>
         <div class="modal-footer">

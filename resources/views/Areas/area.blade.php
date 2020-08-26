@@ -1,4 +1,4 @@
-@extends('layouts.principal')
+@extends('layouts.segunda')
 @section('content')
 <div class="card card-secondary">
 	<div class="card-header">
@@ -7,10 +7,13 @@
     <div class="card-body">
     <form action="{{ route('areas.index')}}" method="GET">
     		<div class="row">
-    			<div class="col-sm-12">
+    			<div class="col-md-12">
                     <div class="form-group">
                         <label>Nombre:</label>
-                    <input type="text" name="areas" class="form-control" value="{{$aux->area}}"  onkeyup="mayus(this);">
+                            <input type="text" name="areas" class="form-control" value="{{$aux->area}}"  onkeyup="mayus(this);">
+                            
+
+
                     <input type="text" name="clave_area" class="form-control" value="{{$aux->clave_area}}"  onkeyup="mayus(this);">
                     <input type="hidden" name="identificador" class="form-control" value="{{$aux->id}}"  onkeyup="mayus(this);">
                     </div>
