@@ -20,7 +20,7 @@ class EmpresaController extends Controller
                 return view('empresas.crudempresas', compact('empresa'));
                 break;
             case 'atras':
-                 $emp= Empresa::where('clave',$clv)->first();
+                 $emp= Empresa::where('clave',$clv)->get()->last();
                  $indic= $emp->id;
                  $empresa= Empresa::where('id','<',$indic)->first();
                  if($empresa==""){
@@ -55,9 +55,15 @@ class EmpresaController extends Controller
                 $empresa= Empresa::first();
                 return view('empresas.crudempresas', compact('empresa'));
             break;
+            case 'cancelar':
+                return back();
+            break;
+            case 'cancelar_actualiza';
+                return back();
+            break;        
             default:
                 # code...
-                break;
+            break;
         }
 
     }
@@ -105,7 +111,6 @@ class EmpresaController extends Controller
 Schema::connection('DB_Serverr')->create('Periodos', function($table)
 {
 $table->increments('id');
-$table->string('clave_empresa');
 $table->string('numero');
 $table->string('fecha_inicio');
 $table->string('fecha_fin');
@@ -117,7 +122,7 @@ Schema::connection('DB_Serverr')->create('Areas', function($table)
 $table->increments('id');
 $table->string('clave_empresa');
 $table->string('area');
-
+$table->string('clave_area');
     
 
 });

@@ -93,7 +93,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
               </ul>
               <ul class="nav nav-treeview">
                 <li class="nav-item">
-                  <a href="#" class="nav-link active">
+                <a href="{{route('areas.index')}}" class="nav-link active">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Areas</p>
                   </a>
@@ -114,6 +114,15 @@ scratch. This page gets rid of all links and provides the needed markup only.
                   <a href="#" class="nav-link active">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Puestos</p>
+                  </a>
+                </li>
+                
+              </ul>
+              <ul class="nav nav-treeview">
+                <li class="nav-item">
+                  <a href="{{ route('periodos.acciones')}}" class="nav-link active">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Periodos</p>
                   </a>
                 </li>
                 
@@ -145,6 +154,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <!-- /.content-header -->
 
     <!-- Main content -->
+    @yield('content')
    
     <!-- /.content -->
   </div>
@@ -180,5 +190,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <script src="{{ asset('/Admin/plugins/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
 <!-- AdminLTE App -->
 <script src="{{ asset('/Admin/dist/js/adminlte.min.js')}}"></script>
+<script src="{{ asset('/Admin/js/scripts.js')}}"></script>
 </body>
 </html>
