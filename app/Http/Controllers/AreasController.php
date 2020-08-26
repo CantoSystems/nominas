@@ -37,25 +37,18 @@ class AreasController extends Controller
                         $areas = DB::connection('DB_Serverr')->select('select * from Areas');
                         $cont=count($areas);
                         $aux=$areas[$cont-1];
-                        return view('Areas.area',compact('aux')); 
-
-                        
+                        return view('Areas.area',compact('aux'));     
                     }
                     
-                    elseif(!isset($areas)) {
+                    elseif(empty($areas)) {
                         $areas = DB::connection('DB_Serverr')->select('select * from Areas');
                         $aux=$areas[0];
                         return view('Areas.area',compact('aux'));
-                       
                     }
-                    dd($areas);
                    
-                    //$aux=$areas[0];
-                    //return view('Areas.area',compact('aux'));
-                    
-                     
-        
-                 break;
+                    $aux=$areas[0];
+                    return view('Areas.area',compact('aux'));
+                break;
 
                case 'siguiente':
                
