@@ -54,7 +54,6 @@ class PeriodosController extends Controller
     $cant=DB::connection('DB_Serverr')->table('periodos')->count();
     DB::connection('DB_Serverr')->insert('insert into periodos (numero,fecha_inicio,fecha_fin,fecha_pago)
     values (?,?,?,?)',[$cant,$datos->fecha_inicio,$datos->fecha_fin,$datos->fecha_pago]);
-    //return redirect()->action('PeriodosController@index'); 
  }
 
     public function seleccionarperiodo(Request $request){
@@ -86,7 +85,8 @@ class PeriodosController extends Controller
         switch ($accion) {
             case '':
                 $aux = DB::connection('DB_Serverr')->table('periodos')->first();
-                return view('periodos.crudperiodos',compact('aux'));
+                $periodos=DB::connection('DB_Serverr')->table('periodos')->get(); 
+                return view('periodos.crudperiodos',compact('aux','periodos'));
             break;
 
             case 'atras':
@@ -94,7 +94,8 @@ class PeriodosController extends Controller
                 if($aux==""){
                     $aux = DB::connection('DB_Serverr')->table('periodos')->get()->last();
                 }
-                return view('periodos.crudperiodos',compact('aux'));
+                $periodos=DB::connection('DB_Serverr')->table('periodos')->get(); 
+                return view('periodos.crudperiodos',compact('aux','periodos'));
             break;
 
             case 'siguiente':
@@ -102,29 +103,34 @@ class PeriodosController extends Controller
                 if($aux==""){
                     $aux = DB::connection('DB_Serverr')->table('periodos')->first();
                 }
-                return view('periodos.crudperiodos',compact('aux'));
+                $periodos=DB::connection('DB_Serverr')->table('periodos')->get(); 
+                return view('periodos.crudperiodos',compact('aux','periodos'));
             break;
 
             case 'primero':
                 $aux = DB::connection('DB_Serverr')->table('periodos')->first();
-                return view('periodos.crudperiodos',compact('aux'));
+                $periodos=DB::connection('DB_Serverr')->table('periodos')->get(); 
+                return view('periodos.crudperiodos',compact('aux','periodos'));
             break;
 
             case 'ultimo':
                 $aux = DB::connection('DB_Serverr')->table('periodos')->latest('id')->first();
-                return view('periodos.crudperiodos',compact('aux')); 
+                $periodos=DB::connection('DB_Serverr')->table('periodos')->get(); 
+                return view('periodos.crudperiodos',compact('aux','periodos')); 
             break;
 
             case 'registrar':
                 $this->agregarperiodos($request);
                 $aux = DB::connection('DB_Serverr')->table('periodos')->first();
-                return view('periodos.crudperiodos',compact('aux'));
+                $periodos=DB::connection('DB_Serverr')->table('periodos')->get(); 
+                return view('periodos.crudperiodos',compact('aux','periodos'));
             break;
 
             case 'actualizar':
                 $this->actualizarperiodos($request);
                 $aux = DB::connection('DB_Serverr')->table('periodos')->get()->first();
-                return view('periodos.crudperiodos',compact('aux'));
+                $periodos=DB::connection('DB_Serverr')->table('periodos')->get(); 
+                return view('periodos.crudperiodos',compact('aux','periodos'));
             break;
 
             case 'cancelar_periodos':
