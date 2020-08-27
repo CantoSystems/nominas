@@ -20,10 +20,15 @@
                     <div class="form-group">
                         <label>Nombre:</label>
 
+<<<<<<< HEAD
                     <input type="text" name="nombre" class="form-control" value="{{$aux->area}}"  onkeyup="mayus(this);" onkeypress="return validar(event)">
                     <input type="hidden" name="identificador" class="form-control" value="{{$aux->id}}"  onkeyup="mayus(this);">
 
                             <input type="text" name="areas" class="form-control" value="{{$aux->area}}"  onkeyup="mayus(this);">
+=======
+                    <input type="text" name="nombre" class="form-control" value="{{$aux->area}}"  onkeyup="mayus(this);" onkeypress="return numeros(event)">
+                   
+>>>>>>> 8e0949d3a1ad2880415fe6f7cef33368dc8da767
                             
 
 
@@ -99,28 +104,6 @@
         
    	</div> 	
 </div>	
-
-<script>
-    $(function(){
-      $('#nuevo').click(function(){
-        $('#actualizar_reg').hide();
-        $('#nuevo_reg').show();
-        $('input[type="text"]').val('');
-        $('#primero').hide();
-        $('#atras').hide();
-        $('#siguiente').hide();
-        $('#ultimo').hide();
-      });
-      $('#actualizar').click(function(){
-        $('#nuevo_reg').hide();
-      $('#actualizar_reg').show();
-      $('#primero').hide();
-      $('#atras').hide();
-      $('#siguiente').hide();
-      $('#ultimo').hide();
-      });
-    })
-</script>
 @endsection
 
 
