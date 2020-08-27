@@ -128,11 +128,7 @@ Schema::connection('DB_Serverr')->create('departamentos', function($table)
     $table->increments('id');
     $table->string('clave_depto');
     $table->string('depto');
-    $table->unsignedBigInteger('areas_id');
-    $table->foreign('areas_id')->references('id')
-                    ->on('areas')
-                    ->onDelete('cascade')
-                    ->onUpdate('cascade');
+    $table->unsignedBigInteger('areas_id')->nullable();
 });
 
      $empresa->nombre= $datos->nombre;
