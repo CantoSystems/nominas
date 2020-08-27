@@ -85,28 +85,6 @@
         
    	</div> 	
 </div>	
-
-<script>
-    $(function(){
-      $('#nuevo').click(function(){
-        $('#actualizar_reg').hide();
-        $('#nuevo_reg').show();
-        $('input[type="text"]').val('');
-        $('#primero').hide();
-        $('#atras').hide();
-        $('#siguiente').hide();
-        $('#ultimo').hide();
-      });
-      $('#actualizar').click(function(){
-        $('#nuevo_reg').hide();
-      $('#actualizar_reg').show();
-      $('#primero').hide();
-      $('#atras').hide();
-      $('#siguiente').hide();
-      $('#ultimo').hide();
-      });
-    })
-</script>
 @endsection
 
 
