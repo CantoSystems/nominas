@@ -30,7 +30,31 @@ class AreasController extends Controller
               break;
 
                case 'atras':
+<<<<<<< HEAD
+    
+                $areas = DB::connection('DB_Serverr')->select('select * from Areas where id > :id',['id' => $clv]);
+                
+                    if($areas==""){
+                        $areas = DB::connection('DB_Serverr')->select('select * from Areas');
+                        $cont=count($areas);
+                        $aux=$areas[$cont-1];
+                        return view('Areas.area',compact('aux'));     
+                    }
+                    
+                    elseif(empty($areas)) {
+                        $areas = DB::connection('DB_Serverr')->select('select * from Areas');
+                        $aux=$areas[0];
+                        return view('Areas.area',compact('aux'));
+                    }
+                   
+                    $aux=$areas[0];
+                    return view('Areas.area',compact('aux'));
+                break;
+
+                $aux = DB::connection('DB_Serverr')->table('areas')->where('id','<',$indic)->first();
+=======
                $aux = DB::connection('DB_Serverr')->table('areas')->where('id','<',$indic)->first();
+>>>>>>> 8e0949d3a1ad2880415fe6f7cef33368dc8da767
                 if($aux==""){
                     $aux = DB::connection('DB_Serverr')->table('areas')->get()->last();
                 }
