@@ -4,44 +4,40 @@
     <div class="row">
         <!-- Inicio Datatables-->
         <div class="col">
-            <div class="container mt-5">
-    <h2 class="mb-4">Periodos</h2>
-    <div class="card">
-        <div class="card-header">
-          <h3 class="card-title">DataTable with default features</h3>
-        </div>
-        <!-- /.card-header -->
-        <div class="card-body">
-          <table id="example1" class="table table-bordered table-striped">
-            <thead>
-            <tr>
-              <th>Numero de periodo</th>
-              <th>Fecha de Inicio</th>
-              <th>Fecha Final</th>
-              <th>Dia de pago</th>
-            </tr>
-            </thead>
-            <tbody>
-                @foreach ($periodos as $periodo)
-                <tr>
-                <td>{{$periodo->numero}}</td>
-                <td>{{$periodo->fecha_inicio}}</td>
-                <td>{{$periodo->fecha_fin}}</td>
-                <td>{{$periodo->fecha_pago}}</td>
-                </tr>
-                @endforeach
-            </tbody>
-          </table>
-        </div>
-        <!-- /.card-body -->
-      </div>
-</div>
-        </div>
-        <!--Fin Datatables-->
+            <div class="card card-secondary">
+                <div class="card-header">
+                    <h3 class="card-title">Periodos</h3>
+                </div>
+                <div class="card-body">
+                    <table id="example1" class="table table-bordered table-striped">
+                        <thead>
+                            <tr>
+                                <th>Numero de periodo</th>
+                                <th>Fecha de Inicio</th>
+                                <th>Fecha Final</th>
+                                <th>Dia de pago</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($periodos as $periodo)
+                            <tr>
+                                <td>{{$periodo->numero}}</td>
+                                <td>{{$periodo->fecha_inicio}}</td>
+                                <td>{{$periodo->fecha_fin}}</td>
+                                <td>{{$periodo->fecha_pago}}</td>
+                            </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
+            </div>
 
+        </div>
+         <!--Fin Datatables-->
 
-        <!--Sección botones y direcciones-->
-        <div class="col">
+         <!--Sección botones y direcciones-->
+        
+            <div class="col">
             <div class="card card-secondary">
                 <div class="card-header">
                     <h3 class="card-title">Periodos</h3>
@@ -114,8 +110,7 @@
                 </div> 
 
 
-
-<div class="col-sm-3">
+                <div class="col-sm-3">
                     <div class="card-body">
                         <div class="margin">
                             <div class="btn-group">
@@ -136,25 +131,14 @@
                         </div>
                     </div>
                 </div>
-
-
-
-
-
-
-
-
-
-
-
-                    </div>
+                 </div>
                 </form>
                 @include('periodos.modaldeleteperiodos')
-            </div>    
-        </div> 
-    </div>    
-</div>
 
+
+        </div>
+         <!--Fin botones y direcciones-->
+    </div>
 </div>
 
 
