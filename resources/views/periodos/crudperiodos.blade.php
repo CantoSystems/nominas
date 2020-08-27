@@ -2,9 +2,26 @@
 @section('content')
 <div class="container">
     <div class="row">
+        <!-- Inicio Datatables-->
         <div class="col">
+            <div class="container mt-5">
+    <h2 class="mb-4">Periodos</h2>
+    <table class="yajra-datatable">
+        <thead>
+            <tr>
+                <th>Num</th>
+                <th>Numero</th>
+                <th>Fecha Inicio</th>
+                <th>Fecha Fin</th>
+                <th>Fecha Pago</th>
+               </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+</div>
         </div>
-
+        <!--Fin Datatables-->
 
 
         <!--Sección botones y direcciones-->
@@ -69,7 +86,7 @@
                                  <button type="button" id="actualizar_periodos" style='width:40px; height:27px'> <i class="fas fa-pen-square"></i></button>
                                 </div>
                                 <div class="form-group">
-                                    <a href="#" id="eliminar" data-target="#modal-deletenom- data-toggle="modal">
+                                    <a href="#" id="eliminar" data-target="#modal-deletenom-{{$aux->id}}" data-toggle="modal">
                                         <button type="button" style='width:40px; height:27px'>
                                             <i class="far fa-trash-alt">
                                             </i>
@@ -116,6 +133,7 @@
 
                     </div>
                 </form>
+                @include('periodos.modaldeleteperiodos')
             </div>    
         </div> 
     </div>    

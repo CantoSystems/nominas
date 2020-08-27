@@ -33,6 +33,7 @@ Route::post('/agregarperiodos','PeriodosController@agregarperiodos')->name('agre
 Route::get('/seleccionarperiodo','PeriodosController@seleccionarperiodo')->name('seleccionarperiodo');
 Route::get('/periodos','PeriodosController@index')->name('periodos.index');
 Route::get('/accionesperiodos','PeriodosController@acciones')->name('periodos.acciones');
+Route::delete('accionesperiodos/{id}', 'PeriodosController@eliminarperiodo')->name('periodos.eliminarperiodo');
 
 
     

@@ -167,4 +167,7 @@ $table->string('clave_area');
      Session::put('empresa',$empresa->nombre);
      return redirect()->route('periodos.index');
     }
+
+
+    
 }

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use DB;
 use Session;
+use DataTables;
 
 class PeriodosController extends Controller
 {
@@ -81,7 +82,7 @@ class PeriodosController extends Controller
         \Config::set('database.connections.DB_Serverr', $configDb);
         $accion= $request->acciones;
         $indic=$request->identificador;
-        $fecha=$request->fecha_inicio;
+        
         switch ($accion) {
             case '':
                 $aux = DB::connection('DB_Serverr')->table('periodos')->first();
@@ -121,32 +122,86 @@ class PeriodosController extends Controller
             break;
 
             case 'actualizar':
-                $aux1 = DB::connection('DB_Serverr')->table('periodos')->where('fecha_inicio',$fecha)->first();
-                    if($aux1!==""){
-                        DB::connection('DB_Serverr')->table('periodos')->where('fecha_inicio',$request->fecha_inicio)->update(['fecha_inicio'=>$request->fecha_inicio,'fecha_fin'=>$request->fecha_fin,'fecha_pago'=>$request->fecha_pago,]);
-                        $aux = DB::connection('DB_Serverr')->table('periodos')->get()->first();
-                        return view('periodos.crudperiodos',compact('aux'));
-                   }
-
+                $this->actualizarperiodos($request);
+                $aux = DB::connection('DB_Serverr')->table('periodos')->get()->first();
+                return view('periodos.crudperiodos',compact('aux'));
             break;
-
-
 
             case 'cancelar_periodos':
                 return back();
             break;
 
-
-
-
-
             default:
-                # code...
+                
             break;
+
         }
 
+         if ($request->ajax()) {
+            $data = DB::connection('DB_Serverr')->table('periodos')->latest()->get();
+            return Datatables::of($data)
+                ->addIndexColumn()
+                ->rawColumns(['action'])
+                ->make(true);
+        }
 
-        //return view('periodos.crudperiodos');
+         
+
+
+       
     }
+
+    public function actualizarperiodos($datos){
+
+        $empresa= Session::get('clave_empresa');
+        $configDb = [
+        'driver'      => 'mysql',
+        'host'        => env('DB_HOST', 'localhost'),
+        'port'        => env('DB_PORT', '3306'),
+        'database'    => $empresa,
+        'username'    => env('DB_USERNAME', 'root'),
+        'password'    => env('DB_PASSWORD', ''),
+        'unix_socket' => env('DB_SOCKET', ''),
+        'charset'     => 'utf8',
+        'collation'   => 'utf8_unicode_ci',
+        'prefix'      => '',
+        'strict'      => true,
+        'engine'      => null,
+    ];
+    
+    \Config::set('database.connections.DB_Serverr', $configDb);
+    $fecha=$datos->fecha_inicio;
+
+    $aux1 = DB::connection('DB_Serverr')->table('periodos')->where('fecha_inicio',$fecha)->first();
+    
+        DB::connection('DB_Serverr')->table('periodos')->where('fecha_inicio',$datos->fecha_inicio)->update(['fecha_inicio'=>$datos->fecha_inicio,'fecha_fin'=>$datos->fecha_fin,'fecha_pago'=>$datos->fecha_pago,]);
+        
+
+    }
+
+    public function eliminarperiodo($id){
+        $empresa= Session::get('clave_empresa');
+        $configDb = [
+        'driver'      => 'mysql',
+        'host'        => env('DB_HOST', 'localhost'),
+        'port'        => env('DB_PORT', '3306'),
+        'database'    => $empresa,
+        'username'    => env('DB_USERNAME', 'root'),
+        'password'    => env('DB_PASSWORD', ''),
+        'unix_socket' => env('DB_SOCKET', ''),
+        'charset'     => 'utf8',
+        'collation'   => 'utf8_unicode_ci',
+        'prefix'      => '',
+        'strict'      => true,
+        'engine'      => null,
+    ];
+    
+    \Config::set('database.connections.DB_Serverr', $configDb);
+    $aux1 = DB::connection('DB_Serverr')->table('periodos')->where('id',$id)->delete();
+
+    $aux = DB::connection('DB_Serverr')->table('periodos')->get()->first();
+    return view('periodos.crudperiodos',compact('aux'));
+    }
+
 
 }
