@@ -30,7 +30,7 @@ class AreasController extends Controller
                    break;
 
                case 'atras':
-<<<<<<< HEAD
+    
                 $areas = DB::connection('DB_Serverr')->select('select * from Areas where id > :id',['id' => $clv]);
                 
                     if($areas==""){
@@ -49,14 +49,14 @@ class AreasController extends Controller
                     $aux=$areas[0];
                     return view('Areas.area',compact('aux'));
                 break;
-=======
+
                 $aux = DB::connection('DB_Serverr')->table('areas')->where('id','<',$indic)->first();
                 if($aux==""){
                     $aux = DB::connection('DB_Serverr')->table('areas')->get()->last();
                 }
                 return view('Areas.area',compact('aux'));
                  break;
->>>>>>> a8098cc622187acac6f0753420f88e70439e8cde
+
 
                case 'siguiente':
                 $aux = DB::connection('DB_Serverr')->table('areas')->where('id','>',$indic)->first();
