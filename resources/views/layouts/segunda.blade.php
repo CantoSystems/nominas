@@ -11,10 +11,15 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
   <title>AdminLTE 3 | Starter</title>
 
-  <!-- Font Awesome Icons -->
-  <link rel="stylesheet" href="{{ asset('/Admin/plugins/fontawesome-free/css/all.min.css')}}">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="/Admin/plugins/fontawesome-free/css/all.min.css">
+  <!-- Ionicons -->
+  <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+  <!-- DataTables -->
+  <link rel="stylesheet" href="/Admin/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
+  <link rel="stylesheet" href="/Admin/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
   <!-- Theme style -->
-  <link rel="stylesheet" href="{{ asset('/Admin/dist/css/adminlte.min.css')}}">
+  <link rel="stylesheet" href="/Admin/dist/css/adminlte.min.css">
   <!-- Google Font: Source Sans Pro -->
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
 </head>
@@ -190,6 +195,49 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <script src="{{ asset('/Admin/plugins/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
 <!-- AdminLTE App -->
 <script src="{{ asset('/Admin/dist/js/adminlte.min.js')}}"></script>
+<!-- DataTables -->
+<script src="/Admin/plugins/datatables/jquery.dataTables.min.js"></script>
+<script src="/Admin/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+<script src="/Admin/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
+<script src="/Admin/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
 <script src="{{ asset('/Admin/js/scripts.js')}}"></script>
+<script>
+  $(function(){
+    $('#nuevo').click(function(){
+      $('#actualizar_reg').hide();
+      $('#nuevo_reg').show();
+      $('input[type="text"]').val('');
+      $('#primero').hide();
+      $('#atras').hide();
+      $('#siguiente').hide();
+      $('#ultimo').hide();
+    });
+    $('#actualizar').click(function(){
+      $('#nuevo_reg').hide();
+    $('#actualizar_reg').show();
+    $('#primero').hide();
+    $('#atras').hide();
+    $('#siguiente').hide();
+    $('#ultimo').hide();
+    });
+  })
+</script>
+<script>
+  $(function () {
+    $("#example1").DataTable({
+      "responsive": true,
+      "autoWidth": false,
+    });
+    $('#example2').DataTable({
+      "paging": true,
+      "lengthChange": false,
+      "searching": false,
+      "ordering": true,
+      "info": true,
+      "autoWidth": false,
+      "responsive": true,
+    });
+  });
+</script>
 </body>
 </html>
