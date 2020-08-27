@@ -123,7 +123,16 @@ $table->increments('id');
 $table->string('clave_empresa');
 $table->string('area');
 $table->string('clave_area');
-    
+   
+});
+
+Schema::connection('DB_Serverr')->create('Puestos', function($table)
+{
+
+$table->increments('id');
+$table->string('clave_puesto');
+$table->string('nombre_puesto');
+
 
 });
 
