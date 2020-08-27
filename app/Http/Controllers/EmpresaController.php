@@ -108,23 +108,27 @@ class EmpresaController extends Controller
 ];
 
 \Config::set('database.connections.DB_Serverr', $configDb);
-Schema::connection('DB_Serverr')->create('Periodos', function($table)
+Schema::connection('DB_Serverr')->create('periodos', function($table)
 {
-$table->increments('id');
-$table->string('numero');
-$table->string('fecha_inicio');
-$table->string('fecha_fin');
-$table->string('fecha_pago');
+    $table->increments('id');
+    $table->string('numero');
+    $table->string('fecha_inicio');
+    $table->string('fecha_fin');
+    $table->string('fecha_pago');
 });
-Schema::connection('DB_Serverr')->create('Areas', function($table)
+Schema::connection('DB_Serverr')->create('areas', function($table)
 {
-
-$table->increments('id');
-$table->string('clave_empresa');
-$table->string('area');
-$table->string('clave_area');
-    
-
+    $table->increments('id');
+    $table->string('clave_empresa');
+    $table->string('area');
+    $table->string('clave_area');
+});
+Schema::connection('DB_Serverr')->create('departamentos', function($table)
+{
+    $table->increments('id');
+    $table->string('clave_depto');
+    $table->string('depto');
+    $table->unsignedBigInteger('areas_id')->nullable();
 });
 
      $empresa->nombre= $datos->nombre;
