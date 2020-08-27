@@ -27,15 +27,16 @@ class AreasController extends Controller
                case '':
                 $aux = DB::connection('DB_Serverr')->table('areas')->get()->first();
                 return view('Areas.area',compact('aux'));
-                   break;
+              break;
 
                case 'atras':
-                $aux = DB::connection('DB_Serverr')->table('areas')->where('id','<',$indic)->first();
+               $aux = DB::connection('DB_Serverr')->table('areas')->where('id','<',$indic)->first();
                 if($aux==""){
                     $aux = DB::connection('DB_Serverr')->table('areas')->get()->last();
                 }
                 return view('Areas.area',compact('aux'));
                  break;
+
 
                case 'siguiente':
                 $aux = DB::connection('DB_Serverr')->table('areas')->where('id','>',$indic)->first();
