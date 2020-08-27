@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use DB;
 use Session;
+use DataTables;
 
 class PeriodosController extends Controller
 {
@@ -126,27 +127,28 @@ class PeriodosController extends Controller
                 return view('periodos.crudperiodos',compact('aux'));
             break;
 
-            case 'eliminar':
-
-            break;
-
-
-
             case 'cancelar_periodos':
                 return back();
             break;
 
-
-
-
-
             default:
-                # code...
+                
             break;
+
         }
 
+         if ($request->ajax()) {
+            $data = DB::connection('DB_Serverr')->table('periodos')->latest()->get();
+            return Datatables::of($data)
+                ->addIndexColumn()
+                ->rawColumns(['action'])
+                ->make(true);
+        }
 
-        //return view('periodos.crudperiodos');
+         
+
+
+       
     }
 
     public function actualizarperiodos($datos){

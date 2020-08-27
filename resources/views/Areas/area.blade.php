@@ -19,14 +19,12 @@
     			<div class="col-md-12">
                     <div class="form-group">
                         <label>Nombre:</label>
-<<<<<<< HEAD
+
                     <input type="text" name="nombre" class="form-control" value="{{$aux->area}}"  onkeyup="mayus(this);" onkeypress="return numeros(event)">
-                    <input type="hidden" name="identificador" class="form-control" value="{{$aux->id}}"  onkeyup="mayus(this);">
-=======
-                            <input type="text" name="areas" class="form-control" value="{{$aux->area}}"  onkeyup="mayus(this);">
+                   
                             
 
->>>>>>> a8098cc622187acac6f0753420f88e70439e8cde
+
 
                     <input type="text" name="clave_area" class="form-control" value="{{$aux->clave_area}}"  onkeyup="mayus(this);">
                     <input type="hidden" name="identificador" class="form-control" value="{{$aux->id}}"  onkeyup="mayus(this);">
