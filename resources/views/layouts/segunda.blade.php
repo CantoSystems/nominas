@@ -191,5 +191,26 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <!-- AdminLTE App -->
 <script src="{{ asset('/Admin/dist/js/adminlte.min.js')}}"></script>
 <script src="{{ asset('/Admin/js/scripts.js')}}"></script>
+<script>
+  $(function(){
+    $('#nuevo').click(function(){
+      $('#actualizar_reg').hide();
+      $('#nuevo_reg').show();
+      $('input[type="text"]').val('');
+      $('#primero').hide();
+      $('#atras').hide();
+      $('#siguiente').hide();
+      $('#ultimo').hide();
+    });
+    $('#actualizar').click(function(){
+      $('#nuevo_reg').hide();
+    $('#actualizar_reg').show();
+    $('#primero').hide();
+    $('#atras').hide();
+    $('#siguiente').hide();
+    $('#ultimo').hide();
+    });
+  })
+</script>
 </body>
 </html>
