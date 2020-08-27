@@ -36,4 +36,7 @@ Route::get('/accionesperiodos','PeriodosController@acciones')->name('periodos.ac
 Route::delete('accionesperiodos/{id}', 'PeriodosController@eliminarperiodo')->name('periodos.eliminarperiodo');
 
 
+
+
+
     
