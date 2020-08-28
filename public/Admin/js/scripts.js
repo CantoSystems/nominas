@@ -18,4 +18,23 @@ $(function(){
         $('#siguiente').hide();
         $('#ultimo').hide();
       });
+      $('#nuevo_deptos').click(function(){
+        $('#actualizar_reg').hide();
+        $('#nuevo_reg').show();
+        $('#cancelar_periodos').show();
+        $('input[type="text"]').val('');
+        $('#primero').hide();
+        $('#atras').hide();
+        $('#siguiente').hide();
+        $('#ultimo').hide();
+      });
+      $('#actualizar_deptos').click(function(){
+        $('#nuevo_reg').hide();
+        $('#actualizar_reg').show();
+        $('#cancelar_periodos').show();
+        $('#primero').hide();
+        $('#atras').hide();
+        $('#siguiente').hide();
+        $('#ultimo').hide();
+      });
     })
