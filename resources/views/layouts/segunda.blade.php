@@ -12,14 +12,14 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <title>AdminLTE 3 | Starter</title>
 
   <!-- Font Awesome -->
-  <link rel="stylesheet" href="/Admin/plugins/fontawesome-free/css/all.min.css">
+  <link rel="stylesheet" href="{{ asset('/Admin/plugins/fontawesome-free/css/all.min.css')}}">
   <!-- Ionicons -->
-  <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+  <link rel="stylesheet" href="{{ asset('https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css')}}">
   <!-- DataTables -->
-  <link rel="stylesheet" href="/Admin/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
-  <link rel="stylesheet" href="/Admin/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
+  <link rel="stylesheet" href="{{ asset('/Admin/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css')}}">
+  <link rel="stylesheet" href="{{ asset('/Admin/plugins/datatables-responsive/css/responsive.bootstrap4.min.css')}}">
   <!-- Theme style -->
-  <link rel="stylesheet" href="/Admin/dist/css/adminlte.min.css">
+  <link rel="stylesheet" href="{{ asset('/Admin/dist/css/adminlte.min.css')}}">
   <!-- Google Font: Source Sans Pro -->
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
 </head>
@@ -150,7 +150,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0 text-dark">Nominas</h1>
+            
           </div><!-- /.col -->
          
         </div><!-- /.row -->
@@ -196,8 +196,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <!-- AdminLTE App -->
 <script src="{{ asset('/Admin/dist/js/adminlte.min.js')}}"></script>
 <!-- DataTables -->
-<script src="/Admin/plugins/datatables/jquery.dataTables.min.js"></script>
-<script src="/Admin/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+<script src="{{ asset('/Admin/plugins/datatables/jquery.dataTables.min.js')}}"></script>
+<script src="{{ asset('/Admin/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js')}}"></script>
 <script src="/Admin/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
 <script src="/Admin/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
 <script src="{{ asset('/Admin/js/scripts.js')}}"></script>

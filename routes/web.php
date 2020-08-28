@@ -36,4 +36,10 @@ Route::get('/accionesperiodos','PeriodosController@acciones')->name('periodos.ac
 Route::delete('accionesperiodos/{id}', 'PeriodosController@eliminarperiodo')->name('periodos.eliminarperiodo');
 
 
+//puestos 
+Route::get('/puestos','PuestosController@index')->name('puestos.index');
+Route::post('/agregarpuestos','PuestosController@agregarpuestos')->name('agregarpuestos');
+Route::get('/seleccionarpuesto','PuestosController@seleccionarpuesto')->name('seleccionarpuesto');
+
+
     
