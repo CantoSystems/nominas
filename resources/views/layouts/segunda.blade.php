@@ -239,5 +239,23 @@ scratch. This page gets rid of all links and provides the needed markup only.
     });
   });
 </script>
+<script type="text/javascript">
+  function validar(e) { 
+  tecla = (document.all) ? e.keyCode : e.which; 
+  if (tecla==8) return true; 
+  patron =/[A-Za-z\s]/; 
+  te = String.fromCharCode(tecla); 
+  return patron.test(te); 
+  }
+</script>
+
+<script type="text/javascript">
+function numeros(event) { 
+if(event.charCode >=48 && event.charCode <=57 ){
+  return true;
+}
+return false;
+}
+</script>
 </body>
 </html>
