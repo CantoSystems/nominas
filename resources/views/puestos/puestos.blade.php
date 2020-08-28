@@ -1,0 +1,57 @@
+@extends('layouts.principal')
+
+@section('content')
+<div class="card">
+    <div class="card-header">
+      Puestos
+    </div>
+    <div class="card-body">
+      <h5 class="card-title">Selecciona el Puesto:</h5><br>
+      
+      <br>
+      <div class="row">
+        @if ($contador==0)
+        <div class="col-md-12">
+          <h3>No se tienen puestos</h3><br>
+        </div>
+          <br>
+          <div class="col-md-6">
+          </div>
+          <div class="col-md-6">
+            <button type="button" data-toggle="modal" data-target="#AgregarPuesto" style="width:220px; height:40px">
+              Agregar Puesto
+            </button>
+            @include('puestos.modalregistropuesto')
+          </div>
+          
+        @else
+        <div class="row">
+          <form action="{{route('seleccionarpuesto')}}" method="GET">
+
+           {{--  <div class="col-md-12">
+              <select class="custom-select" name="periodo">
+                @foreach ($periodos as $periodo)
+                <option value={{$periodo->numero}}> DE: {{$periodo->fecha_inicio}} A {{$periodo->fecha_fin}}</option>
+                @endforeach
+              </select>
+            </div><br>  --}}
+            
+            <div class="col-md-6">
+              <button type="submit" style="width:220px; height:40px">Seleccionar</button>
+            </div>
+          </form>
+
+          <!--<div class="col-md-6">
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#AgregarPeriodo">
+              Agregar Periodo
+            </button>
+          </div>
+          @include('periodos.modalregistro')-->
+        </div>
+        
+        @endif
+      </div> 
+    </div>
+  </div>
+@endsection
+
