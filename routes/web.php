@@ -42,4 +42,5 @@ Route::post('/agregarpuestos','PuestosController@agregarpuestos')->name('agregar
 Route::get('/seleccionarpuesto','PuestosController@seleccionarpuesto')->name('seleccionarpuesto');
 
 
-    
+//deptos
+Route::get('/departamentos','DepartamentosController@index')->name('departamentos.index');
