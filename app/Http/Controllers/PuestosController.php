@@ -11,15 +11,79 @@ use DataTables;
 class PuestosController extends Controller
 {
     
-    public function index()
+    public function index(Request $request)
     {
-       
-        $empresa= Session::get('clave_puesto');
+        $clv=Session::get('clave_empresa');
+        $clv_empresa=$this->conectar($clv);
+
+        \Config::set('database.connections.DB_Serverr', $clv_empresa);
+        $accion= $request->acciones;
+        $clave_p=$request->clave_area;
+        $indic=$request->identificador;
+           switch ($accion) {
+               case '':
+                $aux = DB::connection('DB_Serverr')->table('puestos')->get()->first();
+                return view('puestos.puestos',compact('aux'));
+              break;
+
+               case 'atras':
+               $aux = DB::connection('DB_Serverr')->table('puestos')->where('id','<',$indic)->first();
+                if($aux==""){
+                    $aux = DB::connection('DB_Serverr')->table('puestos')->get()->last();
+                }
+                return view('puetos.puestos',compact('aux'));
+                 break;
+
+
+               case 'siguiente':
+                $aux = DB::connection('DB_Serverr')->table('puestos')->where('id','>',$indic)->first();
+                if($aux==""){
+                    $aux = DB::connection('DB_Serverr')->table('puestos')->get()->first();
+                }
+                return view('puestos.puestos',compact('aux'));
+               break;
+               case 'primero':
+                $aux = DB::connection('DB_Serverr')->table('puestos')->first();
+                return view('puestos.puestos',compact('aux'));
+               break;
+               case 'ultimo':
+                $aux = DB::connection('DB_Serverr')->table('puestos')->get()->last();
+                return view('puestos.puestos',compact('aux')); 
+               break;
+               case 'registrar':
+               $this->registrar($request);
+               $aux = DB::connection('DB_Serverr')->table('puestos')->get()->first();
+                return view('puestos.puestos',compact('aux'));
+               break;
+               case 'actualizar':
+                $aux1 = DB::connection('DB_Serverr')->table('puestos')->where('clave_puesto',$clave_p)->first();
+                   if($aux1!==""){
+                   DB::connection('DB_Serverr')->table('puestos')->where('clave_puesto',$request->clave_puesto)->update(['area'=>$request->clave_puesto]);
+                   $aux = DB::connection('DB_Serverr')->table('puestos')->get()->first();
+                   return view('puestos.puestos',compact('aux'));
+                   }
+               break;
+               case 'eliminar':
+                $aux1 = DB::connection('DB_Serverr')->table('puestos')->where('clave_puesto',$clave_p)->first();
+                if($aux1!==""){
+                DB::connection('DB_Serverr')->table('puestos')->where('clave_area',$request->clave_puesto)->delete();
+                $aux = DB::connection('DB_Serverr')->table('puestos')->get()->first();
+                return view('puestos.puestos',compact('aux'));
+                }
+               break;
+               default:
+                   # code...
+                   break;
+}     
+}
+
+public function registrar($datos){
+    $clv=Session::get('clave_empresa');
     $configDb = [
         'driver'      => 'mysql',
         'host'        => env('DB_HOST', 'localhost'),
         'port'        => env('DB_PORT', '3306'),
-        'database'    => $empresa,
+        'database'    => $clv,
         'username'    => env('DB_USERNAME', 'root'),
         'password'    => env('DB_PASSWORD', ''),
         'unix_socket' => env('DB_SOCKET', ''),
@@ -28,111 +92,32 @@ class PuestosController extends Controller
         'prefix'      => '',
         'strict'      => true,
         'engine'      => null,
-    ];
+];
 
     \Config::set('database.connections.DB_Serverr', $configDb);
-    $puestos=DB::connection('DB_Serverr')->table('puestos')->get();
-    $contador=DB::connection('DB_Serverr')->table('puestos')->count();
-    return view('puestos.puestos',compact('puestos','contador'));
-    }
+    DB::connection('DB_Serverr')->insert('insert into puestos (clave_puesto, puesto)
+    values (?,?)',[$datos->clave_puesto,$datos->puesto]);
+}
 
+public function conectar($clv)
+{
 
-    public function agregarpuestos($datos){
-        $empresa= Session::get('clave_puesto');
-        $configDb = [
-            'driver'      => 'mysql',
-            'host'        => env('DB_HOST', 'localhost'),
-            'port'        => env('DB_PORT', '3306'),
-            'database'    => $empresa,
-            'username'    => env('DB_USERNAME', 'root'),
-            'password'    => env('DB_PASSWORD', ''),
-            'unix_socket' => env('DB_SOCKET', ''),
-            'charset'     => 'utf8',
-            'collation'   => 'utf8_unicode_ci',
-            'prefix'      => '',
-            'strict'      => true,
-            'engine'      => null,
-        ];
-        
-        \Config::set('database.connections.DB_Serverr', $configDb);
-        $contador=DB::connection('DB_Serverr')->table('puestos')->count();
-        DB::connection('DB_Serverr')->insert('insert into periodos (nombre_puesto)
-        values (?,?,?,?)',[$contador,$datos->nombre]);
-     }
+    $configDb = [
+        'driver'      => 'mysql',
+        'host'        => env('DB_HOST', 'localhost'),
+        'port'        => env('DB_PORT', '3306'),
+        'database'    => $clv,
+        'username'    => env('DB_USERNAME', 'root'),
+        'password'    => env('DB_PASSWORD', ''),
+        'unix_socket' => env('DB_SOCKET', ''),
+        'charset'     => 'utf8',
+        'collation'   => 'utf8_unicode_ci',
+        'prefix'      => '',
+        'strict'      => true,
+        'engine'      => null,
+];
 
-     public function seleccionarpuesto(Request $request){
-        Session::put('nom_puesto',$request->puesto);
-        return view('layouts.segunda');
-    }
+return $configDb;
 
-
-
-
-
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
+}
 }
