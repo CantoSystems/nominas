@@ -4,36 +4,14 @@
 	<div class="card-header">
         <h3 class="card-title">Areas</h3>
     </div>
-    <script type="text/javascript">
-        function validar(e) { 
-        tecla = (document.all) ? e.keyCode : e.which; 
-        if (tecla==8) return true; 
-        patron =/[A-Za-z\s]/; 
-        te = String.fromCharCode(tecla); 
-        return patron.test(te); 
-        }
-</script>
     <div class="card-body">
     <form action="{{ route('areas.index')}}" method="GET">
     		<div class="row">
     			<div class="col-md-12">
                     <div class="form-group">
                         <label>Nombre:</label>
-
-<<<<<<< HEAD
-                    <input type="text" name="nombre" class="form-control" value="{{$aux->area}}"  onkeyup="mayus(this);" onkeypress="return validar(event)">
-                    <input type="hidden" name="identificador" class="form-control" value="{{$aux->id}}"  onkeyup="mayus(this);">
-
-                            <input type="text" name="areas" class="form-control" value="{{$aux->area}}"  onkeyup="mayus(this);">
-=======
                     <input type="text" name="nombre" class="form-control" value="{{$aux->area}}"  onkeyup="mayus(this);" onkeypress="return numeros(event)">
-                   
->>>>>>> 8e0949d3a1ad2880415fe6f7cef33368dc8da767
-                            
-
-
-
-                    <input type="text" name="clave_area" class="form-control" value="{{$aux->clave_area}}"  onkeyup="mayus(this);">
+                    <input type="hidden" name="clave_area" class="form-control" value="{{$aux->clave_area}}"  onkeyup="mayus(this);">
                     <input type="hidden" name="identificador" class="form-control" value="{{$aux->id}}"  onkeyup="mayus(this);">
                     </div>
                 </div>

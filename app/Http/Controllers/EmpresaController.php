@@ -118,36 +118,25 @@ Schema::connection('DB_Serverr')->create('periodos', function($table)
 });
 Schema::connection('DB_Serverr')->create('areas', function($table)
 {
-<<<<<<< HEAD
-
 $table->increments('id');
-$table->string('clave_empresa');
 $table->string('area');
 $table->string('clave_area');
-   
 });
 
-Schema::connection('DB_Serverr')->create('Puestos', function($table)
+Schema::connection('DB_Serverr')->create('puestos', function($table)
 {
-
 $table->increments('id');
 $table->string('clave_puesto');
 $table->string('nombre_puesto');
-
-
-=======
-    $table->increments('id');
-    $table->string('clave_empresa');
-    $table->string('area');
-    $table->string('clave_area');
 });
+
 Schema::connection('DB_Serverr')->create('departamentos', function($table)
 {
-    $table->increments('id');
-    $table->string('clave_depto');
-    $table->string('depto');
-    $table->unsignedBigInteger('areas_id')->nullable();
->>>>>>> 8579d722d7752d531e8cbdb9816866028bc88bf8
+$table->increments('id');
+$table->string('clave_depto');
+$table->string('depto');
+$table->integer('areas_id')->unsigned();            
+$table->foreign('areas_id')->references('id')->on('areas');
 });
 
      $empresa->nombre= $datos->nombre;

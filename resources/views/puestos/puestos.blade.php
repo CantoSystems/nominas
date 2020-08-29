@@ -1,57 +1,131 @@
-@extends('layouts.principal')
-
+@extends('layouts.segunda')
 @section('content')
-<div class="card">
-    <div class="card-header">
-      Puestos
-    </div>
-    <div class="card-body">
-      <h5 class="card-title">Selecciona el Puesto:</h5><br>
-      
-      <br>
-      <div class="row">
-        @if ($contador==0)
-        <div class="col-md-12">
-          <h3>No se tienen puestos</h3><br>
-        </div>
-          <br>
-          <div class="col-md-6">
-          </div>
-          <div class="col-md-6">
-            <button type="button" data-toggle="modal" data-target="#AgregarPuesto" style="width:220px; height:40px">
-              Agregar Puesto
-            </button>
-            @include('puestos.modalregistropuesto')
-          </div>
-          
-        @else
-        <div class="row">
-          <form action="{{route('seleccionarpuesto')}}" method="GET">
-
-           {{--  <div class="col-md-12">
-              <select class="custom-select" name="periodo">
-                @foreach ($periodos as $periodo)
-                <option value={{$periodo->numero}}> DE: {{$periodo->fecha_inicio}} A {{$periodo->fecha_fin}}</option>
-                @endforeach
-              </select>
-            </div><br>  --}}
-            
-            <div class="col-md-6">
-              <button type="submit" style="width:220px; height:40px">Seleccionar</button>
+<div class="container">
+    <div class="row">
+        <!-- Inicio Datatables-->
+        <div class="col">
+            <div class="card card-secondary">
+                <div class="card-header">
+                    <h3 class="card-title">Puestos</h3>
+                </div>
+                <div class="card-body">
+                    <table id="example1" class="table table-bordered table-striped">
+                        <thead>
+                            <tr>
+                                <th>Clave</th>
+                                <th>Puesto</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($puestos as $puesto)
+                            <tr>
+                                <td>{{$puesto->clave}}</td>
+                                <td>{{$puesto->puesto}}</td>
+                            </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
             </div>
-          </form>
 
-          <!--<div class="col-md-6">
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#AgregarPeriodo">
-              Agregar Periodo
-            </button>
-          </div>
-          @include('periodos.modalregistro')-->
         </div>
-        
-        @endif
-      </div> 
-    </div>
-  </div>
-@endsection
+         <!--Fin Datatables-->
 
+         <!--Sección botones y direcciones-->
+        
+            <div class="col">
+            <div class="card card-secondary">
+                <div class="card-header">
+                    <h3 class="card-title">Periodos</h3>
+                </div>
+            <div class="card-body">
+                <form action="{{ route('puestos.acciones')}}" method="GET">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <label>Puesto</label>
+                            <input type="hidden" class="form-control" name="identificador" value="{{$aux->id}}">
+                            <input type="date" class="form-control" name="puesto" value="{{$aux->puesto}}">
+                            <input type="hidden" class="form-control" name="clave_puesto" value="{{$aux->clave_puesto}}">
+                        </div>
+                         <div class="col-sm-5">
+                    <div class="card-body">
+                        <div class="margin">
+                            <div class="btn-group">
+                                <div class="form-group">
+                                    <button type="submit"  name="acciones" value="primero" id="primero" style='width:40px; height:27px'><i class="fas fa-backward" ></i></button>
+                                </div>
+                                <div class="form-group">
+                                <button type="submit" name="acciones" value="atras" id="atras" style='width:40px; height:27px'><i class="fas fa-arrow-circle-left"></i></button>
+                                </div>
+                                <div class="form-group">
+                                    <button type="submit" name="acciones" value="siguiente" id="siguiente" style='width:40px; height:27px'><i class="fas fa-arrow-circle-right"></i></button>
+                                </div>
+                                <div class="form-group">
+                                    <button type="submit" name="acciones" value="ultimo" id="ultimo" style='width:40px; height:27px'><i class="fas fa-forward"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+                <div class="col-sm-4">
+                    <div class="card-body">
+                        <div class="margin">
+                            <div class="btn-group">
+                                <div class="form-group">
+                                    <button type="button" id="nuevo_periodos" style='width:40px; height:27px'> <i class="fas fa-user-plus"></i></button>
+                                </div>
+                                <div class="form-group">
+                                 <button type="button" id="actualizar_periodos" style='width:40px; height:27px'> <i class="fas fa-pen-square"></i></button>
+                                </div>
+                                <div class="form-group">
+                                    <a href="#" id="eliminar" data-target="#modal-deletenom-{{$aux->id}}" data-toggle="modal">
+                                        <button type="button" style='width:40px; height:27px'>
+                                            <i class="far fa-trash-alt">
+                                            </i>
+                                        </button></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div> 
+
+
+                <div class="col-sm-3">
+                    <div class="card-body">
+                        <div class="margin">
+                            <div class="btn-group">
+                                <div class="form-group">
+                                    
+                                       <button id="nuevo_reg" name="acciones" value="registrar" type="submit" style="display: none;width:40px; height:27px'"><i class="fas fa-save"></i></button>
+                                        
+                                    
+                                </div>
+                                <div class="form-group">
+                                    <button name="acciones" value="actualizar" id="actualizar_reg" type="submit" style="display: none;width:40px; height:27px'"><i class="fas fa-save"></i></button>
+                                </div>
+
+                                <div class="form-group">
+                                    <button name="acciones" value="cancelar_periodos" id="cancelar_periodos" type="submit" style="display: none;width:40px; height:28px"><i class="far fa-window-close"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                 </div>
+                </form>
+                @include('periodos.modaldeleteperiodos')
+
+
+        </div>
+         <!--Fin botones y direcciones-->
+    </div>
+</div>
+
+</div>
+</div>
+ 
+@endsection
