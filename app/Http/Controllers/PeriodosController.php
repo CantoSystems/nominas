@@ -142,18 +142,6 @@ class PeriodosController extends Controller
             break;
 
         }
-
-         if ($request->ajax()) {
-            $data = DB::connection('DB_Serverr')->table('periodos')->latest()->get();
-            return Datatables::of($data)
-                ->addIndexColumn()
-                ->rawColumns(['action'])
-                ->make(true);
-        }
-
-         
-
-
        
     }
 
@@ -180,7 +168,7 @@ class PeriodosController extends Controller
 
     $aux1 = DB::connection('DB_Serverr')->table('periodos')->where('fecha_inicio',$fecha)->first();
     
-        DB::connection('DB_Serverr')->table('periodos')->where('fecha_inicio',$datos->fecha_inicio)->update(['fecha_inicio'=>$datos->fecha_inicio,'fecha_fin'=>$datos->fecha_fin,'fecha_pago'=>$datos->fecha_pago,]);
+    DB::connection('DB_Serverr')->table('periodos')->where('fecha_inicio',$datos->fecha_inicio)->update(['fecha_inicio'=>$datos->fecha_inicio,'fecha_fin'=>$datos->fecha_fin,'fecha_pago'=>$datos->fecha_pago]);
         
 
     }

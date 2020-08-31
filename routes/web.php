@@ -39,4 +39,5 @@ Route::delete('accionesperiodos/{id}', 'PeriodosController@eliminarperiodo')->na
 //puestos 
 Route::get('puestos','PuestosController@index')->name('puestos.index');
 
-    
+//deptos
+Route::get('/departamentos','DepartamentosController@index')->name('departamentos.index');
