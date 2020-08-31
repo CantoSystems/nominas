@@ -116,6 +116,7 @@ Schema::connection('DB_Serverr')->create('periodos', function($table)
     $table->string('fecha_fin');
     $table->string('fecha_pago');
 });
+
 Schema::connection('DB_Serverr')->create('areas', function($table)
 {
 $table->increments('id');
