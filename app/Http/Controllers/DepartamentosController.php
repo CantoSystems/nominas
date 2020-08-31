@@ -43,8 +43,9 @@ return $configDb;
                 $aux = DB::connection('DB_Serverr')->table('departamentos')
             	->join('areas', 'departamento.clave_area', '=', 'areas.clave_area')
             	->select('departamentos.*', 'areas.clave_area', 'areas.area')
-           	    ->fist();
-                return view('departamentos.departamentos',compact('aux'));
+				   ->fist();
+				   $departamentos = DB::connection('DB_Serverr')->table('departamentos')->get();
+                return view('departamentos.departamentos',compact('aux','departamentos'));
               break;
 
 			   case 'atras':
@@ -53,7 +54,8 @@ return $configDb;
 				->select('departamentos.*', 'areas.clave_area', 'areas.area')
 				->where('id','<',$inidc)
            	    ->first();
-                return view('departamentos.departamentos',compact('aux'));
+				   $departamentos = DB::connection('DB_Serverr')->table('departamentos')->get();
+				   return view('departamentos.departamentos',compact('aux','departamentos'));
                break;
 
                case 'siguiente':
@@ -62,21 +64,24 @@ return $configDb;
 				->select('departamentos.*', 'areas.clave_area', 'areas.area')
 				->where('id','>',$inidc)
            	    ->first();
-                return view('departamentos.departamentos',compact('aux'));
+				   $departamentos = DB::connection('DB_Serverr')->table('departamentos')->get();
+				   return view('departamentos.departamentos',compact('aux','departamentos'));
                break;
                case 'primero':
                 $aux = DB::connection('DB_Serverr')->table('departamentos')
             	->join('areas', 'departamento.clave_area', '=', 'areas.clave_area')
             	->select('departamentos.*', 'areas.clave_area', 'areas.area')
            	    ->first();
-                return view('departamentos.departamentos',compact('aux'));
+				   $departamentos = DB::connection('DB_Serverr')->table('departamentos')->get();
+				   return view('departamentos.departamentos',compact('aux','departamentos'));
                break;
                case 'ultimo':
 				$aux = DB::connection('DB_Serverr')->table('departamentos')
             	->join('areas', 'departamento.clave_area', '=', 'areas.clave_area')
             	->select('departamentos.*', 'areas.clave_area', 'areas.area')->get()
            	    ->last();
-                return view('departamentos.departamentos',compact('aux'));
+				   $departamentos = DB::connection('DB_Serverr')->table('departamentos')->get();
+				   return view('departamentos.departamentos',compact('aux','departamentos'));
                break;
                case 'registrar':
                 $this->registrar($request);
@@ -84,7 +89,8 @@ return $configDb;
             	->join('areas', 'departamento.clave_area', '=', 'areas.clave_area')
             	->select('departamentos.*', 'areas.clave_area', 'areas.area')
            	    ->fist();
-                return view('departamentos.departamentos',compact('aux'));
+				   $departamentos = DB::connection('DB_Serverr')->table('departamentos')->get();
+				   return view('departamentos.departamentos',compact('aux','departamentos'));
                break;
                case 'eliminar':
                 
@@ -113,7 +119,7 @@ return $configDb;
 	];
 	
 		\Config::set('database.connections.DB_Serverr', $configDb);
-		DB::connection('DB_Serverr')->insert('insert into departamentos (clave_departamento, departamento,clave_area)
+		DB::connection('DB_Serverr')->insert('insert into departamentos (clave_departamento, departamento,clv_area)
 		values (?,?,?)',[$clave_departamento,$datos->departamento,$datos->clave_area]);
 	}
 }
