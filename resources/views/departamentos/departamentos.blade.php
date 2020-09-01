@@ -18,12 +18,12 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach($deptos as $dep)
+                            @foreach($departamentos as $dep)
                             <tr>
                                 
-                                <td>{{$dep->clave_depto}}</td>
-                                <td>{{$dep->depto}}</td>
-                                <td>{{$dep->area}}</td>
+                                <td>{{$dep->clave_departamento}}</td>
+                                <td>{{$dep->departamento}}</td>
+                                <td>----</td>
                             </tr>
                             @endforeach
                         </tbody>
@@ -41,7 +41,7 @@
                     <h3 class="card-title">Departamentos</h3>
                 </div>
             <div class="card-body">
-                <form action="" method="GET">
+            <form action="{{route('departamentos.index')}}" method="GET">
                     <div class="row">
                         <div class="col-md-4">
                             <label>Clave departamento:</label>
@@ -58,7 +58,6 @@
                             <option value="{{$aux->clave_area}}">{{$aux->area}}</option>
                 				@foreach($areas as $ar)
                 						<option value="{{$ar->clave_area}}">{{$ar->area}}</option>
-                					@endif
                 				@endforeach
               				</select>
                         </div>
