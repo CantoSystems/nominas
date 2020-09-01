@@ -112,16 +112,16 @@ Schema::connection('DB_Serverr')->create('periodos', function($table)
 {
     $table->increments('id');
     $table->string('numero');
-    $table->string('fecha_inicio');
-    $table->string('fecha_fin');
-    $table->string('fecha_pago');
+    $table->date('fecha_inicio');
+    $table->date('fecha_fin');
+    $table->date('fecha_pago');
 });
 
 Schema::connection('DB_Serverr')->create('areas', function($table)
 {
 $table->increments('id');
 $table->string('area');
-$table->string('clave_area');
+$table->char('clave_area', 10);
 });
 
 Schema::connection('DB_Serverr')->create('puestos', function($table)
@@ -136,8 +136,8 @@ Schema::connection('DB_Serverr')->create('departamentos', function($table)
 $table->increments('id');
 $table->string('clave_departamento');
 $table->string('departamento');
-$table->integer('clv_area')->unsigned();            
-$table->foreign('clv_area')->references('clave_area')->on('areas');
+$table->integer('id_area')->unsigned();            
+$table->foreign('id_area')->references('id')->on('areas')->onDelete('cascade');
 });
 
      $empresa->nombre= $datos->nombre;

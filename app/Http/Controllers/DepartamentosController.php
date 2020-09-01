@@ -41,7 +41,7 @@ return $configDb;
            switch ($accion) {
                case '':
                 $aux = DB::connection('DB_Serverr')->table('departamentos')
-            	->join('areas', 'departamento.clave_area', '=', 'areas.clave_area')
+            	->join('areas', 'departamento.id_area', '=', 'areas.id')
             	->select('departamentos.*', 'areas.clave_area', 'areas.area')
 				   ->fist();
 				   $departamentos = DB::connection('DB_Serverr')->table('departamentos')->get();
