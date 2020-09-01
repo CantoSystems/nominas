@@ -134,10 +134,9 @@ $table->string('nombre_puesto');
 Schema::connection('DB_Serverr')->create('departamentos', function($table)
 {
 $table->increments('id');
-$table->string('clave_departamento');
+$table->char('clave_departamento', 10);
 $table->string('departamento');
-$table->integer('id_area')->unsigned();            
-$table->foreign('id_area')->references('id')->on('areas')->onDelete('cascade');
+$table->char('clave_area', 10);
 });
 
      $empresa->nombre= $datos->nombre;
