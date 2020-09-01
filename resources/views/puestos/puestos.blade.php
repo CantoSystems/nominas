@@ -19,8 +19,8 @@
                         <tbody>
                             @foreach ($puestos as $puesto)
                             <tr>
-                                <td>{{$puesto->clave}}</td>
-                                <td>{{$puesto->puesto}}</td>
+                                <td>{{$puesto->clave_puesto}}</td>
+                                <td>{{$puesto->nombre_puesto}}</td>
                             </tr>
                             @endforeach
                         </tbody>
@@ -39,12 +39,12 @@
                     <h3 class="card-title">Periodos</h3>
                 </div>
             <div class="card-body">
-                <form action="{{ route('puestos.acciones')}}" method="GET">
+                <form action="{{ route('puestos.index')}}" method="GET">
                     <div class="row">
                         <div class="col-md-4">
                             <label>Puesto</label>
                             <input type="hidden" class="form-control" name="identificador" value="{{$aux->id}}">
-                            <input type="date" class="form-control" name="puesto" value="{{$aux->puesto}}">
+                            <input type="date" class="form-control" name="puesto" value="{{$aux->nombre_puesto}}">
                             <input type="hidden" class="form-control" name="clave_puesto" value="{{$aux->clave_puesto}}">
                         </div>
                          <div class="col-sm-5">
@@ -117,7 +117,7 @@
                 </div>
                  </div>
                 </form>
-                @include('periodos.modaldeleteperiodos')
+               
 
 
         </div>

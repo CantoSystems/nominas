@@ -23,7 +23,8 @@ class PuestosController extends Controller
            switch ($accion) {
                case '':
                 $aux = DB::connection('DB_Serverr')->table('puestos')->get()->first();
-                return view('puestos.puestos',compact('aux'));
+                $puestos= DB::connection('DB_Serverr')->table('puestos')->get();
+                return view('puestos.puestos',compact('aux','puestos'));
               break;
 
                case 'atras':
@@ -96,7 +97,7 @@ public function registrar($datos){
 
     \Config::set('database.connections.DB_Serverr', $configDb);
     DB::connection('DB_Serverr')->insert('insert into puestos (clave_puesto, puesto)
-    values (?,?)',[$datos->clave_puesto,$datos->puesto]);
+    values (?,?)',[$datos->clave_puesto,$datos->nombre_puesto]);
 }
 
 public function conectar($clv)
