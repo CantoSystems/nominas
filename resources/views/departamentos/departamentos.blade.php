@@ -45,22 +45,19 @@
                     <div class="row">
                         <div class="col-md-4">
                             <label>Clave departamento:</label>
-                            <input type="hidden" class="form-control" name="identificador" value="{{$aux->dnidep}}">
-                            <input type="text" class="form-control" name="clave_depto" value="{{$aux->clave_depto}}">
+                            <input type="hidden" class="form-control" name="identificador" value="{{$aux->id}}">
+                            <input type="text" class="form-control" name="clave_depto" value="{{$aux->clave_departamento}}">
                         </div>
                         <div class="col-md-4">
                             <label>Nombre:</label>
-                            <input type="text" class="form-control" name="depto" value="{{$aux->depto}}">
+                            <input type="text" class="form-control" name="depto" value="{{$aux->departamento}}">
                         </div>
                         <div class="col-md-4">
                             <label>Áreas:</label>
-                            <select class="custom-select" name="areas_id">
+                            <select class="custom-select" name="clv_area">
+                            <option value="{{$aux->clave_area}}">{{$aux->area}}</option>
                 				@foreach($areas as $ar)
-                					@if( $aux->area != $ar->area )
-                						{
-                							<option value="{{$aux->dniareas}}">{{$aux->area}}</option>
-                						}
-                						<option value="{{$ar->id}}">{{$ar->area}}</option>
+                						<option value="{{$ar->clave_area}}">{{$ar->area}}</option>
                 					@endif
                 				@endforeach
               				</select>
