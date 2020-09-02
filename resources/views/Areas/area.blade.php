@@ -43,7 +43,7 @@
                 <div class="col-md-12">
                     <div class="form-group">
                         <label>Nombre:</label>
-                    <input type="text" name="nombre" class="form-control" value="{{$aux->area}}"  onkeyup="mayus(this);" onkeypress="return numeros(event)">
+                    <input type="text" name="area" class="form-control" value="{{$aux->area}}"  onkeyup="mayus(this);" onkeypress="return numeros(event)">
                     <input type="hidden" name="clave_area" class="form-control" value="{{$aux->clave_area}}"  onkeyup="mayus(this);">
                     <input type="hidden" name="identificador" class="form-control" value="{{$aux->id}}"  onkeyup="mayus(this);">
                     </div>
