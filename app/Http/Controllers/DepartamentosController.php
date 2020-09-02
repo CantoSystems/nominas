@@ -42,7 +42,7 @@ return $configDb;
                case '':
                 $aux = DB::connection('DB_Serverr')->table('departamentos')
 				->join('areas','departamentos.clave_area','=','areas.clave_area')
-				->select('departamentos.*','areas.area')->get()->last();
+				->select('departamentos.*','areas.area')->latest('id')->first();
 				   $departamentos = DB::connection('DB_Serverr')->table('departamentos')->get();
 				   $areas=DB::connection('DB_Serverr')->table('areas')->get();
                 return view('departamentos.departamentos',compact('aux','departamentos','areas'));
@@ -52,7 +52,7 @@ return $configDb;
 				$aux = DB::connection('DB_Serverr')->table('departamentos')
 				->join('areas','departamentos.clave_area','=','areas.clave_area')
 				->select('departamentos.*','areas.area')
-				->where('departamentos.id','<',$request->identificador)->first();
+				->where('departamentos.id','<',$request->identificador)->latest('id')->first();
 				   if($aux==""){
 					$aux = DB::connection('DB_Serverr')->table('departamentos')
 				->join('areas','departamentos.clave_area','=','areas.clave_area')
@@ -120,6 +120,9 @@ return $configDb;
 				   $areas=DB::connection('DB_Serverr')->table('areas')->get();
 				   return view('departamentos.departamentos',compact('aux','departamentos','areas'));
                break;
+               case 'cancelar':
+               	return back();
+               	break;
                default:
                    # code...
                    break;
