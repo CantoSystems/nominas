@@ -46,15 +46,15 @@
                         <div class="col-md-4">
                             <label>Clave departamento:</label>
                             <input type="hidden" class="form-control" name="identificador" value="{{$aux->id}}">
-                            <input type="hidden" class="form-control" name="clave_depto" value="{{$aux->clave_departamento}}">
+                            <input type="hidden" class="form-control" name="clave_departamento" value="{{$aux->clave_departamento}}">
                         </div>
                         <div class="col-md-4">
                             <label>Nombre:</label>
-                            <input type="text" class="form-control" name="depto" value="{{$aux->departamento}}">
+                            <input type="text" class="form-control" name="departamento" value="{{$aux->departamento}}">
                         </div>
                         <div class="col-md-4">
                             <label>Áreas:</label>
-                            <select class="custom-select" name="clv_area">
+                            <select class="custom-select" name="clave_area">
                             <option value="{{$aux->clave_area}}">{{$aux->area}}</option>
                 				@foreach($areas as $ar)
                 						<option value="{{$ar->clave_area}}">{{$ar->area}}</option>

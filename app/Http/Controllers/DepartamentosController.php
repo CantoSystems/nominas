@@ -95,17 +95,27 @@ return $configDb;
                break;
                case 'registrar':
                 $this->registrar($request);
-				$aux = DB::connection('DB_Serverr')->table('departamentos')->first();
+				$aux = DB::connection('DB_Serverr')->table('departamentos')
+				->join('areas','departamentos.clave_area','=','areas.clave_area')
+				->select('departamentos.*','areas.area')->get()->last();
 				   $departamentos = DB::connection('DB_Serverr')->table('departamentos')->get();
 				   $areas=DB::connection('DB_Serverr')->table('areas')->get();
 				   return view('departamentos.departamentos',compact('aux','departamentos','areas'));
                break;
                case 'eliminar':
-                
+				DB::connection('DB_Serverr')->table('departamentos')->where('clave_departamento',$request->clave_departamento)->delete();
+				$aux = DB::connection('DB_Serverr')->table('departamentos')
+				->join('areas','departamentos.clave_area','=','areas.clave_area')
+				->select('departamentos.*','areas.area')->get()->last();
+				   $departamentos = DB::connection('DB_Serverr')->table('departamentos')->get();
+				   $areas=DB::connection('DB_Serverr')->table('areas')->get();
+				   return view('departamentos.departamentos',compact('aux','departamentos','areas'));
 			   break;
 			   case 'actualizar':
 				$this->actualizar($request);
-				$aux = DB::connection('DB_Serverr')->table('departamentos')->first();
+				$aux = DB::connection('DB_Serverr')->table('departamentos')
+				->join('areas','departamentos.clave_area','=','areas.clave_area')
+				->select('departamentos.*','areas.area')->get()->last();
 				   $departamentos = DB::connection('DB_Serverr')->table('departamentos')->get();
 				   $areas=DB::connection('DB_Serverr')->table('areas')->get();
 				   return view('departamentos.departamentos',compact('aux','departamentos','areas'));
@@ -135,7 +145,7 @@ return $configDb;
 	];
 	
 		\Config::set('database.connections.DB_Serverr', $configDb);
-		DB::connection('DB_Serverr')->insert('insert into departamentos (clave_departamento, departamento,clv_area)
+		DB::connection('DB_Serverr')->insert('insert into departamentos (clave_departamento, departamento,clave_area)
 		values (?,?,?)',[$clave_departamento,$datos->departamento,$datos->clave_area]);
 	}
 
@@ -149,7 +159,7 @@ return $configDb;
 	return $codigo;
 	}
 
-	public function actualizarperiodos($datos){
+	public function actualizar($datos){
 
         $empresa= Session::get('clave_empresa');
         $configDb = [
@@ -172,7 +182,7 @@ return $configDb;
 
     $aux1 = DB::connection('DB_Serverr')->table('departamentos')->where('clave_departamento',$clv)->first();
     
-    DB::connection('DB_Serverr')->table('departamentos')->where('clave_departamentos',$clv)->update(['nombre_departamento'=>$datos->nombre_departamento,'clave_area'=>$datos->clave_area]);
+    DB::connection('DB_Serverr')->table('departamentos')->where('clave_departamento',$clv)->update(['departamento'=>$datos->departamento,'clave_area'=>$datos->clave_area]);
         
 
     }
