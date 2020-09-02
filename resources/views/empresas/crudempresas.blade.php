@@ -5,24 +5,7 @@
         <h3 class="card-title">Empresas</h3>
     </div>
     
-    <script type="text/javascript">
-        function validar(e) { 
-        tecla = (document.all) ? e.keyCode : e.which; 
-        if (tecla==8) return true; 
-        patron =/[A-Za-z\s]/; 
-        te = String.fromCharCode(tecla); 
-        return patron.test(te); 
-        }
-</script>
-
-<script type="text/javascript">
-    function numeros(event) { 
-    if(event.charCode >=48 && event.charCode <=57 ){
-        return true;
-    }
-    return false;
-    }
-    </script>
+   
 
     <div class="card-body">
     <form action="{{ route('acciones')}}" method="GET">
@@ -42,13 +25,13 @@
                 <div class="col-sm-3">
                     <div class="form-group">
                         <label>RFC (Empresa):</label>
-                        <input type="text" name="rfc" min="13" class="form-control" value="{{$empresa->rfc}}" onkeyup="mayus(this);">
+                        <input type="text" name="rfc" maxlength="13" minlength="12" class="form-control" value="{{$empresa->rfc}}" onkeyup="mayus(this);">
                     </div>
                 </div>
                 <div class="col-sm-2">
                     <div class="form-group">
                         <label>Seguro social:</label>
-                        <input type="text" name="segurosocial" max="11" class="form-control" value="{{$empresa->segurosocial}}" onkeyup="mayus(this)"; onkeypress="return numeros(event)" >
+                        <input type="text" name="segurosocial" maxlength="11" class="form-control" value="{{$empresa->segurosocial}}" onkeyup="mayus(this)"; onkeypress="return numeros(event)" >
                     </div>
                 </div>
                 <div class="col-sm-3">
