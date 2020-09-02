@@ -36,17 +36,20 @@
             <div class="col">
             <div class="card card-secondary">
                 <div class="card-header">
-                    <h3 class="card-title">Periodos</h3>
+                    <h3 class="card-title">Puestos</h3>
                 </div>
             <div class="card-body">
                 <form action="{{ route('puestos.index')}}" method="GET">
                     <div class="row">
+                        <div class="col-md-8">
+                            <label>Puesto:</label>
+                            <input type="text" class="form-control" name="puesto" value="{{$aux->nombre_puesto}}">
+                        </div>
                         <div class="col-md-4">
-                            <label>Puesto</label>
                             <input type="hidden" class="form-control" name="identificador" value="{{$aux->id}}">
-                            <input type="date" class="form-control" name="puesto" value="{{$aux->nombre_puesto}}">
                             <input type="hidden" class="form-control" name="clave_puesto" value="{{$aux->clave_puesto}}">
                         </div>
+                        
                          <div class="col-sm-5">
                     <div class="card-body">
                         <div class="margin">
@@ -76,13 +79,13 @@
                         <div class="margin">
                             <div class="btn-group">
                                 <div class="form-group">
-                                    <button type="button" id="nuevo_periodos" style='width:40px; height:27px'> <i class="fas fa-user-plus"></i></button>
+                                    <button type="button" id="nuevo" style='width:40px; height:27px'> <i class="fas fa-user-plus"></i></button>
                                 </div>
                                 <div class="form-group">
-                                 <button type="button" id="actualizar_periodos" style='width:40px; height:27px'> <i class="fas fa-pen-square"></i></button>
+                                 <button type="button" id="actualizar" style='width:40px; height:27px'> <i class="fas fa-pen-square"></i></button>
                                 </div>
                                 <div class="form-group">
-                                    <a href="#" id="eliminar" data-target="#modal-deletenom-{{$aux->id}}" data-toggle="modal">
+                                    <a href="#" id="eliminar" data-target="#modal-deletenom" data-toggle="modal">
                                         <button type="button" style='width:40px; height:27px'>
                                             <i class="far fa-trash-alt">
                                             </i>
@@ -94,6 +97,8 @@
                 </div> 
 
 
+                
+               
                 <div class="col-sm-3">
                     <div class="card-body">
                         <div class="margin">
@@ -109,7 +114,7 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <button name="acciones" value="cancelar_periodos" id="cancelar_periodos" type="submit" style="display: none;width:40px; height:28px"><i class="far fa-window-close"></i></button>
+                                    <button name="acciones" value="cancelar_deptos" id="cancelar_periodos" type="submit" style="display: none;width:40px; height:28px"><i class="far fa-window-close"></i></button>
                                 </div>
                             </div>
                         </div>

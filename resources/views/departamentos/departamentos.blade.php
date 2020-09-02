@@ -43,12 +43,7 @@
             <div class="card-body">
             <form action="{{route('departamentos.index')}}" method="GET">
                     <div class="row">
-                        <div class="col-md-4">
-                            <label>Clave departamento:</label>
-                            <input type="hidden" class="form-control" name="identificador" value="{{$aux->id}}">
-                            <input type="hidden" class="form-control" name="clave_departamento" value="{{$aux->clave_departamento}}">
-                        </div>
-                        <div class="col-md-4">
+                        <div class="col-md-6">
                             <label>Nombre:</label>
                             <input type="text" class="form-control" name="departamento" value="{{$aux->departamento}}">
                         </div>
@@ -61,7 +56,10 @@
                 				@endforeach
               				</select>
                         </div>
-
+                        <div class="col-md-2">
+                            <input type="hidden" class="form-control" name="identificador" value="{{$aux->id}}">
+                            <input type="hidden" class="form-control" name="clave_departamento" value="{{$aux->clave_departamento}}">
+                        </div>
                          <div class="col-sm-5">
                     <div class="card-body">
                         <div class="margin">
@@ -91,10 +89,10 @@
                         <div class="margin">
                             <div class="btn-group">
                                 <div class="form-group">
-                                    <button type="button" id="nuevo_deptos" style='width:40px; height:27px'> <i class="fas fa-user-plus"></i></button>
+                                    <button type="button" id="nuevo" style='width:40px; height:27px'> <i class="fas fa-user-plus"></i></button>
                                 </div>
                                 <div class="form-group">
-                                 <button type="button" id="actualizar_deptos" style='width:40px; height:27px'> <i class="fas fa-pen-square"></i></button>
+                                 <button type="button" id="actualizar" style='width:40px; height:27px'> <i class="fas fa-pen-square"></i></button>
                                 </div>
                                 <div class="form-group">
                                     <a href="#" id="eliminar" data-target="#modal-deletenom" data-toggle="modal">
