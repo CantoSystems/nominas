@@ -26,7 +26,8 @@ class AreasController extends Controller
            switch ($accion) {
                case '':
                 $aux = DB::connection('DB_Serverr')->table('areas')->get()->first();
-                return view('Areas.area',compact('aux'));
+                $areas = DB::connection('DB_Serverr')->table('areas')->get();
+                return view('Areas.area',compact('aux','areas'));
               break;
 
                case 'atras':
@@ -34,7 +35,8 @@ class AreasController extends Controller
                 if($aux==""){
                     $aux = DB::connection('DB_Serverr')->table('areas')->get()->last();
                 }
-                return view('Areas.area',compact('aux'));
+                $areas = DB::connection('DB_Serverr')->table('areas')->get();
+                return view('Areas.area',compact('aux','areas'));
                  break;
 
 
@@ -43,27 +45,32 @@ class AreasController extends Controller
                 if($aux==""){
                     $aux = DB::connection('DB_Serverr')->table('areas')->get()->first();
                 }
-                return view('Areas.area',compact('aux'));
+                $areas = DB::connection('DB_Serverr')->table('areas')->get();
+                return view('Areas.area',compact('aux','areas'));
                break;
                case 'primero':
                 $aux = DB::connection('DB_Serverr')->table('areas')->first();
-                return view('Areas.area',compact('aux'));
+                $areas = DB::connection('DB_Serverr')->table('areas')->get();
+                return view('Areas.area',compact('aux','areas'));
                break;
                case 'ultimo':
                 $aux = DB::connection('DB_Serverr')->table('areas')->get()->last();
-                return view('Areas.area',compact('aux')); 
+               $areas = DB::connection('DB_Serverr')->table('areas')->get();
+                return view('Areas.area',compact('aux','areas')); 
                break;
                case 'registrar':
                $this->registrar($request);
                $aux = DB::connection('DB_Serverr')->table('areas')->get()->first();
-                return view('Areas.area',compact('aux'));
+               $areas = DB::connection('DB_Serverr')->table('areas')->get();
+                return view('Areas.area',compact('aux','areas'));
                break;
                case 'actualizar':
                 $aux1 = DB::connection('DB_Serverr')->table('areas')->where('clave_area',$clave_ar)->first();
                    if($aux1!==""){
                    DB::connection('DB_Serverr')->table('areas')->where('clave_area',$request->clave_area)->update(['area'=>$request->areas]);
                    $aux = DB::connection('DB_Serverr')->table('areas')->get()->first();
-                   return view('Areas.area',compact('aux'));
+                   $areas = DB::connection('DB_Serverr')->table('areas')->get();
+                return view('Areas.area',compact('aux','areas'));
                    }
                break;
                case 'eliminar':
@@ -71,9 +78,13 @@ class AreasController extends Controller
                 if($aux1!==""){
                 DB::connection('DB_Serverr')->table('areas')->where('clave_area',$request->clave_area)->delete();
                 $aux = DB::connection('DB_Serverr')->table('areas')->get()->first();
-                return view('Areas.area',compact('aux'));
+                $areas = DB::connection('DB_Serverr')->table('areas')->get();
+                return view('Areas.area',compact('aux','areas'));
                 }
                break;
+               case 'cancelar':
+                 return back();
+                 break;
                default:
                    # code...
                    break;

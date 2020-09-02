@@ -206,6 +206,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
     $('#nuevo').click(function(){
       $('#actualizar_reg').hide();
       $('#nuevo_reg').show();
+      $('#cancelar').show();
       $('input[type="text"]').val('');
       $('#primero').hide();
       $('#atras').hide();
@@ -215,6 +216,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
     $('#actualizar').click(function(){
       $('#nuevo_reg').hide();
     $('#actualizar_reg').show();
+      $('#cancelar').show();
     $('#primero').hide();
     $('#atras').hide();
     $('#siguiente').hide();
