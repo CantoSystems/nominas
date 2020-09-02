@@ -102,6 +102,13 @@ return $configDb;
                break;
                case 'eliminar':
                 
+			   break;
+			   case 'actualizar':
+				$this->actualizar($request);
+				$aux = DB::connection('DB_Serverr')->table('departamentos')->first();
+				   $departamentos = DB::connection('DB_Serverr')->table('departamentos')->get();
+				   $areas=DB::connection('DB_Serverr')->table('areas')->get();
+				   return view('departamentos.departamentos',compact('aux','departamentos','areas'));
                break;
                default:
                    # code...
@@ -111,6 +118,7 @@ return $configDb;
 
 	public function registrar($datos){
 		$clv=Session::get('clave_empresa');
+		$clave_departamento= $this->generador();
 		$configDb = [
 			'driver'      => 'mysql',
 			'host'        => env('DB_HOST', 'localhost'),
@@ -130,4 +138,42 @@ return $configDb;
 		DB::connection('DB_Serverr')->insert('insert into departamentos (clave_departamento, departamento,clv_area)
 		values (?,?,?)',[$clave_departamento,$datos->departamento,$datos->clave_area]);
 	}
+
+	public function generador(){
+	$raiz= '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+	$codigo='';
+	for ($i=0; $i < 3; $i++) { 
+		$letra= $raiz[mt_rand(0, 4 - 1)];
+		$codigo .=$letra;
+	}
+	return $codigo;
+	}
+
+	public function actualizarperiodos($datos){
+
+        $empresa= Session::get('clave_empresa');
+        $configDb = [
+        'driver'      => 'mysql',
+        'host'        => env('DB_HOST', 'localhost'),
+        'port'        => env('DB_PORT', '3306'),
+        'database'    => $empresa,
+        'username'    => env('DB_USERNAME', 'root'),
+        'password'    => env('DB_PASSWORD', ''),
+        'unix_socket' => env('DB_SOCKET', ''),
+        'charset'     => 'utf8',
+        'collation'   => 'utf8_unicode_ci',
+        'prefix'      => '',
+        'strict'      => true,
+        'engine'      => null,
+    ];
+    
+    \Config::set('database.connections.DB_Serverr', $configDb);
+    $clv=$datos->clave_departamento;
+
+    $aux1 = DB::connection('DB_Serverr')->table('departamentos')->where('clave_departamento',$clv)->first();
+    
+    DB::connection('DB_Serverr')->table('departamentos')->where('clave_departamentos',$clv)->update(['nombre_departamento'=>$datos->nombre_departamento,'clave_area'=>$datos->clave_area]);
+        
+
+    }
 }

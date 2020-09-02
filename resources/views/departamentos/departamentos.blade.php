@@ -46,7 +46,7 @@
                         <div class="col-md-4">
                             <label>Clave departamento:</label>
                             <input type="hidden" class="form-control" name="identificador" value="{{$aux->id}}">
-                            <input type="text" class="form-control" name="clave_depto" value="{{$aux->clave_departamento}}">
+                            <input type="hidden" class="form-control" name="clave_depto" value="{{$aux->clave_departamento}}">
                         </div>
                         <div class="col-md-4">
                             <label>Nombre:</label>

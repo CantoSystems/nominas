@@ -82,6 +82,7 @@ class AreasController extends Controller
 
 public function registrar($datos){
     $clv=Session::get('clave_empresa');
+    $clave_area= $this->generador();
     $configDb = [
         'driver'      => 'mysql',
         'host'        => env('DB_HOST', 'localhost'),
@@ -98,10 +99,18 @@ public function registrar($datos){
 ];
 
     \Config::set('database.connections.DB_Serverr', $configDb);
-    DB::connection('DB_Serverr')->insert('insert into areas (clave_empresa, area,clave_area)
-    values (?,?,?)',[$clv,$datos->areas,$datos->clave_area]);
+    DB::connection('DB_Serverr')->insert('insert into areas (area,clave_area)
+    values (?,?)',[$datos->nombre,$clave_area]);
 }
-
+public function generador(){
+	$raiz= '0123456789';
+	$codigo='';
+	for ($i=0; $i < 3; $i++) { 
+		$letra= $raiz[mt_rand(0, 4 - 1)];
+		$codigo .=$letra;
+	}
+	return $codigo;
+	}
 public function conectar($clv)
 {
 
