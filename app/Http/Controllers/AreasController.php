@@ -67,7 +67,7 @@ class AreasController extends Controller
                case 'actualizar':
                 $aux1 = DB::connection('DB_Serverr')->table('areas')->where('clave_area',$clave_ar)->first();
                    if($aux1!==""){
-                   DB::connection('DB_Serverr')->table('areas')->where('clave_area',$request->clave_area)->update(['area'=>$request->areas]);
+                   DB::connection('DB_Serverr')->table('areas')->where('clave_area',$request->clave_area)->update(['area'=>$request->area]);
                    $aux = DB::connection('DB_Serverr')->table('areas')->get()->first();
                    $areas = DB::connection('DB_Serverr')->table('areas')->get();
                 return view('Areas.area',compact('aux','areas'));
@@ -111,7 +111,7 @@ public function registrar($datos){
 
     \Config::set('database.connections.DB_Serverr', $configDb);
     DB::connection('DB_Serverr')->insert('insert into areas (area,clave_area)
-    values (?,?)',[$datos->nombre,$clave_area]);
+    values (?,?)',[$datos->area,$clave_area]);
 }
 public function generador(){
 	$raiz= '0123456789';

@@ -23,7 +23,7 @@
                                 
                                 <td>{{$dep->clave_departamento}}</td>
                                 <td>{{$dep->departamento}}</td>
-                                <td>----</td>
+                                <td>{{$dep->area}}</td>
                             </tr>
                             @endforeach
                         </tbody>
@@ -95,7 +95,7 @@
                                  <button type="button" id="actualizar" style='width:40px; height:27px'> <i class="fas fa-pen-square"></i></button>
                                 </div>
                                 <div class="form-group">
-                                    <a href="#" id="eliminar" data-target="#modal-deletenom" data-toggle="modal">
+                                    <a href="#" id="eliminar" data-target="#modal-delete-{{$aux->id}}" data-toggle="modal">
                                         <button type="button" style='width:40px; height:27px'>
                                             <i class="far fa-trash-alt">
                                             </i>
@@ -122,7 +122,7 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <button name="acciones" value="cancelar_deptos" id="cancelar_periodos" type="submit" style="display: none;width:40px; height:28px"><i class="far fa-window-close"></i></button>
+                                    <button name="acciones" value="cancelar" id="cancelar" type="submit" style="display: none;width:40px; height:28px"><i class="far fa-window-close"></i></button>
                                 </div>
                             </div>
                         </div>
@@ -130,7 +130,7 @@
                 </div>
                  </div>
                 </form>
-              
+               @include('departamentos.modaldeletedepartamentos')
 
         </div>
         <!-- Fin crud-->
