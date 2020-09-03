@@ -24,7 +24,9 @@ Route::delete('empresa/{id}', 'EmpresaController@destroy')->name('empresas.destr
 Route::get('accciones', 'EmpresaController@acciones')->name('acciones');
 Route::get('selecempresa','EmpresaController@seleccionarempresa')->name('seleccionarempresa');
 
+//areas
 Route::get('areas','AreasController@index')->name('areas.index');
+Route::delete('areas/{id}', 'AreasController@eliminararea')->name('areas.eliminaarea');
 
 
 //periodos
@@ -38,6 +40,7 @@ Route::delete('accionesperiodos/{id}', 'PeriodosController@eliminarperiodo')->na
 
 //puestos 
 Route::get('puestos','PuestosController@index')->name('puestos.index');
+Route::delete('puestos/{id}','PuestosController@eliminarpuestos')->name('puestos.eliminapuesto');
 
 //departamentos
 Route::get('/departamentos','DepartamentosController@index')->name('departamentos.index');
