@@ -13,7 +13,8 @@
 @method('DELETE')
 @csrf
 <div class="row">
-<h5 style="text-align: center;">¿Estas seguro de eliminar este departamento: {{$aux->departamento}}
+<h5 style="text-align: center;">¿Estas seguro de eliminar este departamento: 
+		<strong>{{$aux->departamento}}</strong>
 ?</h5>
 </div>
 
