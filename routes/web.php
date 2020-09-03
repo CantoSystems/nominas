@@ -42,3 +42,8 @@ Route::get('puestos','PuestosController@index')->name('puestos.index');
 //departamentos
 Route::get('/departamentos','DepartamentosController@index')->name('departamentos.index');
 Route::delete('departamentos/{id}', 'DepartamentosController@eliminardepartamento')->name('departamentos.eliminadepartamento');
+
+
+//Bancos
+
+Route::get('bancos','BancosController@seleccionarbanco')->name('seleccionarbanco');
