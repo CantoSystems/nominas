@@ -22,25 +22,30 @@ class BancosController extends Controller
 
      }
     
-    public function acciones(Request $request){
+    public function accionesban(Request $request){
         $accion= $request->acciones;
-        $clv=$request->clave;
+        $clv=$request->clave_banco;
+        
+        
            switch ($accion) {
                case '':
                    $banco= Banco::first();
                    return view('bancos.bancos', compact('banco'));
                    break;
+
                case 'atras':
-                    $banc= Banco::where('clave',$clv)->get()->last();
-                    $indic= $banc->id;
-                    $banco= Banco::where('id','<',$indic)->first();
-                    if($banco==""){
-                       $banco= Banco::get()->last();  
-                    }
-                    return view('bancos.bancos', compact('banco'));
+                $id= Banco::where("clave_banco",$clv)->first();
+               $banco= Banco::where('id','<',$id->id)
+            ->orderBy('id','desc')
+            ->first();
+            if(is_null($banco)){
+                $banco= Banco::get()->last();
+            }
+            return view('bancos.bancos', compact('banco'));
                break;
+               
                case 'siguiente':
-                   $banc= Banco::where('clave',$clv)->first();
+                   $banc= Banco::where('clave_banco',$clv)->first();
                    $indic= $banc->id;
                    $banco= Banco::where('id','>',$indic)->first();
                    if($banco==""){
