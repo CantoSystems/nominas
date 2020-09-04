@@ -49,4 +49,11 @@ Route::delete('departamentos/{id}', 'DepartamentosController@eliminardepartament
 
 //Bancos
 
+<<<<<<< HEAD
 Route::get('bancos','BancosController@accionesban')->name('accionesban');
+=======
+Route::get('bancos','BancosController@seleccionarbanco')->name('seleccionarbanco');
+
+//prestaciones 
+Route::get('/prestaciones','PrestacionesController@index')->name('prestaciones.index');
+>>>>>>> d0c8280b7a03386e7cfca102758acf0e15851b43

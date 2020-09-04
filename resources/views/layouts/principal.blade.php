@@ -17,6 +17,11 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <link rel="stylesheet" href="{{ asset('/Admin/dist/css/adminlte.min.css')}}">
   <!-- Google Font: Source Sans Pro -->
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+    <!-- Ionicons -->
+  <link rel="stylesheet" href="{{ asset('https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css')}}">
+  <!-- DataTables -->
+  <link rel="stylesheet" href="{{ asset('/Admin/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css')}}">
+  <link rel="stylesheet" href="{{ asset('/Admin/plugins/datatables-responsive/css/responsive.bootstrap4.min.css')}}">
 </head>
 <body>
 <div class="wrapper">
@@ -90,6 +95,14 @@ scratch. This page gets rid of all links and provides the needed markup only.
               </p>
             </a>
           </li>
+           <li class="nav-item">
+            <a href="{{ route('prestaciones.index')}}" class="nav-link">
+              <i class="nav-icon fas fa-th"></i>
+              <p>
+                Prestaciones
+              </p>
+            </a>
+          </li>
         </ul>
       </nav>
       <!-- /.sidebar-menu -->
@@ -149,6 +162,13 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <script src="{{ asset('/Admin/plugins/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
 <!-- AdminLTE App -->
 <script src="{{ asset('/Admin/dist/js/adminlte.min.js')}}"></script>
+<!-- DataTables -->
+<script src="{{ asset('/Admin/plugins/datatables/jquery.dataTables.min.js')}}"></script>
+<script src="{{ asset('/Admin/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js')}}"></script>
+<script src="/Admin/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
+<script src="/Admin/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
+<script src="{{ asset('/Admin/js/scripts.js')}}"></script>
+<script>
 <script>
       $(function(){ 
         $('#nuevo').click(function(){
@@ -202,6 +222,23 @@ if(event.charCode >=48 && event.charCode <=57 ){
 }
 return false;
 }
+</script>
+<script>
+  $(function () {
+    $("#example1").DataTable({
+      "responsive": true,
+      "autoWidth": false,
+    });
+    $('#example2').DataTable({
+      "paging": true,
+      "lengthChange": false,
+      "searching": false,
+      "ordering": true,
+      "info": true,
+      "autoWidth": false,
+      "responsive": true,
+    });
+  });
 </script>
 </body>
 </html>
