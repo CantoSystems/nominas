@@ -41,3 +41,6 @@ Route::get('puestos','PuestosController@index')->name('puestos.index');
 
 //deptos
 Route::get('/departamentos','DepartamentosController@index')->name('departamentos.index');
+
+//conceptos
+Route::get('/conceptos','ConceptosController@index')->name('conceptos.index');

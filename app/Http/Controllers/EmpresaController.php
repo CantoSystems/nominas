@@ -138,6 +138,22 @@ $table->char('clave_departamento', 10);
 $table->string('departamento');
 $table->char('clave_area', 10);
 });
+Schema::connection('DB_Serverr')->create('conceptos', function($table)
+{
+$table->increments('id');
+$table->char('clave_concepto', 10);
+$table->string('concepto');
+$table->string('formula');
+$table->string('naturaleza');
+$table->string('manejo');
+$table->string('cantidad');
+$table->string('importe');
+$table->string('monto');
+$table->boolean('ispt');
+$table->boolean('imss');
+$table->boolean('infonavit');
+$table->boolean('estatal');
+});
 
      $empresa->nombre= $datos->nombre;
      $empresa->rfc= $datos->rfc;

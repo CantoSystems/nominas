@@ -6,25 +6,25 @@
         <h3 class="card-title">Conceptos</h3>
     </div>
     <div class="card-body">
-    <form action="{{ route('acciones')}}" method="GET">
+    <form action="{{ route('conceptos.index')}}" method="GET">
     		<div class="row">
-    			<div class="col-sm-6">
+    			<div class="col-sm-1">
                     <div class="form-group">
                         <label>Clave:</label>
-                        <input type="text" name="clave"  class="form-control" value="{{$concepto->clave}}" onkeyup="mayus(this)"; >
+                        <input type="text" name="clave"  class="form-control" value="{{$aux->clave_concepto}}" onkeyup="mayus(this)"; >
                     </div>
                 </div>    
-                <div class="col-sm-1">
+                <div class="col-sm-4">
                     <div class="form-group">
                         <label>Concepto:</label>
-                        <input type="text" name="concepto" class="form-control" value="{{$concepto->concepto}}" onkeyup="mayus(this);">
+                        <input type="text" name="concepto" class="form-control" value="{{$aux->concepto}}" onkeyup="mayus(this);">
                     </div>
                 </div>
-                <div class="col-sm-3">
+                <div class="col-sm-2">
                     <div class="form-group">
                         <label>Naturaleza:</label>
                         <select class="custom-select" name="naturaleza">
-                        <option value="{{$concepto->naturaleza}}">{{$concepto->naturaleza}}</option>
+                        <option value="{{$aux->naturaleza}}">{{$aux->naturaleza}}</option>
                             <option value="P">Persepcion</option>
                             <option value="D">Deducción</option>
                             <option value="I">Impuesto al trabajador</option>
@@ -35,16 +35,65 @@
                 <div class="col-sm-2">
                     <div class="form-group">
                         <label>Manejo:</label>
-                        <input type="text" name="segurosocial" max="11" class="form-control" value="{{$empresa->segurosocial}}" onkeyup="mayus(this)"; onkeypress="return numeros(event)" >
-                    </div>
+                        <select class="custom-select" name="manejo">
+                            <option value="{{$aux->manejo}}">{{$aux->manejo}}</option>
+                                <option value="fijo">FIJO</option>
+                                <option value="variable">VARIABLE</option>
+                              </select>
+                    </div>  
                 </div>
                 <div class="col-sm-3">
                     <div class="form-group">
                         <label>Fórmula:</label>
-                        <input type="text" name="registro_estatal" class="form-control" value="{{$empresa->registro_estatal}}" onkeyup="mayus(this);">
+                        <input type="text" name="formula" class="form-control" value="{{$aux->formula}}" onkeyup="mayus(this);">
                     </div>
                 </div>
-
+                <div class="col-sm-2">
+                    <div class="form-group">
+                        <label>Cantidad:</label>
+                        <input type="text" name="formula" class="form-control" value="{{$aux->cantidad}}" onkeyup="mayus(this);">
+                    </div>
+                </div>
+                <div class="col-sm-2">
+                    <div class="form-group">
+                        <label>Importe:</label>
+                        <input type="text" name="formula" class="form-control" value="{{$aux->importe}}" onkeyup="mayus(this);">
+                    </div>
+                </div>
+                <div class="col-sm-2">
+                    <div class="form-group">
+                        <label>Monto:</label>
+                        <input type="text" name="formula" class="form-control" value="{{$aux->monto}}" onkeyup="mayus(this);">
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <!-- checkbox -->
+                    <label for=""></label>
+                    <div class="form-group">
+                      <div class="form-check">
+                      <input type="checkbox" name="ispt" id="ispt" value="{{$aux->ispt}}" {{  ($aux->ispt == 1 ? ' checked' : '') }}>
+                        <label class="form-check-label">I.S.P.T.</label>
+                      </div>
+                      <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="{{$aux->imss}}"@if ($aux->imss==1)
+                        checked                          
+                       @endif>
+                        <label class="form-check-label">I.M.S.S.</label>
+                      </div>
+                      <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="{{$aux->infonavit}}"@if ($aux->infonavit==1)
+                        checked                          
+                       @endif>
+                        <label class="form-check-label">INFONAVIT</label>
+                      </div>
+                      <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="{{$aux->estatal}}"@if ($aux->estatal==1)
+                        checked                          
+                       @endif>
+                        <label class="form-check-label">ESTATAL</label>
+                      </div>
+                    </div>
+                  </div> 
                 <div class="col-sm-5">
                     <div class="card-body">
                         <div class="margin">
@@ -78,7 +127,7 @@
                                  <button type="button" id="actualizar" style='width:70px; height:40px'> <i class="fas fa-pen-square"></i></button>
                                 </div>
                                 <div class="form-group">
-                                    <a href="#" id="eliminar" data-target="#modal-deletenom-{{$empresa->id}}" data-toggle="modal" style='width:70px; height:40px'>
+                                    <a href="#" id="eliminar" data-target="#modal-deletenom-" data-toggle="modal" style='width:70px; height:40px'>
                                         <button type="button" style='width:70px; height:40px'>
                                             <i class="far fa-trash-alt">
                                             </i>
@@ -114,7 +163,6 @@
                 </div>
             </div>	
     	</form>	
-         @include('empresas.modaldelete')
    	</div> 	
 </div>	
 
