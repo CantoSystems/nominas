@@ -26,6 +26,7 @@ class EmpresaController extends Controller
                  if($empresa==""){
                     $empresa= Empresa::get()->last();  
                  }
+                 
                  return view('empresas.crudempresas', compact('empresa'));
             break;
             case 'siguiente':

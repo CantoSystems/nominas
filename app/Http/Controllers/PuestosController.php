@@ -78,6 +78,9 @@ class PuestosController extends Controller
                 return view('puestos.puestos',compact('aux'));
                 }
                break;
+               case 'cancelar':
+                 return back();
+                 break;
                default:
                    # code...
                    break;
@@ -118,7 +121,7 @@ public function generador(){
     }
     
 public function conectar($clv)
-{
+  {
 
     $configDb = [
         'driver'      => 'mysql',
@@ -133,9 +136,35 @@ public function conectar($clv)
         'prefix'      => '',
         'strict'      => true,
         'engine'      => null,
-];
+    ];
+  
+    return $configDb;
 
-return $configDb;
+  }
 
-}
+  public function eliminarpuestos($id){
+    $clv=Session::get('clave_empresa');
+    $configDb = [
+        'driver'      => 'mysql',
+        'host'        => env('DB_HOST', 'localhost'),
+        'port'        => env('DB_PORT', '3306'),
+        'database'    => $clv,
+        'username'    => env('DB_USERNAME', 'root'),
+        'password'    => env('DB_PASSWORD', ''),
+        'unix_socket' => env('DB_SOCKET', ''),
+        'charset'     => 'utf8',
+        'collation'   => 'utf8_unicode_ci',
+        'prefix'      => '',
+        'strict'      => true,
+        'engine'      => null,
+    ];
+
+    \Config::set('database.connections.DB_Serverr', $configDb);
+    $aux1 = DB::connection('DB_Serverr')->table('puestos')->where('id',$id)->delete();
+    $aux = DB::connection('DB_Serverr')->table('puestos')->get()->first();
+    $puestos= DB::connection('DB_Serverr')->table('puestos')->get();
+    return view('puestos.puestos',compact('aux','puestos'));
+
+
+  }
 }

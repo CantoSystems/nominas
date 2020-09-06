@@ -13,15 +13,15 @@
 <div class="row">
 <h3>¿Estas seguro de eliminar esta empresa?</h3>
 </div>
-<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-<button class="btn btn-primary" type="submit">Continuar</button>
-</form>
+
 
 
 
 </div>
 <div class="modal-footer">
-
+<button type="button"  data-dismiss="modal" style="width:110px; height:40px">Cancelar</button>
+<button  type="submit" style="width:110px; height:40px">Continuar</button>
+</form>
 </div>
 </div>
 </div>
