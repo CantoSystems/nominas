@@ -43,7 +43,9 @@
                 <div class="col-md-12">
                     <div class="form-group">
                         <label>Nombre:</label>
-                    <input type="text" name="nombre" class="form-control" value="{{$aux->area}}"  onkeyup="mayus(this);" onkeypress="return validar(event)">
+
+                    <input type="text" name="area" class="form-control" value="{{$aux->area}}"  onkeyup="mayus(this);" onkeypress="return validar(event)">
+
                     <input type="hidden" name="clave_area" class="form-control" value="{{$aux->clave_area}}"  onkeyup="mayus(this);">
                     <input type="hidden" name="identificador" class="form-control" value="{{$aux->id}}"  onkeyup="mayus(this);">
                     </div>
@@ -82,7 +84,7 @@
                                  <button type="button" id="actualizar" style='width:40px; height:27px'> <i class="fas fa-pen-square"></i></button>
                                 </div>
                                 <div class="form-group">
-                                    <a href="#" id="eliminar" data-target="#modal-deletenom- data-toggle="modal" style='width:40px; height:27px'>
+                                    <a href="#" id="eliminar" data-target="#modal-deletearea-{{$aux->id}}" data-toggle="modal" style='width:40px; height:27px'>
                                         <button type="button" style='width:40px; height:27px'>
                                             <i class="far fa-trash-alt">
                                             </i>
@@ -113,7 +115,8 @@
                     </div>
                 </div>
             </div>  
-        </form> 
+        </form>
+        @include('areas.modaldeletearea')
         
     </div>  
 </div>  

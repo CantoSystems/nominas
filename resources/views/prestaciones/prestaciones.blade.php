@@ -1,29 +1,30 @@
-@extends('layouts.segunda')
+@extends('layouts.principal')
 @section('content')
 <div class="container">
-	<div class="row">
-		<!-- Inicio Datatables-->
+    <div class="row">
+        <!-- Inicio Datatables-->
         <div class="col">
-        	<div class="card card-secondary">
+            <div class="card card-secondary">
                 <div class="card-header">
-                    <h3 class="card-title">Departamentos</h3>
+                    <h3 class="card-title">Prestaciones</h3>
                 </div>
                 <div class="card-body">
                     <table id="example1" class="table table-bordered table-striped">
                         <thead>
                             <tr>
-                                <th>Clave departamento</th>
-                                <th>Nombre departamento</th>
-                                <th>Área</th>
+                                <th>Año</th>
+                                <th>Días</th>
+                                <th>Prima Vacacional</th>
+                                <th>Aguinaldo</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach($departamentos as $dep)
+                            @foreach($prestaciones as $presta)
                             <tr>
-                                
-                                <td>{{$dep->clave_departamento}}</td>
-                                <td>{{$dep->departamento}}</td>
-                                <td>{{$dep->area}}</td>
+                                <td>{{$presta->anio}}</td>
+                                <td>{{$presta->dias}}</td>
+                                <td>{{$presta->prima_vacacional}}</td>
+                                <td>{{$presta->aguinaldo}}</td>
                             </tr>
                             @endforeach
                         </tbody>
@@ -32,34 +33,37 @@
             </div>
 
         </div>
-        <!-- Fin Datatables-->
+         <!--Fin Datatables-->
 
-        <!-- Inicio crud-->
-        <div class="col">
-        	<div class="card card-secondary">
+         <!--Sección botones y direcciones-->
+        
+            <div class="col">
+            <div class="card card-secondary">
                 <div class="card-header">
-                    <h3 class="card-title">Departamentos</h3>
+                    <h3 class="card-title">Prestaciones</h3>
                 </div>
             <div class="card-body">
-            <form action="{{route('departamentos.index')}}" method="GET">
+                <form action="{{ route('prestaciones.index')}}" method="GET" autocomplete="off">
                     <div class="row">
                         <div class="col-md-6">
-                            <label>Nombre:</label>
-                            <input type="text" class="form-control" name="departamento" value="{{$aux->departamento}}">
-                        </div>
-                        <div class="col-md-4">
-                            <label>Áreas:</label>
-                            <select class="custom-select" name="clave_area">
-                            <option value="{{$aux->clave_area}}">{{$aux->area}}</option>
-                				@foreach($areas as $ar)
-                						<option value="{{$ar->clave_area}}">{{$ar->area}}</option>
-                				@endforeach
-              				</select>
-                        </div>
-                        <div class="col-md-2">
+                            <label>Año</label>
                             <input type="hidden" class="form-control" name="identificador" value="{{$aux->id}}">
-                            <input type="hidden" class="form-control" name="clave_departamento" value="{{$aux->clave_departamento}}">
+                            <input type="text" class="form-control" name="anio"
+                            value="{{$aux->anio}}">
                         </div>
+                        <div class="col-md-6">
+                            <label>Días</label>
+                            <input type="text" class="form-control" name="dias" value="{{$aux->dias}}">
+                        </div>
+                        <div class="col-md-6">
+                            <label>Prima Vacacional</label>
+                            <input type="text" class="form-control" name="prima_vacacional" value="{{$aux->prima_vacacional}}">
+                        </div>
+                        <div class="col-md-6">
+                            <label>Aguinaldo</label>
+                            <input type="text" class="form-control" name="aguinaldo" value="{{$aux->aguinaldo}}">
+                        </div>
+
                          <div class="col-sm-5">
                     <div class="card-body">
                         <div class="margin">
@@ -89,13 +93,13 @@
                         <div class="margin">
                             <div class="btn-group">
                                 <div class="form-group">
-                                    <button type="button" id="nuevo" style='width:40px; height:27px'> <i class="fas fa-user-plus"></i></button>
+                                    <button type="button" id="nuevo_periodos" style='width:40px; height:27px'> <i class="fas fa-user-plus"></i></button>
                                 </div>
                                 <div class="form-group">
-                                 <button type="button" id="actualizar" style='width:40px; height:27px'> <i class="fas fa-pen-square"></i></button>
+                                 <button type="button" id="actualizar_periodos" style='width:40px; height:27px'> <i class="fas fa-pen-square"></i></button>
                                 </div>
                                 <div class="form-group">
-                                    <a href="#" id="eliminar" data-target="#modal-delete-{{$aux->id}}" data-toggle="modal">
+                                    <a href="#" id="eliminar" data-target="#modal-deletenom" data-toggle="modal">
                                         <button type="button" style='width:40px; height:27px'>
                                             <i class="far fa-trash-alt">
                                             </i>
@@ -122,7 +126,7 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <button name="acciones" value="cancelar" id="cancelar" type="submit" style="display: none;width:40px; height:28px"><i class="far fa-window-close"></i></button>
+                                    <button name="acciones" value="cancelar_periodos" id="cancelar_periodos" type="submit" style="display: none;width:40px; height:28px"><i class="far fa-window-close"></i></button>
                                 </div>
                             </div>
                         </div>
@@ -130,13 +134,13 @@
                 </div>
                  </div>
                 </form>
-               @include('departamentos.modaldeletedepartamentos')
+               
 
         </div>
-        <!-- Fin crud-->
-        	
-	</div>
-</div>	
+         <!--Fin botones y direcciones-->
+    </div>
+</div>
+
 </div>
 </div>
 
