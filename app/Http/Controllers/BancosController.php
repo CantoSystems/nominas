@@ -126,4 +126,12 @@ class BancosController extends Controller
             $banco->nombre_banco= $datos->nombre_banco;
             $banco->save();
           }
+
+    public function eliminarbanco($id){
+      $banc = Banco::find($id);
+      $banc->delete();
+      $banco= Banco::first();
+      $bancos=Banco::all();
+      return view('bancos.bancos', compact('banco','bancos'));
+    }
 }

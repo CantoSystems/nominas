@@ -182,7 +182,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
           $('#actualizar_reg').hide();
           $('#nuevo_reg').show();
           $('#cancelar_reg').show();
-          $('#cancelar_actualiza').hide();
           $('input[type="text"]').val('');
           $('input[type="email"]').val('');
           $('#primero').hide();
@@ -193,7 +192,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
         $('#actualizar').click(function(){
 	      $('#nuevo_reg').hide();
         $('#actualizar_reg').show();
-        $('#cancelar_actualiza').show();
+        $('#cancelar_reg').show();
         $('#cancelar_reg').hide();
         $('#primero').hide();
         $('#atras').hide();
