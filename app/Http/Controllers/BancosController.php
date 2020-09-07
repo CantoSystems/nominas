@@ -81,9 +81,12 @@ class BancosController extends Controller
                case 'cancelar':
                    return back();
                break;
-               case 'cancelar_actualiza';
+               case 'cancelar_banco';
                    return back();
-               break;        
+               break; 
+               case 'cancelar_actualiza':
+                        return back();
+                        break;       
                default:
                    # code...
                break;

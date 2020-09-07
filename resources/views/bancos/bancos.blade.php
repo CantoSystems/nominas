@@ -33,7 +33,7 @@
          <!--Fin Datatables-->
 
          <!--Sección botones y direcciones-->
-         <div class="col">
+        <div class="col">
             <div class="card card-secondary">
                 <div class="card-header">
                     <h3 class="card-title">Prestaciones</h3>
@@ -91,17 +91,17 @@
                                     <div class="margin">
                                         <div class="btn-group">
                                             <div class="form-group">
-                                                <button type="button" id="nuevo" style='width:40px; height:27px'> <i class="fas fa-user-plus"></i></button>
+                                                <button type="button" id="nuevo_banco" style='width:40px; height:27px'> <i class="fas fa-user-plus"></i></button>
                                             </div>
                                             <div class="form-group">
-                                             <button type="button" id="actualizar" style='width:40px; height:27px'> <i class="fas fa-pen-square"></i></button>
+                                             <button type="button" id="actualizar_banco" style='width:40px; height:27px'> <i class="fas fa-pen-square"></i></button>
                                             </div>
                                             <div class="form-group">
-                                                <a href="#" id="eliminar" data-target="#modal-deletenom-{{$banco->id}}"  data-toggle="modal" style='width:40px; height:27px'>
-                                                    <button type="button" style='width:40px; height:28px'>
-                                                        <i class="far fa-trash-alt">
-                                                        </i>
-                                                    </button></a>
+                                            <a id="eliminar" data-target="#modal-deletebanco-{{$banco->id}}" data-toggle="modal">
+                                            <button type="button" style='width:40px; height:27px'>
+                                            <i class="far fa-trash-alt">
+                                            </i>
+                                            </button></a>
                                             </div>
                                         </div>
                                     </div>
@@ -109,30 +109,37 @@
                             </div> 
             
                             <div class="col-sm-3">
-                                <div class="card-body">
-                                    <div class="margin">
-                                        <div class="btn-group">
-                                            <div class="form-group">
-                                                   <button id="nuevo_reg" name="acciones" value="registrar" type="submit" style='width:40px; height:27px'><i class="fas fa-save"></i></button>
-                                            </div>
-                                            <div class="form-group">
-                                                <button name="acciones" value="actualizar" id="actualizar_reg" type="submit" style='width:40px; height:27px'><i class="fas fa-save"></i></button>
-                                            </div>
-                                            <div class="form-group">
-                                                <button name="acciones" value="cancelar" id="cancelar_reg" type="submit" style='width:40px; height:27px'><i class="far fa-window-close"></i></button>
-                                            </div>
-                                            
-                                        </div>
-                                    </div>
+                    <div class="card-body">
+                        <div class="margin">
+                            <div class="btn-group">
+                                <div class="form-group">
+                                    
+                                       <button id="nuevo_reg" name="acciones" value="registrar" type="submit" style="display: none;width:40px; height:27px'"><i class="fas fa-save"></i></button>
+                                        
+                                    
+                                </div>
+                                <div class="form-group">
+                                    <button name="acciones" value="actualizar" id="actualizar_reg" type="submit" style="display: none;width:40px; height:27px'"><i class="fas fa-save"></i></button>
+                                </div>
+
+                                <div class="form-group">
+                                    <button name="acciones" value="cancelar_banco" id="cancelar_reg" type="submit" style="display: none;width:40px; height:28px"><i class="far fa-window-close"></i></button>
+                                </div>
+
+                                <div class="form-group">
+                                    <button name="acciones" value="cancelar_actualiza" id="cancelar_actual" type="submit" style="display: none;width:40px; height:28px"><i class="far fa-window-close"></i></button>
                                 </div>
                             </div>
+                        </div>
+                    </div>
+                </div>
                         </div>  
                     </form>
                     @include('bancos.modaldeletebanco')
                     
                    </div> 
                    </div>  
-        
+        </div>
     </div>
 </div>
  
