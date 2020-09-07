@@ -44,22 +44,13 @@ Route::delete('puestos/{id}','PuestosController@eliminarpuestos')->name('puestos
 
 //departamentos
 Route::get('/departamentos','DepartamentosController@index')->name('departamentos.index');
-<<<<<<< HEAD
-
-//conceptos
 Route::get('/conceptos','ConceptosController@index')->name('conceptos.index');
-=======
 Route::delete('departamentos/{id}', 'DepartamentosController@eliminardepartamento')->name('departamentos.eliminadepartamento');
 
 
 //Bancos
 
-<<<<<<< HEAD
-Route::get('bancos','BancosController@accionesban')->name('accionesban');
-=======
-Route::get('bancos','BancosController@seleccionarbanco')->name('seleccionarbanco');
+Route::get('bancos','BancosController@acciones')->name('bancos.acciones');
 
 //prestaciones 
 Route::get('/prestaciones','PrestacionesController@index')->name('prestaciones.index');
->>>>>>> d0c8280b7a03386e7cfca102758acf0e15851b43
->>>>>>> 6ea5dd80f9502446b61b2dfe4e5a28bad5409009

@@ -22,7 +22,7 @@ class BancosController extends Controller
 
      }
     
-    public function accionesban(Request $request){
+    public function acciones(Request $request){
         $accion= $request->acciones;
         $clv=$request->clave_banco;
         
@@ -30,7 +30,8 @@ class BancosController extends Controller
            switch ($accion) {
                case '':
                    $banco= Banco::first();
-                   return view('bancos.bancos', compact('banco'));
+                   $bancos=Banco::all();
+                   return view('bancos.bancos', compact('banco','bancos'));
                    break;
 
                case 'atras':
@@ -41,7 +42,8 @@ class BancosController extends Controller
             if(is_null($banco)){
                 $banco= Banco::get()->last();
             }
-            return view('bancos.bancos', compact('banco'));
+            $bancos=Banco::all();
+                   return view('bancos.bancos', compact('banco','bancos'));
                break;
                
                case 'siguiente':
@@ -51,25 +53,30 @@ class BancosController extends Controller
                    if($banco==""){
                       $banco= Banco::first();  
                    }
-                   return view('bancos.bancos', compact('banco'));
+                   $bancos=Banco::all();
+                   return view('bancos.bancos', compact('banco','bancos'));
                break;
                case 'primero':
                    $banco= Banco::first();
-                   return view('bancos.bancos', compact('banco'));
+                   $bancos=Banco::all();
+                   return view('bancos.bancos', compact('banco','bancos'));
                break;
                case 'ultimo':
                    $banco= Banco::get()->last(); 
-                   return view('bancos.bancos', compact('banco')); 
+                   $bancos=Banco::all();
+                   return view('bancos.bancos', compact('banco','bancos'));
                break;
                case 'registrar':
                $this->registrar($request);
                $banco= Banco::first();
-               return view('bancos.bancos', compact('banco'));
+               $bancos=Banco::all();
+                   return view('bancos.bancos', compact('banco','bancos'));
                break;
                case 'actualizar':
                    $this->actualizar($request);
                    $banco= Banco::first();
-                   return view('bancos.bancos', compact('banco'));
+                   $bancos=Banco::all();
+                   return view('bancos.bancos', compact('banco','bancos'));
                break;
                case 'cancelar':
                    return back();
@@ -86,10 +93,8 @@ class BancosController extends Controller
 
        public function actualizar($datos){ 
         $banc= Banco::where('clave_banco',$datos->clave_banco)->first();
-        $banc->nombre_banco= $datos->nombre_banco;
-        $banc->clave_banco= $datos->clave_banco;
-        
-        $banc ->save();
+        $banc->nombre_banco= $datos->nombre_banco; 
+        $banc->save();
      }
 
 
@@ -113,75 +118,12 @@ class BancosController extends Controller
         return $codigo;
         }
 
-        public function seleccionarbanco(Request $request){
-             $clv= $request->banco;
-            $banco= Banco::where('clave_banco',$clv)->first();
-
-            //Session::put('clave_banco',$banco->clave_banco);
-            //Session::put('nombre_banco',$banco->nombre_banco);
-            return view('bancos.bancos'); 
-           } 
 
           public function registrar($datos){
             $banco= new Banco;
-            $banco->clave_banco= $datos->clave_banco;
+            $clave= $this->generador();
+            $banco->clave_banco= $clave;
             $banco->nombre_banco= $datos->nombre_banco;
             $banco->save();
           }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
 }

@@ -11,7 +11,7 @@
     			<div class="col-sm-1">
                     <div class="form-group">
                         <label>Clave:</label>
-                        <input type="text" name="clave"  class="form-control" value="{{$aux->clave_concepto}}" onkeyup="mayus(this)"; >
+                        <input type="text" name="clave_concepto"  class="form-control" value="{{$aux->clave_concepto}}" onkeyup="mayus(this)"; >
                     </div>
                 </div>    
                 <div class="col-sm-4">

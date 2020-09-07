@@ -103,6 +103,14 @@ scratch. This page gets rid of all links and provides the needed markup only.
               </p>
             </a>
           </li>
+          <li class="nav-item">
+            <a href="{{ route('bancos.acciones')}}" class="nav-link">
+              <i class="nav-icon fas fa-th"></i>
+              <p>
+                Bancos
+              </p>
+            </a>
+          </li>
         </ul>
       </nav>
       <!-- /.sidebar-menu -->
@@ -168,7 +176,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <script src="/Admin/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
 <script src="/Admin/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
 <script src="{{ asset('/Admin/js/scripts.js')}}"></script>
-<script>
 <script>
       $(function(){ 
         $('#nuevo').click(function(){
