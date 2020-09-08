@@ -49,19 +49,19 @@
                             <label>Año</label>
                             <input type="hidden" class="form-control" name="identificador" value="{{$aux->id}}">
                             <input type="text" class="form-control" name="anio"
-                            value="{{$aux->anio}}">
+                            value="{{$aux->anio}}" onkeyup="mayus(this)"; onkeypress="return numeros(event)">
                         </div>
                         <div class="col-md-6">
                             <label>Días</label>
-                            <input type="text" class="form-control" name="dias" value="{{$aux->dias}}">
+                            <input type="text" class="form-control" name="dias" value="{{$aux->dias}}" onkeyup="mayus(this)"; onkeypress="return numeros(event)">
                         </div>
                         <div class="col-md-6">
                             <label>Prima Vacacional</label>
-                            <input type="text" class="form-control" name="prima_vacacional" value="{{$aux->prima_vacacional}}">
+                            <input type="text" class="form-control" name="prima_vacacional" value="{{$aux->prima_vacacional}}" onkeyup="mayus(this)"; onkeypress="return numeros(event)">
                         </div>
                         <div class="col-md-6">
                             <label>Aguinaldo</label>
-                            <input type="text" class="form-control" name="aguinaldo" value="{{$aux->aguinaldo}}">
+                            <input type="text" class="form-control" name="aguinaldo" value="{{$aux->aguinaldo}}" onkeyup="mayus(this)"; onkeypress="return numeros(event)">
                         </div>
 
                          <div class="col-sm-5">
@@ -93,13 +93,13 @@
                         <div class="margin">
                             <div class="btn-group">
                                 <div class="form-group">
-                                    <button type="button" id="nuevo_periodos" style='width:40px; height:27px'> <i class="fas fa-user-plus"></i></button>
+                                    <button type="button" id="nuevo_prestaciones" style='width:40px; height:27px'> <i class="fas fa-user-plus"></i></button>
                                 </div>
                                 <div class="form-group">
-                                 <button type="button" id="actualizar_periodos" style='width:40px; height:27px'> <i class="fas fa-pen-square"></i></button>
+                                 <button type="button" id="actualizar_prestaciones" style='width:40px; height:27px'> <i class="fas fa-pen-square"></i></button>
                                 </div>
                                 <div class="form-group">
-                                    <a href="#" id="eliminar" data-target="#modal-deletenom" data-toggle="modal">
+                                    <a id="eliminar" data-target="#modal-deleteprestaciones-{{$aux->id}}" data-toggle="modal">
                                         <button type="button" style='width:40px; height:27px'>
                                             <i class="far fa-trash-alt">
                                             </i>
@@ -126,7 +126,7 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <button name="acciones" value="cancelar_periodos" id="cancelar_periodos" type="submit" style="display: none;width:40px; height:28px"><i class="far fa-window-close"></i></button>
+                                    <button name="acciones" value="cancelar_prestaciones" id="cancelar_periodos" type="submit" style="display: none;width:40px; height:28px"><i class="far fa-window-close"></i></button>
                                 </div>
                             </div>
                         </div>
@@ -134,6 +134,7 @@
                 </div>
                  </div>
                 </form>
+                @include('prestaciones.modaldeleteprestaciones')
                
 
         </div>

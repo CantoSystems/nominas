@@ -51,6 +51,9 @@ Route::delete('departamentos/{id}', 'DepartamentosController@eliminardepartament
 //Bancos
 
 Route::get('bancos','BancosController@acciones')->name('bancos.acciones');
+Route::delete('bancos/{id}','BancosController@eliminarbanco')->name('bancos.eliminar');
+
 
 //prestaciones 
 Route::get('/prestaciones','PrestacionesController@index')->name('prestaciones.index');
+Route::delete('/prestaciones/{id}','PrestacionesController@destroy')->name('prestaciones.destroy');

@@ -39,11 +39,11 @@
                     <h3 class="card-title">Puestos</h3>
                 </div>
             <div class="card-body">
-                <form action="{{ route('puestos.index')}}" method="GET">
+                <form action="{{ route('puestos.index')}}" method="GET" autocomplete="off">
                     <div class="row">
                         <div class="col-md-8">
                             <label>Puesto:</label>
-                            <input type="text" class="form-control" name="puesto" value="{{$aux->nombre_puesto}}">
+                            <input type="text" class="form-control" name="puesto" value="{{$aux->nombre_puesto}}" onkeypress="return validar(event)">
                         </div>
                         <div class="col-md-4">
                             <input type="hidden" class="form-control" name="identificador" value="{{$aux->id}}">
