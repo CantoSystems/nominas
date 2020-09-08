@@ -39,7 +39,7 @@
                     <h3 class="card-title">Puestos</h3>
                 </div>
             <div class="card-body">
-                <form action="{{ route('puestos.index')}}" method="GET">
+                <form action="{{ route('puestos.index')}}" method="GET" autocomplete="off">
                     <div class="row">
                         <div class="col-md-8">
                             <label>Puesto:</label>

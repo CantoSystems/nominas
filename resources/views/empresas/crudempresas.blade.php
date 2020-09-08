@@ -8,7 +8,7 @@
    
 
     <div class="card-body">
-    <form action="{{ route('acciones')}}" method="GET">
+    <form action="{{ route('acciones')}}" method="GET" autocomplete="off">
     		<div class="row">
     			<div class="col-sm-6">
                     <div class="form-group">

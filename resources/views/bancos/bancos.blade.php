@@ -6,7 +6,7 @@
         <div class="col">
             <div class="card card-secondary">
                 <div class="card-header">
-                    <h3 class="card-title">Prestaciones</h3>
+                    <h3 class="card-title">Bancos</h3>
                 </div>
                 <div class="card-body">
                     <table id="example1" class="table table-bordered table-striped">
@@ -36,10 +36,10 @@
         <div class="col">
             <div class="card card-secondary">
                 <div class="card-header">
-                    <h3 class="card-title">Prestaciones</h3>
+                    <h3 class="card-title">Bancos</h3>
                 </div>
             <div class="card-body">
-                <form action="{{ route('bancos.acciones')}}" method="GET">
+                <form action="{{ route('bancos.acciones')}}" method="GET" autocomplete="off">
                         <div class="row">
                             <div class="col-sm-8">
                                 <div class="form-group">

@@ -38,7 +38,7 @@
         <h3 class="card-title">Áreas</h3>
     </div>
     <div class="card-body">
-    <form action="{{ route('areas.index')}}" method="GET">
+    <form action="{{ route('areas.index')}}" method="GET" autocomplete="off">
             <div class="row">
                 <div class="col-md-12">
                     <div class="form-group">
