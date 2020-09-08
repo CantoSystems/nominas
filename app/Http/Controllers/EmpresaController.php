@@ -132,7 +132,7 @@ $table->char('clave_area', 10);
 Schema::connection('DB_Serverr')->create('puestos', function($table)
 {
 $table->increments('id');
-$table->char('clave_puesto');
+$table->char('clave_puesto',10);
 $table->string('nombre_puesto');
 });
 
@@ -160,6 +160,16 @@ $table->boolean('infonavit');
 $table->boolean('estatal');
 });
 
+Schema::connection('DB_Serverr')->create('empleados', function($table){
+    $table->increments('id');
+    $table->char('clave_empleado',10);
+    $table->string('clasificacion');
+    $table->string('nombre');
+    $table->string('apellido_paterno');
+    $table->string('apellido_materno');
+    $table->date('fecha_alta');
+    $table->date('fecha_baja')->nullable();
+});
      $empresa->nombre= $datos->nombre;
      $empresa->rfc= $datos->rfc;
      $empresa->segurosocial= $datos->segurosocial;
