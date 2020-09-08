@@ -49,19 +49,19 @@
                             <label>Año</label>
                             <input type="hidden" class="form-control" name="identificador" value="{{$aux->id}}">
                             <input type="text" class="form-control" name="anio"
-                            value="{{$aux->anio}}">
+                            value="{{$aux->anio}}" onkeyup="mayus(this)"; onkeypress="return numeros(event)">
                         </div>
                         <div class="col-md-6">
                             <label>Días</label>
-                            <input type="text" class="form-control" name="dias" value="{{$aux->dias}}">
+                            <input type="text" class="form-control" name="dias" value="{{$aux->dias}}" onkeyup="mayus(this)"; onkeypress="return numeros(event)">
                         </div>
                         <div class="col-md-6">
                             <label>Prima Vacacional</label>
-                            <input type="text" class="form-control" name="prima_vacacional" value="{{$aux->prima_vacacional}}">
+                            <input type="text" class="form-control" name="prima_vacacional" value="{{$aux->prima_vacacional}}" onkeyup="mayus(this)"; onkeypress="return numeros(event)">
                         </div>
                         <div class="col-md-6">
                             <label>Aguinaldo</label>
-                            <input type="text" class="form-control" name="aguinaldo" value="{{$aux->aguinaldo}}">
+                            <input type="text" class="form-control" name="aguinaldo" value="{{$aux->aguinaldo}}" onkeyup="mayus(this)"; onkeypress="return numeros(event)">
                         </div>
 
                          <div class="col-sm-5">
