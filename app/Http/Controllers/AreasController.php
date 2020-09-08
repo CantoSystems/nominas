@@ -31,7 +31,7 @@ class AreasController extends Controller
               break;
 
                case 'atras':
-               $aux = DB::connection('DB_Serverr')->table('areas')->where('id','<',$indic)->first();
+               $aux = DB::connection('DB_Serverr')->table('areas')->where('id','<',$indic)->orderBy('id','desc')->first();
                 if($aux==""){
                     $aux = DB::connection('DB_Serverr')->table('areas')->get()->last();
                 }

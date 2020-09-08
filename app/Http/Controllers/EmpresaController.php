@@ -20,9 +20,13 @@ class EmpresaController extends Controller
                 return view('empresas.crudempresas', compact('empresa'));
                 break;
             case 'atras':
-                 $emp= Empresa::where('clave',$clv)->get()->last();
+                 $emp= Empresa::where('clave',$clv)->first();
                  $indic= $emp->id;
-                 $empresa= Empresa::where('id','<',$indic)->first();
+                $empresa= Empresa::where('id','<',$indic)
+                ->orderBy('id','desc')
+                ->first();
+
+
                  if($empresa==""){
                     $empresa= Empresa::get()->last();  
                  }
@@ -112,7 +116,7 @@ class EmpresaController extends Controller
 Schema::connection('DB_Serverr')->create('periodos', function($table)
 {
     $table->increments('id');
-    $table->string('numero');
+    $table->integer('numero');
     $table->date('fecha_inicio');
     $table->date('fecha_fin');
     $table->date('fecha_pago');
@@ -128,7 +132,7 @@ $table->char('clave_area', 10);
 Schema::connection('DB_Serverr')->create('puestos', function($table)
 {
 $table->increments('id');
-$table->string('clave_puesto');
+$table->char('clave_puesto');
 $table->string('nombre_puesto');
 });
 
@@ -147,9 +151,9 @@ $table->string('concepto');
 $table->string('formula');
 $table->string('naturaleza');
 $table->string('manejo');
-$table->string('cantidad');
-$table->string('importe');
-$table->string('monto');
+$table->float('cantidad');
+$table->float('importe');
+$table->float('monto');
 $table->boolean('ispt');
 $table->boolean('imss');
 $table->boolean('infonavit');

@@ -57,7 +57,23 @@ class PrestacionesController extends Controller
                 $prestaciones = Prestaciones::all();
                 return view('prestaciones.prestaciones',compact('aux','prestaciones'));
                 break;
-            
+            case 'registrar':
+                $this->store($request);
+                $aux = Prestaciones::first();
+                $prestaciones = Prestaciones::all();
+                return view('prestaciones.prestaciones',compact('aux','prestaciones'));
+                break;
+
+            case 'actualizar':
+                $this->update($request);
+                $aux = Prestaciones::first();
+                $prestaciones = Prestaciones::all();
+                return view('prestaciones.prestaciones',compact('aux','prestaciones'));
+                
+                break;
+            case 'cancelar_prestaciones':
+                return back();
+                break;
             default:
                 # code...
                 break;
@@ -65,69 +81,36 @@ class PrestacionesController extends Controller
         return view('prestaciones.prestaciones');
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+   
+    public function store($datos)
     {
-        //
+        $prestaciones= new Prestaciones();
+        $prestaciones->anio= $datos->anio;
+        $prestaciones->dias= $datos->dias;
+        $prestaciones->prima_vacacional= $datos->prima_vacacional;
+        $prestaciones->aguinaldo= $datos->aguinaldo;
+        $prestaciones->save();
+
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+    public function update($datos)
     {
-        //
+        $prestaciones= Prestaciones::where('anio',$datos->anio)->first();
+        $prestaciones->dias= $datos->dias;
+        $prestaciones->prima_vacacional= $datos->prima_vacacional; 
+        $prestaciones->aguinaldo= $datos->aguinaldo;
+
+        $prestaciones->save();
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Prestaciones  $prestaciones
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Prestaciones $prestaciones)
+   
+    public function destroy($id)
     {
-        //
-    }
+        $prestacion = Prestaciones::find($id);
+        $prestacion->delete();
+        $aux = Prestaciones::first();
+        $prestaciones = Prestaciones::all();
+        return view('prestaciones.prestaciones',compact('aux','prestaciones'));
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Prestaciones  $prestaciones
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Prestaciones $prestaciones)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Prestaciones  $prestaciones
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Prestaciones $prestaciones)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Prestaciones  $prestaciones
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Prestaciones $prestaciones)
-    {
-        //
     }
 }

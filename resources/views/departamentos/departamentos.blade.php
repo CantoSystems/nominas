@@ -45,12 +45,17 @@
                     <div class="row">
                         <div class="col-md-6">
                             <label>Nombre:</label>
-                            <input type="text" class="form-control" name="departamento" value="{{$aux->departamento}}">
+                            <input type="text" class="form-control" name="departamento" value="{{$aux->departamento}}" onkeypress="return validar(event)">
                         </div>
                         <div class="col-md-4">
                             <label>Áreas:</label>
-                            <select class="custom-select" name="clave_area">
-                            <option value="{{$aux->clave_area}}">{{$aux->area}}</option>
+
+                            <select id="areas" class="custom-select" name="clave_area">
+
+                            <option id="principal" value="{{$aux->clave_area}}">
+                                {{$aux->area}}
+                            </option>
+                             
                 				@foreach($areas as $ar)
                 						<option value="{{$ar->clave_area}}">{{$ar->area}}</option>
                 				@endforeach

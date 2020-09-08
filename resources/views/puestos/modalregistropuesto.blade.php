@@ -13,7 +13,7 @@
                <div class="form-row">
                   <div class="form-group col-md-4">
                     <label>Nombre del Puesto</label>
-                    <input type="text" class="form-control" name="puesto" id="puesto">
+                    <input type="text" class="form-control" name="puesto" id="puesto" onkeypress="return validar(event)">
                   </div>
                   
                 </div> 
