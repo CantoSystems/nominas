@@ -213,6 +213,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
       $('#atras').hide();
       $('#siguiente').hide();
       $('#ultimo').hide();
+      $('#principal').hide();
+      $('#opcion').show();
+      $('#areas').prepend('<option value="null">--Elije una opción--</option>');
     });
     $('#actualizar').click(function(){
       $('#nuevo_reg').hide();

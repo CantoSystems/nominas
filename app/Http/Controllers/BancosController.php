@@ -36,13 +36,13 @@ class BancosController extends Controller
 
                case 'atras':
                 $id= Banco::where("clave_banco",$clv)->first();
-               $banco= Banco::where('id','<',$id->id)
-            ->orderBy('id','desc')
-            ->first();
-            if(is_null($banco)){
-                $banco= Banco::get()->last();
-            }
-            $bancos=Banco::all();
+                $banco= Banco::where('id','<',$id->id)
+                ->orderBy('id','desc')
+                ->first();
+                if(is_null($banco)){
+                    $banco= Banco::get()->last();
+                  }
+                $bancos=Banco::all();
                    return view('bancos.bancos', compact('banco','bancos'));
                break;
                
