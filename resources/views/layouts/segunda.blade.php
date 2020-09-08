@@ -209,6 +209,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
       $('#cancelar').show();
       $('input[type="text"]').val('');
       $("input:checkbox").removeAttr("checked");
+      $("#naturaleza > option[value=1]").attr("selected",true);
+      $("#manejo > option[value=1]").attr("selected",true);
       $('#primero').hide();
       $('#atras').hide();
       $('#siguiente').hide();
