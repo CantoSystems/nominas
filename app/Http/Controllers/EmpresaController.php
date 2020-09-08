@@ -20,9 +20,13 @@ class EmpresaController extends Controller
                 return view('empresas.crudempresas', compact('empresa'));
                 break;
             case 'atras':
-                 $emp= Empresa::where('clave',$clv)->get()->last();
+                 $emp= Empresa::where('clave',$clv)->first();
                  $indic= $emp->id;
-                 $empresa= Empresa::where('id','<',$indic)->first();
+                $empresa= Empresa::where('id','<',$indic)
+                ->orderBy('id','desc')
+                ->first();
+
+
                  if($empresa==""){
                     $empresa= Empresa::get()->last();  
                  }
