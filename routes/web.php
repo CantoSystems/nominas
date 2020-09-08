@@ -57,3 +57,7 @@ Route::get('bancos/{id}','BancosController@eliminarbanco')->name('bancos.elimina
 //prestaciones 
 Route::get('/prestaciones','PrestacionesController@index')->name('prestaciones.index');
 Route::delete('/prestaciones/{id}','PrestacionesController@destroy')->name('prestaciones.destroy');
+
+
+//Clasificaciones
+Route::get('clasificacion','ClasificacionController@acciones')->name('clasificacion.acciones');
