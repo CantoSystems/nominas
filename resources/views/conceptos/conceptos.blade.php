@@ -11,7 +11,7 @@
     			<div class="col-sm-1">
                     <div class="form-group">
                         <label>Clave:</label>
-                        <input type="text" name="clave_concepto"  class="form-control" value="{{$aux->clave_concepto}}" onkeyup="mayus(this)"; >
+                        <input type="text" name="clave_concepto" readonly class="form-control" value="{{$aux->clave_concepto}}" onkeyup="mayus(this)"; >
                     </div>
                 </div>    
                 <div class="col-sm-4">
@@ -23,8 +23,9 @@
                 <div class="col-sm-2">
                     <div class="form-group">
                         <label>Naturaleza:</label>
-                        <select class="custom-select" name="naturaleza">
+                        <select class="custom-select" id="naturaleza" name="naturaleza">
                         <option value="{{$aux->naturaleza}}">{{$aux->naturaleza}}</option>
+                            <option value="1">Selecciona una opción</option>
                             <option value="P">Persepcion</option>
                             <option value="D">Deducción</option>
                             <option value="I">Impuesto al trabajador</option>
@@ -35,8 +36,9 @@
                 <div class="col-sm-2">
                     <div class="form-group">
                         <label>Manejo:</label>
-                        <select class="custom-select" name="manejo">
+                        <select class="custom-select" id="manejo" name="manejo">
                             <option value="{{$aux->manejo}}">{{$aux->manejo}}</option>
+                            <option value="1">Selecciona una opción</option>
                                 <option value="fijo">FIJO</option>
                                 <option value="variable">VARIABLE</option>
                               </select>
@@ -51,19 +53,19 @@
                 <div class="col-sm-2">
                     <div class="form-group">
                         <label>Cantidad:</label>
-                        <input type="text" name="formula" class="form-control" value="{{$aux->cantidad}}" onkeyup="mayus(this);">
+                        <input type="text" name="cantidad" class="form-control" value="{{$aux->cantidad}}" onkeyup="mayus(this);">
                     </div>
                 </div>
                 <div class="col-sm-2">
                     <div class="form-group">
                         <label>Importe:</label>
-                        <input type="text" name="formula" class="form-control" value="{{$aux->importe}}" onkeyup="mayus(this);">
+                        <input type="text" name="importe" class="form-control" value="{{$aux->importe}}" onkeyup="mayus(this);">
                     </div>
                 </div>
                 <div class="col-sm-2">
                     <div class="form-group">
                         <label>Monto:</label>
-                        <input type="text" name="formula" class="form-control" value="{{$aux->monto}}" onkeyup="mayus(this);">
+                        <input type="text" name="monto" class="form-control" value="{{$aux->monto}}" onkeyup="mayus(this);">
                     </div>
                 </div>
                 <div class="col-sm-6">
@@ -71,23 +73,23 @@
                     <label for=""></label>
                     <div class="form-group">
                       <div class="form-check">
-                      <input type="checkbox" name="ispt" id="ispt" value="{{$aux->ispt}}" {{  ($aux->ispt == 1 ? ' checked' : '') }}>
+                      <input type="checkbox" name="ispt" id="ispt" value="{{$aux->ispt}}" {{  ($aux->ispt == 0 ? ' checked' : '') }}>
                         <label class="form-check-label">I.S.P.T.</label>
                       </div>
                       <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="{{$aux->imss}}"@if ($aux->imss==1)
+                        <input class="form-check-input" name="imss" type="checkbox" value="{{$aux->imss}}"@if ($aux->imss==0)
                         checked                          
                        @endif>
                         <label class="form-check-label">I.M.S.S.</label>
                       </div>
                       <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="{{$aux->infonavit}}"@if ($aux->infonavit==1)
+                        <input class="form-check-input" name="infonavit" type="checkbox" value="{{$aux->infonavit}}"@if ($aux->infonavit==0)
                         checked                          
                        @endif>
                         <label class="form-check-label">INFONAVIT</label>
                       </div>
                       <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="{{$aux->estatal}}"@if ($aux->estatal==1)
+                        <input class="form-check-input" name="estatal" type="checkbox" value="{{$aux->estatal}}"@if ($aux->estatal==0)
                         checked                          
                        @endif>
                         <label class="form-check-label">ESTATAL</label>

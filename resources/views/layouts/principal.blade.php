@@ -193,7 +193,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
 	      $('#nuevo_reg').hide();
         $('#actualizar_reg').show();
         $('#cancelar_reg').show();
-        $('#cancelar_reg').hide();
         $('#primero').hide();
         $('#atras').hide();
         $('#siguiente').hide();

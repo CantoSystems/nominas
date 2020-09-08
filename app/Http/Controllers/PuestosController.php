@@ -28,7 +28,7 @@ class PuestosController extends Controller
               break;
 
                case 'atras':
-               $aux = DB::connection('DB_Serverr')->table('puestos')->where('id','<',$indic)->first();
+               $aux = DB::connection('DB_Serverr')->table('puestos')->where('id','<',$indic)->orderBy('id','desc')->first();
                 if($aux==""){
                     $aux = DB::connection('DB_Serverr')->table('puestos')->get()->last();
                 }
