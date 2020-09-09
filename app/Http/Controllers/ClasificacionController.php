@@ -89,6 +89,33 @@ class ClasificacionController extends Controller
    
        }
 
+       public function actualizar($datos){ 
+        $clasif= Clasificacion::where('Clave',$datos->Clave)->first();
+        $clasif->Digito= $datos->Digito; 
+        $clasif->Conceptos= $datos->Conceptos; 
+        $clasif->save();
+     }
+
+     public function generador(){
+        $raiz= '0123456789';
+        $codigo='';
+        for ($i=0; $i < 3; $i++) { 
+            $letra= $raiz[mt_rand(0, 4 - 1)];
+            $codigo .=$letra;
+        }
+        return $codigo;
+        }
+
+
+        public function registrar($datos){
+            $clasificacion= new Clasificacion;
+            $clave= $this->generador();
+            $clasificacion->Clave= $clave;
+            $clasificacion->Digito= $datos->Digito;
+            $clasificacion->Conceptos= $datos->Conceptos;
+            $clasificacion->save();
+          }
+
 
     /**
      * Show the form for creating a new resource.
