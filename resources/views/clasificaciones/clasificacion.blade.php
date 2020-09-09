@@ -43,22 +43,22 @@
             <div class="card-body">
                 <form action="{{ route('clasificacion.acciones')}}" method="GET">
                         <div class="row">
-                            <div class="col-sm-4">
+                            <div class="col-sm-3">
                                 <div class="form-group">
                                     <label>Clave:</label>
-                                    <input type="text" name="clave"  value="{{$clasificacion->Clave}}"   class="form-control"  onkeyup="mayus(this)"; onkeypress="return validar(event)" >
+                                    <input type="text" name="Clave"  value="{{$clasificacion->Clave}}"   class="form-control"  onkeyup="mayus(this)"; onkeypress="return validar(event)" >
                                 </div>
                             </div>
-                            <div class="col-sm-4">
+                            <div class="col-sm-3">
                                 <div class="form-group">
                                     <label>Digito:</label>
-                                    <input type="text" name="digito"  value="{{$clasificacion->Digito}}"   class="form-control"  onkeyup="mayus(this)"; onkeypress="return validar(event)" >
+                                    <input type="text" name="Digito"  value="{{$clasificacion->Digito}}"   class="form-control"  onkeyup="mayus(this)"; onkeypress="return numeros(event)" >
                                 </div>
                             </div> 
                             <div class="col-sm-4">
                                 <div class="form-group">
                                     <label>Conceptos:</label>
-                                    <input type="text" name="concepto"  value="{{$clasificacion->Conceptos}}"   class="form-control"  onkeyup="mayus(this)"; onkeypress="return validar(event)" >
+                                    <input type="text" name="Conceptos"  value="{{$clasificacion->Conceptos}}"   class="form-control"  onkeyup="mayus(this)"; onkeypress="return validar(event)" >
                                 </div>
                             </div> 
                             
@@ -66,7 +66,7 @@
                             <div class="col-sm-4">
                                 <div class="form-group">
                                     
-                                    <input type="hidden" name="clave_banco"  value="{{$clasificacion->clave}}" class="form-control"  onkeyup="mayus(this);">
+                                    <input type="hidden" name="Clave"  value="{{$clasificacion->clave}}" class="form-control"  onkeyup="mayus(this);">
                                     <div class="col-sm-1">
                                         <div class="form-group">
                                              <input type="hidden" name="identificador"  value="{{$clasificacion->id}}" class="form-control"  onkeyup="mayus(this);">
@@ -142,7 +142,7 @@
                             </div>
                         </div>  
                     </form>
-                    {{-- @include('bancos.modaldeletebanco') --}}
+                    @include('clasificaciones.modaldeleteclasificacion')
                     
                    </div> 
                    </div>  
