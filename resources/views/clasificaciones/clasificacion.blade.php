@@ -21,9 +21,9 @@
                         <tbody>
                             @foreach ($clasificaciones as $clasif)
                             <tr>
-                                <th scope="row">{{$clasif->clave}}</th>
-                                <td>{{$clasif->digito}}</td>
-                                <td>{{$clasif->digito}}</td>
+                                <th scope="row">{{$clasif->Clave}}</th>
+                                <td>{{$clasif->Digito}}</td>
+                                <td>{{$clasif->Conceptos}}</td>
                             </tr>
                             @endforeach
                         </tbody>
@@ -46,19 +46,19 @@
                             <div class="col-sm-4">
                                 <div class="form-group">
                                     <label>Clave:</label>
-                                    <input type="text" name="clave"  value="{{$clasificacion->clave}}"   class="form-control"  onkeyup="mayus(this)"; onkeypress="return validar(event)" >
+                                    <input type="text" name="clave"  value="{{$clasificacion->Clave}}"   class="form-control"  onkeyup="mayus(this)"; onkeypress="return validar(event)" >
                                 </div>
                             </div>
                             <div class="col-sm-4">
                                 <div class="form-group">
                                     <label>Digito:</label>
-                                    <input type="text" name="digito"  value="{{$clasificacion->nombre_banco}}"   class="form-control"  onkeyup="mayus(this)"; onkeypress="return validar(event)" >
+                                    <input type="text" name="digito"  value="{{$clasificacion->Digito}}"   class="form-control"  onkeyup="mayus(this)"; onkeypress="return validar(event)" >
                                 </div>
                             </div> 
                             <div class="col-sm-4">
                                 <div class="form-group">
                                     <label>Conceptos:</label>
-                                    <input type="text" name="concepto"  value="{{$clasificacion->nombre_banco}}"   class="form-control"  onkeyup="mayus(this)"; onkeypress="return validar(event)" >
+                                    <input type="text" name="concepto"  value="{{$clasificacion->Conceptos}}"   class="form-control"  onkeyup="mayus(this)"; onkeypress="return validar(event)" >
                                 </div>
                             </div> 
                             
