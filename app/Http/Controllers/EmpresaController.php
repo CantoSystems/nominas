@@ -125,7 +125,7 @@ Schema::connection('DB_Serverr')->create('periodos', function($table)
 Schema::connection('DB_Serverr')->create('areas', function($table)
 {
 $table->increments('id');
-$table->string('area');
+$table->string('area',50);
 $table->char('clave_area', 10);
 });
 
@@ -133,24 +133,24 @@ Schema::connection('DB_Serverr')->create('puestos', function($table)
 {
 $table->increments('id');
 $table->char('clave_puesto',10);
-$table->string('nombre_puesto');
+$table->string('nombre_puesto',50);
 });
 
 Schema::connection('DB_Serverr')->create('departamentos', function($table)
 {
 $table->increments('id');
 $table->char('clave_departamento', 10);
-$table->string('departamento');
+$table->string('departamento',50);
 $table->char('clave_area', 10);
 });
 Schema::connection('DB_Serverr')->create('conceptos', function($table)
 {
 $table->increments('id');
 $table->char('clave_concepto', 10);
-$table->string('concepto');
-$table->string('formula');
-$table->string('naturaleza');
-$table->string('manejo');
+$table->string('concepto',100);
+$table->string('formula',100);
+$table->string('naturaleza',100);
+$table->string('manejo',100);
 $table->float('cantidad');
 $table->float('importe');
 $table->float('monto');
@@ -164,9 +164,9 @@ Schema::connection('DB_Serverr')->create('empleados', function($table){
     $table->increments('id');
     $table->char('clave_empleado',10);
     $table->string('clasificacion',100);
-    $table->string('nombre',100);
-    $table->string('apellido_paterno',100);
-    $table->string('apellido_materno',100);
+    $table->string('nombre',50);
+    $table->string('apellido_paterno',50);
+    $table->string('apellido_materno',50);
     $table->date('fecha_alta');
     $table->date('fecha_baja')->nullable();
     $table->string('causa_baja')->nullable();
