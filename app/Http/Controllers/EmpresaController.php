@@ -265,7 +265,7 @@ Schema::connection('DB_Serverr')->create('empleados', function($table){
     $table->date('desvinculacion_trabajo');
     $table->string('nombre_compania');
     $table->string('direccion');
-    $table->string('telefono');
+    $table->string('telefono_compania');
     $table->double('sueldo');
     $table->string('motivo_separacion');
     $table->string('nombre_jefe');
