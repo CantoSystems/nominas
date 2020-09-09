@@ -15,22 +15,22 @@ class CreateEmpresasTable extends Migration
     {
         Schema::create('empresas', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('nombre');
-            $table->string('clave');
-            $table->string('rfc');
-            $table->string('segurosocial');
-            $table->string('registro_estatal');
-            $table->string('calle');
+            $table->string('nombre',50);
+            $table->string('clave',50);
+            $table->string('rfc',13);
+            $table->string('segurosocial',11);
+            $table->string('registro_estatal',50);
+            $table->string('calle',50);
             $table->integer('num_interno');
             $table->integer('num_externo');
-            $table->string('colonia');
-            $table->string('municipio');
-            $table->string('ciudad');
-            $table->string('pais');
-            $table->string('representante_legal');
-            $table->string('rfc_representante');
+            $table->string('colonia',50);
+            $table->string('municipio',50);
+            $table->string('ciudad',50);
+            $table->string('pais',50);
+            $table->string('representante_legal',50);
+            $table->string('rfc_representante',13);
             $table->string('telefono');
-            $table->string('email');
+            $table->string('email',50);
             $table->timestamps();
         });
     }
