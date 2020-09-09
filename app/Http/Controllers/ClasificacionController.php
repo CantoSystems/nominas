@@ -9,16 +9,7 @@ use Session;
 
 class ClasificacionController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
-
+  
 
     public function acciones(Request $request){
         $accion= $request->acciones;
@@ -27,54 +18,54 @@ class ClasificacionController extends Controller
         
            switch ($accion) {
                case '':
-                   $clasificacion= Clasificacion::first();
-                   $clasificaciones=clasificacion::all();
-                   return view('clasificaciones.clasificacion', compact('clasificacion','clasificaciones'));
+                   $clasifica= Clasificacion::first();
+                   $clasificaciones= Clasificacion::all();
+                   return view('clasificaciones.clasificacion', compact('clasifica','clasificaciones'));
                    break;
 
                case 'atras':
-                $id= Clasificacion::where("clave",$clv)->first();
-               $clasificacion= Clasificacion::where('id','<',$id->id)
-            ->orderBy('id','desc')
-            ->first();
-            if(is_null($clasificacion)){
-                $clasificacion= Clasificacion::get()->last();
-            }
-            $clasificaciones=Clasificacion::all();
-                   return view('clasificaciones.clasificacion', compact('clasificacion','clasificaciones'));
+                  $id= Clasificacion::where("clave",$clv)->first();
+                  $clasifica= Clasificacion::where('id','<',$id->id)
+                  ->orderBy('id','desc')
+                  ->first();
+                    if(is_null($clasifica)){
+                    $clasifica= Clasificacion::get()->last();
+                    }
+                    $clasificaciones=Clasificacion::all();
+                   return view('clasificaciones.clasificacion', compact('clasifica','clasificaciones'));
                break;
                
                case 'siguiente':
                    $clasif= Clasificacion::where('clave',$clv)->first();
                    $indic= $clasif->id;
-                   $clasificacion= Clasificacion::where('id','>',$indic)->first();
-                   if($clasificacion==""){
-                      $clasificacion= Clasificacion::first();  
+                   $clasifica= Clasificacion::where('id','>',$indic)->first();
+                   if($clasifica==""){
+                      $clasifica= Clasificacion::first();  
                    }
                    $clasificaciones=Clasificacion::all();
-                   return view('clasificaciones.clasificacion', compact('clasificacion','clasificaciones'));
+                   return view('clasificaciones.clasificacion', compact('clasifica','clasificaciones'));
                break;
                case 'primero':
-                   $clasificacion= Clasificacion::first();
+                   $clasifica= Clasificacion::first();
                    $clasificaciones=Clasificacion::all();
-                   return view('clasificaciones.clasificacion', compact('clasificacion','clasificaciones'));
+                   return view('clasificaciones.clasificacion', compact('clasifica','clasificaciones'));
                break;
                case 'ultimo':
-                   $clasificacion= Clasificacion::get()->last(); 
+                   $clasifica= Clasificacion::get()->last(); 
                    $clasificaciones=Clasificacion::all();
-                   return view('clasificaciones.clasificacion', compact('clasificacion','clasificaciones'));
+                   return view('clasificaciones.clasificacion', compact('clasifica','clasificaciones'));
                break;
                case 'registrar':
                $this->registrar($request);
-               $clasificacion= Clasificacion::first();
+               $clasifica= Clasificacion::first();
                $clasificaciones=Clasificacion::all();
-                   return view('clasificaciones.clasificacion', compact('clasificacion','clasificaciones'));
+                   return view('clasificaciones.clasificacion', compact('clasifica','clasificaciones'));
                break;
                case 'actualizar':
                    $this->actualizar($request);
-                   $clasificacion= Clasificacion::first();
+                   $clasifica= Clasificacion::first();
                    $clasificaciones=Clasificacion::all();
-                   return view('clasificaciones.clasificacion', compact('clasificacion','clasificaciones'));
+                   return view('clasificaciones.clasificacion', compact('clasifica','clasificaciones'));
                break;
                case 'cancelar':
                    return back();
@@ -90,9 +81,10 @@ class ClasificacionController extends Controller
        }
 
        public function actualizar($datos){ 
-        $clasif= Clasificacion::where('Clave',$datos->Clave)->first();
-        $clasif->Digito= $datos->Digito; 
-        $clasif->Conceptos= $datos->Conceptos; 
+        $clasif= Clasificacion::where('clave',$datos->clave)->first();
+        $clasif->clave_clasificacion= $datos->clave_clasificacion;
+        $clasif->digito= $datos->digito; 
+        $clasif->conceptos= $datos->conceptos; 
         $clasif->save();
      }
 
@@ -110,76 +102,20 @@ class ClasificacionController extends Controller
         public function registrar($datos){
             $clasificacion= new Clasificacion;
             $clave= $this->generador();
-            $clasificacion->Clave= $clave;
-            $clasificacion->Digito= $datos->Digito;
-            $clasificacion->Conceptos= $datos->Conceptos;
+            $clasificacion->clave= $clave;
+            $clasificacion->clave_clasificacion= $datos->clave_clasificacion;
+            $clasificacion->digito= $datos->digito;
+            $clasificacion->conceptos= $datos->conceptos;
             $clasificacion->save();
           }
 
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($id)
     {
-        //
+        $clasificar= Clasificacion::find($id);
+        $clasificar->delete();
+        $clasifica= Clasificacion::first();
+        $clasificaciones= Clasificacion::all();
+        return view('clasificaciones.clasificacion', compact('clasifica','clasificaciones'));
+
     }
 }
