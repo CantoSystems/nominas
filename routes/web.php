@@ -44,7 +44,6 @@ Route::delete('puestos/{id}','PuestosController@eliminarpuestos')->name('puestos
 
 //departamentos
 Route::get('/departamentos','DepartamentosController@index')->name('departamentos.index');
-Route::get('/conceptos','ConceptosController@index')->name('conceptos.index');
 Route::delete('departamentos/{id}', 'DepartamentosController@eliminardepartamento')->name('departamentos.eliminadepartamento');
 
 
@@ -63,5 +62,11 @@ Route::delete('/prestaciones/{id}','PrestacionesController@destroy')->name('pres
 Route::get('clasificacion','ClasificacionController@acciones')->name('clasificacion.acciones');
 Route::delete('clasificacion/{id}','ClasificacionController@destroy')->name('clasificacion.eliminar');
 
+
+//conceptos
+Route::get('/conceptos','ConceptosController@index')->name('conceptos.index');
+Route::delete('/conceptos/{id}','ConceptosController@eliminaconcepto')->name('conceptos.eliminaconcepto');
+
 //Empleados
 Route::get('/empleados', 'EmpleadosController@index')->name('empleados.index');
+

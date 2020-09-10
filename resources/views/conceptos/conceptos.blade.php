@@ -1,14 +1,15 @@
 @extends('layouts.segunda')
 
 @section('content')
-<div class="card card-secondary">
-	<div class="card-header">
+<div class="container">
+    <div class="card card-secondary">
+    <div class="card-header">
         <h3 class="card-title">Conceptos</h3>
     </div>
     <div class="card-body">
     <form action="{{ route('conceptos.index')}}" method="GET">
-    		<div class="row">
-    			<div class="col-sm-1">
+            <div class="row">
+                <div class="col-sm-2">
                     <div class="form-group">
                         <label>Clave:</label>
                         <input type="text" name="clave_concepto" readonly class="form-control" value="{{$aux->clave_concepto}}" onkeyup="mayus(this)"; >
@@ -18,6 +19,7 @@
                     <div class="form-group">
                         <label>Concepto:</label>
                         <input type="text" name="concepto" class="form-control" value="{{$aux->concepto}}" onkeyup="mayus(this);">
+                        <input type="hidden" name="concepto" class="form-control" value="{{$aux->id}}" onkeyup="mayus(this);">
                     </div>
                 </div>
                 <div class="col-sm-2">
@@ -44,7 +46,7 @@
                               </select>
                     </div>  
                 </div>
-                <div class="col-sm-3">
+                <div class="col-sm-2">
                     <div class="form-group">
                         <label>Fórmula:</label>
                         <input type="text" name="formula" class="form-control" value="{{$aux->formula}}" onkeyup="mayus(this);">
@@ -70,18 +72,23 @@
                 </div>
                 <div class="col-sm-6">
                     <!-- checkbox -->
-                    <label for=""></label>
+                    <label for=""> Elije una opción</label>
                     <div class="form-group">
-                      <div class="form-check">
-                      <input type="checkbox" name="ispt" id="ispt" value="{{$aux->ispt}}" {{  ($aux->ispt == 0 ? ' checked' : '') }}>
+
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="ispt" id="ispt" value="{{$aux->ispt}}" {{  ($aux->ispt == 0 ? ' checked' : '') }}>
                         <label class="form-check-label">I.S.P.T.</label>
-                      </div>
-                      <div class="form-check">
+                    </div>
+
+
+                    <div class="form-check">
                         <input class="form-check-input" name="imss" type="checkbox" value="{{$aux->imss}}"@if ($aux->imss==0)
                         checked                          
                        @endif>
                         <label class="form-check-label">I.M.S.S.</label>
-                      </div>
+                    </div>
+
+
                       <div class="form-check">
                         <input class="form-check-input" name="infonavit" type="checkbox" value="{{$aux->infonavit}}"@if ($aux->infonavit==0)
                         checked                          
@@ -96,6 +103,11 @@
                       </div>
                     </div>
                   </div> 
+
+
+
+
+
                 <div class="col-sm-5">
                     <div class="card-body">
                         <div class="margin">
@@ -129,7 +141,7 @@
                                  <button type="button" id="actualizar" style='width:70px; height:40px'> <i class="fas fa-pen-square"></i></button>
                                 </div>
                                 <div class="form-group">
-                                    <a href="#" id="eliminar" data-target="#modal-deletenom-" data-toggle="modal" style='width:70px; height:40px'>
+                                    <a id="eliminar" data-target="#modal-deleteconcepto-{{$aux->id}}" data-toggle="modal" style='width:70px; height:40px'>
                                         <button type="button" style='width:70px; height:40px'>
                                             <i class="far fa-trash-alt">
                                             </i>
@@ -156,17 +168,19 @@
                                 <div class="form-group">
                                     <button name="acciones" value="cancelar" id="cancelar_reg" type="submit" style="display: none;width:70px; height:40px"><i class="far fa-window-close"></i></button>
                                 </div>
-                                <div class="form-group">
-                                    <button name="acciones" value="cancelar_actualiza" id="cancelar_actualiza" type="submit" style="display: none;width:70px; height:40px"><i class="far fa-window-close"></i></button>
-                                </div>
+                                
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>	
-    	</form>	
-   	</div> 	
-</div>	
+            </div>  
+        </form> 
+        @include('conceptos.modaldeleteconcetos')
+    </div>  
+</div>  
+
+</div>    
+</div>
 
 
 @endsection
