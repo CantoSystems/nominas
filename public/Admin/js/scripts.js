@@ -75,4 +75,23 @@ $(function(){
         $('#siguiente').hide();
         $('#ultimo').hide();
       });
+      $('#nuevo_clasifica').click(function(){
+        $('#actualizar_reg').hide();
+        $('#nuevo_reg').show();
+        $('#cancelar').show();
+        $('input[type="text"]').val('');
+        $('#primero').hide();
+        $('#atras').hide();
+        $('#siguiente').hide();
+        $('#ultimo').hide();
+      });
+      $('#actualizar_clasifica').click(function(){
+        $('#nuevo_reg').hide();
+        $('#actualizar_reg').show();
+        $('#cancelar').show();
+        $('#primero').hide();
+        $('#atras').hide();
+        $('#siguiente').hide();
+        $('#ultimo').hide();
+      });
     })
