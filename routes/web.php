@@ -61,3 +61,7 @@ Route::delete('/prestaciones/{id}','PrestacionesController@destroy')->name('pres
 
 //Clasificaciones
 Route::get('clasificacion','ClasificacionController@acciones')->name('clasificacion.acciones');
+Route::delete('clasificacion/{id}','ClasificacionController@destroy')->name('clasificacion.eliminar');
+
+//Empleados
+Route::get('/empleados', 'EmpleadosController@index')->name('empleados.index');
