@@ -206,7 +206,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
     $('#nuevo').click(function(){
       $('#actualizar_reg').hide();
       $('#nuevo_reg').show();
-      $('#cancelar').show();
+      $('#cancelar_reg').show();
       $('input[type="text"]').val('');
       $("input:checkbox").removeAttr("checked");
       $("#naturaleza > option[value=1]").attr("selected",true);
@@ -217,12 +217,12 @@ scratch. This page gets rid of all links and provides the needed markup only.
       $('#ultimo').hide();
       $('#principal').hide();
       $('#opcion').show();
-      $('#areas').prepend('<option value="null">--Elije una opción--</option>');
+      $("#areas > option[value=1]").attr("selected",true);
     });
     $('#actualizar').click(function(){
       $('#nuevo_reg').hide();
     $('#actualizar_reg').show();
-      $('#cancelar').show();
+    $('#cancelar_reg').show();
     $('#primero').hide();
     $('#atras').hide();
     $('#siguiente').hide();

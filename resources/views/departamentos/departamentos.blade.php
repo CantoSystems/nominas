@@ -47,24 +47,29 @@
                             <label>Nombre:</label>
                             <input type="text" class="form-control" name="departamento" value="{{$aux->departamento}}" onkeypress="return validar(event)">
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-6">
                             <label>Áreas:</label>
 
                             <select id="areas" class="custom-select" name="clave_area">
 
-                            <option id="principal" value="{{$aux->clave_area}}">
+                            <option value="{{$aux->clave_area}}">
                                 {{$aux->area}}
                             </option>
-                             
+                            <option value="1">
+                                ----Selecciona una opción---
+                            </option>
                 				@foreach($areas as $ar)
                 						<option value="{{$ar->clave_area}}">{{$ar->area}}</option>
                 				@endforeach
               				</select>
-                        </div>
-                        <div class="col-md-2">
+                            <!---input tipo hidden-->
                             <input type="hidden" class="form-control" name="identificador" value="{{$aux->id}}">
                             <input type="hidden" class="form-control" name="clave_departamento" value="{{$aux->clave_departamento}}">
                         </div>
+                       
+
+
+
                          <div class="col-sm-5">
                     <div class="card-body">
                         <div class="margin">
@@ -127,7 +132,7 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <button name="acciones" value="cancelar" id="cancelar" type="submit" style="display: none;width:40px; height:28px"><i class="far fa-window-close"></i></button>
+                                    <button name="acciones" value="cancelar" id="cancelar_reg" type="submit" style="display: none;width:40px; height:28px"><i class="far fa-window-close"></i></button>
                                 </div>
                             </div>
                         </div>
