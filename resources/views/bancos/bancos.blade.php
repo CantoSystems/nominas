@@ -91,10 +91,10 @@
                                     <div class="margin">
                                         <div class="btn-group">
                                             <div class="form-group">
-                                                <button type="button" id="nuevo_banco" style='width:40px; height:27px'> <i class="fas fa-user-plus"></i></button>
+                                                <button type="button" id="nuevo" style='width:40px; height:27px'> <i class="fas fa-user-plus"></i></button>
                                             </div>
                                             <div class="form-group">
-                                             <button type="button" id="actualizar_banco" style='width:40px; height:27px'> <i class="fas fa-pen-square"></i></button>
+                                             <button type="button" id="actualizar" style='width:40px; height:27px'> <i class="fas fa-pen-square"></i></button>
                                             </div>
                                             <div class="form-group">
                                             <a id="eliminar" data-target="#modal-deletebanco-{{$banco->id}}" data-toggle="modal">

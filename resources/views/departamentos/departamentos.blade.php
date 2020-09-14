@@ -52,16 +52,17 @@
 
                             <select id="areas" class="custom-select" name="clave_area">
 
-                            <option value="{{$aux->clave_area}}">
+                            <option id="first_areas" value="{{$aux->clave_area}}">
                                 {{$aux->area}}
                             </option>
-                            <option value="1">
+                            <option  id="areas_null" value="null">
                                 ----Selecciona una opción---
                             </option>
                 				@foreach($areas as $ar)
-                						<option value="{{$ar->clave_area}}">{{$ar->area}}</option>
+                						<option id="areas_forech" value="{{$ar->clave_area}}">{{$ar->area}}</option>
                 				@endforeach
               				</select>
+
                             <!---input tipo hidden-->
                             <input type="hidden" class="form-control" name="identificador" value="{{$aux->id}}">
                             <input type="hidden" class="form-control" name="clave_departamento" value="{{$aux->clave_departamento}}">

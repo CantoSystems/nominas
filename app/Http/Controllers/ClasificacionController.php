@@ -68,10 +68,14 @@ class ClasificacionController extends Controller
                    return view('clasificaciones.clasificacion', compact('clasifica','clasificaciones'));
                break;
                case 'cancelar':
-                   return back();
+                   $clasifica= Clasificacion::first();
+                   $clasificaciones= Clasificacion::all();
+                   return view('clasificaciones.clasificacion', compact('clasifica','clasificaciones'));
                break;
                case 'cancelar_actualiza';
-                   return back();
+                   $clasifica= Clasificacion::first();
+                   $clasificaciones= Clasificacion::all();
+                   return view('clasificaciones.clasificacion', compact('clasifica','clasificaciones'));
                break;        
                default:
                    # code...
