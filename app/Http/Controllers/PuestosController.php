@@ -79,7 +79,9 @@ class PuestosController extends Controller
                 }
                break;
                case 'cancelar':
-                 return back();
+                 $aux = DB::connection('DB_Serverr')->table('puestos')->get()->first();
+                $puestos= DB::connection('DB_Serverr')->table('puestos')->get();
+                return view('puestos.puestos',compact('aux','puestos'));
                  break;
                default:
                    # code...
@@ -90,22 +92,9 @@ class PuestosController extends Controller
 public function registrar($datos){
     $clv=Session::get('clave_empresa');
     $clave_puesto= $this->generador();
-    $configDb = [
-        'driver'      => 'mysql',
-        'host'        => env('DB_HOST', 'localhost'),
-        'port'        => env('DB_PORT', '3306'),
-        'database'    => $clv,
-        'username'    => env('DB_USERNAME', 'root'),
-        'password'    => env('DB_PASSWORD', ''),
-        'unix_socket' => env('DB_SOCKET', ''),
-        'charset'     => 'utf8',
-        'collation'   => 'utf8_unicode_ci',
-        'prefix'      => '',
-        'strict'      => true,
-        'engine'      => null,
-];
-
-    \Config::set('database.connections.DB_Serverr', $configDb);
+    $clv_empresa=$this->conectar($clv);
+    \Config::set('database.connections.DB_Serverr', $clv_empresa);
+   
     DB::connection('DB_Serverr')->insert('insert into puestos (clave_puesto, nombre_puesto)
     values (?,?)',[$clave_puesto,$datos->puesto]);
 }
@@ -144,22 +133,10 @@ public function conectar($clv)
 
   public function eliminarpuestos($id){
     $clv=Session::get('clave_empresa');
-    $configDb = [
-        'driver'      => 'mysql',
-        'host'        => env('DB_HOST', 'localhost'),
-        'port'        => env('DB_PORT', '3306'),
-        'database'    => $clv,
-        'username'    => env('DB_USERNAME', 'root'),
-        'password'    => env('DB_PASSWORD', ''),
-        'unix_socket' => env('DB_SOCKET', ''),
-        'charset'     => 'utf8',
-        'collation'   => 'utf8_unicode_ci',
-        'prefix'      => '',
-        'strict'      => true,
-        'engine'      => null,
-    ];
+    $clv_empresa=$this->conectar($clv);
 
-    \Config::set('database.connections.DB_Serverr', $configDb);
+    \Config::set('database.connections.DB_Serverr', $clv_empresa);
+    
     $aux1 = DB::connection('DB_Serverr')->table('puestos')->where('id',$id)->delete();
     $aux = DB::connection('DB_Serverr')->table('puestos')->get()->first();
     $puestos= DB::connection('DB_Serverr')->table('puestos')->get();

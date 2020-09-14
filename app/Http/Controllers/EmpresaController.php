@@ -61,10 +61,12 @@ class EmpresaController extends Controller
                 return view('empresas.crudempresas', compact('empresa'));
             break;
             case 'cancelar':
-                return back();
+                $empresa= Empresa::first();
+                return view('empresas.crudempresas', compact('empresa'));
             break;
             case 'cancelar_actualiza';
-                return back();
+                $empresa= Empresa::first();
+                return view('empresas.crudempresas', compact('empresa'));
             break;        
             default:
                 # code...

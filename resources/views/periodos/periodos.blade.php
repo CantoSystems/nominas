@@ -10,22 +10,7 @@
       
       <br>
       <div class="row">
-        @if ($cant==0)
-        <div class="col-md-12">
-          <h3>No se tienen periodos</h3><br>
-        </div>
-          <br>
-          <div class="col-md-6">
-          </div>
-          <div class="col-md-6">
-            <button type="button" data-toggle="modal" data-target="#AgregarPeriodo" style="width:220px; height:40px">
-              Agregar Periodo
-            </button>
-            @include('periodos.modalregistro')
-          </div>
-          
-        @else
-        <div class="row">
+        
           <form action="{{route('seleccionarperiodo')}}" method="GET">
 
             <div class="col-md-12">
@@ -41,15 +26,10 @@
             </div>
           </form>
 
-          <!--<div class="col-md-6">
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#AgregarPeriodo">
-              Agregar Periodo
-            </button>
-          </div>
-          @include('periodos.modalregistro')-->
+        
         </div>
         
-        @endif
+
       </div> 
     </div>
   </div>

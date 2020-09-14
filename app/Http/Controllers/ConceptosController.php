@@ -9,23 +9,13 @@ use Session;
 class ConceptosController extends Controller
 {
  public function index(Request $request){
-    $empresa=Session::get('clave_empresa');
+    $clv=Session::get('clave_empresa');
+    $clv_empresa=$this->conectar($clv);
 
-    $configDb = [
-    'driver'      => 'mysql',
-    'host'        => env('DB_HOST', 'localhost'),
-    'port'        => env('DB_PORT', '3306'),
-    'database'    => $empresa,
-    'username'    => env('DB_USERNAME', 'root'),
-    'password'    => env('DB_PASSWORD', ''),
-    'unix_socket' => env('DB_SOCKET', ''),
-    'charset'     => 'utf8',
-    'collation'   => 'utf8_unicode_ci',
-    'prefix'      => '',
-    'strict'      => true,
-    'engine'      => null,
-    ];
-    \Config::set('database.connections.DB_Serverr', $configDb);
+ 
+    \Config::set('database.connections.DB_Serverr', $clv_empresa);
+
+    
     $accion= $request->acciones;
     $indic=$request->identificador;
     
@@ -82,7 +72,8 @@ class ConceptosController extends Controller
         break;
 
         case 'cancelar':
-            return back();
+            $aux = DB::connection('DB_Serverr')->table('conceptos')->first(); 
+            return view('conceptos.conceptos',compact('aux'));
         break;
 
         default:
@@ -92,6 +83,29 @@ class ConceptosController extends Controller
     }
    
  }
+
+ public function conectar($clv)
+  {
+
+    $configDb = [
+        'driver'      => 'mysql',
+        'host'        => env('DB_HOST', 'localhost'),
+        'port'        => env('DB_PORT', '3306'),
+        'database'    => $clv,
+        'username'    => env('DB_USERNAME', 'root'),
+        'password'    => env('DB_PASSWORD', ''),
+        'unix_socket' => env('DB_SOCKET', ''),
+        'charset'     => 'utf8',
+        'collation'   => 'utf8_unicode_ci',
+        'prefix'      => '',
+        'strict'      => true,
+        'engine'      => null,
+    ];
+  
+    return $configDb;
+
+  }
+
  public function registrar($datos){
     $clv=Session::get('clave_empresa');
     $clave_concepto= $this->generador($datos->naturaleza);
@@ -120,22 +134,10 @@ class ConceptosController extends Controller
         $estatal=$datos->estatal;
     }
    
-    $configDb = [
-        'driver'      => 'mysql',
-        'host'        => env('DB_HOST', 'localhost'),
-        'port'        => env('DB_PORT', '3306'),
-        'database'    => $clv,
-        'username'    => env('DB_USERNAME', 'root'),
-        'password'    => env('DB_PASSWORD', ''),
-        'unix_socket' => env('DB_SOCKET', ''),
-        'charset'     => 'utf8',
-        'collation'   => 'utf8_unicode_ci',
-        'prefix'      => '',
-        'strict'      => true,
-        'engine'      => null,
-];
+    $clv_empresa=$this->conectar($clv);
 
-    \Config::set('database.connections.DB_Serverr', $configDb);
+ 
+    \Config::set('database.connections.DB_Serverr', $clv_empresa);
     DB::connection('DB_Serverr')->insert('insert into conceptos (clave_concepto,concepto,formula,naturaleza,manejo
     ,cantidad,importe,monto,ispt,imss,infonavit,estatal)
     values (?,?,?,?,?,?,?,?,?,?,?,?)',[$clave_concepto,$datos->concepto,$datos->formula,$datos->naturaleza
@@ -180,22 +182,10 @@ public function actualizar($datos){
         $estatal=$datos->estatal;
     }
    
-    $configDb = [
-        'driver'      => 'mysql',
-        'host'        => env('DB_HOST', 'localhost'),
-        'port'        => env('DB_PORT', '3306'),
-        'database'    => $clv,
-        'username'    => env('DB_USERNAME', 'root'),
-        'password'    => env('DB_PASSWORD', ''),
-        'unix_socket' => env('DB_SOCKET', ''),
-        'charset'     => 'utf8',
-        'collation'   => 'utf8_unicode_ci',
-        'prefix'      => '',
-        'strict'      => true,
-        'engine'      => null,
-];
+    $clv_empresa=$this->conectar($clv);
 
-    \Config::set('database.connections.DB_Serverr', $configDb);
+ 
+    \Config::set('database.connections.DB_Serverr', $clv_empresa);
     $aux1 = DB::connection('DB_Serverr')->table('conceptos')->where('clave_concepto',$datos->clave_concepto)->first();
      if($aux1!=="")
      {
@@ -207,23 +197,12 @@ public function actualizar($datos){
     }
 
     public function eliminaconcepto($id){
-        $empresa= Session::get('clave_empresa');
-        $configDb = [
-        'driver'      => 'mysql',
-        'host'        => env('DB_HOST', 'localhost'),
-        'port'        => env('DB_PORT', '3306'),
-        'database'    => $empresa,
-        'username'    => env('DB_USERNAME', 'root'),
-        'password'    => env('DB_PASSWORD', ''),
-        'unix_socket' => env('DB_SOCKET', ''),
-        'charset'     => 'utf8',
-        'collation'   => 'utf8_unicode_ci',
-        'prefix'      => '',
-        'strict'      => true,
-        'engine'      => null,
-    ];
-    
-    \Config::set('database.connections.DB_Serverr', $configDb);
+    $clv= Session::get('clave_empresa');
+    $clv_empresa=$this->conectar($clv);
+
+ 
+    \Config::set('database.connections.DB_Serverr', $clv_empresa);
+       
     $aux1 = DB::connection('DB_Serverr')->table('conceptos')->where('id',$id)->delete();
     $aux = DB::connection('DB_Serverr')->table('conceptos')->first(); 
             return view('conceptos.conceptos',compact('aux'));
