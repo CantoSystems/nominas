@@ -17,7 +17,7 @@
               <a class="nav-link" id="custom-tabs-one-messages-tab" data-toggle="pill" href="#custom-tabs-one-messages" role="tab" aria-controls="custom-tabs-one-messages" aria-selected="false">Personal 3</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" id="custom-tabs-one-settings-tab" data-toggle="pill" href="#custom-tabs-one-settings" role="tab" aria-controls="custom-tabs-one-settings" aria-selected="false">Referecnias</a>
+              <a class="nav-link" id="custom-tabs-one-settings-tab" data-toggle="pill" href="#custom-tabs-one-settings" role="tab" aria-controls="custom-tabs-one-settings" aria-selected="false">Referencias</a>
             </li>
           </ul>
         </div>
@@ -237,14 +237,172 @@
                 <input class="form-check-input position-static" type="checkbox" id="blankCheckbox" value="option1" aria-label="...">
                 <label for="">Administrador unico:</label>
               </div>
+              <div class="col-md-3 mb-3">
+                <label for="validationDefault03">Nombre del Padre:</label>
+                <input type="text" class="form-control" id="validationDefault03" required>
+              </div>
+              <div class="form-check">
+
+                <input class="form-check-input position-static" type="checkbox" id="blankCheckbox" value="option1" aria-label="...">
+                <label for="">Finado:</label>
+              </div>
+              <div class="col-md-3 mb-3">
+                <label for="validationDefault03">Direccion:</label>
+                <input type="text" class="form-control" id="validationDefault03" required>
+              </div>
+              <div class="col-md-3 mb-3">
+                <label for="validationDefault03">Ocupacion:</label>
+                <input type="text" class="form-control" id="validationDefault03" required>
+              </div>
+              <div class="col-md-3 mb-3">
+                <label for="validationDefault03">Nombre de la Madre:</label>
+                <input type="text" class="form-control" id="validationDefault03" required>
+              </div>
+              <div class="form-check">
+
+                <input class="form-check-input position-static" type="checkbox" id="blankCheckbox" value="option1" aria-label="...">
+                <label for="">Finado:</label>
+              </div>
+              <div class="col-md-3 mb-3">
+                <label for="validationDefault03">Direccion:</label>
+                <input type="text" class="form-control" id="validationDefault03" required>
+              </div>
+              <div class="col-md-3 mb-3">
+                <label for="validationDefault03">Ocupacion:</label>
+                <input type="text" class="form-control" id="validationDefault03" required>
+              </div>
+              <div class="col-md-8 mb-3">
+                <label for="validationDefault03">Nombre y edad de sus Hijos:</label>
+                <input type="text" class="form-control" id="validationDefault03" required>
+              </div>
+              <div class="col-md-4 mb-3">
+                <label for="validationDefault03">Idiomas:</label>
+                <input type="text" class="form-control" id="validationDefault03" required>
+              </div>
+              <div class="col-md-4 mb-3">
+                <label for="validationDefault03">Funciones de Oficina:</label>
+                <input type="text" class="form-control" id="validationDefault03" required>
+              </div>
+              <div class="col-md-4 mb-3">
+                <label for="validationDefault03">Maquinas de Oficina o Taller que Maneje:</label>
+                <input type="text" class="form-control" id="validationDefault03" required>
+              </div>
+              <div class="col-md-4 mb-3">
+                <label for="validationDefault03">Software que conoce:</label>
+                <input type="text" class="form-control" id="validationDefault03" required>
+              </div>
+              <div class="col-md-4 mb-3">
+                <label for="validationDefault03">Otras funciones o trabajos que domina:</label>
+                <input type="text" class="form-control" id="validationDefault03" required>
+              </div>
             </div>
             </div>
+
+            
             <div class="tab-pane fade" id="custom-tabs-one-messages" role="tabpanel" aria-labelledby="custom-tabs-one-messages-tab">
-               Morbi turpis dolor, vulputate vitae felis non, tincidunt congue mauris. Phasellus volutpat augue id mi placerat mollis. Vivamus faucibus eu massa eget condimentum. Fusce nec hendrerit sem, ac tristique nulla. Integer vestibulum orci odio. Cras nec augue ipsum. Suspendisse ut velit condimentum, mattis urna a, malesuada nunc. Curabitur eleifend facilisis velit finibus tristique. Nam vulputate, eros non luctus efficitur, ipsum odio volutpat massa, sit amet sollicitudin est libero sed ipsum. Nulla lacinia, ex vitae gravida fermentum, lectus ipsum gravida arcu, id fermentum metus arcu vel metus. Curabitur eget sem eu risus tincidunt eleifend ac ornare magna. 
-            </div>
+              <div class="form-row">
+                 <div class="col-md-4 mb-3">
+                    <label for="validationDefault03">Beneficiarios</label>
+                    <input type="text" class="form-control" id="validationDefault03" required>
+                    <input type="text" class="form-control" id="validationDefault03" required>
+                    <input type="text" class="form-control" id="validationDefault03" required>
+                    <input type="text" class="form-control" id="validationDefault03" required> 
+                 </div>
+                 <div class="col-md-4 mb-3">
+                    <label for="validationDefault03">Parentesco</label>
+                    <input type="text" class="form-control" id="validationDefault03" required>
+                    <input type="text" class="form-control" id="validationDefault03" required>
+                    <input type="text" class="form-control" id="validationDefault03" required>
+                    <input type="text" class="form-control" id="validationDefault03" required> 
+                 </div>
+
+                 <div class="col-md-3 mb-3">
+                  <label for="validationDefault03">% de Participacion</label>
+                  <input type="text" class="form-control" id="validationDefault03" required>
+                  <input type="text" class="form-control" id="validationDefault03" required>
+                  <input type="text" class="form-control" id="validationDefault03" required>
+                  <input type="text" class="form-control" id="validationDefault03" required>
+                 </div>
+                
+             
+                
+            
+                <div class="form-row">
+                
+                  <div>
+                <br><br>
+                     <label for="">Primaria</label><br>
+                     <label for="">Secundaria</label><br>
+                     <label for="">Preparatoria</label><br>
+                     <label for="">Profesional</label><br>
+                     <label for="">Comercial</label>
+                  </div>
+                  <div class="col-md-6 mb-3">
+                    <label for="">Nombre Institucion </label>
+                    <input type="text" class="form-control" id="validationDefault03" required>
+                    <input type="text" class="form-control" id="validationDefault03" required>
+                    <input type="text" class="form-control" id="validationDefault03" required>
+                    <input type="text" class="form-control" id="validationDefault03" required>
+                    <input type="text" class="form-control" id="validationDefault03" required>
+                 </div>
+                 
+                  <div class="col-md-3 mb-3">
+                  <label for="validationDefault03">Inicio</label>
+                  <input type="text" class="form-control" id="validationDefault03" required>
+                  <input type="text" class="form-control" id="validationDefault03" required>
+                  <input type="text" class="form-control" id="validationDefault03" required>
+                  <input type="text" class="form-control" id="validationDefault03" required> 
+                  <input type="text" class="form-control" id="validationDefault03" required> 
+                 </div>
+
+               
+              
+              </div>
+              <div class="col-md-2 mb-3">
+                <label for="validationDefault03">Finalizo</label>
+                <input type="text" class="form-control" id="validationDefault03" required>
+                <input type="text" class="form-control" id="validationDefault03" required>
+                <input type="text" class="form-control" id="validationDefault03" required>
+                <input type="text" class="form-control" id="validationDefault03" required> 
+                <input type="text" class="form-control" id="validationDefault03" required> 
+              </div>
+                 
+              <div class="col-md-3 mb-3">
+                <label for="validationDefault03">Titulo Obtenido:</label>
+                <input type="text" class="form-control" id="validationDefault03" required>
+                <input type="text" class="form-control" id="validationDefault03" required>
+                <input type="text" class="form-control" id="validationDefault03" required>
+                <input type="text" class="form-control" id="validationDefault03" required> 
+                <input type="text" class="form-control" id="validationDefault03" required> 
+              </div>
+              <div class="col-md-3 mb-3">
+                <label for="validationDefault03">Nombre de la Institucion</label>
+                <input type="text" class="form-control" id="validationDefault03" required>
+                
+               </div>
+               <div class="col-md-3 mb-3">
+                <label for="validationDefault03">Curso o Carrera</label>
+                <input type="text" class="form-control" id="validationDefault03" required>
+                
+               </div>
+               <div class="col-md-3 mb-3">
+                <label for="validationDefault03">Grado </label>
+                <input type="text" class="form-control" id="validationDefault03" required>
+                
+               </div>
+               <div class="col-md-3 mb-3">
+                <label for="validationDefault03">Horario </label>
+                <input type="text" class="form-control" id="validationDefault03" required>
+                
+               </div>
+              </div>
+           </div>
+
             <div class="tab-pane fade" id="custom-tabs-one-settings" role="tabpanel" aria-labelledby="custom-tabs-one-settings-tab">
                Pellentesque vestibulum commodo nibh nec blandit. Maecenas neque magna, iaculis tempus turpis ac, ornare sodales tellus. Mauris eget blandit dolor. Quisque tincidunt venenatis vulputate. Morbi euismod molestie tristique. Vestibulum consectetur dolor a vestibulum pharetra. Donec interdum placerat urna nec pharetra. Etiam eget dapibus orci, eget aliquet urna. Nunc at consequat diam. Nunc et felis ut nisl commodo dignissim. In hac habitasse platea dictumst. Praesent imperdiet accumsan ex sit amet facilisis. 
             </div>
+
+
           </div>
         </div>
       </form>
