@@ -54,19 +54,19 @@
                                     <input type="hidden" name="identificador"  value="{{$clasifica->id}}" class="form-control"  onkeyup="mayus(this);">
                                     <!--fin id-->
 
-                                    <input type="text" name="clave_clasificacion"  value="{{$clasifica->clave_clasificacion}}"   class="form-control"  onkeyup="mayus(this)"; onkeypress="return validar(event)" >
+                                    <input type="text" name="clave_clasificacion"  value="{{$clasifica->clave_clasificacion}}"   class="form-control"  onkeyup="mayus(this)"; onkeypress="return validar(event)">
                                 </div>
                             </div>
                             <div class="col-sm-4">
                                 <div class="form-group">
                                     <label>Digito:</label>
-                                    <input type="text" name="digito"  value="{{$clasifica->digito}}"   class="form-control"  onkeyup="mayus(this)"; onkeypress="return numeros(event)" >
+                                    <input type="text" name="digito"  value="{{$clasifica->digito}}"   class="form-control"  onkeyup="mayus(this)"; onkeypress="return numeros(event)">
                                 </div>
                             </div> 
                             <div class="col-sm-4">
                                 <div class="form-group">
                                     <label>Conceptos:</label>
-                                    <input type="text" name="conceptos"  value="{{$clasifica->conceptos}}"   class="form-control"  onkeyup="mayus(this)"; onkeypress="return validar(event)" >
+                                    <input type="text" name="conceptos"  value="{{$clasifica->conceptos}}"   class="form-control"  onkeyup="mayus(this)"; onkeypress="return validar(event)">
                                 </div>
                             </div> 
                             
@@ -100,10 +100,10 @@
                         <div class="margin">
                             <div class="btn-group">
                                 <div class="form-group">
-                                    <button type="button" id="nuevo_clasifica" style='width:40px; height:27px'> <i class="fas fa-user-plus"></i></button>
+                                    <button type="button" id="nuevo" style='width:40px; height:27px'> <i class="fas fa-user-plus"></i></button>
                                 </div>
                                 <div class="form-group">
-                                 <button type="button" id="actualizar_clasifica" style='width:40px; height:27px'> <i class="fas fa-pen-square"></i></button>
+                                 <button type="button" id="actualizar" style='width:40px; height:27px'> <i class="fas fa-pen-square"></i></button>
                                 </div>
                                 <div class="form-group">
                                     <a id="eliminar" data-target="#modal-deleteclasifica-{{$clasifica->id}}" data-toggle="modal">
@@ -133,7 +133,7 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <button name="acciones" value="cancelar_actualiza" id="cancelar" type="submit" style="display: none;width:40px; height:28px"><i class="far fa-window-close"></i></button>
+                                    <button name="acciones" value="cancelar_actualiza" id="cancelar_reg" type="submit" style="display: none;width:40px; height:28px"><i class="far fa-window-close"></i></button>
                                 </div>
                             </div>
                         </div>

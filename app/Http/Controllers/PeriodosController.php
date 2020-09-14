@@ -11,46 +11,24 @@ class PeriodosController extends Controller
 {
     public function index(){
 
-    $empresa= Session::get('clave_empresa');
-    $configDb = [
-        'driver'      => 'mysql',
-        'host'        => env('DB_HOST', 'localhost'),
-        'port'        => env('DB_PORT', '3306'),
-        'database'    => $empresa,
-        'username'    => env('DB_USERNAME', 'root'),
-        'password'    => env('DB_PASSWORD', ''),
-        'unix_socket' => env('DB_SOCKET', ''),
-        'charset'     => 'utf8',
-        'collation'   => 'utf8_unicode_ci',
-        'prefix'      => '',
-        'strict'      => true,
-        'engine'      => null,
-    ];
+    $clv= Session::get('clave_empresa');
+    $clv_empresa=$this->conectar($clv);
 
-    \Config::set('database.connections.DB_Serverr', $configDb);
+ 
+    \Config::set('database.connections.DB_Serverr', $clv_empresa);
+    
     $periodos=DB::connection('DB_Serverr')->table('periodos')->get();
     $cant=DB::connection('DB_Serverr')->table('periodos')->count();
     return view('periodos.periodos',compact('periodos','cant'));
     }
 
  public function agregarperiodos($datos){
-    $empresa= Session::get('clave_empresa');
-    $configDb = [
-        'driver'      => 'mysql',
-        'host'        => env('DB_HOST', 'localhost'),
-        'port'        => env('DB_PORT', '3306'),
-        'database'    => $empresa,
-        'username'    => env('DB_USERNAME', 'root'),
-        'password'    => env('DB_PASSWORD', ''),
-        'unix_socket' => env('DB_SOCKET', ''),
-        'charset'     => 'utf8',
-        'collation'   => 'utf8_unicode_ci',
-        'prefix'      => '',
-        'strict'      => true,
-        'engine'      => null,
-    ];
-    
-    \Config::set('database.connections.DB_Serverr', $configDb);
+    $clv= Session::get('clave_empresa');
+    $clv_empresa=$this->conectar($clv);
+
+ 
+    \Config::set('database.connections.DB_Serverr', $clv_empresa);
+   
     $cant=DB::connection('DB_Serverr')->table('periodos')->count();
     DB::connection('DB_Serverr')->insert('insert into periodos (numero,fecha_inicio,fecha_fin,fecha_pago)
     values (?,?,?,?)',[$cant,$datos->fecha_inicio,$datos->fecha_fin,$datos->fecha_pago]);
@@ -62,23 +40,13 @@ class PeriodosController extends Controller
     }
 
     public function acciones(Request $request){
-        $empresa=Session::get('clave_empresa');
+        $clv=Session::get('clave_empresa');
+        $clv_empresa=$this->conectar($clv);
 
-        $configDb = [
-        'driver'      => 'mysql',
-        'host'        => env('DB_HOST', 'localhost'),
-        'port'        => env('DB_PORT', '3306'),
-        'database'    => $empresa,
-        'username'    => env('DB_USERNAME', 'root'),
-        'password'    => env('DB_PASSWORD', ''),
-        'unix_socket' => env('DB_SOCKET', ''),
-        'charset'     => 'utf8',
-        'collation'   => 'utf8_unicode_ci',
-        'prefix'      => '',
-        'strict'      => true,
-        'engine'      => null,
-        ];
-        \Config::set('database.connections.DB_Serverr', $configDb);
+ 
+        \Config::set('database.connections.DB_Serverr', $clv_empresa);
+
+       
         $accion= $request->acciones;
         $indic=$request->identificador;
         
@@ -145,14 +113,14 @@ class PeriodosController extends Controller
        
     }
 
-    public function actualizarperiodos($datos){
+    public function conectar($clv)
+    {
 
-        $empresa= Session::get('clave_empresa');
         $configDb = [
         'driver'      => 'mysql',
         'host'        => env('DB_HOST', 'localhost'),
         'port'        => env('DB_PORT', '3306'),
-        'database'    => $empresa,
+        'database'    => $clv,
         'username'    => env('DB_USERNAME', 'root'),
         'password'    => env('DB_PASSWORD', ''),
         'unix_socket' => env('DB_SOCKET', ''),
@@ -161,9 +129,20 @@ class PeriodosController extends Controller
         'prefix'      => '',
         'strict'      => true,
         'engine'      => null,
-    ];
-    
-    \Config::set('database.connections.DB_Serverr', $configDb);
+        ];
+  
+        return $configDb;
+
+    }
+
+    public function actualizarperiodos($datos){
+
+    $clv= Session::get('clave_empresa');
+    $clv_empresa=$this->conectar($clv);
+
+ 
+    \Config::set('database.connections.DB_Serverr', $clv_empresa);
+      
     $fecha=$datos->fecha_inicio;
 
     $aux1 = DB::connection('DB_Serverr')->table('periodos')->where('fecha_inicio',$fecha)->first();
@@ -174,27 +153,18 @@ class PeriodosController extends Controller
     }
 
     public function eliminarperiodo($id){
-        $empresa= Session::get('clave_empresa');
-        $configDb = [
-        'driver'      => 'mysql',
-        'host'        => env('DB_HOST', 'localhost'),
-        'port'        => env('DB_PORT', '3306'),
-        'database'    => $empresa,
-        'username'    => env('DB_USERNAME', 'root'),
-        'password'    => env('DB_PASSWORD', ''),
-        'unix_socket' => env('DB_SOCKET', ''),
-        'charset'     => 'utf8',
-        'collation'   => 'utf8_unicode_ci',
-        'prefix'      => '',
-        'strict'      => true,
-        'engine'      => null,
-    ];
-    
-    \Config::set('database.connections.DB_Serverr', $configDb);
+    $clv= Session::get('clave_empresa');
+    $clv_empresa=$this->conectar($clv);
+
+ 
+    \Config::set('database.connections.DB_Serverr', $clv_empresa);
+
+       
     $aux1 = DB::connection('DB_Serverr')->table('periodos')->where('id',$id)->delete();
 
     $aux = DB::connection('DB_Serverr')->table('periodos')->get()->first();
-    return view('periodos.crudperiodos',compact('aux'));
+    $periodos=DB::connection('DB_Serverr')->table('periodos')->get(); 
+    return view('periodos.crudperiodos',compact('aux','periodos'));
     }
 
 
