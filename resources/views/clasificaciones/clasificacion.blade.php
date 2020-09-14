@@ -54,19 +54,19 @@
                                     <input type="hidden" name="identificador"  value="{{$clasifica->id}}" class="form-control"  onkeyup="mayus(this);">
                                     <!--fin id-->
 
-                                    <input type="text" name="clave_clasificacion"  value="{{$clasifica->clave_clasificacion}}"   class="form-control"  onkeyup="mayus(this)"; onkeypress="return validar(event)" >
+                                    <input type="text" name="clave_clasificacion"  value="{{$clasifica->clave_clasificacion}}"   class="form-control"  onkeyup="mayus(this)"; onkeypress="return validar(event)">
                                 </div>
                             </div>
                             <div class="col-sm-4">
                                 <div class="form-group">
                                     <label>Digito:</label>
-                                    <input type="text" name="digito"  value="{{$clasifica->digito}}"   class="form-control"  onkeyup="mayus(this)"; onkeypress="return numeros(event)" >
+                                    <input type="text" name="digito"  value="{{$clasifica->digito}}"   class="form-control"  onkeyup="mayus(this)"; onkeypress="return numeros(event)">
                                 </div>
                             </div> 
                             <div class="col-sm-4">
                                 <div class="form-group">
                                     <label>Conceptos:</label>
-                                    <input type="text" name="conceptos"  value="{{$clasifica->conceptos}}"   class="form-control"  onkeyup="mayus(this)"; onkeypress="return validar(event)" >
+                                    <input type="text" name="conceptos"  value="{{$clasifica->conceptos}}"   class="form-control"  onkeyup="mayus(this)"; onkeypress="return validar(event)">
                                 </div>
                             </div> 
                             

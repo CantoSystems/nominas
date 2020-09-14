@@ -72,7 +72,9 @@ class PrestacionesController extends Controller
                 
                 break;
             case 'cancelar_prestaciones':
-                return back();
+                $aux = Prestaciones::first();
+                $prestaciones = Prestaciones::all();
+                return view('prestaciones.prestaciones',compact('aux','prestaciones'));
                 break;
             default:
                 # code...
