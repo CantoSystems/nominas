@@ -183,7 +183,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <script src="{{ asset('/Admin/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js')}}"></script>
 <script src="/Admin/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
 <script src="/Admin/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
-<script src="{{ asset('/Admin/js/scripts.js')}}"></script>
+
 <script>
       $(function(){ 
         $('#nuevo').click(function(){
