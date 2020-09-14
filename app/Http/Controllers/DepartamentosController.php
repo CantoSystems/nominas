@@ -10,26 +10,26 @@ use DataTables;
 class DepartamentosController extends Controller
 {
 	public function conectar($clv)
-{
+	{
 
-    $configDb = [
-        'driver'      => 'mysql',
-        'host'        => env('DB_HOST', 'localhost'),
-        'port'        => env('DB_PORT', '3306'),
-        'database'    => $clv,
-        'username'    => env('DB_USERNAME', 'root'),
-        'password'    => env('DB_PASSWORD', ''),
-        'unix_socket' => env('DB_SOCKET', ''),
-        'charset'     => 'utf8',
-        'collation'   => 'utf8_unicode_ci',
-        'prefix'      => '',
-        'strict'      => true,
-        'engine'      => null,
-];
+    	$configDb = [
+        	'driver'      => 'mysql',
+        	'host'        => env('DB_HOST', 'localhost'),
+        	'port'        => env('DB_PORT', '3306'),
+        	'database'    => $clv,
+        	'username'    => env('DB_USERNAME', 'root'),
+        	'password'    => env('DB_PASSWORD', ''),
+        	'unix_socket' => env('DB_SOCKET', ''),
+        	'charset'     => 'utf8',
+        	'collation'   => 'utf8_unicode_ci',
+        	'prefix'      => '',
+        	'strict'      => true,
+        	'engine'      => null,
+		];
 
-return $configDb;
+		return $configDb;
+	}
 
-}
     public function index(Request $request){
 		$clv=Session::get('clave_empresa');
         $clv_empresa=$this->conectar($clv);
@@ -150,22 +150,10 @@ return $configDb;
 	public function registrar($datos){
 		$clv=Session::get('clave_empresa');
 		$clave_departamento= $this->generador();
-		$configDb = [
-			'driver'      => 'mysql',
-			'host'        => env('DB_HOST', 'localhost'),
-			'port'        => env('DB_PORT', '3306'),
-			'database'    => $clv,
-			'username'    => env('DB_USERNAME', 'root'),
-			'password'    => env('DB_PASSWORD', ''),
-			'unix_socket' => env('DB_SOCKET', ''),
-			'charset'     => 'utf8',
-			'collation'   => 'utf8_unicode_ci',
-			'prefix'      => '',
-			'strict'      => true,
-			'engine'      => null,
-	];
-	
-		\Config::set('database.connections.DB_Serverr', $configDb);
+		$clv_empresa=$this->conectar($clv);
+
+ 
+		\Config::set('database.connections.DB_Serverr', $clv_empresa);
 		DB::connection('DB_Serverr')->insert('insert into departamentos (clave_departamento, departamento,clave_area)
 		values (?,?,?)',[$clave_departamento,$datos->departamento,$datos->clave_area]);
 	}
@@ -182,23 +170,12 @@ return $configDb;
 
 	public function actualizar($datos){
 
-        $empresa= Session::get('clave_empresa');
-        $configDb = [
-        'driver'      => 'mysql',
-        'host'        => env('DB_HOST', 'localhost'),
-        'port'        => env('DB_PORT', '3306'),
-        'database'    => $empresa,
-        'username'    => env('DB_USERNAME', 'root'),
-        'password'    => env('DB_PASSWORD', ''),
-        'unix_socket' => env('DB_SOCKET', ''),
-        'charset'     => 'utf8',
-        'collation'   => 'utf8_unicode_ci',
-        'prefix'      => '',
-        'strict'      => true,
-        'engine'      => null,
-    ];
-    
-    \Config::set('database.connections.DB_Serverr', $configDb);
+    $clv= Session::get('clave_empresa');
+    $clv_empresa=$this->conectar($clv);
+
+ 
+	\Config::set('database.connections.DB_Serverr', $clv_empresa);
+        
     $clv=$datos->clave_departamento;
 
     $aux1 = DB::connection('DB_Serverr')->table('departamentos')->where('clave_departamento',$clv)->first();
@@ -209,31 +186,21 @@ return $configDb;
     }
 
     public function eliminardepartamento($id){
-    	$empresa= Session::get('clave_empresa');
-        $configDb = [
-        'driver'      => 'mysql',
-        'host'        => env('DB_HOST', 'localhost'),
-        'port'        => env('DB_PORT', '3306'),
-        'database'    => $empresa,
-        'username'    => env('DB_USERNAME', 'root'),
-        'password'    => env('DB_PASSWORD', ''),
-        'unix_socket' => env('DB_SOCKET', ''),
-        'charset'     => 'utf8',
-        'collation'   => 'utf8_unicode_ci',
-        'prefix'      => '',
-        'strict'      => true,
-        'engine'      => null,
-    ];
-    
-    \Config::set('database.connections.DB_Serverr', $configDb);
+   	$clv= Session::get('clave_empresa');
+   	$clv_empresa=$this->conectar($clv);
+
+ 
+	\Config::set('database.connections.DB_Serverr', $clv_empresa);
+
+        
     $aux1 = DB::connection('DB_Serverr')->table('departamentos')->where('id',$id)->delete();
     $aux = DB::connection('DB_Serverr')->table('departamentos')
 				->join('areas','departamentos.clave_area','=','areas.clave_area')
 				->select('departamentos.*','areas.area')->get()->last();
-				  $departamentos = DB::connection('DB_Serverr')->table('departamentos')
+	$departamentos = DB::connection('DB_Serverr')->table('departamentos')
 				   ->join('areas','departamentos.clave_area','=','areas.clave_area')
 					->select('departamentos.*','areas.area')->get();
-				   $areas=DB::connection('DB_Serverr')->table('areas')->get();
-				   return view('departamentos.departamentos',compact('aux','departamentos','areas'));
+	$areas=DB::connection('DB_Serverr')->table('areas')->get();
+	return view('departamentos.departamentos',compact('aux','departamentos','areas'));
     }
 }

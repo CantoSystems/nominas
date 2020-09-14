@@ -12,15 +12,17 @@
                     <table id="example1" class="table table-bordered table-striped">
                         <thead>
                             <tr>
-                                <th>Área</th>
                                 <th>Clave área</th>
+                                <th>Área</th>
+                                
                             </tr>
                         </thead>
                         <tbody>
                             @foreach($areas as $area)
                             <tr>
-                                <td>{{$area->area}}</td>
                                 <td>{{$area->clave_area}}</td>
+                                <td>{{$area->area}}</td>
+                                
                             </tr>
                           @endforeach
                         </tbody>
@@ -108,7 +110,7 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <button name="acciones" value="cancelar" id="cancelar" type="submit" style="display: none;width:40px; height:28px"><i class="far fa-window-close"></i></button>
+                                    <button name="acciones" value="cancelar" id="cancelar_reg" type="submit" style="display: none;width:40px; height:28px"><i class="far fa-window-close"></i></button>
                                 </div>
                             </div>
                         </div>

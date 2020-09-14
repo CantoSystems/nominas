@@ -7,7 +7,7 @@
         <h3 class="card-title">Conceptos</h3>
     </div>
     <div class="card-body">
-    <form action="{{ route('conceptos.index')}}" method="GET">
+    <form action="{{ route('conceptos.index')}}" method="GET" autocomplete="off">
             <div class="row">
                 <div class="col-sm-2">
                     <div class="form-group">
@@ -22,7 +22,7 @@
                         <input type="hidden" name="concepto" class="form-control" value="{{$aux->id}}" onkeyup="mayus(this);">
                     </div>
                 </div>
-                <div class="col-sm-2">
+                <div class="col-sm-3">
                     <div class="form-group">
                         <label>Naturaleza:</label>
                         <select class="custom-select" id="naturaleza" name="naturaleza">
@@ -35,7 +35,7 @@
                           </select>
                     </div>
                 </div>
-                <div class="col-sm-2">
+                <div class="col-sm-3">
                     <div class="form-group">
                         <label>Manejo:</label>
                         <select class="custom-select" id="manejo" name="manejo">
@@ -70,7 +70,7 @@
                         <input type="text" name="monto" class="form-control" value="{{$aux->monto}}" onkeyup="mayus(this);">
                     </div>
                 </div>
-                <div class="col-sm-6">
+                <div class="col-sm-4">
                     <!-- checkbox -->
                     <label for=""> Elije una opción</label>
                     <div class="form-group">
