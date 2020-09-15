@@ -399,7 +399,163 @@
            </div>
 
             <div class="tab-pane fade" id="custom-tabs-one-settings" role="tabpanel" aria-labelledby="custom-tabs-one-settings-tab">
-               Pellentesque vestibulum commodo nibh nec blandit. Maecenas neque magna, iaculis tempus turpis ac, ornare sodales tellus. Mauris eget blandit dolor. Quisque tincidunt venenatis vulputate. Morbi euismod molestie tristique. Vestibulum consectetur dolor a vestibulum pharetra. Donec interdum placerat urna nec pharetra. Etiam eget dapibus orci, eget aliquet urna. Nunc at consequat diam. Nunc et felis ut nisl commodo dignissim. In hac habitasse platea dictumst. Praesent imperdiet accumsan ex sit amet facilisis. 
+             <h2>Empleos</h2>
+              <div class="form-group row">
+                
+                 <label for="" class="col-form-label col-sm-1">Tiempo que presto sus  servicios</label>
+                   <div class="col-sm-2">
+                    <p><label for="pensamiento_id">De &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp  A</label></p>
+                      <input type="text" name="nombre" id="nombre" class="form-control" placeholder="" tabindex="1">
+                   </div>
+                   <div class="col-sm-2">
+                    <p><label for="pensamiento_id">De &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp  A</label></p>
+                      <input type="text" name="nombre" id="nombre" class="form-control" placeholder="" tabindex="1">
+                   </div>
+                   <div class="col-sm-2">
+                    <p><label for="pensamiento_id">De &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp  A</label></p>
+                      <input type="text" name="nombre" id="nombre" class="form-control" placeholder="" tabindex="1">
+                   </div>
+                   <div class="col-sm-2">
+                    <p><label for="pensamiento_id">De &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp  A</label></p>
+                      <input type="text" name="nombre" id="nombre" class="form-control" placeholder="" tabindex="1">
+                   </div>
+              </div>
+              <div class="form-group row">
+                <label for="" class="col-form-label col-sm-1">Nombre de la Compañia</label>
+                  <div class="col-sm-2">
+                     <input type="text" name="nombre" id="nombre" class="form-control" placeholder="" tabindex="1">
+                  </div>
+                  <div class="col-sm-2">
+                    <input type="text" name="nombre" id="nombre" class="form-control" placeholder="" tabindex="1">
+                 </div>
+                 <div class="col-sm-2">
+                  <input type="text" name="nombre" id="nombre" class="form-control" placeholder="" tabindex="1">
+               </div>
+               <div class="col-sm-2">
+                <input type="text" name="nombre" id="nombre" class="form-control" placeholder="" tabindex="1">
+             </div>
+             </div>
+             <div class="form-group row">
+              <label for="" class="col-form-label col-sm-1">Direccion</label>
+                <div class="col-sm-2">
+                   <input type="text" name="nombre" id="nombre" class="form-control" placeholder="" tabindex="1">
+                </div>
+                <div class="col-sm-2">
+                  <input type="text" name="nombre" id="nombre" class="form-control" placeholder="" tabindex="1">
+               </div>
+               <div class="col-sm-2">
+                <input type="text" name="nombre" id="nombre" class="form-control" placeholder="" tabindex="1">
+             </div>
+             <div class="col-sm-2">
+              <input type="text" name="nombre" id="nombre" class="form-control" placeholder="" tabindex="1">
+           </div>
+           </div>
+           <div class="form-group row">
+            <label for="" class="col-form-label col-sm-1">Telefono</label>
+              <div class="col-sm-2">
+                 <input type="text" name="nombre" id="nombre" class="form-control" placeholder="" tabindex="1">
+              </div>
+              <div class="col-sm-2">
+                <input type="text" name="nombre" id="nombre" class="form-control" placeholder="" tabindex="1">
+             </div>
+             <div class="col-sm-2">
+              <input type="text" name="nombre" id="nombre" class="form-control" placeholder="" tabindex="1">
+           </div>
+           <div class="col-sm-2">
+            <input type="text" name="nombre" id="nombre" class="form-control" placeholder="" tabindex="1">
+         </div>
+         </div>
+         <div class="form-group row">
+          <label for="" class="col-form-label col-sm-1">sueldo</label>
+            <div class="col-sm-2">
+               <input type="text" name="nombre" id="nombre" class="form-control" placeholder="" tabindex="1">
+            </div>
+            <div class="col-sm-2">
+              <input type="text" name="nombre" id="nombre" class="form-control" placeholder="" tabindex="1">
+           </div>
+           <div class="col-sm-2">
+            <input type="text" name="nombre" id="nombre" class="form-control" placeholder="" tabindex="1">
+         </div>
+         <div class="col-sm-2">
+          <input type="text" name="nombre" id="nombre" class="form-control" placeholder="" tabindex="1">
+       </div>
+       </div>
+       <div class="form-group row">
+        <label for="" class="col-form-label col-sm-1">Motivo de la Separacion</label>
+          <div class="col-sm-2">
+             <input type="text" name="nombre" id="nombre" class="form-control" placeholder="" tabindex="1">
+          </div>
+          <div class="col-sm-2">
+            <input type="text" name="nombre" id="nombre" class="form-control" placeholder="" tabindex="1">
+         </div>
+         <div class="col-sm-2">
+          <input type="text" name="nombre" id="nombre" class="form-control" placeholder="" tabindex="1">
+       </div>
+       <div class="col-sm-2">
+        <input type="text" name="nombre" id="nombre" class="form-control" placeholder="" tabindex="1">
+     </div>
+     </div>
+     <div class="form-group row">
+      <label for="" class="col-form-label col-sm-1">Nombre del Jefe Directo</label>
+        <div class="col-sm-2">
+           <input type="text" name="nombre" id="nombre" class="form-control" placeholder="" tabindex="1">
+        </div>
+        <div class="col-sm-2">
+          <input type="text" name="nombre" id="nombre" class="form-control" placeholder="" tabindex="1">
+       </div>
+       <div class="col-sm-2">
+        <input type="text" name="nombre" id="nombre" class="form-control" placeholder="" tabindex="1">
+     </div>
+     <div class="col-sm-2">
+      <input type="text" name="nombre" id="nombre" class="form-control" placeholder="" tabindex="1">
+   </div>
+   </div>
+   <div class="form-group row">
+    <label for="" class="col-form-label col-sm-1">Puesto del Jefe Inmediato</label>
+      <div class="col-sm-2">
+         <input type="text" name="nombre" id="nombre" class="form-control" placeholder="" tabindex="1">
+      </div>
+      <div class="col-sm-2">
+        <input type="text" name="nombre" id="nombre" class="form-control" placeholder="" tabindex="1">
+     </div>
+     <div class="col-sm-2">
+      <input type="text" name="nombre" id="nombre" class="form-control" placeholder="" tabindex="1">
+   </div>
+   <div class="col-sm-2">
+    <input type="text" name="nombre" id="nombre" class="form-control" placeholder="" tabindex="1">
+ </div>
+ </div>
+ <div class="form-group row">
+  <label for="" class="col-form-label col-sm-1">Podemos Solicitar Informes</label>
+    <div class="col-sm-2">
+       <input type="checkbox" name="nombre" id="nombre" class="form-control" placeholder="" tabindex="1">
+    </div>
+    <div class="col-sm-2">
+      <input type="checkbox" name="nombre" id="nombre" class="form-control" placeholder="" tabindex="1">
+   </div>
+   <div class="col-sm-2">
+    <input type="checkbox" name="nombre" id="nombre" class="form-control" placeholder="" tabindex="1">
+ </div>
+ <div class="col-sm-2">
+  <input type="checkbox" name="nombre" id="nombre" class="form-control" placeholder="" tabindex="1">
+</div>
+ 
+</div>
+<div class="form-group row">
+  <label for="" class="col-form-label col-sm-1">Razones</label>
+    <div class="col-sm-2">
+       <input type="text" name="nombre" id="nombre" class="form-control" placeholder="" tabindex="1">
+    </div>
+    <div class="col-sm-2">
+      <input type="text" name="nombre" id="nombre" class="form-control" placeholder="" tabindex="1">
+   </div>
+   <div class="col-sm-2">
+    <input type="text" name="nombre" id="nombre" class="form-control" placeholder="" tabindex="1">
+ </div>
+ <div class="col-sm-2">
+  <input type="text" name="nombre" id="nombre" class="form-control" placeholder="" tabindex="1">
+</div>
+</div>
             </div>
 
 
