@@ -23,6 +23,9 @@ class PeriodosController extends Controller
     }
 
  public function agregarperiodos($datos){
+    if ($datos->fecha_inicio === null || $datos->fecha_fin === null || $datos->fecha_pago === null){
+            return redirect()->route('periodos.acciones');
+        }
     $clv= Session::get('clave_empresa');
     $clv_empresa=$this->conectar($clv);
 
@@ -102,7 +105,7 @@ class PeriodosController extends Controller
             break;
 
             case 'cancelar_periodos':
-                return back();
+                return redirect()->route('periodos.acciones');
             break;
 
             default:
