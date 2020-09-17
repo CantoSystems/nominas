@@ -106,14 +106,7 @@ class DepartamentosController extends Controller
                break;
                case 'registrar':
                 $this->registrar($request);
-				$aux = DB::connection('DB_Serverr')->table('departamentos')
-				->join('areas','departamentos.clave_area','=','areas.clave_area')
-				->select('departamentos.*','areas.area')->get()->last();
-				   $departamentos = DB::connection('DB_Serverr')->table('departamentos')
-				   ->join('areas','departamentos.clave_area','=','areas.clave_area')
-					->select('departamentos.*','areas.area')->get();
-				   $areas=DB::connection('DB_Serverr')->table('areas')->get();
-				   return view('departamentos.departamentos',compact('aux','departamentos','areas'));
+				return redirect()->route('departamentos.index');
                break;
                case 'eliminar':
 
@@ -129,14 +122,7 @@ class DepartamentosController extends Controller
 			   break;
 			   case 'actualizar':
 				$this->actualizar($request);
-				$aux = DB::connection('DB_Serverr')->table('departamentos')
-				->join('areas','departamentos.clave_area','=','areas.clave_area')
-				->select('departamentos.*','areas.area')->get()->last();
-				   $departamentos = DB::connection('DB_Serverr')->table('departamentos')
-				   ->join('areas','departamentos.clave_area','=','areas.clave_area')
-					->select('departamentos.*','areas.area')->get();
-				   $areas=DB::connection('DB_Serverr')->table('areas')->get();
-				   return view('departamentos.departamentos',compact('aux','departamentos','areas'));
+				return redirect()->route('departamentos.index');
                break;
                case 'cancelar':
                	return back();
@@ -148,6 +134,9 @@ class DepartamentosController extends Controller
 	}
 
 	public function registrar($datos){
+		if ($datos->departamento === null || $datos->clave_area === null) {
+			return redirect()->route('departamentos.index');
+		}
 		$clv=Session::get('clave_empresa');
 		$clave_departamento= $this->generador();
 		$clv_empresa=$this->conectar($clv);
@@ -194,13 +183,6 @@ class DepartamentosController extends Controller
 
         
     $aux1 = DB::connection('DB_Serverr')->table('departamentos')->where('id',$id)->delete();
-    $aux = DB::connection('DB_Serverr')->table('departamentos')
-				->join('areas','departamentos.clave_area','=','areas.clave_area')
-				->select('departamentos.*','areas.area')->get()->last();
-	$departamentos = DB::connection('DB_Serverr')->table('departamentos')
-				   ->join('areas','departamentos.clave_area','=','areas.clave_area')
-					->select('departamentos.*','areas.area')->get();
-	$areas=DB::connection('DB_Serverr')->table('areas')->get();
-	return view('departamentos.departamentos',compact('aux','departamentos','areas'));
+    return redirect()->route('departamentos.index');
     }
 }

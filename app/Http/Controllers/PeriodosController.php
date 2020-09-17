@@ -24,7 +24,7 @@ class PeriodosController extends Controller
 
  public function agregarperiodos($datos){
     if ($datos->fecha_inicio === null || $datos->fecha_fin === null || $datos->fecha_pago === null){
-            return redirect()->route('periodos.acciones');
+            return redirect()->route('periodos.index');
         }
     $clv= Session::get('clave_empresa');
     $clv_empresa=$this->conectar($clv);
@@ -92,16 +92,12 @@ class PeriodosController extends Controller
 
             case 'registrar':
                 $this->agregarperiodos($request);
-                $aux = DB::connection('DB_Serverr')->table('periodos')->first();
-                $periodos=DB::connection('DB_Serverr')->table('periodos')->get(); 
-                return view('periodos.crudperiodos',compact('aux','periodos'));
+                return redirect()->route('periodos.acciones');
             break;
 
             case 'actualizar':
                 $this->actualizarperiodos($request);
-                $aux = DB::connection('DB_Serverr')->table('periodos')->get()->first();
-                $periodos=DB::connection('DB_Serverr')->table('periodos')->get(); 
-                return view('periodos.crudperiodos',compact('aux','periodos'));
+                return redirect()->route('periodos.acciones');
             break;
 
             case 'cancelar_periodos':
@@ -165,9 +161,7 @@ class PeriodosController extends Controller
        
     $aux1 = DB::connection('DB_Serverr')->table('periodos')->where('id',$id)->delete();
 
-    $aux = DB::connection('DB_Serverr')->table('periodos')->get()->first();
-    $periodos=DB::connection('DB_Serverr')->table('periodos')->get(); 
-    return view('periodos.crudperiodos',compact('aux','periodos'));
+    return redirect()->route('periodos.acciones');
     }
 
 
