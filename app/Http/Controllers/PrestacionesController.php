@@ -59,17 +59,12 @@ class PrestacionesController extends Controller
                 break;
             case 'registrar':
                 $this->store($request);
-                $aux = Prestaciones::first();
-                $prestaciones = Prestaciones::all();
-                return view('prestaciones.prestaciones',compact('aux','prestaciones'));
+                return redirect()->route('prestaciones.index');
                 break;
 
             case 'actualizar':
                 $this->update($request);
-                $aux = Prestaciones::first();
-                $prestaciones = Prestaciones::all();
-                return view('prestaciones.prestaciones',compact('aux','prestaciones'));
-                
+                return redirect()->route('prestaciones.index');
                 break;
             case 'cancelar_prestaciones':
                 $aux = Prestaciones::first();
@@ -86,6 +81,9 @@ class PrestacionesController extends Controller
    
     public function store($datos)
     {
+        if ($datos->anio === null || $datos->dias === null || $datos->prima_vacacional === null || $datos->aguinaldo === null) {
+           return redirect()->route('prestaciones.index');
+        }
         $prestaciones= new Prestaciones();
         $prestaciones->anio= $datos->anio;
         $prestaciones->dias= $datos->dias;
@@ -110,9 +108,6 @@ class PrestacionesController extends Controller
     {
         $prestacion = Prestaciones::find($id);
         $prestacion->delete();
-        $aux = Prestaciones::first();
-        $prestaciones = Prestaciones::all();
-        return view('prestaciones.prestaciones',compact('aux','prestaciones'));
-
+        return redirect()->route('prestaciones.index');
     }
 }
