@@ -60,9 +60,7 @@ class AreasController extends Controller
                break;
                case 'registrar':
                $this->registrar($request);
-               $aux = DB::connection('DB_Serverr')->table('areas')->get()->first();
-               $areas = DB::connection('DB_Serverr')->table('areas')->get();
-                return view('Areas.area',compact('aux','areas'));
+               return redirect()->route('areas.index');
                break;
                case 'actualizar':
                 $aux1 = DB::connection('DB_Serverr')->table('areas')->where('clave_area',$clave_ar)->first();
@@ -94,6 +92,9 @@ class AreasController extends Controller
 }
 
 public function registrar($datos){
+    if($datos->area === null){
+      return redirect()->route('areas.index');
+    }
     $clv=Session::get('clave_empresa');
     $clave_area= $this->generador();
     $clv_empresa=$this->conectar($clv);
@@ -144,9 +145,6 @@ public function conectar($clv)
     \Config::set('database.connections.DB_Serverr', $clv_empresa);
     
     $aux1 = DB::connection('DB_Serverr')->table('areas')->where('id',$id)->delete();
-    $aux = DB::connection('DB_Serverr')->table('areas')->get()->first();
-    $areas = DB::connection('DB_Serverr')->table('areas')->get();
-    return view('Areas.area',compact('aux','areas'));
-
+    return redirect()->route('areas.index');
   }
 }
