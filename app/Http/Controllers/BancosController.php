@@ -67,16 +67,12 @@ class BancosController extends Controller
                    return view('bancos.bancos', compact('banco','bancos'));
                break;
                case 'registrar':
-               $this->registrar($request);
-               $banco= Banco::first();
-               $bancos=Banco::all();
-                   return view('bancos.bancos', compact('banco','bancos'));
+                  $this->registrar($request);
+                  return redirect()->route('bancos.acciones');
                break;
                case 'actualizar':
                    $this->actualizar($request);
-                   $banco= Banco::first();
-                   $bancos=Banco::all();
-                   return view('bancos.bancos', compact('banco','bancos'));
+                   return redirect()->route('bancos.acciones');
                break;
                case 'cancelar':
                    return back();
@@ -102,17 +98,6 @@ class BancosController extends Controller
         $banc->save();
      }
 
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
     public function generador(){
         $raiz= '0123456789';
         $codigo='';
@@ -125,6 +110,9 @@ class BancosController extends Controller
 
 
           public function registrar($datos){
+            if ($datos->nombre_banco === null) {
+              return redirect()->route('bancos.acciones');
+            }
             $banco= new Banco;
             $clave= $this->generador();
             $banco->clave_banco= $clave;
@@ -135,8 +123,6 @@ class BancosController extends Controller
     public function eliminarbanco($id){
       $banc = Banco::find($id);
       $banc->delete();
-      $banco= Banco::first();
-      $bancos=Banco::all();
-      return view('bancos.bancos', compact('banco','bancos'));
+      return redirect()->route('bancos.acciones');
     }
 }

@@ -56,16 +56,12 @@ class ClasificacionController extends Controller
                    return view('clasificaciones.clasificacion', compact('clasifica','clasificaciones'));
                break;
                case 'registrar':
-               $this->registrar($request);
-               $clasifica= Clasificacion::first();
-               $clasificaciones=Clasificacion::all();
-                   return view('clasificaciones.clasificacion', compact('clasifica','clasificaciones'));
+                  $this->registrar($request);
+                  return redirect()->route('clasificacion.acciones');
                break;
                case 'actualizar':
                    $this->actualizar($request);
-                   $clasifica= Clasificacion::first();
-                   $clasificaciones=Clasificacion::all();
-                   return view('clasificaciones.clasificacion', compact('clasifica','clasificaciones'));
+                   return redirect()->route('clasificacion.acciones');
                break;
                case 'cancelar':
                    $clasifica= Clasificacion::first();
@@ -104,6 +100,9 @@ class ClasificacionController extends Controller
 
 
         public function registrar($datos){
+            if ($datos->clave_clasificacion === null || $datos->digito === null || $datos->conceptos === null) {
+              return redirect()->route('clasificacion.acciones');
+            }
             $clasificacion= new Clasificacion;
             $clave= $this->generador();
             $clasificacion->clave= $clave;
@@ -117,9 +116,6 @@ class ClasificacionController extends Controller
     {
         $clasificar= Clasificacion::find($id);
         $clasificar->delete();
-        $clasifica= Clasificacion::first();
-        $clasificaciones= Clasificacion::all();
-        return view('clasificaciones.clasificacion', compact('clasifica','clasificaciones'));
-
+        return redirect()->route('clasificacion.acciones');
     }
 }
