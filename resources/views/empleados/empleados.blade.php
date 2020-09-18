@@ -2,9 +2,10 @@
 
 @section('content')
 
-  <div class="row">
+  <div class="container">
+    <div class="row">
     <div class="col-md-12">
-      <div class="card card-primary card-tabs">
+      <div class="card card-secondary card-tabs">
         <div class="card-header p-0 pt-1">
           <ul class="nav nav-tabs" id="custom-tabs-one-tab" role="tablist">
             <li class="nav-item">
@@ -28,7 +29,7 @@
                 <div class="form-row">
                   <div class="col-md-1 mb-2">
                     <label for="validationDefault01">Clave:</label>
-                    <input type="text" class="form-control" id="validationDefault01" value="Mark" required>
+                    <input type="text" class="form-control" id="validationDefault01" value="" required>
                   </div>
                   <div class="col-md-2">
                     <label for="validationDefault02">Clasificación:</label>
@@ -119,7 +120,7 @@
                     <label for="validationDefault03">Colonia:</label>
                     <input type="text" class="form-control" id="validationDefault03" required>
                   </div>
-                  <div class="col-md-1 mb-3">
+                  <div class="col-md-2 mb-3">
                     <label for="validationDefault03">CP:</label>
                     <input type="text" class="form-control" id="validationDefault03" required>
                   </div>
@@ -204,7 +205,7 @@
                 <label for="validationDefault01">Enfermedad Crónica:</label>
                 <input type="text" class="form-control" id="validationDefault01" value="Mark" required>
               </div>
-              <div class="col-md-2">
+              <div class="col-md-3">
                 <label for="validationDefault02">Práctica de Deportes:</label>
                 <input type="text" class="form-control" id="validationDefault02" value="Otto" required>
               </div>
@@ -399,29 +400,45 @@
            </div>
 
             <div class="tab-pane fade" id="custom-tabs-one-settings" role="tabpanel" aria-labelledby="custom-tabs-one-settings-tab">
-             <h2>Empleos</h2>
+
+            <div class="form-group row">
+                
+                 <label for="" class="col-form-label col-sm-3">Empleos</label>
+                   <div class="col-sm-2">
+                    <p><label for="pensamiento_id" style="text-align: justify;">Actual ó último <br>De &nbsp &nbsp &nbsp &nbsp A</label></p>
+                   </div>
+                   <div class="col-sm-2">
+                    <p><label for="pensamiento_id" style="text-align: justify;">Anterior <br>De &nbsp &nbsp &nbsp &nbsp &nbsp  A</label></p>
+                   </div>
+                   <div class="col-sm-2">
+                    <p><label for="pensamiento_id" style="text-align: justify;">Anterior <br>De &nbsp &nbsp &nbsp &nbsp &nbsp  A</label></p>
+                   </div>
+                   <div class="col-sm-2">
+                    <p><label for="pensamiento_id" style="text-align: justify;">Anterior <br>De &nbsp &nbsp &nbsp &nbsp &nbsp  A</label></p>
+                   </div>
+              </div>
+
+            
               <div class="form-group row">
                 
-                 <label for="" class="col-form-label col-sm-1">Tiempo que presto sus  servicios</label>
+                 <label for="" class="col-form-label col-sm-3">Tiempo que presto sus  servicios:</label>
                    <div class="col-sm-2">
-                    <p><label for="pensamiento_id">De &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp  A</label></p>
                       <input type="text" name="nombre" id="nombre" class="form-control" placeholder="" tabindex="1">
                    </div>
                    <div class="col-sm-2">
-                    <p><label for="pensamiento_id">De &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp  A</label></p>
                       <input type="text" name="nombre" id="nombre" class="form-control" placeholder="" tabindex="1">
                    </div>
                    <div class="col-sm-2">
-                    <p><label for="pensamiento_id">De &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp  A</label></p>
                       <input type="text" name="nombre" id="nombre" class="form-control" placeholder="" tabindex="1">
                    </div>
                    <div class="col-sm-2">
-                    <p><label for="pensamiento_id">De &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp  A</label></p>
                       <input type="text" name="nombre" id="nombre" class="form-control" placeholder="" tabindex="1">
                    </div>
               </div>
+
               <div class="form-group row">
-                <label for="" class="col-form-label col-sm-1">Nombre de la Compañia</label>
+                <label for="" class="col-form-label col-sm-3">Nombre de la Compañia:
+                </label>
                   <div class="col-sm-2">
                      <input type="text" name="nombre" id="nombre" class="form-control" placeholder="" tabindex="1">
                   </div>
@@ -436,7 +453,7 @@
              </div>
              </div>
              <div class="form-group row">
-              <label for="" class="col-form-label col-sm-1">Direccion</label>
+              <label for="" class="col-form-label col-sm-3">Direccion:</label>
                 <div class="col-sm-2">
                    <input type="text" name="nombre" id="nombre" class="form-control" placeholder="" tabindex="1">
                 </div>
@@ -451,7 +468,7 @@
            </div>
            </div>
            <div class="form-group row">
-            <label for="" class="col-form-label col-sm-1">Telefono</label>
+            <label for="" class="col-form-label col-sm-3">Telefono:</label>
               <div class="col-sm-2">
                  <input type="text" name="nombre" id="nombre" class="form-control" placeholder="" tabindex="1">
               </div>
@@ -466,7 +483,7 @@
          </div>
          </div>
          <div class="form-group row">
-          <label for="" class="col-form-label col-sm-1">sueldo</label>
+          <label for="" class="col-form-label col-sm-3">Sueldo:</label>
             <div class="col-sm-2">
                <input type="text" name="nombre" id="nombre" class="form-control" placeholder="" tabindex="1">
             </div>
@@ -481,7 +498,7 @@
        </div>
        </div>
        <div class="form-group row">
-        <label for="" class="col-form-label col-sm-1">Motivo de la Separacion</label>
+        <label for="" class="col-form-label col-sm-3">Motivo de la Separacion:</label>
           <div class="col-sm-2">
              <input type="text" name="nombre" id="nombre" class="form-control" placeholder="" tabindex="1">
           </div>
@@ -496,7 +513,7 @@
      </div>
      </div>
      <div class="form-group row">
-      <label for="" class="col-form-label col-sm-1">Nombre del Jefe Directo</label>
+      <label for="" class="col-form-label col-sm-3">Nombre del Jefe Directo:</label>
         <div class="col-sm-2">
            <input type="text" name="nombre" id="nombre" class="form-control" placeholder="" tabindex="1">
         </div>
@@ -511,7 +528,7 @@
    </div>
    </div>
    <div class="form-group row">
-    <label for="" class="col-form-label col-sm-1">Puesto del Jefe Inmediato</label>
+    <label for="" class="col-form-label col-sm-3">Puesto del Jefe Inmediato:</label>
       <div class="col-sm-2">
          <input type="text" name="nombre" id="nombre" class="form-control" placeholder="" tabindex="1">
       </div>
@@ -526,7 +543,7 @@
  </div>
  </div>
  <div class="form-group row">
-  <label for="" class="col-form-label col-sm-1">Podemos Solicitar Informes</label>
+  <label for="" class="col-form-label col-sm-3">Podemos Solicitar Informes:</label>
     <div class="col-sm-2">
        <input type="checkbox" name="nombre" id="nombre" class="form-control" placeholder="" tabindex="1">
     </div>
@@ -542,7 +559,7 @@
  
 </div>
 <div class="form-group row">
-  <label for="" class="col-form-label col-sm-1">Razones</label>
+  <label for="" class="col-form-label col-sm-3">Razones:</label>
     <div class="col-sm-2">
        <input type="text" name="nombre" id="nombre" class="form-control" placeholder="" tabindex="1">
     </div>
@@ -555,7 +572,58 @@
  <div class="col-sm-2">
   <input type="text" name="nombre" id="nombre" class="form-control" placeholder="" tabindex="1">
 </div>
+
+            <div class="form-group row">
+               <div class="col-sm-12">
+                    <p><label for="pensamiento_id" style="text-align: left;">
+                      <h4><strong>Referencias</strong></h4>
+                    </label></p>
+                    
+                   </div>
+                
+                <div class="col-sm-3">
+                    <p><label for="pensamiento_id" style="text-align: left;">             Nombre
+                    </label></p>
+                    <input type="text" name="nombre" id="nombre" class="form-control" placeholder="" tabindex="1"> <br>
+                    <input type="text" name="nombre" id="nombre" class="form-control" placeholder="" tabindex="1"><br>
+                    <input type="text" name="nombre" id="nombre" class="form-control" placeholder="" tabindex="1">
+                </div>
+                 
+
+                <div class="col-sm-4">
+                    <p><label for="pensamiento_id" style="text-align: left;">
+                      
+                      Dirección y Teléfono
+                    </label></p>
+                    <input type="text" name="nombre" id="nombre" class="form-control" placeholder="" tabindex="1"><br>
+                     <input type="text" name="nombre" id="nombre" class="form-control" placeholder="" tabindex="1"><br>
+                      <input type="text" name="nombre" id="nombre" class="form-control" placeholder="" tabindex="1"><br>
+                   </div>
+                   <div class="col-sm-3">
+                    <p><label for="pensamiento_id" style="text-align: left;">
+                    
+                      Ocupación
+                    </label></p>
+                    <input type="text" name="nombre" id="nombre" class="form-control" placeholder="" tabindex="1"><br>
+                    <input type="text" name="nombre" id="nombre" class="form-control" placeholder="" tabindex="1"><br>
+                    <input type="text" name="nombre" id="nombre" class="form-control" placeholder="" tabindex="1">
+                   </div>
+                   <div class="col-sm-1">
+                    <p><label for="pensamiento_id" style="text-align: left;">
+                      
+                      Tiempo
+                    </label></p>
+                    <input type="text" name="nombre" id="nombre" class="form-control" placeholder="" tabindex="1"><br>
+                    <input type="text" name="nombre" id="nombre" class="form-control" placeholder="" tabindex="1"><br>
+                    <input type="text" name="nombre" id="nombre" class="form-control" placeholder="" tabindex="1">
+                   </div>
+              </div>
+
+<div class="form-group row">
+
+
 </div>
+
             </div>
 
 
@@ -564,6 +632,7 @@
       </form>
         <!-- /.card -->
       </div>
-    </div>
   </div>
+    </div>
+  </div></div>
 @endsection
