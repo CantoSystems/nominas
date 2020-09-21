@@ -49,7 +49,7 @@
                 <div class="col-sm-2">
                     <div class="form-group">
                         <label>Número interno:</label>
-                        <input type="text" name="num_interno" max="6000" min="1" class="form-control" value="{{$empresa->num_interno}}" >
+                        <input type="text" name="num_interno" max="6000" min="1" class="form-control" value="{{$empresa->num_interno}}" onkeypress="return numeros(event)" >
                     </div>
                 </div>
                 <div class="col-sm-2">
@@ -85,13 +85,13 @@
                 <div class="col-sm-5">
                     <div class="form-group">
                         <label>Representante legal:</label>
-                        <input type="text" name="representante_legal" max="13" class="form-control" value="{{$empresa->representante_legal}}" onkeyup="mayus(this);" onkeypress="return validar(event)">
+                        <input type="text" name="representante_legal" maxlength="20" class="form-control" value="{{$empresa->representante_legal}}" onkeyup="mayus(this);" onkeypress="return validar(event)">
                     </div>
                 </div>
                 <div class="col-sm-3">
                     <div class="form-group">
                         <label>RFC (Representante legal):</label>
-                        <input type="text" name="rfc_representante" max="13" class="form-control" value="{{$empresa->rfc_representante}}" onkeyup="mayus(this);">
+                        <input type="text" name="rfc_representante" maxlength="13" class="form-control" value="{{$empresa->rfc_representante}}" onkeyup="mayus(this);">
                     </div>
                 </div>
                 <div class="col-sm-4">
