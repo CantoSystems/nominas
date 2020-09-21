@@ -96,7 +96,9 @@ class EmpresaController extends Controller
      }
      public function registrar($datos){
      $empresa= new Empresa;
-     $clave=$this->generaclave();
+     $empresa->rfc= $datos->rfc;
+     $rfc1=$datos->rfc;
+     $clave=substr($rfc1,0,4);
      $empresa->clave= $clave;
      
      DB::statement('create database '.$empresa->clave);
@@ -347,7 +349,8 @@ Schema::connection('DB_Serverr')->create('empleados', function($table){
     $table->string('firma',100);
 });
      $empresa->nombre= $datos->nombre;
-     $empresa->rfc= $datos->rfc;
+     
+     
      $empresa->segurosocial= $datos->segurosocial;
      $empresa->registro_estatal= $datos->registro_estatal;
      $empresa->calle=$datos->calle;
@@ -363,21 +366,10 @@ Schema::connection('DB_Serverr')->create('empleados', function($table){
      $empresa->email= $datos->email;
      $empresa->save();
        
-     return $empresa;
+     
      }
 
-     public function generaclave($empresa,$codigo)
-     {
-         
-        $raiz=$empresa->rfc;
-        $codigo='';
-        for($i=0; $i<3; $i++){
-            $codigo= substr(str_shuffle($raiz),0,4);
-            
-        }
-         return $codigo;
-
-     }
+     
 
      
 
