@@ -61,19 +61,16 @@ class ConceptosController extends Controller
 
         case 'registrar':
             $this->registrar($request);
-            $aux = DB::connection('DB_Serverr')->table('conceptos')->first(); 
-            return view('conceptos.conceptos',compact('aux'));
+            return redirect()->route('conceptos.index');
         break;
 
         case 'actualizar':
             $this->actualizar($request);
-            $aux = DB::connection('DB_Serverr')->table('conceptos')->first(); 
-            return view('conceptos.conceptos',compact('aux'));
+            return redirect()->route('conceptos.index');
         break;
 
         case 'cancelar':
-            $aux = DB::connection('DB_Serverr')->table('conceptos')->first(); 
-            return view('conceptos.conceptos',compact('aux'));
+            return redirect()->route('conceptos.index');
         break;
 
         default:
@@ -204,8 +201,7 @@ public function actualizar($datos){
     \Config::set('database.connections.DB_Serverr', $clv_empresa);
        
     $aux1 = DB::connection('DB_Serverr')->table('conceptos')->where('id',$id)->delete();
-    $aux = DB::connection('DB_Serverr')->table('conceptos')->first(); 
-            return view('conceptos.conceptos',compact('aux'));
+    return redirect()->route('conceptos.index');
 
     }
 
