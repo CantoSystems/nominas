@@ -188,6 +188,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
       $(function(){ 
         $('#nuevo').click(function(){
           $('#actualizar_reg').hide();
+          $('#buscar').hide();
           $('#nuevo_reg').show();
           $('#cancelar_reg').show();
           $('input[type="text"]').val('');
