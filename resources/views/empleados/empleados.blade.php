@@ -380,22 +380,22 @@
               </div>
               <div class="col-md-3">
                 <label for="validationDefault03">Nombre de la Institucion</label>
-                <input type="text" class="form-control" id="validationDefault03" required>
+                <input type="text" class="form-control" name="estudio_actual" required>
                 
                </div>
                <div class="col-md-3 mb-3">
                 <label for="validationDefault03">Curso o Carrera</label>
-                <input type="text" class="form-control" id="validationDefault03" required>
+                <input type="text" class="form-control" name="carrera" required>
                 
                </div>
                <div class="col-md-3 mb-3">
                 <label for="validationDefault03">Grado </label>
-                <input type="text" class="form-control" id="validationDefault03" required>
+                <input type="text" class="form-control" name="grado" required>
                 
                </div>
                <div class="col-md-3 mb-3">
                 <label for="validationDefault03">Horario </label>
-                <input type="text" class="form-control" id="validationDefault03" required>
+                <input type="text" class="form-control" name="horario" required>
                 
                </div>
               </div>
@@ -424,17 +424,30 @@
               <div class="form-group row">
                 
                  <label for="" class="col-form-label col-sm-3">Tiempo que presto sus  servicios:</label>
-                   <div class="col-sm-2">
-                      <input type="text" name="nombre" id="nombre" class="form-control" placeholder="" tabindex="1">
+                   <div class="col-sm-1">
+                      <input type="date" name="vinculacion_trabajo" class="form-control">
                    </div>
-                   <div class="col-sm-2">
-                      <input type="text" name="nombre" id="nombre" class="form-control" placeholder="" tabindex="1">
+                   <div class="col-sm-1">
+                      <input type="date" name="desvinculacion_trabajo" class="form-control">
+                      
                    </div>
-                   <div class="col-sm-2">
-                      <input type="text" name="nombre" id="nombre" class="form-control" placeholder="" tabindex="1">
+                   <div class="col-sm-1">
+                      <input type="date" name="vinculacion_trabajo1" class="form-control">
                    </div>
-                   <div class="col-sm-2">
-                      <input type="text" name="nombre" id="nombre" class="form-control" placeholder="" tabindex="1">
+                   <div class="col-sm-1">
+                      <input type="date" name="desvinculacion_trabajo1" class="form-control">
+                   </div>
+                   <div class="col-sm-1">
+                      <input type="date" name="vinculacion_trabajo2" class="form-control">
+                   </div>
+                   <div class="col-sm-1">
+                      <input type="date" name="desvinculacion_trabajo2" class="form-control">
+                   </div>
+                   <div class="col-sm-1">
+                      <input type="date" name="vinculacion_trabajo3" class="form-control">
+                   </div>
+                   <div class="col-sm-1">
+                      <input type="date" name="desvinculacion_trabajo3"class="form-control">
                    </div>
               </div>
 
@@ -442,182 +455,196 @@
                 <label for="" class="col-form-label col-sm-3">Nombre de la Compañia:
                 </label>
                   <div class="col-sm-2">
-                     <input type="text" name="nombre" id="nombre" class="form-control" placeholder="" tabindex="1">
+                     <input type="text" name="nombre_compania" class="form-control">
                   </div>
                   <div class="col-sm-2">
-                    <input type="text" name="nombre" id="nombre" class="form-control" placeholder="" tabindex="1">
+                    <input type="text" name="nombre_compania1" class="form-control">
                  </div>
                  <div class="col-sm-2">
-                  <input type="text" name="nombre" id="nombre" class="form-control" placeholder="" tabindex="1">
+                  <input type="text" name="nombre_compania2" class="form-control">
                </div>
                <div class="col-sm-2">
-                <input type="text" name="nombre" id="nombre" class="form-control" placeholder="" tabindex="1">
+                <input type="text" name="nombre_compania3" class="form-control">
+              </div>
              </div>
-             </div>
+
              <div class="form-group row">
               <label for="" class="col-form-label col-sm-3">Direccion:</label>
                 <div class="col-sm-2">
-                   <input type="text" name="nombre" id="nombre" class="form-control" placeholder="" tabindex="1">
+                   <input type="text" name="direccion_compania" class="form-control">
                 </div>
                 <div class="col-sm-2">
-                  <input type="text" name="nombre" id="nombre" class="form-control" placeholder="" tabindex="1">
+                  <input type="text" name="direccion1_trabajo1" class="form-control">
                </div>
                <div class="col-sm-2">
-                <input type="text" name="nombre" id="nombre" class="form-control" placeholder="" tabindex="1">
+                <input type="text" name="direccion2_compania2" class="form-control">
              </div>
              <div class="col-sm-2">
-              <input type="text" name="nombre" id="nombre" class="form-control" placeholder="" tabindex="1">
+              <input type="text" name="direccion3" class="form-control">
            </div>
            </div>
            <div class="form-group row">
             <label for="" class="col-form-label col-sm-3">Telefono:</label>
               <div class="col-sm-2">
-                 <input type="text" name="nombre" id="nombre" class="form-control" placeholder="" tabindex="1">
+                 <input type="text" name="telefono_compania" class="form-control" placeholder="" tabindex="1">
               </div>
               <div class="col-sm-2">
-                <input type="text" name="nombre" id="nombre" class="form-control" placeholder="" tabindex="1">
+                <input type="text" name="telefono1" class="form-control">
              </div>
              <div class="col-sm-2">
-              <input type="text" name="nombre" id="nombre" class="form-control" placeholder="" tabindex="1">
+              <input type="text" name="telefono2" class="form-control">
            </div>
            <div class="col-sm-2">
-            <input type="text" name="nombre" id="nombre" class="form-control" placeholder="" tabindex="1">
+            <input type="text" name="telefono3" class="form-control">
          </div>
          </div>
          <div class="form-group row">
           <label for="" class="col-form-label col-sm-3">Sueldo:</label>
             <div class="col-sm-2">
-               <input type="text" name="nombre" id="nombre" class="form-control" placeholder="" tabindex="1">
+               <input type="text" name="sueldo" class="form-control">
             </div>
             <div class="col-sm-2">
-              <input type="text" name="nombre" id="nombre" class="form-control" placeholder="" tabindex="1">
+              <input type="text" name="sueldo1" class="form-control">
            </div>
            <div class="col-sm-2">
-            <input type="text" name="nombre" id="nombre" class="form-control" placeholder="" tabindex="1">
+            <input type="text" name="sueldo2" class="form-control">
          </div>
          <div class="col-sm-2">
-          <input type="text" name="nombre" id="nombre" class="form-control" placeholder="" tabindex="1">
+          <input type="text" name="sueldo3" class="form-control">
        </div>
        </div>
        <div class="form-group row">
         <label for="" class="col-form-label col-sm-3">Motivo de la Separacion:</label>
           <div class="col-sm-2">
-             <input type="text" name="nombre" id="nombre" class="form-control" placeholder="" tabindex="1">
+             <input type="text" name="motivo_separacion" class="form-control">
           </div>
           <div class="col-sm-2">
-            <input type="text" name="nombre" id="nombre" class="form-control" placeholder="" tabindex="1">
+            <input type="text" name="motivo_separacion1" class="form-control">
          </div>
          <div class="col-sm-2">
-          <input type="text" name="nombre" id="nombre" class="form-control" placeholder="" tabindex="1">
+          <input type="text" name="motivo_separacion2" class="form-control">
        </div>
        <div class="col-sm-2">
-        <input type="text" name="nombre" id="nombre" class="form-control" placeholder="" tabindex="1">
+        <input type="text" name="motivo_separacion3" class="form-control">
+      </div>
      </div>
-     </div>
+
      <div class="form-group row">
       <label for="" class="col-form-label col-sm-3">Nombre del Jefe Directo:</label>
         <div class="col-sm-2">
-           <input type="text" name="nombre" id="nombre" class="form-control" placeholder="" tabindex="1">
+           <input type="text" name="nombre_jefe" class="form-control">
         </div>
         <div class="col-sm-2">
-          <input type="text" name="nombre" id="nombre" class="form-control" placeholder="" tabindex="1">
+          <input type="text" name="nombre_jefe1" class="form-control">
        </div>
        <div class="col-sm-2">
-        <input type="text" name="nombre" id="nombre" class="form-control" placeholder="" tabindex="1">
+        <input type="text" name="nombre_jefe2" class="form-control" >
      </div>
      <div class="col-sm-2">
-      <input type="text" name="nombre" id="nombre" class="form-control" placeholder="" tabindex="1">
+      <input type="text" name="nombre_jefe3" class="form-control">
    </div>
    </div>
    <div class="form-group row">
     <label for="" class="col-form-label col-sm-3">Puesto del Jefe Inmediato:</label>
       <div class="col-sm-2">
-         <input type="text" name="nombre" id="nombre" class="form-control" placeholder="" tabindex="1">
+         <input type="text" name="puesto_jefe" class="form-control">
       </div>
       <div class="col-sm-2">
-        <input type="text" name="nombre" id="nombre" class="form-control" placeholder="" tabindex="1">
+        <input type="text" name="puesto_jefe1" class="form-control">
      </div>
      <div class="col-sm-2">
-      <input type="text" name="nombre" id="nombre" class="form-control" placeholder="" tabindex="1">
+      <input type="text" name="puesto_jefe2" class="form-control">
    </div>
    <div class="col-sm-2">
-    <input type="text" name="nombre" id="nombre" class="form-control" placeholder="" tabindex="1">
+    <input type="text" name="puesto_jefe3" class="form-control">
  </div>
  </div>
  <div class="form-group row">
   <label for="" class="col-form-label col-sm-3">Podemos Solicitar Informes:</label>
     <div class="col-sm-2">
-       <input type="checkbox" name="nombre" id="nombre" class="form-control" placeholder="" tabindex="1">
+       <input type="checkbox" name="solicitar_informes" class="form-control">
     </div>
     <div class="col-sm-2">
-      <input type="checkbox" name="nombre" id="nombre" class="form-control" placeholder="" tabindex="1">
+      <input type="checkbox" name="solicitar_informes1" class="form-control">
    </div>
    <div class="col-sm-2">
-    <input type="checkbox" name="nombre" id="nombre" class="form-control" placeholder="" tabindex="1">
+    <input type="checkbox" name="solicitar_informes2" class="form-control">
  </div>
  <div class="col-sm-2">
-  <input type="checkbox" name="nombre" id="nombre" class="form-control" placeholder="" tabindex="1">
+  <input type="checkbox" name="solicitar_informes3" class="form-control">
 </div>
  
 </div>
 <div class="form-group row">
   <label for="" class="col-form-label col-sm-3">Razones:</label>
     <div class="col-sm-2">
-       <input type="text" name="nombre" id="nombre" class="form-control" placeholder="" tabindex="1">
+       <input type="text" name="razones" class="form-control">
     </div>
     <div class="col-sm-2">
-      <input type="text" name="nombre" id="nombre" class="form-control" placeholder="" tabindex="1">
+      <input type="text" name="razones1" class="form-control">
    </div>
    <div class="col-sm-2">
-    <input type="text" name="nombre" id="nombre" class="form-control" placeholder="" tabindex="1">
+    <input type="text" name="razones2" class="form-control">
  </div>
  <div class="col-sm-2">
-  <input type="text" name="nombre" id="nombre" class="form-control" placeholder="" tabindex="1">
+  <input type="text" name="razones3" class="form-control">
 </div>
 
             <div class="form-group row">
                <div class="col-sm-12">
-                    <p><label for="pensamiento_id" style="text-align: left;">
+                    <p><label for="" style="text-align: left;">
                       <h4><strong>Referencias</strong></h4>
                     </label></p>
                     
-                   </div>
+                </div>
                 
                 <div class="col-sm-3">
-                    <p><label for="pensamiento_id" style="text-align: left;">             Nombre
+                    <p><label for="" style="text-align: left;"> Nombre
                     </label></p>
-                    <input type="text" name="nombre" id="nombre" class="form-control" placeholder="" tabindex="1"> <br>
-                    <input type="text" name="nombre" id="nombre" class="form-control" placeholder="" tabindex="1"><br>
-                    <input type="text" name="nombre" id="nombre" class="form-control" placeholder="" tabindex="1">
+                    <input type="text" name="referencia" class="form-control"> <br>
+                    <input type="text" name="referencia1" class="form-control"><br>
+                    <input type="text" name="referencia2" class="form-control">
                 </div>
                  
 
-                <div class="col-sm-4">
-                    <p><label for="pensamiento_id" style="text-align: left;">
+                <div class="col-sm-2">
+                    <p><label for="" style="text-align: left;">
                       
-                      Dirección y Teléfono
+                      Dirección 
                     </label></p>
-                    <input type="text" name="nombre" id="nombre" class="form-control" placeholder="" tabindex="1"><br>
-                     <input type="text" name="nombre" id="nombre" class="form-control" placeholder="" tabindex="1"><br>
-                      <input type="text" name="nombre" id="nombre" class="form-control" placeholder="" tabindex="1"><br>
+                    <input type="text" name="direccion_trabajo" class="form-control"><br>
+                     <input type="text" name="direccion1" class="form-control"><br>
+                      <input type="text" name="direccion2" class="form-control"><br>
                    </div>
+
+                   <div class="col-sm-2">
+                    <p><label for="" style="text-align: left;">
+                      
+                      Teléfono
+                    </label></p>
+                    <input type="text" name="telefono_referencia" class="form-control"><br>
+                     <input type="text" name="telefono_referencia1" class="form-control"><br>
+                      <input type="text" name="telefono_referencia2" class="form-control"><br>
+                   </div>
+
+
                    <div class="col-sm-3">
-                    <p><label for="pensamiento_id" style="text-align: left;">
+                    <p><label for="" style="text-align: left;">
                     
                       Ocupación
                     </label></p>
-                    <input type="text" name="nombre" id="nombre" class="form-control" placeholder="" tabindex="1"><br>
-                    <input type="text" name="nombre" id="nombre" class="form-control" placeholder="" tabindex="1"><br>
-                    <input type="text" name="nombre" id="nombre" class="form-control" placeholder="" tabindex="1">
+                    <input type="text" name="ocupacion" class="form-control"><br>
+                    <input type="text" name="ocupacion1" class="form-control"><br>
+                    <input type="text" name="ocupacion2" class="form-control">
                    </div>
                    <div class="col-sm-1">
-                    <p><label for="pensamiento_id" style="text-align: left;">
+                    <p><label for="" style="text-align: left;">
                       
                       Tiempo
                     </label></p>
-                    <input type="text" name="nombre" id="nombre" class="form-control" placeholder="" tabindex="1"><br>
-                    <input type="text" name="nombre" id="nombre" class="form-control" placeholder="" tabindex="1"><br>
-                    <input type="text" name="nombre" id="nombre" class="form-control" placeholder="" tabindex="1">
+                    <input type="text" name="tiempo" class="form-control"><br>
+                    <input type="text" name="tiempo1" class="form-control"><br>
+                    <input type="text" name="tiempo2" class="form-control">
                    </div>
               </div>
 

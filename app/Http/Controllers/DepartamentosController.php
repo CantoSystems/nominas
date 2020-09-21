@@ -125,7 +125,7 @@ class DepartamentosController extends Controller
 				return redirect()->route('departamentos.index');
                break;
                case 'cancelar':
-               	return back();
+               	return redirect()->route('departamentos.index');
                	break;
                default:
                    # code...

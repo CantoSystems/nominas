@@ -81,9 +81,7 @@ class BancosController extends Controller
                    return back();
                break; 
                case 'cancelar_actualiza':
-                  $banco= Banco::first();
-                  $bancos=Banco::all();
-                  return view('bancos.bancos', compact('banco','bancos'));
+                  return redirect()->route('bancos.acciones');
                         break;       
                default:
                    # code...

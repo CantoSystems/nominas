@@ -81,9 +81,7 @@ class AreasController extends Controller
                 }
                break;
                case 'cancelar':
-                 $aux = DB::connection('DB_Serverr')->table('areas')->get()->first();
-                $areas = DB::connection('DB_Serverr')->table('areas')->get();
-                return view('Areas.area',compact('aux','areas'));
+                 return redirect()->route('areas.index');
                  break;
                 case 'buscar':
                   $criterio= $request->opcion;

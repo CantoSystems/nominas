@@ -77,9 +77,7 @@ class PuestosController extends Controller
                 }
                break;
                case 'cancelar':
-                 $aux = DB::connection('DB_Serverr')->table('puestos')->get()->first();
-                $puestos= DB::connection('DB_Serverr')->table('puestos')->get();
-                return view('puestos.puestos',compact('aux','puestos'));
+                 return redirect()->route('puestos.index');
                  break;
                default:
                    # code...
