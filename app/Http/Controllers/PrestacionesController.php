@@ -67,9 +67,7 @@ class PrestacionesController extends Controller
                 return redirect()->route('prestaciones.index');
                 break;
             case 'cancelar_prestaciones':
-                $aux = Prestaciones::first();
-                $prestaciones = Prestaciones::all();
-                return view('prestaciones.prestaciones',compact('aux','prestaciones'));
+                return redirect()->route('prestaciones.index');
                 break;
             default:
                 # code...
