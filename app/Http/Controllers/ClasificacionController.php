@@ -64,14 +64,10 @@ class ClasificacionController extends Controller
                    return redirect()->route('clasificacion.acciones');
                break;
                case 'cancelar':
-                   $clasifica= Clasificacion::first();
-                   $clasificaciones= Clasificacion::all();
-                   return view('clasificaciones.clasificacion', compact('clasifica','clasificaciones'));
+                   return redirect()->route('clasificacion.acciones');
                break;
                case 'cancelar_actualiza';
-                   $clasifica= Clasificacion::first();
-                   $clasificaciones= Clasificacion::all();
-                   return view('clasificaciones.clasificacion', compact('clasifica','clasificaciones'));
+                   return redirect()->route('clasificacion.acciones');
                break;        
                default:
                    # code...

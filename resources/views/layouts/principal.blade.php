@@ -196,6 +196,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
           $('#atras').hide();
           $('#siguiente').hide();
           $('#ultimo').hide();
+          $('#actualizar').hide();
+          $('#eliminar').hide();
         });
         $('#actualizar').click(function(){
 	      $('#nuevo_reg').hide();
@@ -205,6 +207,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
         $('#atras').hide();
         $('#siguiente').hide();
         $('#ultimo').hide();
+        $('#nuevo').hide();
+        $('#eliminar').hide();
         });
       })
 </script>
