@@ -80,6 +80,11 @@
                         <div class="margin">
                             <div class="btn-group">
                                 <div class="form-group">
+                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+                                        <i class="fas fa-search"></i>
+                                      </button>
+                                </div>
+                                <div class="form-group">
                                     <button type="button" id="nuevo" style='width:40px; height:27px'> <i class="fas fa-user-plus"></i></button>
                                 </div>
                                 <div class="form-group">
@@ -119,7 +124,7 @@
             </div>  
         </form>
         @include('areas.modaldeletearea')
-        
+        @include('areas.modalsearcharea')
     </div>  
 </div>  
            
