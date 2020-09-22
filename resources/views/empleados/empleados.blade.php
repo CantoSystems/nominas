@@ -1,11 +1,11 @@
 @extends('layouts.segunda')
-
 @section('content')
 
-  <div class="container">
-    <div class="row">
+<div class="container">
+  <div class="row">
     <div class="col-md-12">
       <div class="card card-secondary card-tabs">
+        <!--INICIO Cabeceras-->
         <div class="card-header p-0 pt-1">
           <ul class="nav nav-tabs" id="custom-tabs-one-tab" role="tablist">
             <li class="nav-item">
@@ -20,12 +20,18 @@
             <li class="nav-item">
               <a class="nav-link" id="custom-tabs-one-settings-tab" data-toggle="pill" href="#custom-tabs-one-settings" role="tab" aria-controls="custom-tabs-one-settings" aria-selected="false">Referencias</a>
             </li>
+            <li class="nav-item">
+              <a class="nav-link" id="custom-tabs-one-tools-tab" data-toggle="pill" href="#custom-tabs-one-tools" role="tab" aria-controls="custom-tabs-one-tools" aria-selected="false">Contratación</a>
+            </li>
           </ul>
-        </div>
+        </div><!--Final Cabeceras-->
+        <!--Inicio contenido-->
         <div class="card-body">
+          <!--General TABCONTENT-->
           <div class="tab-content" id="custom-tabs-one-tabContent">
+            <!--Inicio Personal-->
             <div class="tab-pane fade show active" id="custom-tabs-one-home" role="tabpanel" aria-labelledby="custom-tabs-one-home-tab">
-              <form>
+              <form><!--Inicio FORM-->
                 <div class="form-row">
                   <div class="col-md-1 mb-2">
                     <label for="validationDefault01">Clave:</label>
@@ -33,7 +39,7 @@
                   </div>
                   <div class="col-md-2">
                     <label for="validationDefault02">Clasificación:</label>
-                    <input type="text" class="form-control" name="clasificacion" value="Otto" required>
+                    <input type="text" class="form-control" name="clasificacion" value="" required>
                   </div>
                   <div class="col-md-3 mb-3">
                     <label for="validationDefault03">Nombre:</label>
@@ -80,7 +86,7 @@
                     <label for="validationDefault03">RFC:</label>
                     <input type="text" class="form-control" name="rfc" required>
                   </div>
-                  <div class="col-md-2">
+                   <div class="col-md-2">
                     <label for="validationDefault03">CURP:</label>
                     <input type="text" class="form-control" name="curp" required>
                   </div>
@@ -92,23 +98,23 @@
                     <label for="validationDefault03">Afore:</label>
                     <input type="text" class="form-control" name="afore" required>
                   </div>
-                  <div class="col-md-2 mb-3">
+                  <div class="col-md-3 mb-3">
                     <label for="validationDefault03">INE:</label>
                     <input type="text" class="form-control" name="ine" required>
                   </div>
-                  <div class="col-md-2 mb-3">
+                  <div class="col-md-3 mb-3">
                     <label for="validationDefault03">Pasaporte:</label>
                     <input type="text" class="form-control" name="pasaporte" required>
                   </div>
-                  <div class="col-md-2 mb-3">
+                  <div class="col-md-3 mb-3">
                     <label for="validationDefault03">Cartilla:</label>
                     <input type="text" class="form-control" name="cartilla" required>
                   </div>
-                  <div class="col-md-2 mb-3">
+                  <div class="col-md-3 mb-3">
                     <label for="validationDefault03">Licencia:</label>
                     <input type="text" class="form-control" name="licencia" required>
                   </div>
-                  <div class="col-md-2 mb-3">
+                  <div class="col-md-3 mb-3">
                     <label for="validationDefault03">Documento migratorio:</label>
                     <input type="text" class="form-control" name="documento_migratorio" required>
                   </div>
@@ -117,11 +123,11 @@
                     <input type="text" class="form-control" name="calle" required>
                   </div>
                   <div class="col-md-2 mb-3">
-                    <label for="validationDefault03">Numero externo:</label>
+                    <label for="validationDefault03">Número externo:</label>
                     <input type="text" class="form-control" name="numero_externo" required>
                   </div>
                   <div class="col-md-2 mb-3">
-                    <label for="validationDefault03">Numero interno:</label>
+                    <label for="validationDefault03">Número interno:</label>
                     <input type="text" class="form-control" name="numero_interno" required>
                   </div>
                   <div class="col-md-3 mb-3">
@@ -152,28 +158,28 @@
                     <label for="validationDefault03">Correo:</label>
                     <input type="text" class="form-control" name="correo" required>
                   </div>
-                  <div class="col-md-2 mb-3">
+                  <div class="col-md-3 mb-3">
                     <label for="validationDefault04">Sexo:</label>
                     <select class="custom-select" name="sexo" required>
                       <option selected disabled value="">Choose...</option>
                       <option>...</option>
                     </select>
                   </div>
-                  <div class="col-md-2 mb-3">
+                  <div class="col-md-3 mb-3">
                     <label for="validationDefault04">Estado Civil:</label>
                     <select class="custom-select" name="estado_civil" required>
                       <option selected disabled value="">Choose...</option>
                       <option>...</option>
                     </select>
                   </div>
-                  <div class="col-md-2 mb-3">
+                  <div class="col-md-3 mb-3">
                     <label for="validationDefault04">Nacionalidad:</label>
                     <select class="custom-select" name="nacionalidad" required>
                       <option selected disabled value="">Choose...</option>
                       <option>...</option>
                     </select>
                   </div>
-                  <div class="col-md-2 mb-3">
+                  <div class="col-md-3 mb-3">
                     <label for="validationDefault04">Tipo de sangre:</label>
                     <select class="custom-select" name="tipo_sangre" required>
                       <option selected disabled value="">Choose...</option>
@@ -196,22 +202,22 @@
                     <label for="validationDefault03">Estado de salud:</label>
                     <input type="text" class="form-control" name="estado_salud" required>
                   </div>
-                  <div class="col-md-2 mb-3">
+                  <div class="col-md-4 mb-3">
                     <label for="validationDefault03">Foto:</label>
                     <input type="file" class="form-control" name="fotografia" required>
                   </div>
-                </div>
-              
-            </div>
+                </div><!--Fin  Row Personal-->
+            </div><!--Fin  Personal-->
+            <!--Inicio Personal 1-->
             <div class="tab-pane fade" id="custom-tabs-one-profile" role="tabpanel" aria-labelledby="custom-tabs-one-profile-tab">
-              <div class="form-row">
-              <div class="col-md-3 mb-2">
+              <div class="form-row"><!--Inicio Row Personal 1-->
+                <div class="col-md-3 mb-2">
                 <label for="validationDefault01">Enfermedad Crónica:</label>
-                <input type="text" class="form-control" name="enfermedad_cronica" value="Mark" required>
+                <input type="text" class="form-control" name="enfermedad_cronica" value="" required>
               </div>
               <div class="col-md-3">
                 <label for="validationDefault02">Práctica de Deportes:</label>
-                <input type="text" class="form-control" name="deporte" value="Otto" required>
+                <input type="text" class="form-control" name="deporte" value="" required>
               </div>
               <div class="col-md-3 mb-3">
                 <label for="validationDefault03">Pasatiempos:</label>
@@ -237,16 +243,19 @@
                 <label for="validationDefault03">UMF:</label>
                 <input type="text" class="form-control" name="umf" required>
               </div>
-              <div class="col-md-3 mb-3">
+               <div class="col-md-4 mb-3">
                 <label for="validationDefault03">Nombre del Padre:</label>
                 <input type="text" class="form-control" name="nombre_padre" required>
               </div>
-              <div class="form-check">
 
-                <input class="form-check-input position-static" type="checkbox" name="finado_padre" value="option1" aria-label="...">
-                <label for="">Finado:</label>
+              <div class="col-md-1 mb-3">
+                <br>
+                <div class="form-check">
+                <input class="form-check-input" type="checkbox" name="finado_padre" value="option1" aria-label="">
+                <label for="">Finado</label>
+                </div>
               </div>
-              <div class="col-md-3 mb-3">
+              <div class="col-md-4 mb-3">
                 <label for="validationDefault03">Direccion:</label>
                 <input type="text" class="form-control" name="direccion_padre" required>
               </div>
@@ -254,16 +263,18 @@
                 <label for="validationDefault03">Ocupacion:</label>
                 <input type="text" class="form-control" name="ocupacion_padre" required>
               </div>
-              <div class="col-md-3 mb-3">
+              <div class="col-md-4 mb-3">
                 <label for="validationDefault03">Nombre de la Madre:</label>
                 <input type="text" class="form-control" name="nombre_madre" required>
               </div>
-              <div class="form-check">
-
-                <input class="form-check-input position-static" type="checkbox" name="finado_madre" value="option1" aria-label="...">
-                <label for="">Finado:</label>
+              <div class="col-md-1 mb-3">
+                <br>
+                <div class="form-check">
+                <input class="form-check-input" type="checkbox" name="finado_madre" value="option1" aria-label="">
+                <label for="">Finado</label>
+                </div>
               </div>
-              <div class="col-md-3 mb-3">
+              <div class="col-md-4 mb-3">
                 <label for="validationDefault03">Direccion:</label>
                 <input type="text" class="form-control" name="direccion_madre" required>
               </div>
@@ -271,15 +282,15 @@
                 <label for="validationDefault03">Ocupacion:</label>
                 <input type="text" class="form-control" name="ocupacion_madre" required>
               </div>
-              <div class="col-md-8 mb-3">
+              <div class="col-md-6 mb-3">
                 <label for="validationDefault03">Nombre y edad de sus Hijos:</label>
                 <input type="text" class="form-control" name="hijos" required>
               </div>
-              <div class="col-md-4 mb-3">
+              <div class="col-md-3 mb-3">
                 <label for="validationDefault03">Idiomas:</label>
                 <input type="text" class="form-control" name="idiomas" required>
               </div>
-              <div class="col-md-4 mb-3">
+              <div class="col-md-3 mb-3">
                 <label for="validationDefault03">Funciones de Oficina:</label>
                 <input type="text" class="form-control" name="funciones_oficina" required>
               </div>
@@ -295,14 +306,19 @@
                 <label for="validationDefault03">Otras funciones o trabajos que domina:</label>
                 <input type="text" class="form-control" name="otras_funciones" required>
               </div>
-            </div>
-            </div>
-
-            
+              </div><!--Fin  Row Personal 1-->
+            </div><!--Fin Personal 1-->
+            <!--Inicio Personal 2-->
             <div class="tab-pane fade" id="custom-tabs-one-messages" role="tabpanel" aria-labelledby="custom-tabs-one-messages-tab">
+              <!--Inicio  Row Personal 2-->
               <div class="form-row">
+                <div class="col-sm-12">
+                    <label for="" style="text-align: left;">
+                      <h4><strong>Beneficiarios</strong></h4>
+                    </label> 
+                </div>
                  <div class="col-md-4 mb-3">
-                  <label for="validationDefault03">Beneficiarios</label>
+                  <label for="validationDefault03">Nombre</label>
                     <input type="text" class="form-control" name="beneficiario" required>
                     <input type="text" class="form-control" name="beneficiario1" required>
                     <input type="text" class="form-control" name="beneficiario2" required>
@@ -326,104 +342,168 @@
                   <input type="text" class="form-control" name="porcentaje3" required>
                   <input type="text" class="form-control" name="porcentaje4" required>
                  </div>
-                
-             
-                
-            
-                <div class="form-row">
-                
-                  <div>
-                <br><br>
-                     <label for="">Primaria</label><br>
-                     <label for="">Secundaria</label><br>
-                     <label for="">Preparatoria</label><br>
-                     <label for="">Profesional</label><br>
-                     <label for="">Otras</label>
-                  </div>
-                  <div class="col-md-6">
-                    <label for="">Nombre Institucion </label>
-                    <input type="text" class="form-control" name="primaria" required>
-                    <input type="text" class="form-control" name="secundaria" required>
-                    <input type="text" class="form-control" name="preparatoria" required>
-                    <input type="text" class="form-control" name="profesional" required>
-                    <input type="text" class="form-control" name="otras" required>
-                 </div>
-                 
-                  <div class="col-md-4">
-                  <label for="validationDefault03">Inicio</label>
-                  <input type="date" class="form-control" name="inicio_primaria" required>
-                  <input type="date" class="form-control" name="inicio_secundaria" required>
-                  <input type="date" class="form-control" name="inicio_preparatoria" required>
-                  <input type="date" class="form-control" name="inicio_profesional" required> 
-                  <input type="date" class="form-control" name="inicio_otras" required> 
-                 </div>
-
-               
-              
-              </div>
-              <div class="col-md-2">
-                <label for="validationDefault03">Finalizo</label>
-                <input type="date" class="form-control" name="fin_primaria" required>
-                <input type="date" class="form-control" name="fin_secundaria" required>
-                <input type="date" class="form-control" name="fin_preparatoria" required>
-                <input type="date" class="form-control" name="fin_profesional" required> 
-                <input type="date" class="form-control" name="fin_otras" required> 
-              </div>
-                 
-              <div class="col-md-3">
-                <label for="validationDefault03">Titulo Obtenido:</label>
-                <input type="text" class="form-control" name="titulo_primaria" required>
-                <input type="text" class="form-control" name="titulo_secundaria" required>
-                <input type="text" class="form-control" name="titulo_preparatoria" required>
-                <input type="text" class="form-control" name="titulo_profesional" required> 
-                <input type="text" class="form-control" name="titulo_otras" required> 
-              </div>
-              <div class="col-md-3">
+                 <div class="col-sm-12">
+                    <label for="" style="text-align: left;">
+                      <h4><strong>Estudios anteriores</strong></h4>
+                    </label> 
+                </div>
+               <!--Inicio titulos-->
+                 <label for="" class="col-form-label col-sm-2">&nbsp &nbsp &nbsp </label>
+                   <div class="col-sm-3">
+                    <p><label for="pensamiento_id" style="text-align: justify;">
+                      Nombre de la Institución
+                    </label></p>
+                   </div>
+                   <div class="col-sm-2">
+                    <p><label for="pensamiento_id" style="text-align: justify;">Inicio</label></p>
+                   </div>
+                   <div class="col-sm-2">
+                    <p><label for="pensamiento_id" style="text-align: justify;">Finalizo</label></p>
+                   </div>
+                   <div class="col-sm-3">
+                    <p><label for="pensamiento_id" style="text-align: justify;">Titulo obtenido</label></p>
+                   </div>
+              <!--Fin titulos-->
+              <!--Inicio Primaria-->
+                <label for="" class="col-form-label col-sm-2">Primaria</label>
+                <div class="col-sm-3">
+                  <input type="text" name="primaria" class="form-control">
+                </div>
+                <div class="col-sm-2">
+                  <input type="date" name="inicio_primaria" class="form-control">
+                </div>
+                <div class="col-sm-2">
+                  <input type="date" name="fin_primaria" class="form-control">
+                </div>
+                <div class="col-sm-3">
+                  <input type="text" name="titulo_primaria" class="form-control">
+                </div>
+              <!--FIN Primaria-->
+               <!--Inicio Secundaria-->
+                <label for="" class="col-form-label col-sm-2">Secundaria</label>
+                <div class="col-sm-3">
+                  <input type="text" name="secundaria" class="form-control">
+                </div>
+                <div class="col-sm-2">
+                  <input type="date" name="inicio_secundaria" class="form-control">
+                </div>
+                <div class="col-sm-2">
+                  <input type="date" name="fin_secundaria" class="form-control">
+                </div>
+                <div class="col-sm-3">
+                  <input type="text" name="titulo_secundaria" class="form-control">
+                </div>
+              <!--FIN Secundaria-->
+              <!--Inicio Preparatoria-->
+                <label for="" class="col-form-label col-sm-2">Preparatoria</label>
+                <div class="col-sm-3">
+                  <input type="text" name="preparatoria" class="form-control">
+                </div>
+                <div class="col-sm-2">
+                  <input type="date" name="inicio_preparatoria" class="form-control">
+                </div>
+                <div class="col-sm-2">
+                  <input type="date" name="fin_preparatoria" class="form-control">
+                </div>
+                <div class="col-sm-3">
+                  <input type="text" name="titulo_preparatoria" class="form-control">
+                </div>
+              <!--FIN Preparatoria-->
+              <!--Inicio Profesional-->
+                <label for="" class="col-form-label col-sm-2">Profesional</label>
+                <div class="col-sm-3">
+                  <input type="text" name="profesional" class="form-control">
+                </div>
+                <div class="col-sm-2">
+                  <input type="date" name="inicio_profesional" class="form-control">
+                </div>
+                <div class="col-sm-2">
+                  <input type="date" name="fin_profesional" class="form-control">
+                </div>
+                <div class="col-sm-3">
+                  <input type="text" name="titulo_profesional" class="form-control">
+                </div>
+              <!--FIN Profesional-->
+               <!--Inicio Otras-->
+                <label for="" class="col-form-label col-sm-2">Profesional</label>
+                <div class="col-sm-3">
+                  <input type="text" name="profesional" class="form-control">
+                </div>
+                <div class="col-sm-2">
+                  <input type="date" name="inicio_profesional" class="form-control">
+                </div>
+                <div class="col-sm-2">
+                  <input type="date" name="fin_profesional" class="form-control">
+                </div>
+                <div class="col-sm-3">
+                  <input type="text" name="titulo_profesional" class="form-control">
+                </div>
+              <!--FIN Otras-->
+               <!--Inicio Profesional-->
+                <label for="" class="col-form-label col-sm-2">Otras</label>
+                <div class="col-sm-3">
+                  <input type="text" name="otras" class="form-control">
+                </div>
+                <div class="col-sm-2">
+                  <input type="date" name="inicio_otras" class="form-control">
+                </div>
+                <div class="col-sm-2">
+                  <input type="date" name="fin_otras" class="form-control">
+                </div>
+                <div class="col-sm-3">
+                  <input type="text" name="titulo_otras" class="form-control">
+                </div>
+              <!--FIN Profesional-->
+              <div class="col-sm-12">
+                    <label for="" style="text-align: left;">
+                      <br><h4><strong>Estudios actuales</strong></h4>
+                    </label> 
+                </div>
+               <div class="col-md-5">
                 <label for="validationDefault03">Nombre de la Institucion</label>
-                <input type="text" class="form-control" name="estudio_actual" required>
-                
+                <input type="text" class="form-control" name="estudio_actual" required>       
                </div>
                <div class="col-md-3 mb-3">
                 <label for="validationDefault03">Curso o Carrera</label>
                 <input type="text" class="form-control" name="carrera" required>
                 
                </div>
-               <div class="col-md-3 mb-3">
+               <div class="col-md-1 mb-3">
                 <label for="validationDefault03">Grado </label>
                 <input type="text" class="form-control" name="grado" required>
                 
                </div>
                <div class="col-md-3 mb-3">
                 <label for="validationDefault03">Horario </label>
-                <input type="text" class="form-control" name="horario" required>
-                
+                <input type="text" class="form-control" name="horario" required>      
                </div>
-              </div>
-           </div>
-
+              </div><!--Final Row Personal 2-->
+            </div><!--Final Personal 2-->
+            <!--INICIO referencias-->
             <div class="tab-pane fade" id="custom-tabs-one-settings" role="tabpanel" aria-labelledby="custom-tabs-one-settings-tab">
-
-            <div class="form-group row">
-                
-                 <label for="" class="col-form-label col-sm-3">Empleos</label>
-                   <div class="col-sm-2">
-                    <p><label for="pensamiento_id" style="text-align: justify;">Actual ó último <br>De &nbsp &nbsp &nbsp &nbsp A</label></p>
-                   </div>
-                   <div class="col-sm-2">
-                    <p><label for="pensamiento_id" style="text-align: justify;">Anterior <br>De &nbsp &nbsp &nbsp &nbsp &nbsp  A</label></p>
-                   </div>
-                   <div class="col-sm-2">
-                    <p><label for="pensamiento_id" style="text-align: justify;">Anterior <br>De &nbsp &nbsp &nbsp &nbsp &nbsp  A</label></p>
-                   </div>
-                   <div class="col-sm-2">
-                    <p><label for="pensamiento_id" style="text-align: justify;">Anterior <br>De &nbsp &nbsp &nbsp &nbsp &nbsp  A</label></p>
-                   </div>
-              </div>
-
-            
+              <!--Inicio Row Referencias-->
               <div class="form-group row">
-                
-                 <label for="" class="col-form-label col-sm-3">Tiempo que presto sus  servicios:</label>
+                <!--Inicio Titulos Referencias-->
+                <div class="col-sm-12">
+                    <label for="" style="text-align: left;">
+                      <h4><strong>Empleos</strong></h4>
+                    </label>
+                </div>
+                <label for="" class="col-form-label col-sm-3">&nbsp &nbsp &nbsp</label>
+                   <div class="col-sm-2">
+                    <p><label for="pensamiento_id" style="text-align: justify;">Actual ó último <br>De &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp   A</label></p>
+                   </div>
+                   <div class="col-sm-2">
+                    <p><label for="pensamiento_id" style="text-align: justify;">Anterior <br>De &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp  A</label></p>
+                   </div>
+                   <div class="col-sm-2">
+                    <p><label for="pensamiento_id" style="text-align: justify;">Anterior <br>De &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp  A</label></p>
+                   </div>
+                   <div class="col-sm-2">
+                    <p><label for="pensamiento_id" style="text-align: justify;">Anterior <br>De &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp  A</label></p>
+                   </div><!--Fin Titulos Referencias-->
+                   <!--Inicio Vinculación Referencias-->
+                <label for="" class="col-form-label col-sm-3">Tiempo que presto sus  servicios:</label>
                    <div class="col-sm-1">
                       <input type="date" name="vinculacion_trabajo" class="form-control">
                    </div>
@@ -448,220 +528,188 @@
                    </div>
                    <div class="col-sm-1">
                       <input type="date" name="desvinculacion_trabajo3"class="form-control">
+                   </div><!--Fin Vinculación Referencias-->
+                   <!--Inicio compañia Referencias-->
+                    <label for="" class="col-form-label col-sm-3">Nombre de la Compañia:
+                    </label>
+                    <div class="col-sm-2">
+                      <input type="text" name="nombre_compania" class="form-control">
+                    </div>
+                    <div class="col-sm-2">
+                      <input type="text" name="nombre_compania1" class="form-control">
+                    </div>
+                    <div class="col-sm-2">
+                      <input type="text" name="nombre_compania2" class="form-control">
+                    </div>
+                    <div class="col-sm-2">
+                      <input type="text" name="nombre_compania3" class="form-control">
+                    </div><!--Fin compañia Referencias-->
+                    <!--Inicio Dirección Referencias-->
+                    <label for="" class="col-form-label col-sm-3">Direccion:</label>
+                      <div class="col-sm-2">
+                        <input type="text" name="direccion_compania" class="form-control">
+                      </div>
+                    <div class="col-sm-2">
+                        <input type="text" name="direccion1_trabajo1" class="form-control">
+                    </div>
+                    <div class="col-sm-2">
+                      <input type="text" name="direccion2_compania2" class="form-control">
+                    </div>
+                    <div class="col-sm-2">
+                      <input type="text" name="direccion3" class="form-control">
+                    </div><!--Fin Dirección Referencias-->
+                    <!--Inicio Telefono Referencias-->
+                    <label for="" class="col-form-label col-sm-3">Telefono:</label>
+                    <div class="col-sm-2">
+                      <input type="text" name="telefono_compania" class="form-control" placeholder="" tabindex="1">
+                    </div>
+                    <div class="col-sm-2">
+                      <input type="text" name="telefono1" class="form-control">
+                    </div>
+                    <div class="col-sm-2">
+                      <input type="text" name="telefono2" class="form-control">
+                    </div>
+                    <div class="col-sm-2">
+                    <input type="text" name="telefono3" class="form-control">
+                    </div><!--FIN Telefono Referencias-->
+                    <!--INCIO sueldo Referencias-->
+                    <label for="" class="col-form-label col-sm-3">Sueldo:</label>
+                    <div class="col-sm-2">
+                      <input type="text" name="sueldo" class="form-control">
+                    </div>
+                    <div class="col-sm-2">
+                      <input type="text" name="sueldo1" class="form-control">
+                    </div>
+                    <div class="col-sm-2">
+                      <input type="text" name="sueldo2" class="form-control">
+                    </div>
+                    <div class="col-sm-2">
+                      <input type="text" name="sueldo3" class="form-control">
+                    </div><!--FIN sueldo Referencias-->
+                    <!--INCIO Motivo separación Referencias-->
+                    <label for="" class="col-form-label col-sm-3">Motivo de la Separacion:</label>
+                    <div class="col-sm-2">
+                      <input type="text" name="motivo_separacion" class="form-control">
+                    </div>
+                    <div class="col-sm-2">
+                      <input type="text" name="motivo_separacion1" class="form-control">
+                    </div>
+                    <div class="col-sm-2">
+                      <input type="text" name="motivo_separacion2" class="form-control">
+                    </div>
+                    <div class="col-sm-2">
+                      <input type="text" name="motivo_separacion3" class="form-control">
+                    </div><!--FIN Motivo separación Referencias-->
+                    <!--INCIO Jefe Directo separación Referencias-->
+                    <label for="" class="col-form-label col-sm-3">Nombre del Jefe Directo:</label>
+                    <div class="col-sm-2">
+                      <input type="text" name="nombre_jefe" class="form-control">
+                    </div>
+                    <div class="col-sm-2">
+                      <input type="text" name="nombre_jefe1" class="form-control">
+                    </div>
+                    <div class="col-sm-2">
+                      <input type="text" name="nombre_jefe2" class="form-control" >
+                    </div>
+                    <div class="col-sm-2">
+                      <input type="text" name="nombre_jefe3" class="form-control">
+                    </div><!--FIN Jefe Directo separación Referencias-->
+                    <!--INCIO Puesto Jefe Directo separación Referencias-->
+                    <label for="" class="col-form-label col-sm-3">Puesto del Jefe Inmediato:</label>
+                    <div class="col-sm-2">
+                      <input type="text" name="puesto_jefe" class="form-control">
+                    </div>
+                    <div class="col-sm-2">
+                      <input type="text" name="puesto_jefe1" class="form-control">
+                    </div>
+                    <div class="col-sm-2">
+                      <input type="text" name="puesto_jefe2" class="form-control">
+                    </div>
+                    <div class="col-sm-2">
+                      <input type="text" name="puesto_jefe3" class="form-control">
+                    </div><!--FIN Puesto Jefe Directo separación Referencias-->
+                    <!--INCIO Informes separación Referencias-->
+                    <label for="" class="col-form-label col-sm-3">Podemos Solicitar Informes:</label>
+                    <div class="col-sm-2">
+                      <input type="checkbox" name="solicitar_informes" class="form-control">
+                    </div>
+                    <div class="col-sm-2">
+                      <input type="checkbox" name="solicitar_informes1" class="form-control">
+                    </div>
+                    <div class="col-sm-2">
+                      <input type="checkbox" name="solicitar_informes2" class="form-control">
+                    </div>
+                    <div class="col-sm-2">
+                      <input type="checkbox" name="solicitar_informes3" class="form-control">
+                    </div><!--FIN Informes separación Referencias-->
+                    <!--Razones Informes separación Referencias-->
+                     <label for="" class="col-form-label col-sm-3">Razones:</label>
+                      <div class="col-sm-2">
+                        <input type="text" name="razones" class="form-control">
+                      </div>
+                      <div class="col-sm-2">
+                        <input type="text" name="razones1" class="form-control">
+                      </div>
+                      <div class="col-sm-2">
+                      <input type="text" name="razones2" class="form-control">
+                        </div>
+                      <div class="col-sm-2">
+                        <input type="text" name="razones3" class="form-control">
+                      </div><!--FIN Razones Informes separación Referencias-->
+                      <div class="col-sm-12">
+                        <p><label for="" style="text-align: left;">
+                          <h4><strong>Referencias</strong></h4>
+                        </label></p>
+                      </div>
+                    <div class="col-sm-3">
+                      <label for="" style="text-align: left;"> Nombre
+                      </label>
+                      <input type="text" name="referencia" class="form-control">
+                      <input type="text" name="referencia1" class="form-control">
+                      <input type="text" name="referencia2" class="form-control">
+                    </div>
+                    <div class="col-sm-2">
+                      <label for="" style="text-align: left;">Dirección 
+                    </label>
+                      <input type="text" name="direccion_trabajo" class="form-control">
+                      <input type="text" name="direccion1" class="form-control">
+                      <input type="text" name="direccion2" class="form-control">
                    </div>
-              </div>
-
-              <div class="form-group row">
-                <label for="" class="col-form-label col-sm-3">Nombre de la Compañia:
-                </label>
-                  <div class="col-sm-2">
-                     <input type="text" name="nombre_compania" class="form-control">
-                  </div>
-                  <div class="col-sm-2">
-                    <input type="text" name="nombre_compania1" class="form-control">
-                 </div>
-                 <div class="col-sm-2">
-                  <input type="text" name="nombre_compania2" class="form-control">
-               </div>
-               <div class="col-sm-2">
-                <input type="text" name="nombre_compania3" class="form-control">
-              </div>
-             </div>
-
-             <div class="form-group row">
-              <label for="" class="col-form-label col-sm-3">Direccion:</label>
-                <div class="col-sm-2">
-                   <input type="text" name="direccion_compania" class="form-control">
-                </div>
-                <div class="col-sm-2">
-                  <input type="text" name="direccion1_trabajo1" class="form-control">
-               </div>
-               <div class="col-sm-2">
-                <input type="text" name="direccion2_compania2" class="form-control">
-             </div>
-             <div class="col-sm-2">
-              <input type="text" name="direccion3" class="form-control">
-           </div>
-           </div>
-           <div class="form-group row">
-            <label for="" class="col-form-label col-sm-3">Telefono:</label>
-              <div class="col-sm-2">
-                 <input type="text" name="telefono_compania" class="form-control" placeholder="" tabindex="1">
-              </div>
-              <div class="col-sm-2">
-                <input type="text" name="telefono1" class="form-control">
-             </div>
-             <div class="col-sm-2">
-              <input type="text" name="telefono2" class="form-control">
-           </div>
-           <div class="col-sm-2">
-            <input type="text" name="telefono3" class="form-control">
-         </div>
-         </div>
-         <div class="form-group row">
-          <label for="" class="col-form-label col-sm-3">Sueldo:</label>
-            <div class="col-sm-2">
-               <input type="text" name="sueldo" class="form-control">
-            </div>
-            <div class="col-sm-2">
-              <input type="text" name="sueldo1" class="form-control">
-           </div>
-           <div class="col-sm-2">
-            <input type="text" name="sueldo2" class="form-control">
-         </div>
-         <div class="col-sm-2">
-          <input type="text" name="sueldo3" class="form-control">
-       </div>
-       </div>
-       <div class="form-group row">
-        <label for="" class="col-form-label col-sm-3">Motivo de la Separacion:</label>
-          <div class="col-sm-2">
-             <input type="text" name="motivo_separacion" class="form-control">
-          </div>
-          <div class="col-sm-2">
-            <input type="text" name="motivo_separacion1" class="form-control">
-         </div>
-         <div class="col-sm-2">
-          <input type="text" name="motivo_separacion2" class="form-control">
-       </div>
-       <div class="col-sm-2">
-        <input type="text" name="motivo_separacion3" class="form-control">
-      </div>
-     </div>
-
-     <div class="form-group row">
-      <label for="" class="col-form-label col-sm-3">Nombre del Jefe Directo:</label>
-        <div class="col-sm-2">
-           <input type="text" name="nombre_jefe" class="form-control">
-        </div>
-        <div class="col-sm-2">
-          <input type="text" name="nombre_jefe1" class="form-control">
-       </div>
-       <div class="col-sm-2">
-        <input type="text" name="nombre_jefe2" class="form-control" >
-     </div>
-     <div class="col-sm-2">
-      <input type="text" name="nombre_jefe3" class="form-control">
-   </div>
-   </div>
-   <div class="form-group row">
-    <label for="" class="col-form-label col-sm-3">Puesto del Jefe Inmediato:</label>
-      <div class="col-sm-2">
-         <input type="text" name="puesto_jefe" class="form-control">
-      </div>
-      <div class="col-sm-2">
-        <input type="text" name="puesto_jefe1" class="form-control">
-     </div>
-     <div class="col-sm-2">
-      <input type="text" name="puesto_jefe2" class="form-control">
-   </div>
-   <div class="col-sm-2">
-    <input type="text" name="puesto_jefe3" class="form-control">
- </div>
- </div>
- <div class="form-group row">
-  <label for="" class="col-form-label col-sm-3">Podemos Solicitar Informes:</label>
-    <div class="col-sm-2">
-       <input type="checkbox" name="solicitar_informes" class="form-control">
-    </div>
-    <div class="col-sm-2">
-      <input type="checkbox" name="solicitar_informes1" class="form-control">
-   </div>
-   <div class="col-sm-2">
-    <input type="checkbox" name="solicitar_informes2" class="form-control">
- </div>
- <div class="col-sm-2">
-  <input type="checkbox" name="solicitar_informes3" class="form-control">
-</div>
- 
-</div>
-<div class="form-group row">
-  <label for="" class="col-form-label col-sm-3">Razones:</label>
-    <div class="col-sm-2">
-       <input type="text" name="razones" class="form-control">
-    </div>
-    <div class="col-sm-2">
-      <input type="text" name="razones1" class="form-control">
-   </div>
-   <div class="col-sm-2">
-    <input type="text" name="razones2" class="form-control">
- </div>
- <div class="col-sm-2">
-  <input type="text" name="razones3" class="form-control">
-</div>
-
-            <div class="form-group row">
-               <div class="col-sm-12">
-                    <p><label for="" style="text-align: left;">
-                      <h4><strong>Referencias</strong></h4>
-                    </label></p>
-                    
-                </div>
-                
-                <div class="col-sm-3">
-                    <p><label for="" style="text-align: left;"> Nombre
-                    </label></p>
-                    <input type="text" name="referencia" class="form-control"> <br>
-                    <input type="text" name="referencia1" class="form-control"><br>
-                    <input type="text" name="referencia2" class="form-control">
-                </div>
-                 
-
-                <div class="col-sm-2">
-                    <p><label for="" style="text-align: left;">
-                      
-                      Dirección 
-                    </label></p>
-                    <input type="text" name="direccion_trabajo" class="form-control"><br>
-                     <input type="text" name="direccion1" class="form-control"><br>
-                      <input type="text" name="direccion2" class="form-control"><br>
-                   </div>
-
                    <div class="col-sm-2">
-                    <p><label for="" style="text-align: left;">
-                      
-                      Teléfono
-                    </label></p>
-                    <input type="text" name="telefono_referencia" class="form-control"><br>
-                     <input type="text" name="telefono_referencia1" class="form-control"><br>
-                      <input type="text" name="telefono_referencia2" class="form-control"><br>
+                    <label for="" style="text-align: left;">Teléfono
+                    </label>
+                      <input type="text" name="telefono_referencia" class="form-control">
+                      <input type="text" name="telefono_referencia1" class="form-control">
+                      <input type="text" name="telefono_referencia2" class="form-control">
                    </div>
-
-
                    <div class="col-sm-3">
-                    <p><label for="" style="text-align: left;">
-                    
-                      Ocupación
-                    </label></p>
-                    <input type="text" name="ocupacion" class="form-control"><br>
-                    <input type="text" name="ocupacion1" class="form-control"><br>
+                    <label for="" style="text-align: left;">Ocupación
+                    </label>
+                    <input type="text" name="ocupacion" class="form-control">
+                    <input type="text" name="ocupacion1" class="form-control">
                     <input type="text" name="ocupacion2" class="form-control">
                    </div>
                    <div class="col-sm-1">
-                    <p><label for="" style="text-align: left;">
-                      
-                      Tiempo
-                    </label></p>
-                    <input type="text" name="tiempo" class="form-control"><br>
-                    <input type="text" name="tiempo1" class="form-control"><br>
+                    <label for="" style="text-align: left;">Tiempo
+                    </label>
+                    <input type="text" name="tiempo" class="form-control">
+                    <input type="text" name="tiempo1" class="form-control">
                     <input type="text" name="tiempo2" class="form-control">
                    </div>
-              </div>
+              </div><!--Final Row Referencias-->
+            </div> <!--FIN referencias-->
+            <!--Inicio Contratación-->
+            <div class="tab-pane fade" id="custom-tabs-one-tools" role="tabpanel" aria-labelledby="custom-tabs-one-tools-tab">
+               <!--Inicio ROW Contratación-->
+              <div class="form-group row">
+                <!--Empezar contenido contratación-->
 
-<div class="form-group row">
-
-
-</div>
-
-            </div>
-
-
-          </div>
-        </div>
-      </form>
-        <!-- /.card -->
-      </div>
-  </div>
-    </div>
-  </div></div>
+              </div><!--FIN ROW Contratación-->
+            </div><!--FIN Contratación-->
+          </div><!--Final TABCONTENT-->
+        </div><!--Final Contenido-->
+      </div><!--Final CARD principal-->
+    </div><!--Final Col principal-->
+  </div><!--Final row principal-->
+</div><!--Cierre copy-->
 @endsection
