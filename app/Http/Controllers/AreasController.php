@@ -83,6 +83,7 @@ class AreasController extends Controller
                case 'cancelar':
                  return redirect()->route('areas.index');
                  break;
+
                 case 'buscar':
                   $criterio= $request->opcion;
                   if($criterio=='area'){
@@ -94,6 +95,7 @@ class AreasController extends Controller
                   $areas = DB::connection('DB_Serverr')->table('areas')->get();
                 return view('Areas.area',compact('aux','areas'));
                 break;
+                
                default:
                    # code...
                    break;

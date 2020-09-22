@@ -79,6 +79,11 @@
                         <div class="margin">
                             <div class="btn-group">
                                 <div class="form-group">
+                                    <button id="buscar" type="button" data-toggle="modal" data-target="#exampleModal" style='width:40px; height:27px'>
+                                        <i class="fas fa-search"></i>
+                                      </button>
+                                </div>
+                                <div class="form-group">
                                     <button type="button" id="nuevo" style='width:40px; height:27px'> <i class="fas fa-user-plus"></i></button>
                                 </div>
                                 <div class="form-group">
@@ -123,7 +128,7 @@
                  </div>
                 </form>
                 @include('puestos.modaldeletepuesto')
-               
+                @include('puestos.modalsearchpuesto')
 
 
         </div>
