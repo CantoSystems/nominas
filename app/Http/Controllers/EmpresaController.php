@@ -335,12 +335,14 @@ Schema::connection('DB_Serverr')->create('empleados', function($table){
     $table->double('sueldo_diario');
     $table->string('nivel',50);
     $table->string('categoria',50);
+    $table->string('tipo_salario',30);
     $table->string('tipo_jornada',30);
     $table->integer('dias');
     $table->double('horas_diarias');
     $table->string('forma_pago',50);
     $table->char('clave_banco',10);
     $table->string('tarjeta_banco',16);
+    $table->string('envio_correspondencia',50)
     $table->boolean('ptu');
     $table->string('observaciones',255);
     $table->double('salario_cotizacion');

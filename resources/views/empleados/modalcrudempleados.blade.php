@@ -2,7 +2,7 @@
   <div class="modal-dialog modal-dialog-centered modal-xl">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Registro Empleados</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -710,8 +710,146 @@
             <div class="tab-pane fade" id="custom-tabs-one-tools" role="tabpanel" aria-labelledby="custom-tabs-one-tools-tab">
                <!--Inicio ROW Contratación-->
               <div class="form-group row">
-                <!--Empezar contenido contratación-->
+                <!--Inicio Row contratación-->
+                <div class="form-row">
+                  <div class="col-md-2 mb-3">
+                    <label for="validationDefault04">Tipo de trabajador</label>
+                    <select class="custom-select" name="tipo_trabajador" required>
+                      <option selected disabled value="">Choose...</option>
+                      <option>...</option>
+                    </select>
+                  </div>
+                  <div class="col-md-2 mb-3">
+                    <label for="validationDefault04">Turno</label>
+                    <select class="custom-select" name="turno" required>
+                      <option selected disabled value="">Choose...</option>
+                      <option>...</option>
+                    </select>
+                  </div>
+                  <div class="col-md-3 mb-3">
+                    <label for="validationDefault04">Contrato</label>
+                    <select class="custom-select" name="contrato" required>
+                      <option selected disabled value="">Choose...</option>
+                      <option>...</option>
+                    </select>
+                  </div>
+                  <div class="col-md-3 mb-3">
+                    <label for="validationDefault03">Contrato documento:</label>
+                    <input type="file" class="form-control" name="contrato_documento" accept="application/pdf" required>
+                  </div>
+                  <div class="col-md-2 mb-2">
+                    <label for="validationDefault01">Vigencia</label>
+                    <input type="date" class="form-control" name="vigencia" value="" required>
+                  </div>
+                  <div class="col-md-2 mb-2">
+                    <br>
+                    <label for="validationDefault01">Horario</label>
+                    <input type="time" class="form-control" name="horario_trabajo" value="" required>
+                  </div>
+                  <div class="col-md-2 mb-2">
+                    <br>
+                    <label for="validationDefault01">Sueldo diario</label>
+                    <input type="text" class="form-control" name="sueldo_diario" value="" required>
+                  </div>
+                  <div class="col-md-2 mb-2">
+                    <label for="validationDefault01">Tabulación<br>Nivel</label>
+                    <input type="text" class="form-control" name="nivel" value="" required>
+                  </div>
+                  <div class="col-md-2 mb-2">
+                    <br>
+                    <label for="validationDefault01">Categoria</label>
+                    <input type="text" class="form-control" name="categoria" value="" required>
+                  </div>
+                  <div class="col-md-2 mb-3">
+                    <br>
+                    <label for="validationDefault04">Tipo salario</label>
+                    <select class="custom-select" name="tipo_salario" required>
+                      <option selected disabled value="">Choose...</option>
+                      <option>...</option>
+                    </select>
+                  </div>
+                  <div class="col-md-2 mb-3">
+                    <br>
+                    <label for="validationDefault04">Tipo salario</label>
+                    <select class="custom-select" name="tipo_jornada" required>
+                      <option selected disabled value="">Choose...</option>
+                      <option>...</option>
+                    </select>
+                  </div>
+                  <div class="col-md-1 mb-3">
+                    <label for="validationDefault04">Jornada <br> Días</label>
+                    <input type="text" class="form-control" name="dias" value="" required>
+                  </div>
+                   <div class="col-md-1 mb-3">
+                    <br>
+                    <label for="validationDefault04">Horas</label>
+                    <input type="text" class="form-control" name="horas_diarias" value="" required>
+                  </div>
+                  <div class="col-md-2 mb-3">
+                    <br>
+                    <label for="validationDefault04">Forma de Pago</label>
+                    <select class="custom-select" name="forma_pago" required>
+                      <option selected disabled value="">Choose...</option>
+                      <option>...</option>
+                    </select>
+                  </div>
+                  <div class="col-md-2 mb-3">
+                    <br>
+                    <label for="validationDefault04">Banco</label>
+                    <select class="custom-select" name="clave_banco" required>
+                      <option selected disabled value="">Choose...</option>
+                      <option>...</option>
+                    </select>
+                  </div>
+                  <div class="col-md-2 mb-3">
+                    <br>
+                    <label for="validationDefault04">Tarjeta bancaria</label>
+                    <input type="text" class="form-control" name="tarjeta_banco" value="" required>
+                  </div>
+                   <div class="col-md-2 mb-3">
+                    <br>
+                    <label for="validationDefault04">Envió correspondencia</label>
+                    <select class="custom-select" name="envio_correspondencia" required>
+                      <option selected disabled value="">Choose...</option>
+                      <option>...</option>
+                    </select>
+                  </div>
+                  <div class="col-md-2 mb-3">
+                    <br><br>
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" name="ptu" value="option1" aria-label="">
+                      <label for="">Excluir ara PTU</label>
+                     </div>
+                  </div>
+                  <div class="col-md-12 mb-3">
+                    <label for="validationDefault04">Obervaciones</label>
+                    <input type="text" class="form-control" name="observaciones" value="" required>
+                  </div>
+                  <div class="col-md-2 mb-3">
+                    <label for="validationDefault04">Salario base de cotización <br> Actual</label>
+                    <input type="text" class="form-control" name="salario_cotizacion" value="" required disabled>
+                  </div>
+                  <div class="col-md-2 mb-3">
+                    <br>
+                    <br>
+                    <label for="validationDefault04">Anterior</label>
+                    <input type="text" class="form-control" name="salario_anterior" value="" required>
+                  </div>
+                  <div class="col-md-4 mb-3">
+                    <br>
+                    <br>
+                    <label for="validationDefault04">Causa de la modificación</label>
+                    <input type="text" class="form-control" name="causa_modificacion" value="" required>
+                  </div>
+                  <div class="col-md-4 mb-3">
+                    <br>
+                    <br>
+                    <label for="validationDefault03">Contrato documento:</label>
+                    <input type="file" class="form-control" name="firma" accept="application/pdf" required>
+                  </div>
 
+
+                </div><!--FIN Row contratación-->
               </div><!--FIN ROW Contratación-->
             </div><!--FIN Contratación-->
           </div><!--Final TABCONTENT-->
