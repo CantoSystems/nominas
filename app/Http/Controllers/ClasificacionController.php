@@ -68,6 +68,21 @@ class ClasificacionController extends Controller
                break;
                case 'cancelar_actualiza';
                    return redirect()->route('clasificacion.acciones');
+               break; 
+               case 'buscar':
+                $criterio= $request->opcion;
+                if($criterio=='conceptos'){
+                  $clasifica = DB::connection('mysql')->table('clasificacions')->where('conceptos',$request->busca)->first(); 
+                }
+                if($criterio=='clave'){
+                  $clasifica = DB::connection('mysql')->table('clasificacions')->where('clave_clasificacion',$request->busca)->first(); 
+                }
+                if($criterio=='digito'){
+                    $clasifica = DB::connection('mysql')->table('clasificacions')->where('digito',$request->busca)->first(); 
+                  }
+                $clasificaciones = DB::connection('mysql')->table('clasificacions')->get();     
+                
+              return view('clasificaciones.clasificacion',compact('clasifica','clasificaciones'));
                break;        
                default:
                    # code...

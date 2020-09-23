@@ -15,9 +15,9 @@ class CreatePrestacionesTable extends Migration
     {
         Schema::create('prestaciones', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->integer('anio');
-            $table->integer('dias');
-            $table->integer('prima_vacacional');
+            $table->integer('anio',2);
+            $table->integer('dias',2);
+            $table->double('prima_vacacional');
             $table->integer('aguinaldo');
             $table->timestamps();
         });
