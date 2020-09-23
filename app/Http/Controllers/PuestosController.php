@@ -79,6 +79,15 @@ class PuestosController extends Controller
                case 'cancelar':
                  return redirect()->route('puestos.index');
                  break;
+                  
+                 case 'buscar':
+                      
+                  $aux = DB::connection('DB_Serverr')->table('puestos')->where('nombre_puesto',$request->busca)->first();
+                  $puestos = DB::connection('DB_Serverr')->table('puestos')->get();
+                return view('puestos.puestos',compact('aux','puestos'));
+                 break; 
+                  
+                     
                default:
                    # code...
                    break;

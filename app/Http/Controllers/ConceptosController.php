@@ -73,6 +73,13 @@ class ConceptosController extends Controller
             return redirect()->route('conceptos.index');
         break;
 
+        case 'buscar':
+
+            $aux = DB::connection('DB_Serverr')->table('conceptos')->where('concepto',$request->busca)->first(); 
+            $aux1 = DB::connection('DB_Serverr')->table('conceptos')->get();
+          return view('conceptos.conceptos',compact('aux','aux1'));
+          break;
+
         default:
             
         break;
