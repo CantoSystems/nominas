@@ -36,12 +36,25 @@ return $configDb;
         $accion= $request->acciones;
     switch ($accion) {
         case '':
-            return view('empleados.empleados');
+            $empleados=DB::connection('DB_Serverr')->table('empleados')->get();
+            return view('empleados.empleados',compact('empleados'));
             break;
-        
+        case 'registrar':
+            $this->registrar_empleado($request);
+            return view('empleados.empleados',compact('empleados'));
+        break;
         default:
             # code...
             break;
     }
+    }
+
+    public function registrar_empleado($datos){
+    $clv_empleado= $this->generador($datos->rfc);
+    
+    }
+    public function generador($rfc){
+        $rest = substr($rfc,5); 
+        return $rest;
     }
 }
