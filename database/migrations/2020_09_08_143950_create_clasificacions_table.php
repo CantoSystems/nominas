@@ -15,8 +15,8 @@ class CreateClasificacionsTable extends Migration
     {
         Schema::create('clasificacions', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->char('clave');
-            $table->char('clave_clasificacion');
+            $table->char('clave',4);
+            $table->char('clave_clasificacion',1);
             $table->char('digito');
             $table->char('conceptos');
             $table->timestamps();

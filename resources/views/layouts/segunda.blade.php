@@ -132,7 +132,15 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 </li>
                 
               </ul>
-              
+              <ul class="nav nav-treeview">
+                <li class="nav-item">
+                  <a href="{{ route('home')}}" class="nav-link active">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Volver a Home</p>
+                  </a>
+                </li>
+                
+              </ul>
            
           </li>
           
@@ -252,6 +260,11 @@ scratch. This page gets rid of all links and provides the needed markup only.
       "responsive": true,
     });
   });
+</script>
+<script>
+  function mayus(e) {
+    e.value = e.value.toUpperCase();
+}
 </script>
 <script type="text/javascript">
   function validar(e) { 

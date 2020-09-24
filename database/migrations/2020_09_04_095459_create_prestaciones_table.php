@@ -15,10 +15,10 @@ class CreatePrestacionesTable extends Migration
     {
         Schema::create('prestaciones', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->integer('anio');
-            $table->integer('dias');
-            $table->integer('prima_vacacional');
-            $table->integer('aguinaldo');
+            $table->smallInteger('anio');
+            $table->smallInteger('dias');
+            $table->double('prima_vacacional');
+            $table->smallInteger('aguinaldo');
             $table->timestamps();
         });
     }
