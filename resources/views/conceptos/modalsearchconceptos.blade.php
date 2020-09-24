@@ -2,18 +2,18 @@
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Buscar Puesto</h5>
+          <h5 class="modal-title" id="exampleModalLabel">Buscar Concepto</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
         <div class="modal-body">
-            <form action="{{ route('puestos.index')}}" method="GET" autocomplete="off">
+            <form action="{{ route('conceptos.index')}}" method="GET" autocomplete="off">
             <div class="row">
   
                 <div class="input-group col-md-12">
                   <div class="input-group-prepend">
-                    <label for="">Puesto  &nbsp</label>
+                    <label for="">Concepto &nbsp</label>
                   </div>
                   <input type="text" class="form-control" aria-label="Username" name="busca" aria-describedby="basic-addon1" align='right'>
                 </div>

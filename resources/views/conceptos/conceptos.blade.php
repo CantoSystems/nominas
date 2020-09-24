@@ -18,7 +18,7 @@
                 <div class="col-sm-4">
                     <div class="form-group">
                         <label>Concepto:</label>
-                        <input type="text" name="concepto" class="form-control" value="{{$aux->concepto}}" onkeyup="mayus(this);">
+                        <input type="text" name="concepto" class="form-control" value="{{$aux->concepto}}" onkeyup="mayus(this);" onkeypress="return validar(event)">
                         <input type="hidden" name="concepto" class="form-control" value="{{$aux->id}}" onkeyup="mayus(this);">
                     </div>
                 </div>
@@ -49,13 +49,13 @@
                 <div class="col-sm-2">
                     <div class="form-group">
                         <label>Fórmula:</label>
-                        <input type="text" name="formula" class="form-control" value="{{$aux->formula}}" onkeyup="mayus(this);">
+                        <input type="text" name="formula" class="form-control" value="{{$aux->formula}}" onkeyup="mayus(this);" >
                     </div>
                 </div>
                 <div class="col-sm-2">
                     <div class="form-group">
                         <label>Cantidad:</label>
-                        <input type="text" name="cantidad" class="form-control" value="{{$aux->cantidad}}" onkeyup="mayus(this);">
+                        <input type="text" name="cantidad" class="form-control" value="{{$aux->cantidad}}" onkeyup="mayus(this);" onkeypress="return numeros(event)">
                     </div>
                 </div>
                 <div class="col-sm-2">
@@ -135,6 +135,11 @@
                         <div class="margin">
                             <div class="btn-group">
                                 <div class="form-group">
+                                    <button id="buscar" type="button" data-toggle="modal" data-target="#exampleModal" style='width:70px; height:40px'>
+                                        <i class="fas fa-search"></i>
+                                      </button>
+                                </div>
+                                <div class="form-group">
                                     <button type="button" id="nuevo" style='width:70px; height:40px'> <i class="fas fa-user-plus"></i></button>
                                 </div>
                                 <div class="form-group">
@@ -176,6 +181,7 @@
             </div>  
         </form> 
         @include('conceptos.modaldeleteconcetos')
+        @include('conceptos.modalsearchconceptos')
     </div>  
 </div>  
 

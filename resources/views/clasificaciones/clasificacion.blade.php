@@ -54,7 +54,7 @@
                                     <input type="hidden" name="identificador"  value="{{$clasifica->id}}" class="form-control"  onkeyup="mayus(this);">
                                     <!--fin id-->
 
-                                    <input type="text" name="clave_clasificacion"  value="{{$clasifica->clave_clasificacion}}"   class="form-control"  onkeyup="mayus(this)"; onkeypress="return validar(event)">
+                                    <input type="text" name="clave_clasificacion"  value="{{$clasifica->clave_clasificacion}}" maxlength="1"   class="form-control"  onkeyup="mayus(this)"; onkeypress="return validar(event)">
                                 </div>
                             </div>
                             <div class="col-sm-4">
