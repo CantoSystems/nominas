@@ -342,7 +342,7 @@ Schema::connection('DB_Serverr')->create('empleados', function($table){
     $table->string('forma_pago',50);
     $table->char('clave_banco',10);
     $table->string('tarjeta_banco',16);
-    $table->string('envio_correspondencia',50)
+    $table->string('envio_correspondencia',50);
     $table->boolean('ptu');
     $table->string('observaciones',255);
     $table->double('salario_cotizacion');
