@@ -39,7 +39,7 @@
           <div class="tab-content" id="custom-tabs-one-tabContent">
             <!--Inicio Personal-->
             <div class="tab-pane fade show active" id="custom-tabs-one-home" role="tabpanel" aria-labelledby="custom-tabs-one-home-tab">
-              <form><!--Inicio FORM-->
+            <form method="GET" action="{{route('empleados.index')}}" enctype="multipart/form-data"><!--Inicio FORM-->
                 <div class="form-row">
                   <div class="col-md-1 mb-2">
                     <label for="validationDefault01">Clave:</label>
