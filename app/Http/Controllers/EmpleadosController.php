@@ -49,9 +49,20 @@ return $configDb;
     }
     }
 
-    public function registrar_empleado($datos){
+    public function registrar_empleado($datos)
+    {
+    $clv=Session::get('clave_empresa');
     $clv_empleado= $this->generador($datos->rfc);
-    
+    $foto= $datos->file('foto_empleado')->getClientOriginalName();
+    $firma= $datos->file('firma')->getClientOriginalName();
+    $clv_empresa=$this->conectar($clv);
+    $foto->store($clv_empresa.'/'.$clv_empleado);
+    $firma->store($clv_empresa.'/'.$clv_empleado);
+    \Config::set('database.connections.DB_Serverr', $clv_empresa);
+      
+      DB::connection('DB_Serverr')->insert('insert into empleados (clave_empleado,clasificacion,nombre,apellido_paterno,
+      apellido_materno,fecha_alta,fecha_baja,causa_baja,clave_departamento,clave_puesto)
+      values (?,?)',[$datos->area,$clave_area]);
     }
     public function generador($rfc){
         $rest = substr($rfc,5); 
