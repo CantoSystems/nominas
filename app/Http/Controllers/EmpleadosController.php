@@ -59,12 +59,42 @@ return $configDb;
     $foto->store($clv_empresa.'/'.$clv_empleado);
     $firma->store($clv_empresa.'/'.$clv_empleado);
     \Config::set('database.connections.DB_Serverr', $clv_empresa);
-      
-      DB::connection('DB_Serverr')->insert('insert into empleados ( clave_empleado,clasificacion,nombre,apellido_paterno,
-            apellido_materno,fecha_alta,fecha_baja,causa_baja,clave_departamento,clave_puesto,rfc,curp,imss,afore,ine,pasaporte,cartilla,licencia,documento_migratorio,calle,numero_interno,numero_externo,colonia,cp,ciudad,municipio,estado,correo,sexo,estado_civil,nacionalidad,tipo_sangre,alergias,estatura,peso,estado_salud,fotografia,enfermedad_cronica,deporte,pasatiempo,asosiacion,objetivo_vida,fecha_nacimiento,lugar,umf,nombre_padre,nombre_madre,finado_padre,finado_madre,direccion_padre,direccion_madre,ocupacion_padre,ocupacion_madre,hijos,idiomas,funciones_oficina,maquinas_oficina,software,otras_funciones,beneficiario,beneficiario1,beneficiario2,beneficiario3,beneficiario4,parentesco,parentesco1,parentesco2,parentesco3,parentesco4,porcentaje,porcentaje1,porcentaje2,porcentaje3,porcentaje4)
-      values (?,?,?,?,?,?,?,?,?,?)',[$clv_empleado,$datos->clasificacion,$datos->nombre,$datos,->fecha_baja,$datos->causa_baja,$datos->clave_departamento,$datos->clave_puesto,$datos->rfc,$datos->curp,$datos->imss,$datos->afore,$datos->ine,$datos->pasaporte,$datos->cartilla,$datos->licencia,$datos->licencia,$datos->documento_migratorio,$datos->calle,$datos->numero_interno,$datos->numero_externo,$datos->colonia,$datos->cp,$datos->ciudad,$datos->municipio,$datos->municipio,$datos->estado,$datos->correo,$datos->sexo,$datos->estado_civil,$datos->nacionalidad,$datos->tipo_sangre,$datos->alergias,$datos->estatura,$datos->peso,$datos->estado_salud,$datos->fotografia,$datos->enfermedad_cronica,$datos->deporte,$datos->pasatiempo,$datos->asosiacion,$datos->objetivo_vida,$datos->fecha_nacimiento,$datos->fecha_nacimiento,$datos->lugar,$datos->umf,
-            $datos->nombre_padre,$datos->nombre_madre,$datos->finado_padre,$datos->finado_madre,$datos->finado_madre,$datos->direccion_padre,$datos->direccion_madre,$datos->ocupacion_padre,$datos->ocupacion_madre,$datos->hijos,$datos->idiomas,$datos->funciones_oficina,$datos->maquinas_oficina,$datos->software,$datos->otras_funciones,$datos->beneficiario,$datos->beneficiario1,$datos->beneficiario2,$datos->beneficiario3,$datos->beneficiario4,$datos->parentesco,$datos->parentesco1,$datos->parentesco2,$datos->parentesco3,$datos->parentesco4,$datos->porcentaje,$datos->porcentaje1,$datos->porcentaje2,$datos->porcentaje3,$datos->porcentaje3,$datos->porcentaje4,
-        ]);
+    
+    DB::connection('DB_Serverr')->insert('insert into empleados(clave_empleado, clasificacion, nombre, apellido_paterno,
+    apellido_materno, fecha_alta, fecha_baja, causa_baja, clave_departamento, clave_puesto, rfc, curp, imss, afore, ine,
+    pasaporte, cartilla, licencia, documento_migratorio, calle, numero_interno, numero_externo, colonia, cp, ciudad, municipio,
+    estado, telefono_empleado, correo, sexo, estado_civil, nacionalidad, tipo_sangre, alergias, estatura, peso, estado_salud,
+    fotografia, enfermedad_cronica, deporte, pasatiempo, asosiacion, objetivo_vida, fecha_nacimiento, lugar, umf, nombre_padre,
+    nombre_madre, finado_padre, finado_madre, direccion_padre, direccion_madre, ocupacion_padre, ocupacion_madre, hijos, idiomas,
+    funciones_oficina, maquinas_oficina, software, otras_funciones, beneficiario, beneficiario1, beneficiario2, beneficiario3,
+    beneficiario4, parentesco, parentesco1, parentesco2, parentesco3, parentesco4, porcentaje, porcentaje1, porcentaje2, porcentaje3,
+    porcentaje4, primaria, inicio_primaria, fin_primaria, titulo_primaria, secundaria, inicio_secundaria, fin_secundaria, titulo_secundaria,
+    preparatoria, inicio_preparatoria, fin_preparatoria, titulo_preparatoria, profesional, inicio_profesional, fin_profesional,
+    titulo_profesional, otras, inicio_otras, fin_otras, titulo_otras, estudio_actual, carrera, grado, horario, vinvulacion_trabajo,
+    desvinculacion_trabajo, nombre_compania, direccion_compania, telefono_compania, sueldo, motivo_separacion, nombre_jefe, puesto_jefe,
+    solicitar_informes, razones, vinvulacion_trabajo1, desvinculacion_trabajo1, nombre_compania1, direccion_compania1, telefono_compania1, sueldo1, 
+    motivo_separacion1, nombre_jefe1, puesto_jefe1, solicitar_informes1, razones1, vinvulacion_trabajo2, desvinculacion_trabajo2, nombre_compania2, 
+    direccion_compania2, telefono_compania2, sueldo2, motivo_separacion2, nombre_jefe2, puesto_jefe2, solicitar_informes2, razones2,
+    vinvulacion_trabajo3, desvinculacion_trabajo3, nombre_compania3, direccion_compania3, telefono_compania3, sueldo3, motivo_separacion3, nombre_jefe3, puesto_jefe3, 
+    solicitar_informes3, razones3, referencia, direccion_trabajo, telefono_referencia, ocupacion, tiempo, referencia1, direccion_trabajo1, telefono_referencia1, 
+    ocupacion1, tiempo1, referencia2, direccion_trabajo2, telefono_referencia2, ocupacion2, tiempo2, tipo_trabajador, turno, contrato,
+    contrato_documento, vigencia, horario_trabajo, sueldo_diario, nivel, categoria, tipo_sueldo, tipo_jornada, dias, horas_diarias,
+    forma_pago, clave_banco, tarjeta_banco, envio_correspondencia, ptu, observaciones, salario_cotizacion, salario_anterior, causa_modificacion,
+    firma) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,
+    ?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,
+    ?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,
+    ?,?)',[$clv_empleado,$datos->clasificacion, $datos->nombre, $datos->apellido_paterno, $datos->apellido_materno, $datos->fecha_alta, $datos->fecha_baja, $datos->causa_baja, $datos->clave_departamento,
+    $datos->clave_puesto, $datos->rfc, $datos->curp, $datos->imss, $datos->afore, $datos->ine, $datos->pasaporte, $datos->cartilla, $datos->licencia, $datos->documento_migratorio, $datos->calle, $datos->numero_interno, $datos->numero_externo,
+    $datos->colonia, $datos->cp, $datos->ciudad, $datos->municipio, $datos->estado, $datos->telefono_empleado, $datos->correo, $datos->sexo, $datos->estado_civil, $datos->nacionalidad, $datos->tipo_sangre,
+    $datos->alergias, $datos->estatura, $datos->peso, $estado_salud, $datos->fotografia, $datos->enfermedad_cronica, $datos->deporte, $datos->pasatiempo, $datos->asosiacion, $datos->objetivo_vida, $datos->fecha_nacimiento,
+    $datos->lugar, $datos->umf, $datos->nombre_padre, $datos->nombre_madre, $datos->finado_padre, $datos->finado_madre, $datos->direccion_padre, $datos->direccion_madre, $datos->ocupacion_padre,
+    $datos->ocupacion_madre, $datos->hijos, $datos->idiomas, $datos->funciones_oficina, $datos->maquinas_oficina, $datos->software, $datos->otras_funciones, $datos->beneficiario, $datos->beneficiario1, $datos->beneficiario2,
+    $datos->beneficiario3, $datos->beneficiario4, $datos->parentesco, $datos->parentesco1, $datos->parentesco2, $datos->parentesco3, $datos->parentesco4, $datos->porcentaje, $datos->porcentaje1,
+    $datos->porcentaje2, $datos->porcentaje3, $datos->porcentaje4, $datos->primaria, $datos->inicio_rpimaria, $datos->fin_primaria, $datos->titulo_primaria, $datos->secundaria, $datos->inicio_secundaria,
+    $datos->fin_secundaria, $datos->titulo_secundaria, $datos->preparatoria, $datos->inicio_preparatoria, $datos->fin_preparatoria, $datos->titulo_preparatoria, $datos->profesional, $datos->inicio_profesional,
+    $datos->fin_profesional, $datos->titulo_profesional, $datos->otras, $datos->inicio_otras, $datos->fin_otras, $datos->titulo_otras, $datos->estudio_actual, $datos->carrera, $datos->grado, $datos->horario,
+    $datos->vinculacion_trabajo]);  
+    
     }
     public function generador($rfc){
         $rest = substr($rfc,5); 
