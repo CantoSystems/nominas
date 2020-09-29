@@ -59,7 +59,7 @@ return $configDb;
     {
     $clv=Session::get('clave_empresa');
     $clv_empleado= $this->generador($datos->rfc);
-    $foto= $datos->file('foto_empleado')->getClientOriginalName();
+    $foto= $datos->file('fotografia')->getClientOriginalName();
     $firma= $datos->file('firma')->getClientOriginalName();
     $clv_empresa=$this->conectar($clv);
     $foto->store($clv_empresa.'/'.$clv_empleado);
@@ -99,7 +99,15 @@ return $configDb;
     $datos->porcentaje2, $datos->porcentaje3, $datos->porcentaje4, $datos->primaria, $datos->inicio_rpimaria, $datos->fin_primaria, $datos->titulo_primaria, $datos->secundaria, $datos->inicio_secundaria,
     $datos->fin_secundaria, $datos->titulo_secundaria, $datos->preparatoria, $datos->inicio_preparatoria, $datos->fin_preparatoria, $datos->titulo_preparatoria, $datos->profesional, $datos->inicio_profesional,
     $datos->fin_profesional, $datos->titulo_profesional, $datos->otras, $datos->inicio_otras, $datos->fin_otras, $datos->titulo_otras, $datos->estudio_actual, $datos->carrera, $datos->grado, $datos->horario,
-    $datos->vinculacion_trabajo]);  
+    $datos->vinculacion_trabajo,$datos->desvinculacion_trabajo,$datos->nombre_compania,$datos->direccion_compania,$datos->telefono_compania,$datos->sueldo,$datos->motivo_separacion,$datos->nombre_jefe,$datos->puesto_jefe,
+    $datos->solicitar_informes,$datos->razones,$datos->vinculacion_trabajo1,$datos->desvinculacion_trabajo1,$datos->nombre_compania1,$datos->direccion_compania1,$datos->telefono_compania1,$datos->sueldo1,$datos->motivo_separacion1,
+    $datos->nombre_jefe1,$datos->puesto_jefe1,$datos->solicitar_informes1,$datos->razones1,$datos->vinculacion_trabajo2,$datos->desvinculacion_trabajo2,$datos->nombre_compania2,$datos->direccion_compania2,
+    $datos->telefono_compania2,$datos->sueldo2,$datos->motivo_separacion2,$datos->nombre_jefe2,$datos->puesto_jefe2,$datos->solicitar_informes2,$datos->razones2,$datos->vinculacion_trabajo3,$datos->desvinculacion_trabajo3,
+    $datos->nombre_compania3,$datos->direccion_compania3,$datos->telefono_compania3,$datos->sueldo3,$datos->motivo_seperacion3,$datos->nombre_jefe3,$datos->puesto_jefe3,
+    $datos->solicitar_informes3,$datos->razones3,$datos->referencia,$datos->direccion_trabajo,$datos->telefono_referencia,$datos->ocupacion,$datos->tiempo,$datos->referencia1,$datos->direccion_trabajo1,$datos->telefono_referencia1,
+    $datos->ocupacion1,$datos->tiempo1,$datos->referencias2,$datos->direccion_trabajo2,$datos->telefono_referencia2,$datos->ocupacion2,$datos->tiempo2,$datos->tipo_trabajador,$datos->turno,$datos->contrato,
+    $datos->contrato_documento,$datos->vigencia,$datos->horario_trabajo,$datos->sueldo_diario,$datos->nivel,$datos->categoria,$datos->tipo_sueldo,$datos->tipo_jornada,$datos->dias,$datos->horas_diarias,
+    $datos->forma_pago,$datos->clave_banco,$datos->tarjeta_banco,$datos->envio_correspondencia,$datos->ptu,$datos->observaciones,$datos->salario_cotizacion,$datos->salario_anterior,$datos->causa_modificacion,$datos->firma]);  
     
 
     }
