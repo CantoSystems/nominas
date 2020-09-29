@@ -53,7 +53,7 @@ return $configDb;
     {
     $clv=Session::get('clave_empresa');
     $clv_empleado= $this->generador($datos->rfc);
-    $foto= $datos->file('foto_empleado')->getClientOriginalName();
+    $foto= $datos->file('fotografia')->getClientOriginalName();
     $firma= $datos->file('firma')->getClientOriginalName();
     $clv_empresa=$this->conectar($clv);
     $foto->store($clv_empresa.'/'.$clv_empleado);
