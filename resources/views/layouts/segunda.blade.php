@@ -208,6 +208,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <script src="{{ asset('/Admin/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js')}}"></script>
 <script src="{{ asset('/Admin/plugins/datatables-responsive/js/dataTables.responsive.min.js')}}"></script>
 <script src="{{ asset('/Admin/plugins/datatables-responsive/js/responsive.bootstrap4.min.js')}}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.10/jquery.mask.js"></script>
+
 <script>
   $(function(){
     $('#nuevo').click(function(){
@@ -261,6 +263,40 @@ scratch. This page gets rid of all links and provides the needed markup only.
     });
   });
 </script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.10/jquery.mask.js"></script>
+<script>
+    $('.telefono_empleado').mask('(00) 0000-0000');
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.10/jquery.mask.js"></script>
+<script>
+  $('.telefono_compania').mask('(00) 0000-0000');
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.10/jquery.mask.js"></script>
+<script>
+  $('.telefono1').mask('(00) 0000-0000');
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.10/jquery.mask.js"></script>
+<script>
+  $('.telefono2').mask('(00) 0000-0000');
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.10/jquery.mask.js"></script>
+<script>
+  $('.telefono3').mask('(00) 0000-0000');
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.10/jquery.mask.js"></script>
+<script>
+  $('.telefono_referencia').mask('(00) 0000-0000');
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.10/jquery.mask.js"></script>
+<script>
+  $('.telefono_referencia1').mask('(00) 0000-0000');
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.10/jquery.mask.js"></script>
+<script>
+  $('.telefono_referencia2').mask('(00) 0000-0000');
+</script>
+
+
 <script>
   function mayus(e) {
     e.value = e.value.toUpperCase();
@@ -284,5 +320,7 @@ if(event.charCode >=48 && event.charCode <=57 ){
 return false;
 }
 </script>
+
+
 </body>
 </html>

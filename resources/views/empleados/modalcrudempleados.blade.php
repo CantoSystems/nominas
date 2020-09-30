@@ -98,7 +98,7 @@
                   </div>
                   <div class="col-md-2 mb-3">
                     <label for="validationDefault03">RFC:</label>
-                    <input type="text" class="form-control" name="rfc" required>
+                    <input type="text" class="form-control" maxlength="13" name="rfc" required>
                   </div>
                    <div class="col-md-2">
                     <label for="validationDefault03">CURP:</label>
@@ -106,7 +106,7 @@
                   </div>
                   <div class="col-md-2 mb-3">
                     <label for="validationDefault03">IMSS:</label>
-                    <input type="text" class="form-control" name="imss" required onkeypress="return numeros(event)">
+                    <input type="text" class="form-control" minlength="11" name="imss" required onkeypress="return numeros(event)">
                   </div>
                   <div class="col-md-2 mb-3">
                     <label for="validationDefault03">Afore:</label>
@@ -166,7 +166,7 @@
                   </div>
                   <div class="col-md-3 mb-3">
                     <label for="validationDefault03">Telefono:</label>
-                    <input type="text" class="form-control" name="telefono_empleado" required onkeypress="return numeros(event)">
+                    <input type="text" class="form-control telefono_empleado" name="telefono_empleado" required onkeypress="return numeros(event)">
                   </div>
                   <div class="col-md-3 mb-3">
                     <label for="validationDefault03">Correo:</label>
@@ -202,7 +202,7 @@
                   </div>
                   <div class="col-md-1 mb-3">
                     <label for="validationDefault03">Estatura:</label>
-                    <input type="text" class="form-control"  name="estatura" required>
+                    <input type="text" class="form-control"  name="estatura" required onkeypress="return numeros(event)">
                   </div>
                   <div class="col-md-1 mb-3">
                     <label for="validationDefault03">Peso:</label>
@@ -571,16 +571,16 @@
                     <!--Inicio Telefono Referencias-->
                     <label for="" class="col-form-label col-sm-3">Telefono:</label>
                     <div class="col-sm-2">
-                      <input type="text" name="telefono_compania" class="form-control" placeholder="" tabindex="1">
+                      <input type="text" name="telefono_compania" class="form-control telefono_compania" placeholder="" tabindex="1">
                     </div>
                     <div class="col-sm-2">
-                      <input type="text" name="telefono1" class="form-control">
+                      <input type="text" name="telefono1" class="form-control telefono1">
                     </div>
                     <div class="col-sm-2">
-                      <input type="text" name="telefono2" class="form-control">
+                      <input type="text" name="telefono2" class="form-control telefono2">
                     </div>
                     <div class="col-sm-2">
-                    <input type="text" name="telefono3" class="form-control">
+                    <input type="text" name="telefono3" class="form-control telefono3">
                     </div><!--FIN Telefono Referencias-->
                     <!--INCIO sueldo Referencias-->
                     <label for="" class="col-form-label col-sm-3">Sueldo:</label>
@@ -688,9 +688,9 @@
                    <div class="col-sm-2">
                     <label for="" style="text-align: left;">Teléfono
                     </label>
-                      <input type="text" name="telefono_referencia" class="form-control">
-                      <input type="text" name="telefono_referencia1" class="form-control">
-                      <input type="text" name="telefono_referencia2" class="form-control">
+                      <input type="text" name="telefono_referencia" class="form-control telefono_referencia">
+                      <input type="text" name="telefono_referencia1" class="form-control telefono_referencia1">
+                      <input type="text" name="telefono_referencia2" class="form-control telefono_referencia2">
                    </div>
                    <div class="col-sm-3">
                     <label for="" style="text-align: left;">Ocupación
