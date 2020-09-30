@@ -37,7 +37,9 @@ return $configDb;
     switch ($accion) {
         case '':
             $empleados=DB::connection('DB_Serverr')->table('empleados')->get();
-            return view('empleados.empleados',compact('empleados'));
+            $departamentos=DB::connection('DB_Serverr')->table('departamentos')->get();
+            $puestos=DB::connection('DB_Serverr')->table('puestos')->get();
+            return view('empleados.empleados',compact('empleados','departamentos','puestos'));
             break;
         case 'registrar':
             $this->registrar_empleado($request);
