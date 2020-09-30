@@ -331,7 +331,8 @@ Schema::connection('DB_Serverr')->create('empleados', function($table){
     $table->string('contrato',100);
     $table->string('contrato_documento',100);
     $table->date('vigencia');
-    $table->time('horario_trabajo');
+    $table->time('horario_trabajoinicio');
+    $table->time('horario_trabajofin');
     $table->double('sueldo_diario');
     $table->string('nivel',50);
     $table->string('categoria',50);
