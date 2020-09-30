@@ -749,8 +749,13 @@
                   </div>
                   <div class="col-md-2 mb-2">
                     <br>
-                    <label for="validationDefault01">Horario</label>
-                    <input type="time" class="form-control" name="horario_trabajo" value="" required>
+                    <label for="validationDefault01">Horario inicio</label>
+                    <input type="time" class="form-control" name="horario_trabajoinicio" value="" required>
+                  </div>
+                  <div class="col-md-2 mb-2">
+                    <br>
+                    <label for="validationDefault01">Horario fin</label>
+                    <input type="time" class="form-control" name="horario_trabajofin" value="" required>
                   </div>
                   <div class="col-md-2 mb-2">
                     <br>
@@ -828,7 +833,7 @@
                       <label for="">Excluir ara PTU</label>
                      </div>
                   </div>
-                  <div class="col-md-12 mb-3">
+                  <div class="col-md-10 mb-3">
                     <label for="validationDefault04">Obervaciones</label>
                     <input type="text" class="form-control" name="observaciones" value="" required>
                   </div>
