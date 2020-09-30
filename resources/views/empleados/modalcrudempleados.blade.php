@@ -72,22 +72,28 @@
                   <div class="col-md-2 mb-3">
                     <label for="validationDefault04">Causa de baja:</label>
                     <select class="custom-select" name="causa_baja" required>
-                      <option selected disabled value="">Choose...</option>
-                      <option>...</option>
+                      <option selected  value=""></option>
+                      <option>Renuncia</option>
+                      <option>Despido</option>
                     </select>
                   </div>
                   <div class="col-md-2 mb-3">
                     <label for="validationDefault04">Departamento:</label>
                     <select class="custom-select" name="clave_departamento" required>
-                      <option selected disabled value="">Choose...</option>
-                      <option>...</option>
+                      <option selected disabled value="">Selecciona una opcion</option>
+                      @foreach ($departamentos as $depa)
+                    <option value="{{$depa->clave_departamento}}">{{$depa->departamento}}</option>    
+                      @endforeach
+                      
                     </select>
                   </div>
                   <div class="col-md-2 mb-3">
                     <label for="validationDefault04">Puesto:</label>
                     <select class="custom-select" name="clave_puesto" required>
-                      <option selected disabled value="">Choose...</option>
-                      <option>...</option>
+                      <option selected disabled value="">Selecciona una opcion</option>
+                      @foreach ($puestos as $puest)
+                    <option value="{{$puest->clave_puesto}}">{{$puest->nombre_puesto}}</option>    
+                      @endforeach
                     </select>
                   </div>
                   <div class="col-md-2 mb-3">
@@ -169,30 +175,26 @@
                   <div class="col-md-3 mb-3">
                     <label for="validationDefault04">Sexo:</label>
                     <select class="custom-select" name="sexo" required>
-                      <option selected disabled value="">Choose...</option>
-                      <option>...</option>
+                      <option selected disabled value="">Seleccione una opción</option>
+                      <option value="HOMBRE">Hombre</option>
+                      <option value="MUJER">Mujer</option>
                     </select>
                   </div>
                   <div class="col-md-3 mb-3">
                     <label for="validationDefault04">Estado Civil:</label>
                     <select class="custom-select" name="estado_civil" required>
-                      <option selected disabled value="">Choose...</option>
-                      <option>...</option>
+                      <option selected disabled value="">Selecciona una opción</option>
+                      <option value="SOLTERO">Soltero</option>
+                      <option value="CASADO">Casado</option>
                     </select>
                   </div>
                   <div class="col-md-3 mb-3">
                     <label for="validationDefault04">Nacionalidad:</label>
-                    <select class="custom-select" name="nacionalidad" required>
-                      <option selected disabled value="">Choose...</option>
-                      <option>...</option>
-                    </select>
+                    <input type="text" class="form-control" name="nacionalidad" required onkeyup="mayus(this);" onkeypress="return validar(event)">
                   </div>
                   <div class="col-md-3 mb-3">
                     <label for="validationDefault04">Tipo de sangre:</label>
-                    <select class="custom-select" name="tipo_sangre" required>
-                      <option selected disabled value="">Choose...</option>
-                      <option>...</option>
-                    </select>
+                    <input type="text" class="form-control" name="tipo_sangre" required onkeyup="mayus(this);">
                   </div>
                   <div class="col-md-3 mb-3">
                     <label for="validationDefault03">Alergias:</label>
@@ -715,22 +717,26 @@
                   <div class="col-md-2 mb-3">
                     <label for="validationDefault04">Tipo de trabajador</label>
                     <select class="custom-select" name="tipo_trabajador" required>
-                      <option selected disabled value="">Choose...</option>
-                      <option>...</option>
+                      <option selected disabled value="">Seleccioe una opcion:</option>
+                      <option value="EMPLEADO">Empleado</option>
+                      <option value="PATRON">Patron</option>
                     </select>
                   </div>
                   <div class="col-md-2 mb-3">
                     <label for="validationDefault04">Turno</label>
                     <select class="custom-select" name="turno" required>
-                      <option selected disabled value="">Choose...</option>
-                      <option>...</option>
+                      <option selected disabled value="">Selecciona una opcion:</option>
+                      <option value="MATUTINO">MATUTINO</option>
+                      <option value="VESPERTINO">VESPERTINO</option>
                     </select>
                   </div>
                   <div class="col-md-3 mb-3">
                     <label for="validationDefault04">Contrato</label>
                     <select class="custom-select" name="contrato" required>
-                      <option selected disabled value="">Choose...</option>
-                      <option>...</option>
+                      <option selected disabled value="">Selecciona una opcion</option>
+                      <option value="PRUEBA">Prueba</option>
+                      <option value="TEMPORAL">Temporal</option>
+                      <option value="INDETERMINADO">Permanente</option>
                     </select>
                   </div>
                   <div class="col-md-3 mb-3">
@@ -764,8 +770,9 @@
                     <br>
                     <label for="validationDefault04">Tipo salario</label>
                     <select class="custom-select" name="tipo_salario" required>
-                      <option selected disabled value="">Choose...</option>
-                      <option>...</option>
+                      <option selected disabled value="">Seleccione una opcion</option>
+                      <option value="FIJO">Fijo</option>
+                      <option value="VARIABLE">Variable</option>
                     </select>
                   </div>
                   <div class="col-md-2 mb-3">
