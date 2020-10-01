@@ -98,15 +98,15 @@
                   </div>
                   <div class="col-md-2 mb-3">
                     <label for="validationDefault03">RFC:</label>
-                    <input type="text" class="form-control" maxlength="13" name="rfc" required>
+                    <input type="text" class="form-control" maxlength="13" name="rfc" onkeyup="mayus(this);" onkeypress="return validar(event)" required>
                   </div>
                    <div class="col-md-2">
                     <label for="validationDefault03">CURP:</label>
-                    <input type="text" class="form-control" name="curp" required>
+                    <input type="text" class="form-control" minlength="18" maxlength="18" name="curp" onkeyup="mayus(this);" required>
                   </div>
                   <div class="col-md-2 mb-3">
                     <label for="validationDefault03">IMSS:</label>
-                    <input type="text" class="form-control" minlength="11" name="imss" required onkeypress="return numeros(event)">
+                    <input type="text" class="form-control" minlength="11" maxlength="11" name="imss" required onkeypress="return numeros(event)">
                   </div>
                   <div class="col-md-2 mb-3">
                     <label for="validationDefault03">Afore:</label>
@@ -114,7 +114,7 @@
                   </div>
                   <div class="col-md-3 mb-3">
                     <label for="validationDefault03">INE:</label>
-                    <input type="text" class="form-control" name="ine" required>
+                    <input type="text" class="form-control" maxlength="18" name="ine" required>
                   </div>
                   <div class="col-md-3 mb-3">
                     <label for="validationDefault03">Pasaporte:</label>
@@ -543,30 +543,30 @@
                     <label for="" class="col-form-label col-sm-3">Nombre de la Compañia:
                     </label>
                     <div class="col-sm-2">
-                      <input type="text" name="nombre_compania" class="form-control">
+                      <input type="text" name="nombre_compania" class="form-control" onkeyup="mayus(this);" onkeypress="return validar(event)">
                     </div>
                     <div class="col-sm-2">
-                      <input type="text" name="nombre_compania1" class="form-control">
+                      <input type="text" name="nombre_compania1" class="form-control" onkeyup="mayus(this);" onkeypress="return validar(event)">
                     </div>
                     <div class="col-sm-2">
-                      <input type="text" name="nombre_compania2" class="form-control">
+                      <input type="text" name="nombre_compania2" class="form-control" onkeyup="mayus(this);" onkeypress="return validar(event)">
                     </div>
                     <div class="col-sm-2">
-                      <input type="text" name="nombre_compania3" class="form-control">
+                      <input type="text" name="nombre_compania3" class="form-control" onkeyup="mayus(this);" onkeypress="return validar(event)">
                     </div><!--Fin compañia Referencias-->
                     <!--Inicio Dirección Referencias-->
                     <label for="" class="col-form-label col-sm-3">Direccion:</label>
                       <div class="col-sm-2">
-                        <input type="text" name="direccion_compania" class="form-control">
+                        <input type="text" name="direccion_compania" class="form-control" onkeyup="mayus(this);" onkeypress="return validar(event)">
                       </div>
                     <div class="col-sm-2">
-                        <input type="text" name="direccion1_trabajo1" class="form-control">
+                        <input type="text" name="direccion1_trabajo1" class="form-control" onkeyup="mayus(this);" onkeypress="return validar(event)">
                     </div>
                     <div class="col-sm-2">
-                      <input type="text" name="direccion2_compania2" class="form-control">
+                      <input type="text" name="direccion2_compania2" class="form-control" onkeyup="mayus(this);" onkeypress="return validar(event)">
                     </div>
                     <div class="col-sm-2">
-                      <input type="text" name="direccion3" class="form-control">
+                      <input type="text" name="direccion3" class="form-control" onkeyup="mayus(this);" onkeypress="return validar(event)">
                     </div><!--Fin Dirección Referencias-->
                     <!--Inicio Telefono Referencias-->
                     <label for="" class="col-form-label col-sm-3">Telefono:</label>
@@ -585,58 +585,58 @@
                     <!--INCIO sueldo Referencias-->
                     <label for="" class="col-form-label col-sm-3">Sueldo:</label>
                     <div class="col-sm-2">
-                      <input type="text" name="sueldo" class="form-control">
+                      <input type="text" name="sueldo" class="form-control" onkeypress="return numeros(event)">
                     </div>
                     <div class="col-sm-2">
-                      <input type="text" name="sueldo1" class="form-control">
+                      <input type="text" name="sueldo1" class="form-control" onkeypress="return numeros(event)">
                     </div>
                     <div class="col-sm-2">
-                      <input type="text" name="sueldo2" class="form-control">
+                      <input type="text" name="sueldo2" class="form-control" onkeypress="return numeros(event)">
                     </div>
                     <div class="col-sm-2">
-                      <input type="text" name="sueldo3" class="form-control">
+                      <input type="text" name="sueldo3" class="form-control" onkeypress="return numeros(event)">
                     </div><!--FIN sueldo Referencias-->
                     <!--INCIO Motivo separación Referencias-->
                     <label for="" class="col-form-label col-sm-3">Motivo de la Separacion:</label>
                     <div class="col-sm-2">
-                      <input type="text" name="motivo_separacion" class="form-control">
+                      <input type="text" name="motivo_separacion" class="form-control" onkeyup="mayus(this);" onkeypress="return validar(event)">
                     </div>
                     <div class="col-sm-2">
-                      <input type="text" name="motivo_separacion1" class="form-control">
+                      <input type="text" name="motivo_separacion1" class="form-control" onkeyup="mayus(this);" onkeypress="return validar(event)">
                     </div>
                     <div class="col-sm-2">
-                      <input type="text" name="motivo_separacion2" class="form-control">
+                      <input type="text" name="motivo_separacion2" class="form-control" onkeyup="mayus(this);" onkeypress="return validar(event)">
                     </div>
                     <div class="col-sm-2">
-                      <input type="text" name="motivo_separacion3" class="form-control">
+                      <input type="text" name="motivo_separacion3" class="form-control" onkeyup="mayus(this);" onkeypress="return validar(event)">
                     </div><!--FIN Motivo separación Referencias-->
                     <!--INCIO Jefe Directo separación Referencias-->
                     <label for="" class="col-form-label col-sm-3">Nombre del Jefe Directo:</label>
                     <div class="col-sm-2">
-                      <input type="text" name="nombre_jefe" class="form-control">
+                      <input type="text" name="nombre_jefe" class="form-control" onkeyup="mayus(this);" onkeypress="return validar(event)">
                     </div>
                     <div class="col-sm-2">
-                      <input type="text" name="nombre_jefe1" class="form-control">
+                      <input type="text" name="nombre_jefe1" class="form-control" onkeyup="mayus(this);" onkeypress="return validar(event)">
                     </div>
                     <div class="col-sm-2">
-                      <input type="text" name="nombre_jefe2" class="form-control" >
+                      <input type="text" name="nombre_jefe2" class="form-control" onkeyup="mayus(this);" onkeypress="return validar(event)">
                     </div>
                     <div class="col-sm-2">
-                      <input type="text" name="nombre_jefe3" class="form-control">
+                      <input type="text" name="nombre_jefe3" class="form-control" onkeyup="mayus(this);" onkeypress="return validar(event)">
                     </div><!--FIN Jefe Directo separación Referencias-->
                     <!--INCIO Puesto Jefe Directo separación Referencias-->
                     <label for="" class="col-form-label col-sm-3">Puesto del Jefe Inmediato:</label>
                     <div class="col-sm-2">
-                      <input type="text" name="puesto_jefe" class="form-control">
+                      <input type="text" name="puesto_jefe" class="form-control" onkeyup="mayus(this);" onkeypress="return validar(event)">
                     </div>
                     <div class="col-sm-2">
-                      <input type="text" name="puesto_jefe1" class="form-control">
+                      <input type="text" name="puesto_jefe1" class="form-control" onkeyup="mayus(this);" onkeypress="return validar(event)">
                     </div>
                     <div class="col-sm-2">
-                      <input type="text" name="puesto_jefe2" class="form-control">
+                      <input type="text" name="puesto_jefe2" class="form-control" onkeyup="mayus(this);" onkeypress="return validar(event)">
                     </div>
                     <div class="col-sm-2">
-                      <input type="text" name="puesto_jefe3" class="form-control">
+                      <input type="text" name="puesto_jefe3" class="form-control" onkeyup="mayus(this);" onkeypress="return validar(event)">
                     </div><!--FIN Puesto Jefe Directo separación Referencias-->
                     <!--INCIO Informes separación Referencias-->
                     <label for="" class="col-form-label col-sm-3">Podemos Solicitar Informes:</label>
@@ -655,16 +655,16 @@
                     <!--Razones Informes separación Referencias-->
                      <label for="" class="col-form-label col-sm-3">Razones:</label>
                       <div class="col-sm-2">
-                        <input type="text" name="razones" class="form-control">
+                        <input type="text" name="razones" class="form-control" onkeyup="mayus(this);" onkeypress="return validar(event)">
                       </div>
                       <div class="col-sm-2">
-                        <input type="text" name="razones1" class="form-control">
+                        <input type="text" name="razones1" class="form-control" onkeyup="mayus(this);" onkeypress="return validar(event)">
                       </div>
                       <div class="col-sm-2">
-                      <input type="text" name="razones2" class="form-control">
+                      <input type="text" name="razones2" class="form-control" onkeyup="mayus(this);" onkeypress="return validar(event)">
                         </div>
                       <div class="col-sm-2">
-                        <input type="text" name="razones3" class="form-control">
+                        <input type="text" name="razones3" class="form-control" onkeyup="mayus(this);" onkeypress="return validar(event)">
                       </div><!--FIN Razones Informes separación Referencias-->
                       <div class="col-sm-12">
                         <p><label for="" style="text-align: left;">
@@ -674,16 +674,16 @@
                     <div class="col-sm-3">
                       <label for="" style="text-align: left;"> Nombre
                       </label>
-                      <input type="text" name="referencia" class="form-control">
-                      <input type="text" name="referencia1" class="form-control">
-                      <input type="text" name="referencia2" class="form-control">
+                      <input type="text" name="referencia" class="form-control" onkeyup="mayus(this);" onkeypress="return validar(event)">
+                      <input type="text" name="referencia1" class="form-control" onkeyup="mayus(this);" onkeypress="return validar(event)">
+                      <input type="text" name="referencia2" class="form-control" onkeyup="mayus(this);" onkeypress="return validar(event)">
                     </div>
                     <div class="col-sm-2">
                       <label for="" style="text-align: left;">Dirección 
                     </label>
-                      <input type="text" name="direccion_trabajo" class="form-control">
-                      <input type="text" name="direccion1" class="form-control">
-                      <input type="text" name="direccion2" class="form-control">
+                      <input type="text" name="direccion_trabajo" class="form-control" onkeyup="mayus(this);" onkeypress="return validar(event)">
+                      <input type="text" name="direccion1" class="form-control" onkeyup="mayus(this);" onkeypress="return validar(event)">
+                      <input type="text" name="direccion2" class="form-control" onkeyup="mayus(this);" onkeypress="return validar(event)">
                    </div>
                    <div class="col-sm-2">
                     <label for="" style="text-align: left;">Teléfono
@@ -695,9 +695,9 @@
                    <div class="col-sm-3">
                     <label for="" style="text-align: left;">Ocupación
                     </label>
-                    <input type="text" name="ocupacion" class="form-control">
-                    <input type="text" name="ocupacion1" class="form-control">
-                    <input type="text" name="ocupacion2" class="form-control">
+                    <input type="text" name="ocupacion" class="form-control" onkeyup="mayus(this);" onkeypress="return validar(event)">
+                    <input type="text" name="ocupacion1" class="form-control" onkeyup="mayus(this);" onkeypress="return validar(event)">
+                    <input type="text" name="ocupacion2" class="form-control" onkeyup="mayus(this);" onkeypress="return validar(event)">
                    </div>
                    <div class="col-sm-1">
                     <label for="" style="text-align: left;">Tiempo
@@ -760,7 +760,7 @@
                   <div class="col-md-2 mb-2">
                     <br>
                     <label for="validationDefault01">Sueldo diario</label>
-                    <input type="text" class="form-control" name="sueldo_diario" value="" required>
+                    <input type="text" class="form-control" name="sueldo_diario" value=""  onkeypress="return numeros(event)" required>
                   </div>
                   <div class="col-md-2 mb-2">
                     <label for="validationDefault01">Tabulación<br>Nivel</label>
@@ -795,7 +795,7 @@
                    <div class="col-md-1 mb-3">
                     <br>
                     <label for="validationDefault04">Horas</label>
-                    <input type="text" class="form-control" name="horas_diarias" value="" required>
+                    <input type="text" class="form-control" name="horas_diarias" value="" onkeypress="return numeros(event)" required>
                   </div>
                   <div class="col-md-2 mb-3">
                     <br>
@@ -835,7 +835,7 @@
                   </div>
                   <div class="col-md-10 mb-3">
                     <label for="validationDefault04">Obervaciones</label>
-                    <input type="text" class="form-control" name="observaciones" value="" required>
+                    <input type="text" class="form-control" name="observaciones" value="" onkeyup="mayus(this);" onkeypress="return validar(event)" required>
                   </div>
                   <div class="col-md-2 mb-3">
                     <label for="validationDefault04">Salario base de cotización <br> Actual</label>
@@ -851,7 +851,7 @@
                     <br>
                     <br>
                     <label for="validationDefault04">Causa de la modificación</label>
-                    <input type="text" class="form-control" name="causa_modificacion" value="" required>
+                    <input type="text" class="form-control" name="causa_modificacion" value="" onkeyup="mayus(this);" onkeypress="return validar(event)" required>
                   </div>
                   <div class="col-md-4 mb-3">
                     <br>
