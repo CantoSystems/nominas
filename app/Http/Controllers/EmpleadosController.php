@@ -63,9 +63,10 @@ return $configDb;
     $clv=Session::get('clave_empresa');
     $clv_empleado= $this->generador($datos->rfc);
     $foto= $datos->file('fotografia');
-    $name=$file->getClientOriginalName();
+    $name=$foto->getClientOriginalName();
     $ruta=public_path().'/'.'storage'.'/'.$clv_empleado;
     $firma= $datos->file('firma');
+    $name1=$firma->getClientOriginalName();
     $clv_empresa=$this->conectar($clv);
     \Config::set('database.connections.DB_Serverr', $clv_empresa);
     
@@ -95,7 +96,7 @@ return $configDb;
     ?,?)',[$clv_empleado,$datos->clasificacion, $datos->nombre, $datos->apellido_paterno, $datos->apellido_materno, $datos->fecha_alta, $datos->fecha_baja, $datos->causa_baja, $datos->clave_departamento,
     $datos->clave_puesto, $datos->rfc, $datos->curp, $datos->imss, $datos->afore, $datos->ine, $datos->pasaporte, $datos->cartilla, $datos->licencia, $datos->documento_migratorio, $datos->calle, $datos->numero_interno, $datos->numero_externo,
     $datos->colonia, $datos->cp, $datos->ciudad, $datos->municipio, $datos->estado, $datos->telefono_empleado, $datos->correo, $datos->sexo, $datos->estado_civil, $datos->nacionalidad, $datos->tipo_sangre,
-    $datos->alergias, $datos->estatura, $datos->peso, $estado_salud, $datos->fotografia, $datos->enfermedad_cronica, $datos->deporte, $datos->pasatiempo, $datos->asosiacion, $datos->objetivo_vida, $datos->fecha_nacimiento,
+    $datos->alergias, $datos->estatura, $datos->peso, $estado_salud, $name, $datos->enfermedad_cronica, $datos->deporte, $datos->pasatiempo, $datos->asosiacion, $datos->objetivo_vida, $datos->fecha_nacimiento,
     $datos->lugar, $datos->umf, $datos->nombre_padre, $datos->nombre_madre, $datos->finado_padre, $datos->finado_madre, $datos->direccion_padre, $datos->direccion_madre, $datos->ocupacion_padre,
     $datos->ocupacion_madre, $datos->hijos, $datos->idiomas, $datos->funciones_oficina, $datos->maquinas_oficina, $datos->software, $datos->otras_funciones, $datos->beneficiario, $datos->beneficiario1, $datos->beneficiario2,
     $datos->beneficiario3, $datos->beneficiario4, $datos->parentesco, $datos->parentesco1, $datos->parentesco2, $datos->parentesco3, $datos->parentesco4, $datos->porcentaje, $datos->porcentaje1,
@@ -110,7 +111,7 @@ return $configDb;
     $datos->solicitar_informes3,$datos->razones3,$datos->referencia,$datos->direccion_trabajo,$datos->telefono_referencia,$datos->ocupacion,$datos->tiempo,$datos->referencia1,$datos->direccion_trabajo1,$datos->telefono_referencia1,
     $datos->ocupacion1,$datos->tiempo1,$datos->referencias2,$datos->direccion_trabajo2,$datos->telefono_referencia2,$datos->ocupacion2,$datos->tiempo2,$datos->tipo_trabajador,$datos->turno,$datos->contrato,
     $datos->contrato_documento,$datos->vigencia,$datos->horario_trabajoinicio,$datos->horario_trabajofin,$datos->sueldo_diario,$datos->nivel,$datos->categoria,$datos->tipo_sueldo,$datos->tipo_jornada,$datos->dias,$datos->horas_diarias,
-    $datos->forma_pago,$datos->clave_banco,$datos->tarjeta_banco,$datos->envio_correspondencia,$datos->ptu,$datos->observaciones,$datos->salario_cotizacion,$datos->salario_anterior,$datos->causa_modificacion,$datos->firma]);  
+    $datos->forma_pago,$datos->clave_banco,$datos->tarjeta_banco,$datos->envio_correspondencia,$datos->ptu,$datos->observaciones,$datos->salario_cotizacion,$datos->salario_anterior,$datos->causa_modificacion,$name1]);  
     $file->move($ruta,$foto);
     $file->move($ruta,$firma);
     }
@@ -120,9 +121,6 @@ return $configDb;
     }
 
     public function actualizar_empleado($datos){
-<<<<<<< HEAD
-    }
-=======
         $clv=Session::get('clave_empresa');
         $clv_empresa=$this->conectar($clv);
         \Config::set('database.connections.DB_Serverr', $clv_empresa);
@@ -322,6 +320,5 @@ return $configDb;
     }
 
 
->>>>>>> 5039930c1eae771b3ee01eef0577c0ed66575301
 }
 
