@@ -223,6 +223,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
     $('.telefono').mask('(00) 0000-0000');
 </script>
 
+
 <script type="text/javascript">
   function validar(e) { 
   tecla = (document.all) ? e.keyCode : e.which; 
