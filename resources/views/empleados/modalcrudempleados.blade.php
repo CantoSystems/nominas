@@ -777,10 +777,11 @@
                   </div>
                   <div class="col-md-2 mb-3">
                     <br>
-                    <label for="validationDefault04">Tipo salario</label>
+                    <label for="validationDefault04">Tipo de jornada</label>
                     <select class="custom-select" name="tipo_jornada" required>
-                      <option selected disabled value="">Choose...</option>
-                      <option>...</option>
+                      <option selected disabled value="">Seleccione una opcion</option>
+                      <option value="COMPLETA">Completa</option>
+                      <option value="REDUCIDA">Reducida</option>
                     </select>
                   </div>
                   <div class="col-md-1 mb-3">
@@ -796,30 +797,26 @@
                     <br>
                     <label for="validationDefault04">Forma de Pago</label>
                     <select class="custom-select" name="forma_pago" required>
-                      <option selected disabled value="">Choose...</option>
-                      <option>...</option>
+                      <option selected disabled value="">Selecciona una opcion</option>
+                      <option value="EFECTIVO">Efectivo</option>
+                      <option value="CHEQUE">Cheque</option>
                     </select>
                   </div>
                   <div class="col-md-2 mb-3">
                     <br>
                     <label for="validationDefault04">Banco</label>
                     <select class="custom-select" name="clave_banco" required>
-                      <option selected disabled value="">Choose...</option>
-                      <option>...</option>
+                      <option selected disabled value="">Selecciona una opcion</option>
+                      @foreach ($collection as $item)
+                    <option value="{{$banco->clave_banco}}">{{$banco->banco}}</option>    
+                      @endforeach
+                      
                     </select>
                   </div>
                   <div class="col-md-2 mb-3">
                     <br>
                     <label for="validationDefault04">Tarjeta bancaria</label>
                     <input type="text" class="form-control" name="tarjeta_banco" value="" required>
-                  </div>
-                   <div class="col-md-2 mb-3">
-                    <br>
-                    <label for="validationDefault04">Envió correspondencia</label>
-                    <select class="custom-select" name="envio_correspondencia" required>
-                      <option selected disabled value="">Choose...</option>
-                      <option>...</option>
-                    </select>
                   </div>
                   <div class="col-md-2 mb-3">
                     <br><br>
