@@ -812,7 +812,7 @@
                     <label for="validationDefault04">Banco</label>
                     <select class="custom-select" name="clave_banco" required>
                       <option selected disabled value="">Selecciona una opcion</option>
-                      @foreach ($collection as $item)
+                      @foreach ($bancos as $banco)
                     <option value="{{$banco->clave_banco}}">{{$banco->banco}}</option>    
                       @endforeach
                       

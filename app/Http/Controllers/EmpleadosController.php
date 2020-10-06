@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Banco;
 use Session;
 use DB;
 class EmpleadosController extends Controller
@@ -39,7 +40,7 @@ return $configDb;
             $empleados=DB::connection('DB_Serverr')->table('empleados')->get();
             $departamentos=DB::connection('DB_Serverr')->table('departamentos')->get();
             $puestos=DB::connection('DB_Serverr')->table('puestos')->get();
-            $bancos=DB::connection('DB_Serverr')->table('bancos')->get();
+            $bancos=Banco::all();
             return view('empleados.empleados',compact('empleados','departamentos','puestos','bancos'));
             break;
         case 'registrar':
@@ -52,6 +53,37 @@ return $configDb;
             $empleados=DB::connection('DB_Serverr')->table('empleados')->get();
             return view('empleados.empleados',compact('empleados'));
             break;
+
+        case 'atras':
+            $id=DB::connection('DB_Serverr')->table('empleados')->
+            where('clave_empleado',$request->clave_empleado)->first();
+               $aux=DB::connection('DB_Serverr')->table('empleados')->where('id','<',$id->id)
+            ->orderBy('id','desc')
+            ->first();
+            if(is_null($aux)){
+                $aux=DB::connection('DB_Serverr')->table('empleados')->get()->last();
+            }
+            return view('empleados.empleados', compact('aux'));
+        break;
+        case 'siguiente':
+            $id=DB::connection('DB_Serverr')->table('empleados')->
+            where('clave_empleado',$request->clave_empleado)->first();
+               $aux=DB::connection('DB_Serverr')->table('empleados')->where('id','>',$id->id)
+            ->orderBy('id','asc')
+            ->first();
+            if(is_null($aux)){
+                $aux=DB::connection('DB_Serverr')->table('empleados')->get()->last();
+            }
+            return view('empleados.empleados', compact('aux'));
+        break;
+        case 'primero':
+            $aux = DB::connection('DB_Serverr')->table('empleados')->first(); 
+            return view('empleados.empleados',compact('aux'));
+        break;
+        case 'ultimo':
+            $aux = DB::connection('DB_Serverr')->table('empleados')->get()->last(); 
+            return view('empleados.empleados',compact('aux'));
+        break;
         default:
             # code...
             break;
