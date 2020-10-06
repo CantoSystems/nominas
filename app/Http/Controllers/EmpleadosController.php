@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+
 use Illuminate\Http\Request;
 use App\Banco;
 use Session;
@@ -40,7 +41,12 @@ return $configDb;
             $empleados=DB::connection('DB_Serverr')->table('empleados')->get();
             $departamentos=DB::connection('DB_Serverr')->table('departamentos')->get();
             $puestos=DB::connection('DB_Serverr')->table('puestos')->get();
+
+            $bancos= Banco::all();
+            //$bancos=DB::connection('DB_Serverr')->table('bancos')->get();
+
             $bancos=Banco::all();
+
             return view('empleados.empleados',compact('empleados','departamentos','puestos','bancos'));
             break;
         case 'registrar':
@@ -153,8 +159,15 @@ return $configDb;
     }
 
     public function actualizar_empleado($datos){
+
+    
+
+         $clv= Session::get('clave_empresa');
+         $clv_empresa=$this->conectar($clv);
+
         $clv=Session::get('clave_empresa');
         $clv_empresa=$this->conectar($clv);
+
         \Config::set('database.connections.DB_Serverr', $clv_empresa);
         
         $aux1 = DB::connection('DB_Serverr')->table('empleados')->where('clave_empleado',$datos->clave_empleado)->first();
@@ -350,6 +363,8 @@ return $configDb;
             'salario_anterior'=>$datos->salario_anterior,
             'causa_modificacion'=>$datos->causa_modificacion]);  
     }
+
+
 
 
 }
