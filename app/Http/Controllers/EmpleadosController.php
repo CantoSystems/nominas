@@ -123,15 +123,15 @@ return $configDb;
     }
 
     public function actualizar_empleado($datos){
-<<<<<<< HEAD
+
     
 
          $clv= Session::get('clave_empresa');
          $clv_empresa=$this->conectar($clv);
-=======
+
         $clv=Session::get('clave_empresa');
         $clv_empresa=$this->conectar($clv);
->>>>>>> bbfc5453bc82bee3971f11bb963324a2549893d5
+
         \Config::set('database.connections.DB_Serverr', $clv_empresa);
         
         $aux1 = DB::connection('DB_Serverr')->table('empleados')->where('clave_empleado',$datos->clave_empleado)->first();
@@ -329,9 +329,7 @@ return $configDb;
     }
 
 
-<<<<<<< HEAD
 
-=======
->>>>>>> bbfc5453bc82bee3971f11bb963324a2549893d5
+
 }
 
