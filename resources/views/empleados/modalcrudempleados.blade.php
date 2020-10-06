@@ -43,7 +43,7 @@
                 <div class="form-row">
                   <div class="col-md-1 mb-2">
                     <label for="validationDefault01">Clave:</label>
-                    <input type="text" class="form-control" name="clave_empleado" value="" required>
+                    <input type="text" class="form-control" name="clave_empleado" value="" onkeypress="return numeros(event)" required>
                   </div>
                   <div class="col-md-2">
                     <label for="validationDefault02">Clasificación:</label>
@@ -98,7 +98,7 @@
                   </div>
                   <div class="col-md-2 mb-3">
                     <label for="validationDefault03">RFC:</label>
-                    <input type="text" class="form-control" maxlength="13" name="rfc" onkeyup="mayus(this);" onkeypress="return validar(event)" required>
+                    <input type="text" class="form-control" maxlength="13" name="rfc" onkeyup="mayus(this);"  required>
                   </div>
                    <div class="col-md-2">
                     <label for="validationDefault03">CURP:</label>
@@ -194,7 +194,7 @@
                   </div>
                   <div class="col-md-3 mb-3">
                     <label for="validationDefault04">Tipo de sangre:</label>
-                    <input type="text" class="form-control" name="tipo_sangre" required onkeyup="mayus(this);">
+                    <input type="text" class="form-control" name="tipo_sangre" required onkeyup="mayus(this);" onkeypress="return validar(event)">
                   </div>
                   <div class="col-md-3 mb-3">
                     <label for="validationDefault03">Alergias:</label>
@@ -346,11 +346,11 @@
 
                  <div class="col-md-3 mb-3">
                   <label for="validationDefault03">% de Participacion</label>
-                  <input type="text" class="form-control" name="porcentaje" required>
-                  <input type="text" class="form-control" name="porcentaje1" required>
-                  <input type="text" class="form-control" name="porcentaje2" required>
-                  <input type="text" class="form-control" name="porcentaje3" required>
-                  <input type="text" class="form-control" name="porcentaje4" required>
+                  <input type="text" class="form-control" name="porcentaje" maxlength="2" required onkeypress="return numeros(event)">
+                  <input type="text" class="form-control" name="porcentaje1" maxlength="2" required onkeypress="return numeros(event)">
+                  <input type="text" class="form-control" name="porcentaje2" maxlength="2" required onkeypress="return numeros(event)">
+                  <input type="text" class="form-control" name="porcentaje3" maxlength="2" required onkeypress="return numeros(event)">
+                  <input type="text" class="form-control" name="porcentaje4" maxlength="2" required onkeypress="return numeros(event)">
                  </div>
                  <div class="col-sm-12">
                     <label for="" style="text-align: left;">
@@ -480,7 +480,7 @@
                </div>
                <div class="col-md-1 mb-3">
                 <label for="validationDefault03">Grado </label>
-                <input type="text" class="form-control" name="grado" required>
+                <input type="text" class="form-control" name="grado" maxlength="2" required onkeypress="return numeros(event)">
                 
                </div>
                <div class="col-md-3 mb-3">
@@ -702,9 +702,9 @@
                    <div class="col-sm-1">
                     <label for="" style="text-align: left;">Tiempo
                     </label>
-                    <input type="text" name="tiempo" class="form-control">
-                    <input type="text" name="tiempo1" class="form-control">
-                    <input type="text" name="tiempo2" class="form-control">
+                    <input type="text" name="tiempo" class="form-control" maxlength="2" onkeypress="return numeros(event)">
+                    <input type="text" name="tiempo1" class="form-control" maxlength="2" onkeypress="return numeros(event)">
+                    <input type="text" name="tiempo2" class="form-control" maxlength="2" onkeypress="return numeros(event)">
                    </div>
               </div><!--Final Row Referencias-->
             </div> <!--FIN referencias-->
@@ -760,7 +760,7 @@
                   <div class="col-md-2 mb-2">
                     <br>
                     <label for="validationDefault01">Sueldo diario</label>
-                    <input type="text" class="form-control" name="sueldo_diario" value=""  onkeypress="return numeros(event)" required>
+                    <input type="text" class="form-control" name="sueldo_diario" value="" maxlength="5" onkeypress="return numeros(event)" required>
                   </div>
                   <div class="col-md-2 mb-2">
                     <label for="validationDefault01">Tabulación<br>Nivel</label>

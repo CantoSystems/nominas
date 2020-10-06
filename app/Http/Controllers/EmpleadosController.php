@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Banco;
+
 use Illuminate\Http\Request;
 use App\Banco;
 use Session;
@@ -41,12 +41,12 @@ return $configDb;
             $empleados=DB::connection('DB_Serverr')->table('empleados')->get();
             $departamentos=DB::connection('DB_Serverr')->table('departamentos')->get();
             $puestos=DB::connection('DB_Serverr')->table('puestos')->get();
-<<<<<<< HEAD
+
             $bancos= Banco::all();
             //$bancos=DB::connection('DB_Serverr')->table('bancos')->get();
-=======
+
             $bancos=Banco::all();
->>>>>>> 34bfb457d2ae5edf4dd687089af4361b837245dc
+
             return view('empleados.empleados',compact('empleados','departamentos','puestos','bancos'));
             break;
         case 'registrar':
