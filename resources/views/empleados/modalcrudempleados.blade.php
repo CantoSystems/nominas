@@ -527,7 +527,7 @@
               
                    <div class="col-sm-12">
                      
-                      <input type="date" name="vinculacion_trabajo" class="medidainput">
+                      <input  name="vinculacion_trabajo" class="medidainput" id="duracion">
                       
                       <input type="date" name="desvinculacion_trabajo" class="medidainput">
                      
