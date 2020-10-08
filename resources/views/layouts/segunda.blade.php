@@ -347,12 +347,23 @@ scratch. This page gets rid of all links and provides the needed markup only.
   function mayus(e) {
     e.value = e.value.toUpperCase();
 }
+
 </script>
 <script type="text/javascript">
   function validar(e) { 
   tecla = (document.all) ? e.keyCode : e.which; 
   if (tecla==8) return true; 
   patron =/[A-Za-z\s]/; 
+  te = String.fromCharCode(tecla); 
+  return patron.test(te); 
+  }
+</script>
+
+<script type="text/javascript">
+  function validasangre(e) { 
+  tecla = (document.all) ? e.keyCode : e.which; 
+  if (tecla==8) return true; 
+  patron =/[A-Za-z-+\s]/; 
   te = String.fromCharCode(tecla); 
   return patron.test(te); 
   }
