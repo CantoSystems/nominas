@@ -19,7 +19,7 @@
                 <div class="col-sm-1">
                     <div class="form-group">
                         <label>Clave:</label>
-                        <input type="text" name="clave" class="form-control" value="{{$empresa->clave}}" onkeyup="mayus(this);">
+                        <input type="text" name="clave" class="form-control" value="{{$empresa->clave}}" readonly onkeyup="mayus(this);">
                     </div>
                 </div>
                 <div class="col-sm-3">
