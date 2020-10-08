@@ -378,7 +378,7 @@
                   <input type="text" name="primaria" class="form-control" onkeyup="mayus(this);" onkeypress="return validar(event)">
                 </div>
                 <div class="col-sm-4">
-                  <input name="inicio_primaria" class="form-control" id="duracion5">
+                  <input name="duracion_primaria" class="form-control" id="duracion5">
                 </div>
               
                 <div class="col-sm-3">
@@ -391,7 +391,7 @@
                   <input type="text" name="secundaria" class="form-control" onkeyup="mayus(this);" onkeypress="return validar(event)">
                 </div>
                 <div class="col-sm-4">
-                  <input name="inicio_secundaria" class="form-control" id="duracion6">
+                  <input name="duracion_secundaria" class="form-control" id="duracion6">
                 </div>
                
                 <div class="col-sm-3">
@@ -404,7 +404,7 @@
                   <input type="text" name="preparatoria" class="form-control" onkeyup="mayus(this);" onkeypress="return validar(event)">
                 </div>
                 <div class="col-sm-4">
-                  <input  name="inicio_preparatoria" class="form-control" id="duracion7">
+                  <input  name="duracion_preparatoria" class="form-control" id="duracion7">
                 </div>
                
                 <div class="col-sm-3">
@@ -417,7 +417,7 @@
                   <input type="text" name="profesional" class="form-control" onkeyup="mayus(this);" onkeypress="return validar(event)">
                 </div>
                 <div class="col-sm-4">
-                  <input name="inicio_profesional" class="form-control" id="duracion8">
+                  <input name="duracion_profesional" class="form-control" id="duracion8">
                 </div>
                 
                 <div class="col-sm-3">
@@ -431,7 +431,7 @@
                   <input type="text" name="otras" class="form-control" onkeyup="mayus(this);" onkeypress="return validar(event)">
                 </div>
                 <div class="col-sm-4">
-                  <input  name="inicio_otras" class="form-control" id="duracion9">
+                  <input  name="duracion_otras" class="form-control" id="duracion9">
                 </div>
              
                 <div class="col-sm-3">
@@ -500,16 +500,16 @@
                    <!--Inicio Vinculación Referencias-->
               
                    <div class="col-sm-3"> 
-                      <input  name="vinculacion_trabajo" class="form-control" id="duracion">
+                      <input  name="duracion_trabajo" class="form-control" id="duracion">
                    </div>
                    <div class="col-sm-3"> 
-                      <input  name="vinculacion_trabajo1" class="form-control" id="duracion2">
+                      <input  name="duracion_trabajo1" class="form-control" id="duracion2">
                    </div>
                    <div class="col-sm-3"> 
-                      <input name="vinculacion_trabajo2" class="form-control" id="duracion3">
+                      <input name="duracion_trabajo2" class="form-control" id="duracion3">
                    </div>
                    <div class="col-sm-3"> 
-                      <input name="vinculacion_trabajo3" class="form-control" id="duracion4">
+                      <input name="duracion_trabajo3" class="form-control" id="duracion4">
                    </div>
 
 
