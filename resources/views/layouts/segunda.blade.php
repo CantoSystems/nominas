@@ -11,7 +11,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
   <title>CDB | Nominas</title>
   <!-- daterange picker -->
-  <link rel="stylesheet" href="../Admin/plugins/daterangepicker/daterangepicker.css">
+  <link rel="stylesheet" href="{{ asset('/Admin/plugins/daterangepicker/daterangepicker.css')}}">
   <!-- iCheck for checkboxes and radio inputs -->
   <link rel="stylesheet" href="../Admin/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
   <!-- Bootstrap Color Picker -->
@@ -245,6 +245,14 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <script>
   $(function(){
     $('#duracion').daterangepicker()
+    $('#duracion2').daterangepicker()
+    $('#duracion3').daterangepicker()
+    $('#duracion4').daterangepicker()
+    $('#duracion5').daterangepicker()
+    $('#duracion6').daterangepicker()
+    $('#duracion7').daterangepicker()
+    $('#duracion8').daterangepicker()
+    $('#duracion9').daterangepicker()
   });
 </script>
 
