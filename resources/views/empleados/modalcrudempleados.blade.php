@@ -43,7 +43,7 @@
                 <div class="form-row">
                   <div class="col-md-1 mb-2">
                     <label for="validationDefault01">Clave:</label>
-                    <input type="text" class="form-control" name="clave_empleado" value="" onkeypress="return numeros(event)" required>
+                    <input type="text" class="form-control" name="clave_empleado" value="" onkeypress="return numeros(event)" readonly>
                   </div>
                   <div class="col-md-2">
                     <label for="validationDefault02">Clasificación:</label>
@@ -67,11 +67,11 @@
                   </div>
                   <div class="col-md-2 mb-3">
                     <label for="validationDefault03">Fecha de baja:</label>
-                    <input type="date" class="form-control" name="fecha_baja" required>
+                    <input type="date" class="form-control" name="fecha_baja">
                   </div>
                   <div class="col-md-2 mb-3">
                     <label for="validationDefault04">Causa de baja:</label>
-                    <select class="custom-select" name="causa_baja" required>
+                    <select class="custom-select" name="causa_baja">
                       <option selected  value=""></option>
                       <option>Renuncia</option>
                       <option>Despido</option>
@@ -812,7 +812,7 @@
                   </div>
                   <div class="col-md-2 mb-3">
                     <label for="validationDefault04">Salario base de cotización <br> Actual</label>
-                    <input type="text" class="form-control" name="salario_cotizacion" value="" required disabled>
+                    <input type="text" class="form-control" name="salario_cotizacion" value="">
                   </div>
                   <div class="col-md-2 mb-3">
                     <br>
