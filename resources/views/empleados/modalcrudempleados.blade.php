@@ -364,12 +364,10 @@
                       Nombre de la Institución
                     </label></p>
                    </div>
-                   <div class="col-sm-2">
-                    <p><label for="pensamiento_id" style="text-align: justify;">Inicio</label></p>
+                   <div class="col-sm-4">
+                    <p><label for="pensamiento_id" style="text-align: justify;">Inicio: &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp  Finalizo:</label></p>
                    </div>
-                   <div class="col-sm-2">
-                    <p><label for="pensamiento_id" style="text-align: justify;">Finalizo</label></p>
-                   </div>
+                   
                    <div class="col-sm-3">
                     <p><label for="pensamiento_id" style="text-align: justify;">Titulo obtenido</label></p>
                    </div>
@@ -379,12 +377,10 @@
                 <div class="col-sm-3">
                   <input type="text" name="primaria" class="form-control" onkeyup="mayus(this);" onkeypress="return validar(event)">
                 </div>
-                <div class="col-sm-2">
-                  <input type="date" name="inicio_primaria" class="form-control">
+                <div class="col-sm-4">
+                  <input name="inicio_primaria" class="form-control" id="duracion5">
                 </div>
-                <div class="col-sm-2">
-                  <input type="date" name="fin_primaria" class="form-control">
-                </div>
+              
                 <div class="col-sm-3">
                   <input type="text" name="titulo_primaria" class="form-control" onkeyup="mayus(this);" onkeypress="return validar(event)">
                 </div>
@@ -394,12 +390,10 @@
                 <div class="col-sm-3">
                   <input type="text" name="secundaria" class="form-control" onkeyup="mayus(this);" onkeypress="return validar(event)">
                 </div>
-                <div class="col-sm-2">
-                  <input type="date" name="inicio_secundaria" class="form-control">
+                <div class="col-sm-4">
+                  <input name="inicio_secundaria" class="form-control" id="duracion6">
                 </div>
-                <div class="col-sm-2">
-                  <input type="date" name="fin_secundaria" class="form-control">
-                </div>
+               
                 <div class="col-sm-3">
                   <input type="text" name="titulo_secundaria" class="form-control" onkeyup="mayus(this);" onkeypress="return validar(event)">
                 </div>
@@ -409,12 +403,10 @@
                 <div class="col-sm-3">
                   <input type="text" name="preparatoria" class="form-control" onkeyup="mayus(this);" onkeypress="return validar(event)">
                 </div>
-                <div class="col-sm-2">
-                  <input type="date" name="inicio_preparatoria" class="form-control">
+                <div class="col-sm-4">
+                  <input  name="inicio_preparatoria" class="form-control" id="duracion7">
                 </div>
-                <div class="col-sm-2">
-                  <input type="date" name="fin_preparatoria" class="form-control">
-                </div>
+               
                 <div class="col-sm-3">
                   <input type="text" name="titulo_preparatoria" class="form-control" onkeyup="mayus(this);" onkeypress="return validar(event)">
                 </div>
@@ -424,42 +416,24 @@
                 <div class="col-sm-3">
                   <input type="text" name="profesional" class="form-control" onkeyup="mayus(this);" onkeypress="return validar(event)">
                 </div>
-                <div class="col-sm-2">
-                  <input type="date" name="inicio_profesional" class="form-control">
+                <div class="col-sm-4">
+                  <input name="inicio_profesional" class="form-control" id="duracion8">
                 </div>
-                <div class="col-sm-2">
-                  <input type="date" name="fin_profesional" class="form-control">
-                </div>
+                
                 <div class="col-sm-3">
                   <input type="text" name="titulo_profesional" class="form-control" onkeyup="mayus(this);" onkeypress="return validar(event)">
                 </div>
               <!--FIN Profesional-->
+               
                <!--Inicio Otras-->
-                <label for="" class="col-form-label col-sm-2">Profesional</label>
-                <div class="col-sm-3">
-                  <input type="text" name="profesional" class="form-control" onkeyup="mayus(this);" onkeypress="return validar(event)">
-                </div>
-                <div class="col-sm-2">
-                  <input type="date" name="inicio_profesional" class="form-control">
-                </div>
-                <div class="col-sm-2">
-                  <input type="date" name="fin_profesional" class="form-control">
-                </div>
-                <div class="col-sm-3">
-                  <input type="text" name="titulo_profesional" class="form-control" onkeyup="mayus(this);" onkeypress="return validar(event)">
-                </div>
-              <!--FIN Otras-->
-               <!--Inicio Profesional-->
                 <label for="" class="col-form-label col-sm-2">Otras</label>
                 <div class="col-sm-3">
                   <input type="text" name="otras" class="form-control" onkeyup="mayus(this);" onkeypress="return validar(event)">
                 </div>
-                <div class="col-sm-2">
-                  <input type="date" name="inicio_otras" class="form-control">
+                <div class="col-sm-4">
+                  <input  name="inicio_otras" class="form-control" id="duracion9">
                 </div>
-                <div class="col-sm-2">
-                  <input type="date" name="fin_otras" class="form-control">
-                </div>
+             
                 <div class="col-sm-3">
                   <input type="text" name="titulo_otras" class="form-control" onkeyup="mayus(this);" onkeypress="return validar(event)">
                 </div>
@@ -510,13 +484,13 @@
                        <label for="pensamiento_id" style="text-align: justify;">&nbsp&nbspDe:&nbsp &nbsp &nbsp &nbsp&nbsp</label>
                         <label for="pensamiento_id" style="text-align: justify;">&nbsp &nbsp &nbsp &nbsp&nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp A:  &nbsp &nbsp &nbsp&nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp </label>
 
-                        <label for="pensamiento_id" style="text-align: justify;">&nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp De: &nbsp &nbsp &nbsp &nbsp&nbsp </label>
+                        <label for="pensamiento_id" style="text-align: justify;">&nbsp&nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp De: &nbsp &nbsp &nbsp &nbsp&nbsp </label>
                         <label for="pensamiento_id" style="text-align: justify;">&nbsp &nbsp &nbsp &nbsp&nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp A: &nbsp &nbsp &nbsp&nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp </label>
 
-                        <label for="pensamiento_id" style="text-align: justify;">&nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp De: &nbsp &nbsp &nbsp &nbsp&nbsp </label>
+                        <label for="pensamiento_id" style="text-align: justify;">&nbsp&nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp De: &nbsp &nbsp &nbsp &nbsp&nbsp </label>
                         <label for="pensamiento_id" style="text-align: justify;">&nbsp &nbsp &nbsp &nbsp&nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp A: &nbsp &nbsp &nbsp&nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp </label>
 
-                        <label for="pensamiento_id" style="text-align: justify;">&nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp De: &nbsp &nbsp &nbsp &nbsp&nbsp </label>
+                        <label for="pensamiento_id" style="text-align: justify;">&nbsp&nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp De: &nbsp &nbsp &nbsp &nbsp&nbsp </label>
                         <label for="pensamiento_id" style="text-align: justify;">&nbsp &nbsp &nbsp &nbsp&nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp A:  &nbsp &nbsp &nbsp&nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp</label>
 
                         
@@ -525,25 +499,19 @@
 
                    <!--Inicio Vinculación Referencias-->
               
-                   <div class="col-sm-12">
-                     
-                      <input  name="vinculacion_trabajo" class="medidainput" id="duracion">
-                      
-                      <input type="date" name="desvinculacion_trabajo" class="medidainput">
-                     
-                       &nbsp<input type="date" name="vinculacion_trabajo1" class="medidainput">
-                   
-                      <input type="date" name="desvinculacion_trabajo1" class="medidainput">
-                      
-                     &nbsp<input type="date" name="vinculacion_trabajo2" class="medidainput">
-                    
-                      <input type="date" name="desvinculacion_trabajo2" class="medidainput">
-                    
-                      <input type="date" name="vinculacion_trabajo3" class="medidainput">
-                      
-                      <input type="date" name="desvinculacion_trabajo3"class="medidainput">
-
+                   <div class="col-sm-3"> 
+                      <input  name="vinculacion_trabajo" class="form-control" id="duracion">
                    </div>
+                   <div class="col-sm-3"> 
+                      <input  name="vinculacion_trabajo1" class="form-control" id="duracion2">
+                   </div>
+                   <div class="col-sm-3"> 
+                      <input name="vinculacion_trabajo2" class="form-control" id="duracion3">
+                   </div>
+                   <div class="col-sm-3"> 
+                      <input name="vinculacion_trabajo3" class="form-control" id="duracion4">
+                   </div>
+
 
 
 
