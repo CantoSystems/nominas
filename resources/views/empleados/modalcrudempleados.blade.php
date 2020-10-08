@@ -47,7 +47,7 @@
                   </div>
                   <div class="col-md-2">
                     <label for="validationDefault02">Clasificación:</label>
-                    <input type="text" class="form-control" name="clasificacion" value="" required>
+                    <input type="text" class="form-control" name="clasificacion" value="" required onkeyup="mayus(this);" onkeypress="return validar(event)">
                   </div>
                   <div class="col-md-3 mb-3">
                     <label for="validationDefault03">Nombre:</label>
@@ -114,23 +114,23 @@
                   </div>
                   <div class="col-md-3 mb-3">
                     <label for="validationDefault03">INE:</label>
-                    <input type="text" class="form-control" maxlength="18" name="ine" required>
+                    <input type="text" class="form-control" maxlength="18" name="ine" onkeyup="mayus(this);" required>
                   </div>
                   <div class="col-md-3 mb-3">
                     <label for="validationDefault03">Pasaporte:</label>
-                    <input type="text" class="form-control" name="pasaporte" required>
+                    <input type="text" class="form-control" name="pasaporte" onkeyup="mayus(this);" required>
                   </div>
                   <div class="col-md-3 mb-3">
                     <label for="validationDefault03">Cartilla:</label>
-                    <input type="text" class="form-control" name="cartilla" required>
+                    <input type="text" class="form-control" name="cartilla" onkeyup="mayus(this);" required>
                   </div>
                   <div class="col-md-3 mb-3">
                     <label for="validationDefault03">Licencia:</label>
-                    <input type="text" class="form-control" name="licencia" required>
+                    <input type="text" class="form-control" name="licencia" onkeyup="mayus(this);" required>
                   </div>
                   <div class="col-md-3 mb-3">
                     <label for="validationDefault03">Documento migratorio:</label>
-                    <input type="text" class="form-control" name="documento_migratorio" required>
+                    <input type="text" class="form-control" name="documento_migratorio" onkeyup="mayus(this);" required>
                   </div>
                   <div class="col-md-3 mb-3">
                     <label for="validationDefault03">Calle:</label>
@@ -138,11 +138,11 @@
                   </div>
                   <div class="col-md-2 mb-3">
                     <label for="validationDefault03">Número externo:</label>
-                    <input type="text" class="form-control" name="numero_externo" required onkeypress="return numeros(event)">
+                    <input type="text" class="form-control" name="numero_externo" maxlength="4" required onkeypress="return numeros(event)">
                   </div>
                   <div class="col-md-2 mb-3">
                     <label for="validationDefault03">Número interno:</label>
-                    <input type="text" class="form-control" name="numero_interno" required onkeypress="return numeros(event)">
+                    <input type="text" class="form-control" name="numero_interno" maxlength="4" required onkeypress="return numeros(event)">
                   </div>
                   <div class="col-md-3 mb-3">
                     <label for="validationDefault03">Colonia:</label>
@@ -150,7 +150,7 @@
                   </div>
                   <div class="col-md-2 mb-3">
                     <label for="validationDefault03">CP:</label>
-                    <input type="text" class="form-control" name="cp" required onkeypress="return numeros(event)">
+                    <input type="text" class="form-control" name="cp" maxlength="6" required onkeypress="return numeros(event)">
                   </div>
                   <div class="col-md-3 mb-3">
                     <label for="validationDefault03">Ciudad:</label>
@@ -194,7 +194,7 @@
                   </div>
                   <div class="col-md-3 mb-3">
                     <label for="validationDefault04">Tipo de sangre:</label>
-                    <input type="text" class="form-control" name="tipo_sangre" required onkeyup="mayus(this);" onkeypress="return validar(event)">
+                    <input type="text" class="form-control" name="tipo_sangre" required onkeyup="mayus(this);" onkeypress="return validasangre(event)">
                   </div>
                   <div class="col-md-3 mb-3">
                     <label for="validationDefault03">Alergias:</label>
@@ -251,7 +251,7 @@
               </div>
               <div class="col-md-3 mb-3">
                 <label for="validationDefault03">UMF:</label>
-                <input type="text" class="form-control" name="umf" required>
+                <input type="text" class="form-control" name="umf" required onkeypress="return numeros(event)">
               </div>
                <div class="col-md-4 mb-3">
                 <label for="validationDefault03">Nombre del Padre:</label>
@@ -294,7 +294,7 @@
               </div>
               <div class="col-md-6 mb-3">
                 <label for="validationDefault03">Nombre y edad de sus Hijos:</label>
-                <input type="text" class="form-control" name="hijos" required>
+                <input type="text" class="form-control" name="hijos" required onkeyup="mayus(this);" onkeypress="return validar(event)">
               </div>
               <div class="col-md-3 mb-3">
                 <label for="validationDefault03">Idiomas:</label>
@@ -797,7 +797,7 @@
                   <div class="col-md-2 mb-3">
                     <br>
                     <label for="validationDefault04">Tarjeta bancaria</label>
-                    <input type="text" class="form-control" name="tarjeta_banco" value="" required>
+                    <input type="text" class="form-control" name="tarjeta_banco" value="" onkeypress="return numeros(event)" required>
                   </div>
                   <div class="col-md-2 mb-3">
                     <br><br>
