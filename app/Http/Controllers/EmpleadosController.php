@@ -98,6 +98,11 @@ return $configDb;
 
     public function registrar_empleado($datos)
     {
+        $datos->fecha_baja->validate([
+            'fecha_baja' => 'after:fecha_alta'
+    
+        ]);
+        
     $clv=Session::get('clave_empresa');
     $clv_empleado= $this->generador($datos->rfc);
     $foto= $datos->file('fotografia');
@@ -152,7 +157,13 @@ return $configDb;
     $datos->forma_pago,$datos->clave_banco,$datos->tarjeta_banco,$datos->envio_correspondencia,$datos->ptu,$datos->observaciones,$datos->salario_cotizacion,$datos->salario_anterior,$datos->causa_modificacion,$name1]);  
     $file->move($ruta,$foto);
     $file->move($ruta,$firma);
-    }
+    
+} 
+    
+
+    
+
+
     public function generador($rfc){
         $rest = substr($rfc,5); 
         return $rest;
@@ -257,31 +268,25 @@ return $configDb;
             'porcentaje3'=>$datos->porcentaje3,
             'porcentaje4'=>$datos->porcentaje4,
             'primaria'=>$datos->primaria,
-            'inicio_primaria'=>$datos->inicio_primaria,
-            'fin_primaria'=>$datos->fin_primaria,
+            'duracion_primaria'=>$datos->duracion_primaria,
             'titulo_primaria'=>$datos->titulo_primaria,
             'secundaria'=>$datos->secundaria,
-            'inicio_secundaria'=>$datos->inicio_secundaria,
-            'fin_secundaria'=>$datos->fin_secundaria,
+            'duracion_secundaria'=>$datos->duracion_secundaria,
             'titulo_secundaria'=>$datos->titulo_secundaria,
             'preparatoria'=>$datos->preparatoria,
-            'inicio_preparatoria'=>$datos->inicio_preparatoria,
-            'fin_preparatoria'=>$datos->fin_preparatoria,
+            'duracion_preparatoria'=>$datos->duracion_preparatoria,
             'titulo_preparatoria'=>$datos->titulo_preparatoria,
             'profesional'=>$datos->profesional,
-            'inicio_profesional'=>$datos->inicio_profesional,
-            'fin_profesional'=>$datos->fin_profesional,
+            'duracion_profesional'=>$datos->duracion_profesional,
             'titulo_profesional'=>$datos->titulo_profesional,
             'otras'=>$datos->otras,
-            'inicio_otras'=>$datos->inicio_otras,
-            'fin_otras'=>$datos->fin_otras,
+            'duracion_otras'=>$datos->duracion_otras,
             'titulo_otras'=>$datos->titulo_otras,
             'estudio_actual'=>$datos->estudio_actual,
             'carrera'=>$datos->carrera,
             'grado'=>$datos->grado,
             'horario'=>$datos->horario,
-            'vinculacion_trabajo'=>$datos->vinculacion_trabajo,
-            'desvinculacion_trabajo'=>$datos->desvinculacion_trabajo,
+            'duracion_trabajo'=>$datos->duracion_trabajo,
             'nombre_compania'=>$datos->nombre_compania,
             'direccion_compania'=>$datos->direccion_compania,
             'telefono_compania'=>$datos->telefono_compania,
@@ -291,8 +296,7 @@ return $configDb;
             'puesto_jefe'=>$datos->puesto_jefe,
             'solicitar_informes'=>$datos->solicitar_informes,
             'razones'=>$datos->razones,
-            'vinculacion_trabajo1'=>$datos->vinculacion_trabajo1,
-            'desvinculacion_trabajo1'=>$datos->desvinculacion_trabajo1,
+            'duracion_trabajo1'=>$datos->duracion_trabajo1,
             'nombre_compania1'=>$datos->nombre_compania1,
             'direccion_compania1'=>$datos->direccion_compania1,
             'telefono_compania1'=>$datos->telefono_compania1,
@@ -302,8 +306,7 @@ return $configDb;
             'puesto_jefe1'=>$datos->puesto_jefe1,
             'solicitar_informes1'=>$datos->solicitar_informes1,
             'razones1'=>$datos->razones1,
-            'vinvulacion_trabajo2'=>$datos->vinvulacion_trabajo2,
-            'desvinculacion_trabajo2'=>$datos->desvinculacion_trabajo2,
+            'duracion_trabajo2'=>$datos->duracion_trabajo2,
             'nombre_compania2'=>$datos->nombre_compania2,
             'direccion_compania2'=>$datos->direccion_compania2,
             'telefono_compania2'=>$datos->telefono_compania2,
@@ -313,8 +316,7 @@ return $configDb;
             'puesto_jefe2'=>$datos->puesto_jefe2,
             'solicitar_informes2'=>$datos->solicitar_informes2,
             'razones2'=>$datos->razones2,
-            'vinvulacion_trabajo3'=>$datos->vinvulacion_trabajo3,
-            'desvinculacion_trabajo3'=>$datos->desvinculacion_trabajo3,
+            'duracion_trabajo3'=>$datos->duracion_trabajo3,
             'nombre_compania3'=>$datos->nombre_compania3,
             'direccion_compania3'=>$datos->direccion_compania3,
             'telefono_compania3'=>$datos->telefono_compania3,
