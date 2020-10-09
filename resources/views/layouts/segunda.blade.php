@@ -34,7 +34,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <link rel="stylesheet" href="{{ asset('/Admin/plugins/datatables-responsive/css/responsive.bootstrap4.min.css')}}">
   <!-- Theme style -->
   <link rel="stylesheet" href="{{ asset('/Admin/dist/css/adminlte.min.css')}}">
-  <link rel="stylesheet" href="{{ asset('/Admin/dist/css/style.css')}}">
   <!-- Google Font: Source Sans Pro -->
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
 </head>
@@ -376,6 +375,33 @@ if(event.charCode >=48 && event.charCode <=57 ){
 }
 return false;
 }
+</script>
+
+
+<script>
+  let beneficiario = document.getElementById('beneficiario');
+  let beneficiario1 = document.getElementById('beneficiario1');
+  let beneficiario2 = document.getElementById('beneficiario2');
+  let beneficiario3 = document.getElementById('beneficiario3');
+  let beneficiario4 = document.getElementById('beneficiario4');
+  let mensaje = document.getElementById('mensaje');
+  console.log(beneficiario.value);
+
+  beneficiario2.addEventListener('keyup', ()=>{
+    let sumavalores = parseInt(beneficiario.value) + parseInt(beneficiario1.value);
+    console.log(sumavalores);
+    if (sumavalores >= 100) {
+      beneficiario2.disabled = true;
+      beneficiario3.disabled = true;
+      beneficiario4.disabled = true;
+      beneficiario2.value = '';
+      beneficiario3.value = '';
+      beneficiario4.value = '';
+      console.log(sumavalores);
+      mensaje.innerHTML = 'Modificar valores solo si desea agregar otro porcentaje';
+    }
+
+  })
 </script>
 
 
