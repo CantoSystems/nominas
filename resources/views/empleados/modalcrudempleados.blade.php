@@ -789,7 +789,7 @@
                     <select class="custom-select" name="clave_banco" required>
                       <option selected disabled value="">Selecciona una opcion</option>
                       @foreach ($bancos as $banco)
-                    <option value="{{$banco->clave_banco}}">{{$banco->banco}}</option>    
+                    <option value="{{$banco->clave_banco}}">{{$banco->nombre_banco}}</option>    
                       @endforeach
                       
                     </select>
