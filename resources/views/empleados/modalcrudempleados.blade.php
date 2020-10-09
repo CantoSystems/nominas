@@ -325,15 +325,15 @@
                 <div class="col-sm-12">
                     <label for="" style="text-align: left;">
                       <h4><strong>Beneficiarios</strong></h4>
-                      <h2 id="mensaje"></h2>
+                      <h5 id="mensaje"></h5>
                     </label> 
                 </div>
                  <div class="col-md-4 mb-3">
                   <label for="validationDefault03">Nombre</label>
-                    <input type="text" class="form-control" name="beneficiario" id="beneficiario"  onkeyup="mayus(this);" onkeypress="return validar(event)">
-                    <input type="text" class="form-control" name="beneficiario1" id="beneficiario1" onkeyup="mayus(this);" onkeypress="return validar(event)">
-                    <input type="text" class="form-control" name="beneficiario2" id="beneficiario2"  onkeyup="mayus(this);" onkeypress="return validar(event)">
-                    <input type="text" class="form-control" name="beneficiario3" id="beneficiario3" required onkeyup="mayus(this);" onkeypress="return validar(event)">
+                    <input type="text" class="form-control" name="beneficiario" required onkeyup="mayus(this);" onkeypress="return validar(event)">
+                    <input type="text" class="form-control" name="beneficiario1" required onkeyup="mayus(this);" onkeypress="return validar(event)">
+                    <input type="text" class="form-control" name="beneficiario2" required onkeyup="mayus(this);" onkeypress="return validar(event)">
+                    <input type="text" class="form-control" name="beneficiario3" required onkeyup="mayus(this);" onkeypress="return validar(event)">
                     <input type="text" class="form-control" name="beneficiario4" id="beneficiario4" onkeyup="mayus(this);" onkeypress="return validar(event)"> 
                  </div>
                  <div class="col-md-4 mb-3">
