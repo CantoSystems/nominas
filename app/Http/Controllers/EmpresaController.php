@@ -339,7 +339,6 @@ Schema::connection('DB_Serverr')->create('empleados', function($table){
     $table->double('salario_cotizacion');
     $table->double('salario_anterior');
     $table->string('causa_modificacion',100);
-    $table->string('firma',100);
 });
      $empresa->nombre= $datos->nombre;
      
