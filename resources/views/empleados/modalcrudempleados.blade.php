@@ -811,28 +811,24 @@
                     <label for="validationDefault04">Obervaciones</label>
                     <input type="text" class="form-control" name="observaciones" value="" onkeyup="mayus(this);" onkeypress="return validar(event)" required>
                   </div>
-                  <div class="col-md-2 mb-3">
+                  <div class="col-md-3 mb-3">
+                    <br>
                     <label for="validationDefault04">Salario base de cotización <br> Actual</label>
                     <input type="text" class="form-control" name="salario_cotizacion" value="">
                   </div>
-                  <div class="col-md-2 mb-3">
+                  <div class="col-md-3 mb-3">
                     <br>
                     <br>
                     <label for="validationDefault04">Anterior</label>
                     <input type="text" class="form-control" name="salario_anterior" value="" required>
                   </div>
-                  <div class="col-md-4 mb-3">
+                  <div class="col-md-6 mb-3">
                     <br>
                     <br>
                     <label for="validationDefault04">Causa de la modificación</label>
                     <input type="text" class="form-control" name="causa_modificacion" value="" onkeyup="mayus(this);" onkeypress="return validar(event)" required>
                   </div>
-                  <div class="col-md-4 mb-3">
-                    <br>
-                    <br>
-                    <label for="validationDefault03">Contrato documento:</label>
-                    <input type="file" class="form-control" name="firma" accept="application/pdf" required>
-                  </div>
+                
 
 
                 </div><!--FIN Row contratación-->
