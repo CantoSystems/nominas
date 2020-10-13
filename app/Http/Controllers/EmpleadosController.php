@@ -101,14 +101,20 @@ return $configDb;
         
     $clv=Session::get('clave_empresa');
     $clv_empleado= $this->generador($datos->rfc);
-    $foto= $datos->file('fotografia');
-    $name=$foto->getClientOriginalName();
-    $ruta=public_path().'/'.'storage'.'/'.$clv_empleado;
+    
+    
+    $file= $datos->file('fotografia');
+    $name=$file->getClientOriginalName();
+    $ruta=public_path().'/'.'storage'.'/'.$clv_empleado;   
     $firma= $datos->file('firma');
     $name1=$firma->getClientOriginalName();
     $clv_empresa=$this->conectar($clv);
     \Config::set('database.connections.DB_Serverr', $clv_empresa);
     
+    
+        
+    
+
     DB::connection('DB_Serverr')->insert('insert into empleados(clave_empleado, clasificacion, nombre, apellido_paterno,
     apellido_materno, fecha_alta, fecha_baja, causa_baja, clave_departamento, clave_puesto, rfc, curp, imss, afore, ine,
     pasaporte, cartilla, licencia, documento_migratorio, calle, numero_interno, numero_externo, colonia, cp, ciudad, municipio,
@@ -150,7 +156,7 @@ return $configDb;
     $datos->solicitar_informes3,$datos->razones3,$datos->referencia,$datos->direccion_trabajo,$datos->telefono_referencia,$datos->ocupacion,$datos->tiempo,$datos->referencia1,$datos->direccion_trabajo1,$datos->telefono_referencia1,
     $datos->ocupacion1,$datos->tiempo1,$datos->referencias2,$datos->direccion_trabajo2,$datos->telefono_referencia2,$datos->ocupacion2,$datos->tiempo2,$datos->tipo_trabajador,$datos->turno,$datos->contrato,
     $datos->contrato_documento,$datos->vigencia,$datos->horario_trabajoinicio,$datos->horario_trabajofin,$datos->sueldo_diario,$datos->nivel,$datos->categoria,$datos->tipo_sueldo,$datos->tipo_jornada,$datos->dias,$datos->horas_diarias,
-    $datos->forma_pago,$datos->clave_banco,$datos->tarjeta_banco,$datos->envio_correspondencia,$datos->ptu,$datos->observaciones,$datos->salario_cotizacion,$datos->salario_anterior,$datos->causa_modificacion,$name1]);  
+    $datos->forma_pago,$datos->clave_banco,$datos->tarjeta_banco,$datos->envio_correspondencia,$datos->ptu,$datos->observaciones,$datos->salario_cotizacion,$datos->salario_anterior,$datos->causa_modificacion,$datos->name1]);  
     $file->move($ruta,$foto);
     $file->move($ruta,$firma);
     
