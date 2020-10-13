@@ -325,6 +325,7 @@
                 <div class="col-sm-12">
                     <label for="" style="text-align: left;">
                       <h4><strong>Beneficiarios</strong></h4>
+                      <h5 id="mensaje"></h5>
                     </label> 
                 </div>
                  <div class="col-md-4 mb-3">
@@ -333,7 +334,7 @@
                     <input type="text" class="form-control" name="beneficiario1" required onkeyup="mayus(this);" onkeypress="return validar(event)">
                     <input type="text" class="form-control" name="beneficiario2" required onkeyup="mayus(this);" onkeypress="return validar(event)">
                     <input type="text" class="form-control" name="beneficiario3" required onkeyup="mayus(this);" onkeypress="return validar(event)">
-                    <input type="text" class="form-control" name="beneficiario4" required onkeyup="mayus(this);" onkeypress="return validar(event)"> 
+                    <input type="text" class="form-control" name="beneficiario4" id="beneficiario4" onkeyup="mayus(this);" onkeypress="return validar(event)"> 
                  </div>
                  <div class="col-md-4 mb-3">
                     <label for="validationDefault03">Parentesco</label>
@@ -346,11 +347,11 @@
 
                  <div class="col-md-3 mb-3">
                   <label for="validationDefault03">% de Participacion</label>
-                  <input type="text" class="form-control" name="porcentaje" maxlength="2" required onkeypress="return numeros(event)">
-                  <input type="text" class="form-control" name="porcentaje1" maxlength="2" required onkeypress="return numeros(event)">
-                  <input type="text" class="form-control" name="porcentaje2" maxlength="2" required onkeypress="return numeros(event)">
-                  <input type="text" class="form-control" name="porcentaje3" maxlength="2" required onkeypress="return numeros(event)">
-                  <input type="text" class="form-control" name="porcentaje4" maxlength="2" required onkeypress="return numeros(event)">
+                  <input type="text" class="form-control" name="porcentaje" maxlength="2" required onkeypress="return numeros(event)" id="porcentaje">
+                  <input type="text" class="form-control" name="porcentaje1" maxlength="2" required onkeypress="return numeros(event)" id="porcentaje1">
+                  <input type="text" class="form-control" name="porcentaje2" maxlength="2" required onkeypress="return numeros(event)" id="porcentaje2">
+                  <input type="text" class="form-control" name="porcentaje3" maxlength="2" required onkeypress="return numeros(event)" id="porcentaje3">
+                  <input type="text" class="form-control" name="porcentaje4" maxlength="2" required onkeypress="return numeros(event)" id="porcentaje4">
                  </div>
                  <div class="col-sm-12">
                     <label for="" style="text-align: left;">
@@ -810,28 +811,24 @@
                     <label for="validationDefault04">Obervaciones</label>
                     <input type="text" class="form-control" name="observaciones" value="" onkeyup="mayus(this);" onkeypress="return validar(event)" required>
                   </div>
-                  <div class="col-md-2 mb-3">
+                  <div class="col-md-3 mb-3">
+                    <br>
                     <label for="validationDefault04">Salario base de cotización <br> Actual</label>
                     <input type="text" class="form-control" name="salario_cotizacion" value="">
                   </div>
-                  <div class="col-md-2 mb-3">
+                  <div class="col-md-3 mb-3">
                     <br>
                     <br>
                     <label for="validationDefault04">Anterior</label>
                     <input type="text" class="form-control" name="salario_anterior" value="" required>
                   </div>
-                  <div class="col-md-4 mb-3">
+                  <div class="col-md-6 mb-3">
                     <br>
                     <br>
                     <label for="validationDefault04">Causa de la modificación</label>
                     <input type="text" class="form-control" name="causa_modificacion" value="" onkeyup="mayus(this);" onkeypress="return validar(event)" required>
                   </div>
-                  <div class="col-md-4 mb-3">
-                    <br>
-                    <br>
-                    <label for="validationDefault03">Contrato documento:</label>
-                    <input type="file" class="form-control" name="firma" accept="application/pdf" required>
-                  </div>
+                
 
 
                 </div><!--FIN Row contratación-->
@@ -911,9 +908,6 @@
                 </div>
 
                 </form> 
-
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
       </div>
     </div>
   </div>
