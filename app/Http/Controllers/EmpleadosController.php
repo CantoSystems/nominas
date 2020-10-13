@@ -108,6 +108,43 @@ return $configDb;
     $name1=$firma->getClientOriginalName();
     $clv_empresa=$this->conectar($clv);
     \Config::set('database.connections.DB_Serverr', $clv_empresa);
+
+    if(is_null($datos->finado_padre)){
+        $finado_padre = 1;
+    }else{
+        $finado_padre = 0;
+    }
+
+     if(is_null($datos->finado_madre)){
+        $finado_madre = 1;
+    }else{
+        $finado_madre = 0;
+    }
+
+    if (is_null($datos->solicitar_informes)) {
+       $solicitar_informes = 1;
+    }else{
+        $solicitar_informes = 0;
+    }
+
+    if (is_null($datos->solicitar_informes1)) {
+       $solicitar_informes1 = 1;
+    }else{
+        $solicitar_informes1 = 0;
+    }
+
+    if (is_null($datos->solicitar_informes2)) {
+       $solicitar_informes2 = 1;
+    }else{
+        $solicitar_informes2 = 0;
+    }
+
+    if (is_null($datos->solicitar_informes3)) {
+       $solicitar_informes3 = 1;
+    }else{
+        $solicitar_informes3 = 0;
+    }
+
     
     DB::connection('DB_Serverr')->insert('insert into empleados(clave_empleado, clasificacion, nombre, apellido_paterno,
     apellido_materno, fecha_alta, fecha_baja, causa_baja, clave_departamento, clave_puesto, rfc, curp, imss, afore, ine,
@@ -136,18 +173,18 @@ return $configDb;
     $datos->clave_puesto, $datos->rfc, $datos->curp, $datos->imss, $datos->afore, $datos->ine, $datos->pasaporte, $datos->cartilla, $datos->licencia, $datos->documento_migratorio, $datos->calle, $datos->numero_interno, $datos->numero_externo,
     $datos->colonia, $datos->cp, $datos->ciudad, $datos->municipio, $datos->estado, $datos->telefono_empleado, $datos->correo, $datos->sexo, $datos->estado_civil, $datos->nacionalidad, $datos->tipo_sangre,
     $datos->alergias, $datos->estatura, $datos->peso, $estado_salud, $name, $datos->enfermedad_cronica, $datos->deporte, $datos->pasatiempo, $datos->asosiacion, $datos->objetivo_vida, $datos->fecha_nacimiento,
-    $datos->lugar, $datos->umf, $datos->nombre_padre, $datos->nombre_madre, $datos->finado_padre, $datos->finado_madre, $datos->direccion_padre, $datos->direccion_madre, $datos->ocupacion_padre,
+    $datos->lugar, $datos->umf, $datos->nombre_padre, $datos->nombre_madre, $finado_padre, $finado_madre, $datos->direccion_padre, $datos->direccion_madre, $datos->ocupacion_padre,
     $datos->ocupacion_madre, $datos->hijos, $datos->idiomas, $datos->funciones_oficina, $datos->maquinas_oficina, $datos->software, $datos->otras_funciones, $datos->beneficiario, $datos->beneficiario1, $datos->beneficiario2,
     $datos->beneficiario3, $datos->beneficiario4, $datos->parentesco, $datos->parentesco1, $datos->parentesco2, $datos->parentesco3, $datos->parentesco4, $datos->porcentaje, $datos->porcentaje1,
     $datos->porcentaje2, $datos->porcentaje3, $datos->porcentaje4, $datos->primaria, $datos->duracion_pimaria, $datos->titulo_primaria, $datos->secundaria, $datos->duracion_secundaria,
     $datos->titulo_secundaria, $datos->preparatoria, $datos->duracion_preparatoria, $datos->titulo_preparatoria, $datos->profesional, $datos->duracion_profesional,
     $datos->titulo_profesional, $datos->otras, $datos->duracion_otras, $datos->titulo_otras, $datos->estudio_actual, $datos->carrera, $datos->grado, $datos->horario,
     $datos->duracion_trabajo,$datos->nombre_compania,$datos->direccion_compania,$datos->telefono_compania,$datos->sueldo,$datos->motivo_separacion,$datos->nombre_jefe,$datos->puesto_jefe,
-    $datos->solicitar_informes,$datos->razones,$datos->duracion_trabajo1,$datos->nombre_compania1,$datos->direccion_compania1,$datos->telefono_compania1,$datos->sueldo1,$datos->motivo_separacion1,
-    $datos->nombre_jefe1,$datos->puesto_jefe1,$datos->solicitar_informes1,$datos->razones1,$datos->duracion_trabajo2,$datos->nombre_compania2,$datos->direccion_compania2,
-    $datos->telefono_compania2,$datos->sueldo2,$datos->motivo_separacion2,$datos->nombre_jefe2,$datos->puesto_jefe2,$datos->solicitar_informes2,$datos->razones2,$datos->duracion_trabajo3,
+    $solicitar_informes,$datos->razones,$datos->duracion_trabajo1,$datos->nombre_compania1,$datos->direccion_compania1,$datos->telefono_compania1,$datos->sueldo1,$datos->motivo_separacion1,
+    $datos->nombre_jefe1,$datos->puesto_jefe1,$solicitar_informes1,$datos->razones1,$datos->duracion_trabajo2,$datos->nombre_compania2,$datos->direccion_compania2,
+    $datos->telefono_compania2,$datos->sueldo2,$datos->motivo_separacion2,$datos->nombre_jefe2,$datos->puesto_jefe2,$solicitar_informes2,$datos->razones2,$datos->duracion_trabajo3,
     $datos->nombre_compania3,$datos->direccion_compania3,$datos->telefono_compania3,$datos->sueldo3,$datos->motivo_seperacion3,$datos->nombre_jefe3,$datos->puesto_jefe3,
-    $datos->solicitar_informes3,$datos->razones3,$datos->referencia,$datos->direccion_trabajo,$datos->telefono_referencia,$datos->ocupacion,$datos->tiempo,$datos->referencia1,$datos->direccion_trabajo1,$datos->telefono_referencia1,
+    $solicitar_informes3,$datos->razones3,$datos->referencia,$datos->direccion_trabajo,$datos->telefono_referencia,$datos->ocupacion,$datos->tiempo,$datos->referencia1,$datos->direccion_trabajo1,$datos->telefono_referencia1,
     $datos->ocupacion1,$datos->tiempo1,$datos->referencias2,$datos->direccion_trabajo2,$datos->telefono_referencia2,$datos->ocupacion2,$datos->tiempo2,$datos->tipo_trabajador,$datos->turno,$datos->contrato,
     $datos->contrato_documento,$datos->vigencia,$datos->horario_trabajoinicio,$datos->horario_trabajofin,$datos->sueldo_diario,$datos->nivel,$datos->categoria,$datos->tipo_sueldo,$datos->tipo_jornada,$datos->dias,$datos->horas_diarias,
     $datos->forma_pago,$datos->clave_banco,$datos->tarjeta_banco,$datos->envio_correspondencia,$datos->ptu,$datos->observaciones,$datos->salario_cotizacion,$datos->salario_anterior,$datos->causa_modificacion,$name1]);  
