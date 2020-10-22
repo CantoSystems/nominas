@@ -6,7 +6,9 @@ use App\Banco;
 use Illuminate\Http\Request;
 use DB;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\Storage;
 use Session;
+use Illuminate\Http\UploadedFile;
 
 
 
@@ -50,7 +52,12 @@ return $configDb;
             break;
         case 'registrar':
             $this->registrar_empleado($request);
-            return view('empleados.empleados',compact('empleados'));
+            $empleados=DB::connection('DB_Serverr')->table('empleados')->get();
+            $departamentos=DB::connection('DB_Serverr')->table('departamentos')->get();
+            $puestos=DB::connection('DB_Serverr')->table('puestos')->get();
+            $bancos=Banco::all();
+    
+            return view('empleados.empleados',compact('empleados','departamentos','puestos','bancos'));
         break;
 
         case 'actualizar':
@@ -95,11 +102,11 @@ return $configDb;
     }
     }
 
-    public function registrar_empleado($datos)
+    public function registrar_empleado(Request $request)
     {
-        
-        
+    
     $clv=Session::get('clave_empresa');
+
     $clv_empleado= $this->generador($datos->rfc);
     
     
@@ -111,51 +118,75 @@ return $configDb;
     
     $file->move($ruta,$foto);
     
+
+    $clv_empleado= $this->generador($request->rfc);
+
+
     $clv_empresa=$this->conectar($clv);
     \Config::set('database.connections.DB_Serverr', $clv_empresa);
 
-    if(is_null($datos->finado_padre)){
+    $nombreempleado = $request->nombre.$request->apellido_paterno.$request->apellido_materno;
+
+    
+    $foto = $request->file('fotografia');
+    $nombrefotoempleado = $foto->getClientOriginalName();
+    \Storage::disk('local')->put($clv.'/'.$nombreempleado.'/'.$nombrefotoempleado.'/', \File::get($foto)); 
+
+
+    
+    $contratodocumento= $request->file('contrato_documento');
+    $namecontrato=$contratodocumento->getClientOriginalName();
+    \Storage::disk('local')->put($clv.'/'.$nombreempleado.'/'.$namecontrato.'/', \File::get($contratopesodocumento));
+
+
+    
+
+    if(is_null($request->finado_padre)){
         $finado_padre = 1;
     }else{
         $finado_padre = 0;
     }
 
-     if(is_null($datos->finado_madre)){
+     if(is_null($request->finado_madre)){
         $finado_madre = 1;
     }else{
         $finado_madre = 0;
     }
 
-    if (is_null($datos->solicitar_informes)) {
+    if (is_null($request->solicitar_informes)) {
        $solicitar_informes = 1;
     }else{
         $solicitar_informes = 0;
     }
 
-    if (is_null($datos->solicitar_informes1)) {
+    if (is_null($request->solicitar_informes1)) {
        $solicitar_informes1 = 1;
     }else{
         $solicitar_informes1 = 0;
     }
 
-    if (is_null($datos->solicitar_informes2)) {
+    if (is_null($request->solicitar_informes2)) {
        $solicitar_informes2 = 1;
     }else{
         $solicitar_informes2 = 0;
     }
 
-    if (is_null($datos->solicitar_informes3)) {
+    if (is_null($request->solicitar_informes3)) {
        $solicitar_informes3 = 1;
     }else{
         $solicitar_informes3 = 0;
     }
-    if (is_null($datos->ptu)) {
+    if (is_null($request->ptu)) {
        $ptu = 1;
     }else{
         $ptu = 0;
     }
 
     DB::connection('DB_Serverr')->insert('insert into empleados(clave_empleado, clasificacion, nombre, apellido_paterno,
+
+    
+    DB::connection('DB_Serverr')->insert('insert into empleados(clave_empleado, clasificacion,nombre, apellido_paterno,
+
     apellido_materno, fecha_alta, fecha_baja, causa_baja, clave_departamento, clave_puesto, rfc, curp, imss, afore, ine,
     pasaporte, cartilla, licencia, documento_migratorio, calle, numero_interno, numero_externo, colonia, cp, ciudad, municipio,
     estado, telefono_empleado, correo, sexo, estado_civil, nacionalidad, tipo_sangre, alergias, estatura, peso, estado_salud,
@@ -174,8 +205,7 @@ return $configDb;
     solicitar_informes3, razones3, referencia, direccion_trabajo, telefono_referencia, ocupacion, tiempo, referencia1, direccion_trabajo1, telefono_referencia1, 
     ocupacion1, tiempo1, referencia2, direccion_trabajo2, telefono_referencia2, ocupacion2, tiempo2, tipo_trabajador, turno, contrato,
     contrato_documento, vigencia, horario_trabajoinicio,horario_trabajofin, sueldo_diario, nivel, categoria, tipo_sueldo, tipo_jornada, dias, horas_diarias,
-    forma_pago, clave_banco, tarjeta_banco, envio_correspondencia, ptu, observaciones, salario_cotizacion, salario_anterior, causa_modificacion,
-    firma) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,
+    forma_pago, clave_banco, tarjeta_banco, envio_correspondencia, ptu, observaciones, salario_cotizacion, salario_anterior, causa_modificacion) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,
     ?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,
     ?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,
     ?,?)',[$clv_empleado,$datos->clasificacion, $datos->nombre, $datos->apellido_paterno, $datos->apellido_materno, $datos->fecha_alta, $datos->fecha_baja, $datos->causa_baja, $datos->clave_departamento,
@@ -204,6 +234,28 @@ return $configDb;
     
     
 }
+
+    ?)',[$clv_empleado,$request->clasificacion, $request->nombre, $request->apellido_paterno, $request->apellido_materno, $request->fecha_alta, $request->fecha_baja, $request->causa_baja, $request->clave_departamento,
+    $request->clave_puesto, $request->rfc, $request->curp, $request->imss, $request->afore, $request->ine, $request->pasaporte, $request->cartilla, $request->licencia, $request->documento_migratorio, $request->calle, $request->numero_interno, $request->numero_externo,
+    $request->colonia, $request->cp, $request->ciudad, $request->municipio, $request->estado, $request->telefono_empleado, $request->correo, $request->sexo, $request->estado_civil, $request->nacionalidad, $request->tipo_sangre,
+    $request->alergias, $request->estatura, $request->peso, $request->estado_salud,$$nombrefotoempleado, $request->enfermedad_cronica, $request->deporte, $request->pasatiempo, $request->asosiacion, $request->objetivo_vida, $request->fecha_nacimiento,
+    $request->lugar, $request->umf, $request->nombre_padre, $request->nombre_madre, $finado_padre, $finado_madre, $request->direccion_padre, $request->direccion_madre, $request->ocupacion_padre,
+    $request->ocupacion_madre, $request->hijos, $request->idiomas, $request->funciones_oficina, $request->maquinas_oficina, $request->software, $request->otras_funciones, $request->beneficiario, $request->beneficiario1, $request->beneficiario2,
+    $request->beneficiario3, $request->beneficiario4, $request->parentesco, $request->parentesco1, $request->parentesco2, $request->parentesco3, $request->parentesco4, $request->porcentaje, $request->porcentaje1,
+    $request->porcentaje2, $request->porcentaje3, $request->porcentaje4, $request->primaria, $request->duracion_pimaria, $request->titulo_primaria, $request->secundaria, $request->duracion_secundaria,
+    $request->titulo_secundaria, $request->preparatoria, $request->duracion_preparatoria, $request->titulo_preparatoria, $request->profesional, $request->duracion_profesional,
+    $request->titulo_profesional, $request->otras, $request->duracion_otras, $request->titulo_otras, $request->estudio_actual, $request->carrera, $request->grado, $request->horario,
+    $request->duracion_trabajo,$request->nombre_compania,$request->direccion_compania,$request->telefono_compania,$request->sueldo,$request->motivo_separacion,$request->nombre_jefe,$request->puesto_jefe,
+    $solicitar_informes,$request->razones,$request->duracion_trabajo1,$request->nombre_compania1,$request->direccion_compania1,$request->telefono_compania1,$request->sueldo1,$request->motivo_separacion1,
+    $request->nombre_jefe1,$request->puesto_jefe1,$solicitar_informes1,$request->razones1,$request->duracion_trabajo2,$request->nombre_compania2,$request->direccion_compania2,
+    $request->telefono_compania2,$request->sueldo2,$request->motivo_separacion2,$request->nombre_jefe2,$request->puesto_jefe2,$solicitar_informes2,$request->razones2,$request->duracion_trabajo3,
+    $request->nombre_compania3,$request->direccion_compania3,$request->telefono_compania3,$request->sueldo3,$request->motivo_seperacion3,$request->nombre_jefe3,$request->puesto_jefe3,
+    $solicitar_informes3,$request->razones3,$request->referencia,$request->direccion_trabajo,$request->telefono_referencia,$request->ocupacion,$request->tiempo,$request->referencia1,$request->direccion_trabajo1,$request->telefono_referencia1,
+    $request->ocupacion1,$request->tiempo1,$request->referencias2,$request->direccion_trabajo2,$request->telefono_referencia2,$request->ocupacion2,$request->tiempo2,$request->tipo_trabajador,$request->turno,$request->contrato,
+    $namecontrato,$request->vigencia,$request->horario_trabajoinicio,$request->horario_trabajofin,$request->sueldo_diario,$request->nivel,$request->categoria,$request->tipo_sueldo,$request->tipo_jornada,$request->dias,$request->horas_diarias,
+    $request->forma_pago,$request->clave_banco,$request->tarjeta_banco,$request->envio_correspondencia,$ptu,$request->observaciones,$request->salario_cotizacion,$request->salario_anterior,$request->causa_modificacion]); 
+} 
+
     
 
     
@@ -214,7 +266,7 @@ return $configDb;
         return $rest;
     }
 
-    public function actualizar_empleado($datos){
+    public function actualizar_empleado($request){
 
     
 

@@ -242,6 +242,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.10/jquery.mask.js"></script>
 
 <script>
+  //funcionaiento del datarange de los input tipo fecha 
+  //se encuentran en modal empleados
   $(function(){
     $('#duracion').daterangepicker()
     $('#duracion2').daterangepicker()
@@ -256,6 +258,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 </script>
 
 <script>
+  //Funcionamiento de los botones de los catalogos Actualizar y registrar
   $(function(){
     $('#nuevo').click(function(){
       $('#actualizar_reg').hide();
@@ -289,9 +292,13 @@ scratch. This page gets rid of all links and provides the needed markup only.
     $('#nuevo').hide();
     $('#eliminar').hide();
     });
+    $('#nuevomodal').click(function(){
+      $('#nuevo_regmodal').show();
+    });
   })
 </script>
 <script>
+  //Funcionamiento de los datatables de los catalogos, de empresas
   $(function () {
     $("#example1").DataTable({
       "responsive": true,
@@ -308,47 +315,33 @@ scratch. This page gets rid of all links and provides the needed markup only.
     });
   });
 </script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.10/jquery.mask.js"></script>
-<script>
-    $('.telefono_empleado').mask('(00) 0000-0000');
-</script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.10/jquery.mask.js"></script>
-<script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.10/jquery.mask.js">
+  //CDN para el funcionamiento de la mascara de los telefonos del catalogo de empleado
+  $('.telefono_referencia').mask('(00) 0000-0000');
+  $('.telefono_referencia1').mask('(00) 0000-0000');
+  $('.telefono_referencia2').mask('(00) 0000-0000');
+  $('.telefono_empleado').mask('(00) 0000-0000');
   $('.telefono_compania').mask('(00) 0000-0000');
-</script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.10/jquery.mask.js"></script>
-<script>
   $('.telefono1').mask('(00) 0000-0000');
-</script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.10/jquery.mask.js"></script>
-<script>
   $('.telefono2').mask('(00) 0000-0000');
-</script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.10/jquery.mask.js"></script>
-<script>
   $('.telefono3').mask('(00) 0000-0000');
 </script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.10/jquery.mask.js"></script>
-<script>
-  $('.telefono_referencia').mask('(00) 0000-0000');
-</script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.10/jquery.mask.js"></script>
-<script>
-  $('.telefono_referencia1').mask('(00) 0000-0000');
-</script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.10/jquery.mask.js"></script>
-<script>
-  $('.telefono_referencia2').mask('(00) 0000-0000');
-</script>
+
+
+
+
 
 
 <script>
+  //Funcionamiento convertir texto en mayusculas
   function mayus(e) {
     e.value = e.value.toUpperCase();
 }
 
 </script>
 <script type="text/javascript">
+  //Validar solo ingresen texto 
   function validar(e) { 
   tecla = (document.all) ? e.keyCode : e.which; 
   if (tecla==8) return true; 
@@ -359,6 +352,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 </script>
 
 <script type="text/javascript">
+  //validar tipo de sangre
   function validasangre(e) { 
   tecla = (document.all) ? e.keyCode : e.which; 
   if (tecla==8) return true; 
@@ -369,6 +363,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 </script>
 
 <script type="text/javascript">
+  //validar solo números
 function numeros(event) { 
 if(event.charCode >=48 && event.charCode <=57 ){
   return true;
@@ -379,6 +374,8 @@ return false;
 
 
 <script>
+  //validar los input de porcentaje en beneficiarios en el 
+  //catalogo de empleados
   let porcentaje = document.getElementById('porcentaje');
   let porcentaje1 = document.getElementById('porcentaje1');
   let porcentaje2 = document.getElementById('porcentaje2');
