@@ -12,18 +12,18 @@ class PrestacionesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index(Request $request)//funcion que permite el movimiento de los botones (flechas) para poder mostrar los pretaciones registrados
     {
         $accion= $request->acciones;
         $clv= $request->anio;
-        switch ($accion) {
+        switch ($accion) {//switch que permite las acciones atras,siguiente,irse hasta al primer registro o hasta el ultimo
 
-            case '':
+            case ''://trae el primer registro
                 $aux = Prestaciones::first();
                 $prestaciones = Prestaciones::all();
                 return view('prestaciones.prestaciones',compact('aux','prestaciones'));
                 break;
-            case 'atras':
+            case 'atras'://trae el registro anterior
                 $aux1= Prestaciones::where('anio',$clv)->get()->last();
                 $indic= $aux1->id;
                 $aux= Prestaciones::where('id','<',$indic)->latest('id')->first();
@@ -35,7 +35,7 @@ class PrestacionesController extends Controller
                 
                 break;
 
-            case 'siguiente':
+            case 'siguiente'://trae el siguiente registro.
                 $aux1= Prestaciones::where('anio',$clv)->get()->last();
                 $indic= $aux1->id;
                 $aux= Prestaciones::where('id','>',$indic)->first();
@@ -47,22 +47,22 @@ class PrestacionesController extends Controller
                 
                 break;
 
-            case 'primero':
+            case 'primero'://trae el primer registro
                 $aux = Prestaciones::first();
                 $prestaciones = Prestaciones::all();
                 return view('prestaciones.prestaciones',compact('aux','prestaciones'));
                 break;
-            case 'ultimo':
+            case 'ultimo'://trae el ultimo registro
                 $aux = Prestaciones::latest('id')->first();
                 $prestaciones = Prestaciones::all();
                 return view('prestaciones.prestaciones',compact('aux','prestaciones'));
                 break;
-            case 'registrar':
+            case 'registrar'://para el boton registrar, usa el metodo store
                 $this->store($request);
                 return redirect()->route('prestaciones.index');
                 break;
 
-            case 'actualizar':
+            case 'actualizar'://permite actualizar el registro usando el metdo update
                 $this->update($request);
                 return redirect()->route('prestaciones.index');
                 break;
