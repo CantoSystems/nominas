@@ -185,6 +185,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <script src="/Admin/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
 
 <script>
+  //función de los botones de los catalogos globales
+  //Acción nuevo registro
       $(function(){ 
         $('#nuevo').click(function(){
           $('#actualizar_reg').hide();
@@ -200,6 +202,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
           $('#actualizar').hide();
           $('#eliminar').hide();
         });
+      //Acción al actualizar el registro
         $('#actualizar').click(function(){
 	      $('#nuevo_reg').hide();
         $('#actualizar_reg').show();
@@ -214,6 +217,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
       })
 </script>
 <script>
+  //Función para convertir en texto en mayusculas
   function mayus(e) {
     e.value = e.value.toUpperCase();
 }
@@ -225,6 +229,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
 
 <script type="text/javascript">
+  //Permite solo caracteres excluyendo números
   function validar(e) { 
   tecla = (document.all) ? e.keyCode : e.which; 
   if (tecla==8) return true; 
@@ -235,6 +240,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 </script>
 
 <script type="text/javascript">
+  //Permite solo nuemeros excluyendo caracteres
 function numeros(event) { 
 if(event.charCode >=48 && event.charCode <=57 ){
   return true;
@@ -243,6 +249,7 @@ return false;
 }
 </script>
 <script>
+  //Funcionamiento del Datatable
   $(function () {
     $("#example1").DataTable({
       "responsive": true,
