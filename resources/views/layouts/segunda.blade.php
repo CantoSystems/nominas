@@ -316,23 +316,39 @@ scratch. This page gets rid of all links and provides the needed markup only.
   });
 </script>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.10/jquery.mask.js">
-  //CDN para el funcionamiento de la mascara de los telefonos del catalogo de empleado
-  $('.telefono_referencia').mask('(00) 0000-0000');
-  $('.telefono_referencia1').mask('(00) 0000-0000');
-  $('.telefono_referencia2').mask('(00) 0000-0000');
-  $('.telefono_empleado').mask('(00) 0000-0000');
-  $('.telefono_compania').mask('(00) 0000-0000');
-  $('.telefono1').mask('(00) 0000-0000');
-  $('.telefono2').mask('(00) 0000-0000');
-  $('.telefono3').mask('(00) 0000-0000');
+  <!--CDN para el funcionamiento de la mascara de los telefonos del catalogo de empleado-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.10/jquery.mask.js"></script>
+<script>
+    $('.telefono_referencia').mask('(00) 0000-0000');
 </script>
-
-
-
-
-
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.10/jquery.mask.js"></script>
+<script>
+    $('.telefono_referencia1').mask('(00) 0000-0000');
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.10/jquery.mask.js"></script>
+<script>
+    $('.telefono_referencia2').mask('(00) 0000-0000');
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.10/jquery.mask.js"></script>
+<script>
+    $('.telefono_empleado').mask('(00) 0000-0000');
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.10/jquery.mask.js"></script>
+<script>
+    $('.telefono_compania').mask('(00) 0000-0000');
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.10/jquery.mask.js"></script>
+<script>
+    $('.telefono1').mask('(00) 0000-0000');
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.10/jquery.mask.js"></script>
+<script>
+    $('.telefono2').mask('(00) 0000-0000');
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.10/jquery.mask.js"></script>
+<script>
+    $('.telefono3').mask('(00) 0000-0000');
+</script>
 <script>
   //Funcionamiento convertir texto en mayusculas
   function mayus(e) {

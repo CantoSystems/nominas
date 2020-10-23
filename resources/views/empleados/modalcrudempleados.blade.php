@@ -212,10 +212,7 @@
                     <label for="validationDefault03">Estado de salud:</label>
                     <input type="text" class="form-control" name="estado_salud" onkeyup="mayus(this);" onkeypress="return validar(event)">
                   </div>
-                  <div class="col-md-4 mb-3">
-                    <label for="validationDefault03">Foto:</label>
-                    <input type="file" class="form-control" name="fotografia">
-                  </div>
+                  
                 </div><!--Fin  Row Personal-->
             </div><!--Fin  Personal-->
             <!--Inicio Personal 1-->
@@ -691,7 +688,7 @@
               <div class="form-group row">
                 <!--Inicio Row contratación-->
                 <div class="form-row">
-                  <div class="col-md-2 mb-3">
+                  <div class="col-md-3 mb-3">
                     <label for="validationDefault04">Tipo de trabajador</label>
                     <select class="custom-select" name="tipo_trabajador">
                       <option selected disabled value="">Seleccioe una opcion:</option>
@@ -699,7 +696,7 @@
                       <option value="PATRON">Patron</option>
                     </select>
                   </div>
-                  <div class="col-md-2 mb-3">
+                  <div class="col-md-3 mb-3">
                     <label for="validationDefault04">Turno</label>
                     <select class="custom-select" name="turno">
                       <option selected disabled value="">Selecciona una opcion:</option>
@@ -716,11 +713,8 @@
                       <option value="INDETERMINADO">Permanente</option>
                     </select>
                   </div>
-                  <div class="col-md-3 mb-3">
-                    <label for="validationDefault03">Contrato documento:</label>
-                    <input type="file" class="form-control" name="contrato_documento" accept="application/pdf">
-                  </div>
-                  <div class="col-md-2 mb-2">
+                
+                  <div class="col-md-3 mb-2">
                     <label for="validationDefault01">Vigencia</label>
                     <input type="date" class="form-control" name="vigencia" value="">
                   </div>
