@@ -205,7 +205,6 @@ Schema::connection('DB_Serverr')->create('empleados', function($table){
     $table->double('estatura');
     $table->double('peso');
     $table->string('estado_salud',100);
-    $table->string('fotografia',100);
     $table->string('enfermedad_cronica',100);
     $table->string('deporte',100);
     $table->string('pasatiempo',100);
@@ -319,7 +318,6 @@ Schema::connection('DB_Serverr')->create('empleados', function($table){
     $table->string('tipo_trabajador',50);
     $table->string('turno',50);
     $table->string('contrato',100);
-    $table->string('contrato_documento',100);
     $table->date('vigencia');
     $table->time('horario_trabajoinicio');
     $table->time('horario_trabajofin');
