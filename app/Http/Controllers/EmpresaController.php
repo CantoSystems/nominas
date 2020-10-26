@@ -247,6 +247,7 @@ Schema::connection('DB_Serverr')->create('empleados', function($table){
     $table->string('titulo_primaria',100);
     $table->string('secundaria',100);
     $table->string('duracion_secundaria');
+    $table->string('titulo_secundaria',100);
     $table->string('preparatoria',100);
     $table->string('duracion_preparatoria');
     $table->string('titulo_preparatoria',100);
