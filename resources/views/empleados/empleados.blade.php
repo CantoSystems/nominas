@@ -6,16 +6,7 @@
  
     <table class="table table-striped" id="example1">
         <thead>
-          <tr>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td><button type="button" style='width:70px; height:40px; align-items:center;' data-toggle="modal" data-target="#modalaltaempleado"> 
-                <i class="fas fa-user-plus"></i>
-               </button></td>
-          </tr>
+          
           <tr>
             <th scope="col">Clave de Empleado</th>
             <th scope="col">Nombre de Empleado</th>
@@ -41,5 +32,4 @@
 </div>
 
   @include('empleados.modalcrudempleados')
-  @include('empleados.modalaltaempleado')
 @endsection

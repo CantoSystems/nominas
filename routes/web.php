@@ -69,5 +69,5 @@ Route::delete('/conceptos/{id}','ConceptosController@eliminaconcepto')->name('co
 
 //Empleados
 Route::get('/empleados', 'EmpleadosController@index')->name('empleados.index');
-Route::post('/empleado', 'EmpleadosController@registrar_empleado')->name('empleados.registrar');
+
 
