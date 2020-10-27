@@ -537,7 +537,7 @@
                         <input required type="text" name="direccion1_trabajo1" class="form-control" onkeyup="mayus(this);" onkeypress="return validar(event)">
                     </div>
                     <div class="col-sm-3">
-                      <input required type="text" name="direccion2_compania2" class="form-control" onkeyup="mayus(this);" onkeypress="return validar(event)">
+                      <input required type="text" name="direccion_compania2" class="form-control" onkeyup="mayus(this);" onkeypress="return validar(event)">
                     </div>
                     <div class="col-sm-3">
                       <input required type="text" name="direccion3" class="form-control" onkeyup="mayus(this);" onkeypress="return validar(event)">
