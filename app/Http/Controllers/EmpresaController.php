@@ -182,7 +182,7 @@ Schema::connection('DB_Serverr')->create('empleados', function($table){
     $table->string('curp',18);
     $table->string('imss',11);
     $table->string('afore',50);
-    $table->string('ine',9);
+    $table->string('ine',18);
     $table->string('pasaporte',6);
     $table->string('cartilla',10);
     $table->string('licencia',50);
@@ -283,7 +283,7 @@ Schema::connection('DB_Serverr')->create('empleados', function($table){
     $table->string('razones1',100);
     $table->string('duracion_trabajo2');
     $table->string('nombre_compania2',100);
-    $table->string('direccion2_compania2',100);
+    $table->string('direccion_compania2',100);
     $table->string('telefono2',10);
     $table->double('sueldo2');
     $table->string('motivo_separacion2',100);
