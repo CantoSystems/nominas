@@ -118,11 +118,11 @@
                   </div>
                   <div class="col-md-3 mb-3">
                     <label for="validationDefault03">Pasaporte:</label>
-                    <input required type="text" class="form-control" name="pasaporte" onkeyup="mayus(this);">
+                    <input required type="text" class="form-control" maxlength="6" name="pasaporte" onkeyup="mayus(this);">
                   </div>
                   <div class="col-md-3 mb-3">
                     <label for="validationDefault03">Cartilla:</label>
-                    <input required type="text" class="form-control" name="cartilla" onkeyup="mayus(this);">
+                    <input required type="text" class="form-control" maxlength="10" name="cartilla" onkeyup="mayus(this);">
                   </div>
                   <div class="col-md-3 mb-3">
                     <label for="validationDefault03">Licencia:</label>
