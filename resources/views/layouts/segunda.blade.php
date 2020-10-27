@@ -265,6 +265,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
       $('#buscar').hide();
       $('#nuevo_reg').show();
       $('#cancelar_reg').show();
+      $('input[type="text"]').val('');
+      $('input[type="date"]').val('');
       $("input:checkbox").removeAttr("checked");
       $("#naturaleza > option[value=1]").attr("selected",true);
       $("#manejo > option[value=1]").attr("selected",true);
