@@ -126,11 +126,11 @@
                   </div>
                   <div class="col-md-3 mb-3">
                     <label for="validationDefault03">Licencia:</label>
-                    <input required type="text" class="form-control" name="licencia" onkeyup="mayus(this);">
+                    <input required type="text" class="form-control" maxlength="5" name="licencia" onkeyup="mayus(this);">
                   </div>
                   <div class="col-md-3 mb-3">
                     <label for="validationDefault03">Documento migratorio:</label>
-                    <input required type="text" class="form-control" name="documento_migratorio" onkeyup="mayus(this);">
+                    <input required type="text" class="form-control" name="documento_migratorio"  maxlength="13" onkeyup="mayus(this);">
                   </div>
                   <div class="col-md-3 mb-3">
                     <label for="validationDefault03">Calle:</label>
@@ -792,7 +792,7 @@
                   <div class="col-md-2 mb-3">
                     <br>
                     <label for="validationDefault04">Tarjeta bancaria</label>
-                    <input required type="text" class="form-control" name="tarjeta_banco" value="" onkeypress="return numeros(event)">
+                    <input required type="text" class="form-control" maxlength="16" name="tarjeta_banco" value="" onkeypress="return numeros(event)">
                   </div>
                   <div class="col-md-2 mb-3">
                     <br>

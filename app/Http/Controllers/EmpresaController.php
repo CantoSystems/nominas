@@ -185,8 +185,8 @@ Schema::connection('DB_Serverr')->create('empleados', function($table){
     $table->string('ine',18);
     $table->string('pasaporte',6);
     $table->string('cartilla',10);
-    $table->string('licencia',50);
-    $table->string('documento_migratorio',100);
+    $table->string('licencia',5);
+    $table->string('documento_migratorio',13);
     $table->string('calle',80);
     $table->integer('numero_interno');
     $table->integer('numero_externo');
@@ -195,7 +195,7 @@ Schema::connection('DB_Serverr')->create('empleados', function($table){
     $table->string('ciudad',50);
     $table->string('municipio',50);
     $table->string('estado',50);
-    $table->string('telefono_empleado',10);
+    $table->string('telefono_empleado',15);
     $table->string('correo',60);
     $table->string('sexo',10);
     $table->string('estado_civil',20);
@@ -264,7 +264,7 @@ Schema::connection('DB_Serverr')->create('empleados', function($table){
     $table->string('duracion_trabajo');
     $table->string('nombre_compania',100);
     $table->string('direccion_compania',100);
-    $table->string('telefono_compania',10);
+    $table->string('telefono_compania',15);
     $table->double('sueldo');
     $table->string('motivo_separacion',100);
     $table->string('nombre_jefe',100);
@@ -274,7 +274,7 @@ Schema::connection('DB_Serverr')->create('empleados', function($table){
     $table->string('duracion_trabajo1');
     $table->string('nombre_compania1',100);
     $table->string('direccion1_trabajo1',100);
-    $table->string('telefono1',10);
+    $table->string('telefono1',15);
     $table->double('sueldo1');
     $table->string('motivo_separacion1',100);
     $table->string('nombre_jefe1',100);
@@ -284,7 +284,7 @@ Schema::connection('DB_Serverr')->create('empleados', function($table){
     $table->string('duracion_trabajo2');
     $table->string('nombre_compania2',100);
     $table->string('direccion_compania2',100);
-    $table->string('telefono2',10);
+    $table->string('telefono2',15);
     $table->double('sueldo2');
     $table->string('motivo_separacion2',100);
     $table->string('nombre_jefe2',100);
@@ -294,7 +294,7 @@ Schema::connection('DB_Serverr')->create('empleados', function($table){
     $table->string('duracion_trabajo3');
     $table->string('nombre_compania3',100);
     $table->string('direccion3',100);
-    $table->string('telefono3',10);
+    $table->string('telefono3',15);
     $table->double('sueldo3');
     $table->string('motivo_separacion3',100);
     $table->string('nombre_jefe3',100);
@@ -303,17 +303,17 @@ Schema::connection('DB_Serverr')->create('empleados', function($table){
     $table->string('razones3',100);
     $table->string('referencia',100);
     $table->string('direccion_trabajo',100);
-    $table->string('telefono_referencia',10);
+    $table->string('telefono_referencia',15);
     $table->string('ocupacion',100);
     $table->double('tiempo');
     $table->string('referencia1',100);
     $table->string('direccion1',100);
-    $table->string('telefono_referencia1',10);
+    $table->string('telefono_referencia1',15);
     $table->string('ocupacion1',100);
     $table->double('tiempo1');
     $table->string('referencia2',100);
     $table->string('direccion2',100);
-    $table->string('telefono_referencia2',10);
+    $table->string('telefono_referencia2',15);
     $table->string('ocupacion2',100);
     $table->double('tiempo2');
     $table->string('tipo_trabajador',50);
