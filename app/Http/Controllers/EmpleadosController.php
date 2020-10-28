@@ -235,7 +235,7 @@ return $configDb;
             $datos->parentesco1, $datos->parentesco2, $datos->parentesco3, 
             $datos->parentesco4, $datos->porcentaje, $datos->porcentaje1,
             $datos->porcentaje2, $datos->porcentaje3, $datos->porcentaje4,
-            $datos->primaria, $datos->duracion_pimaria, $datos->titulo_primaria, 
+            $datos->primaria, $datos->duracion_primaria, $datos->titulo_primaria, 
             $datos->secundaria, $datos->duracion_secundaria, 
             $datos->titulo_secundaria, $datos->preparatoria, 
             $datos->duracion_preparatoria, $datos->titulo_preparatoria, 
@@ -256,13 +256,13 @@ return $configDb;
             $solicitar_informes2,$datos->razones2,
             $datos->duracion_trabajo3,
             $datos->nombre_compania3,$datos->direccion3,
-            $datos->telefono3,$datos->sueldo3,$datos->motivo_seperacion3,
+            $datos->telefono3,$datos->sueldo3,$datos->motivo_separacion3,
             $datos->nombre_jefe3,$datos->puesto_jefe3,
             $solicitar_informes3,$datos->razones3,$datos->referencia,
             $datos->direccion_trabajo,$datos->telefono_referencia,$datos->ocupacion,
             $datos->tiempo,$datos->referencia1,$datos->direccion1,
             $datos->telefono_referencia1,
-            $datos->ocupacion1,$datos->tiempo1,$datos->referencias2,
+            $datos->ocupacion1,$datos->tiempo1,$datos->referencia2,
             $datos->direccion2,$datos->telefono_referencia2,
             $datos->ocupacion2,$datos->tiempo2,$datos->tipo_trabajador,$datos->turno,
             $datos->contrato,$datos->vigencia,$datos->horario_trabajoinicio,
@@ -270,7 +270,7 @@ return $configDb;
             $datos->nivel,$datos->categoria,$datos->tipo_salario,
             $datos->tipo_jornada,$datos->dias,$datos->horas_diarias,
             $datos->forma_pago,$datos->clave_banco,$datos->tarjeta_banco,
-            $datos->envio_correspondencia,$datos->ptu,$datos->observaciones,
+            $datos->envio_correspondencia,$ptu,$datos->observaciones,
             $datos->salario_cotizacion,$datos->salario_anterior,$datos->causa_modificacion]); 
 }
     
