@@ -17,12 +17,16 @@
           </tr>
         </thead>
         <tbody>
+          @foreach($personal as $emp)
           <tr>
-            <th scope="row">1</th>
-            <td>Mark</td>
-            <td>Otto</td>
-            <td>@mdo</td>
-            <td>Otto</td>
+
+            <th scope="row">{{ $emp->clave_empleado }}</th>
+            
+            <td> {{ $emp->nombre }} {{ $emp->apellido_paterno }} {{ $emp->apellido_materno }}</td>
+            <td>{{$emp->nombre_puesto}}</td>
+            <td>{{$emp->departamento}}</td>
+            <td>{{$emp->area}}</td>
+            @endforeach
             <td><button type="button" style='width:70px; height:40px; align-items:center;' data-toggle="modal" data-target="#modalcrudempleado">
                 <i class="fas fa-eye"></i>
               </button></td>

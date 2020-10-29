@@ -166,7 +166,7 @@
                   </div>
                   <div class="col-md-3 mb-3">
                     <label for="validationDefault03">Telefono:</label>
-                    <input required type="text" class="form-control" name="telefono_empleado" onkeypress="return numeros(event)">
+                    <input required type="text" class="form-control telefono_empleado" name="telefono_empleado" onkeypress="return numeros(event)">
                   </div>
                   <div class="col-md-3 mb-3">
                     <label for="validationDefault03">Correo:</label>
