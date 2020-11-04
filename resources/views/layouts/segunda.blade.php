@@ -218,22 +218,22 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <!-- AdminLTE App -->
 <script src="{{ asset('/Admin/dist/js/adminlte.min.js')}}"></script>
 <!-- AdminLTE for demo purposes -->
-<script src="../Admin/dist/js/demo.js"></script>
+<script src="{{ asset('/Admin/dist/js/demo.js')}}"></script>
 <!-- Select2 -->
-<script src="../Admin/plugins/select2/js/select2.full.min.js"></script>
+<script src="{{ asset('/Admin/plugins/select2/js/select2.full.min.js')}}"></script>
 <!-- Bootstrap4 Duallistbox -->
-<script src="../Admin/plugins/bootstrap4-duallistbox/jquery.bootstrap-duallistbox.min.js"></script>
+<script src="{{ asset('/Admin/plugins/bootstrap4-duallistbox/jquery.bootstrap-duallistbox.min.js')}}"></script>
 <!-- InputMask -->
-<script src="../Admin/plugins/moment/moment.min.js"></script>
-<script src="../Admin/plugins/inputmask/min/jquery.inputmask.bundle.min.js"></script>
+<script src="{{ asset('/Admin/plugins/moment/moment.min.js') }}"></script>
+<script src="{{ asset('/Admin/plugins/inputmask/min/jquery.inputmask.bundle.min.js')}}"></script>
 <!-- date-range-picker -->
-<script src="../Admin/plugins/daterangepicker/daterangepicker.js"></script>
+<script src="{{ asset('/Admin/plugins/daterangepicker/daterangepicker.js') }}"></script>
 <!-- bootstrap color picker -->
-<script src="../Admin/plugins/bootstrap-colorpicker/js/bootstrap-colorpicker.min.js"></script>
+<script src="{{ asset('/Admin/plugins/bootstrap-colorpicker/js/bootstrap-colorpicker.min.js') }}"></script>
 <!-- Tempusdominus Bootstrap 4 -->
-<script src="../Admin/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
+<script src="{{ asset('/Admin/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js') }}"></script>
 <!-- Bootstrap Switch -->
-<script src="../Admin/plugins/bootstrap-switch/js/bootstrap-switch.min.js"></script>
+<script src="{{ asset('/Admin/plugins/bootstrap-switch/js/bootstrap-switch.min.js') }}"></script>
 <!-- DataTables -->
 <script src="{{ asset('/Admin/plugins/datatables/jquery.dataTables.min.js')}}"></script>
 <script src="{{ asset('/Admin/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js')}}"></script>
