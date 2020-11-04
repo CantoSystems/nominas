@@ -168,7 +168,7 @@ $table->boolean('estatal');
 
 Schema::connection('DB_Serverr')->create('empleados', function($table){
     $table->increments('id');
-    $table->char('clave_empleado',10);
+    $table->char('clave_empleado',5);
     $table->string('clasificacion',100);
     $table->string('nombre',50);
     $table->string('apellido_paterno',50);
@@ -176,8 +176,8 @@ Schema::connection('DB_Serverr')->create('empleados', function($table){
     $table->date('fecha_alta');
     $table->date('fecha_baja')->nullable();
     $table->string('causa_baja')->nullable();
-    $table->char('clave_departamento',10);
-    $table->char('clave_puesto',10);
+    $table->char('clave_departamento',4);
+    $table->char('clave_puesto',4);
     $table->string('rfc',13);
     $table->string('curp',18);
     $table->string('imss',11);
@@ -188,16 +188,16 @@ Schema::connection('DB_Serverr')->create('empleados', function($table){
     $table->string('licencia',5);
     $table->string('documento_migratorio',13);
     $table->string('calle',80);
-    $table->integer('numero_interno');
+    $table->integer('numero_interno')->nullable();
     $table->integer('numero_externo');
     $table->string('colonia',100);
     $table->string('cp',10);
     $table->string('ciudad',50);
     $table->string('municipio',50);
     $table->string('estado',50);
-    $table->string('telefono_empleado',15);
+    $table->string('telefono_empleado',10);
     $table->string('correo',60);
-    $table->string('sexo',10);
+    $table->string('sexo',6);
     $table->string('estado_civil',20);
     $table->string('nacionalidad',20);
     $table->string('tipo_sangre',10);
@@ -330,7 +330,7 @@ Schema::connection('DB_Serverr')->create('empleados', function($table){
     $table->integer('dias');
     $table->double('horas_diarias');
     $table->string('forma_pago',50);
-    $table->char('clave_banco',10);
+    $table->char('clave_banco',4);
     $table->string('tarjeta_banco',16);
     $table->string('envio_correspondencia',50);
     $table->boolean('ptu');

@@ -67,7 +67,7 @@
                   </div>
                   <div class="col-md-2 mb-3">
                     <label for="validationDefault03">Fecha de baja:</label>
-                    <input required type="date" class="form-control" name="fecha_baja">
+                    <input  type="date" class="form-control" name="fecha_baja">
                   </div>
                   <div class="col-md-2 mb-3">
                     <label for="validationDefault04">Causa de baja:</label>
@@ -202,11 +202,11 @@
                   </div>
                   <div class="col-md-1 mb-3">
                     <label for="validationDefault03">Estatura:</label>
-                    <input required type="text" class="form-control"  name="estatura" onkeypress="return numeros(event)">
+                    <input required type="number" class="form-control"  name="estatura" min="1.20" max="2.5" step="0.01">
                   </div>
                   <div class="col-md-1 mb-3">
                     <label for="validationDefault03">Peso:</label>
-                    <input required type="text" class="form-control" name="peso" onkeypress="return numeros(event)">
+                    <input required type="number" class="form-control" name="peso" min="30" max="200" step="0.01">
                   </div>
                   <div class="col-md-3 mb-3">
                     <label for="validationDefault03">Estado de salud:</label>
@@ -344,11 +344,11 @@
 
                  <div class="col-md-3 mb-3">
                   <label for="validationDefault03">% de Participacion</label>
-                  <input required type="text" class="form-control" name="porcentaje" maxlength="2" onkeypress="return numeros(event)" id="porcentaje">
-                  <input required type="text" class="form-control" name="porcentaje1" maxlength="2" onkeypress="return numeros(event)" id="porcentaje1">
-                  <input required type="text" class="form-control" name="porcentaje2" maxlength="2" onkeypress="return numeros(event)" id="porcentaje2">
-                  <input required type="text" class="form-control" name="porcentaje3" maxlength="2" onkeypress="return numeros(event)" id="porcentaje3">
-                  <input required type="text" class="form-control" name="porcentaje4" maxlength="2" onkeypress="return numeros(event)" id="porcentaje4">
+                  <input required type="number" class="form-control" name="porcentaje"  min="0.1" max="99.6" step="0.01">
+                  <input required type="number" class="form-control" name="porcentaje1" min="0.1" max="99.6" step="0.01">
+                  <input required type="number" class="form-control" name="porcentaje2" min="0.1" max="99.6" step="0.01">
+                  <input required type="number" class="form-control" name="porcentaje3" min="0.1" max="99.6" step="0.01">
+                  <input required type="number" class="form-control" name="porcentaje4" min="0.1" max="99.6" step="0.01">
                  </div>
                  <div class="col-sm-12">
                     <label for="" style="text-align: left;">
@@ -452,7 +452,7 @@
                </div>
                <div class="col-md-1 mb-3">
                 <label for="validationDefault03">Grado </label>
-                <input required type="text" class="form-control" name="grado" maxlength="2" onkeypress="return numeros(event)">
+                <input required type="number" class="form-control" name="grado" min="1" max="10">
                 
                </div>
                <div class="col-md-3 mb-3">
