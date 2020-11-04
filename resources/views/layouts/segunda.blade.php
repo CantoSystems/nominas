@@ -267,6 +267,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
       $('#cancelar_reg').show();
       $('input[type="text"]').val('');
       $('input[type="date"]').val('');
+      $('input[type="number"]').val('');
       $("input:checkbox").removeAttr("checked");
       $("#naturaleza > option[value=1]").attr("selected",true);
       $("#manejo > option[value=1]").attr("selected",true);
@@ -387,77 +388,6 @@ if(event.charCode >=48 && event.charCode <=57 ){
 return false;
 }
 </script>
-
-
-<script>
-  //validar los input de porcentaje en beneficiarios en el 
-  //catalogo de empleados
-  let porcentaje = document.getElementById('porcentaje');
-  let porcentaje1 = document.getElementById('porcentaje1');
-  let porcentaje2 = document.getElementById('porcentaje2');
-  let porcentaje3 = document.getElementById('porcentaje3');
-  let porcentaje4 = document.getElementById('porcentaje4');
-  let mensaje = document.getElementById('mensaje');
-  console.log(porcentaje.value);
-
-  porcentaje1.addEventListener('keyup', ()=>{
-    let sumavalores = parseInt(porcentaje.value) + parseInt(porcentaje1.value);
-    console.log(sumavalores);
-    if (sumavalores > 100) {
-      porcentaje2.disabled = true;
-      porcentaje3.disabled = true;
-      porcentaje4.disabled = true;
-      porcentaje2.value = '';
-      porcentaje3.value = '';
-      porcentaje4.value = '';
-      mensaje.innerHTML = 'Corregir, no puede exceder a 100%';
-    }else if(sumavalores === 100){
-      porcentaje2.disabled = true;
-      porcentaje3.disabled = true;
-      porcentaje4.disabled = true;
-      porcentaje2.value = '';
-      porcentaje3.value = '';
-      porcentaje4.value = '';
-      mensaje.innerHTML = 'A acumulado el total de porcentajes no puede agregar uno nuevo';
-
-    }
-  })
-
-  porcentaje2.addEventListener('keyup', ()=>{
-    let sumatotal = parseInt(porcentaje.value) + parseInt(porcentaje1.value) + parseInt(porcentaje2.value);
-    console.log(sumatotal);
-    if (sumatotal > 100) {
-      porcentaje3.disabled = true;
-      porcentaje4.disabled = true;
-      porcentaje3.value = '';
-      porcentaje4.value = '';
-      mensaje.innerHTML = 'Corregir en caso de agregar un nuevo porcentaje, no pueden exceder a 100';
-    }else if (sumatotal === 100){
-      porcentaje3.disabled = true;
-      porcentaje4.disabled = true;
-      porcentaje3.value = '';
-      porcentaje4.value = '';
-      mensaje.innerHTML = 'A acumulado el total de porcentajes no puede agregar uno nuevo';
-
-    }
-  })
-
-  porcentaje3.addEventListener('keyup', ()=>{
-    let suma = parseInt(porcentaje.value) + parseInt(porcentaje1.value) + parseInt(porcentaje2.value)+parseInt(porcentaje3.value);
-    console.log(suma);
-    if (suma > 100) {
-      porcentaje4.disabled = true;
-      porcentaje4.value = '';
-      mensaje.innerHTML = 'Corregir en caso de agregar un nuevo porcentaje, no pueden exceder a 100';
-    }else if(suma === 100){
-      porcentaje4.disabled = true;
-      porcentaje4.value = '';
-      mensaje.innerHTML = 'A acumulado el total de porcentajes no puede agregar uno nuevo';
-    }
-  })
-
-</script>
-
 
 </body>
 </html>
