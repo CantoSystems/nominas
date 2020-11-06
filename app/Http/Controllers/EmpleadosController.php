@@ -53,7 +53,9 @@ return $configDb;
             ->join('areas','areas.clave_area', '=','departamentos.clave_area')
             ->select('empleados.*','areas.*','departamentos.*','puestos.*')
             ->get();
-            return view('empleados.empleados',compact('empleados','departamentos','puestos','bancos','personal'));
+            $fecha_actual = now()->year;
+            $fechalimite = $fecha_actual-18;
+            return view('empleados.empleados',compact('empleados','departamentos','puestos','bancos','personal','fecha_actual','fechalimite'));
             break;
         case 'registrar':
             $this->registrar_empleado($request);
