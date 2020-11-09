@@ -19,6 +19,16 @@ Auth::routes();
 
 Route::get('home', 'HomeController@index')->name('home');
 
+/**
+    *Peticiones http Delete | Get
+    *Eliminación de la empresa
+    *Vaciado de ls empresas
+    *Vaciado y control de las acciones de los registros CRUD | Botones 
+    *@version V1
+    *@return Controlador | Método
+    *@author Elizabeth
+    *@param id | función Destroy
+*/
 
 Route::delete('empresa/{id}', 'EmpresaController@destroy')->name('empresas.destroy');
 Route::get('accciones', 'EmpresaController@acciones')->name('acciones');
