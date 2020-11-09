@@ -14,27 +14,31 @@ use Illuminate\Http\UploadedFile;
 
 class EmpleadosController extends Controller
 {
+   
     public function conectar($clv)
-{
+    {
 
-    $configDb = [
-        'driver'      => 'mysql',
-        'host'        => env('DB_HOST', 'localhost'),
-        'port'        => env('DB_PORT', '3306'),
-        'database'    => $clv,
-        'username'    => env('DB_USERNAME', 'root'),
-        'password'    => env('DB_PASSWORD', ''),
-        'unix_socket' => env('DB_SOCKET', ''),
-        'charset'     => 'utf8',
-        'collation'   => 'utf8_unicode_ci',
-        'prefix'      => '',
-        'strict'      => true,
-        'engine'      => null,
-];
+        $configDb = [
+            'driver'      => 'mysql',
+            'host'        => env('DB_HOST', 'localhost'),
+            'port'        => env('DB_PORT', '3306'),
+            'database'    => $clv,
+            'username'    => env('DB_USERNAME', 'root'),
+            'password'    => env('DB_PASSWORD', ''),
+            'unix_socket' => env('DB_SOCKET', ''),
+            'charset'     => 'utf8',
+            'collation'   => 'utf8_unicode_ci',
+            'prefix'      => '',
+            'strict'      => true,
+            'engine'      => null,
+        ];
 
-return $configDb;
+        return $configDb;
+    }
 
-}
+
+
+
     public function index(Request $request){
     	$clv=Session::get('clave_empresa');
         $clv_empresa=$this->conectar($clv);
@@ -53,7 +57,9 @@ return $configDb;
             ->join('areas','areas.clave_area', '=','departamentos.clave_area')
             ->select('empleados.*','areas.*','departamentos.*','puestos.*')
             ->get();
-            return view('empleados.empleados',compact('empleados','departamentos','puestos','bancos','personal'));
+            $fecha_actual = now()->year;
+            $fechalimite = $fecha_actual-18;
+            return view('empleados.empleados',compact('empleados','departamentos','puestos','bancos','personal','fecha_actual','fechalimite'));
             break;
         case 'registrar':
             $this->registrar_empleado($request);

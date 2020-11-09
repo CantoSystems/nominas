@@ -10,6 +10,15 @@ use Session;
 
 class EmpresaController extends Controller
 {
+    /**
+    *Función Obtiene el request y genera el vaciado de los registros
+    *Control de los botones siguiente, manipulación CRUD
+    *Modelos involucrados | Empresa
+    *@version V1
+    *@return string | Ruta con la carga de las variables
+    *@author Javier | Elizabeth
+    *@param $request | Array 
+    */
    
     public function acciones(Request $request){
      $accion= $request->acciones;
@@ -20,13 +29,11 @@ class EmpresaController extends Controller
                 return view('empresas.crudempresas', compact('empresa'));
                 break;
             case 'atras':
-                 $emp= Empresa::where('clave',$clv)->first();
-                 $indic= $emp->id;
+                $emp= Empresa::where('clave',$clv)->first();
+                $indic= $emp->id;
                 $empresa= Empresa::where('id','<',$indic)
                 ->orderBy('id','desc')
                 ->first();
-
-
                  if($empresa==""){
                     $empresa= Empresa::get()->last();  
                  }
@@ -75,6 +82,15 @@ class EmpresaController extends Controller
 
     }
 
+
+    /**
+    *Función Obtiene el request de empresa enviado a Actualizar con la variable datos
+    *@version V1
+    *@return array 
+    *@author Javier 
+    *@param $datos | Array 
+    */
+
      public function actualizar($datos){ 
         $emp= Empresa::where('clave',$datos->clave)->first();
         $emp->nombre= $datos->nombre;
@@ -94,6 +110,18 @@ class EmpresaController extends Controller
         $emp->email= $datos->email;
         $emp ->save();
      }
+
+    /**
+    *Funcion ejecutada en segundo plano al realizar la accion de registrar una empresa
+    *Extrae del $request, en $datos, el RFC para generar la clave de conexión
+    *Crea los Schemas Puestos | Areas | Departamentos | Conceptos y Empreados
+    *Genera La base de dtos indpeendiente de cada empresa
+    *@version V1
+    *@return void 
+    *@author Javier | Elizabeth | Gustavo 
+    *@param $datos | Array 
+    */
+
      public function registrar($datos){
      $empresa= new Empresa;
      $empresa->rfc= $datos->rfc;
@@ -361,7 +389,13 @@ Schema::connection('DB_Serverr')->create('empleados', function($table){
      }
 
      
-
+    /**
+    *Funcion seleccion empresa | 
+    *@version V1
+    *@return vista | variable resultado consulta
+    *@author Javier 
+    *@param void
+    */
      
 
     public function periodo()
@@ -370,6 +404,16 @@ Schema::connection('DB_Serverr')->create('empleados', function($table){
         $empresas = Empresa::get('clave');
         return view('empresas.periodo',compact('empresas'));
     }
+
+    /**
+    *Elimina el registro de la tabala empresa
+    *El facade BD elimina la base seleccionda por id y encontrada
+    *Con la clave de la empresa
+    *@version V1
+    *@return Redirecciona un cambio de funcion en el controlador
+    *@author Javier | Elizabeth
+    *@param id | Integer
+    */
     
     public function destroy($id)
     {
@@ -378,6 +422,17 @@ Schema::connection('DB_Serverr')->create('empleados', function($table){
         $empresa->delete();
         return redirect()->action('EmpresaController@acciones');
     }
+
+    /**
+    *Vacia los registros de la empres al encontrar la primer coincidencia con la clave
+    *de la empresa
+    *Obtiene clave de empresa PHP session
+    *Obtiene empresa mediante PHP session
+    *@version V1
+    *@return Redirect a la ruta nueva plantilla
+    *@author Javier 
+    *@param request | Array
+    */
 
     public function seleccionarempresa(Request $request){
      $clv= $request->empresa;

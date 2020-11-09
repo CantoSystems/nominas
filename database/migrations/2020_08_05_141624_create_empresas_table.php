@@ -8,9 +8,13 @@ class CreateEmpresasTable extends Migration
 {
     /**
      * Run the migrations.
-     *
+     * Tabla empresa
+     * @version V1
      * @return void
-     */
+     * @author Elizabeth|Javier
+    */
+
+    
     public function up()
     {
         Schema::create('empresas', function (Blueprint $table) {
