@@ -8,9 +8,13 @@ class CreateBancosTable extends Migration
 {
     /**
      * Run the migrations.
-     *
+     * Tabla de bancos
+     * @version V1
      * @return void
+     * @author Gustavo
+     * @param void
      */
+    
     public function up()
     {
         Schema::create('bancos', function (Blueprint $table) {
