@@ -7,23 +7,29 @@ use Illuminate\Http\Request;
 
 class PrestacionesController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index(Request $request)//funcion que permite el movimiento de los botones (flechas) para poder mostrar los pretaciones registrados
-    {
+     /**
+    * Control de los botones siguiente | atras | delante | ultimo
+    * Realiza el vaciado de los registros en l tabla así como en 
+    * el Datatable mediante las consultas 
+    * Modelo involucrado Prestaciones
+    * Envia el Request a los metodos actualizar | registar
+    * Implementa un modal de busqueda
+    * Elimina registro modal
+    * @version V1
+    * @author Gustavo | Elizabeth
+    * @param $request | Array 
+    * @return vistas  | $prestciones  | array 
+    */
+    public function index(Request $request)
         $accion= $request->acciones;
         $clv= $request->anio;
-        switch ($accion) {//switch que permite las acciones atras,siguiente,irse hasta al primer registro o hasta el ultimo
-
-            case ''://trae el primer registro
+        switch ($accion) {
+            case '':
                 $aux = Prestaciones::first();
                 $prestaciones = Prestaciones::all();
                 return view('prestaciones.prestaciones',compact('aux','prestaciones'));
                 break;
-            case 'atras'://trae el registro anterior
+            case 'atras':
                 $aux1= Prestaciones::where('anio',$clv)->get()->last();
                 $indic= $aux1->id;
                 $aux= Prestaciones::where('id','<',$indic)->latest('id')->first();
@@ -35,7 +41,7 @@ class PrestacionesController extends Controller
                 
                 break;
 
-            case 'siguiente'://trae el siguiente registro.
+            case 'siguiente':
                 $aux1= Prestaciones::where('anio',$clv)->get()->last();
                 $indic= $aux1->id;
                 $aux= Prestaciones::where('id','>',$indic)->first();
@@ -47,22 +53,22 @@ class PrestacionesController extends Controller
                 
                 break;
 
-            case 'primero'://trae el primer registro
+            case 'primero':
                 $aux = Prestaciones::first();
                 $prestaciones = Prestaciones::all();
                 return view('prestaciones.prestaciones',compact('aux','prestaciones'));
                 break;
-            case 'ultimo'://trae el ultimo registro
+            case 'ultimo':
                 $aux = Prestaciones::latest('id')->first();
                 $prestaciones = Prestaciones::all();
                 return view('prestaciones.prestaciones',compact('aux','prestaciones'));
                 break;
-            case 'registrar'://para el boton registrar, usa el metodo store
+            case 'registrar':
                 $this->store($request);
                 return redirect()->route('prestaciones.index');
                 break;
 
-            case 'actualizar'://permite actualizar el registro usando el metdo update
+            case 'actualizar':
                 $this->update($request);
                 return redirect()->route('prestaciones.index');
                 break;
@@ -76,7 +82,17 @@ class PrestacionesController extends Controller
         return view('prestaciones.prestaciones');
     }
 
-   
+        /**
+          *
+          * Recibe el $request del metodo index
+          * Modelo involucrado Prestaciones
+          * Valida los request para que no lleguen vacios 
+          * @version V1
+          * @author Elizabeth
+          * @param void
+          * @return void
+        */
+
     public function store($datos)
     {
         if ($datos->anio === null || $datos->dias === null || $datos->prima_vacacional === null || $datos->aguinaldo === null) {
@@ -90,7 +106,15 @@ class PrestacionesController extends Controller
         $prestaciones->save();
 
     }
-
+    /**
+      * Recibe los valores del request
+      * Comprara el aniola primer coincidencia 
+      * Actualiza y guarda el registro
+      * @version V1
+      * @author Eizabeth
+      * @param $datos | Array del request
+      * @return void 
+      */
     public function update($datos)
     {
         $prestaciones= Prestaciones::where('anio',$datos->anio)->first();
@@ -100,6 +124,14 @@ class PrestacionesController extends Controller
 
         $prestaciones->save();
     }
+
+    /**
+    *Elimina el registro de la tabla Prestaciones
+    *@version V1
+    *@return Redirecciona un cambio de funcion en el controlador
+    *@author Elizabeth
+    *@param id | Integer
+    */
 
    
     public function destroy($id)

@@ -13,28 +13,33 @@ use Session;
 class BancosController extends Controller
 {
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    * Control de los botones siguiente | atras | delante | ultimo
+    * Realiza el vaciado de los registros en l tabla así como en 
+    * el Datatable mediante las consultas 
+    * Modelo involucrado Bancos
+    * Envia el Request a los metodos actualizar | registar
+    * Implementa un modal de busqueda
+    * Elimina registro modal
+    * @version V1
+    * @author Gustavo
+    * @param $request | Array 
+    * @return vista   | $bancos | array 
+    */
 
-     public function index(){ 
-
-     }
     
-    public function acciones(Request $request){//funcion que permite el movimiento de los botones (flechas) para poder mostrar los bancos registrados
+    public function acciones(Request $request){
         $accion= $request->acciones;
         $clv=$request->clave_banco;
         
-        //switch que permite las acciones atras,siguiente,irse hasta al primer registro o hasta el ultimo
+        
            switch ($accion) { 
-               case ''://caso vacio, refleja el primer registro o el primer banco
+               case '':
                    $banco= Banco::first();
                    $bancos=Banco::all();
                    return view('bancos.bancos', compact('banco','bancos'));
                    break;
 
-               case 'atras'://caso atras, permite ir al registro anterior en el que se encuentra haciendo la consulta con la variable clv traida con el request "clave_banco"
+               case 'atras':
                 $id= Banco::where("clave_banco",$clv)->first();
                 $banco= Banco::where('id','<',$id->id)
                 ->orderBy('id','desc')
@@ -46,7 +51,7 @@ class BancosController extends Controller
                    return view('bancos.bancos', compact('banco','bancos'));
                break;
                
-               case 'siguiente': //caso siguiente, permite ir al registro siguiente en el que se encuentra haciendo la consulta con la variable clv traida con el request "clave_banco"
+               case 'siguiente': 
                    $banc= Banco::where('clave_banco',$clv)->first();
                    $indic= $banc->id;
                    $banco= Banco::where('id','>',$indic)->first();
@@ -56,21 +61,21 @@ class BancosController extends Controller
                    $bancos=Banco::all();
                    return view('bancos.bancos', compact('banco','bancos'));
                break;
-               case 'primero': //caso primero, trae el primer registro de todos
+               case 'primero': 
                    $banco= Banco::first();
                    $bancos=Banco::all();
                    return view('bancos.bancos', compact('banco','bancos'));
                break;
-               case 'ultimo'://caso ultimo, trae el ultimo registro que se hizo en la tabla bancos
+               case 'ultimo':
                    $banco= Banco::get()->last(); 
                    $bancos=Banco::all();
                    return view('bancos.bancos', compact('banco','bancos'));
                break;
-               case 'registrar'://caso registrar, permite hacer un registro de un banco con su nombre y por default se le asigna una clave
+               case 'registrar':
                   $this->registrar($request);
                   return redirect()->route('bancos.acciones');
                break;
-               case 'actualizar'://caso actualizar, permite editar el nombre del banco o registro en el que se este
+               case 'actualizar':
                    $this->actualizar($request);
                    return redirect()->route('bancos.acciones');
                break;
@@ -84,7 +89,7 @@ class BancosController extends Controller
                   return redirect()->route('bancos.acciones');
                         break; 
 
-                case 'buscar'://buscador que trae al input el banco que se requiera
+                case 'buscar':
                       
                       $banco = Banco::where('nombre_banco',$request->busca)->first();
                       $bancos= Banco::all();
@@ -98,13 +103,34 @@ class BancosController extends Controller
    
        }
 
-       public function actualizar($datos){ //funciona para poder actualizar compara la clave con la trae la variable datos
+      /**
+      * Recibe los valores del request
+      * Comprara la clave del banco la primer coincidencia 
+      * Actualiza y guarda el registro
+      * @version V1
+      * @author Gustavo
+      * @param $datos | Array del request
+      * @return void 
+      */
+
+
+       public function actualizar($datos){
         $banc= Banco::where('clave_banco',$datos->clave_banco)->first();
         $banc->nombre_banco= $datos->nombre_banco; 
         $banc->save();
      }
 
-    public function generador(){//genera la clave del banco, toma como base los numero del 0 a 9, con 3 digitos
+      /**
+      *Genera un numero random de digitos 
+      *Para la clave indicadora del banco 
+      * @version V1
+      * @author Gustavo
+      * @param void
+      * @return $codigo | int 
+      */
+
+
+    public function generador(){
         $raiz= '0123456789';
         $codigo='';
         for ($i=0; $i < 3; $i++) { 
@@ -114,19 +140,39 @@ class BancosController extends Controller
         return $codigo;
         }
 
+        /**
+          *
+          * Recibe el $request del metodo accciones
+          * Modelo involucrado Banco
+          * Valida el nombre del banco no veng vacio
+          * guarda el resultado del funcion generador 
+          * @version V1
+          * @author Gustavo
+          * @param void
+          * @return $codigo | int 
+        */
 
-          public function registrar($datos){//funciona para poder registrar un nuevo banco 
+          public function registrar($datos){
             if ($datos->nombre_banco === null) {
               return redirect()->route('bancos.acciones');
             }
-            $banco= new Banco; //instancia un nuevo objeto del modelo banco
+            $banco= new Banco; 
             $clave= $this->generador();
             $banco->clave_banco= $clave;
             $banco->nombre_banco= $datos->nombre_banco;
             $banco->save();
           }
+     /**
+    *Elimina el registro de la tabla eliminar banco
+    *Elimina mediante el modelo y el ORm por id
+    *Con la clave de la empresa
+    *@version V1
+    *@return Redirecciona un cambio de funcion en el controlador
+    *@author Elizabeth
+    *@param id | Integer
+    */
 
-    public function eliminarbanco($id){//borra un banco buscandolo por su id
+    public function eliminarbanco($id){
       $banc = Banco::find($id);
       $banc->delete();
       return redirect()->route('bancos.acciones');
