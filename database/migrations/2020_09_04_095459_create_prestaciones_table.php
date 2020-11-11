@@ -8,8 +8,11 @@ class CreatePrestacionesTable extends Migration
 {
     /**
      * Run the migrations.
-     *
+     * Tabla prestaciones 
+     * @version V1
      * @return void
+     * @author Elizabeth
+     * @param void
      */
     public function up()
     {

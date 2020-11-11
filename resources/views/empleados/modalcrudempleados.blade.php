@@ -240,7 +240,7 @@
               </div>
               <div class="col-md-3 mb-3">
                 <label for="validationDefault03">Nacimiento:</label>
-                <input required type="date" class="form-control" name="fecha_nacimiento">
+                <input required type="date" max="{{$fechalimite}}-12-31" class="form-control" name="fecha_nacimiento">
               </div>
               <div class="col-md-3 mb-3">
                 <label for="validationDefault03">Lugar de Origen:</label>
@@ -559,16 +559,16 @@
                     <!--INCIO sueldo Referencias-->
                     <label for="" class="col-form-label col-sm-12">Sueldo:</label>
                     <div class="col-sm-3">
-                      <input required type="text" name="sueldo" class="form-control" onkeypress="return numeros(event)">
+                      <input required type="number" step="0.01" min="0.00" max="100000.0" name="sueldo" class="form-control" onkeypress="return numeros(event)">
                     </div>
                     <div class="col-sm-3">
-                      <input required type="text" name="sueldo1" class="form-control" onkeypress="return numeros(event)">
+                      <input required type="number" step="0.01" min="0.00" max="100000.0" name="sueldo1" class="form-control" onkeypress="return numeros(event)">
                     </div>
                     <div class="col-sm-3">
-                      <input required type="text" name="sueldo2" class="form-control" onkeypress="return numeros(event)">
+                      <input required type="number" step="0.01" min="0.00" max="100000.0" name="sueldo2" class="form-control" onkeypress="return numeros(event)">
                     </div>
                     <div class="col-sm-3">
-                      <input required type="text" name="sueldo3" class="form-control" onkeypress="return numeros(event)">
+                      <input required type="number" step="0.01" min="0.00" max="100000.0" name="sueldo3" class="form-control" onkeypress="return numeros(event)">
                     </div><!--FIN sueldo Referencias-->
                     <!--INCIO Motivo separación Referencias-->
                     <label for="" class="col-form-label col-sm-12">Motivo de la Separacion:</label>
@@ -676,9 +676,9 @@
                    <div class="col-sm-1">
                     <label for="" style="text-align: left;">Tiempo
                     </label>
-                    <input required type="text" name="tiempo" class="form-control" maxlength="2" onkeypress="return numeros(event)">
-                    <input required type="text" name="tiempo1" class="form-control" maxlength="2" onkeypress="return numeros(event)">
-                    <input required type="text" name="tiempo2" class="form-control" maxlength="2" onkeypress="return numeros(event)">
+                    <input required type="number" name="tiempo" min="1" max="99" step="1" class="form-control" maxlength="2" onkeypress="return numeros(event)">
+                    <input required type="number" name="tiempo1" min="1" max="99" step="1" class="form-control" maxlength="2" onkeypress="return numeros(event)">
+                    <input required type="number" name="tiempo2" min="1" max="99" step="1" class="form-control" maxlength="2" onkeypress="return numeros(event)">
                    </div>
               </div><!--Final Row Referencias-->
             </div> <!--FIN referencias-->
@@ -731,16 +731,16 @@
                   <div class="col-md-2 mb-2">
                     <br>
                     <label for="validationDefault01">Sueldo diario</label>
-                    <input required type="text" class="form-control" name="sueldo_diario" value="" maxlength="5" onkeypress="return numeros(event)">
+                    <input required type="number" class="form-control" name="sueldo_diario" value="" maxlength="5" min="0.01" max="10000.00" step="0.01" onkeypress="return numeros(event)">
                   </div>
                   <div class="col-md-2 mb-2">
                     <label for="validationDefault01">Tabulación<br>Nivel</label>
-                    <input required type="text" class="form-control" name="nivel" value="">
+                    <input required type="text" onkeyup="mayus(this)"; class="form-control" name="nivel" value="">
                   </div>
                   <div class="col-md-2 mb-2">
                     <br>
                     <label for="validationDefault01">Categoria</label>
-                    <input required type="text" class="form-control" name="categoria" value="">
+                    <input required type="text" onkeyup="mayus(this)"; class="form-control" name="categoria" value="">
                   </div>
                   <div class="col-md-2 mb-3">
                     <br>
@@ -762,12 +762,12 @@
                   </div>
                   <div class="col-md-1 mb-3">
                     <label for="validationDefault04">Jornada <br> Días</label>
-                    <input required type="text" class="form-control" name="dias" value="">
+                    <input required type="number" class="form-control" name="dias" min="1" max="7" step="1" value="">
                   </div>
                    <div class="col-md-1 mb-3">
                     <br>
                     <label for="validationDefault04">Horas</label>
-                    <input required type="text" class="form-control" name="horas_diarias" value="" onkeypress="return numeros(event)">
+                    <input required type="number" class="form-control" name="horas_diarias" min="1" max="24" step="1" value="" onkeypress="return numeros(event)">
                   </div>
                   <div class="col-md-2 mb-3">
                     <br>
@@ -814,13 +814,13 @@
                   <div class="col-md-3 mb-3">
                     <br>
                     <label for="validationDefault04">Salario base de cotización <br> Actual</label>
-                    <input required type="text" class="form-control" name="salario_cotizacion" value="">
+                    <input required type="number" class="form-control" name="salario_cotizacion" value="" min="1" max="10000" step="1">
                   </div>
                   <div class="col-md-3 mb-3">
                     <br>
                     <br>
                     <label for="validationDefault04">Anterior</label>
-                    <input required type="text" class="form-control" name="salario_anterior" value="">
+                    <input required type="number" class="form-control" name="salario_anterior" value="" min="1" max="10000" step="1">
                   </div>
                   <div class="col-md-6 mb-3">
                     <br>

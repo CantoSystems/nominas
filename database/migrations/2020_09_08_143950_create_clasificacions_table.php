@@ -6,10 +6,13 @@ use Illuminate\Support\Facades\Schema;
 
 class CreateClasificacionsTable extends Migration
 {
-    /**
+   /**
      * Run the migrations.
-     *
+     * Tabla clasificaciones 
+     * @version V1
      * @return void
+     * @author Gustavo | Javier
+     * @param void
      */
     public function up()
     {
