@@ -19,6 +19,16 @@ Auth::routes();
 
 Route::get('home', 'HomeController@index')->name('home');
 
+/**
+    *Peticiones http Delete | Get
+    *Eliminación de la empresa
+    *Vaciado de ls empresas
+    *Vaciado y control de las acciones de los registros CRUD | Botones 
+    *@version V1
+    *@return Controlador | Método
+    *@author Elizabeth
+    *@param id | función Destroy
+*/
 
 Route::delete('empresa/{id}', 'EmpresaController@destroy')->name('empresas.destroy');
 Route::get('accciones', 'EmpresaController@acciones')->name('acciones');
@@ -47,13 +57,32 @@ Route::get('/departamentos','DepartamentosController@index')->name('departamento
 Route::delete('departamentos/{id}', 'DepartamentosController@eliminardepartamento')->name('departamentos.eliminadepartamento');
 
 
-//Bancos
+/**
+    *Peticiones http Delete | Get
+    *Eliminación de la bancos @eliminarbanco
+    *Vaciado de los registros de bancos
+    *Vaciado y control de las acciones de los registros CRUD | Botones 
+    *@version V1
+    *@return Controlador | Método
+    *@author Gustavo | Elizabeth
+    *@param id | función Destroy
+*/
+
 
 Route::get('bancos','BancosController@acciones')->name('bancos.acciones');
 Route::delete('bancos/{id}','BancosController@eliminarbanco')->name('bancos.eliminar');
 
+/**
+    *Peticiones http Delete | Get
+    *Eliminación de la bancos @destroy
+    *Vaciado de los registros de bancos
+    *Vaciado y control de las acciones de los registros CRUD | Botones 
+    *@version V1
+    *@return Controlador | Método
+    *@author Elizabeth
+    *@param id | función Destroy
+*/
 
-//prestaciones 
 Route::get('/prestaciones','PrestacionesController@index')->name('prestaciones.index');
 Route::delete('/prestaciones/{id}','PrestacionesController@destroy')->name('prestaciones.destroy');
 
