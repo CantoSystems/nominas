@@ -86,8 +86,16 @@ Route::delete('bancos/{id}','BancosController@eliminarbanco')->name('bancos.elim
 Route::get('/prestaciones','PrestacionesController@index')->name('prestaciones.index');
 Route::delete('/prestaciones/{id}','PrestacionesController@destroy')->name('prestaciones.destroy');
 
-
-//Clasificaciones
+/**
+    *Peticiones http Delete | Get
+    *Eliminación de clasificacion
+    *Vaciado de la clasicaciones
+    *Vaciado y control de las acciones de los registros CRUD | Botones 
+    *@version V1
+    *@return Controlador | Método
+    *@author Elizabeth | Gustavo
+    *@param id | función Destroy
+*/
 Route::get('clasificacion','ClasificacionController@acciones')->name('clasificacion.acciones');
 Route::delete('clasificacion/{id}','ClasificacionController@destroy')->name('clasificacion.eliminar');
 

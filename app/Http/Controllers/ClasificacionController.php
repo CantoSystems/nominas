@@ -161,7 +161,7 @@ class ClasificacionController extends Controller
             $clasificacion->conceptos= $datos->conceptos;
             $clasificacion->save();
           }
-       }
+       
      /**
     *Elimina el registro de la tabla eliminar clasificacion
     *Elimina mediante el modelo y el ORm por id
@@ -173,6 +173,7 @@ class ClasificacionController extends Controller
     */
 
     public function destroy($id)
+    {
         $clasificar= Clasificacion::find($id);
         $clasificar->delete();
         return redirect()->route('clasificacion.acciones');
