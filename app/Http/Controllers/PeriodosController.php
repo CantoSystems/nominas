@@ -22,10 +22,10 @@ class PeriodosController extends Controller
     return view('periodos.periodos',compact('periodos','cant'));
     }
 
- public function agregarperiodos($datos){
+    public function agregarperiodos($datos){
     if ($datos->fecha_inicio === null || $datos->fecha_fin === null || $datos->fecha_pago === null){
-            return redirect()->route('periodos.index');
-        }
+        return redirect()->route('periodos.index');
+    }
     $clv= Session::get('clave_empresa');
     $clv_empresa=$this->conectar($clv);
 
