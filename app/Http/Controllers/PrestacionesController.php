@@ -21,6 +21,7 @@ class PrestacionesController extends Controller
     * @return vistas  | $prestciones  | array 
     */
     public function index(Request $request)
+    {
         $accion= $request->acciones;
         $clv= $request->anio;
         switch ($accion) {
