@@ -5,7 +5,7 @@
 
 <div class="card">
     <div class="card-header">
-      Eempresas
+      Empresas
     </div>
     <div class="card-body">
         <form action="{{route('seleccionarempresa')}}" method="GET">
@@ -17,7 +17,7 @@
         <div class="col-md-8">
             <select class="custom-select" name="empresa">
                 @foreach($empresas as $empresa)
-            <option value="{{$empresa->clave}}">{{$empresa->nombre}}</option> 
+                  <option value="{{$empresa->clave}}">{{$empresa->nombre}}</option> 
                 @endforeach
             </select>
          </div>    
