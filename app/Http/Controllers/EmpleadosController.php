@@ -58,7 +58,7 @@ class EmpleadosController extends Controller
             ->select('empleados.*','areas.*','departamentos.*','puestos.*')
             ->get();
             $fecha_actual = now()->year;
-            $fechalimite = $fecha_actual-18;
+            $fechalimite = $fecha_actual;
             return view('empleados.empleados',compact('empleados','departamentos','puestos','bancos','personal','fecha_actual','fechalimite'));
             break;
         case 'registrar':
