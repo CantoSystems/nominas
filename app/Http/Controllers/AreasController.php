@@ -10,10 +10,20 @@ use Illuminate\Support\Facades\Schema;
 class AreasController extends Controller
 {
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    * Control de los botones siguiente | atras | delante | ultimo
+    * Realiza el vaciado de los registros en la tabla así como en 
+    * el Datatable mediante las consultas 
+    * Consultas mediante Builder Query
+    *  Conexion enviado a la función Conectr
+    * Se envia la clave de la empresa
+    * Envia el Request a los metodos actualizar | registar
+    * Implementa un modal de busqueda
+    * Elimina registro modal
+    * @version V1
+    * @author Gustavo
+    * @param $request | Array 
+    * @return vista   | $areas | array | $aux | array
+    */
     public function index(Request $request)
     {
         $clv=Session::get('clave_empresa');
