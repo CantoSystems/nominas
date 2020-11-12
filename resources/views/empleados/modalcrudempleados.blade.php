@@ -98,7 +98,7 @@
                   </div>
                   <div class="col-md-2 mb-3">
                     <label for="validationDefault03">RFC:</label>
-                    <input required type="text" class="form-control" maxlength="13" name="rfc" onkeyup="mayus(this);" >
+                    <input required type="text" class="form-control" maxlength="13" name="rfc" onkeyup="mayus(this);"  pattern="^([A-ZÑ\x26]{3,4}([0-9]{2})(0[1-9]|1[0-2])(0[1-9]|1[0-9]|2[0-9]|3[0-1])([A-Z]|[0-9]){2}([A-ZÑ\x26]|[0-9]){1})?$" >
                   </div>
                    <div class="col-md-2">
                     <label for="validationDefault03">CURP:</label>
