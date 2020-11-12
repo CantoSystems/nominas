@@ -112,6 +112,20 @@ class AreasController extends Controller
 }     
 }
 
+
+        /**
+          *
+          * Recibe el $request del metodo accciones $datos
+          * Conexión $clv_Empresa
+          * Builder Query insert 
+          * Valida el nombre del area no venga vacio
+          * guarda el resultado del funcion generador 
+          * @version V1
+          * @author Gustavo
+          * @param void
+          * @return void
+        */
+
 public function registrar($datos){
     if($datos->area === null){
       return redirect()->route('areas.index');
@@ -126,6 +140,17 @@ public function registrar($datos){
     DB::connection('DB_Serverr')->insert('insert into areas (area,clave_area)
     values (?,?)',[$datos->area,$clave_area]);
 }
+
+
+   /**
+      *Genera un numero random de digitos 
+      *Para la clave indicadora del banco 
+      * @version V1
+      * @author Gustavo
+      * @param void
+      * @return $codigo | int 
+      */
+      
 public function generador(){
 	$raiz= '0123456789';
 	$codigo='';

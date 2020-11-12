@@ -25,7 +25,7 @@
                 <div class="col-sm-3">
                     <div class="form-group">
                         <label>RFC (Empresa):</label>
-                        <input type="text" name="rfc" maxlength="13" minlength="12" class="form-control" value="{{$empresa->rfc}}" onkeyup="mayus(this);">
+                        <input type="text" name="rfc" maxlength="13" minlength="12" class="form-control" value="{{$empresa->rfc}}" onkeyup="mayus(this);" pattern="^([A-ZÑ\x26]{3,4}([0-9]{2})(0[1-9]|1[0-2])(0[1-9]|1[0-9]|2[0-9]|3[0-1])([A-Z]|[0-9]){2}([A-ZÑ\x26]|[0-9]){1})?$">
                     </div>
                 </div>
                 <div class="col-sm-2">
@@ -36,8 +36,8 @@
                 </div>
                 <div class="col-sm-3">
                     <div class="form-group">
-                        <label>Registro estatal:</label>
-                        <input type="text" name="registro_estatal" class="form-control" value="{{$empresa->registro_estatal}}" onkeyup="mayus(this);">
+                        <label>Registro estatal ( REC ):</label>
+                        <input type="text" name="registro_estatal" class="form-control" value="{{$empresa->registro_estatal}}" maxlength="11"onkeyup="mayus(this);">
                     </div>
                 </div>
                 <div class="col-sm-5">
@@ -91,7 +91,7 @@
                 <div class="col-sm-3">
                     <div class="form-group">
                         <label>RFC (Representante legal):</label>
-                        <input type="text" name="rfc_representante" maxlength="13" class="form-control" value="{{$empresa->rfc_representante}}" onkeyup="mayus(this);">
+                        <input type="text" name="rfc_representante" maxlength="13" class="form-control" value="{{$empresa->rfc_representante}}" onkeyup="mayus(this);" pattern="^([A-ZÑ\x26]{3,4}([0-9]{2})(0[1-9]|1[0-2])(0[1-9]|1[0-9]|2[0-9]|3[0-1])([A-Z]|[0-9]){2}([A-ZÑ\x26]|[0-9]){1})?$">
                     </div>
                 </div>
                 <div class="col-sm-4">
