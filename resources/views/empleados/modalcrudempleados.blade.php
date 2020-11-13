@@ -208,11 +208,6 @@
                     <label for="validationDefault03">Peso:</label>
                     <input required type="number" class="form-control" name="peso" min="30" max="200" step="0.01">
                   </div>
-                  <div class="col-md-3 mb-3">
-                    <label for="validationDefault03">Estado de salud:</label>
-                    <input required type="text" class="form-control" name="estado_salud" onkeyup="mayus(this);" onkeypress="return validar(event)">
-                  </div>
-                  
                 </div><!--Fin  Row Personal-->
             </div><!--Fin  Personal-->
             <!--Inicio Personal 1-->
