@@ -26,11 +26,12 @@
               <a class="nav-link" id="custom-tabs-one-messages-tab" data-toggle="pill" href="#custom-tabs-one-messages" role="tab" aria-controls="custom-tabs-one-messages" aria-selected="false">Personal 3</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" id="custom-tabs-one-settings-tab" data-toggle="pill" href="#custom-tabs-one-settings" role="tab" aria-controls="custom-tabs-one-settings" aria-selected="false">Referencias</a>
-            </li>
-            <li class="nav-item">
               <a class="nav-link" id="custom-tabs-one-tools-tab" data-toggle="pill" href="#custom-tabs-one-tools" role="tab" aria-controls="custom-tabs-one-tools" aria-selected="false">Contratación</a>
             </li>
+            <li class="nav-item">
+              <a class="nav-link" id="custom-tabs-one-settings-tab" data-toggle="pill" href="#custom-tabs-one-settings" role="tab" aria-controls="custom-tabs-one-settings" aria-selected="false">Referencias</a>
+            </li>
+            
           </ul>
         </div><!--Final Cabeceras-->
         <!--Inicio contenido-->
@@ -686,26 +687,27 @@
                   <div class="col-md-3 mb-3">
                     <label for="validationDefault04">Tipo de trabajador</label>
                     <select class="custom-select" name="tipo_trabajador">
-                      <option selected disabled value="">Seleccioe una opcion:</option>
-                      <option value="EMPLEADO">Empleado</option>
-                      <option value="PATRON">Patron</option>
+                      <option selected disabled value="">Seleccione una opción:</option>
+                      <option value="EMPLEADO">Administrativo</option>
+                      <option value="PATRON">Sindicalizado</option>
                     </select>
                   </div>
                   <div class="col-md-3 mb-3">
                     <label for="validationDefault04">Turno</label>
                     <select class="custom-select" name="turno">
-                      <option selected disabled value="">Selecciona una opcion:</option>
-                      <option value="MATUTINO">MATUTINO</option>
-                      <option value="VESPERTINO">VESPERTINO</option>
+                      <option selected disabled value="">Seleccione una opción:</option>
+                      <option value="DIURNO">Diurno</option>
+                      <option value="NOCTURNO">Nocturno</option>
+                      <option value="MIXTO">Mixto</option>
                     </select>
                   </div>
                   <div class="col-md-3 mb-3">
                     <label for="validationDefault04">Contrato</label>
                     <select class="custom-select" name="contrato">
-                      <option selected disabled value="">Selecciona una opcion</option>
+                      <option selected disabled value="">Seleccione una opción</option>
                       <option value="PRUEBA">Prueba</option>
-                      <option value="TEMPORAL">Temporal</option>
-                      <option value="INDETERMINADO">Permanente</option>
+                      <option value="DETERMINDO">Tiempo determinado</option>
+                      <option value="INDETERMINADO">Tiempo indeterminado</option>
                     </select>
                   </div>
                 
@@ -784,10 +786,15 @@
                       
                     </select>
                   </div>
-                  <div class="col-md-2 mb-3">
+                  <div class="col-md-4 mb-4">
                     <br>
-                    <label for="validationDefault04">Tarjeta bancaria</label>
-                    <input required type="text" class="form-control" maxlength="16" name="tarjeta_banco" value="" onkeypress="return numeros(event)">
+                    <label for="validationDefault04">Cuenta bancaria</label>
+                    <input required type="text" class="form-control" maxlength="20" name="cuenta_bancaria" value="" onkeypress="return numeros(event)">
+                  </div>
+                  <div class="col-md-4 mb-4">
+                    <br>
+                    <label for="validationDefault04">Clabe Interbancaria</label>
+                    <input required type="text" class="form-control" maxlength="18" name="clabe_interbancaria" value="" onkeypress="return numeros(event)">
                   </div>
                   <div class="col-md-2 mb-3">
                     <br>
