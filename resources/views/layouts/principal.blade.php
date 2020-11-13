@@ -111,14 +111,14 @@ scratch. This page gets rid of all links and provides the needed markup only.
               </p>
             </a>
           </li>
-          <li class="nav-item">
+          <!--<li class="nav-item">
             <a href="{{ route('clasificacion.acciones')}}" class="nav-link">
               <i class="nav-icon fas fa-th"></i>
               <p>
                 Clasificaciones
               </p>
             </a>
-          </li>
+          </li>-->
         </ul>
       </nav>
       <!-- /.sidebar-menu -->
