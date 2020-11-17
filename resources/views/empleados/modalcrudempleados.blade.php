@@ -318,7 +318,8 @@
                 <div class="col-sm-12">
                     <label for="" style="text-align: left;">
                       <h4><strong>Beneficiarios</strong></h4>
-                      <h5 id="mensaje"></h5>
+                      &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp <h5 id="mensaje"></h5>
+                      
                     </label> 
                 </div>
                  <div class="col-md-4 mb-3">
@@ -327,7 +328,7 @@
                     <input required type="text" class="form-control" name="beneficiario1" onkeyup="mayus(this);" onkeypress="return validar(event)">
                     <input required type="text" class="form-control" name="beneficiario2" onkeyup="mayus(this);" onkeypress="return validar(event)">
                     <input required type="text" class="form-control" name="beneficiario3" onkeyup="mayus(this);" onkeypress="return validar(event)">
-                    <input required type="text" class="form-control" name="beneficiario4" id="beneficiario4" onkeyup="mayus(this);" onkeypress="return validar(event)"> 
+                    <input required type="text" class="form-control" name="beneficiario4" onkeyup="mayus(this);" onkeypress="return validar(event)"> 
                  </div>
                  <div class="col-md-4 mb-3">
                     <label for="validationDefault03">Parentesco</label>
@@ -340,11 +341,11 @@
 
                  <div class="col-md-3 mb-3">
                   <label for="validationDefault03">% de Participacion</label>
-                  <input required type="number" class="form-control" name="porcentaje"  min="0.1" max="99.6" step="0.01">
-                  <input required type="number" class="form-control" name="porcentaje1" min="0.1" max="99.6" step="0.01">
-                  <input required type="number" class="form-control" name="porcentaje2" min="0.1" max="99.6" step="0.01">
-                  <input required type="number" class="form-control" name="porcentaje3" min="0.1" max="99.6" step="0.01">
-                  <input required type="number" class="form-control" name="porcentaje4" min="0.1" max="99.6" step="0.01">
+                  <input required type="number" class="form-control" name="porcentaje"  min="0.1" max="99.6" step="0.01" id="porcentaje">
+                  <input required type="number" class="form-control" name="porcentaje1" min="0.1" max="99.6" step="0.01" id="porcentaje1">
+                  <input required type="number" class="form-control" name="porcentaje2" min="0.1" max="99.6" step="0.01" id="porcentaje2">
+                  <input required type="number" class="form-control" name="porcentaje3" min="0.1" max="99.6" step="0.01" id="porcentaje3">
+                  <input required type="number" class="form-control" name="porcentaje4" min="0.1" max="99.6" step="0.01" id="porcentaje4">
                  </div>
                  <div class="col-sm-12">
                     <label for="" style="text-align: left;">
