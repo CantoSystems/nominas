@@ -174,7 +174,7 @@ class EmpleadosController extends Controller
         calle, numero_interno, numero_externo,
         colonia, cp, ciudad, municipio,estado, 
         telefono_empleado, correo, sexo, estado_civil, nacionalidad,
-        tipo_sangre, alergias, estatura, peso, estado_salud,
+        tipo_sangre, alergias, estatura, peso,
         enfermedad_cronica, deporte, pasatiempo, asosiacion,
         objetivo_vida, fecha_nacimiento, lugar, umf, 
         nombre_padre, nombre_madre, finado_padre, finado_madre, direccion_padre,
@@ -210,8 +210,7 @@ class EmpleadosController extends Controller
         contrato, vigencia,
         horario_trabajoinicio,horario_trabajofin, sueldo_diario, nivel, categoria,
         tipo_salario, tipo_jornada, dias, horas_diarias,forma_pago, clave_banco,
-        tarjeta_banco, envio_correspondencia, ptu, observaciones, salario_cotizacion,
-        salario_anterior, causa_modificacion) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,
+        tarjeta_banco, ptu, observaciones) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,
             ?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,
             ?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,
             ?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,
@@ -220,7 +219,7 @@ class EmpleadosController extends Controller
             ?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,
             ?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,
             ?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,
-            ?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)',[$clv_empleado,
+            ?,?,?,?,?,?,?,?,?,?,?,?)',[$clv_empleado,
             $datos->clasificacion,
             $datos->nombre, $datos->apellido_paterno, $datos->apellido_materno,
             $datos->fecha_alta, $datos->fecha_baja, $datos->causa_baja,
@@ -233,7 +232,7 @@ class EmpleadosController extends Controller
             $datos->municipio, $datos->estado, $datos->telefono_empleado, 
             $datos->correo, $datos->sexo, $datos->estado_civil, $datos->nacionalidad,
             $datos->tipo_sangre,$datos->alergias, $datos->estatura, $datos->peso, 
-            $datos->estado_salud,$datos->enfermedad_cronica, $datos->deporte, 
+            $datos->enfermedad_cronica, $datos->deporte, 
             $datos->pasatiempo, $datos->asosiacion, $datos->objetivo_vida, 
             $datos->fecha_nacimiento,$datos->lugar, $datos->umf,$datos->nombre_padre, 
             $datos->nombre_madre, $finado_padre, $finado_madre, 
@@ -281,8 +280,7 @@ class EmpleadosController extends Controller
             $datos->nivel,$datos->categoria,$datos->tipo_salario,
             $datos->tipo_jornada,$datos->dias,$datos->horas_diarias,
             $datos->forma_pago,$datos->clave_banco,$datos->tarjeta_banco,
-            $datos->envio_correspondencia,$ptu,$datos->observaciones,
-            $datos->salario_cotizacion,$datos->salario_anterior,$datos->causa_modificacion]); 
+            $ptu,$datos->observaciones]); 
 }
     
 

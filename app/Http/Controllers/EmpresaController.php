@@ -232,7 +232,6 @@ Schema::connection('DB_Serverr')->create('empleados', function($table){
     $table->string('alergias',100);
     $table->double('estatura');
     $table->double('peso');
-    $table->string('estado_salud',100);
     $table->string('enfermedad_cronica',100);
     $table->string('deporte',100);
     $table->string('pasatiempo',100);
@@ -361,12 +360,8 @@ Schema::connection('DB_Serverr')->create('empleados', function($table){
     $table->char('clave_banco',4);
     $table->string('cuenta_bancaria',20);
     $table->string('clabe_interbancaria',18);
-    $table->string('envio_correspondencia',50);
     $table->boolean('ptu');
     $table->string('observaciones',255);
-    $table->double('salario_cotizacion');
-    $table->double('salario_anterior');
-    $table->string('causa_modificacion',100);
 });
      $empresa->nombre= $datos->nombre;
      
