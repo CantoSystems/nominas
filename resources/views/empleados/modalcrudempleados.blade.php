@@ -81,7 +81,7 @@
                   <div class="col-md-2 mb-3">
                     <label for="validationDefault04">Departamento:</label>
                     <select class="custom-select" name="clave_departamento">
-                      <option selected disabled value="">Selecciona una opcion</option>
+                      <option selected disabled value="">Seleccione una opcion</option>
                       @foreach ($departamentos as $depa)
                     <option value="{{$depa->clave_departamento}}">{{$depa->departamento}}</option>    
                       @endforeach
@@ -91,7 +91,7 @@
                   <div class="col-md-2 mb-3">
                     <label for="validationDefault04">Puesto:</label>
                     <select class="custom-select" name="clave_puesto">
-                      <option selected disabled value="">Selecciona una opcion</option>
+                      <option selected disabled value="">Seleccione una opcion</option>
                       @foreach ($puestos as $puest)
                     <option value="{{$puest->clave_puesto}}">{{$puest->nombre_puesto}}</option>    
                       @endforeach
@@ -184,7 +184,7 @@
                   <div class="col-md-3 mb-3">
                     <label for="validationDefault04">Estado Civil:</label>
                     <select class="custom-select" name="estado_civil">
-                      <option selected disabled value="">Selecciona una opción</option>
+                      <option selected disabled value="">Seleccione una opción</option>
                       <option value="SOLTERO">Soltero</option>
                       <option value="CASADO">Casado</option>
                     </select>
@@ -764,13 +764,13 @@
                    <div class="col-md-1 mb-3">
                     <br>
                     <label for="validationDefault04">Horas</label>
-                    <input required type="number" class="form-control" name="horas_diarias" min="1" max="24" step="1" value="" onkeypress="return numeros(event)">
+                    <input required type="number" class="form-control" name="horas_diarias" min="1" max="24" step="any" value="">
                   </div>
                   <div class="col-md-2 mb-3">
                     <br>
                     <label for="validationDefault04">Forma de Pago</label>
                     <select class="custom-select" name="forma_pago">
-                      <option selected disabled value="">Selecciona una opcion</option>
+                      <option selected disabled value="">Seleccione una opcion</option>
                       <option value="EFECTIVO">Efectivo</option>
                       <option value="CHEQUE">Cheque</option>
                     </select>
@@ -779,7 +779,7 @@
                     <br>
                     <label for="validationDefault04">Banco</label>
                     <select class="custom-select" name="clave_banco">
-                      <option selected disabled value="">Selecciona una opcion</option>
+                      <option selected disabled value="">Seleccione una opcion</option>
                       @foreach ($bancos as $banco)
                     <option value="{{$banco->clave_banco}}">{{$banco->nombre_banco}}</option>    
                       @endforeach
@@ -796,17 +796,17 @@
                     <label for="validationDefault04">Clabe Interbancaria</label>
                     <input required type="text" class="form-control" maxlength="18" name="clabe_interbancaria" value="" onkeypress="return numeros(event)">
                   </div>
-                  <div class="col-md-2 mb-3">
+                  <!--<div class="col-md-2 mb-3">
                     <br>
                     <label for="validationDefault04">Envio correspondencia:</label>
                     <input required type="text" class="form-control" name="envio_correspondencia" value="" onkeypress="return numeros(event)">
-                  </div>
+                  </div>-->
 
                   <div class="col-md-2 mb-3">
                     <br><br>
                     <div class="form-check">
                       <input class="form-check-input" type="checkbox" name="ptu" value="option1" aria-label="">
-                      <label for="">Excluir ara PTU</label>
+                      <label for="">Excluir para PTU</label>
                      </div>
                   </div>
                   <div class="col-md-12 mb-3">
@@ -815,21 +815,21 @@
                   </div>
                   <div class="col-md-3 mb-3">
                     <br>
-                    <label for="validationDefault04">Salario base de cotización <br> Actual</label>
-                    <input required type="number" class="form-control" name="salario_cotizacion" value="" min="1" max="10000" step="1">
-                  </div>
-                  <div class="col-md-3 mb-3">
-                    <br>
-                    <br>
-                    <label for="validationDefault04">Anterior</label>
-                    <input required type="number" class="form-control" name="salario_anterior" value="" min="1" max="10000" step="1">
-                  </div>
-                  <div class="col-md-6 mb-3">
-                    <br>
-                    <br>
-                    <label for="validationDefault04">Causa de la modificación</label>
-                    <input required type="text" class="form-control" name="causa_modificacion" value="" onkeyup="mayus(this);" onkeypress="return validar(event)">
-                  </div>
+                  <!--<label for="validationDefault04">Salario base de cotización <br> Actual</label>
+                      <input required type="number" class="form-control" name="salario_cotizacion" value="" min="1" max="10000" step="1">
+                    </div>
+                    <div class="col-md-3 mb-3">
+                      <br>
+                      <br>
+                      <label for="validationDefault04">Anterior</label>
+                      <input required type="number" class="form-control" name="salario_anterior" value="" min="1" max="10000" step="1">
+                    </div>
+                    <div class="col-md-6 mb-3">
+                      <br>
+                      <br>
+                      <label for="validationDefault04">Causa de la modificación</label>
+                      <input required type="text" class="form-control" name="causa_modificacion" value="" onkeyup="mayus(this);" onkeypress="return validar(event)">
+                    </div>-->
                 
 
 
