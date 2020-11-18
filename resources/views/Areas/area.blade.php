@@ -25,14 +25,14 @@
                           @endforeach
                         </tbody>
                     </table>
-                    <div class="card-body">
+                    <!--<div class="card-body">
                         <div class="margin">
                             <div class="btn-group">
                                 <div class="form-group">
                                     <button type="submit"  name="acciones" value="primero" id="primero" style='width:40px; height:27px'><i class="fas fa-backward" ></i></button>
                                 </div>
                                 <div class="form-group">
-                                    <button type="submit" name="acciones" value="atras" id="atras" style='width:40px; height:27px'><i class="fas fa-arrow-circle-left"></i></button>
+                                <button type="submit" name="acciones" value="atras" id="atras" style='width:40px; height:27px'><i class="fas fa-arrow-circle-left"></i></button>
                                 </div>
                                 <div class="form-group">
                                     <button type="submit" name="acciones" value="siguiente" id="siguiente" style='width:40px; height:27px'><i class="fas fa-arrow-circle-right"></i></button>
@@ -57,13 +57,13 @@
                                 <div class="form-group">
                                     <button type="button" id="actualizar" style='width:40px; height:27px'> <i class="fas fa-pen-square"></i></button>
                                 </div>
-                                <!--<div class="form-group">
+                                <div class="form-group">
                                     <a href="#" id="eliminar" data-target="#modal-deletearea-{{$aux->id}}" data-toggle="modal" style='width:40px; height:27px'>
                                         <button type="button" style='width:40px; height:27px'>
                                             <i class="far fa-trash-alt"></i>
                                         </button>
                                     </a>
-                                </div>-->
+                                </div>
                             </div>
                         </div>
                     </div>

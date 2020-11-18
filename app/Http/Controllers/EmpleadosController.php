@@ -203,7 +203,7 @@ class EmpleadosController extends Controller{
         contrato, vigencia,
         horario_trabajoinicio,horario_trabajofin, sueldo_diario, nivel, categoria,
         tipo_salario, tipo_jornada, dias, horas_diarias,forma_pago, clave_banco,
-        tarjeta_banco, ptu, observaciones) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,
+        cuenta_bancaria, clabe_interbancaria,ptu, observaciones) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,
             ?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,
             ?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,
             ?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,
@@ -272,7 +272,7 @@ class EmpleadosController extends Controller{
             $datos->horario_trabajofin,$datos->sueldo_diario,
             $datos->nivel,$datos->categoria,$datos->tipo_salario,
             $datos->tipo_jornada,$datos->dias,$datos->horas_diarias,
-            $datos->forma_pago,$datos->clave_banco,$datos->tarjeta_banco,
+            $datos->forma_pago,$datos->clave_banco,$datos->cuenta_bancaria,$datos->clabe_interbancaria,
             $ptu,$datos->observaciones]); 
 }
     public function generador($rfc){
