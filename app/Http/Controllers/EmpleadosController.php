@@ -12,12 +12,8 @@ use Illuminate\Http\UploadedFile;
 
 
 
-class EmpleadosController extends Controller
-{
-   
-    public function conectar($clv)
-    {
-
+class EmpleadosController extends Controller{
+    public function conectar($clv){
         $configDb = [
             'driver'      => 'mysql',
             'host'        => env('DB_HOST', 'localhost'),
@@ -35,9 +31,6 @@ class EmpleadosController extends Controller
 
         return $configDb;
     }
-
-
-
 
     public function index(Request $request){
     	$clv=Session::get('clave_empresa');
@@ -192,7 +185,7 @@ class EmpleadosController extends Controller
         otras, duracion_otras, titulo_otras, 
         estudio_actual, carrera, grado, horario, 
         duracion_trabajo, nombre_compania, direccion_compania, telefono_compania,
-        sueldo, motivo_separacion, nombre_jefe, puesto_jefe,
+        sueldo, sueldo_integrado, motivo_separacion, nombre_jefe, puesto_jefe,
         solicitar_informes, razones, 
         duracion_trabajo1, nombre_compania1, direccion1_trabajo1,
         telefono1, sueldo1, motivo_separacion1, nombre_jefe1, 
@@ -219,7 +212,7 @@ class EmpleadosController extends Controller
             ?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,
             ?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,
             ?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,
-            ?,?,?,?,?,?,?,?,?,?,?,?)',[$clv_empleado,
+            ?,?,?,?,?,?,?,?,?,?,?,?,?)',[$clv_empleado,
             $datos->clasificacion,
             $datos->nombre, $datos->apellido_paterno, $datos->apellido_materno,
             $datos->fecha_alta, $datos->fecha_baja, $datos->causa_baja,
@@ -254,7 +247,7 @@ class EmpleadosController extends Controller
             $datos->otras, $datos->duracion_otras, $datos->titulo_otras, 
             $datos->estudio_actual, $datos->carrera, $datos->grado, $datos->horario,
             $datos->duracion_trabajo,$datos->nombre_compania,
-            $datos->direccion_compania,$datos->telefono_compania,$datos->sueldo,
+            $datos->direccion_compania,$datos->telefono_compania,$datos->sueldo,$datos->sueldo_integrado,
             $datos->motivo_separacion,$datos->nombre_jefe,$datos->puesto_jefe,
             $solicitar_informes,$datos->razones,$datos->duracion_trabajo1,
             $datos->nombre_compania1,$datos->direccion1_trabajo1,
@@ -282,19 +275,9 @@ class EmpleadosController extends Controller
             $datos->forma_pago,$datos->clave_banco,$datos->tarjeta_banco,
             $ptu,$datos->observaciones]); 
 }
-    
-
-    
-
-
     public function generador($rfc){
         $rest = substr($rfc,5); 
         return $rest;
     }
-
-   
-
-
-
 }
 
