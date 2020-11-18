@@ -317,12 +317,20 @@
               <div class="form-row">
                 <div class="col-sm-12">
                     <label for="" style="text-align: left;">
-                      <h4><strong>Beneficiarios</strong></h4>
-                      &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp <h5 id="mensaje"></h5>
-                      
-                    </label> 
+                      <div class="col-md-12 mb-3">
+                        <h4>
+                          <strong>Beneficiarios</strong>
+                        </h4>
+                    </div>
+                    </label>
+                    <div class="col-md-11 mb-3" style="text-align: right;">
+                      <h6 id="mensaje"></h6>
+                    </div>
+                    
+                    
                 </div>
                  <div class="col-md-4 mb-3">
+                  
                   <label for="validationDefault03">Nombre</label>
                     <input required type="text" class="form-control" name="beneficiario" onkeyup="mayus(this);" onkeypress="return validar(event)">
                     <input required type="text" class="form-control" name="beneficiario1" onkeyup="mayus(this);" onkeypress="return validar(event)">
@@ -331,6 +339,7 @@
                     <input required type="text" class="form-control" name="beneficiario4" onkeyup="mayus(this);" onkeypress="return validar(event)"> 
                  </div>
                  <div class="col-md-4 mb-3">
+                
                     <label for="validationDefault03">Parentesco</label>
                     <input required type="text" class="form-control" name="parentesco" onkeyup="mayus(this);" onkeypress="return validar(event)">
                     <input required type="text" class="form-control" name="parentesco1" onkeyup="mayus(this);" onkeypress="return validar(event)">
@@ -340,6 +349,7 @@
                  </div>
 
                  <div class="col-md-3 mb-3">
+                 
                   <label for="validationDefault03">% de Participacion</label>
                   <input required type="number" class="form-control" name="porcentaje"  min="0.1" max="99.6" step="0.01" id="porcentaje">
                   <input required type="number" class="form-control" name="porcentaje1" min="0.1" max="99.6" step="0.01" id="porcentaje1">
