@@ -395,14 +395,49 @@ return false;
   let porcentaje3 = document.getElementById('porcentaje3');
   let porcentaje4 = document.getElementById('porcentaje4');
   let mensaje = document.getElementById('mensaje');
-  console.log(porcentaje.value);
+
+
+   porcentaje.addEventListener('keyup', ()=>{
+    let sumainicio = parseInt(porcentaje.value);
+ 
+        if (sumainicio > 100) {
+      porcentaje1.disabled = true;
+      porcentaje2.disabled = true;
+      porcentaje3.disabled = true;
+      porcentaje4.disabled = true;
+      porcentaje.value = '';
+      porcentaje1.value = '';
+      porcentaje2.value = '';
+      porcentaje3.value = '';
+      porcentaje4.value = '';
+      mensaje.innerHTML = 'Corregir, no puede exceder a 100%';
+    }else if(sumainicio === 100){
+      porcentaje1.disabled = true;
+      porcentaje2.disabled = true;
+      porcentaje3.disabled = true;
+      porcentaje4.disabled = true;
+      porcentaje1.value = '';
+      porcentaje2.value = '';
+      porcentaje3.value = '';
+      porcentaje4.value = '';
+      mensaje.innerHTML = 'A acumulado el total de porcentajes no puede agregar uno nuevo';
+    }else if(sumainicio < 100){
+      porcentaje1.disabled = false;
+      porcentaje2.disabled = false;
+      porcentaje3.disabled = false;
+      porcentaje4.disabled = false;
+       mensaje.innerHTML = '';
+    }
+  })
+
     porcentaje1.addEventListener('keyup', ()=>{
     let sumavalores = parseInt(porcentaje.value) + parseInt(porcentaje1.value);
-    console.log(sumavalores);
+ 
         if (sumavalores > 100) {
-      //porcentaje2.disabled = true;
-      //porcentaje3.disabled = true;
-      //porcentaje4.disabled = true;
+      porcentaje.focus();
+      porcentaje2.disabled = true;
+      porcentaje3.disabled = true;
+      porcentaje4.disabled = true;
       porcentaje.value = '';
       porcentaje1.value = '';
       porcentaje2.value = '';
@@ -410,6 +445,7 @@ return false;
       porcentaje4.value = '';
       mensaje.innerHTML = 'Corregir, no puede exceder a 100%';
     }else if(sumavalores === 100){
+      porcentaje.focus();
       porcentaje2.disabled = true;
       porcentaje3.disabled = true;
       porcentaje4.disabled = true;
@@ -417,6 +453,11 @@ return false;
       porcentaje3.value = '';
       porcentaje4.value = '';
       mensaje.innerHTML = 'A acumulado el total de porcentajes no puede agregar uno nuevo';
+    }else if(sumavalores < 100){
+      porcentaje2.disabled = false;
+      porcentaje3.disabled = false;
+      porcentaje4.disabled = false;
+       mensaje.innerHTML = '';
     }
   })
   porcentaje2.addEventListener('keyup', ()=>{
@@ -425,15 +466,23 @@ return false;
     if (sumatotal > 100) {
       porcentaje3.disabled = true;
       porcentaje4.disabled = true;
+      porcentaje.value = '';
+      porcentaje1.value = '';
+      porcentaje2.value = '';
       porcentaje3.value = '';
       porcentaje4.value = '';
-      mensaje.innerHTML = 'Corregir en caso de agregar un nuevo porcentaje, no pueden exceder a 100';
+      porcentaje.focus();
+      mensaje.innerHTML = 'Corregir, no puede exceder a 100%';
     }else if (sumatotal === 100){
       porcentaje3.disabled = true;
       porcentaje4.disabled = true;
       porcentaje3.value = '';
       porcentaje4.value = '';
       mensaje.innerHTML = 'A acumulado el total de porcentajes no puede agregar uno nuevo';
+    }else if(sumavalores < 100){
+      porcentaje3.disabled = false;
+      porcentaje4.disabled = false;
+       mensaje.innerHTML = '';
     }
   })
   porcentaje3.addEventListener('keyup', ()=>{
@@ -441,12 +490,43 @@ return false;
     console.log(suma);
     if (suma > 100) {
       porcentaje4.disabled = true;
+       porcentaje.value = '';
+      porcentaje1.value = '';
+      porcentaje2.value = '';
+      porcentaje3.value = '';
       porcentaje4.value = '';
-      mensaje.innerHTML = 'Corregir en caso de agregar un nuevo porcentaje, no pueden exceder a 100';
+      porcentaje.focus();
+      mensaje.innerHTML = 'Corregir, no puede exceder a 100%';
     }else if(suma === 100){
       porcentaje4.disabled = true;
       porcentaje4.value = '';
       mensaje.innerHTML = 'A acumulado el total de porcentajes no puede agregar uno nuevo';
+    }else if(suma < 100){
+      porcentaje4.disabled = false;
+       mensaje.innerHTML = '';
+    }
+  })
+ porcentaje4.addEventListener('keyup', ()=>{
+    let sumasfinal = parseInt(porcentaje.value) + parseInt(porcentaje1.value) + parseInt(porcentaje2.value)+parseInt(porcentaje3.value)+parseInt(porcentaje4.value);
+    console.log(sumasfinal)
+    if (sumasfinal > 100) {
+      porcentaje.value = '';
+      porcentaje1.value = '';
+      porcentaje2.value = '';
+      porcentaje3.value = '';
+      porcentaje4.value = '';
+      porcentaje.focus();
+      mensaje.innerHTML = 'Corregir, no puede exceder a 100%';
+    }else if(sumasfinal === 100){
+      mensaje.innerHTML = 'Excelente, valores sumados son del 100%';
+    }else if(sumasfinal< 100){
+      porcentaje.value = '';
+      porcentaje1.value = '';
+      porcentaje2.value = '';
+      porcentaje3.value = '';
+      porcentaje4.value = '';
+      porcentaje.focus();
+      mensaje.innerHTML = 'Corregir, no puede ser menores a 100%';
     }
   })
 </script>
