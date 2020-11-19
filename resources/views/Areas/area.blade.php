@@ -9,11 +9,12 @@
                     <h3 class="card-title">Áreas</h3>
                 </div>
                 <div class="card-body">
-                    <table id="example1" class="table table-bordered table-striped">
+                    <table id="example1" class="table table-bordered table-striped" style="width:100%">
                         <thead>
                             <tr>
-                                <th>Clave área</th>
+                                <th>Clave Área</th>
                                 <th>Área</th>
+                                <th width="15%"></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -21,78 +22,31 @@
                             <tr>
                                 <td>{{$area->clave_area}}</td>
                                 <td>{{$area->area}}</td>
+                                <td width="15%" display="align-items:center;">
+                                    <div class="form-group">
+                                        <button type="button" id="actualizar" style='width:40px; height:27px'> <i class="fas fa-pen-square"></i></button>
+                                        <button type="button" style='width:40px; height:27px; align-items:center;' data-toggle="modal" data-target="#modaldeletearea">
+                                            <i class="far fa-trash-alt"></i>
+                                        </button>
+                                    </div>
+                                </td>
                             </tr>
-                          @endforeach
+                            @endforeach
                         </tbody>
                     </table>
-                    <!--<div class="card-body">
-                        <div class="margin">
-                            <div class="btn-group">
-                                <div class="form-group">
-                                    <button type="submit"  name="acciones" value="primero" id="primero" style='width:40px; height:27px'><i class="fas fa-backward" ></i></button>
-                                </div>
-                                <div class="form-group">
-                                <button type="submit" name="acciones" value="atras" id="atras" style='width:40px; height:27px'><i class="fas fa-arrow-circle-left"></i></button>
-                                </div>
-                                <div class="form-group">
-                                    <button type="submit" name="acciones" value="siguiente" id="siguiente" style='width:40px; height:27px'><i class="fas fa-arrow-circle-right"></i></button>
-                                </div>
-                                <div class="form-group">
-                                    <button type="submit" name="acciones" value="ultimo" id="ultimo" style='width:40px; height:27px'><i class="fas fa-forward"></i></button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                     <div class="card-body">
-                        <div class="margin">
+                        <div display="inline-block" class="margin">
                             <div class="btn-group">
-                                <div class="form-group">
-                                    <button id="buscar" type="button" data-toggle="modal" data-target="#exampleModal" style='width:40px; height:27px'>
-                                        <i class="fas fa-search"></i>
-                                    </button>
-                                </div>
                                 <div class="form-group">
                                     <button type="button" id="nuevo" style='width:40px; height:27px'> <i class="fas fa-user-plus"></i></button>
                                 </div>
-                                <div class="form-group">
-                                    <button type="button" id="actualizar" style='width:40px; height:27px'> <i class="fas fa-pen-square"></i></button>
-                                </div>
-                                <div class="form-group">
-                                    <a href="#" id="eliminar" data-target="#modal-deletearea-{{$aux->id}}" data-toggle="modal" style='width:40px; height:27px'>
-                                        <button type="button" style='width:40px; height:27px'>
-                                            <i class="far fa-trash-alt"></i>
-                                        </button>
-                                    </a>
-                                </div>
                             </div>
                         </div>
                     </div>
-
-                        <div class="col-sm-3">
-                            <div class="card-body">
-                                <div class="margin">
-                                    <div class="btn-group">
-                                        <div class="form-group">
-                                            
-                                            <button id="nuevo_reg" name="acciones" value="registrar" type="submit" style="display: none;width:40px; height:27px'"><i class="fas fa-save"></i></button>
-                                        </div>
-                                        <div class="form-group">
-                                            <button name="acciones" value="actualizar" id="actualizar_reg" type="submit" style="display: none;width:40px; height:27px'"><i class="fas fa-save"></i></button>
-                                        </div>
-
-                                        <div class="form-group">
-                                            <button name="acciones" value="cancelar" id="cancelar_reg" type="submit" style="display: none;width:40px; height:28px"><i class="far fa-window-close"></i></button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
                 </div>
             </div>     
         </div>
 
-        
-    
         <!-- Inicio Crud-->
         <!--<div class="col">
             <div class="card card-secondary">
@@ -110,14 +64,12 @@
                             <input type="hidden" name="identificador" class="form-control" value="{{$aux->id}}"  onkeyup="mayus(this);">
                             </div>
                         </div>
-                        
                     </div>  
-                </form>
-                @include('areas.modaldeletearea')
+                </form>                
                 @include('areas.modalsearcharea')
             </div>  
         </div>-->
     </div>
 </div>
-
+@include('areas.modaldeletearea')
 @endsection                 
