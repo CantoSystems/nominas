@@ -293,6 +293,7 @@ Schema::connection('DB_Serverr')->create('empleados', function($table){
     $table->string('direccion_compania',100);
     $table->string('telefono_compania',15);
     $table->double('sueldo');
+    $table->double('sueldo_integrado');
     $table->string('motivo_separacion',100);
     $table->string('nombre_jefe',100);
     $table->string('puesto_jefe',100);
