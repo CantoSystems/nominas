@@ -11,8 +11,8 @@ class AreasController extends Controller
 {
     /**
     * Control de los botones siguiente | atras | delante | ultimo
-    * Realiza el vaciado de los registros en la tabla así como en 
-    * el Datatable mediante las consultas 
+    * Realiza el vaciado de los registros en la tabla así como en
+    * el Datatable mediante las consultas
     * Consultas mediante Builder Query
     *  Conexion enviado a la función Conectr
     * Se envia la clave de la empresa
@@ -21,7 +21,7 @@ class AreasController extends Controller
     * Elimina registro modal
     * @version V1
     * @author Gustavo
-    * @param $request | Array 
+    * @param $request | Array
     * @return vista   | $areas | array | $aux | array
     */
     public function index(Request $request)
@@ -66,7 +66,7 @@ class AreasController extends Controller
                case 'ultimo':
                 $aux = DB::connection('DB_Serverr')->table('areas')->get()->last();
                $areas = DB::connection('DB_Serverr')->table('areas')->get();
-                return view('Areas.area',compact('aux','areas')); 
+                return view('Areas.area',compact('aux','areas'));
                break;
                case 'registrar':
                $this->registrar($request);
@@ -97,19 +97,19 @@ class AreasController extends Controller
                 case 'buscar':
                   $criterio= $request->opcion;
                   if($criterio=='area'){
-                    $aux = DB::connection('DB_Serverr')->table('areas')->where('area',$request->busca)->first(); 
+                    $aux = DB::connection('DB_Serverr')->table('areas')->where('area',$request->busca)->first();
                   }
                   if($criterio=='clave'){
-                    $aux = DB::connection('DB_Serverr')->table('areas')->where('clave_area',$request->busca)->first(); 
+                    $aux = DB::connection('DB_Serverr')->table('areas')->where('clave_area',$request->busca)->first();
                   }
                   $areas = DB::connection('DB_Serverr')->table('areas')->get();
                 return view('Areas.area',compact('aux','areas'));
                 break;
-                
+
                default:
                    # code...
                    break;
-}     
+}
 }
 
 
@@ -117,9 +117,9 @@ class AreasController extends Controller
           *
           * Recibe el $request del metodo accciones $datos
           * Conexión $clv_Empresa
-          * Builder Query insert 
+          * Builder Query insert
           * Valida el nombre del area no venga vacio
-          * guarda el resultado del funcion generador 
+          * guarda el resultado del funcion generador
           * @version V1
           * @author Gustavo
           * @param void
@@ -134,27 +134,27 @@ public function registrar($datos){
     $clave_area= $this->generador();
     $clv_empresa=$this->conectar($clv);
 
- 
+
   \Config::set('database.connections.DB_Serverr', $clv_empresa);
-    
+
     DB::connection('DB_Serverr')->insert('insert into areas (area,clave_area)
     values (?,?)',[$datos->area,$clave_area]);
 }
 
 
    /**
-      *Genera un numero random de digitos 
-      *Para la clave indicadora del banco 
+      *Genera un numero random de digitos
+      *Para la clave indicadora del banco
       * @version V1
       * @author Gustavo
       * @param void
-      * @return $codigo | int 
+      * @return $codigo | int
       */
-      
+
 public function generador(){
 	$raiz= '0123456789';
 	$codigo='';
-	for ($i=0; $i < 3; $i++) { 
+	for ($i=0; $i < 3; $i++) {
 		$letra= $raiz[mt_rand(0, 4 - 1)];
 		$codigo .=$letra;
 	}
@@ -187,9 +187,9 @@ public function conectar($clv)
     $clave_area= $this->generador();
     $clv_empresa=$this->conectar($clv);
 
- 
+
     \Config::set('database.connections.DB_Serverr', $clv_empresa);
-    
+
     $aux1 = DB::connection('DB_Serverr')->table('areas')->where('id',$id)->delete();
     return redirect()->route('areas.index');
   }
