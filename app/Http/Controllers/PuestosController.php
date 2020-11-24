@@ -10,7 +10,7 @@ use DataTables;
 
 class PuestosController extends Controller
 {
-    
+
     public function index(Request $request)
     {
         $clv=Session::get('clave_empresa');
@@ -53,7 +53,7 @@ class PuestosController extends Controller
                case 'ultimo':
                 $aux = DB::connection('DB_Serverr')->table('puestos')->get()->last();
                 $puestos= DB::connection('DB_Serverr')->table('puestos')->get();
-                return view('puestos.puestos',compact('aux','puestos')); 
+                return view('puestos.puestos',compact('aux','puestos'));
                break;
                case 'registrar':
                   $this->registrar($request);
@@ -79,19 +79,19 @@ class PuestosController extends Controller
                case 'cancelar':
                  return redirect()->route('puestos.index');
                  break;
-                  
+
                  case 'buscar':
-                      
+
                   $aux = DB::connection('DB_Serverr')->table('puestos')->where('nombre_puesto',$request->busca)->first();
                   $puestos = DB::connection('DB_Serverr')->table('puestos')->get();
                 return view('puestos.puestos',compact('aux','puestos'));
-                 break; 
-                  
-                     
+                 break;
+
+
                default:
                    # code...
                    break;
-}     
+}
 }
 
 public function registrar($datos){
@@ -99,24 +99,24 @@ public function registrar($datos){
       return redirect()->route('puestos.index');
     }
     $clv=Session::get('clave_empresa');
-    $clave_puesto= $this->generador();
+    //$clave_puesto= $this->generador();
     $clv_empresa=$this->conectar($clv);
     \Config::set('database.connections.DB_Serverr', $clv_empresa);
-   
+
     DB::connection('DB_Serverr')->insert('insert into puestos (clave_puesto, nombre_puesto)
-    values (?,?)',[$clave_puesto,$datos->puesto]);
+    values (?,?)',[$datos->clave_puesto,$datos->puesto]);
 }
 
 public function generador(){
 	$raiz= '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
 	$codigo='';
-	for ($i=0; $i < 3; $i++) { 
+	for ($i=0; $i < 3; $i++) {
 		$letra= $raiz[mt_rand(0, 4 - 1)];
 		$codigo .=$letra;
 	}
 	return $codigo;
     }
-    
+
 public function conectar($clv)
   {
 
@@ -134,7 +134,7 @@ public function conectar($clv)
         'strict'      => true,
         'engine'      => null,
     ];
-  
+
     return $configDb;
 
   }
@@ -144,7 +144,7 @@ public function conectar($clv)
     $clv_empresa=$this->conectar($clv);
 
     \Config::set('database.connections.DB_Serverr', $clv_empresa);
-    
+
     $aux1 = DB::connection('DB_Serverr')->table('puestos')->where('id',$id)->delete();
     return redirect()->route('puestos.index');
   }
