@@ -130,7 +130,7 @@ class DepartamentosController extends Controller
                default:
                    # code...
                    break;
-}     
+}
 	}
 
 	public function registrar($datos){
@@ -138,19 +138,19 @@ class DepartamentosController extends Controller
 			return redirect()->route('departamentos.index');
 		}
 		$clv=Session::get('clave_empresa');
-		$clave_departamento= $this->generador();
+		//$clave_departamento= $this->generador();
 		$clv_empresa=$this->conectar($clv);
 
- 
+
 		\Config::set('database.connections.DB_Serverr', $clv_empresa);
 		DB::connection('DB_Serverr')->insert('insert into departamentos (clave_departamento, departamento,clave_area)
-		values (?,?,?)',[$clave_departamento,$datos->departamento,$datos->clave_area]);
+		values (?,?,?)',[$datos->clave_departamento,$datos->departamento,$datos->clave_area]);
 	}
 
 	public function generador(){
 	$raiz= '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
 	$codigo='';
-	for ($i=0; $i < 3; $i++) { 
+	for ($i=0; $i < 3; $i++) {
 		$letra= $raiz[mt_rand(0, 4 - 1)];
 		$codigo .=$letra;
 	}
@@ -162,15 +162,15 @@ class DepartamentosController extends Controller
     $clv= Session::get('clave_empresa');
     $clv_empresa=$this->conectar($clv);
 
- 
+
 	\Config::set('database.connections.DB_Serverr', $clv_empresa);
-        
+
     $clv=$datos->clave_departamento;
 
     $aux1 = DB::connection('DB_Serverr')->table('departamentos')->where('clave_departamento',$clv)->first();
-    
+
     DB::connection('DB_Serverr')->table('departamentos')->where('clave_departamento',$clv)->update(['departamento'=>$datos->departamento,'clave_area'=>$datos->clave_area]);
-        
+
 
     }
 
@@ -178,10 +178,10 @@ class DepartamentosController extends Controller
    	$clv= Session::get('clave_empresa');
    	$clv_empresa=$this->conectar($clv);
 
- 
+
 	\Config::set('database.connections.DB_Serverr', $clv_empresa);
 
-        
+
     $aux1 = DB::connection('DB_Serverr')->table('departamentos')->where('id',$id)->delete();
     return redirect()->route('departamentos.index');
     }
