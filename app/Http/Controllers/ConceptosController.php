@@ -12,16 +12,16 @@ class ConceptosController extends Controller
     $clv=Session::get('clave_empresa');
     $clv_empresa=$this->conectar($clv);
 
- 
+
     \Config::set('database.connections.DB_Serverr', $clv_empresa);
 
-    
+
     $accion= $request->acciones;
     $indic=$request->identificador;
-    
+
     switch ($accion) {
         case '':
-            $aux = DB::connection('DB_Serverr')->table('conceptos')->first(); 
+            $aux = DB::connection('DB_Serverr')->table('conceptos')->first();
             return view('conceptos.conceptos',compact('aux'));
         break;
 
@@ -50,12 +50,12 @@ class ConceptosController extends Controller
         break;
 
         case 'primero':
-            $aux = DB::connection('DB_Serverr')->table('conceptos')->first(); 
+            $aux = DB::connection('DB_Serverr')->table('conceptos')->first();
             return view('conceptos.conceptos',compact('aux'));
         break;
 
         case 'ultimo':
-            $aux = DB::connection('DB_Serverr')->table('conceptos')->get()->last(); 
+            $aux = DB::connection('DB_Serverr')->table('conceptos')->get()->last();
             return view('conceptos.conceptos',compact('aux'));
         break;
 
@@ -75,17 +75,17 @@ class ConceptosController extends Controller
 
         case 'buscar':
 
-            $aux = DB::connection('DB_Serverr')->table('conceptos')->where('concepto',$request->busca)->first(); 
+            $aux = DB::connection('DB_Serverr')->table('conceptos')->where('concepto',$request->busca)->first();
             $aux1 = DB::connection('DB_Serverr')->table('conceptos')->get();
           return view('conceptos.conceptos',compact('aux','aux1'));
           break;
 
         default:
-            
+
         break;
 
     }
-   
+
  }
 
  public function conectar($clv)
@@ -105,14 +105,14 @@ class ConceptosController extends Controller
         'strict'      => true,
         'engine'      => null,
     ];
-  
+
     return $configDb;
 
   }
 
  public function registrar($datos){
     $clv=Session::get('clave_empresa');
-    $clave_concepto= $this->generador($datos->naturaleza);
+    $clave_concepto= $datos->clave_concepto.$datos->naturaleza;
     if(is_null($datos->ispt)){
      $ispt=1;
     }
@@ -137,10 +137,10 @@ class ConceptosController extends Controller
     else{
         $estatal=$datos->estatal;
     }
-   
+
     $clv_empresa=$this->conectar($clv);
 
- 
+
     \Config::set('database.connections.DB_Serverr', $clv_empresa);
     DB::connection('DB_Serverr')->insert('insert into conceptos (clave_concepto,concepto,formula,naturaleza,manejo
     ,cantidad,importe,monto,ispt,imss,infonavit,estatal)
@@ -148,19 +148,21 @@ class ConceptosController extends Controller
     ,$datos->manejo,$datos->cantidad,$datos->importe,$datos->monto,$ispt,$imss,$infonavit,$estatal]);
 }
 public function generador($naturaleza){
-	$raiz= '0123456789';
+
+	/*$raiz= '0123456789';
 	$codigo='';
-	for ($i=0; $i < 3; $i++) { 
+	for ($i=0; $i < 3; $i++) {
 		$letra= $raiz[mt_rand(0, 4 - 1)];
 		$codigo .=$letra;
     }
     $codigo=$codigo.$naturaleza;
-	return $codigo;
+	return $codigo;*/
     }
-    
+
 public function actualizar($datos){
     $clv=Session::get('clave_empresa');
-    $clave_concepto= $this->generador($datos->naturaleza);
+    $clave_concepto= $datos->clave_concepto.$datos->naturaleza;
+    //$this->generador($datos->naturaleza);
     if(is_null($datos->ispt)){
      $ispt=1;
     }
@@ -185,10 +187,10 @@ public function actualizar($datos){
     else{
         $estatal=$datos->estatal;
     }
-   
+
     $clv_empresa=$this->conectar($clv);
 
- 
+
     \Config::set('database.connections.DB_Serverr', $clv_empresa);
     $aux1 = DB::connection('DB_Serverr')->table('conceptos')->where('clave_concepto',$datos->clave_concepto)->first();
      if($aux1!=="")
@@ -204,9 +206,9 @@ public function actualizar($datos){
     $clv= Session::get('clave_empresa');
     $clv_empresa=$this->conectar($clv);
 
- 
+
     \Config::set('database.connections.DB_Serverr', $clv_empresa);
-       
+
     $aux1 = DB::connection('DB_Serverr')->table('conceptos')->where('id',$id)->delete();
     return redirect()->route('conceptos.index');
 

@@ -14,9 +14,9 @@ class PeriodosController extends Controller
     $clv= Session::get('clave_empresa');
     $clv_empresa=$this->conectar($clv);
 
- 
+
     \Config::set('database.connections.DB_Serverr', $clv_empresa);
-    
+
     $periodos=DB::connection('DB_Serverr')->table('periodos')->get();
     $cant=DB::connection('DB_Serverr')->table('periodos')->count();
     return view('periodos.periodos',compact('periodos','cant'));
@@ -29,12 +29,12 @@ class PeriodosController extends Controller
     $clv= Session::get('clave_empresa');
     $clv_empresa=$this->conectar($clv);
 
- 
+
     \Config::set('database.connections.DB_Serverr', $clv_empresa);
-   
-    $cant=DB::connection('DB_Serverr')->table('periodos')->count();
+
+    //$cant=DB::connection('DB_Serverr')->table('periodos')->count();
     DB::connection('DB_Serverr')->insert('insert into periodos (numero,fecha_inicio,fecha_fin,fecha_pago)
-    values (?,?,?,?)',[$cant,$datos->fecha_inicio,$datos->fecha_fin,$datos->fecha_pago]);
+    values (?,?,?,?)',[$datos->numero,$datos->fecha_inicio,$datos->fecha_fin,$datos->fecha_pago]);
  }
 
     public function seleccionarperiodo(Request $request){
@@ -46,17 +46,17 @@ class PeriodosController extends Controller
         $clv=Session::get('clave_empresa');
         $clv_empresa=$this->conectar($clv);
 
- 
+
         \Config::set('database.connections.DB_Serverr', $clv_empresa);
 
-       
+
         $accion= $request->acciones;
         $indic=$request->identificador;
-        
+
         switch ($accion) {
             case '':
                 $aux = DB::connection('DB_Serverr')->table('periodos')->first();
-                $periodos=DB::connection('DB_Serverr')->table('periodos')->get(); 
+                $periodos=DB::connection('DB_Serverr')->table('periodos')->get();
                 return view('periodos.crudperiodos',compact('aux','periodos'));
             break;
 
@@ -65,7 +65,7 @@ class PeriodosController extends Controller
                 if($aux==""){
                     $aux = DB::connection('DB_Serverr')->table('periodos')->get()->last();
                 }
-                $periodos=DB::connection('DB_Serverr')->table('periodos')->get(); 
+                $periodos=DB::connection('DB_Serverr')->table('periodos')->get();
                 return view('periodos.crudperiodos',compact('aux','periodos'));
             break;
 
@@ -74,20 +74,20 @@ class PeriodosController extends Controller
                 if($aux==""){
                     $aux = DB::connection('DB_Serverr')->table('periodos')->first();
                 }
-                $periodos=DB::connection('DB_Serverr')->table('periodos')->get(); 
+                $periodos=DB::connection('DB_Serverr')->table('periodos')->get();
                 return view('periodos.crudperiodos',compact('aux','periodos'));
             break;
 
             case 'primero':
                 $aux = DB::connection('DB_Serverr')->table('periodos')->first();
-                $periodos=DB::connection('DB_Serverr')->table('periodos')->get(); 
+                $periodos=DB::connection('DB_Serverr')->table('periodos')->get();
                 return view('periodos.crudperiodos',compact('aux','periodos'));
             break;
 
             case 'ultimo':
                 $aux = DB::connection('DB_Serverr')->table('periodos')->latest('id')->first();
-                $periodos=DB::connection('DB_Serverr')->table('periodos')->get(); 
-                return view('periodos.crudperiodos',compact('aux','periodos')); 
+                $periodos=DB::connection('DB_Serverr')->table('periodos')->get();
+                return view('periodos.crudperiodos',compact('aux','periodos'));
             break;
 
             case 'registrar':
@@ -105,11 +105,11 @@ class PeriodosController extends Controller
             break;
 
             default:
-                
+
             break;
 
         }
-       
+
     }
 
     public function conectar($clv)
@@ -129,7 +129,7 @@ class PeriodosController extends Controller
         'strict'      => true,
         'engine'      => null,
         ];
-  
+
         return $configDb;
 
     }
@@ -139,15 +139,15 @@ class PeriodosController extends Controller
     $clv= Session::get('clave_empresa');
     $clv_empresa=$this->conectar($clv);
 
- 
+
     \Config::set('database.connections.DB_Serverr', $clv_empresa);
-      
+
     $fecha=$datos->fecha_inicio;
 
     $aux1 = DB::connection('DB_Serverr')->table('periodos')->where('fecha_inicio',$fecha)->first();
-    
+
     DB::connection('DB_Serverr')->table('periodos')->where('fecha_inicio',$datos->fecha_inicio)->update(['fecha_inicio'=>$datos->fecha_inicio,'fecha_fin'=>$datos->fecha_fin,'fecha_pago'=>$datos->fecha_pago]);
-        
+
 
     }
 
@@ -155,10 +155,10 @@ class PeriodosController extends Controller
     $clv= Session::get('clave_empresa');
     $clv_empresa=$this->conectar($clv);
 
- 
+
     \Config::set('database.connections.DB_Serverr', $clv_empresa);
 
-       
+
     $aux1 = DB::connection('DB_Serverr')->table('periodos')->where('id',$id)->delete();
 
     return redirect()->route('periodos.acciones');

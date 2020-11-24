@@ -32,7 +32,7 @@
          <!--Fin Datatables-->
 
          <!--Sección botones y direcciones-->
-        
+
             <div class="col">
             <div class="card card-secondary">
                 <div class="card-header">
@@ -41,15 +41,18 @@
             <div class="card-body">
                 <form action="{{ route('puestos.index')}}" method="GET" autocomplete="off">
                     <div class="row">
-                        <div class="col-md-8">
+                      <div class="col-md-6">
+                          <label>Clave del puesto:</label>
+                        <input type="text" class="form-control" onkeyup="mayus(this)"; name="clave_puesto" value="{{$aux->clave_puesto}}">
+                        <input type="hidden" class="form-control" name="identificador" value="{{$aux->id}}">
+                      </div>
+                        <div class="col-md-6">
                             <label>Puesto:</label>
                             <input type="text" class="form-control" name="puesto" value="{{$aux->nombre_puesto}}" onkeypress="return validar(event)">
                         </div>
-                        <div class="col-md-4">
-                            <input type="hidden" class="form-control" name="identificador" value="{{$aux->id}}">
-                            <input type="hidden" class="form-control" name="clave_puesto" value="{{$aux->clave_puesto}}">
-                        </div>
-                        
+
+
+
                          <div class="col-sm-5">
                     <div class="card-body">
                         <div class="margin">
@@ -99,20 +102,20 @@
                             </div>
                         </div>
                     </div>
-                </div> 
+                </div>
 
 
-                
-               
+
+
                 <div class="col-sm-3">
                     <div class="card-body">
                         <div class="margin">
                             <div class="btn-group">
                                 <div class="form-group">
-                                    
+
                                        <button id="nuevo_reg" name="acciones" value="registrar" type="submit" style="display: none;width:40px; height:27px'"><i class="fas fa-save"></i></button>
-                                        
-                                    
+
+
                                 </div>
                                 <div class="form-group">
                                     <button name="acciones" value="actualizar" id="actualizar_reg" type="submit" style="display: none;width:40px; height:27px'"><i class="fas fa-save"></i></button>
@@ -138,5 +141,5 @@
 
 </div>
 </div>
- 
+
 @endsection
