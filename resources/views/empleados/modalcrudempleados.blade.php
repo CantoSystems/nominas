@@ -8,7 +8,7 @@
         </button>
       </div>
       <div class="modal-body">
-        
+
 <div class="container">
   <div class="row">
     <div class="col-md-12">
@@ -31,7 +31,7 @@
             <li class="nav-item">
               <a class="nav-link" id="custom-tabs-one-settings-tab" data-toggle="pill" href="#custom-tabs-one-settings" role="tab" aria-controls="custom-tabs-one-settings" aria-selected="false">Referencias</a>
             </li>
-            
+
           </ul>
         </div><!--Final Cabeceras-->
         <!--Inicio contenido-->
@@ -83,9 +83,9 @@
                     <select class="custom-select" name="clave_departamento">
                       <option selected disabled value="">Seleccione una opción:</option>
                       @foreach ($departamentos as $depa)
-                    <option value="{{$depa->clave_departamento}}">{{$depa->departamento}}</option>    
+                    <option value="{{$depa->clave_departamento}}">{{$depa->departamento}}</option>
                       @endforeach
-                      
+
                     </select>
                   </div>
                   <div class="col-md-2 mb-3">
@@ -93,7 +93,7 @@
                     <select class="custom-select" name="clave_puesto">
                       <option selected disabled value="">Seleccione una opción:</option>
                       @foreach ($puestos as $puest)
-                    <option value="{{$puest->clave_puesto}}">{{$puest->nombre_puesto}}</option>    
+                    <option value="{{$puest->clave_puesto}}">{{$puest->nombre_puesto}}</option>
                       @endforeach
                     </select>
                   </div>
@@ -326,40 +326,40 @@
                     <div class="col-md-11 mb-3" style="text-align: right;">
                       <h6 id="mensaje"></h6>
                     </div>
-                    
-                    
+
+
                 </div>
                  <div class="col-md-4 mb-3">
-                  
+
                   <label for="validationDefault03">Nombre</label>
-                    <input required type="text" class="form-control" name="beneficiario" onkeyup="mayus(this);" onkeypress="return validar(event)">
-                    <input required type="text" class="form-control" name="beneficiario1" onkeyup="mayus(this);" onkeypress="return validar(event)">
-                    <input required type="text" class="form-control" name="beneficiario2" onkeyup="mayus(this);" onkeypress="return validar(event)">
-                    <input required type="text" class="form-control" name="beneficiario3" onkeyup="mayus(this);" onkeypress="return validar(event)">
-                    <input required type="text" class="form-control" name="beneficiario4" onkeyup="mayus(this);" onkeypress="return validar(event)"> 
+                    <input required type="text" class="form-control" name="beneficiario" id="beneficiario" onkeyup="mayus(this);" onkeypress="return validar(event)">
+                    <input  type="text" class="form-control" name="beneficiario1" id="beneficiario1"  onkeyup="mayus(this);" onkeypress="return validar(event)">
+                    <input  type="text" class="form-control" name="beneficiario2" id="beneficiario2" onkeyup="mayus(this);" onkeypress="return validar(event)">
+                    <input  type="text" class="form-control" name="beneficiario3" id="beneficiario3" onkeyup="mayus(this);" onkeypress="return validar(event)">
+                    <input  type="text" class="form-control" name="beneficiario4" id="beneficiario4" onkeyup="mayus(this);" onkeypress="return validar(event)">
                  </div>
                  <div class="col-md-4 mb-3">
-                
+
                     <label for="validationDefault03">Parentesco</label>
-                    <input required type="text" class="form-control" name="parentesco" onkeyup="mayus(this);" onkeypress="return validar(event)">
-                    <input required type="text" class="form-control" name="parentesco1" onkeyup="mayus(this);" onkeypress="return validar(event)">
-                    <input required type="text" class="form-control" name="parentesco2" onkeyup="mayus(this);" onkeypress="return validar(event)">
-                    <input required type="text" class="form-control" name="parentesco3" onkeyup="mayus(this);" onkeypress="return validar(event)">
-                    <input required type="text" class="form-control" name="parentesco4" onkeyup="mayus(this);" onkeypress="return validar(event)"> 
+                    <input required type="text" class="form-control" name="parentesco" id="parentesco" onkeyup="mayus(this);" onkeypress="return validar(event)">
+                    <input type="text" class="form-control" name="parentesco1" id="parentesco1" onkeyup="mayus(this);" onkeypress="return validar(event)">
+                    <input type="text" class="form-control" name="parentesco2" id="parentesco2" onkeyup="mayus(this);" onkeypress="return validar(event)">
+                    <input type="text" class="form-control" name="parentesco3" id="parentesco3" onkeyup="mayus(this);" onkeypress="return validar(event)">
+                    <input type="text" class="form-control" name="parentesco4" id="parentesco4" onkeyup="mayus(this);" onkeypress="return validar(event)">
                  </div>
 
                  <div class="col-md-3 mb-3">
                   <label for="validationDefault03">% de Participacion</label>
                   <input required type="number" class="form-control" name="porcentaje"  min="0.1" max="99.6" step="0.01" id="porcentaje">
-                  <input required type="number" class="form-control" name="porcentaje1" min="0.1" max="99.6" step="0.01" id="porcentaje1">
-                  <input required type="number" class="form-control" name="porcentaje2" min="0.1" max="99.6" step="0.01" id="porcentaje2">
-                  <input required type="number" class="form-control" name="porcentaje3" min="0.1" max="99.6" step="0.01" id="porcentaje3">
-                  <input required type="number" class="form-control" name="porcentaje4" min="0.1" max="99.6" step="0.01" id="porcentaje4">
+                  <input  type="number" class="form-control" name="porcentaje1" min="0.1" max="99.6" step="0.01" id="porcentaje1">
+                  <input  type="number" class="form-control" name="porcentaje2" min="0.1" max="99.6" step="0.01" id="porcentaje2">
+                  <input  type="number" class="form-control" name="porcentaje3" min="0.1" max="99.6" step="0.01" id="porcentaje3">
+                  <input  type="number" class="form-control" name="porcentaje4" min="0.1" max="99.6" step="0.01" id="porcentaje4">
                  </div>
                  <div class="col-sm-12">
                     <label for="" style="text-align: left;">
                       <h4><strong>Estudios anteriores</strong></h4>
-                    </label> 
+                    </label>
                 </div>
                <!--Inicio titulos-->
                  <label for="" class="col-form-label col-sm-2">&nbsp &nbsp &nbsp </label>
@@ -371,7 +371,7 @@
                    <div class="col-sm-4">
                     <p><label for="pensamiento_id" style="text-align: justify;">Inicio &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp  Finalizó</label></p>
                    </div>
-                   
+
                    <div class="col-sm-3">
                     <p><label for="pensamiento_id" style="text-align: justify;">Título obtenido</label></p>
                    </div>
@@ -384,7 +384,7 @@
                 <div class="col-sm-4">
                   <input required name="duracion_primaria" class="form-control" id="duracion5">
                 </div>
-              
+
                 <div class="col-sm-3">
                   <input required type="text" name="titulo_primaria" class="form-control" onkeyup="mayus(this);" onkeypress="return validar(event)">
                 </div>
@@ -397,7 +397,7 @@
                 <div class="col-sm-4">
                   <input required name="duracion_secundaria" class="form-control" id="duracion6">
                 </div>
-               
+
                 <div class="col-sm-3">
                   <input required type="text" name="titulo_secundaria" class="form-control" onkeyup="mayus(this);" onkeypress="return validar(event)">
                 </div>
@@ -410,7 +410,7 @@
                 <div class="col-sm-4">
                   <input required  name="duracion_preparatoria" class="form-control" id="duracion7">
                 </div>
-               
+
                 <div class="col-sm-3">
                   <input required type="text" name="titulo_preparatoria" class="form-control" onkeyup="mayus(this);" onkeypress="return validar(event)">
                 </div>
@@ -423,12 +423,12 @@
                 <div class="col-sm-4">
                   <input required name="duracion_profesional" class="form-control" id="duracion8">
                 </div>
-                
+
                 <div class="col-sm-3">
                   <input required type="text" name="titulo_profesional" class="form-control" onkeyup="mayus(this);" onkeypress="return validar(event)">
                 </div>
               <!--FIN Profesional-->
-               
+
                <!--Inicio Otras-->
                 <label for="" class="col-form-label col-sm-2">Otras</label>
                 <div class="col-sm-3">
@@ -437,7 +437,7 @@
                 <div class="col-sm-4">
                   <input required  name="duracion_otras" class="form-control" id="duracion9">
                 </div>
-             
+
                 <div class="col-sm-3">
                   <input required type="text" name="titulo_otras" class="form-control" onkeyup="mayus(this);" onkeypress="return validar(event)">
                 </div>
@@ -445,25 +445,25 @@
               <div class="col-sm-12">
                     <label for="" style="text-align: left;">
                       <br><h4><strong>Estudios actuales</strong></h4>
-                    </label> 
+                    </label>
                 </div>
                <div class="col-md-5">
                 <label for="validationDefault03">Nombre de la Institución</label>
-                <input required type="text" class="form-control" name="estudio_actual" onkeyup="mayus(this);" onkeypress="return validar(event)">       
+                <input required type="text" class="form-control" name="estudio_actual" onkeyup="mayus(this);" onkeypress="return validar(event)">
                </div>
                <div class="col-md-3 mb-3">
                 <label for="validationDefault03">Curso o Carrera</label>
                 <input required type="text" class="form-control" name="carrera" onkeyup="mayus(this);" onkeypress="return validar(event)">
-                
+
                </div>
                <div class="col-md-1 mb-3">
                 <label for="validationDefault03">Grado</label>
                 <input required type="number" class="form-control" name="grado" min="1" max="10">
-                
+
                </div>
                <div class="col-md-3 mb-3">
                 <label for="validationDefault03">Horario</label>
-                <input required type="text" class="form-control" name="horario">      
+                <input required type="text" class="form-control" name="horario">
                </div>
               </div><!--Final Row Personal 2-->
             </div><!--Final Personal 2-->
@@ -497,17 +497,17 @@
                 </div>
 
                    <!--Inicio Vinculación Referencias-->
-              
-                   <div class="col-sm-3"> 
+
+                   <div class="col-sm-3">
                       <input required  name="duracion_trabajo" class="form-control" id="duracion">
                    </div>
-                   <div class="col-sm-3"> 
+                   <div class="col-sm-3">
                       <input required  name="duracion_trabajo1" class="form-control" id="duracion2">
                    </div>
-                   <div class="col-sm-3"> 
+                   <div class="col-sm-3">
                       <input required name="duracion_trabajo2" class="form-control" id="duracion3">
                    </div>
-                   <div class="col-sm-3"> 
+                   <div class="col-sm-3">
                       <input required name="duracion_trabajo3" class="form-control" id="duracion4">
                    </div>
 
@@ -650,7 +650,7 @@
                       <input required type="text" name="referencia2" class="form-control" onkeyup="mayus(this);" onkeypress="return validar(event)">
                     </div>
                     <div class="col-sm-2">
-                      <label for="" style="text-align: left;">Dirección 
+                      <label for="" style="text-align: left;">Dirección
                     </label>
                       <input required type="text" name="direccion_trabajo" class="form-control" onkeyup="mayus(this);" onkeypress="return validar(event)">
                       <input required type="text" name="direccion1" class="form-control" onkeyup="mayus(this);" onkeypress="return validar(event)">
@@ -711,7 +711,7 @@
                       <option value="INDETERMINADO">Tiempo indeterminado</option>
                     </select>
                   </div>
-                
+
                   <div class="col-md-3 mb-2">
                     <label for="validationDefault01">Vigencia</label>
                     <input required type="date" class="form-control" name="vigencia" value="">
@@ -787,9 +787,9 @@
                     <select class="custom-select" name="clave_banco">
                       <option selected disabled value="">Seleccione una opción:</option>
                       @foreach ($bancos as $banco)
-                    <option value="{{$banco->clave_banco}}">{{$banco->nombre_banco}}</option>    
+                    <option value="{{$banco->clave_banco}}">{{$banco->nombre_banco}}</option>
                       @endforeach
-                      
+
                     </select>
                   </div>
                   <div class="col-md-4 mb-4">
@@ -879,7 +879,7 @@
                           </div>
                       </div>
                   </div>
-                </div> 
+                </div>
                 <div class="col-sm-2">
                   <div class="card-body">
                       <div class="margin">
@@ -900,11 +900,8 @@
                       </div>
                   </div>
                 </div>
-            </form> 
+            </form>
       </div>
     </div>
   </div>
 </div>
-
-
-
