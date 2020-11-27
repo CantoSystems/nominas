@@ -28,10 +28,10 @@
                         <select class="custom-select" id="naturaleza" name="naturaleza">
                         <option value="{{$aux->naturaleza}}">{{$aux->naturaleza}}</option>
                             <option value="1">Selecciona una opción</option>
-                            <option value="P">Persepcion</option>
+                            <option value="P">Percepcion</option>
                             <option value="D">Deducción</option>
-                            <option value="I">Impuesto al trabajador</option>
-                            <option value="C">Impuesto al patron</option>
+                            <option value="T">Impuesto al trabajador</option>
+                            <option value="I">Impuesto al patron</option>
                           </select>
                     </div>
                 </div>
