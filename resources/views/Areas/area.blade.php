@@ -25,9 +25,7 @@
                                 <td width="15%" display="align-items:center;">
                                     <div class="form-group">
                                         <button type="button" id="actualizar" style='width:40px; height:27px'> <i class="fas fa-pen-square"></i></button>
-                                        <button type="button" style='width:40px; height:27px; align-items:center;' data-toggle="modal" data-target="#modaldeletearea">
-                                            <i class="far fa-trash-alt"></i>
-                                        </button>
+                                        
                                     </div>
                                 </td>
                             </tr>
@@ -39,6 +37,9 @@
                             <div class="btn-group">
                                 <div class="form-group">
                                     <button type="button" id="nuevo" style='width:40px; height:27px'> <i class="fas fa-user-plus"></i></button>
+                                    <button type="button" style='width:40px; height:27px; align-items:center;' data-toggle="modal" data-target="#modaldeletearea">
+                                            <i class="far fa-trash-alt"></i>
+                                        </button>
                                 </div>
                             </div>
                         </div>
@@ -66,10 +67,10 @@
                         </div>
                     </div>  
                 </form>                
-                @include('areas.modalsearcharea')
             </div>  
         </div>-->
     </div>
 </div>
 @include('areas.modaldeletearea')
+@include('areas.modalsearcharea')
 @endsection                 
