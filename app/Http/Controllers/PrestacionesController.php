@@ -9,16 +9,16 @@ class PrestacionesController extends Controller
 {
      /**
     * Control de los botones siguiente | atras | delante | ultimo
-    * Realiza el vaciado de los registros en l tabla así como en 
-    * el Datatable mediante las consultas 
+    * Realiza el vaciado de los registros en l tabla así como en
+    * el Datatable mediante las consultas
     * Modelo involucrado Prestaciones
     * Envia el Request a los metodos actualizar | registar
     * Implementa un modal de busqueda
     * Elimina registro modal
     * @version V1
     * @author Gustavo | Elizabeth
-    * @param $request | Array 
-    * @return vistas  | $prestciones  | array 
+    * @param $request | Array
+    * @return vistas  | $prestciones  | array
     */
     public function index(Request $request)
     {
@@ -35,11 +35,11 @@ class PrestacionesController extends Controller
                 $indic= $aux1->id;
                 $aux= Prestaciones::where('id','<',$indic)->latest('id')->first();
                  if($aux==""){
-                    $aux= Prestaciones::get()->last();  
+                    $aux= Prestaciones::get()->last();
                  }
                  $prestaciones = Prestaciones::all();
                 return view('prestaciones.prestaciones',compact('aux','prestaciones'));
-                
+
                 break;
 
             case 'siguiente':
@@ -47,11 +47,11 @@ class PrestacionesController extends Controller
                 $indic= $aux1->id;
                 $aux= Prestaciones::where('id','>',$indic)->first();
                  if($aux==""){
-                    $aux= Prestaciones::get()->first();  
+                    $aux= Prestaciones::get()->first();
                  }
                  $prestaciones = Prestaciones::all();
                 return view('prestaciones.prestaciones',compact('aux','prestaciones'));
-                
+
                 break;
 
             case 'primero':
@@ -87,7 +87,7 @@ class PrestacionesController extends Controller
           *
           * Recibe el $request del metodo index
           * Modelo involucrado Prestaciones
-          * Valida los request para que no lleguen vacios 
+          * Valida los request para que no lleguen vacios
           * @version V1
           * @author Elizabeth
           * @param void
@@ -109,20 +109,19 @@ class PrestacionesController extends Controller
     }
     /**
       * Recibe los valores del request
-      * Comprara el aniola primer coincidencia 
+      * Comprara el aniola primer coincidencia
       * Actualiza y guarda el registro
       * @version V1
       * @author Eizabeth
       * @param $datos | Array del request
-      * @return void 
+      * @return void
       */
     public function update($datos)
     {
         $prestaciones= Prestaciones::where('anio',$datos->anio)->first();
         $prestaciones->dias= $datos->dias;
-        $prestaciones->prima_vacacional= $datos->prima_vacacional; 
+        $prestaciones->prima_vacacional= $datos->prima_vacacional;
         $prestaciones->aguinaldo= $datos->aguinaldo;
-
         $prestaciones->save();
     }
 
@@ -134,7 +133,7 @@ class PrestacionesController extends Controller
     *@param id | Integer
     */
 
-   
+
     public function destroy($id)
     {
         $prestacion = Prestaciones::find($id);

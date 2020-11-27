@@ -24,8 +24,18 @@
                                 <td>{{$area->area}}</td>
                                 <td width="15%" display="align-items:center;">
                                     <div class="form-group">
+<<<<<<< HEAD
                                         <button type="button" id="actualizar" style='width:40px; height:27px'> <i class="fas fa-pen-square"></i></button>
                                         
+=======
+                                        <button type="button" id="actualizar"  data-toggle="modal" data-target="#modalupdatearea" style='width:40px; height:27px'> <i class="fas fa-pen-square"></i></button>
+                                        <button type="button" style='width:40px; height:27px; align-items:center;' data-toggle="modal" data-target="#modalcrudempleado">
+                                            <i class="far fa-trash-alt"></i>
+                                        </button>
+
+
+
+>>>>>>> bc06fe33e7599f4b6690b0168fac6fe6fdd6c5a3
                                     </div>
                                 </td>
                             </tr>
@@ -41,11 +51,12 @@
                                             <i class="far fa-trash-alt"></i>
                                         </button>
                                 </div>
+
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>     
+            </div>
         </div>
 
         <!-- Inicio Crud-->
@@ -65,12 +76,24 @@
                             <input type="hidden" name="identificador" class="form-control" value="{{$aux->id}}"  onkeyup="mayus(this);">
                             </div>
                         </div>
+<<<<<<< HEAD
                     </div>  
                 </form>                
             </div>  
+=======
+                    </div>
+                </form>
+                @include('areas.modalsearcharea')
+            </div>
+>>>>>>> bc06fe33e7599f4b6690b0168fac6fe6fdd6c5a3
         </div>-->
     </div>
 </div>
 @include('areas.modaldeletearea')
+<<<<<<< HEAD
 @include('areas.modalsearcharea')
 @endsection                 
+=======
+@include('areas.modalupdateareas')
+@endsection
+>>>>>>> bc06fe33e7599f4b6690b0168fac6fe6fdd6c5a3

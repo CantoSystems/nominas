@@ -12,9 +12,9 @@
                 <div class="col-sm-2">
                     <div class="form-group">
                         <label>Clave:</label>
-                        <input type="text" name="clave_concepto" readonly class="form-control" value="{{$aux->clave_concepto}}" onkeyup="mayus(this)"; >
+                        <input type="text" name="clave_concepto" class="form-control" value="{{$aux->clave_concepto}}" onkeyup="mayus(this)"; >
                     </div>
-                </div>    
+                </div>
                 <div class="col-sm-4">
                     <div class="form-group">
                         <label>Concepto:</label>
@@ -44,7 +44,7 @@
                                 <option value="fijo">FIJO</option>
                                 <option value="variable">VARIABLE</option>
                               </select>
-                    </div>  
+                    </div>
                 </div>
                 <div class="col-sm-2">
                     <div class="form-group">
@@ -72,18 +72,18 @@
                 </div>
                 <div class="col-sm-4">
                     <!-- checkbox -->
-                    <label for=""> Elije una opción</label>
+                    <label for=""> Elije el grabado:</label>
                     <div class="form-group">
 
                     <div class="form-check">
                         <input class="form-check-input" type="checkbox" name="ispt" id="ispt" value="{{$aux->ispt}}" {{  ($aux->ispt == 0 ? ' checked' : '') }}>
-                        <label class="form-check-label">I.S.P.T.</label>
+                        <label class="form-check-label">I.S.R</label>
                     </div>
 
 
                     <div class="form-check">
                         <input class="form-check-input" name="imss" type="checkbox" value="{{$aux->imss}}"@if ($aux->imss==0)
-                        checked                          
+                        checked
                        @endif>
                         <label class="form-check-label">I.M.S.S.</label>
                     </div>
@@ -91,18 +91,18 @@
 
                       <div class="form-check">
                         <input class="form-check-input" name="infonavit" type="checkbox" value="{{$aux->infonavit}}"@if ($aux->infonavit==0)
-                        checked                          
+                        checked
                        @endif>
                         <label class="form-check-label">INFONAVIT</label>
                       </div>
                       <div class="form-check">
                         <input class="form-check-input" name="estatal" type="checkbox" value="{{$aux->estatal}}"@if ($aux->estatal==0)
-                        checked                          
+                        checked
                        @endif>
-                        <label class="form-check-label">ESTATAL</label>
+                        <label class="form-check-label">IMPUESTO ESTATAL</label>
                       </div>
                     </div>
-                  </div> 
+                  </div>
 
 
 
@@ -155,17 +155,17 @@
                             </div>
                         </div>
                     </div>
-                </div> 
+                </div>
 
                 <div class="col-sm-2">
                     <div class="card-body">
                         <div class="margin">
                             <div class="btn-group">
                                 <div class="form-group">
-                                    
+
                                        <button id="nuevo_reg" name="acciones" value="registrar" type="submit" style="display: none;width:70px; height:40px"><i class="fas fa-save"></i></button>
-                                        
-                                    
+
+
                                 </div>
                                 <div class="form-group">
                                     <button name="acciones" value="actualizar" id="actualizar_reg" type="submit" style="display: none;width:70px; height:40px"><i class="fas fa-save"></i></button>
@@ -173,19 +173,19 @@
                                 <div class="form-group">
                                     <button name="acciones" value="cancelar" id="cancelar_reg" type="submit" style="display: none;width:70px; height:40px"><i class="far fa-window-close"></i></button>
                                 </div>
-                                
+
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>  
-        </form> 
+            </div>
+        </form>
         @include('conceptos.modaldeleteconcetos')
         @include('conceptos.modalsearchconceptos')
-    </div>  
-</div>  
+    </div>
+</div>
 
-</div>    
+</div>
 </div>
 
 

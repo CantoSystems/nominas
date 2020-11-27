@@ -36,7 +36,7 @@
          <!--Fin Datatables-->
 
          <!--Sección botones y direcciones-->
-        
+
             <div class="col">
             <div class="card card-secondary">
                 <div class="card-header">
@@ -45,19 +45,26 @@
             <div class="card-body">
                 <form action="{{ route('periodos.acciones')}}" method="GET">
                     <div class="row">
-                        <div class="col-md-4">
+                      <div class="col-md-6">
+                          <label>Número del periodo</label>
+                          <input type="text" class="form-control" name="numero"
+                          value="{{$aux->numero}}">
+
+                      </div>
+
+                        <div class="col-md-6">
                             <label>Fecha de Inicio</label>
                             <input type="hidden" class="form-control" name="identificador"
                             value="{{$aux->id}}">
                             <input type="date" class="form-control" name="fecha_inicio"
                             value="{{$aux->fecha_inicio}}">
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-6">
                             <label>Fecha de Fin</label>
                             <input type="date" class="form-control" name="fecha_fin"
                             value="{{$aux->fecha_fin}}">
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-6">
                             <label>Fecha de Pago</label>
                             <input type="date" class="form-control" name="fecha_pago"
                             value="{{$aux->fecha_pago}}">
@@ -107,7 +114,7 @@
                             </div>
                         </div>
                     </div>
-                </div> 
+                </div>
 
 
                 <div class="col-sm-3">
@@ -115,10 +122,10 @@
                         <div class="margin">
                             <div class="btn-group">
                                 <div class="form-group">
-                                    
+
                                        <button id="nuevo_reg" name="acciones" value="registrar" type="submit" style="display: none;width:40px; height:27px'"><i class="fas fa-save"></i></button>
-                                        
-                                    
+
+
                                 </div>
                                 <div class="form-group">
                                     <button name="acciones" value="actualizar" id="actualizar_reg" type="submit" style="display: none;width:40px; height:27px'"><i class="fas fa-save"></i></button>
@@ -143,10 +150,5 @@
 
 </div>
 </div>
- 
+
 @endsection
-
-
-
-
-                    

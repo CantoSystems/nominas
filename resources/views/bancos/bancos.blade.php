@@ -14,7 +14,7 @@
                             <tr>
                                 <th>Clave</th>
                                 <th>Banco</th>
-                                
+
                             </tr>
                         </thead>
                         <tbody>
@@ -41,29 +41,28 @@
             <div class="card-body">
                 <form action="{{ route('bancos.acciones')}}" method="GET" autocomplete="off">
                         <div class="row">
-                            <div class="col-sm-8">
+                          <div class="col-sm-6">
+                              <div class="form-group">
+                                  <label>Clave banco:</label>
+                                  <input type="text" name="clave_banco"  value="{{$banco->clave_banco}}" class="form-control"  onkeyup="mayus(this);">
+
+                              </div>
+                          </div>
+
+                            <div class="col-sm-6">
                                 <div class="form-group">
                                     <label>Nombre:</label>
+                                    <input type="hidden" name="identificador"  value="{{$banco->id}}" class="form-control"  onkeyup="mayus(this);">
                                     <input type="text" name="nombre_banco"  value="{{$banco->nombre_banco}}"   class="form-control"  onkeyup="mayus(this)"; onkeypress="return validar(event)" >
                                 </div>
-                            </div>   
-                            
-                            
-                            <div class="col-sm-4">
-                                <div class="form-group">
-                                    
-                                    <input type="hidden" name="clave_banco"  value="{{$banco->clave_banco}}" class="form-control"  onkeyup="mayus(this);">
-                                    <div class="col-sm-1">
-                                        <div class="form-group">
-                                             <input type="hidden" name="identificador"  value="{{$banco->id}}" class="form-control"  onkeyup="mayus(this);">
-                                        </div>
-                                    </div>
-                                </div>
                             </div>
-                           
-                            
-            
-            
+
+
+
+
+
+
+
                             <div class="col-sm-5">
                                 <div class="card-body">
                                     <div class="margin">
@@ -84,8 +83,8 @@
                                     </div>
                                 </div>
                             </div>
-            
-            
+
+
                             <div class="col-sm-4">
                                 <div class="card-body">
                                     <div class="margin">
@@ -111,17 +110,17 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div> 
-            
+                            </div>
+
                             <div class="col-sm-3">
                     <div class="card-body">
                         <div class="margin">
                             <div class="btn-group">
                                 <div class="form-group">
-                                    
+
                                        <button id="nuevo_reg" name="acciones" value="registrar" type="submit" style="display: none;width:40px; height:27px'"><i class="fas fa-save"></i></button>
-                                        
-                                    
+
+
                                 </div>
                                 <div class="form-group">
                                     <button name="acciones" value="actualizar" id="actualizar_reg" type="submit" style="display: none;width:40px; height:27px'"><i class="fas fa-save"></i></button>
@@ -138,18 +137,17 @@
                         </div>
                     </div>
                 </div>
-                        </div>  
+                        </div>
                     </form>
                     @include('bancos.modaldeletebanco')
                     @include('bancos.modalsearchbancos')
-                   </div> 
-                   </div>  
+                   </div>
+                   </div>
         </div>
     </div>
 </div>
- 
-</div>  
+
+</div>
 
 
 @endsection
-
