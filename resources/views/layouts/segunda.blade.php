@@ -599,9 +599,9 @@ return false;
       //porcentaje.value = '';
       //porcentaje1.value = '';
       //porcentaje2.value = '';
-      porcentaje3.value = '';
+      //porcentaje3.value = '';
       porcentaje4.value = '';
-      porcentaje.focus();
+      porcentaje4.focus();
       mensaje.innerHTML = 'Corregir, no puede ser menores a 100%';
     }
   })
