@@ -20,7 +20,7 @@
                         <tbody>
                             @foreach($departamentos as $dep)
                             <tr>
-                                
+
                                 <td>{{$dep->clave_departamento}}</td>
                                 <td>{{$dep->departamento}}</td>
                                 <td>{{$dep->area}}</td>
@@ -43,11 +43,16 @@
             <div class="card-body">
             <form action="{{route('departamentos.index')}}" method="GET">
                     <div class="row">
+											<div class="col-md-6">
+													<label>Clave:</label>
+													<input type="text" class="form-control" name="clave_departamento" value="{{$aux->clave_departamento}}" onkeyup="mayus(this)";>
+											</div>
                         <div class="col-md-6">
                             <label>Nombre:</label>
                             <input type="text" class="form-control" name="departamento" value="{{$aux->departamento}}" onkeypress="return validar(event)">
                         </div>
                         <div class="col-md-6">
+													<br>
                             <label>Áreas:</label>
 
                             <select id="areas" class="custom-select" name="clave_area">
@@ -63,11 +68,13 @@
                 				@endforeach
               				</select>
 
-                            <!---input tipo hidden-->
-                            <input type="hidden" class="form-control" name="identificador" value="{{$aux->id}}">
-                            <input type="hidden" class="form-control" name="clave_departamento" value="{{$aux->clave_departamento}}">
                         </div>
-                       
+
+												<div class="col-md-6">
+																<!---input tipo hidden-->
+																<br>
+																<input type="hidden" class="form-control" name="identificador" value="{{$aux->id}}">
+												</div>
 
 
 
@@ -120,7 +127,7 @@
                             </div>
                         </div>
                     </div>
-                </div> 
+                </div>
 
 
                 <div class="col-sm-3">
@@ -128,10 +135,10 @@
                         <div class="margin">
                             <div class="btn-group">
                                 <div class="form-group">
-                                    
+
                                        <button id="nuevo_reg" name="acciones" value="registrar" type="submit" style="display: none;width:40px; height:27px'"><i class="fas fa-save"></i></button>
-                                        
-                                    
+
+
                                 </div>
                                 <div class="form-group">
                                     <button name="acciones" value="actualizar" id="actualizar_reg" type="submit" style="display: none;width:40px; height:27px'"><i class="fas fa-save"></i></button>
@@ -150,9 +157,9 @@
                @include('departamentos.modalsearchdepartamento')
         </div>
         <!-- Fin crud-->
-        	
+
 	</div>
-</div>	
+</div>
 </div>
 </div>
 
