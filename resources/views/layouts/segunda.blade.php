@@ -47,20 +47,20 @@ scratch. This page gets rid of all links and provides the needed markup only.
       <li class="nav-item">
         <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
       </li>
-    
-     
+
+
     </ul>
 
     <!-- SEARCH FORM -->
-  
+
 
     <!-- Right navbar links -->
     <ul class="navbar-nav ml-auto">
       <!-- Messages Dropdown Menu -->
-      
+
       <!-- Notifications Dropdown Menu -->
-     
-     
+
+
     </ul>
   </nav>
   <!-- /.navbar -->
@@ -77,7 +77,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <!-- Sidebar -->
     <div class="sidebar">
       <!-- Sidebar user panel (optional) -->
-     
+
       <!-- Sidebar Menu -->
       <nav class="mt-2">
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
@@ -91,7 +91,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <i class="right fas fa-angle-left"></i>
               </p>
             </a>
-            
+
             <ul class="nav nav-treeview">
               <li class="nav-item">
                 <a href="{{ route('empleados.index')}}" class="nav-link active">
@@ -171,9 +171,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            
+
           </div><!-- /.col -->
-         
+
         </div><!-- /.row -->
       </div><!-- /.container-fluid -->
     </div>
@@ -181,7 +181,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
     <!-- Main content -->
     @yield('content')
-   
+
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->
@@ -241,7 +241,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.10/jquery.mask.js"></script>
 
 <script>
-  //funcionaiento del datarange de los input tipo fecha 
+  //funcionaiento del datarange de los input tipo fecha
   //se encuentran en modal empleados
   $(function(){
     $('#duracion').daterangepicker()
@@ -357,30 +357,30 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
 </script>
 <script type="text/javascript">
-  //Validar solo ingresen texto 
-  function validar(e) { 
-  tecla = (document.all) ? e.keyCode : e.which; 
-  if (tecla==8) return true; 
-  patron =/[A-Za-z\s]/; 
-  te = String.fromCharCode(tecla); 
-  return patron.test(te); 
+  //Validar solo ingresen texto
+  function validar(e) {
+  tecla = (document.all) ? e.keyCode : e.which;
+  if (tecla==8) return true;
+  patron =/[A-Za-z\s]/;
+  te = String.fromCharCode(tecla);
+  return patron.test(te);
   }
 </script>
 
 <script type="text/javascript">
   //validar tipo de sangre
-  function validasangre(e) { 
-  tecla = (document.all) ? e.keyCode : e.which; 
-  if (tecla==8) return true; 
-  patron =/[A-Za-z-+\s]/; 
-  te = String.fromCharCode(tecla); 
-  return patron.test(te); 
+  function validasangre(e) {
+  tecla = (document.all) ? e.keyCode : e.which;
+  if (tecla==8) return true;
+  patron =/[A-Za-z-+\s]/;
+  te = String.fromCharCode(tecla);
+  return patron.test(te);
   }
 </script>
 
 <script type="text/javascript">
   //validar solo números
-function numeros(event) { 
+function numeros(event) {
 if(event.charCode >=48 && event.charCode <=57 ){
   return true;
 }
@@ -393,17 +393,38 @@ return false;
   let porcentaje2 = document.getElementById('porcentaje2');
   let porcentaje3 = document.getElementById('porcentaje3');
   let porcentaje4 = document.getElementById('porcentaje4');
+
+  let beneficiario = document.getElementById('beneficiario');
+  let beneficiario1 = document.getElementById('beneficiario1');
+  let beneficiario2 = document.getElementById('beneficiario2');
+  let beneficiario3 = document.getElementById('beneficiario3');
+  let beneficiario4 = document.getElementById('beneficiario4');
+
+  let parentesco = document.getElementById('parentesco');
+  let parentesco1 = document.getElementById('parentesco1');
+  let parentesco2 = document.getElementById('parentesco2');
+  let parentesco3 = document.getElementById('parentesco3');
+  let parentesco4 = document.getElementById('parentesco4');
+
   let mensaje = document.getElementById('mensaje');
 
 
    porcentaje.addEventListener('keyup', ()=>{
     let sumainicio = parseInt(porcentaje.value);
- 
+
         if (sumainicio > 100) {
       porcentaje1.disabled = true;
       porcentaje2.disabled = true;
       porcentaje3.disabled = true;
       porcentaje4.disabled = true;
+      beneficiario1.disabled = true;
+      beneficiario2.disabled = true;
+      beneficiario3.disabled = true;
+      beneficiario4.disabled = true;
+      parentesco1.disabled = true;
+      parentesco2.disabled = true;
+      parentesco3.disabled = true;
+      parentesco4.disabled = true;
       porcentaje.value = '';
       porcentaje1.value = '';
       porcentaje2.value = '';
@@ -415,6 +436,14 @@ return false;
       porcentaje2.disabled = true;
       porcentaje3.disabled = true;
       porcentaje4.disabled = true;
+      beneficiario1.disabled = true;
+      beneficiario2.disabled = true;
+      beneficiario3.disabled = true;
+      beneficiario4.disabled = true;
+      parentesco1.disabled = true;
+      parentesco2.disabled = true;
+      parentesco3.disabled = true;
+      parentesco4.disabled = true;
       porcentaje1.value = '';
       porcentaje2.value = '';
       porcentaje3.value = '';
@@ -425,29 +454,49 @@ return false;
       porcentaje2.disabled = false;
       porcentaje3.disabled = false;
       porcentaje4.disabled = false;
+      beneficiario1.disabled = false;
+      beneficiario2.disabled = false;
+      beneficiario3.disabled = false;
+      beneficiario4.disabled = false;
+      parentesco1.disabled = false;
+      parentesco2.disabled = false;
+      parentesco3.disabled = false;
+      parentesco4.disabled = false;
        mensaje.innerHTML = '';
     }
   })
 
     porcentaje1.addEventListener('keyup', ()=>{
     let sumavalores = parseInt(porcentaje.value) + parseInt(porcentaje1.value);
- 
+
         if (sumavalores > 100) {
-      porcentaje.focus();
+      porcentaje1.focus();
       porcentaje2.disabled = true;
       porcentaje3.disabled = true;
       porcentaje4.disabled = true;
-      porcentaje.value = '';
+      beneficiario2.disabled = true;
+      beneficiario3.disabled = true;
+      beneficiario4.disabled = true;
+      parentesco2.disabled = true;
+      parentesco3.disabled = true;
+      parentesco4.disabled = true;
+      //porcentaje.value = '';
       porcentaje1.value = '';
       porcentaje2.value = '';
       porcentaje3.value = '';
       porcentaje4.value = '';
       mensaje.innerHTML = 'Corregir, no puede exceder a 100%';
     }else if(sumavalores === 100){
-      porcentaje.focus();
+      porcentaje1.focus();
       porcentaje2.disabled = true;
       porcentaje3.disabled = true;
       porcentaje4.disabled = true;
+      beneficiario2.disabled = true;
+      beneficiario3.disabled = true;
+      beneficiario4.disabled = true;
+      parentesco2.disabled = true;
+      parentesco3.disabled = true;
+      parentesco4.disabled = true;
       porcentaje2.value = '';
       porcentaje3.value = '';
       porcentaje4.value = '';
@@ -456,6 +505,15 @@ return false;
       porcentaje2.disabled = false;
       porcentaje3.disabled = false;
       porcentaje4.disabled = false;
+      beneficiario2.disabled = false;
+      beneficiario3.disabled = false;
+      beneficiario4.disabled = false;
+      parentesco2.disabled = false;
+      parentesco3.disabled = false;
+      parentesco4.disabled = false;
+      parentesco2.disabled = false;
+      parentesco3.disabled = false;
+      parentesco4.disabled = false;
        mensaje.innerHTML = '';
     }
   })
@@ -465,22 +523,34 @@ return false;
     if (sumatotal > 100) {
       porcentaje3.disabled = true;
       porcentaje4.disabled = true;
-      porcentaje.value = '';
-      porcentaje1.value = '';
+      beneficiario3.disabled = true;
+      beneficiario4.disabled = true;
+      parentesco3.disabled = true;
+      parentesco4.disabled = true;
+      //porcentaje.value = '';
+      //porcentaje1.value = '';
       porcentaje2.value = '';
       porcentaje3.value = '';
       porcentaje4.value = '';
-      porcentaje.focus();
+      porcentaje2.focus();
       mensaje.innerHTML = 'Corregir, no puede exceder a 100%';
     }else if (sumatotal === 100){
       porcentaje3.disabled = true;
       porcentaje4.disabled = true;
+      beneficiario3.disabled = true;
+      beneficiario4.disabled = true;
+      parentesco3.disabled = true;
+      parentesco4.disabled = true;
       porcentaje3.value = '';
       porcentaje4.value = '';
       mensaje.innerHTML = 'A acumulado el total de porcentajes no puede agregar uno nuevo';
     }else if(sumavalores < 100){
       porcentaje3.disabled = false;
       porcentaje4.disabled = false;
+      beneficiario3.disabled = false;
+      beneficiario4.disabled = false;
+      parentesco3.disabled = false;
+      parentesco4.disabled = false;
        mensaje.innerHTML = '';
     }
   })
@@ -489,42 +559,48 @@ return false;
     console.log(suma);
     if (suma > 100) {
       porcentaje4.disabled = true;
-       porcentaje.value = '';
-      porcentaje1.value = '';
-      porcentaje2.value = '';
-      porcentaje3.value = '';
+      beneficiario4.disabled = true;
+      parentesco4.disabled = true;
+      //porcentaje.value = '';
+      //porcentaje1.value = '';
+      //porcentaje2.value = '';
+      //porcentaje3.value = '';
       porcentaje4.value = '';
-      porcentaje.focus();
+      porcentaje3.focus();
       mensaje.innerHTML = 'Corregir, no puede exceder a 100%';
     }else if(suma === 100){
       porcentaje4.disabled = true;
+      beneficiario4.disabled = true;
+      parentesco4.disabled = true;
       porcentaje4.value = '';
       mensaje.innerHTML = 'A acumulado el total de porcentajes no puede agregar uno nuevo';
     }else if(suma < 100){
       porcentaje4.disabled = false;
-       mensaje.innerHTML = '';
+      beneficiario4.disabled = false;
+      parentesco4.disabled = false;
+      mensaje.innerHTML = '';
     }
   })
  porcentaje4.addEventListener('keyup', ()=>{
     let sumasfinal = parseInt(porcentaje.value) + parseInt(porcentaje1.value) + parseInt(porcentaje2.value)+parseInt(porcentaje3.value)+parseInt(porcentaje4.value);
     console.log(sumasfinal)
     if (sumasfinal > 100) {
-      porcentaje.value = '';
-      porcentaje1.value = '';
-      porcentaje2.value = '';
-      porcentaje3.value = '';
+      //porcentaje.value = '';
+      //porcentaje1.value = '';
+      //porcentaje2.value = '';
+      //porcentaje3.value = '';
       porcentaje4.value = '';
-      porcentaje.focus();
+      porcentaje4.focus();
       mensaje.innerHTML = 'Corregir, no puede exceder a 100%';
     }else if(sumasfinal === 100){
       mensaje.innerHTML = 'Excelente, valores sumados son del 100%';
     }else if(sumasfinal< 100){
-      porcentaje.value = '';
-      porcentaje1.value = '';
-      porcentaje2.value = '';
-      porcentaje3.value = '';
+      //porcentaje.value = '';
+      //porcentaje1.value = '';
+      //porcentaje2.value = '';
+      //porcentaje3.value = '';
       porcentaje4.value = '';
-      porcentaje.focus();
+      porcentaje4.focus();
       mensaje.innerHTML = 'Corregir, no puede ser menores a 100%';
     }
   })
