@@ -17,9 +17,9 @@ class EmpresaController extends Controller
     *@version V1
     *@return string | Ruta con la carga de las variables
     *@author Javier | Elizabeth
-    *@param $request | Array 
+    *@param $request | Array
     */
-   
+
     public function acciones(Request $request){
      $accion= $request->acciones;
      $clv=$request->clave;
@@ -35,9 +35,9 @@ class EmpresaController extends Controller
                 ->orderBy('id','desc')
                 ->first();
                  if($empresa==""){
-                    $empresa= Empresa::get()->last();  
+                    $empresa= Empresa::get()->last();
                  }
-                 
+
                  return view('empresas.crudempresas', compact('empresa'));
             break;
             case 'siguiente':
@@ -45,7 +45,7 @@ class EmpresaController extends Controller
                 $indic= $emp->id;
                 $empresa= Empresa::where('id','>',$indic)->first();
                 if($empresa==""){
-                   $empresa= Empresa::first();  
+                   $empresa= Empresa::first();
                 }
                 return view('empresas.crudempresas', compact('empresa'));
             break;
@@ -54,8 +54,8 @@ class EmpresaController extends Controller
                 return view('empresas.crudempresas', compact('empresa'));
             break;
             case 'ultimo':
-                $empresa= Empresa::get()->last(); 
-                return view('empresas.crudempresas', compact('empresa')); 
+                $empresa= Empresa::get()->last();
+                return view('empresas.crudempresas', compact('empresa'));
             break;
             case 'registrar':
             $this->registrar($request);
@@ -74,7 +74,7 @@ class EmpresaController extends Controller
             case 'cancelar_actualiza';
                 $empresa= Empresa::first();
                 return view('empresas.crudempresas', compact('empresa'));
-            break;        
+            break;
             default:
                 # code...
             break;
@@ -86,12 +86,12 @@ class EmpresaController extends Controller
     /**
     *Función Obtiene el request de empresa enviado a Actualizar con la variable datos
     *@version V1
-    *@return array 
-    *@author Javier 
-    *@param $datos | Array 
+    *@return array
+    *@author Javier
+    *@param $datos | Array
     */
 
-     public function actualizar($datos){ 
+     public function actualizar($datos){
         $emp= Empresa::where('clave',$datos->clave)->first();
         $emp->nombre= $datos->nombre;
         $emp->rfc= $datos->rfc;
@@ -117,9 +117,9 @@ class EmpresaController extends Controller
     *Crea los Schemas Puestos | Areas | Departamentos | Conceptos y Empreados
     *Genera La base de dtos indpeendiente de cada empresa
     *@version V1
-    *@return void 
-    *@author Javier | Elizabeth | Gustavo 
-    *@param $datos | Array 
+    *@return void
+    *@author Javier | Elizabeth | Gustavo
+    *@param $datos | Array
     */
 
      public function registrar($datos){
@@ -128,7 +128,7 @@ class EmpresaController extends Controller
      $rfc1=$datos->rfc;
      $clave=substr($rfc1,0,4);
      $empresa->clave= $clave;
-     
+
      DB::statement('create database '.$empresa->clave);
      $clv= $empresa->clave;
      $configDb = [
@@ -242,10 +242,10 @@ Schema::connection('DB_Serverr')->create('empleados', function($table){
     $table->double('estatura');
     $table->double('peso');
     $table->string('enfermedad_cronica',100)->nullable();
-    $table->string('deporte',100);
-    $table->string('pasatiempo',100);
-    $table->string('asosiacion',100);
-    $table->string('objetivo_vida',100);
+    $table->string('deporte',100)->nullable();
+    $table->string('pasatiempo',100)->nullable();
+    $table->string('asosiacion',100)->nullable();
+    $table->string('objetivo_vida',100)->nullable();
     $table->date('fecha_nacimiento');
     $table->string('lugar',100);
     $table->string('umf',100);
@@ -374,8 +374,8 @@ Schema::connection('DB_Serverr')->create('empleados', function($table){
     $table->string('observaciones',255)->nullable();
 });
      $empresa->nombre= $datos->nombre;
-     
-     
+
+
      $empresa->segurosocial= $datos->segurosocial;
      $empresa->registro_estatal= $datos->registro_estatal;
      $empresa->calle=$datos->calle;
@@ -390,23 +390,23 @@ Schema::connection('DB_Serverr')->create('empleados', function($table){
      $empresa->telefono= $datos->telefono;
      $empresa->email= $datos->email;
      $empresa->save();
-       
-     
+
+
      }
 
-     
+
     /**
-    *Funcion seleccion empresa | 
+    *Funcion seleccion empresa |
     *@version V1
     *@return vista | variable resultado consulta
-    *@author Javier 
+    *@author Javier
     *@param void
     */
-     
+
 
     public function periodo()
-    {   
-        
+    {
+
         $empresas = Empresa::get('clave');
         return view('empresas.periodo',compact('empresas'));
     }
@@ -420,7 +420,7 @@ Schema::connection('DB_Serverr')->create('empleados', function($table){
     *@author Javier | Elizabeth
     *@param id | Integer
     */
-    
+
     public function destroy($id)
     {
         $empresa = Empresa::find($id);
@@ -436,7 +436,7 @@ Schema::connection('DB_Serverr')->create('empleados', function($table){
     *Obtiene empresa mediante PHP session
     *@version V1
     *@return Redirect a la ruta nueva plantilla
-    *@author Javier 
+    *@author Javier
     *@param request | Array
     */
 
@@ -449,5 +449,5 @@ Schema::connection('DB_Serverr')->create('empleados', function($table){
     }
 
 
-    
+
 }
