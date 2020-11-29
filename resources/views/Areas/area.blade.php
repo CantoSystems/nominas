@@ -76,24 +76,13 @@
                             <input type="hidden" name="identificador" class="form-control" value="{{$aux->id}}"  onkeyup="mayus(this);">
                             </div>
                         </div>
-<<<<<<< HEAD
-                    </div>  
-                </form>                
-            </div>  
-=======
                     </div>
                 </form>
                 @include('areas.modalsearcharea')
             </div>
->>>>>>> bc06fe33e7599f4b6690b0168fac6fe6fdd6c5a3
         </div>-->
     </div>
 </div>
 @include('areas.modaldeletearea')
-<<<<<<< HEAD
-@include('areas.modalsearcharea')
-@endsection                 
-=======
 @include('areas.modalupdateareas')
 @endsection
->>>>>>> bc06fe33e7599f4b6690b0168fac6fe6fdd6c5a3
