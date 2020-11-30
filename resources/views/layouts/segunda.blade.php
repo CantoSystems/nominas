@@ -99,65 +99,64 @@ scratch. This page gets rid of all links and provides the needed markup only.
                   <p>Empleados</p>
                 </a>
               </li>
-
             </ul>
             <ul class="nav nav-treeview">
-                <li class="nav-item">
-                  <a href="{{route('conceptos.index')}}" class="nav-link active">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>Conceptos</p>
-                  </a>
-                </li>
-
-              </ul>
-              <ul class="nav nav-treeview">
-                <li class="nav-item">
-                <a href="{{route('areas.index')}}" class="nav-link active">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>Areas</p>
-                  </a>
-                </li>
-
-              </ul>
-              <ul class="nav nav-treeview">
-                <li class="nav-item">
-                  <a href="{{ route('departamentos.index')}}" class="nav-link active">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>Departamentos</p>
-                  </a>
-                </li>
-
-              </ul>
-              <ul class="nav nav-treeview">
-                <li class="nav-item">
-                <a href="{{route('puestos.index')}}" class="nav-link active">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>Puestos</p>
-                  </a>
-                </li>
-
-              </ul>
-              <ul class="nav nav-treeview">
-                <li class="nav-item">
-                  <a href="{{ route('periodos.acciones')}}" class="nav-link active">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>Periodos</p>
-                  </a>
-                </li>
-
-              </ul>
-              <ul class="nav nav-treeview">
-                <li class="nav-item">
-                  <a href="{{ route('home')}}" class="nav-link active">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>Cambiar empresa</p>
-                  </a>
-                </li>
-
-              </ul>
-
+              <li class="nav-item">
+                <a href="{{route('conceptos.index')}}" class="nav-link active">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Conceptos</p>
+                </a>
+              </li> 
+            </ul>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+              <a href="{{route('areas.index')}}" class="nav-link active">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Areas</p>
+                </a>
+              </li>
+            </ul>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{ route('departamentos.index')}}" class="nav-link active">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Departamentos</p>
+                </a>
+              </li>
+            </ul>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+              <a href="{{route('puestos.index')}}" class="nav-link active">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Puestos</p>
+                </a>
+              </li> 
+            </ul>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{ route('periodos.acciones')}}" class="nav-link active">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Periodos</p>
+                </a>
+              </li>
+            </ul>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{ route('prestaciones.index')}}" class="nav-link active">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Prestaciones</p>
+                </a>
+              </li>
+            </ul>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{ route('home')}}" class="nav-link active">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Cambiar empresa</p>
+                </a>
+              </li>  
+            </ul>
           </li>
-
         </ul>
       </nav>
       <!-- /.sidebar-menu -->
