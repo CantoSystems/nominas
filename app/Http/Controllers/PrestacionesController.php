@@ -68,13 +68,16 @@ class PrestacionesController extends Controller{
                     return redirect()->route('prestaciones.index');
                 break;
                 case 'actualizar':
-                    $aux1 = DB::connection('DB_Serverr')->table('prestaciones')->where('id',$indic)->first();
+                    $this->actualizarprestciones($request);
+                    return redirect()->route('prestaciones.index');
+                    
+                    /**$aux1 = DB::connection('DB_Serverr')->table('prestaciones')->where('id',$indic)->first();
                     if($aux1!==""){
                         DB::connection('DB_Serverr')->table('prestaciones')->where('id',$request->indic)->update(['anio'=>$request->anio,'dias'=>$request->dias,'prima_vacacional'=>$request->prima_vacacional,'aguinaldo'=>$request->aguinaldo]);
                         $aux = DB::connection('DB_Serverr')->table('prestaciones')->get()->first();
                         $prestaciones = DB::connection('DB_Serverr')->table('prestaciones')->get();
                         return view('prestaciones.prestaciones',compact('aux','prestaciones'));
-                    }
+                    }*/
                 break;
                 case 'eliminar':
                     $aux1 = DB::connection('DB_Serverr')->table('prestaciones')->where('id',$clave_pr)->first();
@@ -128,6 +131,21 @@ class PrestacionesController extends Controller{
         \Config::set('database.connections.DB_Serverr', $clv_empresa);
 
         DB::connection('DB_Serverr')->insert('insert into prestaciones (anio,dias,prima_vacacional,aguinaldo) values (?,?,?,?)',[$datos->anio,$datos->dias,$datos->prima_vacacional,$datos->aguinaldo]);
+    }
+
+    public function actualizarprestciones($datos){
+        $clv= Session::get('clave_empresa');
+        $clv_empresa=$this->conectar($clv);
+
+
+        \Config::set('database.connections.DB_Serverr', $clv_empresa);
+        $anio=$datos->anio;
+        $aux1 = DB::connection('DB_Serverr')->table('prestaciones')->where('anio',$anio)->first();
+
+        DB::connection('DB_Serverr')->table('prestaciones')->where('anio',$datos->anio)->update(['anio'=>$datos->anio,'dias'=>$datos->dias,'prima_vacacional'=>$datos->prima_vacacional,'aguinaldo'=>$datos->aguinaldo]);
+
+
+
     }
 
    /**
