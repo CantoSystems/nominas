@@ -111,6 +111,21 @@ scratch. This page gets rid of all links and provides the needed markup only.
               </p>
             </a>
           </li>
+          <li class="nav-item">
+          <a class="dropdown-item" href="{{ route('logout') }}"
+                                       onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                                        {{ __('Cerrar sesión') }}
+                                    </a>
+
+                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                        @csrf
+                                    </form>
+            <i class="nav-icon fas fa-th"></i>
+              <p>
+
+                                   
+          </li>
           <!--<li class="nav-item">
             <a href="{{ route('clasificacion.acciones')}}" class="nav-link">
               <i class="nav-icon fas fa-th"></i>
