@@ -112,7 +112,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
               <li class="nav-item">
               <a href="{{route('areas.index')}}" class="nav-link active">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Areas</p>
+                  <p>Áreas</p>
                 </a>
               </li>
             </ul>
@@ -182,30 +182,11 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <!-- Main content -->
     @yield('content')
 
-    <!-- /.content -->
-  </div>
-  <!-- /.content-wrapper -->
-
-  <!-- Control Sidebar -->
-  <aside class="control-sidebar control-sidebar-dark">
-    <!-- Control sidebar content goes here -->
-    <div class="p-3">
-      <h5>Title</h5>
-      <p>Sidebar content</p>
-    </div>
-  </aside>
-  <!-- /.control-sidebar -->
-
   <!-- Main Footer -->
   <footer class="main-footer">
-    <!-- To the right -->
-    <div class="float-right d-none d-sm-inline">
-      Anything you want
-    </div>
     <!-- Default to the left -->
-    <strong>Copyright &copy; 2014-2019 <a href="https://adminlte.io">AdminLTE.io</a>.</strong> All rights reserved.
+    <strong>Canto Contadores &copy; 1989-2020</strong>
   </footer>
-</div>
 <!-- ./wrapper -->
 
 <!-- REQUIRED SCRIPTS -->
