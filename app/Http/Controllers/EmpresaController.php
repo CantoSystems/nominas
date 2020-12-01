@@ -8,8 +8,7 @@ use DB;
 use Illuminate\Support\Facades\Schema;
 use Session;
 
-class EmpresaController extends Controller
-{
+class EmpresaController extends Controller{
     /**
     *Función Obtiene el request y genera el vaciado de los registros
     *Control de los botones siguiente, manipulación CRUD
@@ -19,7 +18,6 @@ class EmpresaController extends Controller
     *@author Javier | Elizabeth
     *@param $request | Array
     */
-
     public function acciones(Request $request){
      $accion= $request->acciones;
      $clv=$request->clave;
@@ -27,16 +25,16 @@ class EmpresaController extends Controller
             case '':
                 $empresa= Empresa::first();
                 return view('empresas.crudempresas', compact('empresa'));
-                break;
+            break;
             case 'atras':
                 $emp= Empresa::where('clave',$clv)->first();
                 $indic= $emp->id;
                 $empresa= Empresa::where('id','<',$indic)
                 ->orderBy('id','desc')
                 ->first();
-                 if($empresa==""){
+                if($empresa==""){
                     $empresa= Empresa::get()->last();
-                 }
+                }
 
                  return view('empresas.crudempresas', compact('empresa'));
             break;
@@ -58,10 +56,10 @@ class EmpresaController extends Controller
                 return view('empresas.crudempresas', compact('empresa'));
             break;
             case 'registrar':
-            $this->registrar($request);
-            $empresa= Empresa::first();
-            return view('empresas.crudempresas', compact('empresa'));
-            break;
+                $this->registrar($request);
+                $empresa= Empresa::first();
+                return view('empresas.crudempresas', compact('empresa'));
+                break;
             case 'actualizar':
                 $this->actualizar($request);
                 $empresa= Empresa::first();
@@ -82,7 +80,6 @@ class EmpresaController extends Controller
 
     }
 
-
     /**
     *Función Obtiene el request de empresa enviado a Actualizar con la variable datos
     *@version V1
@@ -90,8 +87,7 @@ class EmpresaController extends Controller
     *@author Javier
     *@param $datos | Array
     */
-
-     public function actualizar($datos){
+    public function actualizar($datos){
         $emp= Empresa::where('clave',$datos->clave)->first();
         $emp->nombre= $datos->nombre;
         $emp->rfc= $datos->rfc;
@@ -109,7 +105,7 @@ class EmpresaController extends Controller
         $emp->telefono= $datos->telefono;
         $emp->email= $datos->email;
         $emp ->save();
-     }
+    }
 
     /**
     *Funcion ejecutada en segundo plano al realizar la accion de registrar una empresa
@@ -121,7 +117,6 @@ class EmpresaController extends Controller
     *@author Javier | Elizabeth | Gustavo
     *@param $datos | Array
     */
-
      public function registrar($datos){
      $empresa= new Empresa;
      $empresa->rfc= $datos->rfc;
@@ -147,8 +142,7 @@ class EmpresaController extends Controller
 ];
 
 \Config::set('database.connections.DB_Serverr', $configDb);
-Schema::connection('DB_Serverr')->create('periodos', function($table)
-{
+Schema::connection('DB_Serverr')->create('periodos', function($table){
     $table->increments('id');
     $table->integer('numero');
     $table->date('fecha_inicio');
@@ -156,42 +150,39 @@ Schema::connection('DB_Serverr')->create('periodos', function($table)
     $table->date('fecha_pago');
 });
 
-Schema::connection('DB_Serverr')->create('areas', function($table)
-{
-$table->increments('id');
-$table->string('area',50);
-$table->char('clave_area', 10);
+Schema::connection('DB_Serverr')->create('areas', function($table){
+    $table->increments('id');
+    $table->string('area',50);
+    $table->char('clave_area', 10);
 });
 
-Schema::connection('DB_Serverr')->create('puestos', function($table)
-{
-$table->increments('id');
-$table->char('clave_puesto',10);
-$table->string('nombre_puesto',50);
+Schema::connection('DB_Serverr')->create('puestos', function($table){
+    $table->increments('id');
+    $table->char('clave_puesto',10);
+    $table->string('nombre_puesto',50);
 });
 
-Schema::connection('DB_Serverr')->create('departamentos', function($table)
-{
-$table->increments('id');
-$table->char('clave_departamento', 10);
-$table->string('departamento',50);
-$table->char('clave_area', 10);
+Schema::connection('DB_Serverr')->create('departamentos', function($table){
+    $table->increments('id');
+    $table->char('clave_departamento', 10);
+    $table->string('departamento',50);
+    $table->char('clave_area', 10);
 });
-Schema::connection('DB_Serverr')->create('conceptos', function($table)
-{
-$table->increments('id');
-$table->char('clave_concepto', 10);
-$table->string('concepto',100);
-$table->string('formula',100);
-$table->string('naturaleza',100);
-$table->string('manejo',100);
-$table->float('cantidad');
-$table->float('importe');
-$table->float('monto');
-$table->boolean('ispt');
-$table->boolean('imss');
-$table->boolean('infonavit');
-$table->boolean('estatal');
+
+Schema::connection('DB_Serverr')->create('conceptos', function($table){
+    $table->increments('id');
+    $table->char('clave_concepto', 10);
+    $table->string('concepto',100);
+    $table->string('formula',100);
+    $table->string('naturaleza',100);
+    $table->string('manejo',100);
+    $table->float('cantidad');
+    $table->float('importe');
+    $table->float('monto');
+    $table->boolean('ispt');
+    $table->boolean('imss');
+    $table->boolean('infonavit');
+    $table->boolean('estatal');
 });
 
 Schema::connection('DB_Serverr')->create('prestaciones', function($table){
@@ -373,8 +364,8 @@ Schema::connection('DB_Serverr')->create('empleados', function($table){
     $table->boolean('ptu')->nullable();
     $table->string('observaciones',255)->nullable();
 });
-     $empresa->nombre= $datos->nombre;
 
+     $empresa->nombre= $datos->nombre;
 
      $empresa->segurosocial= $datos->segurosocial;
      $empresa->registro_estatal= $datos->registro_estatal;
@@ -391,7 +382,6 @@ Schema::connection('DB_Serverr')->create('empleados', function($table){
      $empresa->email= $datos->email;
      $empresa->save();
 
-
      }
 
 
@@ -402,11 +392,7 @@ Schema::connection('DB_Serverr')->create('empleados', function($table){
     *@author Javier
     *@param void
     */
-
-
-    public function periodo()
-    {
-
+    public function periodo(){
         $empresas = Empresa::get('clave');
         return view('empresas.periodo',compact('empresas'));
     }
@@ -420,9 +406,7 @@ Schema::connection('DB_Serverr')->create('empleados', function($table){
     *@author Javier | Elizabeth
     *@param id | Integer
     */
-
-    public function destroy($id)
-    {
+    public function destroy($id){
         $empresa = Empresa::find($id);
         DB::statement('drop database '.$empresa->clave);
         $empresa->delete();
@@ -439,15 +423,11 @@ Schema::connection('DB_Serverr')->create('empleados', function($table){
     *@author Javier
     *@param request | Array
     */
-
     public function seleccionarempresa(Request $request){
-     $clv= $request->empresa;
-     $empresa= Empresa::where('clave',$clv)->first();
-     Session::put('clave_empresa',$empresa->clave);
-     Session::put('empresa',$empresa->nombre);
-     return redirect()->route('periodos.index');
+        $clv= $request->empresa;
+        $empresa= Empresa::where('clave',$clv)->first();
+        Session::put('clave_empresa',$empresa->clave);
+        Session::put('empresa',$empresa->nombre);
+        return redirect()->route('periodos.index');
     }
-
-
-
 }

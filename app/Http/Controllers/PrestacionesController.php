@@ -2,142 +2,178 @@
 
 namespace App\Http\Controllers;
 
-use App\Prestaciones;
 use Illuminate\Http\Request;
+use Session;
+use DB;
+use Illuminate\Support\Facades\Schema;
 
-class PrestacionesController extends Controller
-{
-     /**
+class PrestacionesController extends Controller{
+    /**
     * Control de los botones siguiente | atras | delante | ultimo
-    * Realiza el vaciado de los registros en l tabla así como en
+    * Realiza el vaciado de los registros en la tabla así como en
     * el Datatable mediante las consultas
-    * Modelo involucrado Prestaciones
+    * Consultas mediante Builder Query
+    *  Conexion enviado a la función Conectr
+    * Se envia la clave de la empresa
     * Envia el Request a los metodos actualizar | registar
     * Implementa un modal de busqueda
     * Elimina registro modal
     * @version V1
-    * @author Gustavo | Elizabeth
+    * @author Gustavo
     * @param $request | Array
-    * @return vistas  | $prestciones  | array
+    * @return vista   | $prestacioness | array | $aux | array
     */
-    public function index(Request $request)
-    {
+    public function index(Request $request){
+        $clv=Session::get('clave_empresa');
+        $clv_empresa=$this->conectar($clv);
+
+        \Config::set('database.connections.DB_Serverr', $clv_empresa);
         $accion= $request->acciones;
-        $clv= $request->anio;
-        switch ($accion) {
-            case '':
-                $aux = Prestaciones::first();
-                $prestaciones = Prestaciones::all();
-                return view('prestaciones.prestaciones',compact('aux','prestaciones'));
+        $clave_pr=$request->id;
+        $indic=$request->identificador;
+            switch ($accion) {
+                case '':
+                    $aux = DB::connection('DB_Serverr')->table('prestaciones')->get()->first();
+                    $prestaciones = DB::connection('DB_Serverr')->table('prestaciones')->get();
+                    return view('prestaciones.prestaciones',compact('aux','prestaciones'));
                 break;
-            case 'atras':
-                $aux1= Prestaciones::where('anio',$clv)->get()->last();
-                $indic= $aux1->id;
-                $aux= Prestaciones::where('id','<',$indic)->latest('id')->first();
-                 if($aux==""){
-                    $aux= Prestaciones::get()->last();
-                 }
-                 $prestaciones = Prestaciones::all();
-                return view('prestaciones.prestaciones',compact('aux','prestaciones'));
-
+                case 'atras':
+                    $aux = DB::connection('DB_Serverr')->table('prestaciones')->where('id','<',$indic)->orderBy('id','desc')->first();
+                    if($aux==""){
+                        $aux = DB::connection('DB_Serverr')->table('prestaciones')->get()->last();
+                    }
+                    $prestaciones = DB::connection('DB_Serverr')->table('prestaciones')->get();
+                    return view('prestaciones.prestaciones',compact('aux','prestaciones'));
+                    break;
+                case 'siguiente':
+                    $aux = DB::connection('DB_Serverr')->table('prestaciones')->where('id','>',$indic)->first();
+                    if($aux==""){
+                        $aux = DB::connection('DB_Serverr')->table('prestaciones')->get()->first();
+                    }
+                    $prestaciones = DB::connection('DB_Serverr')->table('prestaciones')->get();
+                    return view('prestaciones.prestaciones',compact('aux','prestaciones'));
                 break;
-
-            case 'siguiente':
-                $aux1= Prestaciones::where('anio',$clv)->get()->last();
-                $indic= $aux1->id;
-                $aux= Prestaciones::where('id','>',$indic)->first();
-                 if($aux==""){
-                    $aux= Prestaciones::get()->first();
-                 }
-                 $prestaciones = Prestaciones::all();
-                return view('prestaciones.prestaciones',compact('aux','prestaciones'));
-
+                case 'primero':
+                    $aux = DB::connection('DB_Serverr')->table('prestaciones')->first();
+                    $prestaciones = DB::connection('DB_Serverr')->table('prestaciones')->get();
+                    return view('prestaciones.prestaciones',compact('aux','prestaciones'));
                 break;
-
-            case 'primero':
-                $aux = Prestaciones::first();
-                $prestaciones = Prestaciones::all();
-                return view('prestaciones.prestaciones',compact('aux','prestaciones'));
+                case 'ultimo':
+                    $aux = DB::connection('DB_Serverr')->table('prestaciones')->get()->last();
+                    $prestaciones = DB::connection('DB_Serverr')->table('prestaciones')->get();
+                    return view('prestaciones.prestaciones',compact('aux','prestaciones'));
                 break;
-            case 'ultimo':
-                $aux = Prestaciones::latest('id')->first();
-                $prestaciones = Prestaciones::all();
-                return view('prestaciones.prestaciones',compact('aux','prestaciones'));
+                case 'registrar':
+                    $this->registrar($request);
+                    return redirect()->route('prestaciones.index');
                 break;
-            case 'registrar':
-                $this->store($request);
-                return redirect()->route('prestaciones.index');
+                case 'actualizar':
+                    $aux1 = DB::connection('DB_Serverr')->table('prestaciones')->where('id',$indic)->first();
+                    if($aux1!==""){
+                        DB::connection('DB_Serverr')->table('prestaciones')->where('id',$request->indic)->update(['anio'=>$request->anio,'dias'=>$request->dias,'prima_vacacional'=>$request->prima_vacacional,'aguinaldo'=>$request->aguinaldo]);
+                        $aux = DB::connection('DB_Serverr')->table('prestaciones')->get()->first();
+                        $prestaciones = DB::connection('DB_Serverr')->table('prestaciones')->get();
+                        return view('prestaciones.prestaciones',compact('aux','prestaciones'));
+                    }
                 break;
-
-            case 'actualizar':
-                $this->update($request);
-                return redirect()->route('prestaciones.index');
+                case 'eliminar':
+                    $aux1 = DB::connection('DB_Serverr')->table('prestaciones')->where('id',$clave_pr)->first();
+                    if($aux1!==""){
+                        DB::connection('DB_Serverr')->table('prestaciones')->where('id',$request->clave_pr)->delete();
+                        $aux = DB::connection('DB_Serverr')->table('prestaciones')->get()->first();
+                        $prestaciones = DB::connection('DB_Serverr')->table('prestaciones')->get();
+                        return view('prestaciones.prestaciones',compact('aux','prestaciones'));
+                    }
                 break;
-            case 'cancelar_prestaciones':
-                return redirect()->route('prestaciones.index');
+                case 'cancelar':
+                    return redirect()->route('prestaciones.index');
                 break;
-            default:
-                # code...
+                case 'buscar':
+                    $criterio= $request->opcion;
+                    if($criterio=='prestaciones'){
+                        $aux = DB::connection('DB_Serverr')->table('prestaciones')->where('prestaciones',$request->busca)->first();
+                    }
+                    if($criterio=='clave'){
+                        $aux = DB::connection('DB_Serverr')->table('prestaciones')->where('clave_prestaciones',$request->busca)->first();
+                    }
+                    $prestaciones = DB::connection('DB_Serverr')->table('prestaciones')->get();
+                    return view('prestaciones.prestaciones',compact('aux','prestaciones'));
                 break;
-        }
-        return view('prestaciones.prestaciones');
-    }
-
-        /**
-          *
-          * Recibe el $request del metodo index
-          * Modelo involucrado Prestaciones
-          * Valida los request para que no lleguen vacios
-          * @version V1
-          * @author Elizabeth
-          * @param void
-          * @return void
-        */
-
-    public function store($datos)
-    {
-        if ($datos->anio === null || $datos->dias === null || $datos->prima_vacacional === null || $datos->aguinaldo === null) {
-           return redirect()->route('prestaciones.index');
-        }
-        $prestaciones= new Prestaciones();
-        $prestaciones->anio= $datos->anio;
-        $prestaciones->dias= $datos->dias;
-        $prestaciones->prima_vacacional= $datos->prima_vacacional;
-        $prestaciones->aguinaldo= $datos->aguinaldo;
-        $prestaciones->save();
-
-    }
-    /**
-      * Recibe los valores del request
-      * Comprara el aniola primer coincidencia
-      * Actualiza y guarda el registro
-      * @version V1
-      * @author Eizabeth
-      * @param $datos | Array del request
-      * @return void
-      */
-    public function update($datos)
-    {
-        $prestaciones= Prestaciones::where('anio',$datos->anio)->first();
-        $prestaciones->dias= $datos->dias;
-        $prestaciones->prima_vacacional= $datos->prima_vacacional;
-        $prestaciones->aguinaldo= $datos->aguinaldo;
-        $prestaciones->save();
+                default:
+                    # code...
+                    break;
+            }
     }
 
     /**
-    *Elimina el registro de la tabla Prestaciones
-    *@version V1
-    *@return Redirecciona un cambio de funcion en el controlador
-    *@author Elizabeth
-    *@param id | Integer
+         *
+        * Recibe el $request del metodo accciones $datos
+        * Conexión $clv_Empresa
+        * Builder Query insert
+        * Valida el nombre del area no venga vacio
+        * guarda el resultado del funcion generador
+        * @version V1
+        * @author Gustavo
+        * @param void
+        * @return void
     */
+    public function registrar($datos){
+        if($datos->anio === null){
+            return redirect()->route('prestaciones.index');
+        }
+        $clv=Session::get('clave_empresa');
+        $clave_pr= $this->generador();
+        $clv_empresa=$this->conectar($clv);
 
+        \Config::set('database.connections.DB_Serverr', $clv_empresa);
 
-    public function destroy($id)
-    {
-        $prestacion = Prestaciones::find($id);
-        $prestacion->delete();
+        DB::connection('DB_Serverr')->insert('insert into prestaciones (anio,dias,prima_vacacional,aguinaldo) values (?,?,?,?)',[$datos->anio,$datos->dias,$datos->prima_vacacional,$datos->aguinaldo]);
+    }
+
+   /**
+      *Genera un numero random de digitos
+      *Para la clave indicadora del banco
+      * @version V1
+      * @author Gustavo
+      * @param void
+      * @return $codigo | int
+      */
+    public function generador(){
+        $raiz= '0123456789';
+        $codigo='';
+        for ($i=0; $i < 3; $i++) {
+            $letra= $raiz[mt_rand(0, 4 - 1)];
+            $codigo .=$letra;
+        }
+        return $codigo;
+    }
+    
+    public function conectar($clv){
+        $configDb = [
+            'driver'      => 'mysql',
+            'host'        => env('DB_HOST', 'localhost'),
+            'port'        => env('DB_PORT', '3306'),
+            'database'    => $clv,
+            'username'    => env('DB_USERNAME', 'root'),
+            'password'    => env('DB_PASSWORD', ''),
+            'unix_socket' => env('DB_SOCKET', ''),
+            'charset'     => 'utf8',
+            'collation'   => 'utf8_unicode_ci',
+            'prefix'      => '',
+            'strict'      => true,
+            'engine'      => null,
+        ];
+        return $configDb;
+    }
+
+    public function eliminarprestacion($id){
+        $clv=Session::get('clave_empresa');
+        $clave_pr= $this->generador();
+        $clv_empresa=$this->conectar($clv);
+
+        \Config::set('database.connections.DB_Serverr', $clv_empresa);
+
+        $aux1 = DB::connection('DB_Serverr')->table('prestaciones')->where('id',$id)->delete();
         return redirect()->route('prestaciones.index');
     }
 }
