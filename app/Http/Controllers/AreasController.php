@@ -28,29 +28,26 @@ class AreasController extends Controller
     {
         $clv=Session::get('clave_empresa');
         $clv_empresa=$this->conectar($clv);
-
+        
         \Config::set('database.connections.DB_Serverr', $clv_empresa);
         $accion= $request->acciones;
         $clave_ar=$request->clave_area;
         $indic=$request->identificador;
            switch ($accion) {
-               case '':
+              case '':
                 $aux = DB::connection('DB_Serverr')->table('areas')->get()->first();
                 $areas = DB::connection('DB_Serverr')->table('areas')->get();
                 return view('Areas.area',compact('aux','areas'));
               break;
-
-               case 'atras':
-               $aux = DB::connection('DB_Serverr')->table('areas')->where('id','<',$indic)->orderBy('id','desc')->first();
+              case 'atras':
+                $aux = DB::connection('DB_Serverr')->table('areas')->where('id','<',$indic)->orderBy('id','desc')->first();
                 if($aux==""){
                     $aux = DB::connection('DB_Serverr')->table('areas')->get()->last();
                 }
                 $areas = DB::connection('DB_Serverr')->table('areas')->get();
                 return view('Areas.area',compact('aux','areas'));
-                 break;
-
-
-               case 'siguiente':
+                break;
+              case 'siguiente':
                 $aux = DB::connection('DB_Serverr')->table('areas')->where('id','>',$indic)->first();
                 if($aux==""){
                     $aux = DB::connection('DB_Serverr')->table('areas')->get()->first();

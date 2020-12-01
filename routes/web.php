@@ -38,7 +38,6 @@ Route::get('selecempresa','EmpresaController@seleccionarempresa')->name('selecci
 Route::get('areas','AreasController@index')->name('areas.index');
 Route::delete('areas/{id}', 'AreasController@eliminararea')->name('areas.eliminaarea');
 
-
 //periodos
 Route::get('/periodos','PeriodosController@index')->name('periodos.index');
 Route::post('/agregarperiodos','PeriodosController@agregarperiodos')->name('agregarperiodos');
@@ -46,7 +45,6 @@ Route::get('/seleccionarperiodo','PeriodosController@seleccionarperiodo')->name(
 Route::get('/periodos','PeriodosController@index')->name('periodos.index');
 Route::get('/accionesperiodos','PeriodosController@acciones')->name('periodos.acciones');
 Route::delete('accionesperiodos/{id}', 'PeriodosController@eliminarperiodo')->name('periodos.eliminarperiodo');
-
 
 //puestos 
 Route::get('puestos','PuestosController@index')->name('puestos.index');
@@ -67,8 +65,6 @@ Route::delete('departamentos/{id}', 'DepartamentosController@eliminardepartament
     *@author Gustavo | Elizabeth
     *@param id | función Destroy
 */
-
-
 Route::get('bancos','BancosController@acciones')->name('bancos.acciones');
 Route::delete('bancos/{id}','BancosController@eliminarbanco')->name('bancos.eliminar');
 
@@ -82,9 +78,8 @@ Route::delete('bancos/{id}','BancosController@eliminarbanco')->name('bancos.elim
     *@author Elizabeth
     *@param id | función Destroy
 */
-
 Route::get('/prestaciones','PrestacionesController@index')->name('prestaciones.index');
-Route::delete('/prestaciones/{id}','PrestacionesController@destroy')->name('prestaciones.destroy');
+Route::delete('/prestaciones/{id}','PrestacionesController@eliminarprestacion')->name('prestaciones.destroy');
 
 /**
     *Peticiones http Delete | Get
