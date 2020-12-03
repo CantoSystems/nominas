@@ -60,6 +60,7 @@
                             <label>Aguinaldo</label>
                             <input type="text" class="form-control" name="aguinaldo" value="{{$aux->aguinaldo}}" onkeyup="mayus(this)"; onkeypress="return numeros(event)">
                         </div>
+                        @canany(['administrador','capturista','reportes'])
                         <div class="col-sm-5">
                             <div class="card-body">
                                 <div class="margin">
@@ -80,9 +81,12 @@
                                 </div>
                             </div>
                         </div>
+                        @endcanany
+
                         <div class="col-sm-4">
                             <div class="card-body">
                                 <div class="margin">
+                                    
                                     <div class="btn-group">
                                         <div class="form-group">
                                             <button type="button" id="nuevo" style='width:40px; height:27px'> <i class="fas fa-user-plus"></i></button>
