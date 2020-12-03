@@ -111,6 +111,16 @@ scratch. This page gets rid of all links and provides the needed markup only.
               </p>
             </a>
           </li>
+          @can('administrador')
+          <li class="nav-item">
+            <a href="{{ route('usuarios.index')}}" class="nav-link">
+              <i class="nav-icon fas fa-th"></i>
+              <p>
+                Usuarios
+              </p>
+            </a>
+          </li>
+          @endcan
           <li class="nav-item">
           <a class="nav-link" href="{{ route('logout') }}"
               onclick="event.preventDefault();
