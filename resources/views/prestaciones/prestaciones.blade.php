@@ -88,12 +88,17 @@
                                 <div class="margin">
                                     
                                     <div class="btn-group">
+                                        @canany(['administrador','capturista'])
                                         <div class="form-group">
                                             <button type="button" id="nuevo" style='width:40px; height:27px'> <i class="fas fa-user-plus"></i></button>
                                         </div>
+                                        
+
                                         <div class="form-group">
                                             <button type="button" id="actualizar" style='width:40px; height:27px'> <i class="fas fa-pen-square"></i></button>
                                         </div>
+                                        @endcanany
+                                        @can('administrador')
                                         <div class="form-group">
                                             <a id="eliminar" data-target="#modal-deleteprestaciones-{{$aux->id}}" data-toggle="modal">
                                                 <button type="button" style='width:40px; height:27px'>
@@ -101,6 +106,7 @@
                                                 </button>
                                             </a>
                                         </div>
+                                        @endcan
                                     </div>
                                 </div>
                             </div>
