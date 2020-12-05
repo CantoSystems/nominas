@@ -56,7 +56,9 @@
                          <div class="col-sm-5">
                     <div class="card-body">
                         <div class="margin">
+                             @canany(['administrador','capturista','reportes'])
                             <div class="btn-group">
+
                                 <div class="form-group">
                                     <button type="submit"  name="acciones" value="primero" id="primero" style='width:40px; height:27px'><i class="fas fa-backward" ></i></button>
                                 </div>
@@ -70,6 +72,7 @@
                                     <button type="submit" name="acciones" value="ultimo" id="ultimo" style='width:40px; height:27px'><i class="fas fa-forward"></i></button>
                                 </div>
                             </div>
+                            @endcanany
                         </div>
                     </div>
                 </div>
@@ -81,17 +84,22 @@
                     <div class="card-body">
                         <div class="margin">
                             <div class="btn-group">
+                                 @canany(['administrador','capturista','reportes'])
                                 <div class="form-group">
                                     <button id="buscar" type="button" data-toggle="modal" data-target="#exampleModal" style='width:40px; height:27px'>
                                         <i class="fas fa-search"></i>
                                       </button>
                                 </div>
+                                @endcany
+                                 @canany(['administrador','capturista'])
                                 <div class="form-group">
                                     <button type="button" id="nuevo" style='width:40px; height:27px'> <i class="fas fa-user-plus"></i></button>
                                 </div>
                                 <div class="form-group">
                                  <button type="button" id="actualizar" style='width:40px; height:27px'> <i class="fas fa-pen-square"></i></button>
                                 </div>
+                                @endcanany
+                                @can('administrador')
                                 <div class="form-group">
                                     <a href="#" id="eliminar" data-target="#modal-deletepuesto{{$aux->id}}" data-toggle="modal">
                                         <button type="button" style='width:40px; height:27px'>
@@ -99,6 +107,7 @@
                                             </i>
                                         </button></a>
                                 </div>
+                                @endcan
                             </div>
                         </div>
                     </div>
