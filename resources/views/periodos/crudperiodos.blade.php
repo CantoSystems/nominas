@@ -65,7 +65,7 @@
                             value="{{$aux->fecha_fin}}">
                         </div>
                         <div class="col-md-6">
-                            <label>Fecha de Pago</label>
+                            <label>Fecha de Pagos</label>
                             <input type="date" class="form-control" name="fecha_pago"
                             value="{{$aux->fecha_pago}}">
                         </div>
@@ -93,7 +93,7 @@
 
 
 
-
+                @canany(['administrador','capturista','reportes'])
                 <div class="col-sm-4">
                     <div class="card-body">
                         <div class="margin">
@@ -115,25 +115,27 @@
                         </div>
                     </div>
                 </div>
+                @endcanany
 
 
                 <div class="col-sm-3">
                     <div class="card-body">
                         <div class="margin">
                             <div class="btn-group">
+                                @canany(['administrador','capturista'])
                                 <div class="form-group">
 
                                        <button id="nuevo_reg" name="acciones" value="registrar" type="submit" style="display: none;width:40px; height:27px'"><i class="fas fa-save"></i></button>
-
-
                                 </div>
                                 <div class="form-group">
                                     <button name="acciones" value="actualizar" id="actualizar_reg" type="submit" style="display: none;width:40px; height:27px'"><i class="fas fa-save"></i></button>
                                 </div>
-
+                                @endcanany
+                                @can('administrdor')
                                 <div class="form-group">
                                     <button name="acciones" value="cancelar_periodos" id="cancelar_reg" type="submit" style="display: none;width:40px; height:28px"><i class="far fa-window-close"></i></button>
                                 </div>
+                                @endcan
                             </div>
                         </div>
                     </div>
