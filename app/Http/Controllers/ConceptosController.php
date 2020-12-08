@@ -94,47 +94,47 @@ class ConceptosController extends Controller{
     public function registrar($datos){
         $clv=Session::get('clave_empresa');
         $clave_concepto= $datos->clave_concepto.$datos->naturaleza;
-        if(is_null($datos->ispt)){
-            $ispt=1;
+        if(is_null($datos->isr)){
+            $isr=1;
         }else{
-            $ispt=$datos->ispt;
+            $isr=0;
         }
 
         if(is_null($datos->imss)){
             $imss=1;
         }else{
-            $imss=$datos->imss;
+            $imss=0;
         }
 
         if(is_null($datos->infonavit)){
             $infonavit=1;
         }else{
-            $infonavit=$datos->infonavit;
+            $infonavit=0;
         }
 
         if(is_null($datos->estatal)){
             $estatal=1;
         }else{
-            $estatal=$datos->estatal;
+            $estatal=0;
         }
 
         $clv_empresa=$this->conectar($clv);
 
         \Config::set('database.connections.DB_Serverr', $clv_empresa);
         DB::connection('DB_Serverr')->insert('insert into conceptos (clave_concepto,concepto,formula,naturaleza,manejo
-        ,cantidad,importe,monto,ispt,imss,infonavit,estatal)
+        ,cantidad,importe,monto,isr,imss,infonavit,estatal)
         values (?,?,?,?,?,?,?,?,?,?,?,?)',[$clave_concepto,$datos->concepto,$datos->formula,$datos->naturaleza
-        ,$datos->manejo,$datos->cantidad,$datos->importe,$datos->monto,$ispt,$imss,$infonavit,$estatal]);
+        ,$datos->manejo,$datos->cantidad,$datos->importe,$datos->monto,$isr,$imss,$infonavit,$estatal]);
     }
 
     public function actualizar($datos){
         $clv=Session::get('clave_empresa');
         $clave_concepto= $datos->clave_concepto.$datos->naturaleza;
 
-        if(is_null($datos->ispt)){
-            $ispt=1;
+        if(is_null($datos->isr)){
+            $isr=1;
         }else{
-            $ispt=$datos->ispt;
+            $isr=$datos->isr;
         }
 
         if(is_null($datos->imss)){
@@ -162,7 +162,7 @@ class ConceptosController extends Controller{
         if($aux1!==""){
             DB::connection('DB_Serverr')->table('conceptos')->where('clave_concepto',$datos->clave_concepto)
             ->update(['concepto'=>$datos->concepto,'formula'=>$datos->naturaleza,'manejo'=>$datos->manejo,
-            'cantidad'=>$datos->cantidad,'importe'=>$datos->importe,'monto'=>$datos->monto, 'ispt'=>$ispt,
+            'cantidad'=>$datos->cantidad,'importe'=>$datos->importe,'monto'=>$datos->monto, 'isr'=>$isr,
             'imss'=>$imss,'infonavit'=>$infonavit,'estatal'=>$estatal]);
         }
     }
