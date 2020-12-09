@@ -13,8 +13,26 @@ class UsersController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {   
+        $accion = $request->acciones;
+        $clv = $request->id;
+        switch ($accion) {
+            case '':
+                $roles = Role::all();
+                $usuarios = User::select('users.*','roles.*')
+                ->join('roles','roles.id','=','users.role_id')
+                ->first();
+                $data_user = User::select('users.*','roles.*')
+                ->join('roles','roles.id','=','users.role_id')
+                ->get();
+                return view('usuarios.crudusuarios',compact('roles','usuarios','data_user'));
+                break;
+            
+            default:
+                # code...
+                break;
+        }
         $roles = Role::all();
         return view('usuarios.crudusuarios',compact('roles'));
     }
