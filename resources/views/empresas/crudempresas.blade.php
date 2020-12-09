@@ -4,11 +4,8 @@
 	<div class="card-header">
         <h3 class="card-title">Empresas</h3>
     </div>
-    
-   
-
     <div class="card-body">
-    <form action="{{ route('acciones')}}" method="GET" autocomplete="off">
+        <form action="{{ route('acciones')}}" method="GET" autocomplete="off">
     		<div class="row">
     			<div class="col-sm-6">
                     <div class="form-group">
@@ -149,25 +146,21 @@
                                 <div class="form-group">
                                     <a href="#" id="eliminar" data-target="#modal-deletenom-{{$empresa->id}}" data-toggle="modal" style='width:70px; height:40px'>
                                         <button type="button" style='width:70px; height:40px'>
-                                            <i class="far fa-trash-alt">
-                                            </i>
-                                        </button></a>
+                                            <i class="far fa-trash-alt"></i>
+                                        </button>
+                                    </a>
                                 </div>
                                 @endcan
                             </div>
                         </div>
                     </div>
                 </div> 
-
                 <div class="col-sm-2">
                     <div class="card-body">
                         <div class="margin">
                             <div class="btn-group">
                                 <div class="form-group">
-                                    
-                                       <button id="nuevo_reg" name="acciones" value="registrar" type="submit" style="display: none;width:70px; height:40px"><i class="fas fa-save"></i></button>
-                                        
-                                    
+                                    <button id="nuevo_reg" name="acciones" value="registrar" type="submit" style="display: none;width:70px; height:40px"><i class="fas fa-save"></i></button>
                                 </div>
                                 <div class="form-group">
                                     <button name="acciones" value="actualizar" id="actualizar_reg" type="submit" style="display: none;width:70px; height:40px"><i class="fas fa-save"></i></button>
@@ -184,10 +177,7 @@
                 </div>
             </div>	
     	</form>	
-         @include('empresas.modaldelete')
+        @include('empresas.modaldelete')
    	</div> 	
 </div>	
-
-
 @endsection
-
