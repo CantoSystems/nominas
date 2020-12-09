@@ -54,6 +54,7 @@
                                     @endif
                                 </div>
                             </div>
+                        @canany(['administrador','capturista','reportes'])
                             <div class="col-sm-5">
                                 <div class="card-body">
                                     <div class="margin">
@@ -74,9 +75,11 @@
                                     </div>
                                 </div>
                             </div>
+                        @endcanany
                             <div class="col-sm-4">
                                 <div class="card-body">
                                     <div class="margin">
+                                    @canany(['administrador','capturista'])
                                         <div class="btn-group">
                                             <div class="form-group">
                                                 <button type="button" id="nuevo" style='width:40px; height:27px'> <i class="fas fa-user-plus"></i></button>
@@ -84,6 +87,8 @@
                                             <div class="form-group">
                                                 <button type="button" id="actualizar" style='width:40px; height:27px'> <i class="fas fa-pen-square"></i></button>
                                             </div>
+                                    @endcanany
+                                    @can('administrador')
                                             <div class="form-group">
                                                 @if(!empty($aux))
                                                     <a href="#" id="eliminar" data-target="#modal-delete-{{$aux->id}}" data-toggle="modal" style='width:40px; height:27px'>
@@ -93,6 +98,7 @@
                                                     </a>
                                                 @endif
                                             </div>
+                                    @endcan
                                         </div>
                                     </div>
                                 </div>

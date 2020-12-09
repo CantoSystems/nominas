@@ -62,42 +62,49 @@
                                     <input type="text" class="form-control" name="puesto" onkeypress="return validar(event);">
                                 </div>
                             @endif
-                            <div class="col-sm-5">
-                                <div class="card-body">
-                                    <div class="margin">
-                                        <div class="btn-group">
-                                            <div class="form-group">
-                                                <button type="submit"  name="acciones" value="primero" id="primero" style='width:40px; height:27px'><i class="fas fa-backward" ></i></button>
-                                            </div>
-                                            <div class="form-group">
-                                            <button type="submit" name="acciones" value="atras" id="atras" style='width:40px; height:27px'><i class="fas fa-arrow-circle-left"></i></button>
-                                            </div>
-                                            <div class="form-group">
-                                                <button type="submit" name="acciones" value="siguiente" id="siguiente" style='width:40px; height:27px'><i class="fas fa-arrow-circle-right"></i></button>
-                                            </div>
-                                            <div class="form-group">
-                                                <button type="submit" name="acciones" value="ultimo" id="ultimo" style='width:40px; height:27px'><i class="fas fa-forward"></i></button>
+                            @canany(['administrador','capturista','reportes'])
+                                <div class="col-sm-5">
+                                    <div class="card-body">
+                                        <div class="margin">
+                                            <div class="btn-group">
+                                                <div class="form-group">
+                                                    <button type="submit"  name="acciones" value="primero" id="primero" style='width:40px; height:27px'><i class="fas fa-backward" ></i></button>
+                                                </div>
+                                                <div class="form-group">
+                                                <button type="submit" name="acciones" value="atras" id="atras" style='width:40px; height:27px'><i class="fas fa-arrow-circle-left"></i></button>
+                                                </div>
+                                                <div class="form-group">
+                                                    <button type="submit" name="acciones" value="siguiente" id="siguiente" style='width:40px; height:27px'><i class="fas fa-arrow-circle-right"></i></button>
+                                                </div>
+                                                <div class="form-group">
+                                                    <button type="submit" name="acciones" value="ultimo" id="ultimo" style='width:40px; height:27px'><i class="fas fa-forward"></i></button>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            @endcanany
                             <div class="col-sm-4">
                                 <div class="card-body">
                                     <div class="margin">
                                         <div class="btn-group">
-                                            <div class="form-group">
-                                                <button id="buscar" type="button" data-toggle="modal" data-target="#exampleModal" style='width:40px; height:27px'>
-                                                    <i class="fas fa-search"></i>
-                                                </button>
-                                            </div>
-                                            <div class="form-group">
-                                                <button type="button" id="nuevo" style='width:40px; height:27px'> <i class="fas fa-user-plus"></i></button>
-                                            </div>
-                                            <div class="form-group">
-                                                <button type="button" id="actualizar" style='width:40px; height:27px'> <i class="fas fa-pen-square"></i></button>
-                                            </div>
-                                            <div class="form-group">
+                                            @canany(['administrador','capturista','reportes'])
+                                                <div class="form-group">
+                                                    <button id="buscar" type="button" data-toggle="modal" data-target="#exampleModal" style='width:40px; height:27px'>
+                                                        <i class="fas fa-search"></i>
+                                                    </button>
+                                                </div>
+                                            @endcanany
+                                            @canany(['administrador','capturista'])
+                                                <div class="form-group">
+                                                    <button type="button" id="nuevo" style='width:40px; height:27px'> <i class="fas fa-user-plus"></i></button>
+                                                </div>
+                                                <div class="form-group">
+                                                    <button type="button" id="actualizar" style='width:40px; height:27px'> <i class="fas fa-pen-square"></i></button>
+                                                </div>
+                                                <div class="form-group">
+                                            @endcanany
+                                            @can('administrador')
                                                 @if(!empty($aux))
                                                     <a href="#" id="eliminar" data-target="#modal-deletepuesto-{{$aux->id}}" data-toggle="modal" style='width:40px; height:27px'>
                                                         <button type="button" style='width:40px; height:27px'>
@@ -105,6 +112,7 @@
                                                         </button>
                                                     </a>
                                                 @endif
+                                            @endcanany
                                             </div>
                                         </div>
                                     </div>

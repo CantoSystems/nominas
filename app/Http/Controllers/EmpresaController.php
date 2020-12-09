@@ -176,10 +176,10 @@ Schema::connection('DB_Serverr')->create('conceptos', function($table){
     $table->string('formula',100);
     $table->string('naturaleza',100);
     $table->string('manejo',100);
-    $table->float('cantidad');
-    $table->float('importe');
-    $table->float('monto');
-    $table->boolean('ispt');
+    $table->float('cantidad')->nullable();
+    $table->float('importe')->nullable();
+    $table->float('monto')->nullable();
+    $table->boolean('isr')->default(0);
     $table->boolean('imss');
     $table->boolean('infonavit');
     $table->boolean('estatal');
