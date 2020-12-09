@@ -17,12 +17,14 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach($areas as $area)
-                            <tr>
-                                <td>{{$area->area}}</td>
-                                <td>{{$area->clave_area}}</td>
-                            </tr>
-                            @endforeach
+                            @if(!empty($areas))
+                                @foreach($areas as $area)
+                                    <tr>
+                                        <td>{{$area->area}}</td>
+                                        <td>{{$area->clave_area}}</td>
+                                    </tr>
+                                @endforeach
+                            @endif
                         </tbody>
                     </table>
                 </div>
@@ -41,9 +43,15 @@
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <label>Nombre:</label>
-                                    <input type="text" name="area" class="form-control" value="{{$aux->area}}"  onkeyup="mayus(this);">
-                                    <input type="hidden" name="clave_area" class="form-control" value="{{$aux->clave_area}}"  onkeyup="mayus(this);">
-                                    <input type="hidden" name="identificador" class="form-control" value="{{$aux->id}}"  onkeyup="mayus(this);">
+                                    @if(empty($aux))
+                                        <input type="text" name="area" class="form-control" onkeyup="mayus(this);">
+                                        <input type="hidden" name="clave_area" class="form-control" onkeyup="mayus(this);">
+                                        <input type="hidden" name="identificador" class="form-control" onkeyup="mayus(this);">
+                                    @else
+                                        <input type="text" name="area" class="form-control" value="{{$aux->area}}" onkeyup="mayus(this);">
+                                        <input type="hidden" name="clave_area" class="form-control" value="{{$aux->clave_area}}" onkeyup="mayus(this);">
+                                        <input type="hidden" name="identificador" class="form-control" value="{{$aux->id}}" onkeyup="mayus(this);">
+                                    @endif
                                 </div>
                             </div>
                         @canany(['administrador','capturista','reportes'])
@@ -82,11 +90,13 @@
                                     @endcanany
                                     @can('administrador')
                                             <div class="form-group">
-                                                <a href="#" id="eliminar" data-target="#modal-deletenom- data-toggle="modal" style='width:40px; height:27px'>
-                                                    <button type="button" style='width:40px; height:27px'>
-                                                        <i class="far fa-trash-alt"></i>
-                                                    </button>
-                                                </a>
+                                                @if(!empty($aux))
+                                                    <a href="#" id="eliminar" data-target="#modal-delete-{{$aux->id}}" data-toggle="modal" style='width:40px; height:27px'>
+                                                        <button type="button" style='width:40px; height:27px'>
+                                                            <i class="far fa-trash-alt"></i>
+                                                        </button>
+                                                    </a>
+                                                @endif
                                             </div>
                                     @endcan
                                         </div>
@@ -111,11 +121,16 @@
                                 </div>
                             </div>
                         </div>  
-                    </form> 
+                    </form>
+                    @if(!empty($aux))
+                        @include('areas.modaldeletearea')
+                    @endif
                 </div>  
-            </div>   
+            </div>
         <div>
     </div>
+</div>
+</div>
 </div>
 </div>
 </div>
