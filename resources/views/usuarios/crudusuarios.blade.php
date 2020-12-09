@@ -18,12 +18,13 @@
                             </tr>
                         </thead>
                         <tbody>
-                           
+                        @foreach($data_user as $data)
                             <tr>
-                                <th scope="row"></th>
-                                <td></td>
+                                <th scope="row">{{$data->name}}</th>
+                                <td>{{$data->email}}</td>
+                                <td>{{$data->nombre_rol}}</td>
                             </tr>
-                      
+                        @endforeach
                         </tbody>
                     </table>
                 </div>
@@ -43,8 +44,9 @@
                         <div class="row">
                           <div class="col-sm-6">
                               <div class="form-group">
-                                  <label>Nombre del Usuario:</label>
-                                  <input type="text" name="name"  value="" class="form-control"  onkeyup="mayus(this);">
+                                <label>Nombre del Usuario:</label>
+                                    <input type="hidden" name="id" value="{{$usuarios->id}}">
+                                    <input type="text" name="name"  value="{{$usuarios->name}}" class="form-control"  onkeyup="mayus(this);">
 
                               </div>
                           </div>
@@ -52,35 +54,43 @@
                             <div class="col-sm-6">
                                 <div class="form-group">
                                     <label>Correo electronico:</label>
-                                    <input type="text" name="email"  value=""   class="form-control"  onkeyup="mayus(this)"; onkeypress="return validar(event)" >
+                                    <input type="text" name="email"  value="{{$usuarios->email}}"   class="form-control"  onkeyup="mayus(this)"; onkeypress="return validar(event)" >
                                 </div>
                             </div>
 
                             <div class="col-sm-6">
                                 <div class="form-group">
                                     <label>Contraseña:</label>
-                                    <input type="text" name="password"  value=""   class="form-control"  onkeyup="mayus(this)"; onkeypress="return validar(event)" >
+                                    <input type="password" id="contra" name="password"  
+                                    value="{{$usuarios->password}}" readonly  class="form-control"  onkeyup="mayus(this)"; onkeypress="return validar(event)" >
                                 </div>
                             </div>
 
                             <div class="col-sm-6">
                                 <div class="form-group">
                                     <label>Confirmar contraseña:</label>
-                                    <input type="text" name="password_confirmation"  value=""   class="form-control"  onkeyup="mayus(this)"; onkeypress="return validar(event)" >
+                                    <input type="password" readonly id="contra1" name="password_confirmation"  value="{{$usuarios->password}}"   class="form-control"  onkeyup="mayus(this)"; onkeypress="return validar(event)" >
                                 </div>
                             </div>
 
                             <div class="col-sm-12">
-                                <div class="form-group">
-                                    <select  class="custom-select" name="">
 
-                                        <option  id="areas_null" value="null" style="text-align: center;">
+                                <div class="form-group">
+                                     <label>Asigne un rol: 
+                                        </label>
+                                    <select  class="custom-select" name="">
+                                        <option id="for_roles">
+                                            {{ $usuarios->nombre_rol}}
+                                        </option>
+
+                                        <option  value="null" style="text-align: center;">
                                             -------- 
                                             Seleccione una opción 
                                              --------
                                         </option>
-                                
-                                        <option  value=""></option>
+                                @foreach($roles as $role)
+                                        <option  value="{{$role->id}}"> {{$role->nombre_rol}}</option>
+                                @endforeach
                                      </select>
                                 </div>
                             </div>

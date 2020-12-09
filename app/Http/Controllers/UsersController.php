@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\User;
+use App\Role;
 
 class UsersController extends Controller
 {
@@ -11,9 +13,28 @@ class UsersController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
-        return view('usuarios.crudusuarios');
+    public function index(Request $request)
+    {   
+        $accion = $request->acciones;
+        $clv = $request->id;
+        switch ($accion) {
+            case '':
+                $roles = Role::all();
+                $usuarios = User::select('users.*','roles.*')
+                ->join('roles','roles.id','=','users.role_id')
+                ->first();
+                $data_user = User::select('users.*','roles.*')
+                ->join('roles','roles.id','=','users.role_id')
+                ->get();
+                return view('usuarios.crudusuarios',compact('roles','usuarios','data_user'));
+                break;
+            
+            default:
+                # code...
+                break;
+        }
+        $roles = Role::all();
+        return view('usuarios.crudusuarios',compact('roles'));
     }
 
     /**
