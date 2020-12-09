@@ -44,6 +44,7 @@
                           <div class="col-sm-6">
                               <div class="form-group">
                                   <label>Nombre del Usuario:</label>
+                                <input type="hidden" name="id" value="">
                                   <input type="text" name="name"  value="" class="form-control"  onkeyup="mayus(this);">
 
                               </div>
@@ -79,8 +80,9 @@
                                             Seleccione una opción 
                                              --------
                                         </option>
-                                
-                                        <option  value=""></option>
+                                @foreach($roles as $role)
+                                        <option  value="{{$role->id}}"> {{$role->nombre_rol}}</option>
+                                @endforeach
                                      </select>
                                 </div>
                             </div>
