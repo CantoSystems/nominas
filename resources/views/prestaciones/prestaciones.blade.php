@@ -60,6 +60,7 @@
                             <label>Aguinaldo</label>
                             <input type="text" class="form-control" name="aguinaldo" value="{{$aux->aguinaldo}}" onkeyup="mayus(this)"; onkeypress="return numeros(event)">
                         </div>
+                        @canany(['administrador','capturista','reportes'])
                         <div class="col-sm-5">
                             <div class="card-body">
                                 <div class="margin">
@@ -80,16 +81,24 @@
                                 </div>
                             </div>
                         </div>
+                        @endcanany
+
                         <div class="col-sm-4">
                             <div class="card-body">
                                 <div class="margin">
+                                    
                                     <div class="btn-group">
+                                        @canany(['administrador','capturista'])
                                         <div class="form-group">
                                             <button type="button" id="nuevo" style='width:40px; height:27px'> <i class="fas fa-user-plus"></i></button>
                                         </div>
+                                        
+
                                         <div class="form-group">
                                             <button type="button" id="actualizar" style='width:40px; height:27px'> <i class="fas fa-pen-square"></i></button>
                                         </div>
+                                        @endcanany
+                                        @can('administrador')
                                         <div class="form-group">
                                             <a id="eliminar" data-target="#modal-deleteprestaciones-{{$aux->id}}" data-toggle="modal">
                                                 <button type="button" style='width:40px; height:27px'>
@@ -97,6 +106,7 @@
                                                 </button>
                                             </a>
                                         </div>
+                                        @endcan
                                     </div>
                                 </div>
                             </div>

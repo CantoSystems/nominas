@@ -93,6 +93,7 @@
                                     <input type="hidden" class="form-control" name="identificador">
                                 </div>
                             @endif
+                            @canany(['administrador','capturista','reportes'])
                             <div class="col-sm-5">
                                 <div class="card-body">
                                     <div class="margin">
@@ -117,18 +118,23 @@
                                 <div class="card-body">
                                     <div class="margin">
                                         <div class="btn-group">
-                                            <div class="form-group">
-                                                <button id="buscar" type="button" data-toggle="modal" data-target="#exampleModal" style='width:40px; height:27px'>
-                                                    <i class="fas fa-search"></i>
-                                                </button>
-                                            </div>
-                                            <div class="form-group">
-                                                <button type="button" id="nuevo" style='width:40px; height:27px'> <i class="fas fa-user-plus"></i></button>
-                                            </div>
-                                            <div class="form-group">
-                                                <button type="button" id="actualizar" style='width:40px; height:27px'> <i class="fas fa-pen-square"></i></button>
-                                            </div>
-                                            <div class="form-group">
+                                            @canany(['administrador','capturista','reportes'])
+                                                <div class="form-group">
+                                                    <button id="buscar" type="button" data-toggle="modal" data-target="#exampleModal" style='width:40px; height:27px'>
+                                                        <i class="fas fa-search"></i>
+                                                    </button>
+                                                </div>
+                                            @endcanany
+                                            @canany(['administrador','capturista'])
+                                                <div class="form-group">
+                                                    <button type="button" id="nuevo" style='width:40px; height:27px'> <i class="fas fa-user-plus"></i></button>
+                                                </div>
+                                                <div class="form-group">
+                                                    <button type="button" id="actualizar" style='width:40px; height:27px'> <i class="fas fa-pen-square"></i></button>
+                                                </div>
+                                                <div class="form-group">
+                                            @endcanany
+                                            @can('administrador')
                                                 @if(!empty($aux))
                                                     <a href="#" id="eliminar" data-target="#modal-delete-{{$aux->id}}" data-toggle="modal" style='width:40px; height:27px'>
                                                         <button type="button" style='width:40px; height:27px'>

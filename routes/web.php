@@ -103,3 +103,5 @@ Route::delete('/conceptos/{id}','ConceptosController@eliminaconcepto')->name('co
 Route::get('/empleados', 'EmpleadosController@index')->name('empleados.index');
 
 
+//Usuarios
+Route::get('/usuarios','UsersController@index')->name('usuarios.index');

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use DB;
 use Session;
 use DataTables;
+use Illuminate\Support\Facades\Schema;
 
 class PeriodosController extends Controller
 {
