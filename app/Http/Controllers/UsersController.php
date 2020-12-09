@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\User;
+use App\Role;
 
 class UsersController extends Controller
 {
@@ -12,8 +14,9 @@ class UsersController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
-        return view('usuarios.crudusuarios');
+    {   
+        $roles = Role::all();
+        return view('usuarios.crudusuarios',compact('roles'));
     }
 
     /**
