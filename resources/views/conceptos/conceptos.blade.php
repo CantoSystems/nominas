@@ -165,9 +165,20 @@
                                     <input class="form-check-input" name="infonavit" type="checkbox">
                                     <label class="form-check-label">INFONAVIT</label>
                                 </div>
+<<<<<<< HEAD
                                 <div class="form-check">
                                     <input class="form-check-input" name="estatal" type="checkbox">
                                     <label class="form-check-label">IMPUESTO ESTATAL</label>
+=======
+                            @endcanany
+                            @can('administrador')
+                                <div class="form-group">
+                                    <a id="eliminar" data-target="#modal-deleteconcepto-{{$aux->id}}" data-toggle="modal" style='width:70px; height:40px'>
+                                        <button type="button" style='width:70px; height:40px'>
+                                            <i class="far fa-trash-alt">
+                                            </i>
+                                        </button></a>
+>>>>>>> d3168764fb58ba6f180d777ae223740671391a9a
                                 </div>
                             </div>
                         </div>
