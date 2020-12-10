@@ -70,14 +70,6 @@ class PrestacionesController extends Controller{
                 case 'actualizar':
                     $this->actualizarprestciones($request);
                     return redirect()->route('prestaciones.index');
-                    
-                    /**$aux1 = DB::connection('DB_Serverr')->table('prestaciones')->where('id',$indic)->first();
-                    if($aux1!==""){
-                        DB::connection('DB_Serverr')->table('prestaciones')->where('id',$request->indic)->update(['anio'=>$request->anio,'dias'=>$request->dias,'prima_vacacional'=>$request->prima_vacacional,'aguinaldo'=>$request->aguinaldo]);
-                        $aux = DB::connection('DB_Serverr')->table('prestaciones')->get()->first();
-                        $prestaciones = DB::connection('DB_Serverr')->table('prestaciones')->get();
-                        return view('prestaciones.prestaciones',compact('aux','prestaciones'));
-                    }*/
                 break;
                 case 'eliminar':
                     $aux1 = DB::connection('DB_Serverr')->table('prestaciones')->where('id',$clave_pr)->first();
@@ -137,15 +129,11 @@ class PrestacionesController extends Controller{
         $clv= Session::get('clave_empresa');
         $clv_empresa=$this->conectar($clv);
 
-
         \Config::set('database.connections.DB_Serverr', $clv_empresa);
-        $anio=$datos->anio;
-        $aux1 = DB::connection('DB_Serverr')->table('prestaciones')->where('anio',$anio)->first();
+        $clv2=$datos->identificador;
+        $aux1 = DB::connection('DB_Serverr')->table('prestaciones')->where('id',$clv2)->first();
 
-        DB::connection('DB_Serverr')->table('prestaciones')->where('anio',$datos->anio)->update(['anio'=>$datos->anio,'dias'=>$datos->dias,'prima_vacacional'=>$datos->prima_vacacional,'aguinaldo'=>$datos->aguinaldo]);
-
-
-
+        DB::connection('DB_Serverr')->table('prestaciones')->where('id',$clv2)->update(['anio'=>$datos->anio,'dias'=>$datos->dias,'prima_vacacional'=>$datos->prima_vacacional,'aguinaldo'=>$datos->aguinaldo]);
     }
 
    /**
