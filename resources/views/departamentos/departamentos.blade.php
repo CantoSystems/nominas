@@ -94,26 +94,27 @@
                                 </div>
                             @endif
                             @canany(['administrador','capturista','reportes'])
-                            <div class="col-sm-5">
-                                <div class="card-body">
-                                    <div class="margin">
-                                        <div class="btn-group">
-                                            <div class="form-group">
-                                                <button type="submit"  name="acciones" value="primero" id="primero" style='width:40px; height:27px'><i class="fas fa-backward" ></i></button>
-                                            </div>
-                                            <div class="form-group">
-                                                <button type="submit" name="acciones" value="atras" id="atras" style='width:40px; height:27px'><i class="fas fa-arrow-circle-left"></i></button>
-                                            </div>
-                                            <div class="form-group">
-                                                <button type="submit" name="acciones" value="siguiente" id="siguiente" style='width:40px; height:27px'><i class="fas fa-arrow-circle-right"></i></button>
-                                            </div>
-                                            <div class="form-group">
-                                                <button type="submit" name="acciones" value="ultimo" id="ultimo" style='width:40px; height:27px'><i class="fas fa-forward"></i></button>
+                                <div class="col-sm-5">
+                                    <div class="card-body">
+                                        <div class="margin">
+                                            <div class="btn-group">
+                                                <div class="form-group">
+                                                    <button type="submit"  name="acciones" value="primero" id="primero" style='width:40px; height:27px'><i class="fas fa-backward" ></i></button>
+                                                </div>
+                                                <div class="form-group">
+                                                    <button type="submit" name="acciones" value="atras" id="atras" style='width:40px; height:27px'><i class="fas fa-arrow-circle-left"></i></button>
+                                                </div>
+                                                <div class="form-group">
+                                                    <button type="submit" name="acciones" value="siguiente" id="siguiente" style='width:40px; height:27px'><i class="fas fa-arrow-circle-right"></i></button>
+                                                </div>
+                                                <div class="form-group">
+                                                    <button type="submit" name="acciones" value="ultimo" id="ultimo" style='width:40px; height:27px'><i class="fas fa-forward"></i></button>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            @endcanany
                             <div class="col-sm-4">
                                 <div class="card-body">
                                     <div class="margin">
@@ -142,6 +143,7 @@
                                                         </button>
                                                     </a>
                                                 @endif
+                                            @endcanany
                                             </div>
                                         </div>
                                     </div>

@@ -57,7 +57,7 @@ class ConceptosController extends Controller{
             break;
             case 'actualizar':
                 $this->actualizar($request);
-                return redirect()->route('conceptos.index');
+                //return redirect()->route('conceptos.index');
             break;
             case 'cancelar':
                 return redirect()->route('conceptos.index');
@@ -68,7 +68,6 @@ class ConceptosController extends Controller{
                 return view('conceptos.conceptos',compact('aux','aux1'));
             break;
             default:
-
             break;
         }
     }
@@ -121,9 +120,30 @@ class ConceptosController extends Controller{
         $clv_empresa=$this->conectar($clv);
 
         \Config::set('database.connections.DB_Serverr', $clv_empresa);
-        DB::connection('DB_Serverr')->insert('insert into conceptos (clave_concepto,concepto,formula,naturaleza,manejo
-        ,cantidad,importe,monto,isr,imss,infonavit,estatal)
-        values (?,?,?,?,?,?,?,?,?,?,?,?)',[$clave_concepto,$datos->concepto,$datos->formula,$datos->naturaleza
+        DB::connection('DB_Serverr')->insert('insert into conceptos (clave_concepto
+                                                                    ,concepto
+                                                                    ,formula
+                                                                    ,naturaleza
+                                                                    ,manejo
+                                                                    ,cantidad
+                                                                    ,importe
+                                                                    ,monto
+                                                                    ,ispt
+                                                                    ,imss
+                                                                    ,infonavit
+                                                                    ,estatal)
+                                                                values (?
+                                                                       ,?
+                                                                       ,?
+                                                                       ,?
+                                                                       ,?
+                                                                       ,?
+                                                                       ,?
+                                                                       ,?
+                                                                       ,?
+                                                                       ,?
+                                                                       ,?
+                                                                       ,?)',[$clave_concepto,$datos->concepto,$datos->formula,$datos->naturaleza
         ,$datos->manejo,$datos->cantidad,$datos->importe,$datos->monto,$isr,$imss,$infonavit,$estatal]);
     }
 
@@ -157,14 +177,24 @@ class ConceptosController extends Controller{
 
         $clv_empresa=$this->conectar($clv);
 
-        \Config::set('database.connections.DB_Serverr', $clv_empresa);
-        $aux1 = DB::connection('DB_Serverr')->table('conceptos')->where('clave_concepto',$datos->clave_concepto)->first();
+        echo $datos;
+        /*\Config::set('database.connections.DB_Serverr', $clv_empresa);
+        $aux1 = DB::connection('DB_Serverr')->table('conceptos')->where('id',$datos->id)->first();
         if($aux1!==""){
-            DB::connection('DB_Serverr')->table('conceptos')->where('clave_concepto',$datos->clave_concepto)
-            ->update(['concepto'=>$datos->concepto,'formula'=>$datos->naturaleza,'manejo'=>$datos->manejo,
-            'cantidad'=>$datos->cantidad,'importe'=>$datos->importe,'monto'=>$datos->monto, 'isr'=>$isr,
-            'imss'=>$imss,'infonavit'=>$infonavit,'estatal'=>$estatal]);
-        }
+            DB::connection('DB_Serverr')->table('conceptos')->where('id',$datos->id)
+            ->update(['clave_concepto'=>$clave_concepto
+                     ,'concepto'=>$datos->concepto
+                     ,'formula'=>$datos->formula
+                     ,'naturaleza'=>$datos->naturaleza
+                     ,'manejo'=>$datos->manejo
+                     ,'cantidad'=>$datos->cantidad
+                     ,'importe'=>$datos->importe
+                     ,'monto'=>$datos->monto
+                     ,'ispt'=>$isr
+                     ,'imss'=>$imss
+                     ,'infonavit'=>$infonavit
+                     ,'estatal'=>$estatal]);
+        }*/
     }
 
     public function eliminaconcepto($id){
