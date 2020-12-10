@@ -216,12 +216,16 @@ scratch. This page gets rid of all links and provides the needed markup only.
           $('#cancelar_reg').show();
           $('input[type="text"]').val('');
           $('input[type="email"]').val('');
+          $('input[type="password"]').val('');
           $('#primero').hide();
           $('#atras').hide();
           $('#siguiente').hide();
           $('#ultimo').hide();
           $('#actualizar').hide();
           $('#eliminar').hide();
+          $('#contra').removeAttr("readOnly");
+          $('#contra1').removeAttr("readOnly");
+           $('#for_roles').hide();
         });
       //Acción al actualizar el registro
         $('#actualizar').click(function(){
@@ -234,6 +238,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
         $('#ultimo').hide();
         $('#nuevo').hide();
         $('#eliminar').hide();
+        $('#contra').removeAttr("readOnly");
+        $('#contra1').removeAttr("readOnly");
+        $('#for_roles').hide();
+        
         });
       })
 </script>
