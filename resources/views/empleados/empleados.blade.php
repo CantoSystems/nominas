@@ -1,42 +1,48 @@
 @extends('layouts.segunda')
-
 @section('content')
 <div class="container">
-
- 
-    <table class="table table-striped" id="example1">
-        <thead>
-          
+  <table class="table table-bordered table-striped" id="example1">
+    <thead>
+      <tr>
+        <th>Clave de Empleado</th>
+        <th>Nombre de Empleado</th>
+        <th>Puesto</th>
+        <th>Departamento</th>
+        <th>Área</th>
+      </tr>
+    </thead>
+    <tbody>
+      @if(!empty($emp))
+        @foreach($personal as $emp)
           <tr>
-            <th scope="col">Clave de Empleado</th>
-            <th scope="col">Nombre de Empleado</th>
-            <th scope="col">Puesto</th>
-            <th scope="col">Departamento</th>
-            <th scope="col">Area</th>
-            <th scope="col">Acciones</th>
-          </tr>
-        </thead>
-        <tbody>
-          
-          <tr>
-
-            @foreach($personal as $emp)
-              <th scope="row">{{ $emp->clave_empleado }}</th>
-              
-              <td> {{ $emp->nombre }} {{ $emp->apellido_paterno }} {{ $emp->apellido_materno }}</td>
-              <td>{{$emp->nombre_puesto}}</td>
-              <td>{{$emp->departamento}}</td>
-              <td>{{$emp->area}}</td>
-            @endforeach
-
-            <td><button type="button" style='width:70px; height:40px; align-items:center;' data-toggle="modal" data-target="#modalcrudempleado">
+            <th scope="row">{{ $emp->clave_empleado }}</th>
+            <td> {{ $emp->nombre }} {{ $emp->apellido_paterno }} {{ $emp->apellido_materno }}</td>
+            <td>{{$emp->nombre_puesto}}</td>
+            <td>{{$emp->departamento}}</td>
+            <td>{{$emp->area}}</td>
+            <td>
+              <button type="button" style='width:70px; height:40px; align-items:center;' data-toggle="modal" data-target="#modalcrudempleado">
                 <i class="fas fa-eye"></i>
-              </button></td>
+              </button>
+            </td>
           </tr>
-
-        </tbody>
-      </table> 
+        @endforeach
+      @endif
+    </tbody>
+  </table> 
 </div>
-
-  @include('empleados.modalcrudempleados')
-  @endsection
+<div class="col-sm-12">
+  <div class="card-body">
+      <div class="margin">
+          <div class="btn-group">
+              <div class="form-group">
+                <button type="button" style='width:70px; height:40px; align-items:center;' data-toggle="modal" data-target="#modalcrudempleado">
+                  <i class="fas fa-user-plus"></i>
+                </button>
+              </div>
+          </div>
+      </div>
+  </div>
+</div>
+@include('empleados.modalcrudempleados')
+@endsection
