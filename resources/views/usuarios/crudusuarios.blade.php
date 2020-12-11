@@ -20,7 +20,10 @@
                         <tbody>
                         @foreach($data_user as $data)
                             <tr>
-                                <th scope="row">{{$data->name}}</th>
+                                <th scope="row">
+                                    {{$data->nombre}} {{$data->apellido_paterno}}
+                                    {{$data->apellido_materno}}
+                                </th>
                                 <td>{{$data->email}}</td>
                                 <td>{{$data->nombre_rol}}</td>
                             </tr>
@@ -40,13 +43,29 @@
                     <h3 class="card-title">Usuarios</h3>
                 </div>
             <div class="card-body">
-                <form action="" method="GET" autocomplete="off">
+                <form action="{{ route('usuarios.index')}}" method="GET" autocomplete="off">
                         <div class="row">
                           <div class="col-sm-6">
                               <div class="form-group">
                                 <label>Nombre del Usuario:</label>
                                     <input type="hidden" name="id" value="{{$usuarios->id}}">
-                                    <input type="text" name="name"  value="{{$usuarios->name}}" class="form-control"  onkeyup="mayus(this);">
+                                    <input type="text" name="nombre"  value="{{$usuarios->nombre}}" class="form-control"  onkeyup="mayus(this);">
+
+                              </div>
+                          </div>
+
+                          <div class="col-sm-6">
+                              <div class="form-group">
+                                <label>Apellido Paterno:</label>
+                                    <input type="text" name="apellido_paterno"  value="{{$usuarios->apellido_paterno}}" class="form-control"  onkeyup="mayus(this);">
+
+                              </div>
+                          </div>
+
+                          <div class="col-sm-6">
+                              <div class="form-group">
+                                <label>Apellido Materno:</label>
+                                    <input type="text" name="apellido_materno"  value="{{$usuarios->apellido_materno}}" class="form-control"  onkeyup="mayus(this);">
 
                               </div>
                           </div>
@@ -172,9 +191,7 @@
                         </div>
                     </form>
                     @include('usuarios.modaldeleteusuarios')
-                    @include('usuarios.modalsearchusuarios')
-                     
-                
+                    @include('usuarios.modalsearchusuarios')            
                    </div>
                    </div>
         </div>
