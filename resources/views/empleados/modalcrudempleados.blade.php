@@ -72,7 +72,7 @@
                           <div class="col-md-2 mb-3">
                             <label for="validationDefault04">Causa de baja</label>
                             <select class="custom-select" name="causa_baja">
-                              <option selected  value=""></option>
+                              <option selected disabled value="">Seleccione una opción:</option>
                               <option>Renuncia</option>
                               <option>Despido</option>
                             </select>

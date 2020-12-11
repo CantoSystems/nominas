@@ -9,17 +9,18 @@
         <th>Puesto</th>
         <th>Departamento</th>
         <th>Área</th>
+        <th>Acciones</th>
       </tr>
     </thead>
     <tbody>
-      @if(!empty($emp))
+      @if(!empty($personal))
         @foreach($personal as $emp)
           <tr>
-            <th scope="row">{{ $emp->clave_empleado }}</th>
-            <td> {{ $emp->nombre }} {{ $emp->apellido_paterno }} {{ $emp->apellido_materno }}</td>
-            <td>{{$emp->nombre_puesto}}</td>
-            <td>{{$emp->departamento}}</td>
-            <td>{{$emp->area}}</td>
+            <td scope="row">{{ $emp->clave_empleado }}</td>
+            <td>{{ $emp->nombre }} {{ $emp->apellido_paterno }} {{ $emp->apellido_materno }}</td>
+            <td>{{ $emp->nombre_puesto }}</td>
+            <td>{{ $emp->departamento }}</td>
+            <td>{{ $emp->area }}</td>
             <td>
               <button type="button" style='width:70px; height:40px; align-items:center;' data-toggle="modal" data-target="#modalcrudempleado">
                 <i class="fas fa-eye"></i>
