@@ -26,12 +26,37 @@
                             <div class="form-group">
                                 <label>Naturaleza:</label>
                                 <select class="custom-select" id="naturaleza" name="naturaleza">
-                                <option value="{{$aux->naturaleza}}">{{$aux->naturaleza}}</option>
-                                    <option value="1">Selecciona una opción</option>
-                                    <option value="P">Percepcion</option>
-                                    <option value="D">Deducción</option>
-                                    <option value="T">Impuesto al trabajador</option>
-                                    <option value="I">Impuesto al patron</option>
+                                    @if($aux->naturaleza=="1")
+                                        <option value="1" selected>Selecciona una opción</option>
+                                        <option value="P">Percepción</option>
+                                        <option value="D">Deducción</option>
+                                        <option value="T">Impuesto al trabajador</option>
+                                        <option value="I">Impuesto al patrón</option>
+                                    @elseif($aux->naturaleza=="P")
+                                        <option value="1">Selecciona una opción</option>
+                                        <option value="P" selected>Percepción</option>
+                                        <option value="D">Deducción</option>
+                                        <option value="T">Impuesto al trabajador</option>
+                                        <option value="I">Impuesto al patrón</option>
+                                    @elseif($aux->naturaleza=="D")
+                                        <option value="1">Selecciona una opción</option>
+                                        <option value="P">Percepción</option>
+                                        <option value="D" selected>Deducción</option>
+                                        <option value="T">Impuesto al trabajador</option>
+                                        <option value="I">Impuesto al patrón</option>
+                                    @elseif($aux->naturaleza=="T")
+                                        <option value="1">Selecciona una opción</option>
+                                        <option value="P">Percepción</option>
+                                        <option value="D">Deducción</option>
+                                        <option value="T" selected>Impuesto al trabajador</option>
+                                        <option value="I">Impuesto al patrón</option>
+                                    @elseif($aux->naturaleza=="I")
+                                        <option value="1">Selecciona una opción</option>
+                                        <option value="P">Percepción</option>
+                                        <option value="D">Deducción</option>
+                                        <option value="T">Impuesto al trabajador</option>
+                                        <option value="I" selected>Impuesto al patrón</option>
+                                    @endif
                                 </select>
                             </div>
                         </div>
@@ -39,10 +64,19 @@
                             <div class="form-group">
                                 <label>Manejo:</label>
                                 <select class="custom-select" id="manejo" name="manejo">
-                                    <option value="{{$aux->manejo}}">{{$aux->manejo}}</option>
-                                    <option value="1">Selecciona una opción</option>
-                                    <option value="fijo">FIJO</option>
-                                    <option value="variable">VARIABLE</option>
+                                    @if($aux->manejo=="1")
+                                        <option value="1" selected>Selecciona una opción</option>
+                                        <option value="fijo">Fijo</option>
+                                        <option value="variable">Variable</option>
+                                    @elseif($aux->manejo=="fijo")
+                                        <option value="1">Selecciona una opción</option>
+                                        <option value="fijo" selected>Fijo</option>
+                                        <option value="variable">Variable</option>
+                                    @elseif($aux->manejo=="variable")
+                                        <option value="1">Selecciona una opción</option>
+                                        <option value="fijo">Fijo</option>
+                                        <option value="variable" selected>Variable</option>
+                                    @endif
                                 </select>
                             </div>
                         </div>
@@ -73,20 +107,36 @@
                         <div class="col-sm-4">
                             <label for=""> Elije el gravado:</label>
                             <div class="form-group">
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" name="isr" value="{{$aux->ispt}}">
-                                <label class="form-check-label">I.S.R</label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" name="imss" type="checkbox" value="{{$aux->imss}}">
-                                <label class="form-check-label">I.M.S.S.</label>
-                            </div>
                                 <div class="form-check">
-                                    <input class="form-check-input" name="infonavit" type="checkbox" value="{{$aux->infonavit}}">
+                                    @if($aux->ispt==1)
+                                        <input class="form-check-input" type="checkbox" name="isr" checked> 
+                                    @else
+                                        <input class="form-check-input" type="checkbox" name="isr"> 
+                                    @endif
+                                    <label class="form-check-label">I.S.R</label>
+                                </div>
+                                <div class="form-check">
+                                    @if($aux->imss==1)
+                                        <input class="form-check-input" name="imss" type="checkbox" checked>
+                                    @else
+                                        <input class="form-check-input" name="imss" type="checkbox">
+                                    @endif
+                                    <label class="form-check-label">I.M.S.S.</label>
+                                </div>
+                                <div class="form-check">
+                                    @if($aux->infonavit==1)
+                                        <input class="form-check-input" name="infonavit" type="checkbox" checked>
+                                    @else
+                                        <input class="form-check-input" name="infonavit" type="checkbox">
+                                    @endif
                                     <label class="form-check-label">INFONAVIT</label>
                                 </div>
                                 <div class="form-check">
-                                    <input class="form-check-input" name="estatal" type="checkbox" value="{{$aux->estatal}}">
+                                    @if($aux->estatal==1)
+                                        <input class="form-check-input" name="estatal" type="checkbox" checked>
+                                    @else
+                                        <input class="form-check-input" name="estatal" type="checkbox">
+                                    @endif
                                     <label class="form-check-label">IMPUESTO ESTATAL</label>
                                 </div>
                             </div>
@@ -109,10 +159,10 @@
                                 <label>Naturaleza:</label>
                                 <select class="custom-select" id="naturaleza" name="naturaleza">
                                     <option value="1">Selecciona una opción</option>
-                                    <option value="P">Percepcion</option>
+                                    <option value="P">Percepción</option>
                                     <option value="D">Deducción</option>
                                     <option value="T">Impuesto al trabajador</option>
-                                    <option value="I">Impuesto al patron</option>
+                                    <option value="I">Impuesto al patrón</option>
                                 </select>
                             </div>
                         </div>

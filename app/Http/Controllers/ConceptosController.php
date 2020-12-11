@@ -57,7 +57,7 @@ class ConceptosController extends Controller{
             break;
             case 'actualizar':
                 $this->actualizar($request);
-                //return redirect()->route('conceptos.index');
+                return redirect()->route('conceptos.index');
             break;
             case 'cancelar':
                 return redirect()->route('conceptos.index');
@@ -93,25 +93,26 @@ class ConceptosController extends Controller{
     public function registrar($datos){
         $clv=Session::get('clave_empresa');
         $clave_concepto= $datos->clave_concepto.$datos->naturaleza;
-        if(is_null($datos->isr)){
+        
+        if($datos->isr=="on"){
             $isr=1;
         }else{
             $isr=0;
         }
 
-        if(is_null($datos->imss)){
+        if($datos->imss=="on"){
             $imss=1;
         }else{
             $imss=0;
         }
 
-        if(is_null($datos->infonavit)){
+        if($datos->infonavit=="on"){
             $infonavit=1;
         }else{
             $infonavit=0;
         }
 
-        if(is_null($datos->estatal)){
+        if($datos->estatal=="on"){
             $estatal=1;
         }else{
             $estatal=0;
@@ -151,34 +152,33 @@ class ConceptosController extends Controller{
         $clv=Session::get('clave_empresa');
         $clave_concepto= $datos->clave_concepto.$datos->naturaleza;
 
-        if(is_null($datos->isr)){
+        if($datos->isr=="on"){
             $isr=1;
         }else{
-            $isr=$datos->isr;
+            $isr=0;
         }
 
-        if(is_null($datos->imss)){
+        if($datos->imss=="on"){
             $imss=1;
         }else{
-            $imss=$datos->imss;
+            $imss=0;
         }
 
-        if(is_null($datos->infonavit)){
+        if($datos->infonavit=="on"){
             $infonavit=1;
         }else{
-            $infonavit=$datos->infonavit;
+            $infonavit=0;
         }
 
-        if(is_null($datos->estatal)){
+        if($datos->estatal=="on"){
             $estatal=1;
         }else{
-            $estatal=$datos->estatal;
+            $estatal=0;
         }
 
         $clv_empresa=$this->conectar($clv);
 
-        echo $datos;
-        /*\Config::set('database.connections.DB_Serverr', $clv_empresa);
+        \Config::set('database.connections.DB_Serverr', $clv_empresa);
         $aux1 = DB::connection('DB_Serverr')->table('conceptos')->where('id',$datos->id)->first();
         if($aux1!==""){
             DB::connection('DB_Serverr')->table('conceptos')->where('id',$datos->id)
@@ -194,7 +194,7 @@ class ConceptosController extends Controller{
                      ,'imss'=>$imss
                      ,'infonavit'=>$infonavit
                      ,'estatal'=>$estatal]);
-        }*/
+        }
     }
 
     public function eliminaconcepto($id){
