@@ -204,8 +204,8 @@ Schema::connection('DB_Serverr')->create('empleados', function($table){
     $table->date('fecha_alta');
     $table->date('fecha_baja')->nullable();
     $table->string('causa_baja')->nullable();
-    $table->char('clave_departamento',4);
-    $table->char('clave_puesto',4);
+    $table->char('clave_departamento',5);
+    $table->char('clave_puesto',5);
     $table->string('rfc',13);
     $table->string('curp',18);
     $table->string('imss',11);
@@ -223,7 +223,7 @@ Schema::connection('DB_Serverr')->create('empleados', function($table){
     $table->string('ciudad',50);
     $table->string('municipio',50);
     $table->string('estado',50);
-    $table->string('telefono_empleado',10);
+    $table->string('telefono_empleado',15);
     $table->string('correo',60);
     $table->string('sexo',6);
     $table->string('estado_civil',20);
@@ -287,7 +287,7 @@ Schema::connection('DB_Serverr')->create('empleados', function($table){
     $table->string('estudio_actual',100)->nullable();
     $table->string('carrera',100)->nullable();
     $table->integer('grado')->nullable();
-    $table->time('horario')->nullable();
+    $table->char('horario',20)->nullable();
     $table->string('duracion_trabajo')->nullable();
     $table->string('nombre_compania',100)->nullable();
     $table->string('direccion_compania',100)->nullable();
@@ -358,7 +358,7 @@ Schema::connection('DB_Serverr')->create('empleados', function($table){
     $table->integer('dias');
     $table->double('horas_diarias');
     $table->string('forma_pago',50);
-    $table->char('clave_banco',4);
+    $table->char('clave_banco',5);
     $table->string('cuenta_bancaria',20);
     $table->string('clabe_interbancaria',18);
     $table->boolean('ptu')->nullable();
