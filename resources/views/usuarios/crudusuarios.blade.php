@@ -73,7 +73,7 @@
                             <div class="col-sm-6">
                                 <div class="form-group">
                                     <label>Correo electronico:</label>
-                                    <input type="text" name="email"  value="{{$usuarios->email}}"   class="form-control"  onkeyup="mayus(this)"; onkeypress="return validar(event)" >
+                                    <input type="email" name="email"  value="{{$usuarios->email}}"   class="form-control"  onkeyup="mayus(this)"; >
                                 </div>
                             </div>
 
@@ -81,14 +81,14 @@
                                 <div class="form-group">
                                     <label>Contraseña:</label>
                                     <input type="password" id="contra" name="password"  
-                                    value="{{$usuarios->password}}" readonly  class="form-control"  onkeyup="mayus(this)"; onkeypress="return validar(event)" >
+                                    value="{{$usuarios->password}}" readonly  class="form-control">
                                 </div>
                             </div>
 
                             <div class="col-sm-6">
                                 <div class="form-group">
                                     <label>Confirmar contraseña:</label>
-                                    <input type="password" readonly id="contra1" name="password_confirmation"  value="{{$usuarios->password}}"   class="form-control"  onkeyup="mayus(this)"; onkeypress="return validar(event)" >
+                                    <input type="password" readonly id="contra1" name="password_confirmation"  value="{{$usuarios->password}}"   class="form-control">
                                 </div>
                             </div>
 
@@ -97,7 +97,7 @@
                                 <div class="form-group">
                                      <label>Asigne un rol: 
                                         </label>
-                                    <select  class="custom-select" name="">
+                                    <select  class="custom-select" name="role_id">
                                         <option id="for_roles">
                                             {{ $usuarios->nombre_rol}}
                                         </option>
@@ -177,12 +177,9 @@
                                     <button name="acciones" value="actualizar" id="actualizar_reg" type="submit" style="display: none;width:40px; height:27px'"><i class="fas fa-save"></i></button>
                                 </div>
 
-                                <div class="form-group">
-                                    <button name="acciones" value="cancelar_banco" id="cancelar_reg" type="submit" style="display: none;width:40px; height:28px"><i class="far fa-window-close"></i></button>
-                                </div>
 
                                 <div class="form-group">
-                                    <button name="acciones" value="cancelar_actualiza" id="cancelar_actual" type="submit" style="display: none;width:40px; height:28px"><i class="far fa-window-close"></i></button>
+                                    <button name="acciones" value="cancelar" id="cancelar_reg" type="submit" style="display: none;width:40px; height:28px"><i class="far fa-window-close"></i></button>
                                 </div>
                             </div>
                         </div>

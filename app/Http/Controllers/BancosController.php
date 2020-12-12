@@ -79,13 +79,8 @@ class BancosController extends Controller
                    $this->actualizar($request);
                    return redirect()->route('bancos.acciones');
                break;
+
                case 'cancelar':
-                   return back();
-               break;
-               case 'cancelar_banco';
-                   return back();
-               break;
-               case 'cancelar_actualiza':
                   return redirect()->route('bancos.acciones');
                         break;
 
