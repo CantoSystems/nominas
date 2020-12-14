@@ -238,9 +238,12 @@ scratch. This page gets rid of all links and provides the needed markup only.
         $('#ultimo').hide();
         $('#nuevo').hide();
         $('#eliminar').hide();
-        $('#contra').removeAttr("readOnly");
-        $('#contra1').removeAttr("readOnly");
+        $('#contra').hide();
+        $('#contra1').hide();
         $('#for_roles').hide();
+        $('#contra-label').hide();
+        $('#contra1-label').hide();
+
         
         });
       })

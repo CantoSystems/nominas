@@ -19,10 +19,10 @@ class UsersController extends Controller
             case '':
                 $roles = Role::all();
                 $usuarios = User::select('users.*','roles.*')
-                ->join('roles','roles.id','=','users.role_id')
+                ->join('roles','roles.id_rol','=','users.role_id')
                 ->first();
                 $data_user = User::select('users.*','roles.*')
-                ->join('roles','roles.id','=','users.role_id')
+                ->join('roles','roles.id_rol','=','users.role_id')
                 ->get();
                 return view('usuarios.crudusuarios',compact('roles','usuarios','data_user'));
                 break;
@@ -31,34 +31,34 @@ class UsersController extends Controller
                 $identificador = User::where('email',$clv)->first();           
                 $ide = $identificador->id;
                 $usuarios = User::select('users.*','roles.*')
-                    ->join('roles','roles.id','=','users.role_id')
+                    ->join('roles','roles.id_rol','=','users.role_id')
                     ->where('users.id','<',$ide)
                     ->orderBy('users.id','desc')
                     ->first();
                 if(is_null($usuarios)){
                     $usuarios = User::select('users.*','roles.*')
-                    ->join('roles','roles.id','=','users.role_id')
+                    ->join('roles','roles.id_rol','=','users.role_id')
                     ->get()->last();
                 }
                 $roles = Role::all();
                 $data_user = User::select('users.*','roles.*')
-                    ->join('roles','roles.id','=','users.role_id')
+                    ->join('roles','roles.id_rol','=','users.role_id')
                     ->get();
                 return view('usuarios.crudusuarios',compact('roles','usuarios','data_user'));
                 break;
             case 'siguiente':
                 $ident = User::where('email',$clv)->first();
                 $usuarios = User::select('users.*','roles.*')
-                    ->join('roles','roles.id','=','users.role_id')
+                    ->join('roles','roles.id_rol','=','users.role_id')
                     ->where('users.id','>',$ident->id)->first();
                 if(is_null($usuarios)){
                     $usuarios = User::select('users.*','roles.*')
-                    ->join('roles','roles.id','=','users.role_id')
+                    ->join('roles','roles.id_rol','=','users.role_id')
                     ->first();
                 }
                 $roles = Role::all();
                 $data_user = User::select('users.*','roles.*')
-                    ->join('roles','roles.id','=','users.role_id')
+                    ->join('roles','roles.id_rol','=','users.role_id')
                     ->get();
                 return view('usuarios.crudusuarios',compact('roles','usuarios','data_user'));
                 break;
@@ -66,10 +66,10 @@ class UsersController extends Controller
             case 'primero':
                 $roles = Role::all();
                 $usuarios = User::select('users.*','roles.*')
-                ->join('roles','roles.id','=','users.role_id')
+                ->join('roles','roles.id_rol','=','users.role_id')
                 ->first();
                 $data_user = User::select('users.*','roles.*')
-                ->join('roles','roles.id','=','users.role_id')
+                ->join('roles','roles.id_rol','=','users.role_id')
                 ->get();
                 return view('usuarios.crudusuarios',compact('roles','usuarios','data_user'));
                 break;
@@ -77,11 +77,11 @@ class UsersController extends Controller
             case 'ultimo':
                 $roles = Role::all();
                 $usuarios = User::select('users.*','roles.*')
-                ->join('roles','roles.id','=','users.role_id')
+                ->join('roles','roles.id_rol','=','users.role_id')
                 ->get()
                 ->last();
                 $data_user = User::select('users.*','roles.*')
-                ->join('roles','roles.id','=','users.role_id')
+                ->join('roles','roles.id_rol','=','users.role_id')
                 ->get();
                 return view('usuarios.crudusuarios',compact('roles','usuarios','data_user'));
                 break;
@@ -132,7 +132,6 @@ class UsersController extends Controller
       $usuarios->apellido_paterno = $datos->apellido_paterno;
       $usuarios->apellido_materno = $datos->apellido_materno;
       $usuarios->email = $datos->email;
-      $usuarios->password = Hash::make($datos->password);
       $usuarios->role_id = $datos->role_id;
       $usuarios->save();    
     }
