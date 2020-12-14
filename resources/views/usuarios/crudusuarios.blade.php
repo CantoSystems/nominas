@@ -79,7 +79,7 @@
 
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label>Contraseña:</label>
+                                    <label id="contra-label">Contraseña:</label>
                                     <input type="password" id="contra" name="password"  
                                     value="{{$usuarios->password}}" readonly  class="form-control">
                                 </div>
@@ -87,7 +87,7 @@
 
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label>Confirmar contraseña:</label>
+                                    <label id="contra1-label" >Confirmar contraseña:</label>
                                     <input type="password" readonly id="contra1" name="password_confirmation"  value="{{$usuarios->password}}"   class="form-control">
                                 </div>
                             </div>
@@ -95,20 +95,20 @@
                             <div class="col-sm-12">
 
                                 <div class="form-group">
-                                     <label>Asigne un rol: 
-                                        </label>
+                                     <label>Asigne un rol:</label>
                                     <select  class="custom-select" name="role_id">
                                         <option id="for_roles">
                                             {{ $usuarios->nombre_rol}}
                                         </option>
 
-                                        <option  value="null" style="text-align: center;">
+                                        <option  value="null">
                                             -------- 
                                             Seleccione una opción 
-                                             --------
+                                            --------
                                         </option>
+                                        
                                 @foreach($roles as $role)
-                                        <option  value="{{$role->id}}"> {{$role->nombre_rol}}</option>
+                                        <option  value="{{$role->id_rol}}"> {{$role->nombre_rol}}  {{$role->id_rol}}</option>
                                 @endforeach
                                      </select>
                                 </div>
