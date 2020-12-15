@@ -13,7 +13,7 @@ class UsersController extends Controller
     public function index(Request $request)
     {   
         $accion = $request->acciones;
-        $clv = $request->email;
+        $clv = $request->id;
      
         switch ($accion) {
             case '':
@@ -28,7 +28,7 @@ class UsersController extends Controller
                 break;
 
             case 'atras':
-                $identificador = User::where('email',$clv)->first();           
+                $identificador = User::where('id',$clv)->first();           
                 $ide = $identificador->id;
                 $usuarios = User::select('users.*','roles.*')
                     ->join('roles','roles.id_rol','=','users.role_id')
@@ -47,7 +47,7 @@ class UsersController extends Controller
                 return view('usuarios.crudusuarios',compact('roles','usuarios','data_user'));
                 break;
             case 'siguiente':
-                $ident = User::where('email',$clv)->first();
+                $ident = User::where('id',$clv)->first();
                 $usuarios = User::select('users.*','roles.*')
                     ->join('roles','roles.id_rol','=','users.role_id')
                     ->where('users.id','>',$ident->id)->first();

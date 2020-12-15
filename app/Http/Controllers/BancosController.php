@@ -29,7 +29,8 @@ class BancosController extends Controller
 
     public function acciones(Request $request){
         $accion= $request->acciones;
-        $clv=$request->clave_banco;
+        //$clv=$request->clave_banco;
+        $clv=$request->id;
 
 
            switch ($accion) {
@@ -40,7 +41,7 @@ class BancosController extends Controller
                    break;
 
                case 'atras':
-                $id= Banco::where("clave_banco",$clv)->first();
+                $id= Banco::where("id",$clv)->first();
                 $banco= Banco::where('id','<',$id->id)
                 ->orderBy('id','desc')
                 ->first();
@@ -52,7 +53,7 @@ class BancosController extends Controller
                break;
 
                case 'siguiente':
-                   $banc= Banco::where('clave_banco',$clv)->first();
+                   $banc= Banco::where('id',$clv)->first();
                    $indic= $banc->id;
                    $banco= Banco::where('id','>',$indic)->first();
                    if($banco==""){
@@ -110,7 +111,8 @@ class BancosController extends Controller
 
 
        public function actualizar($datos){
-        $banc= Banco::where('clave_banco',$datos->clave_banco)->first();
+        $banc= Banco::where('id',$datos->id)->first();
+        $banc->clave_banco= $datos->clave_banco;
         $banc->nombre_banco= $datos->nombre_banco;
         $banc->save();
      }
