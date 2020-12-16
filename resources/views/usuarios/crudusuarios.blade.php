@@ -1,5 +1,6 @@
 @extends('layouts.principal')
 @section('content')
+@canany(['administrador'])
 <div class="container">
     <div class="row">
         <!-- Inicio Datatables-->
@@ -97,8 +98,9 @@
                                 <div class="form-group">
                                      <label>Asigne un rol:</label>
                                     <select  class="custom-select" name="role_id">
-                                        <option id="for_roles">
-                                            {{ $usuarios->nombre_rol}}
+                                        <option id="for_roles" value="{{ $usuarios->role_id }}">
+                                            {{ $usuarios->nombre_rol}} 
+                                            
                                         </option>
 
                                         <option  value="null">
@@ -152,7 +154,7 @@
                                              <button type="button" id="actualizar" style='width:40px; height:27px'> <i class="fas fa-pen-square"></i></button>
                                             </div>
                                             <div class="form-group">
-                                            <a id="eliminar" data-target="#delete" data-toggle="modal">
+                                            <a id="eliminar" data-target="#delete-{{$usuarios->id}}" data-toggle="modal">
                                             <button type="button" style='width:40px; height:27px'>
                                             <i class="far fa-trash-alt">
                                             </i>
@@ -196,6 +198,11 @@
 </div>
 
 </div>
-
+@elsecanany(['capturista','reportes'])
+    
+    <div class="alert alert-secondary" role="alert">
+        No cuenta con los privilegios para acceder a este módulo
+    </div>
+@endcanany
 
 @endsection
