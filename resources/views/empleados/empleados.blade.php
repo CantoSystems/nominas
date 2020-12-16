@@ -22,7 +22,7 @@
             <td>{{ $emp->departamento }}</td>
             <td>{{ $emp->area }}</td>
             <td>
-              <button type="button" style='width:70px; height:40px; align-items:center;' data-toggle="modal" data-target="#modalcrudempleado">
+              <button type="button" style='width:70px; height:40px; align-items:center;' data-toggle="modal" data-target="#modalcrudempleado-{{$emp->id}}">
                 <i class="fas fa-eye"></i>
               </button>
             </td>
