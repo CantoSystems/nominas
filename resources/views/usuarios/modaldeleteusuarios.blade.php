@@ -1,4 +1,4 @@
-<div class="modal fade bs-example-modal-sm" tabindex="-1" id="delete" role="dialog" aria-hidden="true">
+<div class="modal fade bs-example-modal-sm" tabindex="-1" id="delete-{{$usuarios->id}}" role="dialog" aria-hidden="true">
 <div class="modal-dialog modal-sm">
 <div class="modal-content">
 <div class="modal-header">
@@ -9,10 +9,13 @@
 </button>
 </div>
 <div class="modal-body">
-<form action="" method="">
+<form action="{{ route('usuarios.destroy', $usuarios->id)}}" method="POST">
+	@method('DELETE')
+	@csrf
 <div class="row">
 <h5 style="text-align: center;">¿Estas seguro de eliminar este Usuario: 
-		<strong></strong>
+		<strong>{{$data->nombre}} {{$data->apellido_paterno}}
+                                    {{$data->apellido_materno}}</strong>
 ?</h5>
 </div>
 
