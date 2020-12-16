@@ -51,7 +51,7 @@
                                 <div class="col-sm-6">
                                     <div class="form-group">
                                         <label>Nombre:</label>
-                                        <input type="hidden" name="identificador" value="{{$banco->id}}" class="form-control"  onkeyup="mayus(this);">
+                                        <input type="hidden" name="id" value="{{$banco->id}}" class="form-control"  onkeyup="mayus(this);">
                                         <input type="text" name="nombre_banco" value="{{$banco->nombre_banco}}" class="form-control"  onkeyup="mayus(this);" onkeypress="return validar(event);" >
                                     </div>
                                 </div>
