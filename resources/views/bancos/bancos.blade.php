@@ -46,9 +46,9 @@
                                     <div class="form-group">
                                         <label>Clave banco:</label>
                                     @if(isset($banco))
-                                        <input type="text" name="clave_banco" value="{{$banco->clave_banco}}" class="form-control" onkeyup="mayus(this);">
+                                        <input type="text" name="clave_banco" value="{{$banco->clave_banco}}" class="form-control" maxlength = "4" onkeyup="mayus(this);">
                                     @else
-                                        <input type="text" name="clave_banco" value="" class="form-control" onkeyup="mayus(this);">
+                                        <input type="text" name="clave_banco" value="" class="form-control"  maxlength = "4" onkeyup="mayus(this);">
                                     @endif
                                     </div>
                                 </div>

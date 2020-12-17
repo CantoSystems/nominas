@@ -19,7 +19,8 @@
                             </tr>
                         </thead>
                         <tbody>
-                        @forelse($data_user as $data)
+                        @if(isset($data_user))
+                            @foreach($data_user as $data)
                             <tr>
                                 <th scope="row">
                                     {{$data->nombre}} {{$data->apellido_paterno}}
@@ -28,8 +29,8 @@
                                 <td>{{$data->email}}</td>
                                 <td>{{$data->nombre_rol}}</td>
                             </tr>
-                        @empty
-                        @endforelse
+                            @endforeach
+                        @endif
                         </tbody>
                     </table>
                 </div>
@@ -123,39 +124,40 @@
 
                             <div class="col-sm-12">
 
-                                <div class="form-group">
-                                     <label>Asigne un rol:</label>
+                            <div class="form-group">
+                                <label>Asigne un rol:</label>
                                     @if(isset($usuarios))
-                                    <select  class="custom-select" name="role_id">
-                                        <option id="for_roles" value="{{ $usuarios->role_id }}">
+                                        <select  class="custom-select" name="role_id">
+                                            <option id="for_roles" value="{{ $usuarios->role_id }}">
                                             {{ $usuarios->nombre_rol}} 
                                             
-                                        </option>
+                                            </option>
 
-                                        <option  value="null">
-                                            -------- 
-                                            Seleccione una opción 
-                                            --------
-                                        </option>
+                                            <option  value="null">
+                                                -------- 
+                                                Seleccione una opción 
+                                                --------
+                                            </option>
                                         
-                                @foreach($roles as $role)
-                                        <option  value="{{$role->id_rol}}"> {{$role->nombre_rol}}  {{$role->id_rol}}</option>
-                                @endforeach
-                                     </select>
-                                @else
-                                    <select  class="custom-select" name="role_id">
+                                            @foreach($roles as $role)
+                                                <option  value="{{$role->id_rol}}"> {{$role->nombre_rol}}  {{$role->id_rol}}</option>
+                                            @endforeach
+                                        </select>
+                                    @else
+                                        <select  class="custom-select" name="role_id">
 
-                                        <option  value="null">
-                                            -------- 
-                                            Seleccione una opción 
-                                            --------
-                                        </option>
+                                            <option  value="null">
+                                                -------- 
+                                                Seleccione una opción 
+                                                --------
+                                            </option>
                                         
-                                @foreach($roles as $role)
-                                        <option  value="{{$role->id_rol}}"> {{$role->nombre_rol}}  {{$role->id_rol}}</option>
-                                @endforeach
-                                     </select>
-                                @endif
+                                            @foreach($roles as $role)
+                                                
+                                                <option  value="{{$role->id_rol}}"> {{$role->nombre_rol}}  {{$role->id_rol}}</option>
+                                            @endforeach
+                                            </select>
+                                    @endif
                                 </div>
                             </div>
 
@@ -187,32 +189,38 @@
                                 <div class="card-body">
                                     <div class="margin">
                                         <div class="btn-group">
-                                        @isset($usuarios)
                                             <div class="form-group">
+                                            @isset($usuarios)
                                                 <button id="buscar" type="button" data-toggle="modal" data-target="#exampleModal" style='width:40px; height:27px'>
                                                     <i class="fas fa-search"></i>
                                                   </button>
+                                            @endisset
                                             </div>
-                                        @endisset
+                                        
                                             <div class="form-group">
                                                 <button type="button" id="nuevo" style='width:40px; height:27px'> <i class="fas fa-user-plus"></i></button>
                                             </div>
                                             <div class="form-group">
-                                             <button type="button" id="actualizar" style='width:40px; height:27px'> <i class="fas fa-pen-square"></i></button>
+                                            @isset($usuarios)
+                                                <button type="button" id="actualizar" style='width:40px; height:27px'> <i class="fas fa-pen-square"></i></button>
+                                            @endisset
                                             </div>
                                             <div class="form-group">
-                                            <a id="eliminar" data-target="#delete-{{$usuarios->id}}" data-toggle="modal">
-                                            <button type="button" style='width:40px; height:27px'>
-                                            <i class="far fa-trash-alt">
-                                            </i>
-                                            </button></a>
+                                            @isset($usuarios)
+                                                <a id="eliminar" data-target="#delete-{{$usuarios->id}}" data-toggle="modal">
+                                                    <button type="button" style='width:40px; height:27px'>
+                                                        <i class="far fa-trash-alt">
+                                                        </i>
+                                                    </button>
+                                                </a>
+                                            @endisset
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
 
-                            <div class="col-sm-3">
+                <div class="col-sm-3">
                     <div class="card-body">
                         <div class="margin">
                             <div class="btn-group">
@@ -236,7 +244,9 @@
                 </div>
                         </div>
                     </form>
-                    @include('usuarios.modaldeleteusuarios')
+                    @isset($usuarios)
+                        @include('usuarios.modaldeleteusuarios')
+                    @endisset
                     @include('usuarios.modalsearchusuarios')            
                    </div>
                    </div>
