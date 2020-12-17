@@ -139,6 +139,8 @@ class UsersController extends Controller
     
     public function destroy($id)
     {
-        
+        $usuarios = User::find($id);
+        $usuarios->delete();
+        return redirect()->route('usuarios.index');
     }
 }
