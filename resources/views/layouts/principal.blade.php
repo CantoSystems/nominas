@@ -243,6 +243,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
         $('#for_roles').hide();
         $('#contra-label').hide();
         $('#contra1-label').hide();
+        $('#buscar').hide();
 
         
         });

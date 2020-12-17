@@ -99,9 +99,25 @@ class UsersController extends Controller
             case 'cancelar':
                 return redirect()->route('usuarios.index');
                 break;
+
+            case 'buscar':
+                $usuarios = User::select('users.*','roles.*')
+                    ->join('roles','roles.id_rol','=','users.role_id')
+                    ->where('users.email',$request->busca)->first();
+                if(is_null($usuarios)){
+                    $usuarios = User::select('users.*','roles.*')
+                    ->join('roles','roles.id_rol','=','users.role_id')
+                    ->first();
+                }
+                $roles = Role::all();
+                $data_user = User::select('users.*','roles.*')
+                    ->join('roles','roles.id_rol','=','users.role_id')
+                    ->get();
+                return view('usuarios.crudusuarios',compact('roles','usuarios','data_user'));
+                break;
             
             default:
-                # code...
+                
                 break;
         }
         $roles = Role::all();

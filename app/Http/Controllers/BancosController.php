@@ -88,6 +88,9 @@ class BancosController extends Controller
                 case 'buscar':
 
                       $banco = Banco::where('nombre_banco',$request->busca)->first();
+                       if($banco==""){
+                      $banco= Banco::first();
+                      }
                       $bancos= Banco::all();
                     return view('bancos.bancos',compact('banco','bancos'));
                      break;
