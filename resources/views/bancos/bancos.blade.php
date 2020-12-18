@@ -17,7 +17,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @if(!empty($bancos))
+                            @if(isset($bancos))
                                 @foreach ($bancos as $banc)
                                     <tr>
                                         <th scope="row">{{$banc->clave_banco}}</th>
@@ -41,40 +41,38 @@
                 <div class="card-body">
                     <form action="{{ route('bancos.acciones')}}" method="GET" autocomplete="off">
                         <div class="row">
-                            @if(!empty($banco))
+                           
                                 <div class="col-sm-6">
                                     <div class="form-group">
                                         <label>Clave banco:</label>
-                                        <input type="text" name="clave_banco" value="{{$banco->clave_banco}}" class="form-control" onkeyup="mayus(this);">
+                                    @if(isset($banco))
+                                        <input type="text" name="clave_banco" value="{{$banco->clave_banco}}" class="form-control" maxlength = "4" onkeyup="mayus(this);">
+                                    @else
+                                        <input type="text" name="clave_banco" value="" class="form-control"  maxlength = "4" onkeyup="mayus(this);">
+                                    @endif
                                     </div>
                                 </div>
                                 <div class="col-sm-6">
                                     <div class="form-group">
                                         <label>Nombre:</label>
+                                    @if(isset($banco))
                                         <input type="hidden" name="id" value="{{$banco->id}}" class="form-control"  onkeyup="mayus(this);">
                                         <input type="text" name="nombre_banco" value="{{$banco->nombre_banco}}" class="form-control"  onkeyup="mayus(this);" onkeypress="return validar(event);" >
+                                    @else
+                                        <input type="hidden" name="id" value="" class="form-control"  onkeyup="mayus(this);">
+                                        <input type="text" name="nombre_banco" value="" class="form-control"  onkeyup="mayus(this);" onkeypress="return validar(event);" >
+                                    @endif
+
                                     </div>
                                 </div>
-                            @else
-                                <div class="col-sm-6">
-                                    <div class="form-group">
-                                        <label>Clave banco:</label>
-                                        <input type="text" name="clave_banco"class="form-control" onkeyup="mayus(this);">
-                                    </div>
-                                </div>
-                                <div class="col-sm-6">
-                                    <div class="form-group">
-                                        <label>Nombre:</label>
-                                        <input type="hidden" name="identificador"class="form-control" onkeyup="mayus(this);">
-                                        <input type="text" name="nombre_banco" class="form-control" onkeyup="mayus(this);" onkeypress="return validar(event);" >
-                                    </div>
-                                </div>
-                            @endif
+                            
+                                
                             @canany(['administrador','capturista','reportes'])
                                 <div class="col-sm-5">
                                     <div class="card-body">
                                         <div class="margin">
                                             <div class="btn-group">
+                                                @isset($banco)
                                                 <div class="form-group">
                                                     <button type="submit"  name="acciones" value="primero" id="primero" style='width:40px; height:27px'><i class="fas fa-backward" ></i></button>
                                                 </div>
@@ -87,6 +85,7 @@
                                                 <div class="form-group">
                                                     <button type="submit" name="acciones" value="ultimo" id="ultimo" style='width:40px; height:27px'><i class="fas fa-forward"></i></button>
                                                 </div>
+                                                @endisset
                                             </div>
                                         </div>
                                     </div>
@@ -98,20 +97,26 @@
                                         @canany(['administrador','capturista','reportes'])
                                         <div class="btn-group">
                                             <div class="form-group">
+                                            @isset($banco)
                                                 <button id="buscar" type="button" data-toggle="modal" data-target="#exampleModal" style='width:40px; height:27px'>
                                                     <i class="fas fa-search"></i>
                                                 </button>
+                                            @endisset
                                             </div>
                                         @endcanany
                                         @canany(['administrador','capturista'])
                                             <div class="form-group">
                                                 <button type="button" id="nuevo" style='width:40px; height:27px'> <i class="fas fa-user-plus"></i></button>
                                             </div>
+                                        @isset($banco)
                                             <div class="form-group">
                                                 <button type="button" id="actualizar" style='width:40px; height:27px'> <i class="fas fa-pen-square"></i></button>
                                             </div>
+                                        @endisset
                                         @endcanany
+
                                         @can('administrador')
+                                            @isset($banco)
                                             <div class="form-group">
                                                 <a id="eliminar" data-target="#modal-deletebanco-{{$banco->id}}" data-toggle="modal">
                                                     <button type="button" style='width:40px; height:27px'>
@@ -119,6 +124,7 @@
                                                     </button>
                                                 </a>
                                             </div>
+                                            @endisset
                                         @endcan
                                         </div>
                                     </div>
@@ -144,7 +150,10 @@
                             </div>
                         </div>
                     </form>
-                    @include('bancos.modaldeletebanco')
+                    @isset($banco)
+                        @include('bancos.modaldeletebanco')
+                    @endisset
+
                     @include('bancos.modalsearchbancos')
                    </div>
                 </div>
