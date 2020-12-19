@@ -47,8 +47,18 @@
                                         <label>Clave banco:</label>
                                     @if(isset($banco))
                                         <input type="text" name="clave_banco" value="{{$banco->clave_banco}}" class="form-control" maxlength = "4" onkeyup="mayus(this);">
+                                        @error('clave_banco')
+                                            <div class="alert alert-secondary">
+                                                {{ $message }}
+                                            </div>
+                                        @enderror
                                     @else
                                         <input type="text" name="clave_banco" value="" class="form-control"  maxlength = "4" onkeyup="mayus(this);">
+                                        @error('clave_banco')
+                                            <div class="alert alert-secondary">
+                                                {{ $message }}
+                                            </div>
+                                        @enderror
                                     @endif
                                     </div>
                                 </div>
@@ -58,9 +68,19 @@
                                     @if(isset($banco))
                                         <input type="hidden" name="id" value="{{$banco->id}}" class="form-control"  onkeyup="mayus(this);">
                                         <input type="text" name="nombre_banco" value="{{$banco->nombre_banco}}" class="form-control"  onkeyup="mayus(this);" onkeypress="return validar(event);" >
+                                        @error('nombre_banco')
+                                            <div class="alert alert-secondary">
+                                                {{ $message }}
+                                            </div>
+                                        @enderror
                                     @else
                                         <input type="hidden" name="id" value="" class="form-control"  onkeyup="mayus(this);">
                                         <input type="text" name="nombre_banco" value="" class="form-control"  onkeyup="mayus(this);" onkeypress="return validar(event);" >
+                                        @error('nombre_banco')
+                                            <div class="alert alert-secondary">
+                                                {{ $message }}
+                                            </div>
+                                        @enderror
                                     @endif
 
                                     </div>

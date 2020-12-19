@@ -153,9 +153,14 @@ class BancosController extends Controller
         */
 
           public function registrar($datos){
-            if ($datos->nombre_banco === null) {
+            $datos->validate([
+              'clave_banco' => 'required|unique:bancos',
+              'nombre_banco' => 'required|unique:bancos',
+            ]);
+
+            /**if ($datos->nombre_banco === null) {
               return redirect()->route('bancos.acciones');
-            }
+            }*/
             $banco= new Banco;
             //$clave= $this->generador();
             $banco->clave_banco= $datos->clave_banco;
