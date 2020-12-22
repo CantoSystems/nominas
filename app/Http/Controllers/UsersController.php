@@ -127,14 +127,23 @@ class UsersController extends Controller
     
     public function store($datos)
     {
-      $usuarios = new User;
-      $usuarios->nombre = $datos->nombre;
-      $usuarios->apellido_paterno = $datos->apellido_paterno;
-      $usuarios->apellido_materno = $datos->apellido_materno;
-      $usuarios->email = $datos->email;
-      $usuarios->password = Hash::make($datos->password);
-      $usuarios->role_id = $datos->role_id;
-      $usuarios->save();
+        $datos->validate([
+            'nombre' => 'required',
+            'apellido_paterno' => 'required',
+            'apellido_materno' => 'required',
+            'email' => 'email|unique:users|required',
+            'password' => 'confirmed|required',
+            'role_id' => 'required',
+        ]);
+
+            $usuarios = new User;
+            $usuarios->nombre = $datos->nombre;
+            $usuarios->apellido_paterno = $datos->apellido_paterno;
+            $usuarios->apellido_materno = $datos->apellido_materno;
+            $usuarios->email = $datos->email;
+            $usuarios->password = Hash::make($datos->password);
+            $usuarios->role_id = $datos->role_id;
+            $usuarios->save();
     }
 
     
