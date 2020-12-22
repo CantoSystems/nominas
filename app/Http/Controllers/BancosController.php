@@ -114,6 +114,10 @@ class BancosController extends Controller
 
 
        public function actualizar($datos){
+        $datos->validate([
+              'clave_banco' => 'required',
+              'nombre_banco' => 'required',
+            ]);
         $banc= Banco::where('id',$datos->id)->first();
         $banc->clave_banco= $datos->clave_banco;
         $banc->nombre_banco= $datos->nombre_banco;

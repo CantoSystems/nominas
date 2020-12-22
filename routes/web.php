@@ -106,3 +106,6 @@ Route::get('/empleados', 'EmpleadosController@index')->name('empleados.index');
 //Usuarios
 Route::get('/usuarios','UsersController@index')->name('usuarios.index');
 Route::delete('/usuarios/{id}','UsersController@destroy')->name('usuarios.destroy');
+
+//Retenciones
+Route::get('/retenciones','RetencionesController@index')->name('retenciones.index');
