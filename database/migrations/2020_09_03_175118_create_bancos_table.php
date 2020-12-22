@@ -21,7 +21,6 @@ class CreateBancosTable extends Migration
             $table->bigIncrements('id');
             $table->char('clave_banco');
             $table->string('nombre_banco');
-            
             $table->timestamps();
         });
     }

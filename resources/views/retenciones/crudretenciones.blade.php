@@ -6,25 +6,29 @@
         <div class="col">
             <div class="card card-secondary">
                 <div class="card-header">
-                    <h3 class="card-title">Bancos</h3>
+                    <h3 class="card-title">
+                        Retenciones periodicas de ISR
+                    </h3>
                 </div>
                 <div class="card-body">
                     <table id="example1" class="table table-bordered table-striped">
                         <thead>
                             <tr>
-                                <th>Clave</th>
-                                <th>Banco</th>
+                                <th>Limite Inferior</th>
+                                <th>Limite Superior</th>
+                                <th>Cuota fija</th>
+                                <th>Porcentaje sobre excedente</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @if(isset($bancos))
-                                @foreach ($bancos as $banc)
+                            
                                     <tr>
-                                        <th scope="row">{{$banc->clave_banco}}</th>
-                                        <td>{{$banc->nombre_banco}}</td>
+                                        <th scope="row">
+                                            
+                                        </th>
+                                        <td></td>
                                     </tr>
-                                @endforeach
-                            @endif
+                             
                         </tbody>
                     </table>
                 </div>
@@ -36,53 +40,43 @@
         <div class="col">
             <div class="card card-secondary">
                 <div class="card-header">
-                    <h3 class="card-title">Bancos</h3>
+                    <h3 class="card-title">
+                        Retenciones periodicas de ISR
+                    </h3>
                 </div>
                 <div class="card-body">
-                    <form action="{{ route('bancos.acciones')}}" method="GET" autocomplete="off">
+                    <form action="{{ route('retenciones.index')}}" method="GET" autocomplete="off">
                         <div class="row">
                            
                                 <div class="col-sm-6">
                                     <div class="form-group">
-                                        <label>Clave banco:</label>
-                                    @if(isset($banco))
-                                        <input type="text" name="clave_banco" value="{{$banco->clave_banco}}" class="form-control" maxlength = "4" onkeyup="mayus(this);">
-                                        @error('clave_banco')
-                                            <div class="alert alert-secondary">
-                                                {{ $message }}
-                                            </div>
-                                        @enderror
-                                    @else
-                                        <input type="text" name="clave_banco" value="" class="form-control"  maxlength = "4" onkeyup="mayus(this);">
-                                        @error('clave_banco')
-                                            <div class="alert alert-secondary">
-                                                {{ $message }}
-                                            </div>
-                                        @enderror
-                                    @endif
+                                        <label>Limite inferior:</label>
+                                        <input type="hidden" name="id" value="" class="form-control"  onkeyup="mayus(this);">
+                                        <input type="text" name="limite_inferior" value="" class="form-control" maxlength = "4" onkeyup="mayus(this);">
                                     </div>
                                 </div>
+
                                 <div class="col-sm-6">
                                     <div class="form-group">
-                                        <label>Nombre:</label>
-                                    @if(isset($banco))
-                                        <input type="hidden" name="id" value="{{$banco->id}}" class="form-control"  onkeyup="mayus(this);">
-                                        <input type="text" name="nombre_banco" value="{{$banco->nombre_banco}}" class="form-control"  onkeyup="mayus(this);" onkeypress="return validar(event);" >
-                                        @error('nombre_banco')
-                                            <div class="alert alert-secondary">
-                                                {{ $message }}
-                                            </div>
-                                        @enderror
-                                    @else
-                                        <input type="hidden" name="id" value="" class="form-control"  onkeyup="mayus(this);">
-                                        <input type="text" name="nombre_banco" value="" class="form-control"  onkeyup="mayus(this);" onkeypress="return validar(event);" >
-                                        @error('nombre_banco')
-                                            <div class="alert alert-secondary">
-                                                {{ $message }}
-                                            </div>
-                                        @enderror
-                                    @endif
+                                        <label>Cuota fija:</label>
+                                        
+                                        <input type="text" name="cuota_fija" value="" class="form-control"  onkeyup="mayus(this);" onkeypress="return validar(event);" >
+                                    </div>
+                                </div>
 
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label>Limite Superior:</label>
+                                        
+                                        <input type="text" name="limite_superior" value="" class="form-control"  onkeyup="mayus(this);" onkeypress="return validar(event);" >
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label>Porcentaje excedente:</label>
+                                        
+                                        <input type="text" name="jporcentaje_excedente" value="" class="form-control"  onkeyup="mayus(this);" onkeypress="return validar(event);" >
                                     </div>
                                 </div>
                             
@@ -170,11 +164,7 @@
                             </div>
                         </div>
                     </form>
-                    @isset($banco)
-                        @include('bancos.modaldeletebanco')
-                    @endisset
-
-                    @include('bancos.modalsearchbancos')
+                    
                    </div>
                 </div>
             </div>
