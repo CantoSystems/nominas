@@ -1,4 +1,4 @@
-<div class="modal fade" id="modalcrudempleado-{{$emp->id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="modalcrudempleado-{{$emp->id_emp}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered modal-xl">
     <div class="modal-content">
       <div class="modal-header">
@@ -45,6 +45,7 @@
                           <div class="col-md-1 mb-2">
                             <label for="validationDefault01">Clave</label>
                             <input type="text" class="form-control" name="clave_empleado" value="{{$emp->clave_empleado}}" onkeypress="return numeros(event)" readonly>
+                            <input type="hidden" class="form-control" name="id_emp" value="{{$emp->id_emp}}">
                           </div>
                           <div class="col-md-2">
                             <label for="validationDefault02">Clasificación</label>
@@ -1149,7 +1150,7 @@
                           </div>
                           <div class="col-md-3 mb-3">
                             <label for="validationDefault03">Nacimiento</label>
-                            <input required type="date" max="{{$fechalimite}}-12-31" class="form-control" name="fecha_nacimiento">
+                            <input required type="date" class="form-control" name="fecha_nacimiento">
                           </div>
                           <div class="col-md-3 mb-3">
                             <label for="validationDefault03">Lugar de Origen</label>
@@ -1698,7 +1699,7 @@
                       </div><!--FIN ROW Contratación-->
                     </div>
                   @endif
-                    <div class="modal-footer">
+                    <!--<div class="modal-footer">
                       <div class="col-sm-4">
                         <div class="card-body">
                           <div class="margin">
@@ -1718,8 +1719,8 @@
                             </div>
                           </div>
                         </div>
-                      </div>
-                      <div class="col-sm-4">
+                      </div>-->
+                      <div class="col-sm-12">
                         <div class="card-body">
                           <div class="margin">
                             <div class="btn-group">
@@ -1728,6 +1729,13 @@
                               </div>
                               <div class="form-group">
                                 <button type="button" id="actualizar" style='width:70px; height:40px'> <i class="fas fa-pen-square"></i></button>
+                              </div>
+                              <div>
+                                <a id="eliminar" data-target="#modal-deleteempleado-{{$emp->id_emp}}" data-toggle="modal" style='width:70px; height:40px'>
+                                  <button type="button" style='width:70px; height:40px'>
+                                      <i class="far fa-trash-alt"></i>
+                                  </button>
+                                </a>
                               </div>
                             </div>
                           </div>
