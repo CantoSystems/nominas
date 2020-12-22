@@ -54,9 +54,19 @@
                                 @if(isset($usuarios))
                                     <input type="hidden" name="id" value="{{$usuarios->id}}">
                                     <input type="text" name="nombre"  value="{{$usuarios->nombre}}" class="form-control"  onkeyup="mayus(this);">
+                                    @error('nombre')
+                                        <div class="alert alert-secondary">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
                                 @else
                                     <input type="hidden" name="id" value="">
                                     <input type="text" name="nombre"  value="" class="form-control"  onkeyup="mayus(this);">
+                                    @error('nombre')
+                                        <div class="alert alert-secondary">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
                                 @endif
 
                               </div>
@@ -67,8 +77,18 @@
                                 <label>Apellido Paterno:</label>
                                 @if(isset($usuarios))
                                     <input type="text" name="apellido_paterno"  value="{{$usuarios->apellido_paterno}}" class="form-control"  onkeyup="mayus(this);">
+                                    @error('apellido_paterno')
+                                        <div class="alert alert-secondary">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
                                 @else
                                     <input type="text" name="apellido_paterno"  value="" class="form-control"  onkeyup="mayus(this);">
+                                    @error('apellido_paterno')
+                                        <div class="alert alert-secondary">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
                                 @endif
 
 
@@ -80,8 +100,18 @@
                                 <label>Apellido Materno:</label>
                                 @if(isset($usuarios))
                                     <input type="text" name="apellido_materno"  value="{{$usuarios->apellido_materno}}" class="form-control"  onkeyup="mayus(this);">
+                                    @error('apellido_materno')
+                                        <div class="alert alert-secondary">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
                                 @else
                                     <input type="text" name="apellido_materno"  value="" class="form-control"  onkeyup="mayus(this);">
+                                    @error('apellido_materno')
+                                        <div class="alert alert-secondary">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
                                 @endif
                               </div>
                           </div>
@@ -91,8 +121,18 @@
                                     <label>Correo electronico:</label>
                                 @if(isset($usuarios))
                                     <input type="email" name="email"  value="{{$usuarios->email}}"   class="form-control"  onkeyup="mayus(this)"; >
+                                    @error('email')
+                                        <div class="alert alert-secondary">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
                                 @else
                                     <input type="email" name="email"  value=""   class="form-control"  onkeyup="mayus(this)"; >
+                                    @error('email')
+                                        <div class="alert alert-secondary">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
                                 @endif
                                 </div>
                             </div>
@@ -103,9 +143,19 @@
                                 @if(isset($usuarios)) 
                                     <input type="password" id="contra" name="password"  
                                     value="{{$usuarios->password}}" readonly  class="form-control">
+                                    @error('password')
+                                        <div class="alert alert-secondary">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
                                 @else
                                     <input type="password" id="contra" name="password"  
                                     value="" readonly  class="form-control">
+                                    @error('password')
+                                        <div class="alert alert-secondary">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
                                 @endif
 
                                 </div>
@@ -143,6 +193,11 @@
                                                 <option  value="{{$role->id_rol}}"> {{$role->nombre_rol}}  {{$role->id_rol}}</option>
                                             @endforeach
                                         </select>
+                                        @error('role_id')
+                                        <div class="alert alert-secondary">
+                                            {{ $message }}
+                                        </div>
+                                        @enderror
                                     @else
                                         <select  class="custom-select" name="role_id">
 
@@ -157,6 +212,11 @@
                                                 <option  value="{{$role->id_rol}}"> {{$role->nombre_rol}}  {{$role->id_rol}}</option>
                                             @endforeach
                                             </select>
+                                            @error('role_id')
+                                                <div class="alert alert-secondary">
+                                                    {{ $message }}
+                                                 </div>
+                                            @enderror
                                     @endif
                                 </div>
                             </div>
