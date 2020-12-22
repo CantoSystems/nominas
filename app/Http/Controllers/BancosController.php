@@ -114,6 +114,10 @@ class BancosController extends Controller
 
 
        public function actualizar($datos){
+        $datos->validate([
+              'clave_banco' => 'required',
+              'nombre_banco' => 'required',
+            ]);
         $banc= Banco::where('id',$datos->id)->first();
         $banc->clave_banco= $datos->clave_banco;
         $banc->nombre_banco= $datos->nombre_banco;
@@ -153,9 +157,14 @@ class BancosController extends Controller
         */
 
           public function registrar($datos){
-            if ($datos->nombre_banco === null) {
+            $datos->validate([
+              'clave_banco' => 'required|unique:bancos',
+              'nombre_banco' => 'required|unique:bancos',
+            ]);
+
+            /**if ($datos->nombre_banco === null) {
               return redirect()->route('bancos.acciones');
-            }
+            }*/
             $banco= new Banco;
             //$clave= $this->generador();
             $banco->clave_banco= $datos->clave_banco;
