@@ -80,7 +80,7 @@ class PrestacionesController extends Controller{
                         return view('prestaciones.prestaciones',compact('aux','prestaciones'));
                     }
                 break;
-                case 'cancelar':
+                case 'cancelar_prestaciones':
                     return redirect()->route('prestaciones.index');
                 break;
                 case 'buscar':
@@ -113,16 +113,33 @@ class PrestacionesController extends Controller{
         * @return void
     */
     public function registrar($datos){
-        if($datos->anio === null){
+
+        /*if($datos->anio === null){
             return redirect()->route('prestaciones.index');
-        }
+        }*/
+        
         $clv=Session::get('clave_empresa');
         $clave_pr= $this->generador();
         $clv_empresa=$this->conectar($clv);
 
         \Config::set('database.connections.DB_Serverr', $clv_empresa);
 
-        DB::connection('DB_Serverr')->insert('insert into prestaciones (anio,dias,prima_vacacional,aguinaldo) values (?,?,?,?)',[$datos->anio,$datos->dias,$datos->prima_vacacional,$datos->aguinaldo]);
+        $datos->validate([
+              'anio' => 'required',
+              'dias' => 'required',
+              'prima_vacacional' => 'required',
+              'aguinaldo' => 'required'
+        ]);
+
+        $coincidencia = DB::connection('DB_Serverr')->table('prestaciones')
+        ->where('anio','=',$datos->anio)
+        ->get();
+
+        if($coincidencia->count() == 0){
+            DB::connection('DB_Serverr')->insert('insert into prestaciones (anio,dias,prima_vacacional,aguinaldo) values (?,?,?,?)',[$datos->anio,$datos->dias,$datos->prima_vacacional,$datos->aguinaldo]);
+        }else{
+            return back()->with('msj','Registro duplicado');
+        }
     }
 
     public function actualizarprestciones($datos){
