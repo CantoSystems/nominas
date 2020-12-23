@@ -123,7 +123,7 @@ class EmpresaController extends Controller{
               'nombre' => 'required',
               'rfc' => 'required',
               'segurosocial' => 'required',
-              'registro_estatal' => 'registro_estatal',
+              'registro_estatal' => 'required',
               'calle' => 'required',
               'num_interno' => 'required',
               'num_externo' => 'required',
@@ -216,7 +216,7 @@ class EmpresaController extends Controller{
         });
 
         Schema::connection('DB_Serverr')->create('empleados', function($table){
-            $table->increments('id');
+            $table->increments('id_emp');
             $table->char('clave_empleado',5);
             $table->string('clasificacion',100);
             $table->string('nombre',50);

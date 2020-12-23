@@ -43,25 +43,51 @@
                     <h3 class="card-title">Prestaciones</h3>
                 </div>
                 <div class="card-body">
+                    @if(session()->has('msj'))
+                        <div class="alert alert-danger" role="alert">
+                            {{ session('msj')}}
+                        </div>
+                    @endif
                     <form action="{{ route('prestaciones.index')}}" method="GET" autocomplete="off">
                         <div class="row">
                             @if(!empty($aux))
                                 <div class="col-md-6">
                                     <label>Año</label>
+                                    
                                     <input type="hidden" class="form-control" name="identificador" value="{{$aux->id}}">
                                     <input type="text" class="form-control" name="anio" value="{{$aux->anio}}" onkeyup="mayus(this)"; onkeypress="return numeros(event)">
+                                    @error('anio')
+                                            <div class="alert alert-secondary">
+                                                {{ $message }}
+                                            </div>
+                                    @enderror
                                 </div>
                                 <div class="col-md-6">
                                     <label>Días</label>
                                     <input type="text" class="form-control" name="dias" value="{{$aux->dias}}" onkeyup="mayus(this)"; onkeypress="return numeros(event)">
+                                    @error('dias')
+                                            <div class="alert alert-secondary">
+                                                {{ $message }}
+                                            </div>
+                                    @enderror
                                 </div>
                                 <div class="col-md-6">
                                     <label>Prima Vacacional</label>
                                     <input type="text" class="form-control" name="prima_vacacional" value="{{$aux->prima_vacacional}}" onkeyup="mayus(this)"; onkeypress="return numeros(event)">
+                                    @error('prima_vacacional')
+                                            <div class="alert alert-secondary">
+                                                {{ $message }}
+                                            </div>
+                                    @enderror
                                 </div>
                                 <div class="col-md-6">
                                     <label>Aguinaldo</label>
                                     <input type="text" class="form-control" name="aguinaldo" value="{{$aux->aguinaldo}}" onkeyup="mayus(this)"; onkeypress="return numeros(event)">
+                                    @error('aguinaldo')
+                                            <div class="alert alert-secondary">
+                                                {{ $message }}
+                                            </div>
+                                    @enderror
                                 </div>
                             @else
                                 <div class="col-md-6">
@@ -87,6 +113,7 @@
                                     <div class="card-body">
                                         <div class="margin">
                                             <div class="btn-group">
+                                            @isset($aux)
                                                 <div class="form-group">
                                                     <button type="submit"  name="acciones" value="primero" id="primero" style='width:40px; height:27px'><i class="fas fa-backward" ></i></button>
                                                 </div>
@@ -99,6 +126,7 @@
                                                 <div class="form-group">
                                                     <button type="submit" name="acciones" value="ultimo" id="ultimo" style='width:40px; height:27px'><i class="fas fa-forward"></i></button>
                                                 </div>
+                                            @endisset
                                             </div>
                                         </div>
                                     </div>
@@ -112,9 +140,11 @@
                                                 <div class="form-group">
                                                     <button type="button" id="nuevo" style='width:40px; height:27px'> <i class="fas fa-user-plus"></i></button>
                                                 </div>
+                                                @isset($aux)
                                                 <div class="form-group">
                                                     <button type="button" id="actualizar" style='width:40px; height:27px'> <i class="fas fa-pen-square"></i></button>
                                                 </div>
+                                                @endisset
                                             @endcanany
                                             @can('administrador')
                                                 @if(!empty($aux))
