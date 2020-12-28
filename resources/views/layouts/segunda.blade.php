@@ -261,6 +261,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
       $('#first_areas').hide();
       $('#actualizar').hide();
       $('#eliminar').hide();
+      $('#buscar').hide();
     });
     $('#actualizar').click(function(){
       $('#nuevo_reg').hide();
@@ -272,6 +273,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
     $('#ultimo').hide();
     $('#nuevo').hide();
     $('#eliminar').hide();
+    $('#buscar').hide();
     });
     $('#nuevomodal').click(function(){
       $('#nuevo_regmodal').show();

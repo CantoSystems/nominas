@@ -24,19 +24,38 @@ class PeriodosController extends Controller
     }
 
     public function agregarperiodos($datos){
+
+
+    /*
     if ($datos->fecha_inicio === null || $datos->fecha_fin === null || $datos->fecha_pago === null){
         return redirect()->route('periodos.index');
-    }
+    }*/
+
     $clv= Session::get('clave_empresa');
     $clv_empresa=$this->conectar($clv);
 
 
     \Config::set('database.connections.DB_Serverr', $clv_empresa);
 
+    $datos->validate([
+              'numero' => 'required',
+              'fecha_inicio' => 'required',
+              'fecha_fin' => 'required',
+              'fecha_pago' => 'required'
+        ]);
+
+    $coincidencia = DB::connection('DB_Serverr')->table('periodos')
+        ->where('numero','=',$datos->numero)
+        ->get();
     //$cant=DB::connection('DB_Serverr')->table('periodos')->count();
-    DB::connection('DB_Serverr')->insert('insert into periodos (numero,fecha_inicio,fecha_fin,fecha_pago)
-    values (?,?,?,?)',[$datos->numero,$datos->fecha_inicio,$datos->fecha_fin,$datos->fecha_pago]);
- }
+
+        if($coincidencia->count() == 0){
+            DB::connection('DB_Serverr')->insert('insert into periodos (numero,fecha_inicio,fecha_fin,fecha_pago)
+            values (?,?,?,?)',[$datos->numero,$datos->fecha_inicio,$datos->fecha_fin,$datos->fecha_pago]);
+        }else{
+            return back()->with('msj','Registro duplicado');
+        }
+    }
 
     public function seleccionarperiodo(Request $request){
         Session::put('num_periodo',$request->periodo);
@@ -104,6 +123,20 @@ class PeriodosController extends Controller
             case 'cancelar_periodos':
                 return redirect()->route('periodos.acciones');
             break;
+
+            case 'buscar':
+                $aux = DB::connection('DB_Serverr')->table('periodos')->where('numero',$request->busca)->first();
+
+                    if($aux==""){
+                    return back()->with('busqueda','Coincidencia no encontrada');
+                    }
+
+                $periodos=DB::connection('DB_Serverr')->table('periodos')->get();
+                return view('periodos.crudperiodos',compact('aux','periodos'));
+
+
+
+                break;
 
             default:
 
