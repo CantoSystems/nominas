@@ -48,6 +48,11 @@
                             {{ session('msj')}}
                         </div>
                     @endif
+                    @if(session()->has('busqueda'))
+                        <div class="alert alert-danger" role="alert">
+                            {{ session('busqueda')}}
+                        </div>
+                    @endif
                     <form action="{{ route('prestaciones.index')}}" method="GET" autocomplete="off">
                         <div class="row">
                             @if(!empty($aux))
@@ -113,6 +118,7 @@
                                     <div class="card-body">
                                         <div class="margin">
                                             <div class="btn-group">
+
                                             @isset($aux)
                                                 <div class="form-group">
                                                     <button type="submit"  name="acciones" value="primero" id="primero" style='width:40px; height:27px'><i class="fas fa-backward" ></i></button>
@@ -137,6 +143,11 @@
                                     <div class="margin">
                                         <div class="btn-group">
                                             @canany(['administrador','capturista'])
+                                                @isset($aux)
+                                                    <button id="buscar" type="button" data-toggle="modal" data-target="#exampleModal" style='width:40px; height:27px'>
+                                                    <i class="fas fa-search"></i>
+                                                </button>
+                                                @endisset
                                                 <div class="form-group">
                                                     <button type="button" id="nuevo" style='width:40px; height:27px'> <i class="fas fa-user-plus"></i></button>
                                                 </div>
@@ -183,13 +194,14 @@
                     @if(!empty($aux))
                         @include('prestaciones.modaldeleteprestaciones')
                     @endif
+                        @include('prestaciones.modalsearchprestaciones')
                 </div>
             </div>
         </div>
     </div>
 </div>
 </div>
-</div>
-</div>
-</div>
+
+
+
 @endsection

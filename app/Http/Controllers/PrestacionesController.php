@@ -84,13 +84,12 @@ class PrestacionesController extends Controller{
                     return redirect()->route('prestaciones.index');
                 break;
                 case 'buscar':
-                    $criterio= $request->opcion;
-                    if($criterio=='prestaciones'){
-                        $aux = DB::connection('DB_Serverr')->table('prestaciones')->where('prestaciones',$request->busca)->first();
+                    $aux =  DB::connection('DB_Serverr')->table('prestaciones')->where('anio',$request->busca)->first();
+
+                    if($aux==""){
+                    return back()->with('busqueda','Coincidencia no encontrada');
                     }
-                    if($criterio=='clave'){
-                        $aux = DB::connection('DB_Serverr')->table('prestaciones')->where('clave_prestaciones',$request->busca)->first();
-                    }
+
                     $prestaciones = DB::connection('DB_Serverr')->table('prestaciones')->get();
                     return view('prestaciones.prestaciones',compact('aux','prestaciones'));
                 break;
@@ -148,6 +147,13 @@ class PrestacionesController extends Controller{
 
         \Config::set('database.connections.DB_Serverr', $clv_empresa);
         $clv2=$datos->identificador;
+        $datos->validate([
+              'anio' => 'required',
+              'dias' => 'required',
+              'prima_vacacional' => 'required',
+              'aguinaldo' => 'required'
+        ]);
+
         $aux1 = DB::connection('DB_Serverr')->table('prestaciones')->where('id',$clv2)->first();
 
         DB::connection('DB_Serverr')->table('prestaciones')->where('id',$clv2)->update(['anio'=>$datos->anio,'dias'=>$datos->dias,'prima_vacacional'=>$datos->prima_vacacional,'aguinaldo'=>$datos->aguinaldo]);
