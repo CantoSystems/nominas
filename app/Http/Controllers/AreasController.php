@@ -128,14 +128,14 @@ public function registrar($datos){
       return redirect()->route('areas.index');
     }
     $clv=Session::get('clave_empresa');
-    $clave_area= $this->generador();
+    //$clave_area= $this->generador();
     $clv_empresa=$this->conectar($clv);
 
 
   \Config::set('database.connections.DB_Serverr', $clv_empresa);
 
     DB::connection('DB_Serverr')->insert('insert into areas (area,clave_area)
-    values (?,?)',[$datos->area,$clave_area]);
+    values (?,?)',[$datos->area,$datos->clave_area]);
 }
 
 
