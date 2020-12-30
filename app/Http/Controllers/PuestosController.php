@@ -21,90 +21,135 @@ class PuestosController extends Controller
         $clave_p=$request->clave_area;
         $indic=$request->identificador;
            switch ($accion) {
-               case '':
+
+              case '':
                 $aux = DB::connection('DB_Serverr')->table('puestos')->get()->first();
                 $puestos= DB::connection('DB_Serverr')->table('puestos')->get();
                 return view('puestos.puestos',compact('aux','puestos'));
               break;
 
-               case 'atras':
-               $aux = DB::connection('DB_Serverr')->table('puestos')->where('id','<',$indic)->orderBy('id','desc')->first();
+              case 'atras':
+                $aux = DB::connection('DB_Serverr')->table('puestos')->where('id','<',$indic)->orderBy('id','desc')->first();
                 if($aux==""){
                     $aux = DB::connection('DB_Serverr')->table('puestos')->get()->last();
                 }
                 $puestos= DB::connection('DB_Serverr')->table('puestos')->get();
                 return view('puestos.puestos',compact('aux','puestos'));
-                 break;
+              break;
 
-
-               case 'siguiente':
-                $aux = DB::connection('DB_Serverr')->table('puestos')->where('id','>',$indic)->first();
-                if($aux==""){
+              case 'siguiente':
+                  $aux = DB::connection('DB_Serverr')->table('puestos')->where('id','>',$indic)->first();
+                  if($aux==""){
                     $aux = DB::connection('DB_Serverr')->table('puestos')->get()->first();
-                }
-                $puestos= DB::connection('DB_Serverr')->table('puestos')->get();
-                return view('puestos.puestos',compact('aux','puestos'));
-               break;
-               case 'primero':
+                  }
+                  $puestos= DB::connection('DB_Serverr')->table('puestos')->get();
+                  return view('puestos.puestos',compact('aux','puestos'));
+              break;
+
+              case 'primero':
                 $aux = DB::connection('DB_Serverr')->table('puestos')->first();
                 $puestos= DB::connection('DB_Serverr')->table('puestos')->get();
                 return view('puestos.puestos',compact('aux','puestos'));
-               break;
-               case 'ultimo':
+              break;
+
+              case 'ultimo':
                 $aux = DB::connection('DB_Serverr')->table('puestos')->get()->last();
                 $puestos= DB::connection('DB_Serverr')->table('puestos')->get();
                 return view('puestos.puestos',compact('aux','puestos'));
-               break;
-               case 'registrar':
+              break;
+
+              case 'registrar':
                   $this->registrar($request);
                   return redirect()->route('puestos.index');
-               break;
-               case 'actualizar':
-                $aux1 = DB::connection('DB_Serverr')->table('puestos')->where('clave_puesto',$clave_p)->first();
+              break;
+
+              case 'actualizar':
+                 $aux1 = DB::connection('DB_Serverr')->table('puestos')->where('clave_puesto',$clave_p)->first();
                    if($aux1!==""){
                    DB::connection('DB_Serverr')->table('puestos')->where('clave_puesto',$request->clave_puesto)->update(['nombre_puesto'=>$request->puesto]);
                    $aux = DB::connection('DB_Serverr')->table('puestos')->get()->first();
                    $puestos= DB::connection('DB_Serverr')->table('puestos')->get();
                    return view('puestos.puestos',compact('aux','puestos'));
                    }
-               break;
-               case 'eliminar':
+              break;
+
+              case 'eliminar':
                 $aux1 = DB::connection('DB_Serverr')->table('puestos')->where('clave_puesto',$clave_p)->first();
                 if($aux1!==""){
                 DB::connection('DB_Serverr')->table('puestos')->where('clave_area',$request->clave_puesto)->delete();
                 $aux = DB::connection('DB_Serverr')->table('puestos')->get()->first();
                 return view('puestos.puestos',compact('aux'));
                 }
-               break;
-               case 'cancelar':
+              break;
+
+              case 'cancelar':
                  return redirect()->route('puestos.index');
-                 break;
+              break;
 
-                 case 'buscar':
+              case 'buscar':
+                  $criterio= $request->opcion;
 
-                  $aux = DB::connection('DB_Serverr')->table('puestos')->where('nombre_puesto',$request->busca)->first();
-                  $puestos = DB::connection('DB_Serverr')->table('puestos')->get();
-                return view('puestos.puestos',compact('aux','puestos'));
-                 break;
+                  if($criterio == 'clave_puesto')
+                  {
+                      
+                      $aux = DB::connection('DB_Serverr')->table('puestos')->where('clave_puesto',$request->busca)->first();
+
+                        if($aux == "")
+                        {
+                          return back()->with('busqueda','Coincidencia no encontrada');
+                        }
+
+                      $puestos = DB::connection('DB_Serverr')->table('puestos')->get();
+                      return view('puestos.puestos',compact('aux','puestos'));
+                  }else if($criterio == 'nombre_puesto')
+                  {
+                    $aux = DB::connection('DB_Serverr')->table('puestos')->where('nombre_puesto',$request->busca)->first();
+
+                        if($aux == "")
+                        {
+                          return back()->with('busqueda','Coincidencia no encontrada');
+                        }
+
+                    $puestos = DB::connection('DB_Serverr')->table('puestos')->get();
+                    return view('puestos.puestos',compact('aux','puestos'));
+                  }
+
+              break;
 
 
-               default:
+              default:
                    # code...
-                   break;
+              break;
 }
 }
 
-public function registrar($datos){
-    if ($datos->puesto === null) {
+    public function registrar($datos){
+
+      /*if ($datos->puesto === null) {
       return redirect()->route('puestos.index');
-    }
-    $clv=Session::get('clave_empresa');
-    //$clave_puesto= $this->generador();
-    $clv_empresa=$this->conectar($clv);
-    \Config::set('database.connections.DB_Serverr', $clv_empresa);
+      }*/
 
-    DB::connection('DB_Serverr')->insert('insert into puestos (clave_puesto, nombre_puesto)
-    values (?,?)',[$datos->clave_puesto,$datos->puesto]);
+      $clv=Session::get('clave_empresa');
+      //$clave_puesto= $this->generador();
+      $clv_empresa=$this->conectar($clv);
+
+      \Config::set('database.connections.DB_Serverr', $clv_empresa);
+        $datos->validate([
+              'clave_puesto' => 'required',
+              'puesto' => 'required',
+        ]);
+
+        $coincidencia = DB::connection('DB_Serverr')->table('puestos')
+        ->where('clave_puesto','=',$datos->clave_puesto)
+        ->orwhere('nombre_puesto','=',$datos->puesto)    
+        ->get();
+
+        if($coincidencia->count() == 0){
+              DB::connection('DB_Serverr')->insert('insert into puestos (clave_puesto, nombre_puesto)
+                values (?,?)',[$datos->clave_puesto,$datos->puesto]);
+        }else{
+          return back()->with('msj','Registro duplicado');
+        }
 }
 
 public function generador(){
