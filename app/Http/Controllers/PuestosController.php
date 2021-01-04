@@ -89,8 +89,7 @@ class PuestosController extends Controller
               case 'buscar':
                   $criterio= $request->opcion;
 
-                  if($criterio == 'clave_puesto')
-                  {
+                  if($criterio == 'clave_puesto'){
                       
                       $aux = DB::connection('DB_Serverr')->table('puestos')->where('clave_puesto',$request->busca)->first();
 
