@@ -93,14 +93,33 @@ class AreasController extends Controller
 
                 case 'buscar':
                   $criterio= $request->opcion;
-                  if($criterio=='area'){
-                    $aux = DB::connection('DB_Serverr')->table('areas')->where('area',$request->busca)->first();
+                  
+                  if($criterio == 'clave_area'){
+                      $aux = DB::connection('DB_Serverr')->table('areas')->where('clave_area',$request->busca)->first();
+
+                      if ($aux == "")
+                      {
+                        return back()->with('busqueda','Coincidencia no encontrada');
+                      }
+
+                       $areas = DB::connection('DB_Serverr')->table('areas')->get();
+                       return view('Areas.area',compact('aux','areas'));
+                      
+                  }else if($criterio == 'area'){
+
+                      $aux = DB::connection('DB_Serverr')->table('areas')->where('area',$request->busca)->first();
+
+                      if ($aux == "") {
+                        return back()->with('busqueda','Coincidencia no encontrada');
+                      }
+                      
+                       $areas = DB::connection('DB_Serverr')->table('areas')->get();
+                      return view('Areas.area',compact('aux','areas'));
                   }
-                  if($criterio=='clave'){
-                    $aux = DB::connection('DB_Serverr')->table('areas')->where('clave_area',$request->busca)->first();
-                  }
-                  $areas = DB::connection('DB_Serverr')->table('areas')->get();
-                return view('Areas.area',compact('aux','areas'));
+
+                
+                  
+
                 break;
 
                default:
@@ -123,20 +142,40 @@ class AreasController extends Controller
           * @return void
         */
 
-public function registrar($datos){
-    if($datos->area === null){
+    public function registrar($datos){
+    
+    /*if($datos->area === null){
       return redirect()->route('areas.index');
+    }*/
+
+
+      $clv=Session::get('clave_empresa');
+      //$clave_area= $this->generador();
+      $clv_empresa=$this->conectar($clv);
+
+
+      \Config::set('database.connections.DB_Serverr', $clv_empresa);
+
+      $datos->validate([
+              'area' => 'required',
+              'clave_area' => 'required',
+        ]);
+
+      $coincidencia = DB::connection('DB_Serverr')->table('areas')
+        ->where('area','=',$datos->area)
+        ->orwhere('clave_area','=',$datos->clave_area)    
+        ->get();
+
+        if($coincidencia->count() == 0){
+          DB::connection('DB_Serverr')->insert('insert into areas (area,clave_area)
+            values (?,?)',[$datos->area,$datos->clave_area]);
+        }else{
+          return back()->with('msj','Registro duplicado');
+        }
+
+      
+
     }
-    $clv=Session::get('clave_empresa');
-    $clave_area= $this->generador();
-    $clv_empresa=$this->conectar($clv);
-
-
-  \Config::set('database.connections.DB_Serverr', $clv_empresa);
-
-    DB::connection('DB_Serverr')->insert('insert into areas (area,clave_area)
-    values (?,?)',[$datos->area,$clave_area]);
-}
 
 
    /**

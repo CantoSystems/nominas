@@ -2,7 +2,7 @@
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Buscar Area</h5>
+          <h5 class="modal-title" id="exampleModalLabel">Buscar área</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
@@ -14,18 +14,19 @@
                 <div class="input-group col-md-12">
                   <div class="input-group-prepend">
                     <select class="custom-select" name="opcion">
-                        <option value="area">Area</option>
-                        <option value="clave">Clave de Area</option>
+                        <option value="area">Nombre del Área</option>
+                        <option value="clave_area">Clave de Área</option>
                       </select>
                   </div>
-                  <input type="text" class="form-control" aria-label="Username" name="busca" aria-describedby="basic-addon1" align='right'>
+                  <input type="text" class="form-control" aria-label="Username" required name="busca" aria-describedby="basic-addon1" onkeyup="mayus(this)"; align='right'>
                 </div>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-          <button type="submit" name="acciones" value="buscar" class="btn btn-primary">Buscar</button>
+          <button type="button" style="width:80px; height:40px" data-dismiss="modal">Cerrar</button>
+          <button type="submit" style="width:80px; height:40px" name="acciones" value="buscar">Buscar</button>
         </div>
             </form>
       </div>
     </div>
   </div>
+</div>
