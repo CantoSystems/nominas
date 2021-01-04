@@ -15,10 +15,10 @@
                   <div class="input-group-prepend">
                     <select class="custom-select" name="opcion">
                         <option value="area">Nombre del Área</option>
-                        <option value="clave">Clave de Área</option>
+                        <option value="clave_area">Clave de Área</option>
                       </select>
                   </div>
-                  <input type="text" class="form-control" aria-label="Username" required name="busca" aria-describedby="basic-addon1" align='right'>
+                  <input type="text" class="form-control" aria-label="Username" required name="busca" aria-describedby="basic-addon1" onkeyup="mayus(this)"; align='right'>
                 </div>
         </div>
         <div class="modal-footer">
@@ -29,3 +29,4 @@
       </div>
     </div>
   </div>
+</div>

@@ -38,6 +38,16 @@
                     <h3 class="card-title">Áreas</h3>
                 </div>
                 <div class="card-body">
+                    @if(session()->has('msj'))
+                        <div class="alert alert-danger" role="alert">
+                            {{ session('msj')}}
+                        </div>
+                    @endif
+                    @if(session()->has('busqueda'))
+                        <div class="alert alert-danger" role="alert">
+                            {{ session('busqueda')}}
+                        </div>
+                    @endif
                     <form action="{{ route('areas.index')}}" method="GET" autocomplete="off">
                         <div class="row">
                             <div class="col-sm-6">
@@ -46,9 +56,19 @@
                                     @if(isset($aux))
                                         <input type="text" name="clave_area" class="form-control" value="{{$aux->clave_area}}"  maxlength="4" onkeyup="mayus(this);">
                                         <input type="hidden" name="identificador" class="form-control" value="{{$aux->id}}" onkeyup="mayus(this);">
+                                        @error('clave_area')
+                                            <div class="alert alert-secondary">
+                                                {{ $message }}
+                                            </div>
+                                        @enderror
                                     @else
                                         <input type="text" name="clave_area" class="form-control" maxlength="4"  onkeyup="mayus(this);">
                                         <input type="hidden" name="identificador" class="form-control" onkeyup="mayus(this);">
+                                        @error('clave_area')
+                                            <div class="alert alert-secondary">
+                                                {{ $message }}
+                                            </div>
+                                        @enderror
                                     @endif
                                 </div>
                             </div>
@@ -58,8 +78,18 @@
                                     <label>Nombre del área</label>
                                     @if(isset($aux))
                                         <input type="text" name="area" class="form-control" value="{{$aux->area}}" onkeyup="mayus(this);">
+                                        @error('area')
+                                            <div class="alert alert-secondary">
+                                                {{ $message }}
+                                            </div>
+                                        @enderror
                                     @else
                                         <input type="text" name="area" class="form-control" onkeyup="mayus(this);">
+                                        @error('area')
+                                            <div class="alert alert-secondary">
+                                                {{ $message }}
+                                            </div>
+                                        @enderror
                                     @endif
                                 </div>
                             </div>
@@ -157,6 +187,7 @@
             </div>
         <div>
     </div>
+</div>
 </div>
 </div>
 </div>
