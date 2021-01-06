@@ -13,7 +13,7 @@
   
                 <div class="input-group col-md-12">
                   <div class="input-group-prepend">
-                    <select class="custom-select" name="opcion">
+                  <select class="custom-select" name="opcion">
                       <option value="clave_puesto">Clave de Puesto</option>
                       <option value="nombre_puesto">Puesto</option>
                   </select>

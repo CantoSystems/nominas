@@ -70,9 +70,18 @@ class AreasController extends Controller
                return redirect()->route('areas.index');
                break;
                case 'actualizar':
-                $aux1 = DB::connection('DB_Serverr')->table('areas')->where('clave_area',$clave_ar)->first();
+                $aux1 = DB::connection('DB_Serverr')->table('areas')->where('id',$indic)->first();
                    if($aux1!==""){
-                   DB::connection('DB_Serverr')->table('areas')->where('clave_area',$request->clave_area)->update(['area'=>$request->area]);
+
+                  $request->validate([
+                  'area' => 'required',
+                  'clave_area' => 'required',
+                  ]);
+
+                   DB::connection('DB_Serverr')->table('areas')->where('id',$indic)->update([
+                              'area'=>$request->area, 
+                              'clave_area'=>$request->clave_area,
+                            ]);
                    $aux = DB::connection('DB_Serverr')->table('areas')->get()->first();
                    $areas = DB::connection('DB_Serverr')->table('areas')->get();
                 return view('Areas.area',compact('aux','areas'));
@@ -159,7 +168,7 @@ class AreasController extends Controller
       $datos->validate([
               'area' => 'required',
               'clave_area' => 'required',
-        ]);
+      ]);
 
       $coincidencia = DB::connection('DB_Serverr')->table('areas')
         ->where('area','=',$datos->area)

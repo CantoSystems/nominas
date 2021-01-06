@@ -125,6 +125,11 @@ class DepartamentosController extends Controller
                case 'cancelar':
                		return redirect()->route('departamentos.index');
                	break;
+
+               	case 'buscar':
+               		# code...
+               		break;
+               		
                default:
                    # code...
                    break;
@@ -132,15 +137,24 @@ class DepartamentosController extends Controller
 	}
 
 	public function registrar($datos){
-		if ($datos->departamento === null || $datos->clave_area === null) {
+
+		/*if ($datos->departamento === null || $datos->clave_area === null) {
 			return redirect()->route('departamentos.index');
-		}
+		}*/
+
 		$clv=Session::get('clave_empresa');
 		//$clave_departamento= $this->generador();
 		$clv_empresa=$this->conectar($clv);
 
 
 		\Config::set('database.connections.DB_Serverr', $clv_empresa);
+
+		$datos->validate([
+              'clave_departamento' => 'required',
+              'departamento' => 'required',
+              'clave_area' => 'required',
+
+      	]);
 		DB::connection('DB_Serverr')->insert('insert into departamentos (clave_departamento, departamento,clave_area)
 		values (?,?,?)',[$datos->clave_departamento,$datos->departamento,$datos->clave_area]);
 	}
@@ -159,6 +173,14 @@ class DepartamentosController extends Controller
 		$clv= Session::get('clave_empresa');
 		$clv_empresa=$this->conectar($clv);
 		\Config::set('database.connections.DB_Serverr', $clv_empresa);
+
+		$datos->validate([
+              'clave_departamento' => 'required',
+              'departamento' => 'required',
+              'clave_area' => 'required',
+
+      	]);
+
 		$clv2=$datos->identificador;
 		$aux1 = DB::connection('DB_Serverr')->table('departamentos')->where('id',$clv2)->first();
 		DB::connection('DB_Serverr')->table('departamentos')->where('id',$clv2)->update(['clave_departamento'=>$datos->clave_departamento,'departamento'=>$datos->departamento,'clave_area'=>$datos->clave_area]);

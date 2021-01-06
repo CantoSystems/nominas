@@ -125,15 +125,55 @@ class PeriodosController extends Controller
             break;
 
             case 'buscar':
-                $aux = DB::connection('DB_Serverr')->table('periodos')->where('numero',$request->busca)->first();
+                $criterio= $request->opcion;
+                if($criterio == 'numero'){
 
-                    if($aux==""){
-                    return back()->with('busqueda','Coincidencia no encontrada');
-                    }
+                    $aux = DB::connection('DB_Serverr')->table('periodos')->where('numero',$request->busca)->first();
 
-                $periodos=DB::connection('DB_Serverr')->table('periodos')->get();
+                        if($aux == "")
+                        {
+                          return back()->with('busqueda','Coincidencia no encontrada');
+                        }
+                    $periodos=DB::connection('DB_Serverr')->table('periodos')->get();
                 return view('periodos.crudperiodos',compact('aux','periodos'));
 
+
+                }else if($criterio == 'fecha_inicio'){
+                    $aux = DB::connection('DB_Serverr')->table('periodos')->where('fecha_inicio',$request->busca)->first();
+
+                        if($aux == "")
+                        {
+                          return back()->with('busqueda','Coincidencia no encontrada');
+                        }
+
+                    $periodos=DB::connection('DB_Serverr')->table('periodos')->get();
+                return view('periodos.crudperiodos',compact('aux','periodos'));
+
+                }else if($criterio == 'fecha_fin'){
+
+                    $aux = DB::connection('DB_Serverr')->table('periodos')->where('fecha_fin',$request->busca)->first();
+
+                        if($aux == "")
+                        {
+                          return back()->with('busqueda','Coincidencia no encontrada');
+                        }
+
+                    $periodos=DB::connection('DB_Serverr')->table('periodos')->get();
+                return view('periodos.crudperiodos',compact('aux','periodos'));
+
+                }else if($criterio == 'fecha_pago'){
+
+                    $aux = DB::connection('DB_Serverr')->table('periodos')->where('fecha_pago',$request->busca)->first();
+
+                        if($aux == "")
+                        {
+                          return back()->with('busqueda','Coincidencia no encontrada');
+                        }
+                        
+                    $periodos=DB::connection('DB_Serverr')->table('periodos')->get();
+                return view('periodos.crudperiodos',compact('aux','periodos'));
+
+                }
 
 
                 break;
@@ -175,12 +215,26 @@ class PeriodosController extends Controller
 
 
     \Config::set('database.connections.DB_Serverr', $clv_empresa);
+    //dd($datos);
 
-    $fecha=$datos->fecha_inicio;
+    $datos->validate([
+              'numero' => 'required',
+              'fecha_inicio' => 'required',
+              'fecha_fin' => 'required',
+              'fecha_pago' => 'required'
+        ]);
+    
+    $actualizarporid=$datos->identificador;
 
-    $aux1 = DB::connection('DB_Serverr')->table('periodos')->where('fecha_inicio',$fecha)->first();
 
-    DB::connection('DB_Serverr')->table('periodos')->where('fecha_inicio',$datos->fecha_inicio)->update(['fecha_inicio'=>$datos->fecha_inicio,'fecha_fin'=>$datos->fecha_fin,'fecha_pago'=>$datos->fecha_pago]);
+    $aux1 = DB::connection('DB_Serverr')->table('periodos')->where('id',$actualizarporid)->first();
+
+    DB::connection('DB_Serverr')->table('periodos')->where('id',$actualizarporid)->update([  
+            'numero'=>$datos->numero,
+            'fecha_inicio'=>$datos->fecha_inicio,
+            'fecha_fin'=>$datos->fecha_fin,
+            'fecha_pago'=>$datos->fecha_pago,
+        ]);
 
 
     }
