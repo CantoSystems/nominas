@@ -41,16 +41,36 @@
                     <h3 class="card-title">Departamentos</h3>
                 </div>
                 <div class="card-body">
-                    <form action="{{route('departamentos.index')}}" method="GET">
+                    @if(session()->has('msj'))
+                        <div class="alert alert-danger" role="alert">
+                            {{ session('msj')}}
+                        </div>
+                    @endif
+                    @if(session()->has('busqueda'))
+                        <div class="alert alert-danger" role="alert">
+                            {{ session('busqueda')}}
+                        </div>
+                    @endif
+                    <form action="{{route('departamentos.index')}}" method="GET" autocomplete="off">
                         <div class="row">
                             @if(!empty($aux))
                                 <div class="col-md-6">
                                     <label>Clave:</label>
-                                    <input type="text" class="form-control" name="clave_departamento" value="{{$aux->clave_departamento}}" onkeyup="mayus(this)";>
+                                    <input type="text" class="form-control" name="clave_departamento" value="{{$aux->clave_departamento}}" maxlength="4" onkeyup="mayus(this)";>
+                                    @error('clave_departamento')
+                                            <div class="alert alert-secondary">
+                                                {{ $message }}
+                                            </div>
+                                    @enderror
                                 </div>
                                 <div class="col-md-6">
                                     <label>Nombre:</label>
-                                    <input type="text" class="form-control" name="departamento" value="{{$aux->departamento}}" onkeypress="return validar(event)">
+                                    <input type="text" class="form-control" name="departamento" onkeyup="mayus(this);" value="{{$aux->departamento}}" onkeypress="return validar(event)">
+                                    @error('departamento')
+                                            <div class="alert alert-secondary">
+                                                {{ $message }}
+                                            </div>
+                                    @enderror
                                 </div>
                                 <div class="col-md-6">
                                     <br>
@@ -62,6 +82,11 @@
                                                 <option id="areas_forech" value="{{$ar->clave_area}}">{{$ar->area}}</option>
                                             @endforeach
                                     </select>
+                                    @error('clave_area')
+                                            <div class="alert alert-secondary">
+                                                {{ $message }}
+                                            </div>
+                                    @enderror
                                 </div>
                                 <div class="col-md-6">
                                     <br>
@@ -70,11 +95,21 @@
                             @else
                                 <div class="col-md-6">
                                     <label>Clave:</label>
-                                    <input type="text" class="form-control" name="clave_departamento" onkeyup="mayus(this);";>
+                                    <input type="text" class="form-control" name="clave_departamento" maxlength="4" onkeyup="mayus(this);";>
+                                    @error('clave_departamento')
+                                            <div class="alert alert-secondary">
+                                                {{ $message }}
+                                            </div>
+                                    @enderror
                                 </div>
                                 <div class="col-md-6">
                                     <label>Nombre:</label>
-                                    <input type="text" class="form-control" name="departamento" onkeypress="return validar(event);">
+                                    <input type="text" class="form-control" name="departamento" onkeyup="mayus(this);" onkeypress="return validar(event);">
+                                    @error('departamento')
+                                            <div class="alert alert-secondary">
+                                                {{ $message }}
+                                            </div>
+                                    @enderror
                                 </div>
                                 <div class="col-md-6">
                                     <br>
@@ -87,6 +122,11 @@
                                             @endforeach
                                         @endif    
                                     </select>
+                                    @error('clave_area')
+                                            <div class="alert alert-secondary">
+                                                {{ $message }}
+                                            </div>
+                                    @enderror
                                 </div>
                                 <div class="col-md-6">
                                     <br>
@@ -98,6 +138,7 @@
                                     <div class="card-body">
                                         <div class="margin">
                                             <div class="btn-group">
+                                            @isset($aux)
                                                 <div class="form-group">
                                                     <button type="submit"  name="acciones" value="primero" id="primero" style='width:40px; height:27px'><i class="fas fa-backward" ></i></button>
                                                 </div>
@@ -110,6 +151,7 @@
                                                 <div class="form-group">
                                                     <button type="submit" name="acciones" value="ultimo" id="ultimo" style='width:40px; height:27px'><i class="fas fa-forward"></i></button>
                                                 </div>
+                                            @endisset
                                             </div>
                                         </div>
                                     </div>
@@ -120,19 +162,23 @@
                                     <div class="margin">
                                         <div class="btn-group">
                                             @canany(['administrador','capturista','reportes'])
-                                                <div class="form-group">
-                                                    <button id="buscar" type="button" data-toggle="modal" data-target="#exampleModal" style='width:40px; height:27px'>
+                                                @isset($aux)
+                                                    <div class="form-group">
+                                                        <button id="buscar" type="button" data-toggle="modal" data-target="#exampleModal" style='width:40px; height:27px'>
                                                         <i class="fas fa-search"></i>
-                                                    </button>
-                                                </div>
+                                                        </button>
+                                                    </div>
+                                                @endisset
                                             @endcanany
                                             @canany(['administrador','capturista'])
                                                 <div class="form-group">
                                                     <button type="button" id="nuevo" style='width:40px; height:27px'> <i class="fas fa-user-plus"></i></button>
                                                 </div>
-                                                <div class="form-group">
-                                                    <button type="button" id="actualizar" style='width:40px; height:27px'> <i class="fas fa-pen-square"></i></button>
-                                                </div>
+                                                @isset($aux)
+                                                    <div class="form-group">
+                                                        <button type="button" id="actualizar" style='width:40px; height:27px'> <i class="fas fa-pen-square"></i></button>
+                                                    </div>
+                                                @endisset
                                                 <div class="form-group">
                                             @endcanany
                                             @can('administrador')
@@ -171,6 +217,7 @@
                     @if(!empty($aux))
                         @include('departamentos.modaldeletedepartamentos')
                     @endif
+                        @include('departamentos.modalsearchdepartamento')
                 </div>
             </div>
         </div>
