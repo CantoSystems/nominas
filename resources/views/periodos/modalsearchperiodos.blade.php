@@ -13,9 +13,17 @@
   
                 <div class="input-group col-md-12">
                   <div class="input-group-prepend">
-                      <label for="busca">Número del periodo &nbsp</label>
+                    <select class="custom-select" name="opcion">
+                      <option value="numero">Número del periodo</option>
+                      <option value="fecha_inicio">Fecha de incio</option>
+                      <option value="fecha_fin">Fecha fin</option>
+                      <option value="fecha_pago">Fecha de pago</option>
+                    </select>
                   </div>
+                 
+
                   <input type="text" class="form-control" aria-label="Username" name="busca" aria-describedby="basic-addon1" align='right' required>
+                   
                 </div>
         </div>
         <div class="modal-footer">
