@@ -64,9 +64,18 @@ class PuestosController extends Controller
               break;
 
               case 'actualizar':
-                 $aux1 = DB::connection('DB_Serverr')->table('puestos')->where('clave_puesto',$clave_p)->first();
+                 $aux1 = DB::connection('DB_Serverr')->table('puestos')->where('id',$indic)->first();
                    if($aux1!==""){
-                   DB::connection('DB_Serverr')->table('puestos')->where('clave_puesto',$request->clave_puesto)->update(['nombre_puesto'=>$request->puesto]);
+
+                    $request->validate([
+                    'clave_puesto' => 'required',
+                    'puesto' => 'required',
+                    ]);
+                    
+                   DB::connection('DB_Serverr')->table('puestos')->where('id',$indic)->update([
+                              'clave_puesto'=>$request->clave_puesto,
+                              'nombre_puesto'=>$request->puesto,
+                            ]);
                    $aux = DB::connection('DB_Serverr')->table('puestos')->get()->first();
                    $puestos= DB::connection('DB_Serverr')->table('puestos')->get();
                    return view('puestos.puestos',compact('aux','puestos'));

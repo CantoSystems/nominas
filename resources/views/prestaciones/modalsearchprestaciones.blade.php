@@ -13,7 +13,7 @@
   
                 <div class="input-group col-md-12">
                   <div class="input-group-prepend">
-                      <label for="busca">Año &nbsp</label>
+                      <label for="busca">Año: &nbsp;&nbsp;</label>
                   </div>
                   <input type="text" class="form-control" aria-label="Username" name="busca" aria-describedby="basic-addon1" align='right' required>
                 </div>
