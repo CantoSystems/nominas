@@ -34,7 +34,7 @@
                 <div class="card-header">{{ __('Registrar un nuevo usuario') }}</div>
 
                 <div class="card-body">
-                    <form method="POST" action="{{ route('register') }}">
+                    <form method="POST" action="{{ route('register') }}" autocomplete="off">
                         @csrf
 
                         <div class="form-group row">

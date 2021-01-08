@@ -127,7 +127,47 @@ class DepartamentosController extends Controller
                	break;
 
                	case 'buscar':
-               		# code...
+               		$criterio= $request->opcion;
+
+               		if($criterio == 'clave_departamento'){
+               			$aux = DB::connection('DB_Serverr')->table('departamentos')
+							->join('areas','departamentos.clave_area','=','areas.clave_area')
+							->select('departamentos.*','areas.area')
+							->where('clave_departamento',$request->busca)
+							->first();
+
+						if($aux == "")
+                        {
+                          return back()->with('busqueda','Coincidencia no encontrada');
+                        }
+
+						$departamentos = DB::connection('DB_Serverr')->table('departamentos')
+							->join('areas','departamentos.clave_area','=','areas.clave_area')
+							->select('departamentos.*','areas.area')->get();
+
+						$areas=DB::connection('DB_Serverr')->table('areas')->get();
+						return view('departamentos.departamentos',compact('aux','departamentos','areas'));
+
+               		}else if($criterio == 'departamento'){
+               			$aux = DB::connection('DB_Serverr')->table('departamentos')
+							->join('areas','departamentos.clave_area','=','areas.clave_area')
+							->select('departamentos.*','areas.area')
+							->where('departamento',$request->busca)
+							->first();
+
+						if($aux == "")
+                        {
+                          return back()->with('busqueda','Coincidencia no encontrada');
+                        }
+
+						$departamentos = DB::connection('DB_Serverr')->table('departamentos')
+							->join('areas','departamentos.clave_area','=','areas.clave_area')
+							->select('departamentos.*','areas.area')->get();
+
+						$areas=DB::connection('DB_Serverr')->table('areas')->get();
+						return view('departamentos.departamentos',compact('aux','departamentos','areas'));
+
+               		}
                		break;
                		
                default:
@@ -155,8 +195,18 @@ class DepartamentosController extends Controller
               'clave_area' => 'required',
 
       	]);
+
+      	$coincidencia = DB::connection('DB_Serverr')->table('departamentos')
+        ->where('clave_departamento','=',$datos->clave_departamento)
+        ->orWhere('departamento','=',$datos->departamento)
+        ->get();
+
+        if($coincidencia->count() == 0){
 		DB::connection('DB_Serverr')->insert('insert into departamentos (clave_departamento, departamento,clave_area)
 		values (?,?,?)',[$datos->clave_departamento,$datos->departamento,$datos->clave_area]);
+		}else{
+			return back()->with('msj','Registro duplicado');
+		}
 	}
 
 	public function generador(){
