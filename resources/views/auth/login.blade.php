@@ -27,7 +27,7 @@
     <div class="card">
         <div class="card-body login-card-body">
         <p class="login-box-msg">Inicia Sesión</p>
-        <form method="POST" action="{{ route('login') }}">
+        <form method="POST" action="{{ route('login') }}" autocomplete="off">
             @csrf
 
             <div class="form-group row">

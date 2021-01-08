@@ -22,8 +22,8 @@
                 </div>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-          <button type="submit" name="acciones" value="buscar" class="btn btn-primary">Buscar</button>
+          <button type="button"  style="width:80px; height:40px" data-dismiss="modal">Cerrar</button>
+          <button type="submit"  style="width:80px; height:40px" name="acciones" value="buscar">Buscar</button>
         </div>
             </form>
       </div>
