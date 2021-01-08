@@ -22,9 +22,11 @@
             <td>{{ $emp->departamento }}</td>
             <td>{{ $emp->area }}</td>
             <td>
+              @isset($emp)
               <button type="button" style='width:70px; height:40px; align-items:center;' data-toggle="modal" data-target="#modalcrudempleado-{{$emp->id_emp}}">
                 <i class="fas fa-eye"></i>
               </button>
+              @endisset
             </td>
           </tr>
         @endforeach
@@ -46,7 +48,7 @@
   </div>
 </div>
 @if(!empty($emp))
-  @include('empleados.modalcrudempleados')
   @include('empleados.modaldeleteempleado')
+  @include('empleados.modalcrudempleados')
 @endif
 @endsection
