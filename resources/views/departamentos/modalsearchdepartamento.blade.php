@@ -18,7 +18,7 @@
                         <option value="clave_departamento">Clave de Departamento</option>
                       </select>
                   </div>
-                  <input type="text" class="form-control" aria-label="Username" name="busca" aria-describedby="basic-addon1" align='right' required>
+                  <input type="text" class="form-control" aria-label="Username" name="busca" aria-describedby="basic-addon1" align='right' onkeyup="mayus(this)";  required>
                 </div>
         </div>
         <div class="modal-footer">
@@ -29,3 +29,4 @@
       </div>
     </div>
   </div>
+</div>
