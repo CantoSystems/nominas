@@ -63,9 +63,24 @@ class ConceptosController extends Controller{
                 return redirect()->route('conceptos.index');
             break;
             case 'buscar':
-                $aux = DB::connection('DB_Serverr')->table('conceptos')->where('concepto',$request->busca)->first();
-                $aux1 = DB::connection('DB_Serverr')->table('conceptos')->get();
-                return view('conceptos.conceptos',compact('aux','aux1'));
+
+                $criterio= $request->opcion;
+                if($criterio == 'clave_concepto'){
+                    $aux = DB::connection('DB_Serverr')->table('conceptos')->where('clave_concepto',$request->busca)->first();
+                    if($aux == "")
+                    {
+                          return back()->with('busqueda','Coincidencia no encontrada');
+                    }
+                    return view('conceptos.conceptos',compact('aux'));
+                }else if($criterio == 'concepto'){
+                    $aux = DB::connection('DB_Serverr')->table('conceptos')->where('concepto',$request->busca)->first();
+                    if($aux == "")
+                    {
+                          return back()->with('busqueda','Coincidencia no encontrada');
+                    }
+                    return view('conceptos.conceptos',compact('aux'));
+                }
+                
             break;
             default:
             break;
@@ -121,6 +136,21 @@ class ConceptosController extends Controller{
         $clv_empresa=$this->conectar($clv);
 
         \Config::set('database.connections.DB_Serverr', $clv_empresa);
+
+        $datos->validate([
+              'clave_concepto' => 'required',
+              'concepto' => 'required',
+              'formula' => 'required',
+              'naturaleza' => 'required',
+              'manejo' => 'required',
+        ]);
+
+        $coincidencia = DB::connection('DB_Serverr')->table('conceptos')
+        ->where('clave_concepto','=',$datos->clave_concepto)
+        ->orWhere('concepto','=',$datos->concepto)
+        ->get();
+
+        if($coincidencia->count() == 0){
         DB::connection('DB_Serverr')->insert('insert into conceptos (clave_concepto
                                                                     ,concepto
                                                                     ,formula
@@ -129,7 +159,7 @@ class ConceptosController extends Controller{
                                                                     ,cantidad
                                                                     ,importe
                                                                     ,monto
-                                                                    ,ispt
+                                                                    ,isr
                                                                     ,imss
                                                                     ,infonavit
                                                                     ,estatal)
@@ -146,6 +176,9 @@ class ConceptosController extends Controller{
                                                                        ,?
                                                                        ,?)',[$clave_concepto,$datos->concepto,$datos->formula,$datos->naturaleza
         ,$datos->manejo,$datos->cantidad,$datos->importe,$datos->monto,$isr,$imss,$infonavit,$estatal]);
+    }else{
+        return back()->with('msj','Registro duplicado');
+    }
     }
 
     public function actualizar($datos){
@@ -180,6 +213,13 @@ class ConceptosController extends Controller{
 
         \Config::set('database.connections.DB_Serverr', $clv_empresa);
         $aux1 = DB::connection('DB_Serverr')->table('conceptos')->where('id',$datos->id)->first();
+        $datos->validate([
+              'clave_concepto' => 'required',
+              'concepto' => 'required',
+              'formula' => 'required',
+              'naturaleza' => 'required',
+              'manejo' => 'required',
+        ]);
         if($aux1!==""){
             DB::connection('DB_Serverr')->table('conceptos')->where('id',$datos->id)
             ->update(['clave_concepto'=>$clave_concepto
@@ -190,7 +230,7 @@ class ConceptosController extends Controller{
                      ,'cantidad'=>$datos->cantidad
                      ,'importe'=>$datos->importe
                      ,'monto'=>$datos->monto
-                     ,'ispt'=>$isr
+                     ,'isr'=>$isr
                      ,'imss'=>$imss
                      ,'infonavit'=>$infonavit
                      ,'estatal'=>$estatal]);
