@@ -6,14 +6,29 @@
             <h3 class="card-title">Conceptos</h3>
         </div>
         <div class="card-body">
+                    @if(session()->has('msj'))
+                        <div class="alert alert-danger" role="alert">
+                            {{ session('msj')}}
+                        </div>
+                    @endif
+                    @if(session()->has('busqueda'))
+                        <div class="alert alert-danger" role="alert">
+                            {{ session('busqueda')}}
+                        </div>
+                    @endif
             <form action="{{ route('conceptos.index')}}" method="GET" autocomplete="off">
                 <div class="row">
                     @if(!empty($aux))
                         <div class="col-sm-2">
                             <div class="form-group">
                                 <label>Clave:</label>
-                                <input type="text" name="clave_concepto" class="form-control" value="{{$aux->clave_concepto}}" onkeyup="mayus(this)"; >
+                                <input type="text" name="clave_concepto"  maxlength="3" class="form-control" value="{{$aux->clave_concepto}}" onkeyup="mayus(this)"; >
                             </div>
+                            @error('clave_concepto')
+                                <div class="alert alert-secondary">
+                                    {{ $message }}
+                                </div>
+                            @enderror
                         </div>
                         <div class="col-sm-4">
                             <div class="form-group">
@@ -21,6 +36,11 @@
                                 <input type="text" name="concepto" class="form-control" value="{{$aux->concepto}}" onkeyup="mayus(this);" onkeypress="return validar(event)">
                                 <input type="hidden" name="id" class="form-control" value="{{$aux->id}}" onkeyup="mayus(this);">
                             </div>
+                            @error('concepto')
+                                <div class="alert alert-secondary">
+                                    {{ $message }}
+                                </div>
+                            @enderror
                         </div>
                         <div class="col-sm-3">
                             <div class="form-group">
@@ -58,6 +78,11 @@
                                         <option value="I" selected>Impuesto al patrón</option>
                                     @endif
                                 </select>
+                                @error('naturaleza')
+                                    <div class="alert alert-secondary">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
                             </div>
                         </div>
                         <div class="col-sm-3">
@@ -78,6 +103,11 @@
                                         <option value="variable" selected>Variable</option>
                                     @endif
                                 </select>
+                                 @error('manejo')
+                                    <div class="alert alert-secondary">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
                             </div>
                         </div>
                         <div class="col-sm-2">
@@ -108,7 +138,7 @@
                             <label for=""> Elije el gravado:</label>
                             <div class="form-group">
                                 <div class="form-check">
-                                    @if($aux->ispt==1)
+                                    @if($aux->isr==1)
                                         <input class="form-check-input" type="checkbox" name="isr" checked> 
                                     @else
                                         <input class="form-check-input" type="checkbox" name="isr"> 
@@ -145,13 +175,23 @@
                         <div class="col-sm-2">
                             <div class="form-group">
                                 <label>Clave:</label>
-                                <input type="text" name="clave_concepto" class="form-control" onkeyup="mayus(this);" >
+                                <input type="text" name="clave_concepto"  maxlength="4"  class="form-control" onkeyup="mayus(this);" >
+                                @error('clave_concepto')
+                                    <div class="alert alert-secondary">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
                             </div>
                         </div>
                         <div class="col-sm-4">
                             <div class="form-group">
                                 <label>Concepto:</label>
                                 <input type="text" name="concepto" class="form-control" onkeyup="mayus(this);" onkeypress="return validar(event)">
+                                @error('concepto')
+                                    <div class="alert alert-secondary">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
                             </div>
                         </div>
                         <div class="col-sm-3">
@@ -164,6 +204,11 @@
                                     <option value="T">Impuesto al trabajador</option>
                                     <option value="I">Impuesto al patrón</option>
                                 </select>
+                                @error('naturaleza')
+                                    <div class="alert alert-secondary">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
                             </div>
                         </div>
                         <div class="col-sm-3">
@@ -174,6 +219,11 @@
                                     <option value="fijo">Fijo</option>
                                     <option value="variable">Variable</option>
                                 </select>
+                                @error('manejo')
+                                    <div class="alert alert-secondary">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
                             </div>
                         </div>
                         <div class="col-sm-2">
@@ -227,6 +277,7 @@
                             <div class="card-body">
                                 <div class="margin">
                                     <div class="btn-group">
+                                    @isset($aux)
                                         <div class="form-group">
                                             <button type="submit"  name="acciones" value="primero" id="primero" style='width:70px; height:40px'><i class="fas fa-backward" ></i></button>
                                         </div>
@@ -239,6 +290,7 @@
                                         <div class="form-group">
                                             <button type="submit" name="acciones" value="ultimo" id="ultimo" style='width:70px; height:40px'><i class="fas fa-forward"></i></button>
                                         </div>
+                                    @endisset
                                     </div>
                                 </div>
                             </div>
@@ -250,18 +302,22 @@
                                 <div class="btn-group">
                                     @canany(['administrador','capturista','reportes'])
                                         <div class="form-group">
+                                        @isset($aux)
                                             <button id="buscar" type="button" data-toggle="modal" data-target="#exampleModal" style='width:70px; height:40px'>
                                                 <i class="fas fa-search"></i>
                                             </button>
+                                        @endisset
                                         </div>
                                     @endcanany
                                     @canany(['administrador','capturista'])
                                         <div class="form-group">
                                             <button type="button" id="nuevo" style='width:70px; height:40px'> <i class="fas fa-user-plus"></i></button>
                                         </div>
+                                    @isset($aux)
                                         <div class="form-group">
                                             <button type="button" id="actualizar" style='width:70px; height:40px'> <i class="fas fa-pen-square"></i></button>
                                         </div>
+                                    @endisset
                                     @endcanany
                                     @can('administrador')
                                         @if(!empty($aux))
@@ -299,14 +355,13 @@
             </form>
             @if(!empty($aux))
                 @include('conceptos.modaldeleteconcetos')
+                @include('conceptos.modalsearchconceptos')
             @endif
+            
         </div>
     </div>
 </div>
 </div>
-</div>
-</div>
-</div>
-</div>
-</div>
+
+
 @endsection
