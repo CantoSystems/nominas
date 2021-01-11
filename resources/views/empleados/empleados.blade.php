@@ -1,12 +1,15 @@
 @extends('layouts.segunda')
 @section('content')
 <div class="container">
+
   <table class="table table-bordered table-striped" id="example1">
     <thead>
       <tr>
         <th>Clave de Empleado</th>
         <th>Nombre de Empleado</th>
-        <th>Puesto</th>
+        <th>Puesto <button type="button" style='width:70px; height:40px; align-items:center;' data-toggle="modal" data-target="#modalcrudempleado">
+                <i class="fas fa-eye"></i>
+              </button></th>
         <th>Departamento</th>
         <th>Área</th>
         <th>Acciones</th>
@@ -23,10 +26,9 @@
             <td>{{ $emp->area }}</td>
             <td>
               @isset($emp)
-              <button type="button" style='width:70px; height:40px; align-items:center;' data-toggle="modal" data-target="#modalcrudempleado-{{$emp->id_emp}}">
-                <i class="fas fa-eye"></i>
-              </button>
+              
               @endisset
+
             </td>
           </tr>
         @endforeach
@@ -34,21 +36,11 @@
     </tbody>
   </table> 
 </div>
-<div class="col-sm-12">
-  <div class="card-body">
-      <div class="margin">
-          <div class="btn-group">
-              <div class="form-group">
-                <button type="button" style='width:70px; height:40px; align-items:center;' data-toggle="modal" data-target="#modalcrudempleado">
-                  <i class="fas fa-user-plus"></i>
-                </button>
-              </div>
-          </div>
-      </div>
-  </div>
+
 </div>
 @if(!empty($emp))
   @include('empleados.modaldeleteempleado')
-  @include('empleados.modalcrudempleados')
+ 
 @endif
 @endsection
+@include('empleados.modalcrudempleados')
