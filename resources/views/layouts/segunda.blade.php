@@ -13,16 +13,16 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <!-- daterange picker -->
   <link rel="stylesheet" href="{{ asset('/Admin/plugins/daterangepicker/daterangepicker.css')}}">
   <!-- iCheck for checkboxes and radio inputs -->
-  <link rel="stylesheet" href="../Admin/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
+  <link rel="stylesheet" href="{{ asset('../Admin/plugins/icheck-bootstrap/icheck-bootstrap.min.css')}}">
   <!-- Bootstrap Color Picker -->
-  <link rel="stylesheet" href="../Admin/plugins/bootstrap-colorpicker/css/bootstrap-colorpicker.min.css">
+  <link rel="stylesheet" href="{{ asset('../Admin/plugins/bootstrap-colorpicker/css/bootstrap-colorpicker.min.css')}}">
   <!-- Tempusdominus Bbootstrap 4 -->
-  <link rel="stylesheet" href="../Admin/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
+  <link rel="stylesheet" href="{{ asset('../Admin/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css')}}">
   <!-- Select2 -->
-  <link rel="stylesheet" href="../Admin/plugins/select2/css/select2.min.css">
-  <link rel="stylesheet" href="../Admin/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css">
+  <link rel="stylesheet" href="{{ asset('../Admin/plugins/select2/css/select2.min.css')}}">
+  <link rel="stylesheet" href="{{ asset('../Admin/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css')}}">
   <!-- Bootstrap4 Duallistbox -->
-  <link rel="stylesheet" href="../Admin/plugins/bootstrap4-duallistbox/bootstrap-duallistbox.min.css">
+  <link rel="stylesheet" href="{{ asset('../Admin/plugins/bootstrap4-duallistbox/bootstrap-duallistbox.min.css')}}">
   <!-- Google Font: Source Sans Pro -->
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
   <!-- Font Awesome -->

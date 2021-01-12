@@ -1,4 +1,4 @@
-<div class="modal fade" id="modalcrudempleado-{{$emp->id_emp}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="modalcrudempleado" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered modal-xl">
     <div class="modal-content">
       <div class="modal-header">
@@ -1731,11 +1731,13 @@
                                 <button type="button" id="actualizar" style='width:70px; height:40px'> <i class="fas fa-pen-square"></i></button>
                               </div>
                               <div>
+                              @isset($emp)
                                 <a id="eliminar" data-target="#modal-deleteempleado-{{$emp->id_emp}}" data-toggle="modal" style='width:70px; height:40px'>
                                   <button type="button" style='width:70px; height:40px'>
                                       <i class="far fa-trash-alt"></i>
                                   </button>
                                 </a>
+                              @endisset
                               </div>
                             </div>
                           </div>
