@@ -41,7 +41,6 @@
                 <div class="card-body">
                     <form action="{{ route('bancos.acciones')}}" method="GET" autocomplete="off">
                         <div class="row">
-                           
                                 <div class="col-sm-6">
                                     <div class="form-group">
                                         <label>Clave banco:</label>

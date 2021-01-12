@@ -109,3 +109,6 @@ Route::delete('/usuarios/{id}','UsersController@destroy')->name('usuarios.destro
 
 //Retenciones
 Route::get('/retenciones','RetencionesController@index')->name('retenciones.index');
+
+//I.M.S.S
+Route::get('imss','IMSSController@acciones')->name('imss.acciones');
