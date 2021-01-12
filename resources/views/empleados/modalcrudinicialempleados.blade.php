@@ -44,7 +44,7 @@
                         <div class="form-row">
                           <div class="col-md-1 mb-2">
                             <label for="validationDefault01">Clave</label>
-                            <input type="text" class="form-control" name="clave_empleado" onkeypress="return numeros(event)" minlength="4" value="{{ $emp->clavr_empleado ?? ''}}">
+                            <input type="text" class="form-control" name="clave_empleado" onkeypress="return numeros(event)" minlength="4" value="{{ $emp->clave_empleado ?? ''}}">
                             <input type="hidden" class="form-control" name="id_emp" value="{{ $emp->id_emp ?? ''}}">
                           </div>
                           <div class="col-md-2">
@@ -99,6 +99,7 @@
                           </div>
                           <div class="col-md-2 mb-3">
                             <label for="validationDefault04">Departamento</label>
+                          @if(isset($emp))
                             <select class="custom-select" name="clave_departamento">
                               <option selected disabled value="">Seleccione una opción:</option>
                                 @foreach ($departamentos as $depa)
@@ -109,11 +110,20 @@
                                   @endif
                                 @endforeach
                             </select>
+                          @else
+                            <select class="custom-select" name="clave_departamento">
+                                <option selected disabled value="">Seleccione una opción:</option>
+                                  @foreach ($departamentos as $depa)
+                                    <option value="{{$depa->clave_departamento}}">{{$depa->departamento}}</option>
+                                  @endforeach
+                              </select>
+                          @endif
                           </div>
                           <div class="col-md-2 mb-3">
                             <label for="validationDefault04">Puesto</label>
                             <select class="custom-select" name="clave_puesto">
                               <option selected disabled value="">Seleccione una opción:</option>
+                            @if(isset($emp))
                                 @foreach ($puestos as $puest)
                                   @if($emp->clave_puesto==$puest->clave_puesto)
                                     <option selected value="{{$puest->clave_puesto}}">{{$puest->nombre_puesto}}</option>
@@ -122,6 +132,14 @@
                                   @endif
                                 @endforeach
                             </select>
+                            @else
+                              <select class="custom-select" name="clave_puesto">
+                                <option selected disabled value="">Seleccione una opción:</option>
+                                  @foreach ($puestos as $puest)
+                                    <option value="{{$puest->clave_puesto}}">{{$puest->nombre_puesto}}</option>
+                                  @endforeach
+                              </select>
+                            @endif
                           </div>
                           <div class="col-md-2 mb-3">
                             <label for="validationDefault03">RFC</label>
@@ -201,6 +219,7 @@
                           </div>
                           <div class="col-md-3 mb-3">
                             <label for="validationDefault04">Sexo</label>
+                          @if(isset($emp))
                             <select class="custom-select" name="sexo">
                               @if($emp->sexo=="")
                                 <option selected disabled value="">Seleccione una opción:</option>
@@ -216,9 +235,17 @@
                                 <option selected value="MUJER">Mujer</option>
                               @endif
                             </select>
+                          @else
+                             <select class="custom-select" name="sexo">
+                                <option selected disabled value="">Seleccione una opción:</option>
+                                <option value="HOMBRE">Hombre</option>
+                                <option value="MUJER">Mujer</option>
+                              </select>
+                          @endif
                           </div>
                           <div class="col-md-3 mb-3">
                             <label for="validationDefault04">Estado Civil</label>
+                          @if(isset($emp))
                             <select class="custom-select" name="estado_civil">
                               @if($emp->estado_civil=="")
                                 <option selected disabled value="">Seleccione una opción:</option>
@@ -234,26 +261,33 @@
                                 <option selected value="CASADO">Casado</option>
                               @endif
                             </select>
+                          @else
+                            <select class="custom-select" name="estado_civil">
+                                <option selected disabled value="">Seleccione una opción:</option>
+                                <option value="SOLTERO">Soltero</option>
+                                <option value="CASADO">Casado</option>
+                            </select>
+                          @endif
                           </div>
                           <div class="col-md-3 mb-3">
                             <label for="validationDefault04">Nacionalidad</label>
-                            <input required type="text" class="form-control" value="{{$emp->nacionalidad}}" name="nacionalidad" onkeyup="mayus(this);" onkeypress="return validar(event)">
+                            <input required type="text" class="form-control" value="{{$emp->nacionalidad ?? ''}}" name="nacionalidad" onkeyup="mayus(this);" onkeypress="return validar(event)">
                           </div>
                           <div class="col-md-3 mb-3">
-                            <label for="validationDefault04">Tipo de sangre</label>
-                            <input required type="text" class="form-control" value="{{$emp->tipo_sangre}}" name="tipo_sangre" onkeyup="mayus(this);" onkeypress="return validasangre(event)">
+                            <label for="validationDefault04">Tipo de sangre</label> 
+                            <input required type="text" class="form-control" value="{{$emp->tipo_sangre ?? ''}}" name="tipo_sangre" onkeyup="mayus(this);" onkeypress="return validasangre(event)">
                           </div>
                           <div class="col-md-3 mb-3">
                             <label for="validationDefault03">Alergias</label>
-                            <input required type="text" class="form-control" value="{{$emp->alergias}}" name="alergias" onkeyup="mayus(this);" onkeypress="return validar(event)">
+                            <input required type="text" class="form-control" value="{{$emp->alergias ?? ''}}" name="alergias" onkeyup="mayus(this);" onkeypress="return validar(event)">
                           </div>
                           <div class="col-md-1 mb-3">
                             <label for="validationDefault03">Estatura</label>
-                            <input required type="number" class="form-control" value="{{$emp->estatura}}" name="estatura" min="1.20" max="2.5" step="0.01">
+                            <input required type="number" class="form-control" value="{{$emp->estatura ?? ''}}" name="estatura" min="1.20" max="2.5" step="0.01">
                           </div>
                           <div class="col-md-1 mb-3">
                             <label for="validationDefault03">Peso</label>
-                            <input required type="number" class="form-control" value="{{$emp->peso}}" name="peso" min="30" max="200" step="0.01">
+                            <input required type="number" class="form-control" value="{{$emp->peso ?? ''}}" name="peso" min="30" max="200" step="0.01">
                           </div>
                         </div>
                     </div><!--Fin  Row Personal-->
@@ -262,42 +296,43 @@
                       <div class="form-row">
                         <div class="col-md-3 mb-2">
                           <label for="validationDefault01">Enfermedad Crónica</label>
-                          <input required type="text" class="form-control" name="enfermedad_cronica" value="{{$emp->enfermedad_cronica}}" onkeyup="mayus(this);" onkeypress="return validar(event)">
+                          <input required type="text" class="form-control" name="enfermedad_cronica" value="{{$emp->enfermedad_cronica ?? ''}}" onkeyup="mayus(this);" onkeypress="return validar(event)">
                         </div>
                         <div class="col-md-3">
                           <label for="validationDefault02">Práctica de Deportes</label>
-                          <input required type="text" class="form-control" name="deporte" value="{{$emp->deporte}}" onkeyup="mayus(this);" onkeypress="return validar(event)">
+                          <input required type="text" class="form-control" name="deporte" value="{{$emp->deporte ?? ''}}" onkeyup="mayus(this);" onkeypress="return validar(event)">
                         </div>
                         <div class="col-md-3 mb-3">
                           <label for="validationDefault03">Pasatiempos</label>
-                          <input required type="text" class="form-control" name="pasatiempo" value="{{$emp->deporte}}" onkeyup="mayus(this);" onkeypress="return validar(event)">
+                          <input required type="text" class="form-control" name="pasatiempo" value="{{$emp->deporte ?? ''}}" onkeyup="mayus(this);" onkeypress="return validar(event)">
                         </div>
                         <div class="col-md-3 mb-3">
                           <label for="validationDefault03">Asociación, Club Social o Deportivo</label>
-                          <input required type="text" class="form-control" name="asosiacion" value="{{$emp->asosiacion}}" onkeyup="mayus(this);" onkeypress="return validar(event)">
+                          <input required type="text" class="form-control" name="asosiacion" value="{{$emp->asosiacion ?? ''}}" onkeyup="mayus(this);" onkeypress="return validar(event)">
                         </div>
                         <div class="col-md-3 mb-3">
                           <label for="validationDefault03">Objetivo de Vida</label>
-                          <input required type="text" class="form-control" name="objetivo_vida" value="{{$emp->objetivo_vida}}" onkeyup="mayus(this);" onkeypress="return validar(event)">
+                          <input required type="text" class="form-control" name="objetivo_vida" value="{{$emp->objetivo_vida ?? ''}}" onkeyup="mayus(this);" onkeypress="return validar(event)">
                         </div>
                         <div class="col-md-3 mb-3">
                           <label for="validationDefault03">Nacimiento</label>
-                          <input required type="date" max="{{$fechalimite}}-12-31" class="form-control" value="{{$emp->fecha_nacimiento}}" name="fecha_nacimiento">
+                          <input required type="date" max="{{$fechalimite}}-12-31" class="form-control" value="{{$emp->fecha_nacimiento ?? ''}}" name="fecha_nacimiento">
                         </div>
                         <div class="col-md-3 mb-3">
                           <label for="validationDefault03">Lugar de Origen</label>
-                          <input required type="text" class="form-control" name="lugar" value="{{$emp->lugar}}" onkeyup="mayus(this);" onkeypress="return validar(event)">
+                          <input required type="text" class="form-control" name="lugar" value="{{$emp->lugar ?? ''}}" onkeyup="mayus(this);" onkeypress="return validar(event)">
                         </div>
                         <div class="col-md-3 mb-3">
                           <label for="validationDefault03">UMF</label>
-                          <input required type="text" class="form-control" name="umf" value="{{$emp->umf}}" onkeypress="return numeros(event)">
+                          <input required type="text" class="form-control" name="umf" value="{{$emp->umf ?? ''}}" onkeypress="return numeros(event)">
                         </div>
                         <div class="col-md-4 mb-3">
                           <label for="validationDefault03">Nombre del Padre</label>
-                          <input required type="text" class="form-control" name="nombre_padre" value="{{$emp->nombre_padre}}" onkeyup="mayus(this);" onkeypress="return validar(event)">
+                          <input required type="text" class="form-control" name="nombre_padre" value="{{$emp->nombre_padre ?? ''}}" onkeyup="mayus(this);" onkeypress="return validar(event)">
                         </div>
                         <div class="col-md-1 mb-3">
                           <br>
+                        @if(isset($emp))
                           <div class="form-check">
                             @if($emp->finado_padre==0)
                               <input checked class="form-check-input" type="checkbox" value="option1" name="finado_padre" aria-label="">
@@ -306,21 +341,29 @@
                             @endif
                             <label for="">Finado</label>
                           </div>
+                        @else
+                           <div class="form-check">
+                              <input  class="form-check-input" type="checkbox" name="finado_padre" value="option1" aria-label="">
+                              <label for="">Finado</label>
+                            </div>
+                        @endif
+
                         </div>
                         <div class="col-md-4 mb-3">
                           <label for="validationDefault03">Direccion</label>
-                          <input type="text" class="form-control" name="direccion_padre" value="{{$emp->direccion_padre}}" onkeyup="mayus(this);" onkeypress="return validar(event)">
+                          <input type="text" class="form-control" name="direccion_padre" value="{{$emp->direccion_padre ?? ''}}" onkeyup="mayus(this);" onkeypress="return validar(event)">
                         </div>
                         <div class="col-md-3 mb-3">
                           <label for="validationDefault03">Ocupación</label>
-                          <input type="text" class="form-control" name="ocupacion_padre" value="{{$emp->ocupacion_padre}}" onkeyup="mayus(this);" onkeypress="return validar(event)">
+                          <input type="text" class="form-control" name="ocupacion_padre" value="{{$emp->ocupacion_padre ?? ''}}" onkeyup="mayus(this);" onkeypress="return validar(event)">
                         </div>
                         <div class="col-md-4 mb-3">
                           <label for="validationDefault03">Nombre de la Madre</label>
-                          <input required type="text" class="form-control" value="{{$emp->nombre_madre}}" name="nombre_madre" onkeyup="mayus(this);" onkeypress="return validar(event)">
+                          <input required type="text" class="form-control" value="{{$emp->nombre_madre ?? ''}}" name="nombre_madre" onkeyup="mayus(this);" onkeypress="return validar(event)">
                         </div>
                         <div class="col-md-1 mb-3">
                           <br>
+                        @if(isset($emp))
                           <div class="form-check">
                             @if($emp->finado_madre==0)
                               <input checked class="form-check-input" type="checkbox" name="finado_madre" value="option1" aria-label="">
@@ -329,38 +372,45 @@
                             @endif
                             <label for="">Finado</label>
                           </div>
+                        @else
+                          <div class="form-check">
+                              <input  class="form-check-input" type="checkbox" name="finado_madre" value="option1" aria-label="">
+                              <label for="">Finado</label>
+                            </div>
+                        @endif
+
                         </div>
                         <div class="col-md-4 mb-3">
                           <label for="validationDefault03">Dirección</label>
-                          <input type="text" class="form-control" name="direccion_madre" value="{{$emp->direccion_madre}}" onkeyup="mayus(this);" onkeypress="return validar(event)">
+                          <input type="text" class="form-control" name="direccion_madre" value="{{$emp->direccion_madre ?? ''}}" onkeyup="mayus(this);" onkeypress="return validar(event)">
                         </div>
                         <div class="col-md-3 mb-3">
                           <label for="validationDefault03">Ocupación</label>
-                          <input type="text" class="form-control" name="ocupacion_madre" value="{{$emp->ocupacion_madre}}" onkeyup="mayus(this);" onkeypress="return validar(event)">
+                          <input type="text" class="form-control" name="ocupacion_madre" value="{{$emp->ocupacion_madre ?? ''}}" onkeyup="mayus(this);" onkeypress="return validar(event)">
                         </div>
                         <div class="col-md-6 mb-3">
                           <label for="validationDefault03">Nombre y edad de sus hijos</label>
-                          <input type="text" class="form-control" name="hijos" value="{{$emp->hijos}}" onkeyup="mayus(this);" onkeypress="return validar(event)">
+                          <input type="text" class="form-control" name="hijos" value="{{$emp->hijos ?? ''}}" onkeyup="mayus(this);" onkeypress="return validar(event)">
                         </div>
                         <div class="col-md-3 mb-3">
                           <label for="validationDefault03">Idiomas</label>
-                          <input required type="text" class="form-control" name="idiomas" value="{{$emp->idiomas}}" onkeyup="mayus(this);" onkeypress="return validar(event)">
+                          <input required type="text" class="form-control" name="idiomas" value="{{$emp->idiomas ?? ''}}" onkeyup="mayus(this);" onkeypress="return validar(event)">
                         </div>
                         <div class="col-md-3 mb-3">
                           <label for="validationDefault03">Funciones de Oficina</label>
-                          <input required type="text" class="form-control" name="funciones_oficina" value="{{$emp->funciones_oficina}}" onkeyup="mayus(this);" onkeypress="return validar(event)">
+                          <input required type="text" class="form-control" name="funciones_oficina" value="{{$emp->funciones_oficina ?? ''}}" onkeyup="mayus(this);" onkeypress="return validar(event)">
                         </div>
                         <div class="col-md-4 mb-3">
                           <label for="validationDefault03">Máquinas de Oficina o Taller que Maneje</label>
-                          <input required type="text" class="form-control" name="maquinas_oficina" value="{{$emp->maquinas_oficina}}" onkeyup="mayus(this);" onkeypress="return validar(event)">
+                          <input required type="text" class="form-control" name="maquinas_oficina" value="{{$emp->maquinas_oficina ?? ''}}" onkeyup="mayus(this);" onkeypress="return validar(event)">
                         </div>
                         <div class="col-md-4 mb-3">
                           <label for="validationDefault03">Software que conoce</label>
-                          <input required type="text" class="form-control" name="software" value="{{$emp->software}}" onkeyup="mayus(this);" onkeypress="return validar(event)">
+                          <input required type="text" class="form-control" name="software" value="{{$emp->software ?? ''}}" onkeyup="mayus(this);" onkeypress="return validar(event)">
                         </div>
                         <div class="col-md-4 mb-3">
                           <label for="validationDefault03">Otras funciones o trabajos que domina</label>
-                          <input required type="text" class="form-control" name="otras_funciones" value="{{$emp->otras_funciones}}" onkeyup="mayus(this);" onkeypress="return validar(event)">
+                          <input required type="text" class="form-control" name="otras_funciones" value="{{$emp->otras_funciones ?? ''}}" onkeyup="mayus(this);" onkeypress="return validar(event)">
                         </div>
                       </div><!--Fin  Row Personal 1-->
                     </div><!--Fin Personal 2-->
@@ -381,27 +431,27 @@
                         </div>
                         <div class="col-md-4 mb-3">
                           <label for="validationDefault03">Nombre</label>
-                          <input required type="text" class="form-control" name="beneficiario" value="{{$emp->beneficiario}}" id="beneficiario" onkeyup="mayus(this);" onkeypress="return validar(event)">
-                          <input type="text" class="form-control" name="beneficiario1" value="{{$emp->beneficiario1}}" id="beneficiario1"  onkeyup="mayus(this);" onkeypress="return validar(event)">
-                          <input type="text" class="form-control" name="beneficiario2" value="{{$emp->beneficiario2}}" id="beneficiario2" onkeyup="mayus(this);" onkeypress="return validar(event)">
-                          <input type="text" class="form-control" name="beneficiario3" value="{{$emp->beneficiario3}}" id="beneficiario3" onkeyup="mayus(this);" onkeypress="return validar(event)">
-                          <input type="text" class="form-control" name="beneficiario4" value="{{$emp->beneficiario4}}" id="beneficiario4" onkeyup="mayus(this);" onkeypress="return validar(event)">
+                          <input required type="text" class="form-control" name="beneficiario" value="{{$emp->beneficiario ?? ''}}" id="beneficiario" onkeyup="mayus(this);" onkeypress="return validar(event)">
+                          <input type="text" class="form-control" name="beneficiario1" value="{{$emp->beneficiario1 ?? ''}}" id="beneficiario1"  onkeyup="mayus(this);" onkeypress="return validar(event)">
+                          <input type="text" class="form-control" name="beneficiario2" value="{{$emp->beneficiario2 ?? ''}}" id="beneficiario2" onkeyup="mayus(this);" onkeypress="return validar(event)">
+                          <input type="text" class="form-control" name="beneficiario3" value="{{$emp->beneficiario3 ?? ''}}" id="beneficiario3" onkeyup="mayus(this);" onkeypress="return validar(event)">
+                          <input type="text" class="form-control" name="beneficiario4" value="{{$emp->beneficiario4 ?? ''}}" id="beneficiario4" onkeyup="mayus(this);" onkeypress="return validar(event)">
                         </div>
                         <div class="col-md-4 mb-3">
                           <label for="validationDefault03">Parentesco</label>
-                          <input required type="text" class="form-control" name="parentesco" id="parentesco" value="{{$emp->parentesco}}" onkeyup="mayus(this);" onkeypress="return validar(event)">
-                          <input type="text" class="form-control" name="parentesco1" id="parentesco1" value="{{$emp->parentesco1}}" onkeyup="mayus(this);" onkeypress="return validar(event)">
-                          <input type="text" class="form-control" name="parentesco2" id="parentesco2" value="{{$emp->parentesco2}}" onkeyup="mayus(this);" onkeypress="return validar(event)">
-                          <input type="text" class="form-control" name="parentesco3" id="parentesco3" value="{{$emp->parentesco3}}" onkeyup="mayus(this);" onkeypress="return validar(event)">
-                          <input type="text" class="form-control" name="parentesco4" id="parentesco4" value="{{$emp->parentesco4}}" onkeyup="mayus(this);" onkeypress="return validar(event)">
+                          <input required type="text" class="form-control" name="parentesco" id="parentesco" value="{{$emp->parentesco ?? ''}}" onkeyup="mayus(this);" onkeypress="return validar(event)">
+                          <input type="text" class="form-control" name="parentesco1" id="parentesco1" value="{{$emp->parentesco1 ?? ''}}" onkeyup="mayus(this);" onkeypress="return validar(event)">
+                          <input type="text" class="form-control" name="parentesco2" id="parentesco2" value="{{$emp->parentesco2 ?? ''}}" onkeyup="mayus(this);" onkeypress="return validar(event)">
+                          <input type="text" class="form-control" name="parentesco3" id="parentesco3" value="{{$emp->parentesco3 ?? ''}}" onkeyup="mayus(this);" onkeypress="return validar(event)">
+                          <input type="text" class="form-control" name="parentesco4" id="parentesco4" value="{{$emp->parentesco4 ?? ''}}" onkeyup="mayus(this);" onkeypress="return validar(event)">
                         </div>
                         <div class="col-md-3 mb-3">
                           <label for="validationDefault03">% de Participación</label>
-                          <input required type="number" class="form-control" value="{{$emp->porcentaje}}" name="porcentaje" min="0.1" max="100" step="0.01" id="porcentaje">
-                          <input type="number" class="form-control" value="{{$emp->porcentaje1}}" name="porcentaje1" min="0.1" max="100" step="0.01" id="porcentaje1">
-                          <input type="number" class="form-control" value="{{$emp->porcentaje2}}" name="porcentaje2" min="0.1" max="100" step="0.01" id="porcentaje2">
-                          <input type="number" class="form-control" value="{{$emp->porcentaje3}}" name="porcentaje3" min="0.1" max="100" step="0.01" id="porcentaje3">
-                          <input type="number" class="form-control" value="{{$emp->porcentaje4}}" name="porcentaje4" min="0.1" max="100" step="0.01" id="porcentaje4">
+                          <input required type="number" class="form-control" value="{{$emp->porcentaje ?? ''}}" name="porcentaje" min="0.1" max="100" step="0.01" id="porcentaje">
+                          <input type="number" class="form-control" value="{{$emp->porcentaje1 ?? ''}}" name="porcentaje1" min="0.1" max="100" step="0.01" id="porcentaje1">
+                          <input type="number" class="form-control" value="{{$emp->porcentaje2 ?? ''}}" name="porcentaje2" min="0.1" max="100" step="0.01" id="porcentaje2">
+                          <input type="number" class="form-control" value="{{$emp->porcentaje3 ?? ''}}" name="porcentaje3" min="0.1" max="100" step="0.01" id="porcentaje3">
+                          <input type="number" class="form-control" value="{{$emp->porcentaje4 ?? ''}}" name="porcentaje4" min="0.1" max="100" step="0.01" id="porcentaje4">
                         </div>
                         <div class="col-sm-12">
                           <label for="" style="text-align: left;">
@@ -425,61 +475,61 @@
                         <!--Inicio Primaria-->
                         <label for="" class="col-form-label col-sm-2">Primaria</label>
                         <div class="col-sm-3">
-                          <input required type="text" value="{{$emp->primaria}}" name="primaria" class="form-control" onkeyup="mayus(this);" onkeypress="return validar(event)">
+                          <input required type="text" value="{{$emp->primaria ?? ''}}" name="primaria" class="form-control" onkeyup="mayus(this);" onkeypress="return validar(event)">
                         </div>
                         <div class="col-sm-4">
-                          <input required value="{{$emp->duracion_primaria}}" name="duracion_primaria" class="form-control" id="duracion5">
+                          <input required value="{{$emp->duracion_primaria ?? ''}}" name="duracion_primaria" class="form-control" id="duracion5">
                         </div>
                         <div class="col-sm-3">
-                          <input required type="text" value="{{$emp->titulo_primaria}}" name="titulo_primaria" class="form-control" onkeyup="mayus(this);" onkeypress="return validar(event)">
+                          <input required type="text" value="{{$emp->titulo_primaria ?? ''}}" name="titulo_primaria" class="form-control" onkeyup="mayus(this);" onkeypress="return validar(event)">
                         </div>
                         <!--FIN Primaria-->
                         <!--Inicio Secundaria-->
                         <label for="" class="col-form-label col-sm-2">Secundaria</label>
                         <div class="col-sm-3">
-                          <input type="text" name="secundaria" value="{{$emp->secundaria}}" class="form-control" onkeyup="mayus(this);" onkeypress="return validar(event)">
+                          <input type="text" name="secundaria" value="{{$emp->secundaria ?? ''}}" class="form-control" onkeyup="mayus(this);" onkeypress="return validar(event)">
                         </div>
                         <div class="col-sm-4">
-                          <input name="duracion_secundaria" value="{{$emp->duracion_secundaria}}" class="form-control" id="duracion6">
+                          <input name="duracion_secundaria" value="{{$emp->duracion_secundaria ?? ''}}" class="form-control" id="duracion6">
                         </div>
                         <div class="col-sm-3">
-                          <input type="text" value="{{$emp->titulo_secundaria}}" name="titulo_secundaria" class="form-control" onkeyup="mayus(this);" onkeypress="return validar(event)">
+                          <input type="text" value="{{$emp->titulo_secundaria ?? ''}}" name="titulo_secundaria ?? ''" class="form-control" onkeyup="mayus(this);" onkeypress="return validar(event)">
                         </div>
                         <!--FIN Secundaria-->
                         <!--Inicio Preparatoria-->
                         <label for="" class="col-form-label col-sm-2">Preparatoria</label>
                         <div class="col-sm-3">
-                          <input type="text" name="preparatoria" value="{{$emp->preparatoria}}" class="form-control" onkeyup="mayus(this);" onkeypress="return validar(event)">
+                          <input type="text" name="preparatoria" value="{{$emp->preparatoria ?? ''}}" class="form-control" onkeyup="mayus(this);" onkeypress="return validar(event)">
                         </div>
                         <div class="col-sm-4">
-                          <input name="duracion_preparatoria" value="{{$emp->duracion_preparatoria}}" class="form-control" id="duracion7">
+                          <input name="duracion_preparatoria" value="{{$emp->duracion_preparatoria ?? ''}}" class="form-control" id="duracion7">
                         </div>
                         <div class="col-sm-3">
-                          <input type="text" name="titulo_preparatoria" value="{{$emp->titulo_preparatoria}}" class="form-control" onkeyup="mayus(this);" onkeypress="return validar(event)">
+                          <input type="text" name="titulo_preparatoria" value="{{$emp->titulo_preparatoria ?? ''}}" class="form-control" onkeyup="mayus(this);" onkeypress="return validar(event)">
                         </div>
                         <!--FIN Preparatoria-->
                         <!--Inicio Profesional-->
                         <label for="" class="col-form-label col-sm-2">Profesional</label>
                         <div class="col-sm-3">
-                          <input type="text" name="profesional" value="{{$emp->profesional}}" class="form-control" onkeyup="mayus(this);" onkeypress="return validar(event)">
+                          <input type="text" name="profesional" value="{{$emp->profesional ?? ''}}" class="form-control" onkeyup="mayus(this);" onkeypress="return validar(event)">
                         </div>
                         <div class="col-sm-4">
-                          <input name="duracion_profesional" value="{{$emp->duracion_profesional}}" class="form-control" id="duracion8">
+                          <input name="duracion_profesional" value="{{$emp->duracion_profesional ?? ''}}" class="form-control" id="duracion8">
                         </div>
                         <div class="col-sm-3">
-                          <input type="text" name="titulo_profesional" value="{{$emp->titulo_profesional}}" class="form-control" onkeyup="mayus(this);" onkeypress="return validar(event)">
+                          <input type="text" name="titulo_profesional" value="{{$emp->titulo_profesional ?? ''}}" class="form-control" onkeyup="mayus(this);" onkeypress="return validar(event)">
                         </div>
                         <!--FIN Profesional-->
                         <!--Inicio Otras-->
                         <label for="" class="col-form-label col-sm-2">Otras</label>
                         <div class="col-sm-3">
-                          <input type="text" name="otras" value="{{$emp->otras}}" class="form-control" onkeyup="mayus(this);" onkeypress="return validar(event)">
+                          <input type="text" name="otras" value="{{$emp->otras ?? '' }}" class="form-control" onkeyup="mayus(this);" onkeypress="return validar(event)">
                         </div>
                         <div class="col-sm-4">
-                          <input name="duracion_otras" value="{{$emp->duracion_otras}}" class="form-control" id="duracion9">
+                          <input name="duracion_otras" value="{{$emp->duracion_otras ?? ''}}" class="form-control" id="duracion9">
                         </div>
                         <div class="col-sm-3">
-                          <input type="text" name="titulo_otras" value="{{$emp->titulo_otras}}" class="form-control" onkeyup="mayus(this);" onkeypress="return validar(event)">
+                          <input type="text" name="titulo_otras" value="{{$emp->titulo_otras ?? ''}}" class="form-control" onkeyup="mayus(this);" onkeypress="return validar(event)">
                         </div>
                         <!--FIN Profesional-->
                         <div class="col-sm-12">
@@ -489,19 +539,19 @@
                         </div>
                         <div class="col-md-5">
                           <label for="validationDefault03">Nombre de la Institución</label>
-                          <input type="text" class="form-control" name="estudio_actual" value="{{$emp->estudio_actual}}" onkeyup="mayus(this);" onkeypress="return validar(event)">       
+                          <input type="text" class="form-control" name="estudio_actual" value="{{$emp->estudio_actual ?? ''}}" onkeyup="mayus(this);" onkeypress="return validar(event)">       
                         </div>
                         <div class="col-md-3 mb-3">
                           <label for="validationDefault03">Curso o Carrera</label>
-                          <input type="text" class="form-control" name="carrera" value="{{$emp->carrera}}" onkeyup="mayus(this);" onkeypress="return validar(event)">
+                          <input type="text" class="form-control" name="carrera" value="{{$emp->carrera ?? ''}}" onkeyup="mayus(this);" onkeypress="return validar(event)">
                         </div>
                         <div class="col-md-1 mb-3">
                           <label for="validationDefault03">Grado</label>
-                          <input type="number" class="form-control" name="grado" value="{{$emp->grado}}" min="1" max="10">
+                          <input type="number" class="form-control" name="grado" value="{{$emp->grado ?? ''}}" min="1" max="10">
                         </div>
                         <div class="col-md-3 mb-3">
                           <label for="validationDefault03">Horario</label>
-                          <input type="text" class="form-control" value="{{$emp->horario}}" name="horario">      
+                          <input type="text" class="form-control" value="{{$emp->horario ?? ''}}" name="horario">      
                         </div>
                       </div><!--Final Row Personal 2-->
                     </div><!--Final Personal 3-->
@@ -532,113 +582,113 @@
                         </div>
                         <!--Inicio Vinculación Referencias-->
                         <div class="col-sm-3"> 
-                          <input name="duracion_trabajo" value="{{$emp->duracion_trabajo}}" class="form-control" id="duracion">
+                          <input name="duracion_trabajo" value="{{$emp->duracion_trabajo ?? ''}}" class="form-control" id="duracion">
                         </div>
                         <div class="col-sm-3"> 
-                          <input name="duracion_trabajo1" value="{{$emp->duracion_trabajo1}}"class="form-control" id="duracion2">
+                          <input name="duracion_trabajo1" value="{{$emp->duracion_trabajo1 ?? ''}}"class="form-control" id="duracion2">
                         </div>
                         <div class="col-sm-3"> 
-                          <input name="duracion_trabajo2" value="{{$emp->duracion_trabajo2}}"class="form-control" id="duracion3">
+                          <input name="duracion_trabajo2" value="{{$emp->duracion_trabajo2 ?? ''}}"class="form-control" id="duracion3">
                         </div>
                         <div class="col-sm-3"> 
-                          <input name="duracion_trabajo3" value="{{$emp->duracion_trabajo3}}"class="form-control" id="duracion4">
+                          <input name="duracion_trabajo3" value="{{$emp->duracion_trabajo3 ?? ''}}"class="form-control" id="duracion4">
                         </div>
                         <label for="" class="col-form-label col-sm-12">Nombre de la Compañia</label>
                         <div class="col-sm-3">
-                          <input type="text" name="nombre_compania" value="{{$emp->nombre_compania}}" class="form-control" onkeyup="mayus(this);" onkeypress="return validar(event)" >
+                          <input type="text" name="nombre_compania" value="{{$emp->nombre_compania ?? ''}}" class="form-control" onkeyup="mayus(this);" onkeypress="return validar(event)" >
                         </div>
                         <div class="col-sm-3">
-                          <input type="text" name="nombre_compania1" value="{{$emp->nombre_compania1}}" class="form-control" onkeyup="mayus(this);" onkeypress="return validar(event)">
+                          <input type="text" name="nombre_compania1" value="{{$emp->nombre_compania1 ?? ''}}" class="form-control" onkeyup="mayus(this);" onkeypress="return validar(event)">
                         </div>
                         <div class="col-sm-3">
-                          <input type="text" name="nombre_compania2" value="{{$emp->nombre_compania2}}"class="form-control" onkeyup="mayus(this);" onkeypress="return validar(event)">
+                          <input type="text" name="nombre_compania2" value="{{$emp->nombre_compania2 ?? ''}}"class="form-control" onkeyup="mayus(this);" onkeypress="return validar(event)">
                         </div>
                         <div class="col-sm-3">
-                          <input type="text" name="nombre_compania3" value="{{$emp->nombre_compania3}}" class="form-control" onkeyup="mayus(this);" onkeypress="return validar(event)">
+                          <input type="text" name="nombre_compania3" value="{{$emp->nombre_compania3 ?? ''}}" class="form-control" onkeyup="mayus(this);" onkeypress="return validar(event)">
                         </div><!--Fin compañia Referencias-->
                         <!--Inicio Dirección Referencias-->
                         <label for="" class="col-form-label col-sm-12">Dirección</label>
                           <div class="col-sm-3">
-                            <input type="text" name="direccion_compania" value="{{$emp->direccion_compania}}" class="form-control" onkeyup="mayus(this);" onkeypress="return validar(event)">
+                            <input type="text" name="direccion_compania" value="{{$emp->direccion_compania ?? ''}}" class="form-control" onkeyup="mayus(this);" onkeypress="return validar(event)">
                           </div>
                         <div class="col-sm-3">
-                            <input type="text" name="direccion1_trabajo1" value="{{$emp->direccion1_trabajo1}}" class="form-control" onkeyup="mayus(this);" onkeypress="return validar(event)">
+                            <input type="text" name="direccion1_trabajo1" value="{{$emp->direccion1_trabajo1 ?? ''}}" class="form-control" onkeyup="mayus(this);" onkeypress="return validar(event)">
                         </div>
                         <div class="col-sm-3">
-                          <input type="text" name="direccion_compania2"  value="{{$emp->direccion_compania2}}"class="form-control" onkeyup="mayus(this);" onkeypress="return validar(event)">
+                          <input type="text" name="direccion_compania2"  value="{{$emp->direccion_compania2 ?? ''}}"class="form-control" onkeyup="mayus(this);" onkeypress="return validar(event)">
                         </div>
                         <div class="col-sm-3">
-                          <input type="text" name="direccion3" value="{{$emp->direccion3}}" class="form-control" onkeyup="mayus(this);" onkeypress="return validar(event)">
+                          <input type="text" name="direccion3" value="{{$emp->direccion3 ?? ''}}" class="form-control" onkeyup="mayus(this);" onkeypress="return validar(event)">
                         </div><!--Fin Dirección Referencias-->
                         <!--Inicio Telefono Referencias-->
                         <label for="" class="col-form-label col-sm-12">Télefono</label>
                         <div class="col-sm-3">
-                          <input type="text" name="telefono_compania" value="{{$emp->telefono_compania}}" class="form-control telefono_compania" tabindex="1">
+                          <input type="text" name="telefono_compania" value="{{$emp->telefono_compania ?? ''}}" class="form-control telefono_compania" tabindex="1">
                         </div>
                         <div class="col-sm-3">
-                          <input type="text" name="telefono1" value="{{$emp->telefono1}}" class="form-control telefono1">
+                          <input type="text" name="telefono1" value="{{$emp->telefono1 ?? ''}}" class="form-control telefono1">
                         </div>
                         <div class="col-sm-3">
-                          <input type="text" name="telefono2" value="{{$emp->telefono2}}" class="form-control telefono2">
+                          <input type="text" name="telefono2" value="{{$emp->telefono2 ?? ''}}" class="form-control telefono2">
                         </div>
                         <div class="col-sm-3">
-                          <input type="text" name="telefono3" value="{{$emp->telefono3}}" class="form-control telefono3">
+                          <input type="text" name="telefono3" value="{{$emp->telefono3 ?? ''}}" class="form-control telefono3">
                         </div><!--FIN Telefono Referencias-->
                         <!--INCIO sueldo Referencias-->
                         <label for="" class="col-form-label col-sm-12">Sueldo</label>
                         <div class="col-sm-3">
-                          <input type="number" value="{{$emp->sueldo}}" step="0.01" min="0.00" max="100000.0" name="sueldo" class="form-control" onkeypress="return numeros(event)">
+                          <input type="number" value="{{$emp->sueldo ?? ''}}" step="0.01" min="0.00" max="100000.0" name="sueldo" class="form-control" onkeypress="return numeros(event)">
                         </div>
                         <div class="col-sm-3">
-                          <input type="number" value="{{$emp->sueldo1}}" step="0.01" min="0.00" max="100000.0" name="sueldo1" class="form-control" onkeypress="return numeros(event)">
+                          <input type="number" value="{{$emp->sueldo1 ?? ''}}" step="0.01" min="0.00" max="100000.0" name="sueldo1" class="form-control" onkeypress="return numeros(event)">
                         </div>
                         <div class="col-sm-3">
-                          <input type="number" value="{{$emp->sueldo2}}" step="0.01" min="0.00" max="100000.0" name="sueldo2" class="form-control" onkeypress="return numeros(event)">
+                          <input type="number" value="{{$emp->sueldo2 ?? ''}}" step="0.01" min="0.00" max="100000.0" name="sueldo2" class="form-control" onkeypress="return numeros(event)">
                         </div>
                         <div class="col-sm-3">
-                          <input type="number" value="{{$emp->sueldo3}}" step="0.01" min="0.00" max="100000.0" name="sueldo3" class="form-control" onkeypress="return numeros(event)">
+                          <input type="number" value="{{$emp->sueldo3 ?? ''}}" step="0.01" min="0.00" max="100000.0" name="sueldo3" class="form-control" onkeypress="return numeros(event)">
                         </div><!--FIN sueldo Referencias-->
                         <!--INCIO Motivo separación Referencias-->
                         <label for="" class="col-form-label col-sm-12">Motivo de la Separación</label>
                         <div class="col-sm-3">
-                          <input type="text" value="{{$emp->motivo_separacion}}" name="motivo_separacion" class="form-control" onkeyup="mayus(this);" onkeypress="return validar(event)">
+                          <input type="text" value="{{$emp->motivo_separacion ?? ''}}" name="motivo_separacion" class="form-control" onkeyup="mayus(this);" onkeypress="return validar(event)">
                         </div>
                         <div class="col-sm-3">
-                          <input type="text" value="{{$emp->motivo_separacion1}}" name="motivo_separacion1" class="form-control" onkeyup="mayus(this);" onkeypress="return validar(event)">
+                          <input type="text" value="{{$emp->motivo_separacion1 ?? ''}}" name="motivo_separacion1" class="form-control" onkeyup="mayus(this);" onkeypress="return validar(event)">
                         </div>
                         <div class="col-sm-3">
-                          <input type="text" value="{{$emp->motivo_separacion2}}"name="motivo_separacion2" class="form-control" onkeyup="mayus(this);" onkeypress="return validar(event)">
+                          <input type="text" value="{{$emp->motivo_separacion2 ?? ''}}"name="motivo_separacion2" class="form-control" onkeyup="mayus(this);" onkeypress="return validar(event)">
                         </div>
                         <div class="col-sm-3">
-                          <input type="text" value="{{$emp->motivo_separacion3}}"name="motivo_separacion3" class="form-control" onkeyup="mayus(this);" onkeypress="return validar(event)">
+                          <input type="text" value="{{$emp->motivo_separacion3 ?? ''}}"name="motivo_separacion3" class="form-control" onkeyup="mayus(this);" onkeypress="return validar(event)">
                         </div><!--FIN Motivo separación Referencias-->
                         <!--INCIO Jefe Directo separación Referencias-->
                         <label for="" class="col-form-label col-sm-12">Nombre del Jefe Directo</label>
                         <div class="col-sm-3">
-                          <input type="text" value="{{$emp->nombre_jefe}}" name="nombre_jefe" class="form-control" onkeyup="mayus(this);" onkeypress="return validar(event)">
+                          <input type="text" value="{{$emp->nombre_jefe ?? ''}}" name="nombre_jefe" class="form-control" onkeyup="mayus(this);" onkeypress="return validar(event)">
                         </div>
                         <div class="col-sm-3">
-                          <input type="text" value="{{$emp->nombre_jefe1}}" name="nombre_jefe1" class="form-control" onkeyup="mayus(this);" onkeypress="return validar(event)">
+                          <input type="text" value="{{$emp->nombre_jefe1 ?? ''}}" name="nombre_jefe1" class="form-control" onkeyup="mayus(this);" onkeypress="return validar(event)">
                         </div>
                         <div class="col-sm-3">
-                          <input type="text" value="{{$emp->nombre_jefe2}}" name="nombre_jefe2" class="form-control" onkeyup="mayus(this);" onkeypress="return validar(event)">
+                          <input type="text" value="{{$emp->nombre_jefe2 ?? ''}}" name="nombre_jefe2" class="form-control" onkeyup="mayus(this);" onkeypress="return validar(event)">
                         </div>
                         <div class="col-sm-3">
-                          <input type="text" value="{{$emp->nombre_jefe3}}" name="nombre_jefe3" class="form-control" onkeyup="mayus(this);" onkeypress="return validar(event)">
+                          <input type="text" value="{{$emp->nombre_jefe3 ?? ''}}" name="nombre_jefe3" class="form-control" onkeyup="mayus(this);" onkeypress="return validar(event)">
                         </div><!--FIN Jefe Directo separación Referencias-->
                         <!--INCIO Puesto Jefe Directo separación Referencias-->
                         <label for="" class="col-form-label col-sm-12">Puesto del Jefe Inmediato</label>
                         <div class="col-sm-3">
-                          <input type="text" value="{{$emp->puesto_jefe}}" name="puesto_jefe" class="form-control" onkeyup="mayus(this);" onkeypress="return validar(event)">
+                          <input type="text" value="{{$emp->puesto_jefe ?? ''}}" name="puesto_jefe" class="form-control" onkeyup="mayus(this);" onkeypress="return validar(event)">
                         </div>
                         <div class="col-sm-3">
-                          <input type="text" value="{{$emp->puesto_jefe1}}" name="puesto_jefe1" class="form-control" onkeyup="mayus(this);" onkeypress="return validar(event)">
+                          <input type="text" value="{{$emp->puesto_jefe1 ?? ''}}" name="puesto_jefe1" class="form-control" onkeyup="mayus(this);" onkeypress="return validar(event)">
                         </div>
                         <div class="col-sm-3">
-                          <input type="text" value="{{$emp->puesto_jefe2}}" name="puesto_jefe2" class="form-control" onkeyup="mayus(this);" onkeypress="return validar(event)">
+                          <input type="text" value="{{$emp->puesto_jefe2 ?? '' }}" name="puesto_jefe2" class="form-control" onkeyup="mayus(this);" onkeypress="return validar(event)">
                         </div>
                         <div class="col-sm-3">
-                          <input type="text" value="{{$emp->puesto_jefe3}}" name="puesto_jefe3" class="form-control" onkeyup="mayus(this);" onkeypress="return validar(event)">
+                          <input type="text" value="{{$emp->puesto_jefe3 ?? ''}}" name="puesto_jefe3" class="form-control" onkeyup="mayus(this);" onkeypress="return validar(event)">
                         </div><!--FIN Puesto Jefe Directo separación Referencias-->
                         <!--INCIO Informes separación Referencias-->
                         <label for="" class="col-form-label col-sm-12">Podemos Solicitar Informes:</label>
