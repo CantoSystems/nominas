@@ -120,7 +120,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
             </a>
           </li>
           <li class="nav-item">
-            <a href="{{ route('bancos.acciones')}}" class="nav-link">
+            <a href="{{ route('imss.acciones')}}" class="nav-link">
               <i class="nav-icon fas fa-th"></i>
               <p>
                 Tablas I.M.S.S
@@ -207,8 +207,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
 </div>
 <!-- ./wrapper -->
 
-<!-- REQUIRED SCRIPTS -->
-
 <!-- jQuery -->
 <script src="{{ asset('/Admin/plugins/jquery/jquery.min.js')}}"></script>
 <!-- Bootstrap 4 -->
@@ -243,6 +241,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
           $('#contra1').removeAttr("readOnly");
            $('#for_roles').hide();
         });
+
       //Acción al actualizar el registro
         $('#actualizar').click(function(){
 	      $('#nuevo_reg').hide();
@@ -261,48 +260,87 @@ scratch. This page gets rid of all links and provides the needed markup only.
         $('#contra1-label').hide();
         $('#buscar').hide();
 
-        
         });
       })
 </script>
+
 <script>
   //Función para convertir en texto en mayusculas
   function mayus(e) {
     e.value = e.value.toUpperCase();
-}
+  }
 </script>
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.10/jquery.mask.js"></script>
+
 <script>
     $('.telefono').mask('(00) 0000-0000');
 </script>
 
-
 <script type="text/javascript">
   //Permite solo caracteres excluyendo números
   function validar(e) { 
-  tecla = (document.all) ? e.keyCode : e.which; 
-  if (tecla==8) return true; 
-  patron =/[A-Za-z\s]/; 
-  te = String.fromCharCode(tecla); 
-  return patron.test(te); 
+    tecla = (document.all) ? e.keyCode : e.which; 
+    if (tecla==8) return true; 
+    patron =/[A-Za-z\s]/; 
+    te = String.fromCharCode(tecla); 
+    return patron.test(te); 
   }
 </script>
 
 <script type="text/javascript">
   //Permite solo nuemeros excluyendo caracteres
-function numeros(event) { 
-if(event.charCode >=48 && event.charCode <=57 ){
-  return true;
-}
-return false;
-}
+  function numeros(event) { 
+    if(event.charCode >=48 && event.charCode <=57 ){
+      return true;
+    }
+    return false;
+  }
 </script>
+
 <script>
-  //Funcionamiento del Datatable
+  $(document).on('change', '#prestacionIMSS', function(event) {
+    if(($("#seguroIMSS option:selected").val()=="Enfermedades y Maternidad") && ($("#prestacionIMSS option:selected").val()=="En especie")){
+      $("#divcuotapatron2").css("display", "block");
+    }else{
+      $("#divcuotapatron2").css("display", "none");
+    }
+  });
+
+  $(document).on('change', '#seguroIMSS', function(event) {
+    if(($("#seguroIMSS option:selected").val()=="Enfermedades y Maternidad") && ($("#prestacionIMSS option:selected").val()=="En especie")){
+      $("#divcuotapatron2").css("display", "block");
+    }else{
+      $("#divcuotapatron2").css("display", "none");
+    }
+  });
+</script>
+
+<script>
   $(function () {
     $("#example1").DataTable({
       "responsive": true,
       "autoWidth": false,
+      language: {
+        "decimal": "",
+        "emptyTable": "No hay información",
+        "info": "Mostrando _START_ a _END_ de _TOTAL_ entradas",
+        "infoEmpty": "Mostrando 0 to 0 of 0 Entradas",
+        "infoFiltered": "(Filtrado de _MAX_ total entradas)",
+        "infoPostFix": "",
+        "thousands": ",",
+        "lengthMenu": "Mostrar _MENU_ Entradas",
+        "loadingRecords": "Cargando...",
+        "processing": "Procesando...",
+        "search": "Buscar:",
+        "zeroRecords": "Sin resultados encontrados",
+        "paginate": {
+            "first": "Primero",
+            "last": "Ultimo",
+            "next": "Siguiente",
+            "previous": "Anterior"
+        }
+    },
     });
     $('#example2').DataTable({
       "paging": true,
