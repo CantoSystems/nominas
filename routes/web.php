@@ -112,3 +112,4 @@ Route::get('/retenciones','RetencionesController@index')->name('retenciones.inde
 
 //I.M.S.S
 Route::get('imss','IMSSController@acciones')->name('imss.acciones');
+Route::delete('imss/{id_imss}','IMSSController@eliminarimss')->name('imss.eliminarimss');

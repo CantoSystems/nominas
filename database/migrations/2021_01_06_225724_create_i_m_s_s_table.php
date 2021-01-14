@@ -14,11 +14,11 @@ class CreateIMSSTable extends Migration
     public function up()
     {
         Schema::create('i_m_s_s', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->bigIncrements('id_imss');
             $table->string('concepto');
             $table->string('prestaciones');
             $table->string('cuotapatron1');
-            $table->string('cuotapatron2');
+            $table->string('cuotapatron2')->nullable();
             $table->string('cuotatrabajador');
             $table->string('cuotatotal');
             $table->string('base');
