@@ -96,6 +96,7 @@
                                 <div class="col-sm-5">
                                     <div class="card-body">
                                         <div class="margin">
+                                        @isset($aux)
                                             <div class="btn-group">
                                                 <div class="form-group">
                                                     <button type="submit"  name="acciones" value="primero" id="primero" style='width:40px; height:27px'><i class="fas fa-backward" ></i></button>
@@ -110,6 +111,7 @@
                                                     <button type="submit" name="acciones" value="ultimo" id="ultimo" style='width:40px; height:27px'><i class="fas fa-forward"></i></button>
                                                 </div>
                                             </div>
+                                        @endisset
                                         </div>
                                     </div>
                                 </div>
@@ -119,19 +121,24 @@
                                     <div class="margin">
                                         <div class="btn-group">
                                             @canany(['administrador','capturista','reportes'])
+                                            @isset($aux)
+
                                                 <div class="form-group">
                                                     <button id="buscar" type="button" data-toggle="modal" data-target="#exampleModal" style='width:40px; height:27px'>
                                                         <i class="fas fa-search"></i>
                                                     </button>
                                                 </div>
+                                            @endisset
                                             @endcanany
                                             @canany(['administrador','capturista'])
                                                 <div class="form-group">
                                                     <button type="button" id="nuevo" style='width:40px; height:27px'> <i class="fas fa-user-plus"></i></button>
                                                 </div>
+                                                @isset($aux)
                                                 <div class="form-group">
                                                     <button type="button" id="actualizar" style='width:40px; height:27px'> <i class="fas fa-pen-square"></i></button>
                                                 </div>
+                                                @endisset
                                                 <div class="form-group">
                                             @endcanany
                                             @can('administrador')

@@ -44,28 +44,28 @@
                         <div class="form-row">
                           <div class="col-md-1 mb-2">
                             <label for="validationDefault01">Clave</label>
-                            <input type="text" class="form-control" name="clave_empleado" onkeypress="return numeros(event)" minlength="4" value="{{ $emp->clave_empleado ?? ''}}">
+                            <input type="text" class="form-control" name="clave_empleado" onkeypress="return numeros(event)" maxlength="4" value="{{ $emp->clave_empleado ?? ''}}">
                             <input type="hidden" class="form-control" name="id_emp" value="{{ $emp->id_emp ?? ''}}">
                           </div>
                           <div class="col-md-2">
                             <label for="validationDefault02">Clasificación</label>
-                            <input required type="text" class="form-control" name="clasificacion" value="{{$emp->clasificacion ?? ''}}" onkeyup="mayus(this);" onkeypress="return validar(event)">
+                            <input  type="text" class="form-control" name="clasificacion" value="{{$emp->clasificacion ?? ''}}" onkeyup="mayus(this);" onkeypress="return validar(event)">
                           </div>
                           <div class="col-md-3 mb-3">
                             <label for="validationDefault03">Nombre</label>
-                            <input required type="text" class="form-control" name="nombre"  onkeyup="mayus(this);" value="{{$emp->nombre ?? ''}}" onkeypress="return validar(event)">
+                            <input  type="text" class="form-control" name="nombre"  onkeyup="mayus(this);" value="{{$emp->nombre ?? ''}}" onkeypress="return validar(event)">
                           </div>
                           <div class="col-md-3 mb-3">
                             <label for="validationDefault03">Apellido Paterno</label>
-                            <input required type="text" class="form-control" name="apellido_paterno" onkeyup="mayus(this);" value="{{$emp->apellido_paterno ?? ''}}" onkeypress="return validar(event)">
+                            <input  type="text" class="form-control" name="apellido_paterno" onkeyup="mayus(this);" value="{{$emp->apellido_paterno ?? ''}}" onkeypress="return validar(event)">
                           </div>
                           <div class="col-md-3 mb-3">
                             <label for="validationDefault03">Apellido Materno</label>
-                            <input required type="text" class="form-control" name="apellido_materno" onkeyup="mayus(this);" value="{{$emp->apellido_materno ?? ''}}" onkeypress="return validar(event)">
+                            <input  type="text" class="form-control" name="apellido_materno" onkeyup="mayus(this);" value="{{$emp->apellido_materno ?? ''}}" onkeypress="return validar(event)">
                           </div>
                           <div class="col-md-2 mb-3">
                             <label for="validationDefault03">Fecha de alta</label>
-                            <input required type="date" value="{{$emp->fecha_alta ?? ''}}" class="form-control" name="fecha_alta">
+                            <input  type="date" value="{{$emp->fecha_alta ?? ''}}" class="form-control" name="fecha_alta">
                           </div>
                           <div class="col-md-2 mb-3">
                             <label for="validationDefault03">Fecha de baja</label>
@@ -120,46 +120,48 @@
                           @endif
                           </div>
                           <div class="col-md-2 mb-3">
-                            <label for="validationDefault04">Puesto</label>
+                            <label for="validationDefault04">Puesto</label>                          
+                            @if(isset($emp))
                             <select class="custom-select" name="clave_puesto">
                               <option selected disabled value="">Seleccione una opción:</option>
-                            @if(isset($emp))
                                 @foreach ($puestos as $puest)
                                   @if($emp->clave_puesto==$puest->clave_puesto)
                                     <option selected value="{{$puest->clave_puesto}}">{{$puest->nombre_puesto}}</option>
                                   @else
                                     <option value="{{$puest->clave_puesto}}">{{$puest->nombre_puesto}}</option>
+                                    </select>
                                   @endif
                                 @endforeach
-                            </select>
                             @else
                               <select class="custom-select" name="clave_puesto">
                                 <option selected disabled value="">Seleccione una opción:</option>
                                   @foreach ($puestos as $puest)
-                                    <option value="{{$puest->clave_puesto}}">{{$puest->nombre_puesto}}</option>
+                                    <option value="{{$puest->clave_puesto}}">{{$puest->nombre_puesto}}
+                                    </option>
                                   @endforeach
                               </select>
                             @endif
-                          </div>
+                          </div></div>
+
                           <div class="col-md-2 mb-3">
-                            <label for="validationDefault03">RFC</label>
-                            <input required type="text" class="form-control" value="{{$emp->rfc ?? ''}}" maxlength="13" name="rfc" onkeyup="mayus(this);"  pattern="^([A-ZÑ\x26]{3,4}([0-9]{2})(0[1-9]|1[0-2])(0[1-9]|1[0-9]|2[0-9]|3[0-1])([A-Z]|[0-9]){2}([A-ZÑ\x26]|[0-9]){1})?$" >
+                            <label for="validationDefault03">RFCcccc</label>
+                            <input  type="text" class="form-control" value="{{$emp->rfc ?? ''}}" maxlength="13" name="rfc" onkeyup="mayus(this);"  pattern="^([A-ZÑ\x26]{3,4}([0-9]{2})(0[1-9]|1[0-2])(0[1-9]|1[0-9]|2[0-9]|3[0-1])([A-Z]|[0-9]){2}([A-ZÑ\x26]|[0-9]){1})?$" >
                           </div>
                             <div class="col-md-2">
                             <label for="validationDefault03">CURP</label>
-                            <input required type="text" class="form-control" value="{{$emp->curp ?? ''}}" minlength="18" maxlength="18" name="curp" onkeyup="mayus(this);">
+                            <input  type="text" class="form-control" value="{{$emp->curp ?? ''}}" minlength="18" maxlength="18" name="curp" onkeyup="mayus(this);">
                           </div>
                           <div class="col-md-2 mb-3">
                             <label for="validationDefault03">IMSS</label>
-                            <input required type="text" class="form-control" value="{{$emp->imss ?? ''}}" minlength="11" maxlength="11" name="imss" onkeypress="return numeros(event)">
+                            <input  type="text" class="form-control" value="{{$emp->imss ?? ''}}" minlength="11" maxlength="11" name="imss" onkeypress="return numeros(event)">
                           </div>
                           <div class="col-md-2 mb-3">
                             <label for="validationDefault03">Afore</label>
-                            <input required type="text" class="form-control" value="{{$emp->afore ?? ''}}" name="afore">
+                            <input  type="text" class="form-control" value="{{$emp->afore ?? ''}}" name="afore">
                           </div>
                           <div class="col-md-3 mb-3">
                             <label for="validationDefault03">INE</label>
-                            <input required type="text" class="form-control" value="{{$emp->ine ?? ''}}" maxlength="18" name="ine" onkeyup="mayus(this);">
+                            <input  type="text" class="form-control" value="{{$emp->ine ?? ''}}" maxlength="18" name="ine" onkeyup="mayus(this);">
                           </div>
                           <div class="col-md-3 mb-3">
                             <label for="validationDefault03">Pasaporte</label>
@@ -179,11 +181,11 @@
                           </div>
                           <div class="col-md-3 mb-3">
                             <label for="validationDefault03">Calle</label>
-                            <input required type="text" class="form-control" value="{{$emp->calle ?? ''}}" name="calle" onkeyup="mayus(this);" onkeypress="return validar(event)">
+                            <input  type="text" class="form-control" value="{{$emp->calle ?? ''}}" name="calle" onkeyup="mayus(this);" onkeypress="return validar(event)">
                           </div>
                           <div class="col-md-2 mb-3">
                             <label for="validationDefault03">Número externo</label>
-                            <input required type="text" class="form-control" value="{{$emp->numero_externo ?? ''}}" name="numero_externo" maxlength="4" onkeypress="return numeros(event)">
+                            <input  type="text" class="form-control" value="{{$emp->numero_externo ?? ''}}" name="numero_externo" maxlength="4" onkeypress="return numeros(event)">
                           </div>
                           <div class="col-md-2 mb-3">
                             <label for="validationDefault03">Número interno</label>
@@ -191,31 +193,31 @@
                           </div>
                           <div class="col-md-3 mb-3">
                             <label for="validationDefault03">Colonia</label>
-                            <input required type="text" class="form-control" value="{{$emp->colonia ?? ''}}" name="colonia" onkeyup="mayus(this);" onkeypress="return validar(event)">
+                            <input  type="text" class="form-control" value="{{$emp->colonia ?? ''}}" name="colonia" onkeyup="mayus(this);" onkeypress="return validar(event)">
                           </div>
                           <div class="col-md-2 mb-3">
                             <label for="validationDefault03">CP</label>
-                            <input required type="text" class="form-control" value="{{$emp->cp ?? ''}}" name="cp" maxlength="6" onkeypress="return numeros(event)">
+                            <input  type="text" class="form-control" value="{{$emp->cp ?? ''}}" name="cp" maxlength="6" onkeypress="return numeros(event)">
                           </div>
                           <div class="col-md-3 mb-3">
                             <label for="validationDefault03">Ciudad</label>
-                            <input required type="text" class="form-control" value="{{$emp->ciudad ?? ''}}" name="ciudad" onkeyup="mayus(this);" onkeypress="return validar(event)">
+                            <input  type="text" class="form-control" value="{{$emp->ciudad ?? ''}}" name="ciudad" onkeyup="mayus(this);" onkeypress="return validar(event)">
                           </div>
                           <div class="col-md-3 mb-3">
                             <label for="validationDefault03">Municipio</label>
-                            <input required type="text" class="form-control" value="{{$emp->municipio ?? ''}}" name="municipio" onkeyup="mayus(this);" onkeypress="return validar(event)">
+                            <input  type="text" class="form-control" value="{{$emp->municipio ?? ''}}" name="municipio" onkeyup="mayus(this);" onkeypress="return validar(event)">
                           </div>
                           <div class="col-md-3 mb-3">
                             <label for="validationDefault03">Estado</label>
-                            <input required type="text" class="form-control" value="{{$emp->estado ?? ''}}" name="estado" onkeyup="mayus(this);" onkeypress="return validar(event)">
+                            <input  type="text" class="form-control" value="{{$emp->estado ?? ''}}" name="estado" onkeyup="mayus(this);" onkeypress="return validar(event)">
                           </div>
                           <div class="col-md-3 mb-3">
                             <label for="validationDefault03">Teléfono</label>
-                            <input required type="text" class="form-control telefono_empleado" value="{{$emp->telefono_empleado ?? ''}}" name="telefono_empleado" onkeypress="return numeros(event)">
+                            <input  type="text" class="form-control telefono_empleado" value="{{$emp->telefono_empleado ?? ''}}" name="telefono_empleado" onkeypress="return numeros(event)">
                           </div>
                           <div class="col-md-3 mb-3">
                             <label for="validationDefault03">Correo</label>
-                            <input required type="text" class="form-control" value="{{$emp->correo?? ''}}" name="correo">
+                            <input  type="text" class="form-control" value="{{$emp->correo?? ''}}" name="correo">
                           </div>
                           <div class="col-md-3 mb-3">
                             <label for="validationDefault04">Sexo</label>
@@ -271,23 +273,24 @@
                           </div>
                           <div class="col-md-3 mb-3">
                             <label for="validationDefault04">Nacionalidad</label>
-                            <input required type="text" class="form-control" value="{{$emp->nacionalidad ?? ''}}" name="nacionalidad" onkeyup="mayus(this);" onkeypress="return validar(event)">
+                            <input  type="text" class="form-control" value="{{$emp->nacionalidad ?? ''}}" name="nacionalidad" onkeyup="mayus(this);" onkeypress="return validar(event)">
                           </div>
                           <div class="col-md-3 mb-3">
                             <label for="validationDefault04">Tipo de sangre</label> 
-                            <input required type="text" class="form-control" value="{{$emp->tipo_sangre ?? ''}}" name="tipo_sangre" onkeyup="mayus(this);" onkeypress="return validasangre(event)">
+                            <input  type="text" class="form-control" value="{{$emp->tipo_sangre ?? ''}}" name="tipo_sangre" onkeyup="mayus(this);" onkeypress="return validasangre(event)">
                           </div>
                           <div class="col-md-3 mb-3">
                             <label for="validationDefault03">Alergias</label>
-                            <input required type="text" class="form-control" value="{{$emp->alergias ?? ''}}" name="alergias" onkeyup="mayus(this);" onkeypress="return validar(event)">
+                            <input  type="text" class="form-control" value="{{$emp->alergias ?? ''}}" name="alergias" onkeyup="mayus(this);" onkeypress="return validar(event)">
                           </div>
                           <div class="col-md-1 mb-3">
                             <label for="validationDefault03">Estatura</label>
-                            <input required type="number" class="form-control" value="{{$emp->estatura ?? ''}}" name="estatura" min="1.20" max="2.5" step="0.01">
+                            <input  type="number" class="form-control" value="{{$emp->estatura ?? ''}}" name="estatura" min="1.20" max="2.5" step="0.01">
                           </div>
                           <div class="col-md-1 mb-3">
                             <label for="validationDefault03">Peso</label>
-                            <input required type="number" class="form-control" value="{{$emp->peso ?? ''}}" name="peso" min="30" max="200" step="0.01">
+                            <input  type="number" class="form-control" value="{{$emp->peso ?? ''}}" name="peso" min="30" max="200" step="0.01">
+
                           </div>
                         </div>
                     </div><!--Fin  Row Personal-->
@@ -296,39 +299,39 @@
                       <div class="form-row">
                         <div class="col-md-3 mb-2">
                           <label for="validationDefault01">Enfermedad Crónica</label>
-                          <input required type="text" class="form-control" name="enfermedad_cronica" value="{{$emp->enfermedad_cronica ?? ''}}" onkeyup="mayus(this);" onkeypress="return validar(event)">
+                          <input  type="text" class="form-control" name="enfermedad_cronica" value="{{$emp->enfermedad_cronica ?? ''}}" onkeyup="mayus(this);" onkeypress="return validar(event)">
                         </div>
                         <div class="col-md-3">
                           <label for="validationDefault02">Práctica de Deportes</label>
-                          <input required type="text" class="form-control" name="deporte" value="{{$emp->deporte ?? ''}}" onkeyup="mayus(this);" onkeypress="return validar(event)">
+                          <input  type="text" class="form-control" name="deporte" value="{{$emp->deporte ?? ''}}" onkeyup="mayus(this);" onkeypress="return validar(event)">
                         </div>
                         <div class="col-md-3 mb-3">
                           <label for="validationDefault03">Pasatiempos</label>
-                          <input required type="text" class="form-control" name="pasatiempo" value="{{$emp->deporte ?? ''}}" onkeyup="mayus(this);" onkeypress="return validar(event)">
+                          <input  type="text" class="form-control" name="pasatiempo" value="{{$emp->deporte ?? ''}}" onkeyup="mayus(this);" onkeypress="return validar(event)">
                         </div>
                         <div class="col-md-3 mb-3">
                           <label for="validationDefault03">Asociación, Club Social o Deportivo</label>
-                          <input required type="text" class="form-control" name="asosiacion" value="{{$emp->asosiacion ?? ''}}" onkeyup="mayus(this);" onkeypress="return validar(event)">
+                          <input  type="text" class="form-control" name="asosiacion" value="{{$emp->asosiacion ?? ''}}" onkeyup="mayus(this);" onkeypress="return validar(event)">
                         </div>
                         <div class="col-md-3 mb-3">
                           <label for="validationDefault03">Objetivo de Vida</label>
-                          <input required type="text" class="form-control" name="objetivo_vida" value="{{$emp->objetivo_vida ?? ''}}" onkeyup="mayus(this);" onkeypress="return validar(event)">
+                          <input  type="text" class="form-control" name="objetivo_vida" value="{{$emp->objetivo_vida ?? ''}}" onkeyup="mayus(this);" onkeypress="return validar(event)">
                         </div>
                         <div class="col-md-3 mb-3">
                           <label for="validationDefault03">Nacimiento</label>
-                          <input required type="date" max="{{$fechalimite}}-12-31" class="form-control" value="{{$emp->fecha_nacimiento ?? ''}}" name="fecha_nacimiento">
+                          <input  type="date"  class="form-control" value="{{$emp->fecha_nacimiento ?? ''}}" name="fecha_nacimiento">
                         </div>
                         <div class="col-md-3 mb-3">
                           <label for="validationDefault03">Lugar de Origen</label>
-                          <input required type="text" class="form-control" name="lugar" value="{{$emp->lugar ?? ''}}" onkeyup="mayus(this);" onkeypress="return validar(event)">
+                          <input  type="text" class="form-control" name="lugar" value="{{$emp->lugar ?? ''}}" onkeyup="mayus(this);" onkeypress="return validar(event)">
                         </div>
                         <div class="col-md-3 mb-3">
                           <label for="validationDefault03">UMF</label>
-                          <input required type="text" class="form-control" name="umf" value="{{$emp->umf ?? ''}}" onkeypress="return numeros(event)">
+                          <input  type="text" class="form-control" name="umf" value="{{$emp->umf ?? ''}}" onkeypress="return numeros(event)">
                         </div>
                         <div class="col-md-4 mb-3">
                           <label for="validationDefault03">Nombre del Padre</label>
-                          <input required type="text" class="form-control" name="nombre_padre" value="{{$emp->nombre_padre ?? ''}}" onkeyup="mayus(this);" onkeypress="return validar(event)">
+                          <input  type="text" class="form-control" name="nombre_padre" value="{{$emp->nombre_padre ?? ''}}" onkeyup="mayus(this);" onkeypress="return validar(event)">
                         </div>
                         <div class="col-md-1 mb-3">
                           <br>
@@ -359,7 +362,7 @@
                         </div>
                         <div class="col-md-4 mb-3">
                           <label for="validationDefault03">Nombre de la Madre</label>
-                          <input required type="text" class="form-control" value="{{$emp->nombre_madre ?? ''}}" name="nombre_madre" onkeyup="mayus(this);" onkeypress="return validar(event)">
+                          <input  type="text" class="form-control" value="{{$emp->nombre_madre ?? ''}}" name="nombre_madre" onkeyup="mayus(this);" onkeypress="return validar(event)">
                         </div>
                         <div class="col-md-1 mb-3">
                           <br>
@@ -394,23 +397,23 @@
                         </div>
                         <div class="col-md-3 mb-3">
                           <label for="validationDefault03">Idiomas</label>
-                          <input required type="text" class="form-control" name="idiomas" value="{{$emp->idiomas ?? ''}}" onkeyup="mayus(this);" onkeypress="return validar(event)">
+                          <input  type="text" class="form-control" name="idiomas" value="{{$emp->idiomas ?? ''}}" onkeyup="mayus(this);" onkeypress="return validar(event)">
                         </div>
                         <div class="col-md-3 mb-3">
                           <label for="validationDefault03">Funciones de Oficina</label>
-                          <input required type="text" class="form-control" name="funciones_oficina" value="{{$emp->funciones_oficina ?? ''}}" onkeyup="mayus(this);" onkeypress="return validar(event)">
+                          <input  type="text" class="form-control" name="funciones_oficina" value="{{$emp->funciones_oficina ?? ''}}" onkeyup="mayus(this);" onkeypress="return validar(event)">
                         </div>
                         <div class="col-md-4 mb-3">
                           <label for="validationDefault03">Máquinas de Oficina o Taller que Maneje</label>
-                          <input required type="text" class="form-control" name="maquinas_oficina" value="{{$emp->maquinas_oficina ?? ''}}" onkeyup="mayus(this);" onkeypress="return validar(event)">
+                          <input  type="text" class="form-control" name="maquinas_oficina" value="{{$emp->maquinas_oficina ?? ''}}" onkeyup="mayus(this);" onkeypress="return validar(event)">
                         </div>
                         <div class="col-md-4 mb-3">
                           <label for="validationDefault03">Software que conoce</label>
-                          <input required type="text" class="form-control" name="software" value="{{$emp->software ?? ''}}" onkeyup="mayus(this);" onkeypress="return validar(event)">
+                          <input  type="text" class="form-control" name="software" value="{{$emp->software ?? ''}}" onkeyup="mayus(this);" onkeypress="return validar(event)">
                         </div>
                         <div class="col-md-4 mb-3">
                           <label for="validationDefault03">Otras funciones o trabajos que domina</label>
-                          <input required type="text" class="form-control" name="otras_funciones" value="{{$emp->otras_funciones ?? ''}}" onkeyup="mayus(this);" onkeypress="return validar(event)">
+                          <input  type="text" class="form-control" name="otras_funciones" value="{{$emp->otras_funciones ?? ''}}" onkeyup="mayus(this);" onkeypress="return validar(event)">
                         </div>
                       </div><!--Fin  Row Personal 1-->
                     </div><!--Fin Personal 2-->
@@ -431,7 +434,7 @@
                         </div>
                         <div class="col-md-4 mb-3">
                           <label for="validationDefault03">Nombre</label>
-                          <input required type="text" class="form-control" name="beneficiario" value="{{$emp->beneficiario ?? ''}}" id="beneficiario" onkeyup="mayus(this);" onkeypress="return validar(event)">
+                          <input  type="text" class="form-control" name="beneficiario" value="{{$emp->beneficiario ?? ''}}" id="beneficiario" onkeyup="mayus(this);" onkeypress="return validar(event)">
                           <input type="text" class="form-control" name="beneficiario1" value="{{$emp->beneficiario1 ?? ''}}" id="beneficiario1"  onkeyup="mayus(this);" onkeypress="return validar(event)">
                           <input type="text" class="form-control" name="beneficiario2" value="{{$emp->beneficiario2 ?? ''}}" id="beneficiario2" onkeyup="mayus(this);" onkeypress="return validar(event)">
                           <input type="text" class="form-control" name="beneficiario3" value="{{$emp->beneficiario3 ?? ''}}" id="beneficiario3" onkeyup="mayus(this);" onkeypress="return validar(event)">
@@ -439,7 +442,7 @@
                         </div>
                         <div class="col-md-4 mb-3">
                           <label for="validationDefault03">Parentesco</label>
-                          <input required type="text" class="form-control" name="parentesco" id="parentesco" value="{{$emp->parentesco ?? ''}}" onkeyup="mayus(this);" onkeypress="return validar(event)">
+                          <input  type="text" class="form-control" name="parentesco" id="parentesco" value="{{$emp->parentesco ?? ''}}" onkeyup="mayus(this);" onkeypress="return validar(event)">
                           <input type="text" class="form-control" name="parentesco1" id="parentesco1" value="{{$emp->parentesco1 ?? ''}}" onkeyup="mayus(this);" onkeypress="return validar(event)">
                           <input type="text" class="form-control" name="parentesco2" id="parentesco2" value="{{$emp->parentesco2 ?? ''}}" onkeyup="mayus(this);" onkeypress="return validar(event)">
                           <input type="text" class="form-control" name="parentesco3" id="parentesco3" value="{{$emp->parentesco3 ?? ''}}" onkeyup="mayus(this);" onkeypress="return validar(event)">
@@ -447,7 +450,7 @@
                         </div>
                         <div class="col-md-3 mb-3">
                           <label for="validationDefault03">% de Participación</label>
-                          <input required type="number" class="form-control" value="{{$emp->porcentaje ?? ''}}" name="porcentaje" min="0.1" max="100" step="0.01" id="porcentaje">
+                          <input  type="number" class="form-control" value="{{$emp->porcentaje ?? ''}}" name="porcentaje" min="0.1" max="100" step="0.01" id="porcentaje">
                           <input type="number" class="form-control" value="{{$emp->porcentaje1 ?? ''}}" name="porcentaje1" min="0.1" max="100" step="0.01" id="porcentaje1">
                           <input type="number" class="form-control" value="{{$emp->porcentaje2 ?? ''}}" name="porcentaje2" min="0.1" max="100" step="0.01" id="porcentaje2">
                           <input type="number" class="form-control" value="{{$emp->porcentaje3 ?? ''}}" name="porcentaje3" min="0.1" max="100" step="0.01" id="porcentaje3">
@@ -475,13 +478,13 @@
                         <!--Inicio Primaria-->
                         <label for="" class="col-form-label col-sm-2">Primaria</label>
                         <div class="col-sm-3">
-                          <input required type="text" value="{{$emp->primaria ?? ''}}" name="primaria" class="form-control" onkeyup="mayus(this);" onkeypress="return validar(event)">
+                          <input  type="text" value="{{$emp->primaria ?? ''}}" name="primaria" class="form-control" onkeyup="mayus(this);" onkeypress="return validar(event)">
                         </div>
                         <div class="col-sm-4">
-                          <input required value="{{$emp->duracion_primaria ?? ''}}" name="duracion_primaria" class="form-control" id="duracion5">
+                          <input  value="{{$emp->duracion_primaria ?? ''}}" name="duracion_primaria" class="form-control" id="duracion5">
                         </div>
                         <div class="col-sm-3">
-                          <input required type="text" value="{{$emp->titulo_primaria ?? ''}}" name="titulo_primaria" class="form-control" onkeyup="mayus(this);" onkeypress="return validar(event)">
+                          <input  type="text" value="{{$emp->titulo_primaria ?? ''}}" name="titulo_primaria" class="form-control" onkeyup="mayus(this);" onkeypress="return validar(event)">
                         </div>
                         <!--FIN Primaria-->
                         <!--Inicio Secundaria-->
@@ -693,46 +696,69 @@
                         <!--INCIO Informes separación Referencias-->
                         <label for="" class="col-form-label col-sm-12">Podemos Solicitar Informes:</label>
                         <div class="col-sm-3">
-                          @if($emp->solicitar_informes==0)
-                            <input checked type="checkbox" name="solicitar_informes" class="form-control">
-                          @else
-                            <input type="checkbox" name="solicitar_informes" class="form-control">
-                          @endif
+                        @if(isset($emp))
+                            @if($emp->solicitar_informes==0)
+                              <input checked type="checkbox" name="solicitar_informes" class="form-control">
+                            @else
+                              <input type="checkbox" name="solicitar_informes" class="form-control">
+                            @endif
+                        @else
+                          <input type="checkbox" name="solicitar_informes" class="form-control">
+                        @endif
                         </div>
+
                         <div class="col-sm-3">
-                          @if($emp->solicitar_informes1==0)
-                            <input checked type="checkbox" name="solicitar_informes1" class="form-control">
-                          @else
-                            <input type="checkbox" name="solicitar_informes1" class="form-control">
-                          @endif
+                        @if(isset($emp))
+                            @if($emp->solicitar_informes1==0)
+                              <input checked type="checkbox" name="solicitar_informes1" class="form-control">
+                            @else
+                              <input type="checkbox" name="solicitar_informes1" class="form-control">
+                            @endif
+                        @else
+                          <input type="checkbox" name="solicitar_informes1" class="form-control">
+                        @endif
+                        
                         </div>
+
                         <div class="col-sm-3">
-                          @if($emp->solicitar_informes2==0)
-                            <input checked type="checkbox" name="solicitar_informes2" class="form-control">
-                          @else
-                            <input type="checkbox" name="solicitar_informes2" class="form-control">
-                          @endif
+                        @if(isset($emp))
+                            @if($emp->solicitar_informes2==0)
+                              <input checked type="checkbox" name="solicitar_informes2" class="form-control">
+                            @else
+                              <input type="checkbox" name="solicitar_informes2" class="form-control">
+                            @endif
+                        @else
+                          <input type="checkbox" name="solicitar_informes2" class="form-control">
+                        @endif
                         </div>
+
+
                         <div class="col-sm-3">
-                          @if($emp->solicitar_informes3==0)
-                            <input checked type="checkbox" name="solicitar_informes3" class="form-control">
-                          @else
-                            <input type="checkbox" name="solicitar_informes3" class="form-control">
-                          @endif
+                        @if(isset($emp))
+                            @if($emp->solicitar_informes3==0)
+                              <input checked type="checkbox" name="solicitar_informes3" class="form-control">
+                            @else
+                              <input type="checkbox" name="solicitar_informes3" class="form-control">
+                            @endif
+                        @else
+                           <input type="checkbox" name="solicitar_informes3" class="form-control">
+                        @endif
                         </div><!--FIN Informes separación Referencias-->
+                        
+
                         <!--Razones Informes separación Referencias-->
                         <label for="" class="col-form-label col-sm-12">Razones</label>
                         <div class="col-sm-3">
-                          <input type="text" value="{{$emp->razones}}" name="razones" class="form-control" onkeyup="mayus(this);" onkeypress="return validar(event)">
+                          <input type="text" value="{{$emp->razones ?? ''}}" name="razones" class="form-control" onkeyup="mayus(this);" onkeypress="return validar(event)">
                         </div>
                         <div class="col-sm-3">
-                          <input type="text" value="{{$emp->razones1}}" name="razones1" class="form-control" onkeyup="mayus(this);" onkeypress="return validar(event)">
+                          <input type="text" value="{{$emp->razones1 ?? ''}}" name="razones1" class="form-control" onkeyup="mayus(this);" onkeypress="return validar(event)">
                         </div>
                         <div class="col-sm-3">
-                        <input type="text" value="{{$emp->razones2}}" name="razones2" class="form-control" onkeyup="mayus(this);" onkeypress="return validar(event)">
+                        <input type="text" value="{{$emp->razones2 ?? ''}}" name="razones2" class="form-control" onkeyup="mayus(this);" onkeypress="return validar(event)">
                           </div>
                         <div class="col-sm-3">
-                          <input type="text" value="{{$emp->razones3}}" name="razones3" class="form-control" onkeyup="mayus(this);" onkeypress="return validar(event)">
+                          <input type="text" value="{{$emp->razones3 ?? ''}}" name="razones3" class="form-control" onkeyup="mayus(this);" onkeypress="return validar(event)">
                         </div><!--FIN Razones Informes separación Referencias-->
                         <div class="col-sm-12">
                           <p><label for="" style="text-align: left;">
@@ -741,33 +767,33 @@
                         </div>
                         <div class="col-sm-3">
                           <label for="" style="text-align: left;">Nombre</label>
-                          <input required type="text" name="referencia" value="{{$emp->referencia}}" class="form-control" onkeyup="mayus(this);" onkeypress="return validar(event)">
-                          <input type="text" value="{{$emp->referencia1}}" name="referencia1" class="form-control" onkeyup="mayus(this);" onkeypress="return validar(event)">
-                          <input type="text" value="{{$emp->referencia2}}" name="referencia2" class="form-control" onkeyup="mayus(this);" onkeypress="return validar(event)">
+                          <input  type="text" name="referencia" value="{{$emp->referencia ?? ''}}" class="form-control" onkeyup="mayus(this);" onkeypress="return validar(event)">
+                          <input type="text" value="{{$emp->referencia1 ?? ''}}" name="referencia1" class="form-control" onkeyup="mayus(this);" onkeypress="return validar(event)">
+                          <input type="text" value="{{$emp->referencia2 ?? ''}}" name="referencia2" class="form-control" onkeyup="mayus(this);" onkeypress="return validar(event)">
                         </div>
                         <div class="col-sm-2">
                           <label for="" style="text-align: left;">Dirección</label>
-                          <input required type="text" name="direccion_trabajo" value="{{$emp->direccion_trabajo}}" class="form-control" onkeyup="mayus(this);" onkeypress="return validar(event)">
-                          <input type="text" name="direccion1" value="{{$emp->direccion1}}" class="form-control" onkeyup="mayus(this);" onkeypress="return validar(event)">
-                          <input type="text" name="direccion2" value="{{$emp->direccion2}}" class="form-control" onkeyup="mayus(this);" onkeypress="return validar(event)">
+                          <input  type="text" name="direccion_trabajo" value="{{$emp->direccion_trabajo ?? ''}}" class="form-control" onkeyup="mayus(this);" onkeypress="return validar(event)">
+                          <input type="text" name="direccion1" value="{{$emp->direccion1 ?? ''}}" class="form-control" onkeyup="mayus(this);" onkeypress="return validar(event)">
+                          <input type="text" name="direccion2" value="{{$emp->direccion2 ?? ''}}" class="form-control" onkeyup="mayus(this);" onkeypress="return validar(event)">
                         </div>
                         <div class="col-sm-2">
                           <label for="" style="text-align: left;">Teléfono</label>
-                          <input required type="text" value="{{$emp->telefono_referencia}}" name="telefono_referencia" class="form-control telefono_referencia">
-                          <input type="text" value="{{$emp->telefono_referencia1}}" name="telefono_referencia1" class="form-control telefono_referencia1">
-                          <input type="text" value="{{$emp->telefono_referencia2}}" name="telefono_referencia2" class="form-control telefono_referencia2">
+                          <input  type="text" value="{{$emp->telefono_referencia ?? ''}}" name="telefono_referencia" class="form-control telefono_referencia">
+                          <input type="text" value="{{$emp->telefono_referencia1 ?? ''}}" name="telefono_referencia1" class="form-control telefono_referencia1">
+                          <input type="text" value="{{$emp->telefono_referencia2 ?? ''}}" name="telefono_referencia2" class="form-control telefono_referencia2">
                         </div>
                         <div class="col-sm-3">
                           <label for="" style="text-align: left;">Ocupación</label>
-                          <input required type="text" value="{{$emp->ocupacion}}" name="ocupacion" class="form-control" onkeyup="mayus(this);" onkeypress="return validar(event)">
-                          <input type="text" value="{{$emp->ocupacion1}}" name="ocupacion1" class="form-control" onkeyup="mayus(this);" onkeypress="return validar(event)">
-                          <input type="text" value="{{$emp->ocupacion2}}" name="ocupacion2" class="form-control" onkeyup="mayus(this);" onkeypress="return validar(event)">
+                          <input  type="text" value="{{$emp->ocupacion ?? ''}}" name="ocupacion" class="form-control" onkeyup="mayus(this);" onkeypress="return validar(event)">
+                          <input type="text" value="{{$emp->ocupacion1 ?? ''}}" name="ocupacion1" class="form-control" onkeyup="mayus(this);" onkeypress="return validar(event)">
+                          <input type="text" value="{{$emp->ocupacion2 ?? ''}}" name="ocupacion2" class="form-control" onkeyup="mayus(this);" onkeypress="return validar(event)">
                         </div>
                         <div class="col-sm-1">
                           <label for="" style="text-align: left;">Tiempo</label>
-                          <input required type="number" value="{{$emp->tiempo}}" name="tiempo" min="1" max="99" step="1" class="form-control" maxlength="2" onkeypress="return numeros(event)">
-                          <input type="number" value="{{$emp->tiempo1}}" name="tiempo1" min="1" max="99" step="1" class="form-control" maxlength="2" onkeypress="return numeros(event)">
-                          <input type="number" value="{{$emp->tiempo2}}" name="tiempo2" min="1" max="99" step="1" class="form-control" maxlength="2" onkeypress="return numeros(event)">
+                          <input  type="number" value="{{$emp->tiempo ?? ''}}" name="tiempo" min="1" max="99" step="1" class="form-control" maxlength="2" onkeypress="return numeros(event)">
+                          <input type="number" value="{{$emp->tiempo1 ?? ''}}" name="tiempo1" min="1" max="99" step="1" class="form-control" maxlength="2" onkeypress="return numeros(event)">
+                          <input type="number" value="{{$emp->tiempo2 ?? ''}}" name="tiempo2" min="1" max="99" step="1" class="form-control" maxlength="2" onkeypress="return numeros(event)">
                         </div>
                       </div><!--Final Row Referencias-->
                     </div>
@@ -777,211 +803,284 @@
                       <div class="form-row">
                         <div class="col-md-3 mb-3">
                           <label for="validationDefault04">Tipo de trabajador</label>
+                        @if(isset($emp))
+                            <select class="custom-select" name="tipo_trabajador">
+                            @if($emp->tipo_trabajador=="")
+                              <option selected disabled value="">Seleccione una opción:</option>
+                              <option value="EMPLEADO">Administrativo</option>
+                              <option value="PATRON">Sindicalizado</option>
+                            @elseif($emp->tipo_trabajador=="EMPLEADO")
+                              <option disabled value="">Seleccione una opción:</option>
+                              <option selected value="EMPLEADO">Administrativo</option>
+                              <option value="PATRON">Sindicalizado</option>
+                            @elseif($emp->tipo_trabajador=="PATRON")
+                              <option disabled value="">Seleccione una opción:</option>
+                              <option value="EMPLEADO">Administrativo</option>
+                              <option selected value="PATRON">Sindicalizado</option>
+                            @endif
+                            </select>
+                        @else
                           <select class="custom-select" name="tipo_trabajador">
-                          @if($emp->tipo_trabajador=="")
-                            <option selected disabled value="">Seleccione una opción:</option>
-                            <option value="EMPLEADO">Administrativo</option>
-                            <option value="PATRON">Sindicalizado</option>
-                          @elseif($emp->tipo_trabajador=="EMPLEADO")
-                            <option disabled value="">Seleccione una opción:</option>
-                            <option selected value="EMPLEADO">Administrativo</option>
-                            <option value="PATRON">Sindicalizado</option>
-                          @elseif($emp->tipo_trabajador=="PATRON")
-                            <option disabled value="">Seleccione una opción:</option>
-                            <option value="EMPLEADO">Administrativo</option>
-                            <option selected value="PATRON">Sindicalizado</option>
-                          @endif
-                          </select>
+                              <option selected disabled value="">Seleccione una opción:</option>
+                              <option value="EMPLEADO">Administrativo</option>
+                              <option value="PATRON">Sindicalizado</option>
+                            </select>
+                        @endif
                         </div>
+
                         <div class="col-md-3 mb-3">
                           <label for="validationDefault04">Turno</label>
-                          <select class="custom-select" name="turno">
-                          @if($emp->turno=="")
-                            <option selected disabled value="">Seleccione una opción:</option>
-                            <option value="DIURNO">Diurno</option>
-                            <option value="NOCTURNO">Nocturno</option>
-                            <option value="MIXTO">Mixto</option>
-                          @elseif($emp->turno=="DIURNO")
-                            <option disabled value="">Seleccione una opción:</option>
-                            <option selected value="DIURNO">Diurno</option>
-                            <option value="NOCTURNO">Nocturno</option>
-                            <option value="MIXTO">Mixto</option>
-                          @elseif($emp->turno=="")
-                            <option disabled value="">Seleccione una opción:</option>
-                            <option value="DIURNO">Diurno</option>
-                            <option selected value="NOCTURNO">Nocturno</option>
-                            <option value="MIXTO">Mixto</option>
-                          @elseif($emp->turno=="MIXTO")
-                            <option disabled value="">Seleccione una opción:</option>
-                            <option value="DIURNO">Diurno</option>
-                            <option value="NOCTURNO">Nocturno</option>
-                            <option selected value="MIXTO">Mixto</option>
+                        @if(isset($emp))
+                            <select class="custom-select" name="turno">
+                              @if($emp->turno=="")
+                                <option selected disabled value="">Seleccione una opción:</option>
+                                <option value="DIURNO">Diurno</option>
+                                <option value="NOCTURNO">Nocturno</option>
+                                <option value="MIXTO">Mixto</option>
+                              @elseif($emp->turno=="DIURNO")
+                                <option disabled value="">Seleccione una opción:</option>
+                                <option selected value="DIURNO">Diurno</option>
+                                <option value="NOCTURNO">Nocturno</option>
+                                <option value="MIXTO">Mixto</option>
+                              @elseif($emp->turno=="")
+                                <option disabled value="">Seleccione una opción:</option>
+                                <option value="DIURNO">Diurno</option>
+                                <option selected value="NOCTURNO">Nocturno</option>
+                                <option value="MIXTO">Mixto</option>
+                              @elseif($emp->turno=="MIXTO")
+                                <option disabled value="">Seleccione una opción:</option>
+                                <option value="DIURNO">Diurno</option>
+                                <option value="NOCTURNO">Nocturno</option>
+                                <option selected value="MIXTO">Mixto</option>
+                              @endif
+                            </select>
+                          @else
+                            <select class="custom-select" name="turno">
+                              <option selected disabled value="">Seleccione una opción:</option>
+                              <option value="DIURNO">Diurno</option>
+                              <option value="NOCTURNO">Nocturno</option>
+                              <option value="MIXTO">Mixto</option>
+                            </select>
                           @endif
-                          </select>
+
                         </div>
                         <div class="col-md-3 mb-3">
                           <label for="validationDefault04">Contrato</label>
+                        @if(isset($emp))
+                            <select class="custom-select" name="contrato">
+                              @if($emp->contrato=="")
+                                <option selected disabled value="">Seleccione una opción:</option>
+                                <option value="PRUEBA">Prueba</option>
+                                <option value="DETERMINDO">Tiempo determinado</option>
+                                <option value="INDETERMINADO">Tiempo indeterminado</option>
+                              @elseif($emp->contrato=="PRUEBA")
+                                <option disabled value="">Seleccione una opción:</option>
+                                <option selected value="PRUEBA">Prueba</option>
+                                <option value="DETERMINDO">Tiempo determinado</option>
+                                <option value="INDETERMINADO">Tiempo indeterminado</option>
+                              @elseif($emp->contrato=="DETERMINADO")
+                                <option disabled value="">Seleccione una opción:</option>
+                                <option value="PRUEBA">Prueba</option>
+                                <option selected value="DETERMINDO">Tiempo determinado</option>
+                                <option value="INDETERMINADO">Tiempo indeterminado</option>
+                              @elseif($emp->contrato=="INDETERMINADO")
+                                <option disabled value="">Seleccione una opción:</option>
+                                <option value="PRUEBA">Prueba</option>
+                                <option value="DETERMINDO">Tiempo determinado</option>
+                                <option selected value="INDETERMINADO">Tiempo indeterminado</option>
+                              @endif
+                            </select>
+                        @else
                           <select class="custom-select" name="contrato">
-                          @if($emp->contrato=="")
-                            <option selected disabled value="">Seleccione una opción:</option>
-                            <option value="PRUEBA">Prueba</option>
-                            <option value="DETERMINDO">Tiempo determinado</option>
-                            <option value="INDETERMINADO">Tiempo indeterminado</option>
-                          @elseif($emp->contrato=="PRUEBA")
-                            <option disabled value="">Seleccione una opción:</option>
-                            <option selected value="PRUEBA">Prueba</option>
-                            <option value="DETERMINDO">Tiempo determinado</option>
-                            <option value="INDETERMINADO">Tiempo indeterminado</option>
-                          @elseif($emp->contrato=="DETERMINADO")
-                            <option disabled value="">Seleccione una opción:</option>
-                            <option value="PRUEBA">Prueba</option>
-                            <option selected value="DETERMINDO">Tiempo determinado</option>
-                            <option value="INDETERMINADO">Tiempo indeterminado</option>
-                          @elseif($emp->contrato=="INDETERMINADO")
-                            <option disabled value="">Seleccione una opción:</option>
-                            <option value="PRUEBA">Prueba</option>
-                            <option value="DETERMINDO">Tiempo determinado</option>
-                            <option selected value="INDETERMINADO">Tiempo indeterminado</option>
-                          @endif
-                          </select>
+                              <option selected disabled value="">Seleccione una opción:</option>
+                              <option value="PRUEBA">Prueba</option>
+                              <option value="DETERMINDO">Tiempo determinado</option>
+                              <option value="INDETERMINADO">Tiempo indeterminado</option>
+                            </select>
+                        @endif
                         </div>
+
                         <div class="col-md-3 mb-2">
                           <label for="validationDefault01">Vigencia</label>
-                          <input required type="date" class="form-control" name="vigencia" value="{{$emp->vigencia}}">
+                          <input  type="date" class="form-control" name="vigencia" value="{{$emp->vigencia ?? ''}}">
                         </div>
                         <div class="col-md-2 mb-2">
                             <br>
                             <label for="validationDefault01">Horario inicio</label>
-                            <input required type="time" class="form-control" name="horario_trabajoinicio" value="{{$emp->horario_trabajoinicio}}">
+                            <input  type="time" class="form-control" name="horario_trabajoinicio" value="{{$emp->horario_trabajoinicio ?? ''}}">
                           </div>
                           <div class="col-md-2 mb-2">
                             <br>
                             <label for="validationDefault01">Horario fin</label>
-                            <input required type="time" class="form-control" name="horario_trabajofin" value="{{$emp->horario_trabajofin}}">
+                            <input  type="time" class="form-control" name="horario_trabajofin" value="{{$emp->horario_trabajofin ?? ''}}">
                           </div>
                           <div class="col-md-2 mb-2">
                             <br>
                             <label for="validationDefault01">Sueldo diario</label>
-                            <input required type="number" class="form-control" name="sueldo_diario" value="{{$emp->sueldo_diario}}" maxlength="5" min="0.01" max="10000.00" step="0.01" onkeypress="return numeros(event)">
+                            <input  type="number" class="form-control" name="sueldo_diario" value="{{$emp->sueldo_diario ?? ''}}" maxlength="5" min="0.01" max="10000.00" step="0.01" onkeypress="return numeros(event)">
                           </div>
                           <div class="col-md-2 mb-2">
                             <br>
                             <label for="validationDefault01">Sueldo diario integrado</label>
-                            <input required type="number" class="form-control" name="sueldo_integrado" value="{{$emp->sueldo_integrado}}" maxlength="5" min="0.01" max="10000.00" step="0.01" onkeypress="return numeros(event)" readonly>
+                            <input  type="number" class="form-control" name="sueldo_integrado" value="{{$emp->sueldo_integrado ?? ''}}" maxlength="5" min="0.01" max="10000.00" step="0.01" onkeypress="return numeros(event)" readonly>
                           </div>
                           <div class="col-md-2 mb-2">
                             <label for="validationDefault01">Tabulación<br>Nivel</label>
-                            <input type="text" onkeyup="mayus(this);" class="form-control" name="nivel" value="{{$emp->nivel}}">
+                            <input type="text" onkeyup="mayus(this);" class="form-control" name="nivel" value="{{$emp->nivel ?? ''}}">
                           </div>
                           <div class="col-md-2 mb-2">
                             <br>
                             <label for="validationDefault01">Categoria</label>
-                            <input type="text" onkeyup="mayus(this);" class="form-control" name="categoria" value="{{$emp->categoria}}">
+                            <input type="text" onkeyup="mayus(this);" class="form-control" name="categoria" value="{{$emp->categoria ?? ''}}">
                           </div>
                           <div class="col-md-2 mb-3">
                             <br>
                             <label for="validationDefault04">Tipo salario</label>
+                            
+                          @if(isset($emp))
                             <select class="custom-select" name="tipo_salario">
-                            @if($emp->tipo_salario=="")
+                              @if($emp->tipo_salario=="")
+                                <option selected disabled value="">Seleccione una opción:</option>
+                                <option value="FIJO">Fijo</option>
+                                <option value="VARIABLE">Variable</option>
+                              @elseif($emp->tipo_salario=="FIJO")
+                                <option disabled value="">Seleccione una opción:</option>
+                                <option selected value="FIJO">Fijo</option>
+                                <option value="VARIABLE">Variable</option>
+                              @elseif($emp->tipo_salario=="VARIABLE")
+                                <option disabled value="">Seleccione una opción:</option>
+                                <option value="FIJO">Fijo</option>
+                                <option selected value="VARIABLE">Variable</option>
+                              @endif
+                            </select>
+                          @else
+                            <select class="custom-select" name="tipo_salario">
                               <option selected disabled value="">Seleccione una opción:</option>
                               <option value="FIJO">Fijo</option>
                               <option value="VARIABLE">Variable</option>
-                            @elseif($emp->tipo_salario=="FIJO")
-                              <option disabled value="">Seleccione una opción:</option>
-                              <option selected value="FIJO">Fijo</option>
-                              <option value="VARIABLE">Variable</option>
-                            @elseif($emp->tipo_salario=="VARIABLE")
-                              <option disabled value="">Seleccione una opción:</option>
-                              <option value="FIJO">Fijo</option>
-                              <option selected value="VARIABLE">Variable</option>
-                            @endif
                             </select>
+                          @endif
                           </div>
                           <div class="col-md-2 mb-3">
                             <br>
                             <label for="validationDefault04">Tipo de jornada</label>
+                          @if(isset($emp))
                             <select class="custom-select" name="tipo_jornada">
-                            @if($emp->tipo_jornada=="")
-                              <option selected disabled value="">Seleccione una opción:</option>
-                              <option value="COMPLETA">Completa</option>
-                              <option value="REDUCIDA">Reducida</option>
-                            @elseif($emp->tipo_jornada=="COMPLETA")
-                              <option disabled value="">Seleccione una opción:</option>
-                              <option selected value="COMPLETA">Completa</option>
-                              <option value="REDUCIDA">Reducida</option>
-                            @elseif($emp->tipo_jornada=="REDUCIDA")
-                              <option selected disabled value="">Seleccione una opción:</option>
-                              <option value="COMPLETA">Completa</option>
-                              <option selected value="REDUCIDA">Reducida</option>
-                            @endif
+                              @if($emp->tipo_jornada=="")
+                                <option selected disabled value="">Seleccione una opción:</option>
+                                <option value="COMPLETA">Completa</option>
+                                <option value="REDUCIDA">Reducida</option>
+                              @elseif($emp->tipo_jornada=="COMPLETA")
+                                <option disabled value="">Seleccione una opción:</option>
+                                <option selected value="COMPLETA">Completa</option>
+                                <option value="REDUCIDA">Reducida</option>
+                              @elseif($emp->tipo_jornada=="REDUCIDA")
+                                <option selected disabled value="">Seleccione una opción:</option>
+                                <option value="COMPLETA">Completa</option>
+                                <option selected value="REDUCIDA">Reducida</option>
+                              @endif
                             </select>
+                          @else
+                            <select class="custom-select" name="tipo_jornada">
+                              <option selected disabled value="">Seleccione una opción:</option>
+                              <option value="COMPLETA">Completa</option>
+                              <option value="REDUCIDA">Reducida</option>
+                            </select>
+                          @endif
                           </div>
+
                           <div class="col-md-1 mb-3">
                             <label for="validationDefault04">Jornada <br> Días</label>
-                            <input required type="number" value="{{$emp->dias}}" class="form-control" name="dias" min="1" max="7" step="1" value="">
+                            <input  type="number" value="{{$emp->dias ?? ''}}" class="form-control" name="dias" min="1" max="7" step="1" >
                           </div>
                           <div class="col-md-1 mb-3">
                             <br>
                             <label for="validationDefault04">Horas</label>
-                            <input required type="number" value="{{$emp->horas_diarias}}" class="form-control" name="horas_diarias" min="1" max="24" step="any" value="">
+                            <input  type="number" value="{{$emp->horas_diarias ?? ''}}" class="form-control" name="horas_diarias" min="1" max="24" step="any" value="">
                           </div>
-                          <div class="col-md-2 mb-3">
+                          <div class="col-md-2 mb-3"> 
                             <br>
                             <label for="validationDefault04">Forma de Pago</label>
+                            @if(isset($emp))
+                              <select class="custom-select" name="forma_pago">
+                                @if($emp->forma_pago=="")
+                                <option selected disabled value="">Seleccione una opción:</option>
+                                <option value="EFECTIVO">Efectivo</option>
+                                <option value="CHEQUE">Cheque</option>
+                              @elseif($emp->forma_pago=="EFECTIVO")
+                                <option disabled value="">Seleccione una opción:</option>
+                                <option selected value="EFECTIVO">Efectivo</option>
+                                <option value="CHEQUE">Cheque</option>
+                              @elseif($emp->forma_pago=="CHEQUE")
+                                <option disabled value="">Seleccione una opción:</option>
+                                <option value="EFECTIVO">Efectivo</option>
+                                <option selected value="CHEQUE">Cheque</option>
+                              </select>
+                              @endif
+                            @else
                             <select class="custom-select" name="forma_pago">
-                            @if($emp->forma_pago=="")
                               <option selected disabled value="">Seleccione una opción:</option>
                               <option value="EFECTIVO">Efectivo</option>
                               <option value="CHEQUE">Cheque</option>
-                            @elseif($emp->forma_pago=="EFECTIVO")
-                              <option disabled value="">Seleccione una opción:</option>
-                              <option selected value="EFECTIVO">Efectivo</option>
-                              <option value="CHEQUE">Cheque</option>
-                            @elseif($emp->forma_pago=="CHEQUE")
-                              <option disabled value="">Seleccione una opción:</option>
-                              <option value="EFECTIVO">Efectivo</option>
-                              <option selected value="CHEQUE">Cheque</option>
-                            @endif
                             </select>
+                            @endif
                           </div>
+
                           <div class="col-md-2 mb-3">
                             <br>
                             <label for="validationDefault04">Banco</label>
+                          @if(isset($emp))
+                              <select class="custom-select" name="clave_banco">
+                                <option selected disabled value="">Seleccione una opción:</option>
+                                  @foreach ($bancos as $banco)
+                                    @if($emp->clave_banco==$banco->clave_banco)
+                                      <option selected value="{{$banco->clave_banco}}">{{$banco->nombre_banco}}</option>
+                                     @else
+                                      <option value="{{$banco->clave_banco}}">{{$banco->nombre_banco}}</option>
+                                    @endif
+                                  @endforeach
+                              </select>
+                          @else 
                             <select class="custom-select" name="clave_banco">
                               <option selected disabled value="">Seleccione una opción:</option>
                                 @foreach ($bancos as $banco)
-                                  @if($emp->banco==$banco->clave_banco)
-                                    <option selected value="{{$banco->clave_banco}}">{{$banco->nombre_banco}}</option>
-                                  @else
-                                    <option value="{{$banco->clave_banco}}">{{$banco->nombre_banco}}</option>
-                                  @endif
+                                  <option value="{{$banco->clave_banco}}">{{$banco->nombre_banco}}</option>
                                 @endforeach
                             </select>
+                          @endif
                           </div>
                           <div class="col-md-4 mb-4">
                             <br>
                             <label for="validationDefault04">Cuenta Bancaria</label>
-                            <input required type="text" value="{{$emp->cuenta_bancaria}}" class="form-control" maxlength="20" name="cuenta_bancaria" value="" onkeypress="return numeros(event)">
+                            <input  type="text" value="{{$emp->cuenta_bancaria ?? ''}}" class="form-control" maxlength="20" name="cuenta_bancaria" value="" onkeypress="return numeros(event)">
                           </div>
                           <div class="col-md-4 mb-4">
                             <br>
                             <label for="validationDefault04">Clabe Interbancaria</label>
-                            <input required type="text" value="{{$emp->clabe_interbancaria}}" class="form-control" maxlength="18" name="clabe_interbancaria" value="" onkeypress="return numeros(event)">
+                            <input  type="text" value="{{$emp->clabe_interbancaria ?? ''}}" class="form-control" maxlength="18" name="clabe_interbancaria" value="" onkeypress="return numeros(event)">
                           </div>
                           <div class="col-md-2 mb-3">
                             <br><br>
+                            @if(isset($emp))
+                              <div class="form-check">
+                                @if($emp->ptu==0)
+                                  <input checked class="form-check-input" type="checkbox" name="ptu" value="option1" aria-label="">
+                                @else
+                                  <input class="form-check-input" type="checkbox" name="ptu" value="option1" aria-label="">
+                                @endif
+                                <label for="">Excluir para PTU</label>
+                              </div>
+                            @else
                             <div class="form-check">
-                              @if($emp->ptu==0)
-                                <input checked class="form-check-input" type="checkbox" name="ptu" value="option1" aria-label="">
-                              @else
-                                <input class="form-check-input" type="checkbox" name="ptu" value="option1" aria-label="">
-                              @endif
+                              <input class="form-check-input" type="checkbox" name="ptu" value="option1" aria-label="">
                               <label for="">Excluir para PTU</label>
                               </div>
+                            @endif
+
                           </div>
                           <div class="col-md-12 mb-3">
                             <label for="validationDefault04">Observaciones</label>
-                            <input type="text" class="form-control" name="observaciones" value="{{$emp->observaciones}}" onkeyup="mayus(this);" onkeypress="return validar(event)">
+                            <input type="text" class="form-control" name="observaciones" value="{{$emp->observaciones ?? ''}}" onkeyup="mayus(this);" onkeypress="return validar(event)">
                           </div>
                         </div><!--FIN Row contratación-->
                       </div><!--FIN ROW Contratación-->
