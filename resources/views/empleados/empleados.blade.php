@@ -36,7 +36,9 @@
             <td>{{ $emp->departamento }}</td>
             <td>{{ $emp->area }}</td>
             <td>
+
              
+
 
             </td>
           </tr>
@@ -47,9 +49,10 @@
 </div>
 
 </div>
-    @if(!empty($emp))
-      @include('empleados.modaldeleteempleado')
-      
-    @endif
-  @include('empleados.modalcrudinicialempleados')
+
+@if(!empty($emp))
+  @include('empleados.modaldeleteempleado')
+  
+@endif
+ @include('empleados.modalcrudinicialempleados')
 @endsection

@@ -120,8 +120,7 @@
                           @endif
                           </div>
                           <div class="col-md-2 mb-3">
-                            <label for="validationDefault04">Puesto</label>
-                            
+                            <label for="validationDefault04">Puesto</label>                          
                             @if(isset($emp))
                             <select class="custom-select" name="clave_puesto">
                               <option selected disabled value="">Seleccione una opción:</option>
@@ -133,7 +132,6 @@
                                     </select>
                                   @endif
                                 @endforeach
-                            
                             @else
                               <select class="custom-select" name="clave_puesto">
                                 <option selected disabled value="">Seleccione una opción:</option>
@@ -292,6 +290,7 @@
                           <div class="col-md-1 mb-3">
                             <label for="validationDefault03">Peso</label>
                             <input  type="number" class="form-control" value="{{$emp->peso ?? ''}}" name="peso" min="30" max="200" step="0.01">
+
                           </div>
                         </div>
                     </div><!--Fin  Row Personal-->
@@ -992,7 +991,7 @@
 
                           <div class="col-md-1 mb-3">
                             <label for="validationDefault04">Jornada <br> Días</label>
-                            <input  type="number" value="{{$emp->dias ?? ''}}" class="form-control" name="dias" min="1" max="7" step="1" value="">
+                            <input  type="number" value="{{$emp->dias ?? ''}}" class="form-control" name="dias" min="1" max="7" step="1" >
                           </div>
                           <div class="col-md-1 mb-3">
                             <br>
@@ -1049,7 +1048,6 @@
                                 @endforeach
                             </select>
                           @endif
-
                           </div>
                           <div class="col-md-4 mb-4">
                             <br>

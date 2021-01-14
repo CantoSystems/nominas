@@ -122,6 +122,7 @@
                                         <div class="btn-group">
                                             @canany(['administrador','capturista','reportes'])
                                             @isset($aux)
+
                                                 <div class="form-group">
                                                     <button id="buscar" type="button" data-toggle="modal" data-target="#exampleModal" style='width:40px; height:27px'>
                                                         <i class="fas fa-search"></i>

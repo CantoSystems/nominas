@@ -274,7 +274,11 @@
                         </div>
                         <div class="col-md-3 mb-3">
                           <label for="validationDefault03">Nacimiento</label>
+<<<<<<< HEAD
                           <input required type="date" class="form-control" value="{{$emp->fecha_nacimiento}}" name="fecha_nacimiento">
+=======
+                          <input required type="date" max="{{$fechalimite}}-12-31" class="form-control" value="{{$emp->fecha_nacimiento}}" name="fecha_nacimiento">
+>>>>>>> 9256a9c51ce75b0b218e85cf3579f78c75b2dbae
                         </div>
                         <div class="col-md-3 mb-3">
                           <label for="validationDefault03">Lugar de Origen</label>
