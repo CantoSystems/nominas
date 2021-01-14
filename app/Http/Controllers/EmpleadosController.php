@@ -37,7 +37,13 @@ class EmpleadosController extends Controller{
         $accion= $request->acciones;
         switch ($accion) {
             case '':
-                $empleados=DB::connection('DB_Serverr')->table('empleados')->get();
+            
+                $emp=DB::connection('DB_Serverr')->table('empleados')
+                ->join('departamentos','departamentos.clave_departamento','=','empleados.clave_departamento')
+                ->join('puestos','puestos.clave_puesto','=','empleados.clave_puesto')
+                ->join('areas','areas.clave_area', '=','departamentos.clave_area')
+                ->select('empleados.*','areas.*','departamentos.*','puestos.*')
+                ->get();
                 $departamentos=DB::connection('DB_Serverr')->table('departamentos')->get();
                 $puestos=DB::connection('DB_Serverr')->table('puestos')->get();
                 $bancos=Banco::all();
@@ -47,9 +53,10 @@ class EmpleadosController extends Controller{
                 ->join('areas','areas.clave_area', '=','departamentos.clave_area')
                 ->select('empleados.*','areas.*','departamentos.*','puestos.*')
                 ->get();
-                $fecha_actual = now()->year;
-                $fechalimite = $fecha_actual;
-                return view('empleados.empleados',compact('empleados','departamentos','puestos','bancos','personal','fecha_actual','fechalimite'));
+                //$fecha_actual = now()->year;
+                //$fechalimite = $fecha_actual;
+                return view('empleados.empleados',compact('emp','departamentos','puestos','bancos','personal'));
+
             break;
             case 'registrar':
                 $this->registrar_empleado($request);

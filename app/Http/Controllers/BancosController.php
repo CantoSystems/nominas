@@ -37,7 +37,7 @@ class BancosController extends Controller
                case '':
                    $banco= Banco::first();
                    $bancos=Banco::all();
-                   return view('bancos.bancos');
+                   return view('bancos.bancos', compact('banco','bancos'));
                    break;
 
                case 'atras':
