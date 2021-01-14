@@ -12,7 +12,7 @@ class IMSSController extends Controller
 {
     public function acciones(Request $request){
         $accion= $request->acciones;
-        $clv=$request->id;
+        $clv=$request->id_imss;
 
             switch ($accion) {
                 case '':
@@ -20,21 +20,21 @@ class IMSSController extends Controller
                     $imsss =IMSS::all();
                     return view('imss.imss', compact('imss','imsss'));
                     break;
-                /*case 'atras':
-                    $id= Banco::where("id",$clv)->first();
-                    $banco= Banco::where('id','<',$id->id)
-                    ->orderBy('id','desc')
+                case 'atras':
+                    $id= IMSS::where("id_imss",$clv)->first();
+                    $imss= IMSS::where('id_imss','<',$id->id)
+                    ->orderBy('id_imss','desc')
                     ->first();
                     if(is_null($banco)){
-                        $banco= Banco::get()->last();
+                        $imssss= IMSS::get()->last();
                     }
-                    $bancos=Banco::all();
-                    return view('bancos.bancos', compact('banco','bancos'));
-                break;*/
+                    $imsss=IMSS::all();
+                    return view('imss.imsss', compact('imss','imsss'));
+                break;
                 case 'siguiente':
-                    $imss = IMSS::where('id',$clv)->first();
-                    $indic= $imss->id;
-                    $imsss = IMSS::where('id','>',$indic)->first();
+                    $imss = IMSS::where('id_imss',$clv)->first();
+                    $indic= $imss->id_imss;
+                    $imsss = IMSS::where('id_imss','>',$indic)->first();
                     if($imsss==""){
                         $imsss = IMSS::first();
                     }
@@ -96,4 +96,10 @@ class IMSSController extends Controller
         $imss->base = $datos->basesalarial;
         $imss->save();
     }
+
+    public function eliminarimss($id_imss){
+        $idimss = IMSS::find($id_imss);
+        $idimss->delete();
+        return redirect()->route('imss.acciones');
+      }
 }

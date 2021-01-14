@@ -186,31 +186,34 @@
                                 <div class="col-sm-6">
                                     <div class="form-group">
                                         <label>Cuota (Patrón):</label>
-                                        <input type="number" name="cuotapatron" value="{{ $ims->cuotapatron1 }}" class="form-control" onkeyup="mayus(this);" onkeypress="return validar(event);" >
+                                        <input type="hidden" name="id_imss" value="{{ $ims->id_imss }}">
+                                        <input type="number" name="cuotapatron" value="{{ $ims->cuotapatron1 }}" class="form-control" step="0.01" >
                                     </div>
                                 </div>
-                                <div id="divcuotapatron2" style="display:none;" class="col-sm-6">
-                                    <div class="form-group">
-                                        <label>2da Cuota (Patrón):</label>
-                                        <input type="number" name="cuotapatron2" class="form-control"  onkeyup="mayus(this);" onkeypress="return validar(event);" >
+                                @if($ims->cuotapatron2!=null)
+                                    <div id="divcuotapatron2" class="col-sm-6">
+                                        <div class="form-group">
+                                            <label>2da Cuota (Patrón):</label>
+                                            <input type="number" name="cuotapatron2" value="{{ $ims->cuotapatron2 }}" class="form-control" step="0.01" >
+                                        </div>
                                     </div>
-                                </div>
+                                @endif
                                 <div class="col-sm-6">
                                     <div class="form-group">
                                         <label>Cuota (Trabajador):</label>
-                                        <input type="number" name="cuotatrabajador" class="form-control"  onkeyup="mayus(this);" onkeypress="return validar(event);" >
+                                        <input type="number" name="cuotatrabajador" value="{{ $ims->cuotatrabajador }}" class="form-control" step="0.01">
                                     </div>
                                 </div>
                                 <div class="col-sm-6">
                                     <div class="form-group">
                                         <label>Cuota (Total):</label>
-                                        <input type="number" name="cuotatotal" class="form-control"  onkeyup="mayus(this);" onkeypress="return validar(event);" >
+                                        <input type="number" name="cuotatotal" value="{{ $ims->cuotatotal }}" class="form-control" step="0.01">
                                     </div>
                                 </div>
                                 <div class="col-sm-6">
                                     <div class="form-group">
                                         <label>Base Salarial:</label>
-                                        <input type="number" name="basesalarial" class="form-control"  onkeyup="mayus(this);" onkeypress="return validar(event);" >
+                                        <input type="number" name="basesalarial" value="{{ $ims->base }}" class="form-control" step="0.01">
                                     </div>
                                 </div>
                             @else
@@ -247,31 +250,31 @@
                                 <div class="col-sm-6">
                                     <div class="form-group">
                                         <label>Cuota (Patrón):</label>
-                                        <input type="number" name="cuotapatron" class="form-control"  onkeyup="mayus(this);" onkeypress="return validar(event);" >
+                                        <input type="number" name="cuotapatron" class="form-control" step="0.01">
                                     </div>
                                 </div>
                                 <div id="divcuotapatron2" style="display:none;" class="col-sm-6">
                                     <div class="form-group">
                                         <label>2da Cuota (Patrón):</label>
-                                        <input type="number" name="cuotapatron2" class="form-control"  onkeyup="mayus(this);" onkeypress="return validar(event);" >
+                                        <input type="number" name="cuotapatron2" class="form-control" step="0.01">
                                     </div>
                                 </div>
                                 <div class="col-sm-6">
                                     <div class="form-group">
                                         <label>Cuota (Trabajador):</label>
-                                        <input type="number" name="cuotatrabajador" class="form-control"  onkeyup="mayus(this);" onkeypress="return validar(event);" >
+                                        <input type="number" name="cuotatrabajador" class="form-control" step="0.01">
                                     </div>
                                 </div>
                                 <div class="col-sm-6">
                                     <div class="form-group">
                                         <label>Cuota (Total):</label>
-                                        <input type="number" name="cuotatotal" class="form-control"  onkeyup="mayus(this);" onkeypress="return validar(event);" >
+                                        <input type="number" name="cuotatotal" class="form-control" step="0.01">
                                     </div>
                                 </div>
                                 <div class="col-sm-6">
                                     <div class="form-group">
                                         <label>Base Salarial:</label>
-                                        <input type="number" name="basesalarial" class="form-control"  onkeyup="mayus(this);" onkeypress="return validar(event);" >
+                                        <input type="number" name="basesalarial" class="form-control" step="0.01">
                                     </div>
                                 </div>
                             @endif
@@ -325,7 +328,7 @@
                                                     @can('administrador')
                                                         @isset($imsss)
                                                             <div class="form-group">
-                                                                <a id="eliminar" data-target="#modal-deleteimsss-" data-toggle="modal">
+                                                                <a id="eliminar" data-target="#modal-deleteimsss-{{$ims->id_imss}}" data-toggle="modal">
                                                                     <button type="button" style='width:40px; height:27px'>
                                                                         <i class="far fa-trash-alt"></i>
                                                                     </button>
@@ -361,4 +364,7 @@
         </div>
     </div>
 </div>
+@if(!empty($ims))
+  @include('imss.modaldeleteimss')
+@endif
 @endsection
