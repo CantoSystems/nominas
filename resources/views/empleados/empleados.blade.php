@@ -28,33 +28,37 @@
     </thead>
     <tbody>
       @if(!empty($personal))
-        @foreach($personal as $emp)
+        @foreach($personal as $persona)
           <tr>
-            <td scope="row">{{ $emp->clave_empleado }}</td>
-            <td>{{ $emp->nombre }} {{ $emp->apellido_paterno }} {{ $emp->apellido_materno }}</td>
-            <td>{{ $emp->nombre_puesto }}</td>
-            <td>{{ $emp->departamento }}</td>
-            <td>{{ $emp->area }}</td>
+            <td scope="row">{{ $persona->clave_empleado }}  </td>
+            <td>{{ $persona->nombre}} {{ $persona->apellido_paterno }} {{ $persona->apellido_materno }}</td>
+            <td>{{ $persona->nombre_puesto }}</td>
+            <td>{{ $persona->departamento }}</td>
+            <td>{{ $persona->area }}   </td>
             <td>
               <div>
 
-              @isset($emp)
-                  <button type="button" style='width:70px; height:40px; align-items:center;' data-toggle="modal" data-target="#modalcrudempleado">
+             
+                <a data-target="#modalmodificaempleado{{$persona->id_emp}}" data-toggle="modal">
+                  <button type="button" name="acciones" value="visulizar" style='width:70px; height:40px; align-items:center;'  >
                     <i class="fas fa-eye"></i>
                   </button></th>
-              @endisset
+                </a>
+      
+                <a id="eliminaempleado" data-target="#modaldeleteempleado{{$persona->id_emp}}" data-toggle="modal" style='width:70px; height:40px'>
+                  <button type="button" style='width:70px; height:40px'>
+                      <i class="far fa-trash-alt"></i>
+                  </button>
+                 </a>
+                 <!--Incluye los modales por cada accion de eliminar 
+                    - generando sean direfentes los ID -->
+                        @include('empleados.modalcrudinicialempleados')
+                        @include('empleados.modaldeleteempleado')
+                        @include('empleados.modalmostrarporid')
+    
                 
-
-
-
-                                @isset($emp)
-                                <a id="eliminar" data-target="#modal-deleteempleado-{{$emp->id_emp}}" data-toggle="modal" style='width:70px; height:40px'>
-                                  <button type="button" style='width:70px; height:40px'>
-                                      <i class="far fa-trash-alt"></i>
-                                  </button>
-                                @endisset
-                                </a>
-                              </div>
+                                
+              </div>
             </td>
           </tr>
         @endforeach
@@ -65,9 +69,6 @@
 
 </div>
 
-@if(!empty($emp))
-  @include('empleados.modaldeleteempleado')
-  
-@endif
- @include('empleados.modalcrudinicialempleados')
+ 
+
 @endsection
