@@ -32,72 +32,63 @@ class BancosController extends Controller
         //$clv=$request->clave_banco;
         $clv=$request->id;
 
-
            switch ($accion) {
-               case '':
-                   $banco= Banco::first();
-                   $bancos=Banco::all();
-
-                   return view('bancos.bancos', compact('banco','bancos'));
-
-                   break;
-
-               case 'atras':
+              case '':
+                $banco= Banco::first();
+                $bancos=Banco::all();
+                return view('bancos.bancos', compact('banco','bancos'));
+              break;
+              case 'atras':
                 $id= Banco::where("id",$clv)->first();
                 $banco= Banco::where('id','<',$id->id)
                 ->orderBy('id','desc')
                 ->first();
                 if(is_null($banco)){
-                    $banco= Banco::get()->last();
-                  }
+                  $banco= Banco::get()->last();
+                }
                 $bancos=Banco::all();
-                   return view('bancos.bancos', compact('banco','bancos'));
-               break;
-
-               case 'siguiente':
-                   $banc= Banco::where('id',$clv)->first();
-                   $indic= $banc->id;
-                   $banco= Banco::where('id','>',$indic)->first();
-                   if($banco==""){
-                      $banco= Banco::first();
-                   }
-                   $bancos=Banco::all();
-                   return view('bancos.bancos', compact('banco','bancos'));
-               break;
-               case 'primero':
-                   $banco= Banco::first();
-                   $bancos=Banco::all();
-                   return view('bancos.bancos', compact('banco','bancos'));
-               break;
-               case 'ultimo':
-                   $banco= Banco::get()->last();
-                   $bancos=Banco::all();
-                   return view('bancos.bancos', compact('banco','bancos'));
-               break;
-               case 'registrar':
-                  $this->registrar($request);
-                  return redirect()->route('bancos.acciones');
-               break;
-               case 'actualizar':
-                   $this->actualizar($request);
-                   return redirect()->route('bancos.acciones');
-               break;
-
-               case 'cancelar':
-                  return redirect()->route('bancos.acciones');
-                        break;
-
-                case 'buscar':
-
-                      $banco = Banco::where('nombre_banco',$request->busca)->first();
-                       if($banco==""){
-                      $banco= Banco::first();
-                      }
-                      $bancos= Banco::all();
-                    return view('bancos.bancos',compact('banco','bancos'));
-                     break;
-
-               default:
+                return view('bancos.bancos', compact('banco','bancos'));
+              break;
+              case 'siguiente':
+                $banc= Banco::where('id',$clv)->first();
+                $indic= $banc->id;
+                $banco= Banco::where('id','>',$indic)->first();
+                if($banco==""){
+                  $banco= Banco::first();
+                }
+                $bancos=Banco::all();
+                return view('bancos.bancos', compact('banco','bancos'));
+              break;
+              case 'primero':
+                $banco= Banco::first();
+                $bancos=Banco::all();
+                return view('bancos.bancos', compact('banco','bancos'));
+              break;
+              case 'ultimo':
+                $banco= Banco::get()->last();
+                $bancos=Banco::all();
+                return view('bancos.bancos', compact('banco','bancos'));
+              break;
+              case 'registrar':
+                $this->registrar($request);
+                return redirect()->route('bancos.acciones');
+              break;
+              case 'actualizar':
+                $this->actualizar($request);
+                return redirect()->route('bancos.acciones');
+              break;
+              case 'cancelar':
+                return redirect()->route('bancos.acciones');
+                break;
+              case 'buscar':
+                $banco = Banco::where('nombre_banco',$request->busca)->first();
+                if($banco==""){
+                  $banco= Banco::first();
+                }
+                $bancos= Banco::all();
+              return view('bancos.bancos',compact('banco','bancos'));
+                break;
+              default:
                    # code...
                break;
            }
@@ -113,9 +104,7 @@ class BancosController extends Controller
       * @param $datos | Array del request
       * @return void
       */
-
-
-       public function actualizar($datos){
+      public function actualizar($datos){
         $datos->validate([
               'clave_banco' => 'required',
               'nombre_banco' => 'required',
@@ -124,7 +113,7 @@ class BancosController extends Controller
         $banc->clave_banco= $datos->clave_banco;
         $banc->nombre_banco= $datos->nombre_banco;
         $banc->save();
-     }
+      }
 
       /**
       *Genera un numero random de digitos
