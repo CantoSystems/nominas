@@ -120,7 +120,7 @@
                           @endif
                           </div>
                           <div class="col-md-2 mb-3">
-                            <label for="validationDefault04">Puesto</label>                          
+                           <label>Puesto</label> 
                             @if(isset($emp))
                             <select class="custom-select" name="clave_puesto">
                               <option selected disabled value="">Seleccione una opción:</option>
@@ -129,9 +129,10 @@
                                     <option selected value="{{$puest->clave_puesto}}">{{$puest->nombre_puesto}}</option>
                                   @else
                                     <option value="{{$puest->clave_puesto}}">{{$puest->nombre_puesto}}</option>
-                                    </select>
+                                
                                   @endif
-                                @endforeach
+                                  </select>
+                                @endforeach   
                             @else
                               <select class="custom-select" name="clave_puesto">
                                 <option selected disabled value="">Seleccione una opción:</option>
@@ -141,16 +142,20 @@
                                   @endforeach
                               </select>
                             @endif
-                          </div></div>
-
-                          <div class="col-md-2 mb-3">
-                            <label for="validationDefault03">RFCcccc</label>
-                            <input  type="text" class="form-control" value="{{$emp->rfc ?? ''}}" maxlength="13" name="rfc" onkeyup="mayus(this);"  pattern="^([A-ZÑ\x26]{3,4}([0-9]{2})(0[1-9]|1[0-2])(0[1-9]|1[0-9]|2[0-9]|3[0-1])([A-Z]|[0-9]){2}([A-ZÑ\x26]|[0-9]){1})?$" >
                           </div>
-                            <div class="col-md-2">
+
+                          
+                          
+                          <div class="col-md-2">
+                            <label for="validationDefault03">RFC</label>
+                            <input  type="text" class="form-control" value="{{$emp->rfc ?? ''}}" maxlength="13" name="rfc" onkeyup="mayus(this);"  pattern="^([A-ZÑ\x26]{3,4}([0-9]{2})(0[1-9]|1[0-2])(0[1-9]|1[0-9]|2[0-9]|3[0-1])([A-Z]|[0-9]){2}([A-ZÑ\x26]|[0-9]){1})?$">
+                          </div>
+
+                          <div class="col-md-2">
                             <label for="validationDefault03">CURP</label>
                             <input  type="text" class="form-control" value="{{$emp->curp ?? ''}}" minlength="18" maxlength="18" name="curp" onkeyup="mayus(this);">
                           </div>
+
                           <div class="col-md-2 mb-3">
                             <label for="validationDefault03">IMSS</label>
                             <input  type="text" class="form-control" value="{{$emp->imss ?? ''}}" minlength="11" maxlength="11" name="imss" onkeypress="return numeros(event)">
@@ -1015,8 +1020,9 @@
                                 <option disabled value="">Seleccione una opción:</option>
                                 <option value="EFECTIVO">Efectivo</option>
                                 <option selected value="CHEQUE">Cheque</option>
-                              </select>
+                              
                               @endif
+                              </select>
                             @else
                             <select class="custom-select" name="forma_pago">
                               <option selected disabled value="">Seleccione una opción:</option>
@@ -1088,50 +1094,26 @@
               
                  
                  
-                    <!--<div class="modal-footer">
-                      <div class="col-sm-4">
-                        <div class="card-body">
-                          <div class="margin">
-                            <div class="btn-group">
-                              <div class="form-group">
-                                  <button type="submit"  name="acciones" value="primero" id="primero" style='width:70px; height:40px'><i class="fas fa-backward" ></i></button>
-                              </div>
-                              <div class="form-group">
-                              <button type="submit" name="acciones" value="atras" id="atras" style='width:70px; height:40px'><i class="fas fa-arrow-circle-left"></i></button>
-                              </div>
-                              <div class="form-group">
-                                  <button type="submit" name="acciones" value="siguiente" id="siguiente" style='width:70px; height:40px'><i class="fas fa-arrow-circle-right"></i></button>
-                              </div>
-                              <div class="form-group">
-                                  <button type="submit" name="acciones" value="ultimo" id="ultimo" style='width:70px; height:40px'><i class="fas fa-forward"></i></button>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>-->
-                      <div class="col-sm-12">
+                    
+
+                      <div class="col-sm-6">
                         <div class="card-body">
                           <div class="margin">
                             <div class="btn-group">
                               <div class="form-group">
                                   <button type="button" id="nuevo" style='width:70px; height:40px'><i class="fas fa-user-plus"></i></button>
                               </div>
+                              <!--
                               <div class="form-group">
                                 <button type="button" id="actualizar" style='width:70px; height:40px'> <i class="fas fa-pen-square"></i></button>
-                              </div>
-                              <div>
-                                @isset($emp)
-                                <a id="eliminar" data-target="#modal-deleteempleado-{{$emp->id_emp}}" data-toggle="modal" style='width:70px; height:40px'>
-                                  <button type="button" style='width:70px; height:40px'>
-                                      <i class="far fa-trash-alt"></i>
-                                  </button>
-                                @endisset
-                                </a>
-                              </div>
+                              </div>-->
+                              
                             </div>
                           </div>
                         </div>
                       </div>
+
+
                       <div class="col-sm-2">
                         <div class="card-body">
                           <div class="margin">
@@ -1140,18 +1122,13 @@
                                 <button id="nuevo_reg" name="acciones" value="registrar" type="submit" style="display: none;width:70px; height:40px"><i class="fas fa-save"></i></button>
                               </div>
                               <div class="form-group">
-                                  <button name="acciones" value="actualizar" id="actualizar_reg" type="submit" style="display: none;width:70px; height:40px"><i class="fas fa-save"></i></button>
-                              </div>
-                              <div class="form-group">
                                   <button name="acciones" value="cancelar" id="cancelar_reg" type="submit" style="display: none;width:70px; height:40px"><i class="far fa-window-close"></i></button>
-                              </div>
-                              <div class="form-group">
-                                  <button name="acciones" value="cancelar_actualiza" id="cancelar_actualiza" type="submit" style="display: none;width:70px; height:40px"><i class="far fa-window-close"></i></button>
                               </div>
                             </div>
                           </div>
                         </div>
                       </div>
+
                     </form>
                   </div>
                 </div><!--Final CARD principal-->

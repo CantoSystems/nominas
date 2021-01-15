@@ -36,10 +36,25 @@
             <td>{{ $emp->departamento }}</td>
             <td>{{ $emp->area }}</td>
             <td>
+              <div>
 
-             
+              @isset($emp)
+                  <button type="button" style='width:70px; height:40px; align-items:center;' data-toggle="modal" data-target="#modalcrudempleado">
+                    <i class="fas fa-eye"></i>
+                  </button></th>
+              @endisset
+                
 
 
+
+                                @isset($emp)
+                                <a id="eliminar" data-target="#modal-deleteempleado-{{$emp->id_emp}}" data-toggle="modal" style='width:70px; height:40px'>
+                                  <button type="button" style='width:70px; height:40px'>
+                                      <i class="far fa-trash-alt"></i>
+                                  </button>
+                                @endisset
+                                </a>
+                              </div>
             </td>
           </tr>
         @endforeach

@@ -35,6 +35,7 @@ class EmpleadosController extends Controller{
 
         \Config::set('database.connections.DB_Serverr', $clv_empresa);
         $accion= $request->acciones;
+        $indic=$request->id_emp;
         switch ($accion) {
             case '':
             
@@ -43,69 +44,35 @@ class EmpleadosController extends Controller{
                 ->join('puestos','puestos.clave_puesto','=','empleados.clave_puesto')
                 ->join('areas','areas.clave_area', '=','departamentos.clave_area')
                 ->select('empleados.*','areas.*','departamentos.*','puestos.*')
-                ->get();
+                ->get()->first();
 
-                $departamentos=DB::connection('DB_Serverr')->table('departamentos')->get();
-                $puestos=DB::connection('DB_Serverr')->table('puestos')->get();
-                $bancos=Banco::all();
+            
                 $personal = DB::connection('DB_Serverr')->table('empleados')
                 ->join('departamentos','departamentos.clave_departamento','=','empleados.clave_departamento')
                 ->join('puestos','puestos.clave_puesto','=','empleados.clave_puesto')
                 ->join('areas','areas.clave_area', '=','departamentos.clave_area')
                 ->select('empleados.*','areas.*','departamentos.*','puestos.*')
                 ->get();
-                //$fecha_actual = now()->year;
-                //$fechalimite = $fecha_actual;
+
+                $departamentos=DB::connection('DB_Serverr')->table('departamentos')->get();
+
+                $puestos=DB::connection('DB_Serverr')->table('puestos')->get();
+
+                $bancos=Banco::all();
+            
+
                 return view('empleados.empleados',compact('emp','departamentos','puestos','bancos','personal'));
             break;
+
             case 'registrar':
                 $this->registrar_empleado($request);
-                $empleados=DB::connection('DB_Serverr')->table('empleados')->get();
-                $departamentos=DB::connection('DB_Serverr')->table('departamentos')->get();
-                $puestos=DB::connection('DB_Serverr')->table('puestos')->get();
-                $bancos=Banco::all();
-        
-                return view('empleados.empleados',compact('empleados','departamentos','puestos','bancos'));
+                return redirect()->route('empleados.index');
             break;
             case 'actualizar':
                 $this->actualizar_empleado($request);
-                $empleados=DB::connection('DB_Serverr')->table('empleados')->get();
-                $departamentos=DB::connection('DB_Serverr')->table('departamentos')->get();
-                $puestos=DB::connection('DB_Serverr')->table('puestos')->get();
-                $bancos=Banco::all();
-
                 return redirect()->route('empleados.index');
             break;
-            case 'atras':
-                $id_emp=DB::connection('DB_Serverr')->table('empleados')->
-                where('clave_empleado',$request->clave_empleado)->first();
-                $aux=DB::connection('DB_Serverr')->table('empleados')->where('id_emp','<',$id_emp->id_emp)
-                ->orderBy('id_emp','desc')
-                ->first();
-                if(is_null($aux)){
-                    $aux=DB::connection('DB_Serverr')->table('empleados')->get()->last();
-                }
-            return view('empleados.empleados', compact('aux'));
-            break;
-            case 'siguiente':
-                $id_emp=DB::connection('DB_Serverr')->table('empleados')->
-                where('clave_empleado',$request->clave_empleado)->first();
-                $aux=DB::connection('DB_Serverr')->table('empleados')->where('id_emp','>',$id_emp->id_emp)
-                ->orderBy('id_emp','asc')
-                ->first();
-                if(is_null($aux)){
-                    $aux=DB::connection('DB_Serverr')->table('empleados')->get()->last();
-                }
-                return view('empleados.empleados', compact('aux'));
-            break;
-            case 'primero':
-                $aux = DB::connection('DB_Serverr')->table('empleados')->first(); 
-                return view('empleados.empleados',compact('aux'));
-            break;
-            case 'ultimo':
-                $aux = DB::connection('DB_Serverr')->table('empleados')->get()->last(); 
-                return view('empleados.empleados',compact('aux'));
-            break;
+            
             case 'cancelar':
                 return redirect()->route('empleados.index');
             break;
