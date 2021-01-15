@@ -30,9 +30,7 @@
                 </div>
             </div>
         </div>
-        <!--Fin Datatables-->
 
-        <!--Sección botones y direcciones-->
         <div class="col">
             <div class="card card-secondary">
                 <div class="card-header">
@@ -41,9 +39,9 @@
                 <div class="card-body">
                     <form action="{{ route('bancos.acciones')}}" method="GET" autocomplete="off">
                         <div class="row">
-                                <div class="col-sm-6">
-                                    <div class="form-group">
-                                        <label>Clave banco:</label>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label>Clave banco:</label>
                                     @if(isset($banco))
                                         <input type="text" name="clave_banco" value="{{$banco->clave_banco}}" class="form-control" maxlength = "4" onkeyup="mayus(this);">
                                         @error('clave_banco')
@@ -59,11 +57,11 @@
                                             </div>
                                         @enderror
                                     @endif
-                                    </div>
                                 </div>
-                                <div class="col-sm-6">
-                                    <div class="form-group">
-                                        <label>Nombre:</label>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label>Nombre:</label>
                                     @if(isset($banco))
                                         <input type="hidden" name="id" value="{{$banco->id}}" class="form-control"  onkeyup="mayus(this);">
                                         <input type="text" name="nombre_banco" value="{{$banco->nombre_banco}}" class="form-control"  onkeyup="mayus(this);" onkeypress="return validar(event);" >
@@ -81,10 +79,8 @@
                                             </div>
                                         @enderror
                                     @endif
-
-                                    </div>
                                 </div>
-                            
+                            </div>
                                 
                             @canany(['administrador','capturista','reportes'])
                                 <div class="col-sm-5">
@@ -114,37 +110,36 @@
                                 <div class="card-body">
                                     <div class="margin">
                                         @canany(['administrador','capturista','reportes'])
-                                        <div class="btn-group">
-                                            <div class="form-group">
-                                            @isset($banco)
-                                                <button id="buscar" type="button" data-toggle="modal" data-target="#exampleModal" style='width:40px; height:27px'>
-                                                    <i class="fas fa-search"></i>
-                                                </button>
-                                            @endisset
-                                            </div>
-                                        @endcanany
-                                        @canany(['administrador','capturista'])
-                                            <div class="form-group">
-                                                <button type="button" id="nuevo" style='width:40px; height:27px'> <i class="fas fa-user-plus"></i></button>
-                                            </div>
-                                        @isset($banco)
-                                            <div class="form-group">
-                                                <button type="button" id="actualizar" style='width:40px; height:27px'> <i class="fas fa-pen-square"></i></button>
-                                            </div>
-                                        @endisset
-                                        @endcanany
-
-                                        @can('administrador')
-                                            @isset($banco)
-                                            <div class="form-group">
-                                                <a id="eliminar" data-target="#modal-deletebanco-{{$banco->id}}" data-toggle="modal">
-                                                    <button type="button" style='width:40px; height:27px'>
-                                                        <i class="far fa-trash-alt"></i>
+                                            <div class="btn-group">
+                                                <div class="form-group">
+                                                @isset($banco)
+                                                    <button id="buscar" type="button" data-toggle="modal" data-target="#exampleModal" style='width:40px; height:27px'>
+                                                        <i class="fas fa-search"></i>
                                                     </button>
-                                                </a>
-                                            </div>
-                                            @endisset
-                                        @endcan
+                                                @endisset
+                                                </div>
+                                            @endcanany
+                                            @canany(['administrador','capturista'])
+                                                <div class="form-group">
+                                                    <button type="button" id="nuevo" style='width:40px; height:27px'> <i class="fas fa-user-plus"></i></button>
+                                                </div>
+                                                @isset($banco)
+                                                    <div class="form-group">
+                                                        <button type="button" id="actualizar" style='width:40px; height:27px'> <i class="fas fa-pen-square"></i></button>
+                                                    </div>
+                                                @endisset
+                                            @endcanany
+                                            @can('administrador')
+                                                @isset($banco)
+                                                <div class="form-group">
+                                                    <a id="eliminar" data-target="#modal-deletebanco-{{$banco->id}}" data-toggle="modal">
+                                                        <button type="button" style='width:40px; height:27px'>
+                                                            <i class="far fa-trash-alt"></i>
+                                                        </button>
+                                                    </a>
+                                                </div>
+                                                @endisset
+                                            @endcan
                                         </div>
                                     </div>
                                 </div>
