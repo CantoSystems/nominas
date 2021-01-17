@@ -16,12 +16,13 @@
                 <div class="card-header p-0 pt-1">
                   <ul class="nav nav-tabs" id="custom-tabs-one-tab" role="tablist">
                     <li class="nav-item">
-                      <a class="nav-link active" id="custom-tabs-one-personal-tab" data-toggle="pill" href="#custom-tabs-one-home" role="tab" aria-controls="custom-tabs-one-personal" aria-selected="true">Personal</a>
-
+                      <a class="nav-link active" id="custom-tabs-one-personal-tab" data-toggle="pill" href="#custom-tabs-one-personal" role="tab" aria-controls="custom-tabs-one-personal" aria-selected="true">Personal</a>
                     </li>
+
                     <li class="nav-item">
                       <a class="nav-link" id="custom-tabs-one-profile-tab" data-toggle="pill" href="#custom-tabs-one-profile" role="tab" aria-controls="custom-tabs-one-profile" aria-selected="false">Personal 2</a>
                     </li>
+
                     <li class="nav-item">
                       <a class="nav-link" id="custom-tabs-one-messages-tab" data-toggle="pill" href="#custom-tabs-one-messages" role="tab" aria-controls="custom-tabs-one-messages" aria-selected="false">Personal 3</a>
                     </li>
@@ -303,7 +304,7 @@
                         </div>
                     </div><!--Fin  Row Personal-->
                     <!--Inicio Personal 2-->
-                    <div class="tab-pane fade" id="custom-tabs-one-profile" role="tabpanel" aria-labelledby="custom-tabs-one-profile-tab">
+                    <div class="tab-pane fade" id="custom-tabs-dos-perfil" role="tabpanel" aria-labelledby="custom-tabs-dos-perfil-tab-tab">
                       <div class="form-row">
                         <div class="col-md-3 mb-2">
                           <label for="validationDefault01">Enfermedad Crónica</label>
