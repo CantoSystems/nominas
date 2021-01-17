@@ -40,7 +40,7 @@
 
              
                 <a data-target="#modalmodificaempleado{{$persona->id_emp}}" data-toggle="modal">
-                  <button type="button" name="acciones" value="visulizar" style='width:70px; height:40px; align-items:center;'  >
+                  <button type="button" style='width:70px; height:40px; align-items:center;'  >
                     <i class="fas fa-eye"></i>
                   </button></th>
                 </a>
@@ -52,12 +52,9 @@
                  </a>
                  <!--Incluye los modales por cada accion de eliminar 
                     - generando sean direfentes los ID -->
-                        @include('empleados.modalcrudinicialempleados')
+                        
                         @include('empleados.modaldeleteempleado')
-                        @include('empleados.modalmostrarporid')
-    
-                
-                                
+                        @include('empleados.modalmostrarporid')                
               </div>
             </td>
           </tr>
@@ -68,7 +65,7 @@
 </div>
 
 </div>
-
+@include('empleados.modalcrudinicialempleados')
  
 
 @endsection
