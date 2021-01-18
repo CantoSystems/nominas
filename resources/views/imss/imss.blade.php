@@ -252,7 +252,7 @@
                                         <input type="number" name="cuotapatron" class="form-control" step="0.01" >
                                     </div>
                                 </div>
-                                <div id="divcuotapatron2" class="col-sm-6" style="display: block;">
+                                <div id="divcuotapatron2" class="col-sm-6" style="display: none;">
                                     <div class="form-group">
                                         <label>2da Cuota (Patrón):</label>
                                         <input type="number" name="cuotapatron2" class="form-control" step="0.01" >
@@ -325,15 +325,17 @@
                                                     @endisset
                                                 @endcanany
                                                 @can('administrador')
-                                                    @isset($imsss)
-                                                        <div class="form-group">
-                                                            <a id="eliminar" data-target="#modal-deleteimsss-{{$ims->id_imss}}" data-toggle="modal">
-                                                                <button type="button" style='width:40px; height:27px'>
-                                                                    <i class="far fa-trash-alt"></i>
-                                                                </button>
-                                                            </a>
-                                                        </div>
-                                                    @endisset
+                                                    @if(!empty($ims))
+                                                        @isset($imsss)
+                                                            <div class="form-group">
+                                                                <a id="eliminar" data-target="#modal-deleteimsss-{{$ims->id_imss}}" data-toggle="modal">
+                                                                    <button type="button" style='width:40px; height:27px'>
+                                                                        <i class="far fa-trash-alt"></i>
+                                                                    </button>
+                                                                </a>
+                                                            </div>
+                                                        @endisset
+                                                    @endif
                                                 @endcan
                                             </div>
                                     </div>
@@ -367,4 +369,7 @@
 @if(!empty($ims))
   @include('imss.modaldeleteimss')
 @endif
+
+@include('imss.modalsearchimss')
+
 @endsection
