@@ -69,7 +69,7 @@ class EmpleadosController extends Controller{
                 return redirect()->route('empleados.index');
             break;
             case 'actualizar':
-                $this->actualizar_empleado($request);
+                $this->actualizar($request);
                 return redirect()->route('empleados.index');
             break;
             
@@ -82,7 +82,7 @@ class EmpleadosController extends Controller{
         }
     }
 
-    public function actualizar_empleado($datos){
+    public function actualizar_empleado(Request $datos,$id_emp){
         $clv=Session::get('clave_empresa');
 
         $clv_empresa=$this->conectar($clv);
@@ -310,6 +310,7 @@ class EmpleadosController extends Controller{
                      ,'ptu'=>$ptu
                      ,'observaciones'=>$datos->observaciones]);
         }
+        return redirect()->route("empleados.index");
     }
 
     public function registrar_empleado($datos){

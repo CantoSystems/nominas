@@ -102,6 +102,7 @@ Route::delete('/conceptos/{id}','ConceptosController@eliminaconcepto')->name('co
 //Empleados
 Route::get('/empleados', 'EmpleadosController@index')->name('empleados.index');
 Route::delete('/empleados/{id_emp}','EmpleadosController@eliminaempleado')->name('empleados.eliminaempleado');
+Route::patch('/empleados/{id_emp}','EmpleadosController@actualizar_empleado')->name('empleados.actualizarempleado');
 
 //Usuarios
 Route::get('/usuarios','UsersController@index')->name('usuarios.index');

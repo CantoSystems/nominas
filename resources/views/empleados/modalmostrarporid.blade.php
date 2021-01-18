@@ -16,21 +16,26 @@
                 <div class="card-header p-0 pt-1">
                   <ul class="nav nav-tabs" id="custom-tabs-one-tab" role="tablist">
                     <li class="nav-item">
-                      <a class="nav-link active" id="custom-tabs-one-personal-tab" data-toggle="pill" href="#custom-tabs-one-home" role="tab" aria-controls="custom-tabs-one-personal" aria-selected="true">Personal</a>
+                      <a class="nav-link active" id="custom-tabs-one-personal-tab" data-toggle="pill" href="#custom-tabs-one-personal" role="tab" aria-controls="custom-tabs-one-personal" aria-selected="true">Personal</a>
+                    </li>
 
-                    </li>
                     <li class="nav-item">
-                      <a class="nav-link" id="custom-tabs-one-profile-tab" data-toggle="pill" href="#custom-tabs-one-profile" role="tab" aria-controls="custom-tabs-one-profile" aria-selected="false">Personal 2</a>
+                      <a class="nav-link" id="custom-tabs-dos-perfil-tab" data-toggle="pill" href="#custom-tabs-dos-perfil" role="tab" aria-controls="custom-tabs-dos-perfil" aria-selected="false">Personal 2</a>
                     </li>
+
                     <li class="nav-item">
-                      <a class="nav-link" id="custom-tabs-one-messages-tab" data-toggle="pill" href="#custom-tabs-one-messages" role="tab" aria-controls="custom-tabs-one-messages" aria-selected="false">Personal 3</a>
+                      <a class="nav-link" id="custom-tabs-tres-perosnal3-tab" data-toggle="pill" href="#custom-tabs-tres-personal3" role="tab" aria-controls="custom-tabs-tres-personal3" aria-selected="false">Personal 3</a>
                     </li>
+
                     <li class="nav-item">
-                      <a class="nav-link" id="custom-tabs-one-tools-tab" data-toggle="pill" href="#custom-tabs-one-tools" role="tab" aria-controls="custom-tabs-one-tools" aria-selected="false">Contratación</a>
+                      <a class="nav-link" id="custom-tabs-cuatro-contratacion-tab" data-toggle="pill" href="#custom-tabs-cuatro-contratacion" role="tab" aria-controls="custom-tabs-cuatro-contratacion" aria-selected="false">Contratación</a>
                     </li>
+
                     <li class="nav-item">
-                      <a class="nav-link" id="custom-tabs-one-settings-tab" data-toggle="pill" href="#custom-tabs-one-settings" role="tab" aria-controls="custom-tabs-one-settings" aria-selected="false">Referencias nuevas</a>
+                      <a class="nav-link" id="custom-tabs-cinco-referencias-tab" data-toggle="pill" href="#custom-tabs-cinco-referencias" role="tab" aria-controls="custom-tabs-cinco-referencias" aria-selected="false">Referencias nuevas</a>
                     </li>
+
+
                   </ul>
                 </div><!--Final Cabeceras-->
                
@@ -40,7 +45,10 @@
                   <div class="tab-content" id="custom-tabs-one-tabContent">
                     <!--Inicio Personal-->
                      <div class="tab-pane fade show active" id="custom-tabs-one-personal" role="tabpanel" aria-labelledby="custom-tabs-one-personal-tab">
-                      <form method="GET" action="{{route('empleados.index')}}"><!--Inicio FORM-->
+                      <form method="POST" action="{{route('empleados.actualizarempleado',$persona->id_emp)}}">
+                        @csrf
+                        @method('PATCH')
+                        <!--Inicio FORM-->
                         <!--Personal 1-->
                         <div class="form-row">
                           <div class="col-md-1 mb-2">
@@ -48,7 +56,7 @@
                             <input type="text" class="form-control" name="clave_empleado" onkeypress="return numeros(event)" maxlength="4" 
                             value="{{ $persona->clave_empleado ?? ''}}">
                             <input type="hidden" class="form-control" name="id_emp" 
-                            value="{{ $perona->id_emp ?? ''}}">
+                            value="{{ $persona->id_emp ?? ''}}">
                           </div>
                           <div class="col-md-2">
                             <label for="validationDefault02">Clasificación</label>
@@ -303,7 +311,7 @@
                         </div>
                     </div><!--Fin  Row Personal-->
                     <!--Inicio Personal 2-->
-                    <div class="tab-pane fade" id="custom-tabs-one-profile" role="tabpanel" aria-labelledby="custom-tabs-one-profile-tab">
+                    <div class="tab-pane fade" id="custom-tabs-dos-perfil" role="tabpanel" aria-labelledby="custom-tabs-dos-perfil-tab-tab">
                       <div class="form-row">
                         <div class="col-md-3 mb-2">
                           <label for="validationDefault01">Enfermedad Crónica</label>
@@ -426,7 +434,7 @@
                       </div><!--Fin  Row Personal 1-->
                     </div><!--Fin Personal 2-->
                     <!--Inicio Personal 3-->
-                    <div class="tab-pane fade" id="custom-tabs-one-messages" role="tabpanel" aria-labelledby="custom-tabs-one-messages-tab">
+                    <div class="tab-pane fade" id="custom-tabs-tres-personal3" role="tabpanel" aria-labelledby="custom-tabs-tres-personal3-tab">
                       <div class="form-row">
                         <div class="col-sm-12">
                           <label for="" style="text-align: left;">
@@ -567,7 +575,7 @@
                       </div><!--Final Row Personal 2-->
                     </div><!--Final Personal 3-->
                     <!--Inicio Referencias-->
-                    <div class="tab-pane fade" id="custom-tabs-one-settings" role="tabpanel" aria-labelledby="custom-tabs-one-settings-tab">
+                    <div class="tab-pane fade" id="custom-tabs-cinco-referencias" role="tabpanel" aria-labelledby="custom-tabs-cinco-referencias-tab">
                       <!--Inicio Row Referencias-->
                       <div class="form-row">
                         <!--Inicio Titulos Referencias-->
@@ -806,7 +814,7 @@
                       </div><!--Final Row Referencias-->
                     </div>
                     <!--Inicio Contratación-->
-                    <div class="tab-pane fade" id="custom-tabs-one-tools" role="tabpanel" aria-labelledby="custom-tabs-one-tools-tab">
+                    <div class="tab-pane fade" id="custom-tabs-cuatro-contratacion" role="tabpanel" aria-labelledby="custom-tabs-cuatro-contratacion-tab">
                       <!--Inicio Row contratación-->
                       <div class="form-row">
                         <div class="col-md-3 mb-3">
@@ -1097,20 +1105,14 @@
               
                  
                  
-                    
-
+            
                       <div class="col-sm-6">
                         <div class="card-body">
                           <div class="margin">
                             <div class="btn-group">
                               <div class="form-group">
-                                  <button type="button" id="nuevo" style='width:70px; height:40px'><i class="fas fa-user-plus"></i></button>
+                                <button type="button" id="actualizarporid" style='width:70px; height:40px'> <i class="fas fa-pen-square"></i></button>
                               </div>
-                              <!--
-                              <div class="form-group">
-                                <button type="button" id="actualizar" style='width:70px; height:40px'> <i class="fas fa-pen-square"></i></button>
-                              </div>-->
-                              
                             </div>
                           </div>
                         </div>
@@ -1122,10 +1124,10 @@
                           <div class="margin">
                             <div class="btn-group">
                               <div class="form-group">
-                                <button id="nuevo_reg" name="acciones" value="registrar" type="submit" style="display: none;width:70px; height:40px"><i class="fas fa-save"></i></button>
+                                <button id="prueba" type="submit" style="display: none;width:70px; height:40px"><i class="fas fa-save"></i></button>
                               </div>
                               <div class="form-group">
-                                  <button name="acciones" value="cancelar" id="cancelar_reg" type="submit" style="display: none;width:70px; height:40px"><i class="far fa-window-close"></i></button>
+                                  <button name="acciones" value="cancelar" id="cancelar_actualizar" style="display: none;width:70px; height:40px"><i class="far fa-window-close"></i></button>
                               </div>
                             </div>
                           </div>
