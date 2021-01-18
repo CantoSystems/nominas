@@ -19,17 +19,15 @@ class IMSSController extends Controller{
                 $imsss = IMSS::all();
                 return view('imss.imss', compact('imss','imsss'));
                 break;
-            /*case 'atras':
-                $id= IMSS::where("id_imss",$clv)->first();
-                $imss= IMSS::where('id_imss','<',$id->id)
-                ->orderBy('id_imss','desc')
-                ->first();
-                if(is_null($imss)){
+            case 'atras':
+                $id= IMSS::where('id_imss',$clv)->first();
+                $imss= IMSS::where('id_imss','<',$id->id_imss)->orderBy('id_imss','desc')->first();
+                if($imss==""){
                     $imss= IMSS::get()->last();
                 }
                 $imsss=IMSS::all();
                 return view('imss.imss', compact('imss','imsss'));
-            break;*/
+            break;
             case 'siguiente':
                 $ims = IMSS::where('id_imss',$clv)->first();
                 $indic= $ims->id_imss;
@@ -61,14 +59,14 @@ class IMSSController extends Controller{
             case 'cancelar':
                 return redirect()->route('imss.acciones');
                 break;
-            /*case 'buscar':
-                $banco = Banco::where('nombre_banco',$request->busca)->first();
-                if($banco==""){
-                    $banco= Banco::first();
+            case 'buscar':
+                $imss = IMSS::where('concepto',$request->busca)->first();
+                if($imss==""){
+                    $imss= IMSS::first();
                 }
-                $bancos= Banco::all();
-                return view('bancos.bancos',compact('banco','bancos'));
-            break;*/
+                $imsss= IMSS::all();
+                return view('imss.imss', compact('imss','imsss'));
+            break;
             default:
                 # code...
             break;
@@ -96,20 +94,20 @@ class IMSSController extends Controller{
 
     public function actualizar($datos){
         /*$datos->validate([
-              'clave_banco' => 'required',
-              'nombre_banco' => 'required',
-            ]);*/
-        $idimss= IMSS::where('id_imss',$datos->id_imss)->first();
-        $idimss->concepto = $datos->seguroIMSS;
-        $idimss->prestaciones = $datos->prestacionIMSS;
-        $idimss->cuotapatron1 = $datos->cuotapatron;
+            'clave_banco' => 'required',
+            'nombre_banco' => 'required',
+        ]);*/
+        $imss = IMSS::where('id_imss',$datos->id_imss)->first();
+        $imss->concepto = $datos->seguroIMSS;
+        $imss->prestaciones = $datos->prestacionIMSS;
+        $imss->cuotapatron1 = $datos->cuotapatron;
         if($datos->cuotapatron2!=""){
-            $idimss->cuotapatron2 = $datos->cuotapatron2;
+            $imss->cuotapatron2 = $datos->cuotapatron2;
         }
-        $idimss->cuotatrabajador = $datos->cuotatrabajador;
-        $idimss->cuotatotal = $datos->cuotatotal;
-        $idimss->base = $datos->basesalarial;
-        $idimss->save();
+        $imss->cuotatrabajador = $datos->cuotatrabajador;
+        $imss->cuotatotal = $datos->cuotatotal;
+        $imss->base = $datos->basesalarial;
+        $imss->save();
     }
 
     public function eliminarimss($id_imss){
