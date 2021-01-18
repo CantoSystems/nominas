@@ -1,4 +1,4 @@
-<div class="modal fade bs-example-modal-sm" tabindex="-1" id="modal-deleteempleado-{{$emp->id_emp}}" role="dialog" aria-hidden="true">
+<div class="modal fade bs-example-modal-sm" tabindex="-1" id="modaldeleteempleado{{$persona->id_emp}}" role="dialog" aria-hidden="true">
 	<div class="modal-dialog modal-sm">
 		<div class="modal-content">
 			<div class="modal-header">
@@ -10,12 +10,12 @@
 				</button>
 			</div>
 			<div class="modal-body">
-				<form action="{{ route('empleados.eliminaempleado', $emp->id_emp )}}" method="post">
+				<form action="{{ route('empleados.eliminaempleado', $persona->id_emp)}}" method="post">
 					@method('DELETE')
 					@csrf
 					<div class="row">
 						<h5 style="text-align: center;">¿Estas seguro de eliminar este empleado: 
-							<strong>{{$emp->nombre}}</strong>?
+							<strong>{{$persona->nombre}}</strong>?
 						</h5>
 					</div>
 					<div class="modal-footer">

@@ -723,13 +723,13 @@ class EmpleadosController extends Controller{
         return $rest;
     }
 
-    public function eliminaempleado($id){
+    public function eliminaempleado($id_emp){
         $clv= Session::get('clave_empresa');
         $clv_empresa=$this->conectar($clv);
 
         \Config::set('database.connections.DB_Serverr', $clv_empresa);
 
-        $aux1 = DB::connection('DB_Serverr')->table('empleados')->where('id_emp',$id)->delete();
+        $aux1 = DB::connection('DB_Serverr')->table('empleados')->where('id_emp',$id_emp)->delete();
         return redirect()->route('empleados.index');
     }
 }
