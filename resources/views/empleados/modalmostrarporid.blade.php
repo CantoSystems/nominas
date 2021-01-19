@@ -1111,7 +1111,7 @@
                           <div class="margin">
                             <div class="btn-group">
                               <div class="form-group">
-                                <button type="button" id="actualizarporid" style='width:70px; height:40px'> <i class="fas fa-pen-square"></i></button>
+                                <button type="button" class="actualizarporid" style='width:70px; height:40px'> <i class="fas fa-pen-square"></i></button>
                               </div>
                             </div>
                           </div>
@@ -1124,10 +1124,10 @@
                           <div class="margin">
                             <div class="btn-group">
                               <div class="form-group">
-                                <button id="prueba" type="submit" style="display: none;width:70px; height:40px"><i class="fas fa-save"></i></button>
+                                <button class="prueba" type="submit" style="display: none;width:70px; height:40px"><i class="fas fa-save"></i></button>
                               </div>
                               <div class="form-group">
-                                  <button name="acciones" value="cancelar" id="cancelar_actualizar" style="display: none;width:70px; height:40px"><i class="far fa-window-close"></i></button>
+                                  <button name="acciones" value="cancelar" class="cancelar_actualizar" style="display: none;width:70px; height:40px"><i class="far fa-window-close"></i></button>
                               </div>
                             </div>
                           </div>

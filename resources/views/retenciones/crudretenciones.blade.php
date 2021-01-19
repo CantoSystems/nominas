@@ -52,15 +52,14 @@
                                     <div class="form-group">
                                         <label>Limite inferior:</label>
                                         <input type="hidden" name="id" value="" class="form-control"  onkeyup="mayus(this);">
-                                        <input type="text" name="limite_inferior" value="" class="form-control" maxlength = "4" onkeyup="mayus(this);">
+                                        <input type="text" name="limite_inferior" value="{{$retencion->limite_inferior ?? ''}}" class="form-control" maxlength = "4" onkeyup="mayus(this);">
                                     </div>
                                 </div>
 
                                 <div class="col-sm-6">
                                     <div class="form-group">
                                         <label>Cuota fija:</label>
-                                        
-                                        <input type="text" name="cuota_fija" value="" class="form-control"  onkeyup="mayus(this);" onkeypress="return validar(event);" >
+                                        <input type="text" name="cuota_fija" value="{{$retencion->cuota_fija ?? ''}}" class="form-control"  onkeyup="mayus(this);" onkeypress="return validar(event);" >
                                     </div>
                                 </div>
 
@@ -68,7 +67,7 @@
                                     <div class="form-group">
                                         <label>Limite Superior:</label>
                                         
-                                        <input type="text" name="limite_superior" value="" class="form-control"  onkeyup="mayus(this);" onkeypress="return validar(event);" >
+                                        <input type="text" name="limite_superior" value="{{$retencion->limite_superior ?? ''}}" class="form-control"  onkeyup="mayus(this);" onkeypress="return validar(event);" >
                                     </div>
                                 </div>
 
@@ -76,8 +75,23 @@
                                     <div class="form-group">
                                         <label>Porcentaje excedente:</label>
                                         
-                                        <input type="text" name="jporcentaje_excedente" value="" class="form-control"  onkeyup="mayus(this);" onkeypress="return validar(event);" >
+                                        <input type="text" name="porcentaje_excedente" value="{{$retencion->porcentaje_excedente ?? ''}}" class="form-control"  onkeyup="mayus(this);" onkeypress="return validar(event);" >
                                     </div>
+                                </div>
+
+                                <div class="col-sm-12">
+                                    <div class="form-group">
+
+                                    <label>Periodo:</label>  
+                                    <select class="custom-select" name="periodo_retencion">
+                                            <option value=""> 
+                                                Selecciona una opción
+                                            </option>
+                                            <option value="MENSUAL">MENSUAL</option>
+                                            <option value="ANUAL">ANUAL</option>
+                                    </select>
+                                    </div>
+
                                 </div>
                             
                                 
