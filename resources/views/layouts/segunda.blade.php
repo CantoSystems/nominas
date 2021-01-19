@@ -275,10 +275,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
     $('#eliminar').hide();
     $('#buscar').hide();
     });
-    $('#actualizarporid').click(function(){
-      $('#prueba').show();
-      
-      $('#cancelar_actualizar').show();
+    $('.actualizarporid').click(function(){
+      $('.prueba').modal('show');
+      $('.cancelar_actualizar').modal('show');
     });
   })
 </script>
