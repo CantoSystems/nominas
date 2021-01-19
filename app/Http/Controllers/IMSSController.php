@@ -52,10 +52,10 @@ class IMSSController extends Controller{
                 $this->registrar($request);
                 return redirect()->route('imss.acciones');
             break;
-            /*case 'actualizar':
+            case 'actualizar':
                 $this->actualizar($request);
                 return redirect()->route('imss.acciones');
-            break;*/
+            break;
             case 'cancelar':
                 return redirect()->route('imss.acciones');
                 break;
