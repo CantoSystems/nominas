@@ -29,9 +29,9 @@ Route::get('home', 'HomeController@index')->name('home');
     *@author Elizabeth
     *@param id | función Destroy
 */
-
+//empresas
 Route::delete('empresa/{id}', 'EmpresaController@destroy')->name('empresas.destroy');
-Route::get('accciones', 'EmpresaController@acciones')->name('acciones');
+Route::get('accciones', 'EmpresaController@acciones')->name('acciones.empresas');
 Route::get('selecempresa','EmpresaController@seleccionarempresa')->name('seleccionarempresa');
 
 //areas
