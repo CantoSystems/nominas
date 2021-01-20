@@ -368,8 +368,7 @@
 </div>
 @if(!empty($ims))
   @include('imss.modaldeleteimss')
+  @include('imss.modalsearchimss')
 @endif
-
-@include('imss.modalsearchimss')
 
 @endsection
