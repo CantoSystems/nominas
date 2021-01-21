@@ -18,15 +18,24 @@
                                 <th>Limite Superior</th>
                                 <th>Cuota fija</th>
                                 <th>Porcentaje sobre excedente</th>
+                                <th>Periodo</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
+                            @if(isset($isr))
+                                @foreach ($isr as $rtn)
+                                <tr>
                                 <th scope="row">
-
+                                    {{ $rtn->limite_inferior }}  
                                 </th>
-                                <td></td>
+                                <td> {{ $rtn->limite_superior }}</td>
+                                <td>{{ $rtn->cuota_fija }}</td>
+                                <td>{{ $rtn->periodo_retencion }}</td>
+                                <td>{{ $rtn->periodo_retencion }}</td>
                             </tr>
+                                @endforeach
+                            @endif
+                            
 
                         </tbody>
                     </table>
@@ -44,48 +53,83 @@
                     </h3>
                 </div>
                 <div class="card-body">
+                    @if(session()->has('busqueda'))
+                        <div class="alert alert-danger" role="alert">
+                            {{ session('busqueda')}}
+                        </div>
+                    @endif
                     <form action="{{ route('retenciones.index')}}" method="GET" autocomplete="off">
                         <div class="row">
                             <div class="col-sm-6">
                                 <div class="form-group">
                                     <label>Limite inferior:</label>
-                                    <input type="hidden" name="id" value="" class="form-control" onkeyup="mayus(this);">
-                                    <input type="text" name="limite_inferior"
-                                        value="{{$retencion->limite_inferior ?? ''}}" class="form-control" maxlength="4"
-                                        onkeyup="mayus(this);">
+                                    <input type="hidden" name="id" value="{{$retencion->id ?? ''}}" class="form-control" onkeyup="mayus(this);">
+                                    <input  type="number" 
+                                            name="limite_inferior"
+                                            value="{{$retencion->limite_inferior ?? ''}}" 
+                                            class="form-control"
+                                            maxlength="4"
+                                            step="0.1" 
+                                            onkeyup="mayus(this);">
                                 </div>
                             </div>
                             <div class="col-sm-6">
                                 <div class="form-group">
                                     <label>Cuota fija:</label>
-                                    <input type="text" name="cuota_fija" value="{{$retencion->cuota_fija ?? ''}}"
-                                        class="form-control" onkeyup="mayus(this);" onkeypress="return validar(event);">
+                                    <input  type="number" 
+                                            name="cuota_fija" 
+                                            value="{{$retencion->cuota_fija ?? '' }}"
+                                            class="form-control"
+                                            step="0.1" 
+                                            onkeyup="mayus(this);">
                                 </div>
                             </div>
                             <div class="col-sm-6">
                                 <div class="form-group">
                                     <label>Limite Superior:</label>
-                                    <input type="text" name="limite_superior"
-                                        value="{{$retencion->limite_superior ?? ''}}" class="form-control"
-                                        onkeyup="mayus(this);" onkeypress="return validar(event);">
+                                    <input  type="number" 
+                                            name="limite_superior"
+                                            value="{{$retencion->limite_superior ?? ''}}" 
+                                            class="form-control"
+                                            step="0.1"
+                                            onkeyup="mayus(this);">
                                 </div>
                             </div>
                             <div class="col-sm-6">
                                 <div class="form-group">
                                     <label>Porcentaje excedente:</label>
-                                    <input type="text" name="porcentaje_excedente"
-                                        value="{{$retencion->porcentaje_excedente ?? ''}}" class="form-control"
-                                        onkeyup="mayus(this);" onkeypress="return validar(event);">
+                                    <input  type="number" 
+                                            name="porcentaje_excedente"
+                                            value="{{$retencion->porcentaje_excedente ?? ''}}" 
+                                            class="form-control"
+                                            step="0.1"
+                                            onkeyup="mayus(this);">
                                 </div>
                             </div>
                             <div class="col-sm-12">
                                 <div class="form-group">
                                     <label>Periodo:</label>
+                                    @if(isset($retencion))
+                                        @if($retencion->periodo_retencion == 'MENSUAL')
+                                        <select class="custom-select" name="periodo_retencion">
+                                            <option value="{{$retencion->periodo_retencion}}">{{$retencion->periodo_retencion}}</option>
+                                             <option value="ANUAL">ANUAL</option>
+                                        </select>
+                                        @else
+                                        <select class="custom-select" name="periodo_retencion">
+                                        <option value="{{$retencion->periodo_retencion}}">{{$retencion->periodo_retencion}}</option>
+                                             <option value="MENSUAL">MENSUAL</option>
+                                        </select>
+
+                                        @endif
+                                    @else
                                     <select class="custom-select" name="periodo_retencion">
                                         <option value="">Selecciona una opción</option>
                                         <option value="MENSUAL">MENSUAL</option>
                                         <option value="ANUAL">ANUAL</option>
                                     </select>
+                                    @endif
+
                                 </div>
                             </div>
                             @canany(['administrador','capturista','reportes'])
@@ -93,7 +137,7 @@
                                     <div class="card-body">
                                         <div class="margin">
                                             <div class="btn-group">
-                                                @isset($banco)
+                                                @isset($retencion)
                                                 <div class="form-group">
                                                     <button type="submit" name="acciones" value="primero" id="primero"
                                                         style='width:40px; height:27px'><i
@@ -126,7 +170,7 @@
                                         @canany(['administrador','capturista','reportes'])
                                         <div class="btn-group">
                                             <div class="form-group">
-                                                @isset($banco)
+                                                @isset($retencion)
                                                     <button id="buscar" type="button" data-toggle="modal"
                                                         data-target="#exampleModal" style='width:40px; height:27px'>
                                                         <i class="fas fa-search"></i>
@@ -139,7 +183,7 @@
                                                     <button type="button" id="nuevo" style='width:40px; height:27px'> <i
                                                             class="fas fa-user-plus"></i></button>
                                                 </div>
-                                                @isset($banco)
+                                                @isset($retencion)
                                                     <div class="form-group">
                                                         <button type="button" id="actualizar" style='width:40px; height:27px'>
                                                             <i class="fas fa-pen-square"></i></button>
@@ -147,9 +191,9 @@
                                                 @endisset
                                             @endcanany
                                             @can('administrador')
-                                                @isset($banco)
+                                                @isset($retencion)
                                                     <div class="form-group">
-                                                        <a id="eliminar" data-target="#modal-deletebanco-{{$banco->id}}"
+                                                        <a id="eliminar" data-target="#modal-deleteretencion-{{$retencion->id}}"
                                                             data-toggle="modal">
                                                             <button type="button" style='width:40px; height:27px'>
                                                                 <i class="far fa-trash-alt"></i>
@@ -187,6 +231,11 @@
                             </div>
                         </div>
                     </form>
+                    @isset($retencion)
+                        @include('retenciones.modaldeleteretencion')
+                        @include('retenciones.modalsearchretenciones')
+                    @endisset
+
                 </div>
             </div>
         </div>
