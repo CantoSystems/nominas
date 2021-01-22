@@ -287,6 +287,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
     $("#example1").DataTable({
       "responsive": true,
       "autoWidth": false,
+      
     });
     $('#example2').DataTable({
       "paging": true,
