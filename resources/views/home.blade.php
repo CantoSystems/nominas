@@ -17,7 +17,7 @@
         <div class="col-md-8">
             <select class="custom-select" name="empresa">
                 @foreach($empresas as $empresa)
-                  <option value="{{$empresa->clave}}">{{$empresa->nombre}}</option> 
+                  <option value="{{$empresa->clave}}">{{$empresa->nombre}}  {{$empresa->nombre_nomina}} </option> 
                 @endforeach
             </select>
          </div>    

@@ -5,7 +5,12 @@
         <h3 class="card-title">Empresas</h3>
     </div>
     <div class="card-body">
-        <form action="{{ route('acciones')}}" method="GET" autocomplete="off">
+         @if(session()->has('busqueda'))
+                        <div class="alert alert-danger" role="alert">
+                            {{ session('busqueda')}}
+                        </div>
+                    @endif
+        <form action="{{ route('acciones.empresas')}}" method="GET" autocomplete="off">
     		<div class="row">
     			<div class="col-sm-6">
                     <div class="form-group">
@@ -24,6 +29,17 @@
                             <input type="text" name="clave" class="form-control" value="{{$empresa->clave}}" readonly onkeyup="mayus(this);">
                         @else
                             <input type="text" name="clave" class="form-control" value="" readonly onkeyup="mayus(this);">
+                        @endif
+
+                    </div>
+                </div>
+                 <div class="col-sm-5">
+                    <div class="form-group">
+                        <label>Nombre Nómina:</label>
+                        @if(isset($empresa))
+                            <input type="text" name="nombre_nomina" class="form-control" value="{{$empresa->nombre_nomina}}" onkeyup="mayus(this);">
+                        @else
+                            <input type="text" name="nombre_nomina" class="form-control" value="" onkeyup="mayus(this);">
                         @endif
 
                     </div>
@@ -60,7 +76,7 @@
                         @endif
                     </div>
                 </div>
-                <div class="col-sm-5">
+                <div class="col-sm-4">
                     <div class="form-group">
                         <label>Calle:</label>
                         @if(isset($empresa))
@@ -90,7 +106,7 @@
                         @endif
                     </div>
                 </div>
-                <div class="col-sm-5">
+                <div class="col-sm-4">
                     <div class="form-group">
                         <label>Colonia:</label>
                         @if(isset($empresa))
@@ -101,7 +117,7 @@
 
                     </div>
                 </div>
-                <div class="col-sm-3">
+                <div class="col-sm-4">
                     <div class="form-group">
                         <label>Municipio:</label>
                         @if(isset($empresa))
@@ -111,7 +127,7 @@
                         @endif
                     </div>
                 </div>
-                <div class="col-sm-4">
+                <div class="col-sm-3">
                     <div class="form-group">
                         <label>Ciudad:</label>
                         @if(isset($empresa))
@@ -122,7 +138,7 @@
 
                     </div>
                 </div>
-                <div class="col-sm-4">
+                <div class="col-sm-3">
                     <div class="form-group">
                         <label>País:</label>
                         @if(isset($empresa))
@@ -132,7 +148,7 @@
                         @endif
                     </div>
                 </div>
-                <div class="col-sm-5">
+                <div class="col-sm-3">
                     <div class="form-group">
                         <label>Representante legal:</label>
                         @if(isset($empresa))
@@ -203,6 +219,15 @@
                     <div class="card-body">
                         <div class="margin">
                             <div class="btn-group">
+                                @canany(['administrador','capturista','reportes'])
+                                    @isset($empresa)
+                                        <div class="form-group">
+                                            <button id="buscar" type="button" data-toggle="modal" data-target="#exampleModal" style='width:70px; height:40px'>
+                                                    <i class="fas fa-search"></i>
+                                            </button>
+                                        </div>
+                                    @endisset
+                                @endcanany
                                 @canany(['administrador','capturista'])
                                 <div class="form-group">
                                     <button type="button" id="nuevo" style='width:70px; height:40px'> <i class="fas fa-user-plus"></i></button>
@@ -254,6 +279,7 @@
     	</form>
         @isset($empresa)
             @include('empresas.modaldelete')
+            @include('empresas.modalsearchempresas')
         @endisset
    	</div> 	
 </div>	
