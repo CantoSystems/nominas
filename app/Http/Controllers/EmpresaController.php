@@ -73,6 +73,33 @@ class EmpresaController extends Controller{
                 $empresa= Empresa::first();
                 return view('empresas.crudempresas', compact('empresa'));
             break;
+            case 'buscar':
+            /*
+                $criterio= $request->opcion;
+                if($criterio == 'clave'){
+                    $empresa= Empresa::where('clave',$request->busca)->first();
+
+                    if($empresa == "")
+                        {
+                          return back()->with('busqueda','Coincidencia no encontrada');
+                        }
+                     
+                    return view('empresas.crudempresas', compact('empresa'));
+
+
+                }else if($criterio == 'nombre_nomina'){
+                    $empresa= Empresa::where('nombre_nomina', 'LIKE', '%'.$request->busca.'%')->first();
+
+                    if($empresa == "")
+                        {
+                          return back()->with('busqueda','Coincidencia no encontrada');
+                        }
+                     
+                    return view('empresas.crudempresas', compact('empresa'));
+
+
+                }*/
+                break;
             default:
                 # code...
             break;
@@ -90,6 +117,7 @@ class EmpresaController extends Controller{
     public function actualizar($datos){
         $emp= Empresa::where('clave',$datos->clave)->first();
         $emp->nombre= $datos->nombre;
+        $emp->nombre_nomina= $datos->nombre_nomina;
         $emp->rfc= $datos->rfc;
         $emp->segurosocial= $datos->segurosocial;
         $emp->registro_estatal= $datos->registro_estatal;
@@ -142,7 +170,14 @@ class EmpresaController extends Controller{
         $empresa->rfc= $datos->rfc;
         $rfc1=$datos->rfc;
         $clave=substr($rfc1,0,4);
-        $empresa->clave= $clave;
+        $clavenueva=substr($rfc1,2,4);
+        $coincidencia_rfc = Empresa::where('clave','=',$clave)->get();
+
+        if($coincidencia_rfc->count() == 0){
+            $empresa->clave= $clave;
+        }else{
+            $empresa->clave= $clavenueva;
+        }
 
         DB::statement('create database '.$empresa->clave);
             $clv= $empresa->clave;
@@ -387,6 +422,7 @@ class EmpresaController extends Controller{
         });
 
         $empresa->nombre= $datos->nombre;
+        $empresa->nombre_nomina= $datos->nombre_nomina;
         $empresa->rfc= $datos->rfc;
         $empresa->segurosocial= $datos->segurosocial;
         $empresa->registro_estatal= $datos->registro_estatal;

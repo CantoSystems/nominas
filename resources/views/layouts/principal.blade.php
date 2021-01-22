@@ -80,7 +80,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                with font-awesome or any other icon font library -->
         
           <li class="nav-item">
-            <a href="{{route('acciones')}}" class="nav-link">
+            <a href="{{route('acciones.empresas')}}" class="nav-link">
               <i class="nav-icon fas fa-th"></i>
               <p>
                 Empresas
