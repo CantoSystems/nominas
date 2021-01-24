@@ -2,34 +2,7 @@
 @section('content')
 <div class="container">
     <div class="row">
-        <div class="col">
-            <div class="card card-secondary">
-                <div class="card-header">
-                    <h3 class="card-title">Tabla IMSS</h3>
-                </div>
-                <div class="card-body">
-                    <table id="example1" class="table table-bordered table-striped">
-                        <thead>
-                            <tr>
-                                <th>Seguro y concepto</th>
-                                <th>Prestación</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @if(isset($imsss))
-                                @foreach ($imsss as $ims)
-                                    <tr>
-                                        <th scope="row">{{ $ims->concepto }}</th>
-                                        <td>{{ $ims->prestaciones }}</td>
-                                    </tr>
-                                @endforeach
-                            @endif
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-
+        
         <div class="col">
             <div class="card card-secondary">
                 <div class="card-header">
@@ -39,7 +12,7 @@
                     <form action="{{ route('imss.acciones')}}" method="GET" autocomplete="off">
                         <div class="row">
                             @if(isset($imss))
-                                <div class="col-sm-6">
+                                <div class="col-sm-4">
                                     <div class="form-group">
                                         <label>Seguro y concepto:</label>
                                         <select id="seguroIMSS" name="seguroIMSS" class="custom-select">
@@ -103,7 +76,7 @@
                                         </select>
                                     </div>
                                 </div>
-                                <div class="col-sm-6">
+                                <div class="col-sm-4">
                                     <div class="form-group">
                                         <label>Prestaciones:</label>
                                         <select id="prestacionIMSS" name="prestacionIMSS" class="custom-select">
@@ -183,7 +156,7 @@
                                         </select>
                                     </div>
                                 </div>
-                                <div class="col-sm-6">
+                                <div class="col-sm-4">
                                     <div class="form-group">
                                         <label>Cuota (Patrón):</label>
                                         <input type="hidden" name="id_imss" value="{{ $imss->id_imss }}">
@@ -191,33 +164,42 @@
                                     </div>
                                 </div>
                                 @if($ims->cuotapatron2!=null)
-                                    <div id="divcuotapatron2" class="col-sm-6">
+                                    <div id="divcuotapatron2" class="col-sm-4">
                                         <div class="form-group">
                                             <label>2da Cuota (Patrón):</label>
                                             <input type="number" name="cuotapatron2" value="{{ $imss->cuotapatron2 }}" class="form-control" step="0.01" >
                                         </div>
                                     </div>
                                 @endif
-                                <div class="col-sm-6">
+                                <div class="col-sm-4">
                                     <div class="form-group">
                                         <label>Cuota (Trabajador):</label>
                                         <input type="number" name="cuotatrabajador" value="{{ $imss->cuotatrabajador }}" class="form-control" step="0.01">
                                     </div>
                                 </div>
-                                <div class="col-sm-6">
-                                    <div class="form-group">
-                                        <label>Cuota (Total):</label>
-                                        <input type="number" name="cuotatotal" value="{{ $imss->cuotatotal }}" class="form-control" step="0.01">
-                                    </div>
-                                </div>
-                                <div class="col-sm-6">
+                                
+                                <div class="col-sm-4">
                                     <div class="form-group">
                                         <label>Base Salarial:</label>
-                                        <input type="number" name="basesalarial" value="{{ $imss->base }}" class="form-control" step="0.01">
+                                        @if($imss->base == 'SBC')
+                                        <select class="custom-select" name="basesalarial">
+                                            <option value="">Selecciona una opción</option>
+                                            <option value="{{ $imss->base }}">{{ $imss->base }}</option>
+                                             <option value="UMA">UMA</option>
+                                        </select>
+                                        @else
+                                        <select class="custom-select" name="basesalarial">
+                                            <option value="">Selecciona una opción</option>
+                                            <option value="{{ $imss->base }}">{{ $imss->base }}</option>
+                                             <option value="SBC">SBC</option>
+                                        </select>
+                                        @endif
+
+                                        
                                     </div>
                                 </div>
                             @else
-                                <div class="col-sm-6">
+                                <div class="col-sm-4">
                                     <div class="form-group">
                                         <label>Seguro y concepto:</label>
                                         <select id="seguroIMSS" name="seguroIMSS" class="custom-select">
@@ -231,7 +213,7 @@
                                         </select>
                                     </div>
                                 </div>
-                                <div class="col-sm-6">
+                                <div class="col-sm-4">
                                     <div class="form-group">
                                         <label>Prestaciones:</label>
                                         <select id="prestacionIMSS" name="prestacionIMSS" class="custom-select">
@@ -246,34 +228,33 @@
                                         </select>
                                     </div>
                                 </div>
-                                <div class="col-sm-6">
+                                <div class="col-sm-4">
                                     <div class="form-group">
                                         <label>Cuota (Patrón):</label>
                                         <input type="number" name="cuotapatron" class="form-control" step="0.01" >
                                     </div>
                                 </div>
-                                <div id="divcuotapatron2" class="col-sm-6" style="display: none;">
+                                <div id="divcuotapatron2" class="col-sm-4" style="display: none;">
                                     <div class="form-group">
                                         <label>2da Cuota (Patrón):</label>
                                         <input type="number" name="cuotapatron2" class="form-control" step="0.01" >
                                     </div>
                                 </div>
-                                <div class="col-sm-6">
+                                <div class="col-sm-4">
                                     <div class="form-group">
                                         <label>Cuota (Trabajador):</label>
                                         <input type="number" name="cuotatrabajador" class="form-control" step="0.01">
                                     </div>
                                 </div>
-                                <div class="col-sm-6">
-                                    <div class="form-group">
-                                        <label>Cuota (Total):</label>
-                                        <input type="number" name="cuotatotal" class="form-control" step="0.01">
-                                    </div>
-                                </div>
-                                <div class="col-sm-6">
+                            
+                                <div class="col-sm-4">
                                     <div class="form-group">
                                         <label>Base Salarial:</label>
-                                        <input type="number" name="basesalarial" class="form-control" step="0.01">
+                                    <select class="custom-select" name="basesalarial">
+                                        <option value="">Selecciona una opción</option>
+                                        <option value="SBC">SBC</option>
+                                        <option value="UMA">UMA</option>
+                                    </select>
                                     </div>
                                 </div>
                             @endif
