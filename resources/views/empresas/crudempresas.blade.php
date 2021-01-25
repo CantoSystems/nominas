@@ -2,15 +2,15 @@
 @section('content')
 <div class="card card-secondary">
 	<div class="card-header">
-        <h3 class="card-title">Empresas</h3>
+        <h3 class="card-title">Nóminas</h3>
     </div>
     <div class="card-body">
          @if(session()->has('busqueda'))
-                        <div class="alert alert-danger" role="alert">
-                            {{ session('busqueda')}}
-                        </div>
-                    @endif
-        <form action="{{ route('acciones.empresas')}}" method="GET" autocomplete="off">
+            <div class="alert alert-danger" role="alert">
+                 {{ session('busqueda')}}
+            </div>
+        @endif
+        <form action="{{ route('nominas.empresas')}}" method="GET" autocomplete="off">
     		<div class="row">
     			<div class="col-sm-6">
                     <div class="form-group">
@@ -26,9 +26,10 @@
                     <div class="form-group">
                         <label>Clave:</label>
                         @if(isset($empresa))
-                            <input type="text" name="clave" class="form-control" value="{{$empresa->clave}}" readonly onkeyup="mayus(this);">
+                            <input type="text" name="clave" class="form-control" value="{{$empresa->clave}}" maxlength="4" onkeyup="mayus(this);">
                         @else
-                            <input type="text" name="clave" class="form-control" value="" readonly onkeyup="mayus(this);">
+                            <input type="text" name="clave" class="form-control" value=""  maxlength="4" 
+                            onkeyup="mayus(this);">
                         @endif
 
                     </div>
@@ -279,7 +280,7 @@
     	</form>
         @isset($empresa)
             @include('empresas.modaldelete')
-            @include('empresas.modalsearchempresas')
+            @include('empresas.buscarnomina')
         @endisset
    	</div> 	
 </div>	

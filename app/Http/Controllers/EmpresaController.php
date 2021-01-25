@@ -57,24 +57,19 @@ class EmpresaController extends Controller{
             break;
             case 'registrar':
                 $this->registrar($request);
-                $empresa= Empresa::first();
-                return view('empresas.crudempresas', compact('empresa'));
+                return redirect()->route('nominas.empresas');
                 break;
             case 'actualizar':
                 $this->actualizar($request);
-                $empresa= Empresa::first();
-                return view('empresas.crudempresas', compact('empresa'));
+                return redirect()->route('nominas.empresas');
             break;
             case 'cancelar':
-                $empresa= Empresa::first();
-                return view('empresas.crudempresas', compact('empresa'));
+                return redirect()->route('nominas.empresas');
             break;
             case 'cancelar_actualiza';
-                $empresa= Empresa::first();
-                return view('empresas.crudempresas', compact('empresa'));
+               return redirect()->route('nominas.empresas');
             break;
             case 'buscar':
-            /*
                 $criterio= $request->opcion;
                 if($criterio == 'clave'){
                     $empresa= Empresa::where('clave',$request->busca)->first();
@@ -87,18 +82,7 @@ class EmpresaController extends Controller{
                     return view('empresas.crudempresas', compact('empresa'));
 
 
-                }else if($criterio == 'nombre_nomina'){
-                    $empresa= Empresa::where('nombre_nomina', 'LIKE', '%'.$request->busca.'%')->first();
-
-                    if($empresa == "")
-                        {
-                          return back()->with('busqueda','Coincidencia no encontrada');
-                        }
-                     
-                    return view('empresas.crudempresas', compact('empresa'));
-
-
-                }*/
+                }
                 break;
             default:
                 # code...
@@ -168,16 +152,8 @@ class EmpresaController extends Controller{
 
         $empresa= new Empresa;
         $empresa->rfc= $datos->rfc;
-        $rfc1=$datos->rfc;
-        $clave=substr($rfc1,0,4);
-        $clavenueva=substr($rfc1,2,4);
-        $coincidencia_rfc = Empresa::where('clave','=',$clave)->get();
-
-        if($coincidencia_rfc->count() == 0){
-            $empresa->clave= $clave;
-        }else{
-            $empresa->clave= $clavenueva;
-        }
+        $empresa->clave= $datos->clave;
+        
 
         DB::statement('create database '.$empresa->clave);
             $clv= $empresa->clave;

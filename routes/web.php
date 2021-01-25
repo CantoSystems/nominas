@@ -31,7 +31,7 @@ Route::get('home', 'HomeController@index')->name('home');
 */
 //empresas
 Route::delete('empresa/{id}', 'EmpresaController@destroy')->name('empresas.destroy');
-Route::get('accciones', 'EmpresaController@acciones')->name('acciones.empresas');
+Route::get('accciones', 'EmpresaController@acciones')->name('nominas.empresas');
 Route::get('selecempresa','EmpresaController@seleccionarempresa')->name('seleccionarempresa');
 
 //areas
