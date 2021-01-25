@@ -44,7 +44,7 @@
                         <div class="form-row">
                           <div class="col-md-1 mb-2">
                             <label for="validationDefault01">Clave</label>
-                            <input type="text" class="form-control" name="clave_empleado" onkeypress="return numeros(event)" maxlength="4" value="{{ $emp->clave_empleado ?? ''}}">
+                            <input type="text" class="form-control"  onkeyup="mayus(this);" name="clave_empleado"  maxlength="4" value="{{ $emp->clave_empleado ?? ''}}">
                             <input type="hidden" class="form-control" name="id_emp" value="{{ $emp->id_emp ?? ''}}">
                           </div>
                           <div class="col-md-2">

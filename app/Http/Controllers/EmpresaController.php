@@ -180,18 +180,21 @@ class EmpresaController extends Controller{
             $table->date('fecha_inicio');
             $table->date('fecha_fin');
             $table->date('fecha_pago');
+            $table->timestamps();
         });
 
         Schema::connection('DB_Serverr')->create('areas', function($table){
             $table->increments('id');
             $table->string('area',50);
             $table->char('clave_area', 10);
+            $table->timestamps();
         });
 
         Schema::connection('DB_Serverr')->create('puestos', function($table){
             $table->increments('id');
             $table->char('clave_puesto',10);
             $table->string('nombre_puesto',50);
+            $table->timestamps();
         });
 
         Schema::connection('DB_Serverr')->create('departamentos', function($table){
@@ -199,6 +202,7 @@ class EmpresaController extends Controller{
             $table->char('clave_departamento', 10);
             $table->string('departamento',50);
             $table->char('clave_area', 10);
+            $table->timestamps();
         });
 
         Schema::connection('DB_Serverr')->create('conceptos', function($table){
@@ -215,6 +219,7 @@ class EmpresaController extends Controller{
             $table->boolean('imss');
             $table->boolean('infonavit');
             $table->boolean('estatal');
+            $table->timestamps();
         });
 
         Schema::connection('DB_Serverr')->create('prestaciones', function($table){
@@ -395,6 +400,20 @@ class EmpresaController extends Controller{
             $table->string('clabe_interbancaria',18);
             $table->boolean('ptu')->nullable();
             $table->string('observaciones',255)->nullable();
+            $table->timestamps();
+        });
+        
+
+        Schema::connection('DB_Serverr')->create('ausentimos', function($table){
+            $table->increments('id');
+            $table->integer('identificador_periodo');
+            $table->char('empleado_clave',5);
+            $table->double('cantidad');
+            $table->char('concepto_clave',5);
+            $table->date('fecha_ausentismo');
+            $table->string('incapacidad',50);
+            $table->string('descripcion',50);
+            $table->timestamps();
         });
 
         $empresa->nombre= $datos->nombre;
