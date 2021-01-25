@@ -1,51 +1,10 @@
 @extends('layouts.principal')
 @section('content')
 <div class="container">
-    <div class="row">
-        <!-- Inicio Datatables-->
-        <div class="col">
-            <div class="card card-secondary">
-                <div class="card-header">
-                    <h3 class="card-title">
-                        Retenciones periodicas de ISR
-                    </h3>
-                </div>
-                <div class="card-body">
-                    <table id="example1" class="table table-bordered table-striped">
-                        <thead>
-                            <tr>
-                                <th>Limite Inferior</th>
-                                <th>Limite Superior</th>
-                                <th>Cuota fija</th>
-                                <th>Porcentaje sobre excedente</th>
-                                <th>Periodo</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @if(isset($isr))
-                                @foreach ($isr as $rtn)
-                                <tr>
-                                <th scope="row">
-                                    {{ $rtn->limite_inferior }}  
-                                </th>
-                                <td> {{ $rtn->limite_superior }}</td>
-                                <td>{{ $rtn->cuota_fija }}</td>
-                                <td>{{ $rtn->periodo_retencion }}</td>
-                                <td>{{ $rtn->periodo_retencion }}</td>
-                            </tr>
-                                @endforeach
-                            @endif
-                            
 
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-        <!--Fin Datatables-->
 
         <!--Sección botones y direcciones-->
-        <div class="col">
+        <div class="row">
             <div class="card card-secondary">
                 <div class="card-header">
                     <h3 class="card-title">
@@ -60,7 +19,7 @@
                     @endif
                     <form action="{{ route('retenciones.index')}}" method="GET" autocomplete="off">
                         <div class="row">
-                            <div class="col-sm-6">
+                            <div class="col-sm-2">
                                 <div class="form-group">
                                     <label>Limite inferior:</label>
                                     <input type="hidden" name="id" value="{{$retencion->id ?? ''}}" class="form-control" onkeyup="mayus(this);">
@@ -73,7 +32,7 @@
                                             onkeyup="mayus(this);">
                                 </div>
                             </div>
-                            <div class="col-sm-6">
+                            <div class="col-sm-2">
                                 <div class="form-group">
                                     <label>Cuota fija:</label>
                                     <input  type="number" 
@@ -84,7 +43,7 @@
                                             onkeyup="mayus(this);">
                                 </div>
                             </div>
-                            <div class="col-sm-6">
+                            <div class="col-sm-2">
                                 <div class="form-group">
                                     <label>Limite Superior:</label>
                                     <input  type="number" 
@@ -95,7 +54,7 @@
                                             onkeyup="mayus(this);">
                                 </div>
                             </div>
-                            <div class="col-sm-6">
+                            <div class="col-sm-2">
                                 <div class="form-group">
                                     <label>Porcentaje excedente:</label>
                                     <input  type="number" 
@@ -106,7 +65,7 @@
                                             onkeyup="mayus(this);">
                                 </div>
                             </div>
-                            <div class="col-sm-12">
+                            <div class="col-sm-4">
                                 <div class="form-group">
                                     <label>Periodo:</label>
                                     @if(isset($retencion))
@@ -239,6 +198,52 @@
                 </div>
             </div>
         </div>
+
+            <!-- Inicio Datatables-->
+        <div class="row">
+            <div class="col">
+                <div class="card card-secondary">
+                <div class="card-header">
+                    <h3 class="card-title">
+                        Retenciones periodicas de ISR
+                    </h3>
+                </div>
+                <div class="card-body">
+                    <table id="example1" class="table table-bordered table-striped">
+                        <thead>
+                            <tr>
+                                <th>Limite Inferior</th>
+                                <th>Limite Superior</th>
+                                <th>Cuota fija</th>
+                                <th>Porcentaje sobre excedente</th>
+                                <th>Periodo</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if(isset($isr))
+                                @foreach ($isr as $rtn)
+                                <tr>
+                                <th scope="row">
+                                    {{ $rtn->limite_inferior }}  
+                                </th>
+                                <td> {{ $rtn->limite_superior }}</td>
+                                <td>{{ $rtn->cuota_fija }}</td>
+                                <td>{{ $rtn->periodo_retencion }}</td>
+                                <td>{{ $rtn->periodo_retencion }}</td>
+                            </tr>
+                                @endforeach
+                            @endif
+                            
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+            </div>
+            
+        </div>
+        <!--Fin Datatables-->
     </div>
 </div>
 </div>
