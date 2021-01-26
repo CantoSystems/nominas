@@ -20,7 +20,6 @@ class CreateIMSSTable extends Migration
             $table->string('cuotapatron1');
             $table->string('cuotapatron2')->nullable();
             $table->string('cuotatrabajador');
-            $table->string('cuotatotal');
             $table->string('base');
             $table->timestamps();
         });
