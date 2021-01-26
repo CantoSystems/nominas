@@ -100,6 +100,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 </a>
               </li>
             </ul>
+            
             <ul class="nav nav-treeview">
               <li class="nav-item">
                 <a href="{{route('conceptos.index')}}" class="nav-link active">
@@ -107,6 +108,14 @@ scratch. This page gets rid of all links and provides the needed markup only.
                   <p>Conceptos</p>
                 </a>
               </li> 
+            </ul>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{ route('ausentismo.index')}}" class="nav-link active">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Ausentismo</p>
+                </a>
+              </li>
             </ul>
             <ul class="nav nav-treeview">
               <li class="nav-item">

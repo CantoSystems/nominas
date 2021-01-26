@@ -99,6 +99,9 @@ Route::delete('clasificacion/{id}','ClasificacionController@destroy')->name('cla
 Route::get('/conceptos','ConceptosController@index')->name('conceptos.index');
 Route::delete('/conceptos/{id}','ConceptosController@eliminaconcepto')->name('conceptos.eliminaconcepto');
 
+//ausentismo
+Route::get('/ausentismo','AusentismoController@index')->name('ausentismo.index');
+
 //Empleados
 Route::get('/empleados', 'EmpleadosController@index')->name('empleados.index');
 Route::delete('/empleados/{id_emp}','EmpleadosController@eliminaempleado')->name('empleados.eliminaempleado');
