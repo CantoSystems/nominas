@@ -87,7 +87,6 @@ class IMSSController extends Controller{
             $imss->cuotapatron2 = $datos->cuotapatron2;
         }
         $imss->cuotatrabajador = $datos->cuotatrabajador;
-        $imss->cuotatotal = $datos->cuotatotal;
         $imss->base = $datos->basesalarial;
         $imss->save();
     }
