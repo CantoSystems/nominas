@@ -2,6 +2,10 @@
 @section('content')
 <div class="container">
     <div class="row">
+<<<<<<< HEAD
+=======
+        
+>>>>>>> a12e859778e68b9e377e163217aefe893e0c6d44
         <div class="col">
             <div class="card card-secondary">
                 <div class="card-header">
@@ -162,36 +166,39 @@
                                         <input type="number" name="cuotapatron" value="{{ $imss->cuotapatron1 }}" class="form-control" step="0.01" >
                                     </div>
                                 </div>
+                                @if($ims->cuotapatron2!=null)
+                                    <div id="divcuotapatron2" class="col-sm-4">
+                                        <div class="form-group">
+                                            <label>2da Cuota (Patrón):</label>
+                                            <input type="number" name="cuotapatron2" value="{{ $imss->cuotapatron2 }}" class="form-control" step="0.01" >
+                                        </div>
+                                    </div>
+                                @endif
                                 <div class="col-sm-4">
                                     <div class="form-group">
                                         <label>2da Cuota (Patrón):</label>
                                         <input type="number" name="cuotapatron2" value="{{ $imss->cuotapatron2 }}" class="form-control" step="0.01" >
                                     </div>
                                 </div>
-                                <div class="col-sm-4">
-                                    <div class="form-group">
-                                        <label>Cuota (Trabajador):</label>
-                                        <input type="number" name="cuotatrabajador" value="{{ $imss->cuotatrabajador }}" class="form-control" step="0.01">
-                                    </div>
-                                </div>
+                                
                                 <div class="col-sm-4">
                                     <div class="form-group">
                                         <label>Base Salarial:</label>
-                                        <select id="basesalarial" name="basesalarial" class="custom-select">
-                                            @if($imss->base=="N/A" || $imss->base==null)
-                                                <option selected value="N/A">Selecciona una opción...</option>
-                                                <option value="SBC">SBC</option>
-                                                <option value="UMA">UMA</option>
-                                            @elseif($imss->base=="SBC")
-                                                <option value="N/A">Selecciona una opción...</option>
-                                                <option selected value="SBC">SBC</option>
-                                                <option value="UMA">UMA</option>
-                                            @elseif($imss->base=="UMA")
-                                                <option value="N/A">Selecciona una opción...</option>
-                                                <option value="SBC">SBC</option>
-                                                <option selected value="UMA">UMA</option>
-                                            @endif
-                                        </select>                                    
+                                        @if($imss->base == 'SBC')
+                                        <select class="custom-select" name="basesalarial">
+                                            <option value="">Selecciona una opción</option>
+                                            <option value="{{ $imss->base }}">{{ $imss->base }}</option>
+                                             <option value="UMA">UMA</option>
+                                        </select>
+                                        @else
+                                        <select class="custom-select" name="basesalarial">
+                                            <option value="">Selecciona una opción</option>
+                                            <option value="{{ $imss->base }}">{{ $imss->base }}</option>
+                                             <option value="SBC">SBC</option>
+                                        </select>
+                                        @endif
+
+                                        
                                     </div>
                                 </div>
                             @else
@@ -230,7 +237,7 @@
                                         <input type="number" name="cuotapatron" class="form-control" step="0.01" >
                                     </div>
                                 </div>
-                                <div class="col-sm-4">
+                                <div id="divcuotapatron2" class="col-sm-4">
                                     <div class="form-group">
                                         <label>2da Cuota (Patrón):</label>
                                         <input type="number" name="cuotapatron2" class="form-control" step="0.01" >
@@ -245,11 +252,11 @@
                                 <div class="col-sm-4">
                                     <div class="form-group">
                                         <label>Base Salarial:</label>
-                                        <select id="basesalarial" name="basesalarial" class="custom-select">
-                                            <option value="N/A">Selecciona una opción...</option>
-                                            <option value="SBC">SBC</option>
-                                            <option value="UMA">UMA</option>
-                                        </select>
+                                    <select class="custom-select" name="basesalarial">
+                                        <option value="">Selecciona una opción</option>
+                                        <option value="SBC">SBC</option>
+                                        <option value="UMA">UMA</option>
+                                    </select>
                                     </div>
                                 </div>
                             @endif
