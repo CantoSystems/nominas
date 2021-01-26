@@ -2,10 +2,7 @@
 @section('content')
 <div class="container">
     <div class="row">
-<<<<<<< HEAD
-=======
         
->>>>>>> a12e859778e68b9e377e163217aefe893e0c6d44
         <div class="col">
             <div class="card card-secondary">
                 <div class="card-header">
