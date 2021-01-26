@@ -309,18 +309,24 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <script>
   $(document).on('change', '#prestacionIMSS', function(event) {
     if(($("#seguroIMSS option:selected").val()=="Enfermedades y Maternidad") && ($("#prestacionIMSS option:selected").val()=="En especie")){
+      console.log("Entre1");   
       $("#divcuotapatron2").css("display", "block");
     }else{
+      console.log("Entre2");
       $("#divcuotapatron2").css("display", "none");
     }
+    console.log("prueba");
   });
 
   $(document).on('change', '#seguroIMSS', function(event) {
     if(($("#seguroIMSS option:selected").val()=="Enfermedades y Maternidad") && ($("#prestacionIMSS option:selected").val()=="En especie")){
+      console.log("Entre3");
       $("#divcuotapatron2").css("display", "block");
     }else{
+      console.log("Entre4");
       $("#divcuotapatron2").css("display", "none");
     }
+    console.log("prueba2");
   });
 </script>
 
@@ -328,27 +334,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
   $(function () {
     $("#example1").DataTable({
       "responsive": true,
-      "autoWidth": false,
-      language: {
-        "decimal": "",
-        "emptyTable": "No hay información",
-        "info": "Mostrando _START_ a _END_ de _TOTAL_ entradas",
-        "infoEmpty": "Mostrando 0 to 0 of 0 Entradas",
-        "infoFiltered": "(Filtrado de _MAX_ total entradas)",
-        "infoPostFix": "",
-        "thousands": ",",
-        "lengthMenu": "Mostrar _MENU_ Entradas",
-        "loadingRecords": "Cargando...",
-        "processing": "Procesando...",
-        "search": "Buscar:",
-        "zeroRecords": "Sin resultados encontrados",
-        "paginate": {
-            "first": "Primero",
-            "last": "Ultimo",
-            "next": "Siguiente",
-            "previous": "Anterior"
-        }
-    },
+      "autoWidth": false
     });
     $('#example2').DataTable({
       "paging": true,
@@ -358,25 +344,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
       "info": true,
       "autoWidth": false,
       "responsive": true,
-      language: {
-        "decimal": "",
-        "emptyTable": "No hay información",
-        "info": "Mostrando _START_ a _END_ de _TOTAL_ entradas",
-        "infoEmpty": "Mostrando 0 to 0 of 0 Entradas",
-        "infoFiltered": "(Filtrado de _MAX_ total entradas)",
-        "infoPostFix": "",
-        "thousands": ",",
-        "lengthMenu": "Mostrar _MENU_ Entradas",
-        "loadingRecords": "Cargando...",
-        "processing": "Procesando...",
-        "search": "Buscar:",
-        "zeroRecords": "Sin resultados encontrados",
-        "paginate": {
-            "first": "Primero",
-            "last": "Ultimo",
-            "next": "Siguiente",
-            "previous": "Anterior"
-        }
     });
   });
 </script>

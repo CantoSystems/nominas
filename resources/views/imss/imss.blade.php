@@ -2,7 +2,10 @@
 @section('content')
 <div class="container">
     <div class="row">
+<<<<<<< HEAD
+=======
         
+>>>>>>> a12e859778e68b9e377e163217aefe893e0c6d44
         <div class="col">
             <div class="card card-secondary">
                 <div class="card-header">
@@ -173,8 +176,8 @@
                                 @endif
                                 <div class="col-sm-4">
                                     <div class="form-group">
-                                        <label>Cuota (Trabajador):</label>
-                                        <input type="number" name="cuotatrabajador" value="{{ $imss->cuotatrabajador }}" class="form-control" step="0.01">
+                                        <label>2da Cuota (Patrón):</label>
+                                        <input type="number" name="cuotapatron2" value="{{ $imss->cuotapatron2 }}" class="form-control" step="0.01" >
                                     </div>
                                 </div>
                                 
@@ -234,7 +237,7 @@
                                         <input type="number" name="cuotapatron" class="form-control" step="0.01" >
                                     </div>
                                 </div>
-                                <div id="divcuotapatron2" class="col-sm-4" style="display: none;">
+                                <div id="divcuotapatron2" class="col-sm-4">
                                     <div class="form-group">
                                         <label>2da Cuota (Patrón):</label>
                                         <input type="number" name="cuotapatron2" class="form-control" step="0.01" >
@@ -246,7 +249,6 @@
                                         <input type="number" name="cuotatrabajador" class="form-control" step="0.01">
                                     </div>
                                 </div>
-                            
                                 <div class="col-sm-4">
                                     <div class="form-group">
                                         <label>Base Salarial:</label>
@@ -258,6 +260,8 @@
                                     </div>
                                 </div>
                             @endif
+                        </div>
+                        <div class="row">
                             @canany(['administrador','capturista','reportes'])
                                 <div class="col-sm-5">
                                     <div class="card-body">
