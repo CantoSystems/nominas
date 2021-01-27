@@ -19,7 +19,10 @@ class IncidenciaController extends Controller{
         switch ($accion) {
             case '':
                 $aux = DB::connection('DB_Serverr')->table('incidencias')->first();
-                return view('incidencias.incidencias',compact('aux'));
+
+                $emp=DB::connection('DB_Serverr')->table('empleados')->get();
+
+                return view('incidencias.incidencias',compact('aux','emp'));
             break;
             /*case 'atras':
                 $id=DB::connection('DB_Serverr')->table('conceptos')->
@@ -78,22 +81,6 @@ class IncidenciaController extends Controller{
                     return view('incidencias.incidencias',compact('aux'));
                 }
             break;
-            case 'buscar2':
-                $criterio= $request->opcion;
-                if($criterio == 'clave_con'){
-                    $aux = DB::connection('DB_Serverr')->table('conceptos')->where('clave_concepto',$request->busca)->first();
-                    if($aux == ""){
-                        return back()->with('busqueda','Coincidencia no encontrada');
-                    }
-                    return view('incidencias.incidencias',compact('aux'));
-                }else if($criterio == 'concepto'){
-                    $aux = DB::connection('DB_Serverr')->table('conceptos')->where('concepto',$request->busca)->first();
-                    if($aux == ""){
-                        return back()->with('busqueda','Coincidencia no encontrada');
-                    }
-                    return view('incidencias.incidencias',compact('aux'));
-                }
-            break;
             default:
             break;
         }
@@ -116,146 +103,15 @@ class IncidenciaController extends Controller{
         ];
         return $configDb;
     }
-
-    public function registrar($datos){
-        $clv=Session::get('clave_empresa');
-        $clave_concepto= $datos->clave_concepto.$datos->naturaleza;
-        
-        if($datos->isr=="on"){
-            $isr=1;
-        }else{
-            $isr=0;
-        }
-
-        if($datos->imss=="on"){
-            $imss=1;
-        }else{
-            $imss=0;
-        }
-
-        if($datos->infonavit=="on"){
-            $infonavit=1;
-        }else{
-            $infonavit=0;
-        }
-
-        if($datos->estatal=="on"){
-            $estatal=1;
-        }else{
-            $estatal=0;
-        }
-
-        $clv_empresa=$this->conectar($clv);
-
-        \Config::set('database.connections.DB_Serverr', $clv_empresa);
-
-        $datos->validate([
-              'clave_concepto' => 'required',
-              'concepto' => 'required',
-              'formula' => 'required',
-              'naturaleza' => 'required',
-              'manejo' => 'required',
-        ]);
-
-        $coincidencia = DB::connection('DB_Serverr')->table('conceptos')
-        ->where('clave_concepto','=',$datos->clave_concepto)
-        ->orWhere('concepto','=',$datos->concepto)
-        ->get();
-
-        if($coincidencia->count() == 0){
-        DB::connection('DB_Serverr')->insert('insert into conceptos (clave_concepto
-                                                                    ,concepto
-                                                                    ,formula
-                                                                    ,naturaleza
-                                                                    ,manejo
-                                                                    ,cantidad
-                                                                    ,importe
-                                                                    ,monto
-                                                                    ,isr
-                                                                    ,imss
-                                                                    ,infonavit
-                                                                    ,estatal)
-                                                                values (?
-                                                                       ,?
-                                                                       ,?
-                                                                       ,?
-                                                                       ,?
-                                                                       ,?
-                                                                       ,?
-                                                                       ,?
-                                                                       ,?
-                                                                       ,?
-                                                                       ,?
-                                                                       ,?)',[$clave_concepto,$datos->concepto,$datos->formula,$datos->naturaleza
-        ,$datos->manejo,$datos->cantidad,$datos->importe,$datos->monto,$isr,$imss,$infonavit,$estatal]);
-    }else{
-        return back()->with('msj','Registro duplicado');
-    }
-    }
-
-    public function actualizar($datos){
-        $clv=Session::get('clave_empresa');
-        $clave_concepto= $datos->clave_concepto.$datos->naturaleza;
-
-        if($datos->isr=="on"){
-            $isr=1;
-        }else{
-            $isr=0;
-        }
-
-        if($datos->imss=="on"){
-            $imss=1;
-        }else{
-            $imss=0;
-        }
-
-        if($datos->infonavit=="on"){
-            $infonavit=1;
-        }else{
-            $infonavit=0;
-        }
-
-        if($datos->estatal=="on"){
-            $estatal=1;
-        }else{
-            $estatal=0;
-        }
-
-        $clv_empresa=$this->conectar($clv);
-
-        \Config::set('database.connections.DB_Serverr', $clv_empresa);
-        $aux1 = DB::connection('DB_Serverr')->table('conceptos')->where('id',$datos->id)->first();
-        $datos->validate([
-              'clave_concepto' => 'required',
-              'concepto' => 'required',
-              'formula' => 'required',
-              'naturaleza' => 'required',
-              'manejo' => 'required',
-        ]);
-        if($aux1!==""){
-            DB::connection('DB_Serverr')->table('conceptos')->where('id',$datos->id)
-            ->update(['clave_concepto'=>$clave_concepto
-                     ,'concepto'=>$datos->concepto
-                     ,'formula'=>$datos->formula
-                     ,'naturaleza'=>$datos->naturaleza
-                     ,'manejo'=>$datos->manejo
-                     ,'cantidad'=>$datos->cantidad
-                     ,'importe'=>$datos->importe
-                     ,'monto'=>$datos->monto
-                     ,'isr'=>$isr
-                     ,'imss'=>$imss
-                     ,'infonavit'=>$infonavit
-                     ,'estatal'=>$estatal]);
-        }
-    }
-
-    public function eliminaconcepto($id){
+    
+    public function seleccionarempleado($clave_emp){
         $clv= Session::get('clave_empresa');
         $clv_empresa=$this->conectar($clv);
 
         \Config::set('database.connections.DB_Serverr', $clv_empresa);
 
-        $aux1 = DB::connection('DB_Serverr')->table('conceptos')->where('id',$id)->delete();
-        return redirect()->route('conceptos.index');
+        $aux = DB::connection('DB_Serverr')->table('empleados')->where('clave_empleado',$clave_emp)->get()->first();
+        $emp=DB::connection('DB_Serverr')->table('empleados')->get();
+        return view('incidencias.incidencias',compact('aux','emp'));
     }
 }

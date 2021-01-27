@@ -125,4 +125,5 @@ Route::delete('subsidios/{id_subsidio}','SubsidioController@eliminarsubsidio')->
 
 //Incidencias
 Route::get('/incidencias','IncidenciaController@index')->name('incidencias.index');
+Route::get('/incidencias/{id}','IncidenciaController@seleccionarempleado')->name('incidencias.seleccionarempleado');
 //Route::delete('/conceptos/{id}','ConceptosController@eliminaconcepto')->name('conceptos.eliminaconcepto');
