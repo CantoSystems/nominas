@@ -163,7 +163,7 @@
                                         <input type="number" name="cuotapatron" value="{{ $imss->cuotapatron1 }}" class="form-control" step="0.01" >
                                     </div>
                                 </div>
-                                @if($ims->cuotapatron2!=null)
+                                @if($imss->cuotapatron2!=null)
                                     <div id="divcuotapatron2" class="col-sm-4">
                                         <div class="form-group">
                                             <label>2da Cuota (Patrón):</label>

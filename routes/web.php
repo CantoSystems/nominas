@@ -122,3 +122,7 @@ Route::delete('imss/{id_imss}','IMSSController@eliminarimss')->name('imss.elimin
 //Subsidios
 Route::get('subsidios','SubsidioController@acciones')->name('subsidio.acciones');
 Route::delete('subsidios/{id_subsidio}','SubsidioController@eliminarsubsidio')->name('subsidio.eliminarsubsidio');
+
+//Incidencias
+Route::get('/incidencias','IncidenciaController@index')->name('incidencias.index');
+//Route::delete('/conceptos/{id}','ConceptosController@eliminaconcepto')->name('conceptos.eliminaconcepto');
