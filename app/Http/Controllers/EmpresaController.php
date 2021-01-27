@@ -416,6 +416,16 @@ class EmpresaController extends Controller{
             $table->timestamps();
         });
 
+        Schema::connection('DB_Serverr')->create('incidencias', function($table){
+            $table->increments('id_incidencia');
+            $table->char('clave_empleado',5);
+            $table->char('clave_concepto',5);
+            $table->double('cantidad');
+            $table->double('importe');
+            $table->double('monto',50);
+            $table->timestamps();
+        });
+
         $empresa->nombre= $datos->nombre;
         $empresa->nombre_nomina= $datos->nombre_nomina;
         $empresa->rfc= $datos->rfc;
