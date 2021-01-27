@@ -6,7 +6,7 @@
       Periodos
     </div>
     <div class="card-body">
-      <h5 class="card-title">Selecciona el periodo con el que trabajaras:</h5><br>
+      <h5 class="card-title">Selecciona el periodo con el que trabajaras: {{ $cant }} </h5><br>
       
       <br>
       <div class="row">
@@ -16,7 +16,7 @@
             <div class="col-md-12">
               <select class="custom-select" name="periodo">
                 @foreach ($periodos as $periodo)
-                <option value={{$periodo->numero}}> DE: {{$periodo->fecha_inicio}} A {{$periodo->fecha_fin}}</option>
+                <option value={{$periodo->numero}}> DE: {{$periodo->fecha_inicio}} A {{$periodo->fecha_fin}}</option> 
                 @endforeach
               </select>
             </div><br> 
