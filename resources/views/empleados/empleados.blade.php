@@ -42,7 +42,7 @@
                 <a data-target="#modalmodificaempleado{{$persona->id_emp}}" data-toggle="modal">
                   <button type="button" style='width:70px; height:40px; align-items:center;'  >
                     <i class="fas fa-eye"></i>
-                  </button></th>
+                  </button>
                 </a>
       
                 <a id="eliminaempleado" data-target="#modaldeleteempleado{{$persona->id_emp}}" data-toggle="modal" style='width:70px; height:40px'>

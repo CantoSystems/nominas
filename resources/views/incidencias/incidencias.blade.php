@@ -18,7 +18,11 @@
                             <label for="exampleInputFile">Clave del Empleado</label>
                             <div class="input-group">
                                 <div class="custom-file">
-                                    <input type="text" class="form-control" id="claveEmp">
+                                    @if(!empty($aux))
+                                        <input type="text" value="{{ $aux->clave_empleado }}" class="form-control" id="claveEmp">
+                                    @else
+                                        <input type="text" class="form-control" id="claveEmp">
+                                    @endif
                                     <button type="button" class="btn btn-default" data-toggle="modal" data-target="#modal-searchemp">
                                         <i class="fas fa-search"></i>
                                     </button>
@@ -29,7 +33,11 @@
                     <div class="col-sm-4">
                         <div class="form-group">
                             <label>Nombre Empleado:</label>
-                            <input type="text" disabled name="nombreEmp" class="form-control" onkeyup="mayus(this);">
+                            @if(!empty($aux))
+                                <input type="text" disabled name="nombreEmp" value="{{ $aux->nombre }} {{ $aux->apellido_paterno }} {{ $aux->apellido_materno }}" class="form-control" onkeyup="mayus(this);">
+                            @else
+                                <input type="text" disabled name="nombreEmp" class="form-control" onkeyup="mayus(this);">
+                            @endif
                         </div>
                     </div>
                     <div class="col-sm-4">
