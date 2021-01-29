@@ -127,5 +127,8 @@ Route::delete('subsidios/{id_subsidio}','SubsidioController@eliminarsubsidio')->
 
 //Incidencias
 Route::get('/incidencias','IncidenciaController@index')->name('incidencias.index');
-Route::get('/incidencias/{id}','IncidenciaController@seleccionarempleado')->name('incidencias.seleccionarempleado');
+Route::get('/selectempincidencias/{id}','IncidenciaController@seleccionarempleado')->name('incidencias.seleccionarempleado');
+Route::get('/selectempincidencias/{id}/{id_con}','IncidenciaController@seleccionarempleado2')->name('incidencias.seleccionarempleado2');
+Route::get('/selectconincidencias/{id}','IncidenciaController@seleccionarconcept')->name('incidencias.seleccionarconcept');
+Route::get('/selectconincidencias/{id}/{id_emp}','IncidenciaController@seleccionarconcept2')->name('incidencias.seleccionarconcept2');
 //Route::delete('/conceptos/{id}','ConceptosController@eliminaconcepto')->name('conceptos.eliminaconcepto');

@@ -1,4 +1,8 @@
-<div class="modal fade" id="modal-searchemp">
+@if(!empty($aux1))
+    <div class="modal fade" id="modal-searchemp-{{ $aux1->clave_concepto }}">
+@else
+    <div class="modal fade" id="modal-searchemp">
+@endif
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -37,11 +41,19 @@
                                             <td scope="row">{{ $emp1->clave_empleado }}</td>
                                             <td>{{ $emp1->nombre}} {{ $emp1->apellido_paterno }} {{ $emp1->apellido_materno }}</td>
                                             <td>
-                                                <a href="{{ route('incidencias.seleccionarempleado',$emp1->clave_empleado) }}">
-                                                    <button type="button" style='width:70px; height:40px; align-items:center;'>
-                                                        <i class="fas fa-check-circle"></i>
-                                                    </button>
-                                                </a>
+                                                @if(!empty($aux1))
+                                                    <a href="{{ route('incidencias.seleccionarempleado2',array($emp1->clave_empleado,$aux1->clave_concepto)) }}">
+                                                        <button type="button" style='width:70px; height:40px; align-items:center;'>
+                                                            <i class="fas fa-check-circle"></i>
+                                                        </button>
+                                                    </a>
+                                                @else
+                                                    <a href="{{ route('incidencias.seleccionarempleado',$emp1->clave_empleado) }}">
+                                                        <button type="button" style='width:70px; height:40px; align-items:center;'>
+                                                            <i class="fas fa-check-circle"></i>
+                                                        </button>
+                                                    </a>
+                                                @endif
                                             </td>
                                         </tr>
                                     @endforeach
