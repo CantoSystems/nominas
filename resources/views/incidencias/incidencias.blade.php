@@ -18,14 +18,27 @@
                             <label for="exampleInputFile">Clave del Empleado</label>
                             <div class="input-group">
                                 <div class="custom-file">
-                                    @if(!empty($aux))
-                                        <input type="text" value="{{ $aux->clave_empleado }}" class="form-control" id="claveEmp">
+                                    @if((!empty($aux) && (!empty($aux1))))
+                                        <input type="text" value="{{ $aux->clave_empleado }}" name="claveEmp" class="form-control" id="claveEmp">
+                                        <button type="button" class="btn btn-default" data-toggle="modal" data-target="#modal-searchemp-{{ $aux1->clave_concepto }}">
+                                            <i class="fas fa-search"></i>
+                                        </button>
+                                    @elseif(!empty($aux))
+                                        <input type="text" value="{{ $aux->clave_empleado }}" name="claveEmp" class="form-control" id="claveEmp">
+                                        <button type="button" class="btn btn-default" data-toggle="modal" data-target="#modal-searchemp">
+                                            <i class="fas fa-search"></i>
+                                        </button>
+                                    @elseif(!empty($aux1))
+                                        <input type="text" class="form-control" name="claveEmp" id="claveEmp">
+                                        <button type="button" class="btn btn-default" data-toggle="modal" data-target="#modal-searchemp-{{ $aux1->clave_concepto }}">
+                                            <i class="fas fa-search"></i>
+                                        </button>
                                     @else
-                                        <input type="text" class="form-control" id="claveEmp">
+                                        <input type="text" class="form-control" name="claveEmp" id="claveEmp">
+                                        <button type="button" class="btn btn-default" data-toggle="modal" data-target="#modal-searchemp">
+                                            <i class="fas fa-search"></i>
+                                        </button>
                                     @endif
-                                    <button type="button" class="btn btn-default" data-toggle="modal" data-target="#modal-searchemp">
-                                        <i class="fas fa-search"></i>
-                                    </button>
                                 </div>
                             </div>
                         </div>
@@ -40,17 +53,44 @@
                             @endif
                         </div>
                     </div>
-                    <div class="col-sm-4">
+                    <div class="col-sm-2">
                         <div class="form-group">
-                            <label for="exampleInputFile">Concepto</label>
+                            <label for="exampleInputFile">Clave del Concepto</label>
                             <div class="input-group">
                                 <div class="custom-file">
-                                    <input type="text" class="form-control" id="concepto">
-                                    <button type="button" class="btn btn-default" data-toggle="modal" data-target="#modal-searchcon">
-                                        <i class="fas fa-search"></i>
-                                    </button>
+                                    @if((!empty($aux1)) && (!empty($aux)))
+                                        <input type="text" value="{{ $aux1->clave_concepto }}" class="form-control" name="clave_concepto" id="clave_concepto">
+                                        <button type="button" class="btn btn-default" data-toggle="modal" data-target="#modal-searchcon-{{ $aux->clave_empleado }}">
+                                            <i class="fas fa-search"></i>
+                                        </button>
+                                    @elseif(!empty($aux1))
+                                        <input type="text" value="{{ $aux1->clave_concepto }}" class="form-control" name="clave_concepto" id="clave_concepto">
+                                        <button type="button" class="btn btn-default" data-toggle="modal" data-target="#modal-searchcon">
+                                            <i class="fas fa-search"></i>
+                                        </button>
+                                    @elseif(!empty($aux))
+                                        <input type="text" class="form-control" name="clave_concepto" id="clave_concepto">
+                                        <button type="button" class="btn btn-default" data-toggle="modal" data-target="#modal-searchcon-{{ $aux->clave_empleado }}">
+                                            <i class="fas fa-search"></i>
+                                        </button>
+                                    @else
+                                        <input type="text" class="form-control" name="clave_concepto" id="clave_concepto">
+                                        <button type="button" class="btn btn-default" data-toggle="modal" data-target="#modal-searchcon">
+                                            <i class="fas fa-search"></i>
+                                        </button>
+                                    @endif
                                 </div>
                             </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label>Concepto:</label>
+                            @if(!empty($aux1))
+                                <input type="text" disabled name="concepto" value="{{ $aux1->concepto }}" class="form-control" onkeyup="mayus(this);">
+                            @else
+                                <input type="text" disabled name="concepto" class="form-control" onkeyup="mayus(this);">
+                            @endif
                         </div>
                     </div>
                     <div class="col-sm-2">
@@ -62,13 +102,13 @@
                     <div class="col-sm-2">
                         <div class="form-group">
                             <label>Importe:</label>
-                            <input type="number" name="importe" class="form-control" step="0.1"">
+                            <input type="number" name="importe" class="form-control" step="0.1">
                         </div>
                     </div>
                     <div class="col-sm-2">
                         <div class="form-group">
                             <label>Monto:</label>
-                            <input type="number" name="monto" class="form-control" step="0.1"">
+                            <input type="number" name="monto" class="form-control" step="0.1">
                         </div>
                     </div>
                     @canany(['administrador','capturista','reportes'])
