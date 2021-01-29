@@ -22,7 +22,9 @@ class IncidenciaController extends Controller{
 
                 $emp=DB::connection('DB_Serverr')->table('empleados')->get();
 
-                return view('incidencias.incidencias',compact('aux','emp'));
+                $conceptos=DB::connection('DB_Serverr')->table('conceptos')->get();
+
+                return view('incidencias.incidencias',compact('aux','emp','conceptos'));
             break;
             /*case 'atras':
                 $id=DB::connection('DB_Serverr')->table('conceptos')->
@@ -53,19 +55,25 @@ class IncidenciaController extends Controller{
             case 'ultimo':
                 $aux = DB::connection('DB_Serverr')->table('conceptos')->get()->last();
                 return view('conceptos.conceptos',compact('aux'));
-            break;
+            break;*/
             case 'registrar':
                 $this->registrar($request);
-                return redirect()->route('conceptos.index');
+                $aux = DB::connection('DB_Serverr')->table('incidencias')->first();
+
+                $emp=DB::connection('DB_Serverr')->table('empleados')->get();
+
+                $conceptos=DB::connection('DB_Serverr')->table('conceptos')->get();
+
+                return view('incidencias.incidencias',compact('aux','emp','conceptos'));
             break;
-            case 'actualizar':
+            /*case 'actualizar':
                 $this->actualizar($request);
                 return redirect()->route('conceptos.index');
             break;
             case 'cancelar':
                 return redirect()->route('conceptos.index');
             break;*/
-            case 'buscar':
+            /*case 'buscar':
                 $criterio= $request->opcion;
                 if($criterio == 'clave_emp'){
                     $aux = DB::connection('DB_Serverr')->table('empleados')->where('clave_empleado',$request->busca)->first();
@@ -80,7 +88,7 @@ class IncidenciaController extends Controller{
                     }
                     return view('incidencias.incidencias',compact('aux'));
                 }
-            break;
+            break;*/
             default:
             break;
         }
@@ -104,6 +112,36 @@ class IncidenciaController extends Controller{
         return $configDb;
     }
     
+    public function registrar($datos){
+        $clv=Session::get('clave_empresa');
+        $clv_empresa=$this->conectar($clv);
+
+        \Config::set('database.connections.DB_Serverr', $clv_empresa);
+
+        /*$datos->validate([
+              'clave_concepto' => 'required',
+              'concepto' => 'required',
+              'formula' => 'required',
+              'naturaleza' => 'required',
+              'manejo' => 'required',
+        ]);*/
+
+        DB::connection('DB_Serverr')->insert('INSERT INTO incidencias (clave_concepto
+                                                                      ,clave_empleado
+                                                                      ,cantidad
+                                                                      ,importe
+                                                                      ,monto)
+                                                                VALUES (?
+                                                                       ,?
+                                                                       ,?
+                                                                       ,?
+                                                                       ,?)',[$datos->clave_concepto
+                                                                            ,$datos->claveEmp
+                                                                            ,$datos->cantidad
+                                                                            ,$datos->importe
+                                                                            ,$datos->monto]);
+    }
+
     public function seleccionarempleado($clave_emp){
         $clv= Session::get('clave_empresa');
         $clv_empresa=$this->conectar($clv);
@@ -112,6 +150,45 @@ class IncidenciaController extends Controller{
 
         $aux = DB::connection('DB_Serverr')->table('empleados')->where('clave_empleado',$clave_emp)->get()->first();
         $emp=DB::connection('DB_Serverr')->table('empleados')->get();
-        return view('incidencias.incidencias',compact('aux','emp'));
+        $conceptos=DB::connection('DB_Serverr')->table('conceptos')->get();
+        return view('incidencias.incidencias',compact('aux','emp','conceptos'));
+    }
+
+    public function seleccionarempleado2($clave_emp,$clave_con){
+        $clv = Session::get('clave_empresa');
+        $clv_empresa = $this->conectar($clv);
+
+        \Config::set('database.connections.DB_Serverr', $clv_empresa);
+
+        $aux1 = DB::connection('DB_Serverr')->table('conceptos')->where('clave_concepto',$clave_con)->get()->first();
+        $aux = DB::connection('DB_Serverr')->table('empleados')->where('clave_empleado',$clave_emp)->get()->first();
+        $emp = DB::connection('DB_Serverr')->table('empleados')->get();
+        $conceptos = DB::connection('DB_Serverr')->table('conceptos')->get();
+        return view('incidencias.incidencias',compact('aux','emp','conceptos','aux1'));
+    }
+
+    public function seleccionarconcept($clave_con){
+        $clv = Session::get('clave_empresa');
+        $clv_empresa=$this->conectar($clv);
+
+        \Config::set('database.connections.DB_Serverr', $clv_empresa);
+
+        $aux1 = DB::connection('DB_Serverr')->table('conceptos')->where('clave_concepto',$clave_con)->get()->first();
+        $conceptos = DB::connection('DB_Serverr')->table('conceptos')->get();
+        $emp = DB::connection('DB_Serverr')->table('empleados')->get();
+        return view('incidencias.incidencias',compact('aux1','conceptos','emp'));
+    }
+
+    public function seleccionarconcept2($clave_con,$clave_emp){
+        $clv = Session::get('clave_empresa');
+        $clv_empresa = $this->conectar($clv);
+
+        \Config::set('database.connections.DB_Serverr', $clv_empresa);
+
+        $aux1 = DB::connection('DB_Serverr')->table('conceptos')->where('clave_concepto',$clave_con)->get()->first();
+        $aux = DB::connection('DB_Serverr')->table('empleados')->where('clave_empleado',$clave_emp)->get()->first();
+        $conceptos = DB::connection('DB_Serverr')->table('conceptos')->get();
+        $emp = DB::connection('DB_Serverr')->table('empleados')->get();
+        return view('incidencias.incidencias',compact('aux1','conceptos','emp','aux'));
     }
 }
