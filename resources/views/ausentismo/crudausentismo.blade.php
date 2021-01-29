@@ -32,19 +32,26 @@
                     <div class="col-sm-3">
                         <label>Clave:</label>
                         <div class=" input-group mb-3">
+                        @if(!empty($emp))
                             <input  type="text" 
                                     name="empleado_clave" 
                                     class="form-control"
                                     value="{{$emp->clave_empleado ?? ''}}"
-                                    onkeyup="mayus(this);"
-                                    id="empleado_clave">
-                            <div id="empleadolist">
-                                
-                            </div>
-                            {{ csrf_field() }}
+                                    onkeyup="mayus(this);">
                             <div class="input-group-append">
                                 <span class="input-group-text" data-toggle="modal" data-target="#modalbuscarempleado"><i class="fas fa-search"></i></span>
                             </div>
+                        @elseif(!empty($emplea))
+                            <input  type="text" 
+                                    name="empleado_clave" 
+                                    class="form-control"
+                                    value="{{$emplea->clave_empleado ?? ''}}"
+                                    onkeyup="mayus(this);">
+                            <div class="input-group-append">
+                                <span class="input-group-text" data-toggle="modal" data-target="#modalbuscarempleado{{$emplea->clave }}"><i class="fas fa-search"></i></span>
+                            </div>
+                        @endif
+
                         </div>
                     </div>
             

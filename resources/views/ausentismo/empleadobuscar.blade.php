@@ -1,31 +1,70 @@
-<div class="modal fade bs-example-modal-lg" id="modalbuscarempleado" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+@if(!empty($emplea))
+    <div class="modal fade" id="modalbuscarempleado{{$emplea->clave }}">
+@else
+    <div class="modal fade" id="modalbuscarempleado">
+@endif
     <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Buscar Empleado</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-            <form action="{{ route('ausentismo.index')}}" method="GET" autocomplete="off">
-             <div class="col">
-              <div class="input-group-prepend">
-          <div class="input-group-text">
-            <span class="fa fa-search">
-            </span>
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Buscar Empleado</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
             </div>
-        <input type="search" name="titulo" class="bg8 s-text6" placeholder="Ingrese clave">
-      </div>
-      <div><br></div>
- 
-      </div>
-        <div class="modal-footer">
-          <button type="button"  style="width:80px; height:40px" data-dismiss="modal">Cerrar</button>
-          <!--<button type="submit"  style="width:80px; height:40px" name="acciones" value="buscar">Buscar</button>-->
+            <div class="modal-body">
+
+                <form method="GET" autocomplete="off">
+
+
+
+                   <!--Código Aquí-->
+                    <table class="table table-bordered table-striped" id="example1">
+                        <div class="col-sm-12">
+                            <thead>
+                                <tr>
+                                    <th>Clave de Empleado</th>
+                                    <th>Nombre de Empleado</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @if(!empty($personal))
+                                    @foreach($personal as $emp1)
+                                        <tr>
+                                            <td scope="row">{{ $emp1->clave_empleado }}</td>
+                                            <td>{{ $emp1->nombre}} {{ $emp1->apellido_paterno }} {{ $emp1->apellido_materno }}</td>
+                                            <td>
+                                                @if(!empty($aux1))
+                                                    <a href="{{ route('ausentismo.seleccionarempleado2',array($emp1->clave_empleado,$aux1->clave_concepto)) }}">
+                                                        <button type="button" style='width:70px; height:40px; align-items:center;'>
+                                                            <i class="fas fa-check-circle"></i>
+                                                        </button>
+                                                    </a>
+                                                @else
+                                                    <a href="{{ route('ausentismo.seleccionarempleado',$emp1->clave_empleado) }}">
+                                                        <button type="button" style='width:70px; height:40px; align-items:center;'>
+                                                            <i class="fas fa-check-circle"></i>
+                                                        </button>
+                                                    </a>
+                                                @endif
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                @endif
+                            </tbody>
+                        </div>
+                    </table> 
+
+                   <!---Fin Datatable-->
+
+
+
+                    <div class="modal-footer">
+                        <button type="button" style="width:80px; height:40px" data-dismiss="modal">Cerrar</button>
+                        
+                    </div>
+                </form>
+            </div>
         </div>
-            </form>
-      </div>
     </div>
-  </div>
 </div>

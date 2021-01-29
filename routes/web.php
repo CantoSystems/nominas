@@ -101,13 +101,16 @@ Route::delete('/conceptos/{id}','ConceptosController@eliminaconcepto')->name('co
 
 //ausentismo
 Route::get('/ausentismo','AusentismoController@index')->name('ausentismo.index');
-Route::post('/ausentismo/getciuddano','AusentismoController@getciudadano')->name('ausentismo.getciudadano');
+//Route::post('/ausentismo/getciuddano','AusentismoController@getciudadano')->name('ausentismo.getciudadano');
+Route::get('/busquedasausentismo/{id}','AusentismoController@seleccionarempleado')->name('ausentismo.seleccionarempleado');
+Route::get('/busquedasausentismo/{id}/{id_con}','AusentismoController@seleccionarempleado2')->name('aausentismo.seleccionarempleado2');
 
 
 //Empleados
 Route::get('/empleados', 'EmpleadosController@index')->name('empleados.index');
 Route::delete('/empleados/{id_emp}','EmpleadosController@eliminaempleado')->name('empleados.eliminaempleado');
 Route::patch('/empleados/{id_emp}','EmpleadosController@actualizar_empleado')->name('empleados.actualizarempleado');
+
 
 //Usuarios
 Route::get('/usuarios','UsersController@index')->name('usuarios.index');

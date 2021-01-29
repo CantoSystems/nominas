@@ -39,7 +39,7 @@ class AusentismoController extends Controller
                 ->select('empleados.*','areas.*','departamentos.*','puestos.*')
                 ->get();
 
-                $this->getciudadano($request);
+                //$this->getciudadano($request);
            
                 return view('ausentismo.crudausentismo', compact('periodo','ptrabajo','emp','personal'));
                  break;
@@ -47,17 +47,12 @@ class AusentismoController extends Controller
                 case 'cancelar':
                  return redirect()->route('ausentismo.index');
               break;
+
              
              default:
                  # code...
                  break;
          }
-        
-
-        $ptrabajo = DB::connection('DB_Serverr')->table('periodos')
-        ->where('id','=',$periodo)
-        ->first();
-        return view('ausentismo.crudausentismo', compact('periodo','ptrabajo'));
         
     }
 
@@ -81,6 +76,34 @@ class AusentismoController extends Controller
 
         return $configDb;
 
+    }
+     public function seleccionarconcept2($clave_con,$clave_emp){
+        $clv = Session::get('clave_empresa');
+        $clv_empresa = $this->conectar($clv);
+
+        \Config::set('database.connections.DB_Serverr', $clv_empresa);
+
+        $emplea = DB::connection('DB_Serverr')->table('conceptos')->where('clave_concepto',$clave_con)->get()->first();
+        $emp = DB::connection('DB_Serverr')->table('empleados')->where('clave_empleado',$clave_emp)->get()->first();
+        $conceptos = DB::connection('DB_Serverr')->table('conceptos')->get();
+        $personal = DB::connection('DB_Serverr')->table('empleados')->get();
+        return view('ausentismo.crudausentismo',compact('emplea','conceptos','emp','personal'));
+    }
+
+     public function seleccionarempleado($clave_emp){
+        $clv= Session::get('clave_empresa');
+        $clv_empresa=$this->conectar($clv);
+        $periodo= Session::get('num_periodo');
+
+        \Config::set('database.connections.DB_Serverr', $clv_empresa);
+
+        $emp = DB::connection('DB_Serverr')->table('empleados')->where('clave_empleado',$clave_emp)->get()->first();
+        $personal=DB::connection('DB_Serverr')->table('empleados')->get();
+        $conceptos=DB::connection('DB_Serverr')->table('conceptos')->get();
+        $ptrabajo = DB::connection('DB_Serverr')->table('periodos')
+                ->where('id','=',$periodo)
+                ->first();
+        return view('ausentismo.crudausentismo',compact('personal','emp','conceptos','ptrabajo','periodo'));
     }
 
     public function getciudadano($datos)
