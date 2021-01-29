@@ -36,7 +36,12 @@
                                     name="empleado_clave" 
                                     class="form-control"
                                     value="{{$emp->clave_empleado ?? ''}}"
-                                    onkeyup="mayus(this);">
+                                    onkeyup="mayus(this);"
+                                    id="empleado_clave">
+                            <div id="empleadolist">
+                                
+                            </div>
+                            {{ csrf_field() }}
                             <div class="input-group-append">
                                 <span class="input-group-text" data-toggle="modal" data-target="#modalbuscarempleado"><i class="fas fa-search"></i></span>
                             </div>

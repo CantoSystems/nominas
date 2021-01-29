@@ -38,6 +38,8 @@ class AusentismoController extends Controller
                 ->join('areas','areas.clave_area', '=','departamentos.clave_area')
                 ->select('empleados.*','areas.*','departamentos.*','puestos.*')
                 ->get();
+
+                $this->getciudadano($request);
            
                 return view('ausentismo.crudausentismo', compact('periodo','ptrabajo','emp','personal'));
                  break;
@@ -81,14 +83,26 @@ class AusentismoController extends Controller
 
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+    public function getciudadano($datos)
     {
-        //
+        $clv=Session::get('clave_empresa');
+        $clv_empresa=$this->conectar($clv);
+        \Config::set('database.connections.DB_Serverr', $clv_empresa);
+
+        if($datos->get('query')){
+            $query = $datos->get('query');
+            $data =  DB::connection('DB_Serverr')->table('empleados')
+                        ->where('clave_empledo','LIKE',"%{$query}%")
+                        ->get();
+            $outout = '<ul class="dropdown-menu" style="display:block;position:relative">';
+            foreach ($data as $row) {
+                $outout .= '
+                <li> <a href="#">'.$row->name.'</a></li>';
+            }
+            $outout .= '</ul>';
+            echo $outout;
+
+        }
     }
 
     /**

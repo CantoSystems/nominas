@@ -101,6 +101,8 @@ Route::delete('/conceptos/{id}','ConceptosController@eliminaconcepto')->name('co
 
 //ausentismo
 Route::get('/ausentismo','AusentismoController@index')->name('ausentismo.index');
+Route::post('/ausentismo/getciuddano','AusentismoController@getciudadano')->name('ausentismo.getciudadano');
+
 
 //Empleados
 Route::get('/empleados', 'EmpleadosController@index')->name('empleados.index');
