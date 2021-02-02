@@ -1,7 +1,7 @@
 @if(!empty($emplea))
     <div class="modal fade" id="modalbuscarempleado{{$emplea->clave }}">
 @else
-    <div class="modal fade" id="modalbuscarempleado">
+    <div class="modal fade" id="modal-buscarempleado">
 @endif
     <div class="modal-dialog">
         <div class="modal-content">
@@ -28,11 +28,11 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @if(!empty($personal))
-                                    @foreach($personal as $emp1)
+                                @if(!empty($empleado))
+                                    @foreach($empleado as $emp)
                                         <tr>
-                                            <td scope="row">{{ $emp1->clave_empleado }}</td>
-                                            <td>{{ $emp1->nombre}} {{ $emp1->apellido_paterno }} {{ $emp1->apellido_materno }}</td>
+                                            <td scope="row">{{ $emp->clave_empleado }}</td>
+                                            <td>{{ $emp->nombre}} {{ $emp->apellido_paterno }} {{ $emp->apellido_materno }}</td>
                                             <td>
                                                 @if(!empty($aux1))
                                                     <a href="{{ route('ausentismo.seleccionarempleado2',array($emp1->clave_empleado,$aux1->clave_concepto)) }}">
@@ -41,7 +41,7 @@
                                                         </button>
                                                     </a>
                                                 @else
-                                                    <a href="{{ route('ausentismo.seleccionarempleado',$emp1->clave_empleado) }}">
+                                                    <a href="{{ route('ausentismo.seleccionarempleado',$emp->clave_empleado) }}">
                                                         <button type="button" style='width:70px; height:40px; align-items:center;'>
                                                             <i class="fas fa-check-circle"></i>
                                                         </button>
