@@ -36,6 +36,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <link rel="stylesheet" href="{{ asset('/Admin/dist/css/adminlte.min.css')}}">
   <!-- Google Font: Source Sans Pro -->
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+  <!-- Jquery UI-->
+  <link rel="stylesheet" type="text/css" href="{{ asset('/Admin/plugins/jquery-ui/jquery-ui.min.css')}}">
 </head>
 <body class="hold-transition sidebar-mini">
 <div class="wrapper">
@@ -237,6 +239,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <script src="{{ asset('/Admin/plugins/datatables-responsive/js/dataTables.responsive.min.js')}}"></script>
 <script src="{{ asset('/Admin/plugins/datatables-responsive/js/responsive.bootstrap4.min.js')}}"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.10/jquery.mask.js"></script>
+<script src="{{ asset('/Admin/plugins/jquery-ui/jquery-ui.min.js')}}"></script>
 
 <script>
   //funcionaiento del datarange de los input tipo fecha
@@ -316,6 +319,33 @@ scratch. This page gets rid of all links and provides the needed markup only.
       "responsive": true,
     });
   });
+</script>
+<script>
+$(document).ready(function(){
+
+ $('#empleado_clave').keyup(function(){ 
+        var query = $(this).val();
+        if(query != '')
+        {
+         var _token = $('input[name="_token"]').val();
+         $.ajax({
+          url:"{{ url('/ausentismo/getciuddano') }}",
+          method:"POST",
+          data:{query:query, _token:_token},
+          success:function(data){
+           $('#empleadolist').fadeIn();  
+                    $('#empleadolist').html(data);
+          }
+         });
+        }
+    });
+
+    $(document).on('click', 'li', function(){  
+        $('#empleado_clave').val($(this).text());  
+        $('#empleadolist').fadeOut();  
+    });  
+
+});
 </script>
 
   <!--CDN para el funcionamiento de la mascara de los telefonos del catalogo de empleado-->
