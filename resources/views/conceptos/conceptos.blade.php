@@ -322,7 +322,7 @@
                                     @can('administrador')
                                         @if(!empty($aux))
                                             <div class="form-group">
-                                                <a id="eliminar" data-target="#modal-deleteconcepto-{{$aux->id}}" data-toggle="modal" style='width:70px; height:40px'>
+                                                <a id="eliminar" data-target="modal-deleteconcepto-{{$aux->id ?? ''}}" data-toggle="modal" style='width:70px; height:40px'>
                                                     <button type="button" style='width:70px; height:40px'>
                                                         <i class="far fa-trash-alt"></i>
                                                     </button>

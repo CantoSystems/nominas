@@ -265,7 +265,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
       $('#buscar').hide();
       $('#nuevo_reg').show();
       $('#cancelar_reg').show();
-      $('input[type="text"]').val('');
+      //$('input[type="text"]').val('');
       $('input[type="date"]').val('');
       $('input[type="number"]').val('');
       $("input:checkbox").removeAttr("checked");
@@ -319,33 +319,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
       "responsive": true,
     });
   });
-</script>
-<script>
-$(document).ready(function(){
-
- $('#empleado_clave').keyup(function(){ 
-        var query = $(this).val();
-        if(query != '')
-        {
-         var _token = $('input[name="_token"]').val();
-         $.ajax({
-          url:"{{ url('/ausentismo/getciuddano') }}",
-          method:"POST",
-          data:{query:query, _token:_token},
-          success:function(data){
-           $('#empleadolist').fadeIn();  
-                    $('#empleadolist').html(data);
-          }
-         });
-        }
-    });
-
-    $(document).on('click', 'li', function(){  
-        $('#empleado_clave').val($(this).text());  
-        $('#empleadolist').fadeOut();  
-    });  
-
-});
 </script>
 
   <!--CDN para el funcionamiento de la mascara de los telefonos del catalogo de empleado-->

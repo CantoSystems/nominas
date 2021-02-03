@@ -32,24 +32,52 @@
                     <div class="col-sm-3">
                         <label>Clave:</label>
                         <div class=" input-group mb-3">
-                        @if(!empty($emp))
+
+                        @if((!empty($ausentismo) && (!empty($emplea))))
                             <input  type="text" 
                                     name="empleado_clave" 
                                     class="form-control"
-                                    value="{{$emp->clave_empleado ?? ''}}"
-                                    onkeyup="mayus(this);">
+                                    value="{{$ausentismo->empleado_clave}}"
+                                    onkeyup="mayus(this);">a
                             <div class="input-group-append">
-                                <span class="input-group-text" data-toggle="modal" data-target="#modalbuscarempleado"><i class="fas fa-search"></i></span>
+                                <span   class="input-group-text" 
+                                        data-toggle="modal" 
+                                        data-target="#modalbuscarempleado{{ $emplea->empleado_clave }}">
+                                        <i class="fas fa-search">    
+                                        </i>
+                                </span>
+                            </div>
+                        @elseif(!empty($ausentismo))
+                            <input  type="text" 
+                                    name="empleado_clave" 
+                                    class="form-control"
+                                    value="{{$ausentismo->empleado_clave}}"
+                                    onkeyup="mayus(this);">b
+                            <div class="input-group-append">
+                                <span class="input-group-text" data-toggle="modal" data-target="#modal-buscarempleado"><i class="fas fa-search"></i></span>
                             </div>
                         @elseif(!empty($emplea))
                             <input  type="text" 
                                     name="empleado_clave" 
                                     class="form-control"
-                                    value="{{$emplea->clave_empleado ?? ''}}"
-                                    onkeyup="mayus(this);">
+                                    value=""
+                                    onkeyup="mayus(this);">c
                             <div class="input-group-append">
                                 <span class="input-group-text" data-toggle="modal" data-target="#modalbuscarempleado{{$emplea->clave }}"><i class="fas fa-search"></i></span>
                             </div>
+                        @else
+                            <input  type="text" 
+                                    name="empleado_clave" 
+                                    class="form-control"
+                                    onkeyup="mayus(this);">d
+                            <div class="input-group-append">
+                                <span   class="input-group-text" data-toggle="modal" 
+                                        data-target="#modal-buscarempleado">
+                                        <i class="fas fa-search">    
+                                        </i>
+                                </span>
+                            </div>
+
                         @endif
 
                         </div>
