@@ -29,62 +29,30 @@
                     <input type="hidden" name="id" value="{{ $ausentismo->id ?? ''}}">
                 </div>
             
-                    <div class="col-sm-3">
-                        <label>Clave:</label>
+                    <div class="col-sm-4 ">
+                        <label>Clave empleado:</label>
                         <div class=" input-group mb-3">
-
-                        @if((!empty($ausentismo) && (!empty($emplea))))
                             <input  type="text" 
-                                    name="empleado_clave" 
+                                    name="clave_empledo"
+                                    id="clave_empledo"
+                                    maxlength="4" 
                                     class="form-control"
-                                    value="{{$ausentismo->empleado_clave}}"
-                                    onkeyup="mayus(this);">a
-                            <div class="input-group-append">
-                                <span   class="input-group-text" 
-                                        data-toggle="modal" 
-                                        data-target="#modalbuscarempleado{{ $emplea->empleado_clave }}">
-                                        <i class="fas fa-search">    
-                                        </i>
-                                </span>
-                            </div>
-                        @elseif(!empty($ausentismo))
-                            <input  type="text" 
-                                    name="empleado_clave" 
-                                    class="form-control"
-                                    value="{{$ausentismo->empleado_clave}}"
-                                    onkeyup="mayus(this);">b
-                            <div class="input-group-append">
-                                <span class="input-group-text" data-toggle="modal" data-target="#modal-buscarempleado"><i class="fas fa-search"></i></span>
-                            </div>
-                        @elseif(!empty($emplea))
-                            <input  type="text" 
-                                    name="empleado_clave" 
-                                    class="form-control"
-                                    value=""
-                                    onkeyup="mayus(this);">c
-                            <div class="input-group-append">
-                                <span class="input-group-text" data-toggle="modal" data-target="#modalbuscarempleado{{$emplea->clave }}"><i class="fas fa-search"></i></span>
-                            </div>
-                        @else
-                            <input  type="text" 
-                                    name="empleado_clave" 
-                                    class="form-control"
-                                    onkeyup="mayus(this);">d
+                                    onkeyup="mayus(this);">
                             <div class="input-group-append">
                                 <span   class="input-group-text" data-toggle="modal" 
                                         data-target="#modal-buscarempleado">
                                         <i class="fas fa-search">    
                                         </i>
-                                </span>
+                                </span><br>
+                                <div id="listaclave_empleado"></div>
+                            {{ csrf_field() }}
                             </div>
-
-                        @endif
-
+                            
                         </div>
                     </div>
             
 
-                <div class="col-sm-1">
+                <div class="col-sm-2">
                     <div class="form-group">
                         <label>Cantidad:</label>
                         <input  type="number" 
@@ -104,17 +72,20 @@
                                     class="form-control"
                                     name="concepto_clave"
                                     value="{{$ausentismo->concepto_clave ?? ''}}" 
-                                    onkeyup="mayus(this);">
+                                    onkeyup="mayus(this);"
+                                    id="concepto_clave">
                             <div class="input-group-append">
                                 <span class="input-group-text" data-toggle="modal" data-target="#modalbuscarempleado">
                                     <i class="fas fa-search">
                                     </i>
                                 </span>
+                                <div id="listaconcepto_clave"></div>
+                                {{ csrf_field() }}
                             </div>
                         </div>
                     </div>
               
-                <div class="col-sm-2">
+                <div class="col-sm-3">
                     <div class="form-group">
                         <label>Fecha:</label>
                         <input  type="date" 
@@ -125,7 +96,7 @@
                                 onkeypress="return numeros(event)">
                     </div>
                 </div>
-                <div class="col-sm-4">
+                <div class="col-sm-3">
                     <div class="form-group">
                         <label>Incapacidad:</label>
                         <input  type="text" 
@@ -135,7 +106,7 @@
                                 onkeyup="mayus(this);">
                     </div>
                 </div>
-                <div class="col-sm-4">
+                <div class="col-sm-3">
                     <div class="form-group">
                         <label>Nombre:</label>
                         <input  type="text" 
@@ -145,7 +116,7 @@
                                 onkeyup="mayus(this);">
                     </div>
                 </div>
-                <div class="col-sm-4">
+                <div class="col-sm-3">
                     <div class="form-group">
                         <label>Descripcion:</label>
                         <input  type="text" 

@@ -315,7 +315,7 @@ class EmpleadosController extends Controller{
 
     public function registrar_empleado($datos){
         $clv=Session::get('clave_empresa');
-        $clv_empleado= $this->generador($datos->rfc);
+        //$clv_empleado= $this->generador($datos->rfc);
 
         $clv_empresa=$this->conectar($clv);
         \Config::set('database.connections.DB_Serverr', $clv_empresa);
@@ -550,7 +550,7 @@ class EmpleadosController extends Controller{
                                                             ?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,
                                                             ?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,
                                                             ?,?,?,?,?,?,?,?,?,?,?,?,?,?)'
-                                                            ,[$clv_empleado
+                                                            ,[$datos->clave_empleado
                                                             ,$datos->clasificacion
                                                             ,$datos->nombre
                                                             ,$datos->apellido_paterno

@@ -101,9 +101,9 @@ Route::delete('/conceptos/{id}','ConceptosController@eliminaconcepto')->name('co
 
 //ausentismo
 Route::get('/ausentismo','AusentismoController@index')->name('ausentismo.index');
-//Route::post('/ausentismo/getciuddano','AusentismoController@getciudadano')->name('ausentismo.getciudadano');
-Route::get('/busquedasausentismo/{id}','AusentismoController@seleccionarempleado')->name('ausentismo.seleccionarempleado');
-Route::get('/busquedasausentismo/{id}/{id_con}','AusentismoController@seleccionarempleado2')->name('aausentismo.seleccionarempleado2');
+Route::post('/ausentismo/busqueda','AusentismoController@mostrarempleado')->name('ausentismo.mostrarempleado');
+Route::post('/ausentismo/busquedaconcepto','AusentismoController@mostrarconcepto')->name('ausentismo.mostrarconcepto');
+
 
 
 //Empleados

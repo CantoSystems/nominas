@@ -175,7 +175,7 @@
                         <div class="col-sm-2">
                             <div class="form-group">
                                 <label>Clave:</label>
-                                <input type="text" name="clave_concepto"  maxlength="4"  class="form-control" onkeyup="mayus(this);" >
+                                <input type="text" name="clave_concepto"  maxlength="3"  class="form-control" onkeyup="mayus(this);" >
                                 @error('clave_concepto')
                                     <div class="alert alert-secondary">
                                         {{ $message }}

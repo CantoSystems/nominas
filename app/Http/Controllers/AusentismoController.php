@@ -26,13 +26,18 @@ class AusentismoController extends Controller
                 ->where('id','=',$periodo)
                 ->first();
 
+                
+
                 $empleado=DB::connection('DB_Serverr')->table('empleados')
                         ->get();
 
                 $ausentismo= DB::connection('DB_Serverr')->table('ausentimos')->first();
 
                 $conceptos=DB::connection('DB_Serverr')->table('conceptos')->get();
-                //dd($conceptos);
+                //dd($ptrabajo);
+
+
+
                 
                 return view('ausentismo.crudausentismo', compact('periodo','ptrabajo','empleado','conceptos','ausentismo'));
                  break;
@@ -40,6 +45,11 @@ class AusentismoController extends Controller
                 case 'cancelar':
                  return redirect()->route('ausentismo.index');
               break;
+
+              case 'registrar':
+                 
+
+                  break;
 
              
              default:
@@ -70,51 +80,65 @@ class AusentismoController extends Controller
         return $configDb;
 
     }
-    public function seleccionarempleado($clave_emp){
 
-        $clv= Session::get('clave_empresa');
+    public function mostrarempleado(Request $request)
+    {
+
+        $clv=Session::get('clave_empresa');
         $clv_empresa=$this->conectar($clv);
-        $periodo= Session::get('num_periodo');
 
         \Config::set('database.connections.DB_Serverr', $clv_empresa);
 
-
-        $ausentismo = DB::connection('DB_Serverr')->table('empleados')->where('clave_empleado',$clave_emp)->get()->first();
-        $conceptos=DB::connection('DB_Serverr')->table('conceptos')->get();
-        $ptrabajo = DB::connection('DB_Serverr')->table('periodos')
-                ->where('id','=',$periodo)
-                ->first();
-
-        return view('ausentismo.crudausentismo',compact('ausentismo','conceptos','ptrabajo','periodo'));
+        if($request->get('query'))
+        {
+            $query = $request->get('query');
+            $data = DB::connection('DB_Serverr')->table('empleados')
+                ->where('clave_empleado','LIKE','%'.$query.'%')
+                ->orWhere('nombre','LIKE','%'.$query.'%')
+                ->orWhere('apellido_paterno','LIKE','%'.$query.'%')
+                ->orWhere('apellido_materno','LIKE','%'.$query.'%')
+                ->get();
+    
+            $output = '<ul  class="dropdpwn-menu"
+                            aria-labelledby="dropdownMenuLink"
+                            style="display:block;
+                            position:relative;">';
+                        foreach($data as $row)
+                            {
+                                $output .= '<li class="empleado" style="list-style:none"><a class="dropdown-item" href="#">'.$row->clave_empleado.'&nbsp;'.$row->nombre.'</a></li>';
+                            }
+            $output .= '</ul>';
+            echo $output;
+        }
     }
-     public function seleccionarconcept2($clave_con,$clave_emp){
-        $clv = Session::get('clave_empresa');
-        $clv_empresa = $this->conectar($clv);
+
+    public function mostrarconcepto(Request $request)
+    {
+
+        $clv=Session::get('clave_empresa');
+        $clv_empresa=$this->conectar($clv);
 
         \Config::set('database.connections.DB_Serverr', $clv_empresa);
 
-        $emplea = DB::connection('DB_Serverr')->table('conceptos')->where('clave_concepto',$clave_con)->get()->first();
-        $emp = DB::connection('DB_Serverr')->table('empleados')->where('clave_empleado',$clave_emp)->get()->first();
-        $conceptos = DB::connection('DB_Serverr')->table('conceptos')->get();
-        $personal = DB::connection('DB_Serverr')->table('empleados')->get();
-        return view('ausentismo.crudausentismo',compact('emplea','conceptos','emp','personal'));
+        if($request->get('consulta'))
+        {
+            $consulta = $request->get('consulta');
+            $data = DB::connection('DB_Serverr')->table('conceptos')
+                ->where('clave_concepto','LIKE','%'.$consulta.'%')
+                ->orWhere('concepto','LIKE','%'.$consulta.'%')
+                ->get();
+    
+            $output = '<ul  class="dropdpwn-menu"
+                            aria-labelledby="dropdownMenuLink"
+                            style="display:block;
+                            position:relative;">';
+                        foreach($data as $row)
+                            {
+                                $output .= '<li class="concepto" style="list-style:none"><a class="dropdown-item" href="#">'.$row->clave_concepto.'&nbsp;'.$row->concepto.'</a></li>';
+                            }
+            $output .= '</ul>';
+            echo $output;
+        }
     }
-
-     
-
-    public function store(Request $request)
-    {
-        //
-    }
-
-
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-      public function destroy($id)
-    {
-        //
-    }
+   
 }

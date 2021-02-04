@@ -74,7 +74,10 @@
                             @else
                                 <div class="col-md-6">
                                     <label>Clave del puesto:</label>
-                                    <input type="text" class="form-control" onkeyup="mayus(this);" maxlength = "4" name="clave_puesto">
+                                    <input type="text"  class="form-control" 
+                                                        onkeyup="mayus(this);" 
+                                                        maxlength="4" 
+                                                        name="clave_puesto">
                                     <input type="hidden" class="form-control" name="identificador">
                                     @error('clave_puesto')
                                             <div class="alert alert-secondary">
