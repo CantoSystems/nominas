@@ -26,19 +26,17 @@ class AusentismoController extends Controller
                 ->where('id','=',$periodo)
                 ->first();
 
-                
-
                 $empleado=DB::connection('DB_Serverr')->table('empleados')
                         ->get();
 
-                $ausentismo= DB::connection('DB_Serverr')->table('ausentimos')->first();
+                $ausentismo= DB::connection('DB_Serverr')->table('ausentimos')
+                ->join('empleados','empleados.clave_empleado','=','ausentimos.clave_empleado')
+                ->select('ausentimos.*','empleados.*')
+                ->first();
+                //dd($ausentismo);
 
                 $conceptos=DB::connection('DB_Serverr')->table('conceptos')->get();
-                //dd($ptrabajo);
 
-
-
-                
                 return view('ausentismo.crudausentismo', compact('periodo','ptrabajo','empleado','conceptos','ausentismo'));
                  break;
 
@@ -47,7 +45,8 @@ class AusentismoController extends Controller
               break;
 
               case 'registrar':
-                 
+                    $this->registrar($request);
+                    return redirect()->route('ausentismo.index');
 
                   break;
 
@@ -105,11 +104,11 @@ class AusentismoController extends Controller
                             position:relative;">';
                         foreach($data as $row)
                             {
-                                $output .= '<li class="empleado" style="list-style:none"><a class="dropdown-item" href="#">'.$row->clave_empleado.'&nbsp;'.$row->nombre.'</a></li>';
+                                $output .= '<li id="empleado" style="list-style:none"><a class="dropdown-item" href="#">'.$row->clave_empleado.'&nbsp;'.$row->nombre.'&nbsp;'.$row->apellido_paterno.'&nbsp;'.$row->apellido_materno.'</a></li>';
                             }
             $output .= '</ul>';
-            echo $output;
         }
+            return  $output;
     }
 
     public function mostrarconcepto(Request $request)
@@ -134,11 +133,36 @@ class AusentismoController extends Controller
                             position:relative;">';
                         foreach($data as $row)
                             {
-                                $output .= '<li class="concepto" style="list-style:none"><a class="dropdown-item" href="#">'.$row->clave_concepto.'&nbsp;'.$row->concepto.'</a></li>';
+                                $output .= '<li id="concepto" style="list-style:none"><a class="dropdown-item" href="#">'.$row->clave_concepto.'&nbsp;'.$row->concepto.'</a></li>';
                             }
             $output .= '</ul>';
             echo $output;
         }
+    }
+
+    public function registrar($datos){
+        $clv=Session::get('clave_empresa');
+        $clv_empresa=$this->conectar($clv);
+
+        \Config::set('database.connections.DB_Serverr', $clv_empresa);
+
+        DB::connection('DB_Serverr')->insert('insert into ausentimos (
+            identificador_periodo,
+            clave_empleado,
+            cantidad,
+            clave_concepto,
+            fecha_ausentismo,
+            incapacidad,
+            descripcion)
+            values (?,?,?,?,?,?,?)',[ $datos->identificador_periodo,
+                                    $datos->clave_empledo,
+                                    $datos->cantidad,
+                                    $datos->concepto_clave,
+                                    $datos->fecha_ausentismo,
+                                    $datos->incapacidad,
+                                    $datos->descripcion
+                                ]);
+
     }
    
 }
