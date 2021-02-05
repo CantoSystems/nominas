@@ -265,7 +265,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
       $('#buscar').hide();
       $('#nuevo_reg').show();
       $('#cancelar_reg').show();
-      //$('input[type="text"]').val('');
+      $('input[type="text"]').val('');
       $('input[type="date"]').val('');
       $('input[type="number"]').val('');
       $("input:checkbox").removeAttr("checked");
@@ -414,7 +414,7 @@ return false;
   let mensaje = document.getElementById('mensaje');
 
 
-   porcentaje.addEventListener('keyup', ()=>{
+   porcentaje.addEventListener('keypress', ()=>{
     let sumainicio = parseInt(porcentaje.value);
 
         if (sumainicio > 100) {
@@ -609,6 +609,65 @@ return false;
       mensaje.innerHTML = 'Corregir, no puede ser menores a 100%';
     }
   })
+</script>
+<script>
+  $(document).ready(function(){ 
+    $('#clave_empledo').keyup(function(){
+      let query = $(this).val();  
+        if(query != '')
+        {
+          var _token = $('input[name="_token"]').val();
+          $.ajax({
+            url:"{{ route('ausentismo.mostrarempleado') }}",
+            method: "POST",
+            data:{query:query,_token:_token},
+            success:function(data)
+            {
+              $('#listaclave_empleado').fadeIn();
+              $('#listaclave_empleado').html(data);
+            }
+
+          });
+        }
+    });
+
+    $(document).on('click','li',function(){
+      //$('#clave_empledo').val($(this).text());
+      $('#clave_empledo').val($(this).text());
+      console.log($(this).text());
+      $('#listaclave_empleado').fadeOut();
+    });
+
+  });
+</script>
+<script>
+  $(document).ready(function(){ 
+    $('#concepto_clave').keyup(function(){
+      let consulta = $(this).val();  
+        if(consulta != '')
+        {
+          var _token = $('input[name="_token"]').val();
+          $.ajax({
+            url:"{{ route('ausentismo.mostrarconcepto') }}",
+            method: "POST",
+            data:{consulta:consulta,_token:_token},
+            success:function(data)
+            {
+              $('#listaconcepto_clave').fadeIn();
+              $('#listaconcepto_clave').html(data);
+            }
+
+          });
+        }
+    });
+
+    $(document).on('click','li',function(){
+      $('#concepto_clave').val($(this).text());
+      console.log($(this).text());
+      $('#listaconcepto_clave').fadeOut();
+    });
+
+  });
 </script>
 
 </body>
