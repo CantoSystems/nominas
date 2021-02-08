@@ -3,7 +3,8 @@
 <div class="container">
     <div class="card card-secondary">
         <div class="card-header">
-            <h3 class="card-title">Ausentismo</h3>
+            <h3 class="card-title">Ausentismo
+            </h3>
         </div>
         <div class="card-body">
                     @if(session()->has('msj'))
@@ -30,13 +31,14 @@
                 </div>
             
                     <div class="col-sm-4 ">
-                        <label>Clave empleado:</label>
+                        <label>Clave empleado: {{ $ausentismo->clave_empleado }}</label>
                         <div class=" input-group mb-3">
                             <input  type="text" 
                                     name="clave_empledo"
                                     id="clave_empledo"
                                     maxlength="4" 
                                     class="form-control"
+                                    value="{{$ausentismo->clave_empleado ?? ''}}" 
                                     onkeyup="mayus(this);">
                             <div class="input-group-append">
                                 <span   class="input-group-text" data-toggle="modal" 
@@ -71,7 +73,7 @@
                             <input  type="text"
                                     class="form-control"
                                     name="concepto_clave"
-                                    value="{{$ausentismo->concepto_clave ?? ''}}" 
+                                    value="{{$ausentismo->clave_concepto ?? ''}}" 
                                     onkeyup="mayus(this);"
                                     id="concepto_clave">
                             <div class="input-group-append">
@@ -96,7 +98,7 @@
                                 onkeypress="return numeros(event)">
                     </div>
                 </div>
-                <div class="col-sm-3">
+                <div class="col-sm-2">
                     <div class="form-group">
                         <label>Incapacidad:</label>
                         <input  type="text" 
@@ -106,13 +108,14 @@
                                 onkeyup="mayus(this);">
                     </div>
                 </div>
-                <div class="col-sm-3">
+                <div class="col-sm-4">
                     <div class="form-group">
                         <label>Nombre:</label>
                         <input  type="text" 
                                 name="nombre" 
                                 class="form-control"
-                                value="{{$emp->nombre ?? ''}}" 
+                                value="{{$ausentismo->nombre ?? ''}} {{$ausentismo->apellido_paterno ?? ''}} {{$ausentismo->apellido_materno ?? ''}}" 
+                                id="nombre_empleado" 
                                 onkeyup="mayus(this);">
                     </div>
                 </div>
