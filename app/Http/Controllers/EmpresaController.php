@@ -207,7 +207,7 @@ class EmpresaController extends Controller{
 
         Schema::connection('DB_Serverr')->create('conceptos', function($table){
             $table->increments('id');
-            $table->char('clave_concepto', 10);
+            $table->char('clave_concepto', 5);
             $table->string('concepto',100);
             $table->string('formula',100);
             $table->string('naturaleza',100);

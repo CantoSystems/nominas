@@ -3,33 +3,28 @@
 <div class="container">
     <div class="card card-secondary">
         <div class="card-header">
-            <h3 class="card-title">Ausentismo
-            </h3>
+            <h3 class="card-title">Ausentismo</h3>
         </div>
         <div class="card-body">
-                    @if(session()->has('msj'))
-                        <div class="alert alert-danger" role="alert">
-                            {{ session('msj')}}
-                        </div>
-                    @endif
-                    @if(session()->has('busqueda'))
-                        <div class="alert alert-danger" role="alert">
-                            {{ session('busqueda')}}
-                        </div>
-                    @endif
+            @if(session()->has('msj'))
+                <div class="alert alert-danger" role="alert">
+                    {{ session('msj')}}
+                </div>
+            @endif
+            @if(session()->has('busqueda'))
+                <div class="alert alert-danger" role="alert">
+                    {{ session('busqueda')}}
+                </div>
+            @endif
             <form action="{{ route('ausentismo.index')}}" method="GET" autocomplete="off">
                 <div class="row">
-
-                <div class="col-md-3">
-                    <label>Periodo seleccionado:</label>
-                    <select class="custom-select" name="identificador_periodo">
-                         
+                    <div class="col-md-3">
+                        <label>Periodo seleccionado:</label>
+                        <select class="custom-select" name="identificador_periodo">
                             <option value="{{$periodo}}"> {{$ptrabajo->fecha_inicio}} al {{$ptrabajo->fecha_fin}} </option>
-                        
-                    </select>
-                    <input type="hidden" name="id" value="{{ $ausentismo->id ?? ''}}">
-                </div>
-            
+                        </select>
+                        <input type="hidden" name="id" value="{{ $ausentismo->id ?? ''}}">
+                    </div>
                     <div class="col-sm-4 ">
                         <label>Clave empleado: </label>
                         <div class=" input-group mb-3">
@@ -43,15 +38,14 @@
                             <div class="input-group-append">
                                 <span   class="input-group-text" data-toggle="modal" 
                                         data-target="#modal-buscarempleado">
-                                        <i class="fas fa-search">    
-                                        </i>
-                                </span><br>
+                                        <i class="fas fa-search">  </i>
+                                </span>
                                 <div id="listaclave_empleado"></div>
                             {{ csrf_field() }}
                             </div>
-                            
                         </div>
                     </div>
+<<<<<<< HEAD
             
 
                 <div class="col-sm-2">
@@ -64,12 +58,23 @@
                                 step="1" 
                                 onkeyup="mayus(this);"
                                 onkeypress="return numeros(event)">
+=======
+                    <div class="col-sm-2">
+                        <div class="form-group">
+                            <label>Cantidad:</label>
+                            <input  type="number" 
+                                    name="cantidad"
+                                    class="form-control"
+                                    value="{{$ausentismo->cantidad ?? ''}}"
+                                    step="1" 
+                                    onkeyup="mayus(this);"
+                                    onkeypress="return numeros(event)">
+                        </div>
+>>>>>>> 5bd3f318eabe88c0fc01241acc044186b9ad2582
                     </div>
-                </div>
-
-                <div class="col-sm-3">
+                    <div class="col-sm-3">
                         <label>Concepto:</label>
-                       <div class=" input-group mb-3">
+                        <div class=" input-group mb-3">
                             <input  type="text"
                                     class="form-control"
                                     name="concepto_clave"
@@ -78,60 +83,55 @@
                                     id="concepto_clave">
                             <div class="input-group-append">
                                 <span class="input-group-text" data-toggle="modal" data-target="#modalbuscarempleado">
-                                    <i class="fas fa-search">
-                                    </i>
+                                    <i class="fas fa-search"></i>
                                 </span>
                                 <div id="listaconcepto_clave"></div>
                                 {{ csrf_field() }}
                             </div>
                         </div>
                     </div>
-              
-                <div class="col-sm-3">
-                    <div class="form-group">
-                        <label>Fecha:</label>
-                        <input  type="date" 
-                                name="fecha_ausentismo" 
-                                class="form-control" 
-                                value="{{$ausentismo->fecha_ausentismo ?? ''}}" 
-                                onkeyup="mayus(this);"
-                                onkeypress="return numeros(event)">
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label>Fecha:</label>
+                            <input  type="date" 
+                                    name="fecha_ausentismo" 
+                                    class="form-control" 
+                                    value="{{$ausentismo->fecha_ausentismo ?? ''}}" 
+                                    onkeyup="mayus(this);"
+                                    onkeypress="return numeros(event)">
+                        </div>
                     </div>
-                </div>
-                <div class="col-sm-2">
-                    <div class="form-group">
-                        <label>Incapacidad:</label>
-                        <input  type="text" 
-                                name="incapacidad" 
-                                class="form-control" 
-                                value="{{$ausentismo->incapacidad ?? ''}}" 
-                                onkeyup="mayus(this);">
+                    <div class="col-sm-2">
+                        <div class="form-group">
+                            <label>Incapacidad:</label>
+                            <input  type="text" 
+                                    name="incapacidad" 
+                                    class="form-control" 
+                                    value="{{$ausentismo->incapacidad ?? ''}}" 
+                                    onkeyup="mayus(this);">
+                        </div>
                     </div>
-                </div>
-                <div class="col-sm-4">
-                    <div class="form-group">
-                        <label>Nombre:</label>
-                        <input  type="text" 
-                                name="nombre" 
-                                class="form-control"
-                                value="{{$ausentismo->nombre ?? ''}} {{$ausentismo->apellido_paterno ?? ''}} {{$ausentismo->apellido_materno ?? ''}}" 
-                                id="nombre_empleado" 
-                                onkeyup="mayus(this);">
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label>Nombre:</label>
+                            <input  type="text" 
+                                    name="nombre" 
+                                    class="form-control"
+                                    value="{{$ausentismo->nombre ?? ''}} {{$ausentismo->apellido_paterno ?? ''}} {{$ausentismo->apellido_materno ?? ''}}" 
+                                    id="nombre_empleado" 
+                                    onkeyup="mayus(this);">
+                        </div>
                     </div>
-                </div>
-                <div class="col-sm-3">
-                    <div class="form-group">
-                        <label>Descripcion:</label>
-                        <input  type="text" 
-                                name="descripcion" 
-                                class="form-control" 
-                                value="{{$ausentismo->descripcion ?? ''}}" 
-                                onkeyup="mayus(this);">
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label>Descripcion:</label>
+                            <input  type="text" 
+                                    name="descripcion" 
+                                    class="form-control" 
+                                    value="{{$ausentismo->descripcion ?? ''}}" 
+                                    onkeyup="mayus(this);">
+                        </div>
                     </div>
-                </div>
-                
-
-                  
                     @canany(['administrador','capturista','reportes'])
                         <div class="col-sm-5">
                             <div class="card-body">
@@ -162,22 +162,22 @@
                                 <div class="btn-group">
                                     @canany(['administrador','capturista','reportes'])
                                         <div class="form-group">
-                                        @isset($ausentismo)
-                                            <button id="buscar" type="button" data-toggle="modal" data-target="#exampleModal" style='width:70px; height:40px'>
-                                                <i class="fas fa-search"></i>
-                                            </button>
-                                        @endisset
+                                            @isset($ausentismo)
+                                                <button id="buscar" type="button" data-toggle="modal" data-target="#exampleModal" style='width:70px; height:40px'>
+                                                    <i class="fas fa-search"></i>
+                                                </button>
+                                            @endisset
                                         </div>
                                     @endcanany
                                     @canany(['administrador','capturista'])
                                         <div class="form-group">
                                             <button type="button" id="nuevo" style='width:70px; height:40px'> <i class="fas fa-user-plus"></i></button>
                                         </div>
-                                    @isset($ausentismo)
-                                        <div class="form-group">
-                                            <button type="button" id="actualizar" style='width:70px; height:40px'> <i class="fas fa-pen-square"></i></button>
-                                        </div>
-                                    @endisset
+                                        @isset($ausentismo)
+                                            <div class="form-group">
+                                                <button type="button" id="actualizar" style='width:70px; height:40px'> <i class="fas fa-pen-square"></i></button>
+                                            </div>
+                                        @endisset
                                     @endcanany
                                     @can('administrador')
                                         @if(!empty($ausentismo))
@@ -213,6 +213,7 @@
                     </div>
                 </div>
             </form>
+<<<<<<< HEAD
             
          
         </div>
@@ -279,11 +280,17 @@
         </div>
             </div>
             
+=======
+            @isset($emp)
+                @include('ausentismo.empleadobuscar')
+            @endisset
+            @if(!empty($ausentismo))
+                @include('conceptos.modaldeleteconcetos')
+            @endif
+>>>>>>> 5bd3f318eabe88c0fc01241acc044186b9ad2582
         </div>
         <!--Fin Datatables-->
     </div>
 </div>
 </div>
-
-
 @endsection
