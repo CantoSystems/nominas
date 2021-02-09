@@ -45,33 +45,21 @@
                             </div>
                         </div>
                     </div>
-<<<<<<< HEAD
             
 
                 <div class="col-sm-2">
                     <div class="form-group">
                         <label>Cantidad:</label>
                         <input  type="number" 
-                                name="cantidad"
+                                name="cantidad_ausentismo"
                                 class="form-control"
                                 value="{{$ausentismo->cantidad_ausentismo ?? ''}}"
                                 step="1" 
                                 onkeyup="mayus(this);"
                                 onkeypress="return numeros(event)">
-=======
-                    <div class="col-sm-2">
-                        <div class="form-group">
-                            <label>Cantidad:</label>
-                            <input  type="number" 
-                                    name="cantidad"
-                                    class="form-control"
-                                    value="{{$ausentismo->cantidad ?? ''}}"
-                                    step="1" 
-                                    onkeyup="mayus(this);"
-                                    onkeypress="return numeros(event)">
-                        </div>
->>>>>>> 5bd3f318eabe88c0fc01241acc044186b9ad2582
+
                     </div>
+                </div>
                     <div class="col-sm-3">
                         <label>Concepto:</label>
                         <div class=" input-group mb-3">
@@ -182,7 +170,8 @@
                                     @can('administrador')
                                         @if(!empty($ausentismo))
                                             <div class="form-group">
-                                                <a id="eliminar" data-target="" data-toggle="modal" style='width:70px; height:40px'>
+                                                <a id="eliminar" 
+                                                data-target="#modal-deleteausentismo-{{$ausentismo->id}}" data-toggle="modal" style='width:70px; height:40px'>
                                                     <button type="button" style='width:70px; height:40px'>
                                                         <i class="far fa-trash-alt"></i>
                                                     </button>
@@ -212,8 +201,10 @@
                         </div>
                     </div>
                 </div>
+                @isset($ausentismo)
+            @include('ausentismo.modaldeleteausentismo')
+            @endisset
             </form>
-<<<<<<< HEAD
             
          
         </div>
@@ -279,15 +270,6 @@
             </div>
         </div>
             </div>
-            
-=======
-            @isset($emp)
-                @include('ausentismo.empleadobuscar')
-            @endisset
-            @if(!empty($ausentismo))
-                @include('conceptos.modaldeleteconcetos')
-            @endif
->>>>>>> 5bd3f318eabe88c0fc01241acc044186b9ad2582
         </div>
         <!--Fin Datatables-->
     </div>
