@@ -14,190 +14,174 @@
             <form action="{{ route('incidencias.index')}}" method="GET" autocomplete="off">
                 <div class="row">
                     <div class="col-sm-2">
-                        <div class="form-group">
-                            <label for="exampleInputFile">Clave del Empleado</label>
-                            <div class="input-group">
-                                <div class="custom-file">
-                                    @if((!empty($aux) && (!empty($aux1))))
-                                        <input type="text" value="{{ $aux->clave_empleado }}" name="claveEmp" class="form-control" id="claveEmp">
-                                        <button type="button" class="btn btn-default" data-toggle="modal" data-target="#modal-searchemp-{{ $aux1->clave_concepto }}">
-                                            <i class="fas fa-search"></i>
-                                        </button>
-                                    @elseif(!empty($aux))
-                                        <input type="text" value="{{ $aux->clave_empleado }}" name="claveEmp" class="form-control" id="claveEmp">
-                                        <button type="button" class="btn btn-default" data-toggle="modal" data-target="#modal-searchemp">
-                                            <i class="fas fa-search"></i>
-                                        </button>
-                                    @elseif(!empty($aux1))
-                                        <input type="text" class="form-control" name="claveEmp" id="claveEmp">
-                                        <button type="button" class="btn btn-default" data-toggle="modal" data-target="#modal-searchemp-{{ $aux1->clave_concepto }}">
-                                            <i class="fas fa-search"></i>
-                                        </button>
-                                    @else
-                                        <input type="text" class="form-control" name="claveEmp" id="claveEmp">
-                                        <button type="button" class="btn btn-default" data-toggle="modal" data-target="#modal-searchemp">
-                                            <i class="fas fa-search"></i>
-                                        </button>
-                                    @endif
-                                </div>
+                        <label for="exampleInputFile">Clave del Empleado</label>
+                        <div class="input-group mb-3">
+                            <input type="text" 
+                                    name="clave_empledo"
+                                    id="clave_empledo"
+                                    maxlength="4" 
+                                    class="form-control"
+                                    value="{{ $incidencias->clave_empleado ?? '' }}" 
+                                    onkeyup="mayus(this);">
+                            <div class="input-group-append">
+                                <span class="input-group-text" data-toggle="modal" 
+                                        data-target="#modal-buscarempleado">
+                                        <i class="fas fa-search"></i>
+                                </span>
+                                <br>
+                                <div id="listaclave_empleado"></div>
+                                {{ csrf_field() }}
                             </div>
                         </div>
                     </div>
                     <div class="col-sm-4">
                         <div class="form-group">
-                            <label>Nombre Empleado:</label>
-                            @if(!empty($aux))
-                                <input type="text" disabled name="nombreEmp" value="{{ $aux->nombre }} {{ $aux->apellido_paterno }} {{ $aux->apellido_materno }}" class="form-control" onkeyup="mayus(this);">
-                            @else
-                                <input type="text" disabled name="nombreEmp" class="form-control" onkeyup="mayus(this);">
-                            @endif
+                            <label>Nombre:</label>
+                            <input type="text" 
+                                   name="nombre" 
+                                   class="form-control"
+                                   value="{{ $incidencias->nombre ?? '' }} {{ $incidencias->apellido_paterno ?? '' }} {{ $incidencias->apellido_materno ?? '' }}" 
+                                   id="nombre_empleado" 
+                                   disabled
+                                   onkeyup="mayus(this);">
                         </div>
                     </div>
                     <div class="col-sm-2">
-                        <div class="form-group">
-                            <label for="exampleInputFile">Clave del Concepto</label>
-                            <div class="input-group">
-                                <div class="custom-file">
-                                    @if((!empty($aux1)) && (!empty($aux)))
-                                        <input type="text" value="{{ $aux1->clave_concepto }}" class="form-control" name="clave_concepto" id="clave_concepto">
-                                        <button type="button" class="btn btn-default" data-toggle="modal" data-target="#modal-searchcon-{{ $aux->clave_empleado }}">
-                                            <i class="fas fa-search"></i>
-                                        </button>
-                                    @elseif(!empty($aux1))
-                                        <input type="text" value="{{ $aux1->clave_concepto }}" class="form-control" name="clave_concepto" id="clave_concepto">
-                                        <button type="button" class="btn btn-default" data-toggle="modal" data-target="#modal-searchcon">
-                                            <i class="fas fa-search"></i>
-                                        </button>
-                                    @elseif(!empty($aux))
-                                        <input type="text" class="form-control" name="clave_concepto" id="clave_concepto">
-                                        <button type="button" class="btn btn-default" data-toggle="modal" data-target="#modal-searchcon-{{ $aux->clave_empleado }}">
-                                            <i class="fas fa-search"></i>
-                                        </button>
-                                    @else
-                                        <input type="text" class="form-control" name="clave_concepto" id="clave_concepto">
-                                        <button type="button" class="btn btn-default" data-toggle="modal" data-target="#modal-searchcon">
-                                            <i class="fas fa-search"></i>
-                                        </button>
-                                    @endif
-                                </div>
+                        <label for="exampleInputFile">Clave del Concepto</label>
+                        <div class="input-group mb-3">
+                            <input type="text" 
+                                    name="concepto_clave"
+                                    id="concepto_clave"
+                                    maxlength="3" 
+                                    class="form-control"
+                                    value="{{ $incidencias->clave_concepto ?? '' }}" 
+                                    onkeyup="mayus(this);">
+                            <div class="input-group-append">
+                                <span class="input-group-text" data-toggle="modal" 
+                                        data-target="#modal-buscarempleado">
+                                        <i class="fas fa-search"></i>
+                                </span>
+                                <br>
+                                <div id="listaconcepto_clave"></div>
+                                {{ csrf_field() }}
                             </div>
                         </div>
                     </div>
                     <div class="col-sm-4">
                         <div class="form-group">
-                            <label>Concepto:</label>
-                            @if(!empty($aux1))
-                                <input type="text" disabled name="concepto" value="{{ $aux1->concepto }}" class="form-control" onkeyup="mayus(this);">
-                            @else
-                                <input type="text" disabled name="concepto" class="form-control" onkeyup="mayus(this);">
-                            @endif
+                            <label>Concepto</label>
+                            <input type="text" 
+                                   name="concepto" 
+                                   class="form-control"
+                                   value="{{ $incidencias->concepto ?? '' }}" 
+                                   id="nomConcepto" 
+                                   disabled
+                                   onkeyup="mayus(this);">
                         </div>
                     </div>
                     <div class="col-sm-2">
                         <div class="form-group">
                             <label>Cantidad:</label>
-                            <input type="number" name="cantidad" class="form-control" step="0.1" onkeyup="mayus(this);">
+                            <input type="number" name="cantidad" value="{{ $incidencias->cantidad ?? '' }}" class="form-control" step="0.1" onkeyup="mayus(this);">
                         </div>
                     </div>
                     <div class="col-sm-2">
                         <div class="form-group">
                             <label>Importe:</label>
-                            <input type="number" name="importe" class="form-control" step="0.1">
+                            <input type="number" name="importe" value="{{ $incidencias->importe ?? '' }}" class="form-control" step="0.1">
                         </div>
                     </div>
                     <div class="col-sm-2">
                         <div class="form-group">
                             <label>Monto:</label>
-                            <input type="number" name="monto" class="form-control" step="0.1">
+                            <input type="number" name="monto"  value="{{ $incidencias->monto ?? '' }}"class="form-control" step="0.1">
                         </div>
                     </div>
-                    @canany(['administrador','capturista','reportes'])
-                        <div class="col-sm-5">
-                            <div class="card-body">
-                                <div class="margin">
-                                    <div class="btn-group">
-                                        @isset($retencion)
-                                            <div class="form-group">
-                                                <button type="submit" name="acciones" value="primero" id="primero" style='width:40px; height:27px'><i class="fas fa-backward"></i></button>
-                                            </div>
-                                            <div class="form-group">
-                                                <button type="submit" name="acciones" value="atras" id="atras" style='width:40px; height:27px'><i class="fas fa-arrow-circle-left"></i></button>
-                                            </div>
-                                            <div class="form-group">
-                                                <button type="submit" name="acciones" value="siguiente" id="siguiente" style='width:40px; height:27px'><i class="fas fa-arrow-circle-right"></i></button>
-                                            </div>
-                                            <div class="form-group">
-                                                <button type="submit" name="acciones" value="ultimo" id="ultimo" style='width:40px; height:27px'><i class="fas fa-forward"></i></button>
-                                            </div>
-                                        @endisset
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    @endcanany
-                    <div class="col-sm-4">
+                </div>
+                @canany(['administrador','capturista','reportes'])
+                    <div class="col-sm-5">
                         <div class="card-body">
                             <div class="margin">
-                                @canany(['administrador','capturista','reportes'])
                                 <div class="btn-group">
-                                    <div class="form-group">
-                                        @isset($retencion)
-                                            <button id="buscar" type="button" data-toggle="modal"
-                                                data-target="#exampleModal" style='width:40px; height:27px'>
-                                                <i class="fas fa-search"></i>
-                                            </button>
-                                        @endisset
-                                    </div>
-                                    @endcanany
-                                    @canany(['administrador','capturista'])
+                                    @isset($incidencias)
                                         <div class="form-group">
-                                            <button type="button" id="nuevo" style='width:40px; height:27px'><i class="fas fa-user-plus"></i></button>
+                                            <button type="submit" name="acciones" value="primero" id="primero" style='width:40px; height:27px'><i class="fas fa-backward"></i></button>
                                         </div>
-                                        @isset($retencion)
-                                            <div class="form-group">
-                                                <button type="button" id="actualizar" style='width:40px; height:27px'>
-                                                    <i class="fas fa-pen-square"></i>
-                                                </button>
-                                            </div>
-                                        @endisset
-                                    @endcanany
-                                    @can('administrador')
-                                        @isset($retencion)
-                                            <div class="form-group">
-                                                <a id="eliminar" data-target="#modal-deleteretencion-{{$retencion->id}}"
-                                                    data-toggle="modal">
-                                                    <button type="button" style='width:40px; height:27px'>
-                                                        <i class="far fa-trash-alt"></i>
-                                                    </button>
-                                                </a>
-                                            </div>
-                                        @endisset
-                                    @endcan
+                                        <div class="form-group">
+                                            <button type="submit" name="acciones" value="atras" id="atras" style='width:40px; height:27px'><i class="fas fa-arrow-circle-left"></i></button>
+                                        </div>
+                                        <div class="form-group">
+                                            <button type="submit" name="acciones" value="siguiente" id="siguiente" style='width:40px; height:27px'><i class="fas fa-arrow-circle-right"></i></button>
+                                        </div>
+                                        <div class="form-group">
+                                            <button type="submit" name="acciones" value="ultimo" id="ultimo" style='width:40px; height:27px'><i class="fas fa-forward"></i></button>
+                                        </div>
+                                    @endisset
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="col-sm-3">
-                        <div class="card-body">
-                            <div class="margin">
-                                <div class="btn-group">
+                @endcanany
+                <div class="col-sm-4">
+                    <div class="card-body">
+                        <div class="margin">
+                            @canany(['administrador','capturista','reportes'])
+                            <div class="btn-group">
+                                <div class="form-group">
+                                    @isset($incidencias)
+                                        <button id="buscar" type="button" data-toggle="modal"
+                                            data-target="#exampleModal" style='width:40px; height:27px'>
+                                            <i class="fas fa-search"></i>
+                                        </button>
+                                    @endisset
+                                </div>
+                                @endcanany
+                                @canany(['administrador','capturista'])
                                     <div class="form-group">
-                                        <button id="nuevo_reg" name="acciones" value="registrar" type="submit" style="display: none;width:40px; height:27px'"><i class="fas fa-save"></i></button>
+                                        <button type="button" id="nuevo" style='width:40px; height:27px'><i class="fas fa-user-plus"></i></button>
                                     </div>
-                                    <div class="form-group">
-                                        <button name="acciones" value="actualizar" id="actualizar_reg" type="submit" style="display: none;width:40px; height:27px'"><i class="fas fa-save"></i></button>
-                                    </div>
-                                    <div class="form-group">
-                                        <button name="acciones" value="cancelar" id="cancelar_reg" type="submit" style="display: none;width:40px; height:28px"><i class="far fa-window-close"></i></button>
-                                    </div>
+                                    @isset($incidencias)
+                                        <div class="form-group">
+                                            <button type="button" id="actualizar" style='width:40px; height:27px'>
+                                                <i class="fas fa-pen-square"></i>
+                                            </button>
+                                        </div>
+                                    @endisset
+                                @endcanany
+                                @can('administrador')
+                                    @isset($incidencias)
+                                        <div class="form-group">
+                                            <a id="eliminar" data-target="#modal-deleteretencion-{{$incidencias->id_incidencia}}"
+                                                data-toggle="modal">
+                                                <button type="button" style='width:40px; height:27px'>
+                                                    <i class="far fa-trash-alt"></i>
+                                                </button>
+                                            </a>
+                                        </div>
+                                    @endisset
+                                @endcan
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="card-body">
+                        <div class="margin">
+                            <div class="btn-group">
+                                <div class="form-group">
+                                    <button id="nuevo_reg" name="acciones" value="registrar" type="submit" style="display: none;width:40px; height:27px'"><i class="fas fa-save"></i></button>
+                                </div>
+                                <div class="form-group">
+                                    <button name="acciones" value="actualizar" id="actualizar_reg" type="submit" style="display: none;width:40px; height:27px'"><i class="fas fa-save"></i></button>
+                                </div>
+                                <div class="form-group">
+                                    <button name="acciones" value="cancelar" id="cancelar_reg" type="submit" style="display: none;width:40px; height:28px"><i class="far fa-window-close"></i></button>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </form>
-            @include('incidencias.modalsearchemp')
-            @include('incidencias.modalsearchcon')
         </div>
     </div>
 
@@ -221,14 +205,14 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @if(isset($isr))
-                            @foreach ($isr as $rtn)
+                        @if(!empty($incidencias2))
+                            @foreach($incidencias2 as $datos)
                                 <tr>
-                                    <th scope="row">{{ $rtn->limite_inferior }}</th>
-                                    <td> {{ $rtn->limite_superior }}</td>
-                                    <td>{{ $rtn->cuota_fija }}</td>
-                                    <td>{{ $rtn->periodo_retencion }}</td>
-                                    <td>{{ $rtn->periodo_retencion }}</td>
+                                    <th scope="row">{{ $datos->nombre }} {{ $datos->apellido_paterno }} {{ $datos->apellido_materno }}</th>
+                                    <th>{{ $datos->concepto }}</th>
+                                    <th>{{ $datos->cantidad }}</th>
+                                    <th>{{ $datos->importe }}</th>
+                                    <th>{{ $datos->monto }}</th>
                                 </tr>
                             @endforeach
                         @endif

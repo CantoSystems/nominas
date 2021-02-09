@@ -6,16 +6,16 @@
             <h3 class="card-title">Conceptos</h3>
         </div>
         <div class="card-body">
-                    @if(session()->has('msj'))
-                        <div class="alert alert-danger" role="alert">
-                            {{ session('msj')}}
-                        </div>
-                    @endif
-                    @if(session()->has('busqueda'))
-                        <div class="alert alert-danger" role="alert">
-                            {{ session('busqueda')}}
-                        </div>
-                    @endif
+            @if(session()->has('msj'))
+                <div class="alert alert-danger" role="alert">
+                    {{ session('msj')}}
+                </div>
+            @endif
+            @if(session()->has('busqueda'))
+                <div class="alert alert-danger" role="alert">
+                    {{ session('busqueda')}}
+                </div>
+            @endif
             <form action="{{ route('conceptos.index')}}" method="GET" autocomplete="off">
                 <div class="row">
                     @if(!empty($aux))

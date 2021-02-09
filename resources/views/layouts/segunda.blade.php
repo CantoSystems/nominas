@@ -455,8 +455,10 @@ return false;
     $(document).on('click','#concepto',function(){
       let infoconcepto = $(this).text();
       let concep = infoconcepto.substring(0,4);
+      let nombreConcepto = infoconcepto.substring(4);
       $('#concepto_clave').val(concep);
       $('#listaconcepto_clave').fadeOut();
+      $('#nomConcepto').val(nombreConcepto);
     });
 
   });
