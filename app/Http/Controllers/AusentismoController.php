@@ -23,7 +23,7 @@ class AusentismoController extends Controller
          switch ($accion) {
              case '':
                 $ptrabajo = DB::connection('DB_Serverr')->table('periodos')
-                ->where('id','=',$periodo)
+                ->where('numero','=',$periodo)
                 ->first();
 
                 $empleado=DB::connection('DB_Serverr')->table('empleados')
