@@ -404,11 +404,11 @@ class EmpresaController extends Controller{
         });
         
 
-        Schema::connection('DB_Serverr')->create('ausentimos', function($table){
+        Schema::connection('DB_Serverr')->create('ausentismos', function($table){
             $table->increments('id');
             $table->integer('identificador_periodo');
             $table->char('clave_empleado',5);
-            $table->double('cantidad');
+            $table->double('cantidad_ausentismo');
             $table->char('clave_concepto',5);
             $table->date('fecha_ausentismo');
             $table->string('incapacidad',50);

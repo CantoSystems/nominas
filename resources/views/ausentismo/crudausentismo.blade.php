@@ -26,7 +26,7 @@
                         <input type="hidden" name="id" value="{{ $ausentismo->id ?? ''}}">
                     </div>
                     <div class="col-sm-4 ">
-                        <label>Clave empleado: {{ $ausentismo->clave_empleado }}</label>
+                        <label>Clave empleado: </label>
                         <div class=" input-group mb-3">
                             <input  type="text" 
                                     name="clave_empledo"
@@ -45,6 +45,20 @@
                             </div>
                         </div>
                     </div>
+<<<<<<< HEAD
+            
+
+                <div class="col-sm-2">
+                    <div class="form-group">
+                        <label>Cantidad:</label>
+                        <input  type="number" 
+                                name="cantidad"
+                                class="form-control"
+                                value="{{$ausentismo->cantidad_ausentismo ?? ''}}"
+                                step="1" 
+                                onkeyup="mayus(this);"
+                                onkeypress="return numeros(event)">
+=======
                     <div class="col-sm-2">
                         <div class="form-group">
                             <label>Cantidad:</label>
@@ -56,6 +70,7 @@
                                     onkeyup="mayus(this);"
                                     onkeypress="return numeros(event)">
                         </div>
+>>>>>>> 5bd3f318eabe88c0fc01241acc044186b9ad2582
                     </div>
                     <div class="col-sm-3">
                         <label>Concepto:</label>
@@ -167,7 +182,7 @@
                                     @can('administrador')
                                         @if(!empty($ausentismo))
                                             <div class="form-group">
-                                                <a id="eliminar" data-target="#modal-deleteconcepto-{{$ausentismo->id}}" data-toggle="modal" style='width:70px; height:40px'>
+                                                <a id="eliminar" data-target="" data-toggle="modal" style='width:70px; height:40px'>
                                                     <button type="button" style='width:70px; height:40px'>
                                                         <i class="far fa-trash-alt"></i>
                                                     </button>
@@ -198,13 +213,83 @@
                     </div>
                 </div>
             </form>
+<<<<<<< HEAD
+            
+         
+        </div>
+
+
+         <!-- Inicio Datatables-->
+        <div class="row">
+            <div class="col">
+                <div class="card card-secondary">
+                <div class="card-header">
+                    <h3 class="card-title">
+                        Ausentismos
+                    </h3>
+                </div>
+                <div class="card-body">
+                    <table id="example1" class="table table-bordered table-striped">
+                        <thead>
+                            <tr>
+                                <th>Periodo</th>
+                                <th>Clave del empleado y nombre</th>
+                                <th>Cantidad</th>
+                                <th>Clave y concepto</th>
+                                <th>Fecha ausentismo</th>
+                                <th>Incapacidad </th>
+                                <th>Descripción</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        @foreach($aux as $ausent)
+                           <tr>
+                                <td>
+                                    {{$ausent->fecha_inicio ?? ''}}  al {{$ausent->fecha_fin ?? ''}}
+                                </td>
+                                <td>
+                                    {{$ausent->clave_empleado ?? ''}}
+                                    {{$ausent->nombre ?? ''}} 
+                                    {{$ausent->apellido_paterno ?? ''}}
+                                    {{$ausent->apellido_materno ?? ''}}
+                                </td>
+                                <td>
+                                   {{ $ausent->cantidad_ausentismo ?? ''}} 
+                                </td>
+                                <td>
+                                    {{$ausent->clave_concepto ?? ''}}
+                                    {{$ausent->concepto ?? ''}}
+                                </td>
+                                <td>
+                                    {{$ausent->fecha_ausentismo ?? ''}}
+                                </td>
+                                <td>
+                                    {{$ausent->incapacidad ?? ''}}
+                                </td>
+                                <td>
+                                    {{$ausent->descripcion ?? ''}}
+                                </td>
+                           </tr>
+                        @endforeach
+                            
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+            </div>
+            
+=======
             @isset($emp)
                 @include('ausentismo.empleadobuscar')
             @endisset
             @if(!empty($ausentismo))
                 @include('conceptos.modaldeleteconcetos')
             @endif
+>>>>>>> 5bd3f318eabe88c0fc01241acc044186b9ad2582
         </div>
+        <!--Fin Datatables-->
     </div>
 </div>
 </div>
