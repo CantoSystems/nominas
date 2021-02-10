@@ -23,6 +23,10 @@
                                     class="form-control"
                                     value="{{ $incidencias->clave_empleado ?? '' }}" 
                                     onkeyup="mayus(this);">
+                                <input type="hidden"
+                                       name="idIncidencia"
+                                       id="idIncidencia"
+                                       value="{{ $incidencias->id_incidencia ?? '' }}">
                             <div class="input-group-append">
                                 <span class="input-group-text" data-toggle="modal" 
                                         data-target="#modal-buscarempleado">
