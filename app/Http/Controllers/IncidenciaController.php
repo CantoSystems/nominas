@@ -156,13 +156,13 @@ class IncidenciaController extends Controller{
 
                 return view('incidencias.incidencias',compact('aux','emp','conceptos'));
             break;
-            /*case 'actualizar':
+            case 'actualizar':
                 $this->actualizar($request);
-                return redirect()->route('conceptos.index');
+                return redirect()->route('incidencias.index');
             break;
             case 'cancelar':
-                return redirect()->route('conceptos.index');
-            break;*/
+                return redirect()->route('incidencias.index');
+            break;
             /*case 'buscar':
                 $criterio= $request->opcion;
                 if($criterio == 'clave_emp'){
@@ -222,5 +222,28 @@ class IncidenciaController extends Controller{
                                                                             ,$datos->cantidad
                                                                             ,$datos->importe
                                                                             ,$datos->monto]);
+    }
+
+    public function actualizar($datos){
+        $clv=Session::get('clave_empresa');
+        $clv_empresa=$this->conectar($clv);
+
+        \Config::set('database.connections.DB_Serverr', $clv_empresa);
+
+        dd($datos);
+        /*$datos->validate([
+              'clave_concepto' => 'required',
+              'concepto' => 'required',
+              'formula' => 'required',
+              'naturaleza' => 'required',
+              'manejo' => 'required',
+        ]);*/
+
+       /*DB::connection('DB_Serverr')->table('incidencias')->where('id_incidencia',$datos->idIncidencia)
+        ->update(['clave_concepto'=>$datos->concepto_clave
+                 ,'clave_empleado'=>$datos->clave_empleado
+                 ,'cantidad'=>$datos->cantidad
+                 ,'importe'=>$datos->importe
+                 ,'monto'=>$datos->monto]);*/
     }
 }
