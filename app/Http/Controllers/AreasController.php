@@ -88,13 +88,14 @@ class AreasController extends Controller
                    }
                break;
                case 'eliminar':
+               /*
                 $aux1 = DB::connection('DB_Serverr')->table('areas')->where('clave_area',$clave_ar)->first();
                 if($aux1!==""){
                 DB::connection('DB_Serverr')->table('areas')->where('clave_area',$request->clave_area)->delete();
                 $aux = DB::connection('DB_Serverr')->table('areas')->get()->first();
                 $areas = DB::connection('DB_Serverr')->table('areas')->get();
                 return view('Areas.area',compact('aux','areas'));
-                }
+                }*/
                break;
                case 'cancelar':
                  return redirect()->route('areas.index');

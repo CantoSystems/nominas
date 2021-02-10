@@ -43,6 +43,11 @@
                                 <div id="listaclave_empleado"></div>
                             {{ csrf_field() }}
                             </div>
+                            @error('clave_empledo')
+                                    <div class="alert alert-secondary">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
                         </div>
                     </div>
             
@@ -57,6 +62,11 @@
                                 step="1" 
                                 onkeyup="mayus(this);"
                                 onkeypress="return numeros(event)">
+                                @error('cantidad_ausentismo')
+                                    <div class="alert alert-secondary">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
 
                     </div>
                 </div>
@@ -76,6 +86,11 @@
                                 <div id="listaconcepto_clave"></div>
                                 {{ csrf_field() }}
                             </div>
+                            @error('concepto_clave')
+                                    <div class="alert alert-secondary">
+                                        {{ $message }}
+                                    </div>
+                            @enderror
                         </div>
                     </div>
                     <div class="col-sm-3">
@@ -87,6 +102,11 @@
                                     value="{{$ausentismo->fecha_ausentismo ?? ''}}" 
                                     onkeyup="mayus(this);"
                                     onkeypress="return numeros(event)">
+                                    @error('fecha_ausentismo')
+                                    <div class="alert alert-secondary">
+                                        {{ $message }}
+                                    </div>
+                                    @enderror
                         </div>
                     </div>
                     <div class="col-sm-2">
@@ -97,6 +117,11 @@
                                     class="form-control" 
                                     value="{{$ausentismo->incapacidad ?? ''}}" 
                                     onkeyup="mayus(this);">
+                                    @error('incapacidad')
+                                    <div class="alert alert-secondary">
+                                        {{ $message }}
+                                    </div>
+                                    @enderror
                         </div>
                     </div>
                     <div class="col-sm-4">
@@ -108,6 +133,11 @@
                                     value="{{$ausentismo->nombre ?? ''}} {{$ausentismo->apellido_paterno ?? ''}} {{$ausentismo->apellido_materno ?? ''}}" 
                                     id="nombre_empleado" 
                                     onkeyup="mayus(this);">
+                                    @error('nombre')
+                                    <div class="alert alert-secondary">
+                                        {{ $message }}
+                                    </div>
+                                    @enderror
                         </div>
                     </div>
                     <div class="col-sm-3">
@@ -118,6 +148,11 @@
                                     class="form-control" 
                                     value="{{$ausentismo->descripcion ?? ''}}" 
                                     onkeyup="mayus(this);">
+                                    @error('descripcion')
+                                    <div class="alert alert-secondary">
+                                        {{ $message }}
+                                    </div>
+                                    @enderror
                         </div>
                     </div>
                     @canany(['administrador','capturista','reportes'])
@@ -168,17 +203,17 @@
                                         @endisset
                                     @endcanany
                                     @can('administrador')
-                                        @if(!empty($ausentismo))
+                                            @isset($ausentismo)
                                             <div class="form-group">
-                                                <a id="eliminar" 
-                                                data-target="#modal-deleteausentismo-{{$ausentismo->id}}" data-toggle="modal" style='width:70px; height:40px'>
+                                                <a id="eliminar" data-target="#modal-deleteausent-{{$ausentismo->id}}" data-toggle="modal">
                                                     <button type="button" style='width:70px; height:40px'>
-                                                        <i class="far fa-trash-alt"></i>
+                                                        <i class="far fa-trash-alt">
+                                                        </i>
                                                     </button>
                                                 </a>
                                             </div>
-                                        @endif
-                                    @endcan
+                                            @endisset
+                                        @endcan
                                 </div>
                             </div>
                         </div>
@@ -201,9 +236,7 @@
                         </div>
                     </div>
                 </div>
-                @isset($ausentismo)
-            @include('ausentismo.modaldeleteausentismo')
-            @endisset
+               
             </form>
             
          
@@ -272,6 +305,11 @@
             </div>
         </div>
         <!--Fin Datatables-->
+
+        @isset($ausentismo)
+                @include('ausentismo.deleteausentismo')
+        @endisset
+        @include('ausentismo.busquedaausentismo')
     </div>
 </div>
 </div>
