@@ -33,7 +33,7 @@ class AusentismoController extends Controller
                 $ausentismo= DB::connection('DB_Serverr')->table('ausentismos')
                 ->join('empleados','empleados.clave_empleado','=','ausentismos.clave_empleado')
                 ->select('ausentismos.*','empleados.*')
-                ->first();
+                ->latest('id')->first();
                 //dd($ausentismo);
 
                 $aux= DB::connection('DB_Serverr')->table('ausentismos')
@@ -63,7 +63,7 @@ class AusentismoController extends Controller
                 ->join('empleados','empleados.clave_empleado','=','ausentismos.clave_empleado')
                 ->select('ausentismos.*','empleados.*')
                 ->where('ausentismos.id','<',$indic)
-                ->first();
+                ->latest('id')->first();
                 if($ausentismo == ""){
                 $ausentismo= DB::connection('DB_Serverr')->table('ausentismos')
                 ->join('empleados','empleados.clave_empleado','=','ausentismos.clave_empleado')
@@ -96,15 +96,15 @@ class AusentismoController extends Controller
                 $ausentismo= DB::connection('DB_Serverr')->table('ausentismos')
                 ->join('empleados','empleados.clave_empleado','=','ausentismos.clave_empleado')
                 ->select('ausentismos.*','empleados.*')
-                ->where('ausentismos.id','>',$indic)
-                ->first();
-
-                if($ausentismo = ""){
-
-                $ausentismo= DB::connection('DB_Serverr')->table('ausentismos')
+                ->where('ausentismos.id','>',$request->id)
+                ->orderBy('id')->first();
+                if(is_null($ausentismo)){
+                    $ausentismo= DB::connection('DB_Serverr')->table('ausentismos')
                 ->join('empleados','empleados.clave_empleado','=','ausentismos.clave_empleado')
                 ->select('ausentismos.*','empleados.*')
+                ->orderBy('id')
                 ->first();
+
                 }
                 $ptrabajo = DB::connection('DB_Serverr')->table('periodos')
                 ->where('id','=',$periodo)
@@ -136,7 +136,8 @@ class AusentismoController extends Controller
                 $ausentismo= DB::connection('DB_Serverr')->table('ausentismos')
                 ->join('empleados','empleados.clave_empleado','=','ausentismos.clave_empleado')
                 ->select('ausentismos.*','empleados.*')
-                ->first();
+                ->orderBy('id')->first();
+
                 //dd($ausentismo);
 
                 $aux= DB::connection('DB_Serverr')->table('ausentismos')
@@ -175,8 +176,11 @@ class AusentismoController extends Controller
                 $conceptos=DB::connection('DB_Serverr')->table('conceptos')->get();
 
                 return view('ausentismo.crudausentismo', compact('periodo','ptrabajo','empleado','conceptos','ausentismo','aux'));
+            break;
 
-              
+            case 'actualizar':
+                $this->actualizar($request);
+                return redirect()->route('ausentismo.index');
             break;
 
              
@@ -293,5 +297,35 @@ class AusentismoController extends Controller
                                 ]);
 
     }
+
+    public function actualizar($datos){
+        $clv= Session::get('clave_empresa');
+        $clv_empresa=$this->conectar($clv);
+        \Config::set('database.connections.DB_Serverr', $clv_empresa);
+
+        $aux1 = DB::connection('DB_Serverr')->table('ausentismos')->where('id',$datos->id)->first();
+        DB::connection('DB_Serverr')->table('ausentismos')->where('id',$datos->id)->update(['clave_empleado'=>$datos->clave_empledo,
+                    'cantidad_ausentismo'=>$datos->cantidad_ausentismo,
+                    'clave_concepto'=>$datos->concepto_clave,
+                    'fecha_ausentismo'=>$datos->fecha_ausentismo,
+                    'incapacidad'=>$datos->incapacidad,
+                    'descripcion'=>$datos->descripcion
+                    ]);
+    }
+
+
+    /*public function eliminaausentismo($id)
+    {
+        $clv=Session::get('clave_empresa');
+        $clv_empresa=$this->conectar($clv);
+
+
+        \Config::set('database.connections.DB_Serverr', $clv_empresa);
+
+        
+
+        $aux1 = DB::connection('DB_Serverr')->table('ausentismos')->where('id',$id)->delete();
+
+    }*/
    
 }

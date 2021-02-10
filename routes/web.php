@@ -103,6 +103,9 @@ Route::delete('/conceptos/{id}','ConceptosController@eliminaconcepto')->name('co
 Route::get('/ausentismo','AusentismoController@index')->name('ausentismo.index');
 Route::post('/ausentismo/busqueda','AusentismoController@mostrarempleado')->name('ausentismo.mostrarempleado');
 Route::post('/ausentismo/busquedaconcepto','AusentismoController@mostrarconcepto')->name('ausentismo.mostrarconcepto');
+Route::delete('/ausentismo/elimina/{id}','AusentismoController@eliminaausentismo')->name('ausentismo.eliminar');
+
+
 
 
 
