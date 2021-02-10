@@ -33,7 +33,7 @@ class AusentismoController extends Controller
                 $ausentismo= DB::connection('DB_Serverr')->table('ausentismos')
                 ->join('empleados','empleados.clave_empleado','=','ausentismos.clave_empleado')
                 ->select('ausentismos.*','empleados.*')
-                ->latest('id')->first();
+                ->orderBy('id')->first();
                 //dd($ausentismo);
 
                 $aux= DB::connection('DB_Serverr')->table('ausentismos')
@@ -98,14 +98,16 @@ class AusentismoController extends Controller
                 ->select('ausentismos.*','empleados.*')
                 ->where('ausentismos.id','>',$request->id)
                 ->orderBy('id')->first();
-                if(is_null($ausentismo)){
+
+                if(is_null($ausentismo))
+                {
                     $ausentismo= DB::connection('DB_Serverr')->table('ausentismos')
                 ->join('empleados','empleados.clave_empleado','=','ausentismos.clave_empleado')
                 ->select('ausentismos.*','empleados.*')
                 ->orderBy('id')
                 ->first();
-
                 }
+
                 $ptrabajo = DB::connection('DB_Serverr')->table('periodos')
                 ->where('id','=',$periodo)
                 ->first();
@@ -182,6 +184,76 @@ class AusentismoController extends Controller
                 $this->actualizar($request);
                 return redirect()->route('ausentismo.index');
             break;
+
+            case 'buscar':
+                $criterio= $request->opcion;
+                //dd($criterio);
+
+                if($criterio == 'clave_empleado')
+                {
+                    $ausentismo = DB::connection('DB_Serverr')->table('ausentismos')
+                        ->join('empleados','empleados.clave_empleado','=','ausentismos.clave_empleado')
+                        ->select('ausentismos.*','empleados.*')
+                        ->where('ausentismos.clave_empleado',$request->busca)->first();
+
+                        if($ausentismo == ""){
+                             return back()->with('busqueda','Coincidencia no encontrada');
+                        }
+
+
+                $ptrabajo = DB::connection('DB_Serverr')->table('periodos')
+                ->where('id','=',$periodo)
+                ->first();
+
+                $empleado=DB::connection('DB_Serverr')->table('empleados')
+                        ->get();
+
+                $aux= DB::connection('DB_Serverr')->table('ausentismos')
+                ->join('empleados','empleados.clave_empleado','=','ausentismos.clave_empleado')
+                ->join('conceptos','conceptos.clave_concepto','=','ausentismos.clave_concepto')
+                ->join('periodos','periodos.id','=','ausentismos.identificador_periodo')
+                ->select('ausentismos.*','empleados.*','conceptos.*','periodos.*')
+                ->get();
+                
+                $conceptos=DB::connection('DB_Serverr')->table('conceptos')->get();
+
+                return view('ausentismo.crudausentismo', compact('periodo','ptrabajo','empleado','conceptos','ausentismo','aux'));
+
+                    
+                }else if($criterio == 'incapacidad'){
+                    $ausentismo = DB::connection('DB_Serverr')->table('ausentismos')
+                        ->join('empleados','empleados.clave_empleado','=','ausentismos.clave_empleado')
+                        ->select('ausentismos.*','empleados.*')
+                        ->where('incapacidad',$request->busca)->first();
+
+                                if($ausentismo == "")
+                                {
+                                return back()->with('busqueda','Coincidencia no encontrada');
+                                }
+
+
+                        $ptrabajo = DB::connection('DB_Serverr')->table('periodos')
+                        ->where('id','=',$periodo)
+                        ->first();
+
+                        $empleado=DB::connection('DB_Serverr')->table('empleados')
+                        ->get();
+
+                        $aux= DB::connection('DB_Serverr')->table('ausentismos')
+                        ->join('empleados','empleados.clave_empleado','=','ausentismos.clave_empleado')
+                        ->join('conceptos','conceptos.clave_concepto','=','ausentismos.clave_concepto')
+                        ->join('periodos','periodos.id','=','ausentismos.identificador_periodo')
+                        ->select('ausentismos.*','empleados.*','conceptos.*','periodos.*')
+                        ->get();
+                
+                        $conceptos=DB::connection('DB_Serverr')->table('conceptos')->get();
+
+                        return view('ausentismo.crudausentismo', compact('periodo','ptrabajo','empleado','conceptos','ausentismo','aux'));
+
+                }
+
+
+                break;
 
              
              default:
@@ -279,6 +351,23 @@ class AusentismoController extends Controller
 
         \Config::set('database.connections.DB_Serverr', $clv_empresa);
 
+         $datos->validate([
+              'clave_empledo' => 'required',
+              'cantidad_ausentismo' => 'required',
+              'concepto_clave' => 'required',
+              'fecha_ausentismo' => 'required',
+              'incapacidad' => 'required',
+              'nombre' => 'required',
+              'descripcion' => 'required'
+        ]);
+
+
+        $coincidencia = DB::connection('DB_Serverr')->table('ausentismos')
+        ->where('clave_empleado','=',$datos->clave_empledo)
+        ->orWhere('incapacidad','=',$datos->incapacidad)
+        ->get();
+
+        if($coincidencia->count() == 0){
         DB::connection('DB_Serverr')->insert('insert into ausentismos (
             identificador_periodo,
             clave_empleado,
@@ -295,6 +384,10 @@ class AusentismoController extends Controller
                                     $datos->incapacidad,
                                     $datos->descripcion
                                 ]);
+        }else{
+            return back()->with('msj','Registro duplicado');
+        }
+
 
     }
 
@@ -302,6 +395,16 @@ class AusentismoController extends Controller
         $clv= Session::get('clave_empresa');
         $clv_empresa=$this->conectar($clv);
         \Config::set('database.connections.DB_Serverr', $clv_empresa);
+
+        $datos->validate([
+              'clave_empledo' => 'required',
+              'cantidad_ausentismo' => 'required',
+              'concepto_clave' => 'required',
+              'fecha_ausentismo' => 'required',
+              'incapacidad' => 'required',
+              'nombre' => 'required',
+              'descripcion' => 'required'
+        ]);
 
         $aux1 = DB::connection('DB_Serverr')->table('ausentismos')->where('id',$datos->id)->first();
         DB::connection('DB_Serverr')->table('ausentismos')->where('id',$datos->id)->update(['clave_empleado'=>$datos->clave_empledo,
@@ -313,19 +416,19 @@ class AusentismoController extends Controller
                     ]);
     }
 
-
-    /*public function eliminaausentismo($id)
-    {
-        $clv=Session::get('clave_empresa');
+    public function eliminar($id){
+        $clv= Session::get('clave_empresa');
         $clv_empresa=$this->conectar($clv);
 
 
         \Config::set('database.connections.DB_Serverr', $clv_empresa);
 
-        
 
-        $aux1 = DB::connection('DB_Serverr')->table('ausentismos')->where('id',$id)->delete();
+    $aux1 = DB::connection('DB_Serverr')->table('ausentismos')->where('id',$id)->delete();
 
-    }*/
+    return redirect()->route('ausentismo.index');
+    }
+
+
    
 }
