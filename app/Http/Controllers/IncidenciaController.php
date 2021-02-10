@@ -230,20 +230,19 @@ class IncidenciaController extends Controller{
 
         \Config::set('database.connections.DB_Serverr', $clv_empresa);
 
-        dd($datos);
-        /*$datos->validate([
-              'clave_concepto' => 'required',
-              'concepto' => 'required',
-              'formula' => 'required',
-              'naturaleza' => 'required',
-              'manejo' => 'required',
-        ]);*/
+        $datos->validate([
+              'concepto_clave' => 'required',
+              'clave_empledo' => 'required',
+              'cantidad' => 'required',
+              'importe' => 'required',
+              'monto' => 'required',
+        ]);
 
-       /*DB::connection('DB_Serverr')->table('incidencias')->where('id_incidencia',$datos->idIncidencia)
+        DB::connection('DB_Serverr')->table('incidencias')->where('id_incidencia',$datos->idIncidencia)
         ->update(['clave_concepto'=>$datos->concepto_clave
-                 ,'clave_empleado'=>$datos->clave_empleado
+                 ,'clave_empleado'=>$datos->clave_empledo
                  ,'cantidad'=>$datos->cantidad
                  ,'importe'=>$datos->importe
-                 ,'monto'=>$datos->monto]);*/
+                 ,'monto'=>$datos->monto]);
     }
 }
