@@ -105,8 +105,6 @@ Route::post('/ausentismo/busqueda','AusentismoController@mostrarempleado')->name
 Route::post('/ausentismo/busquedaconcepto','AusentismoController@mostrarconcepto')->name('ausentismo.mostrarconcepto');
 Route::delete('ausentismo/delete/{id}', 'AusentismoController@eliminar')->name('ausentismo.destroy');
 
-
-
 //Empleados
 Route::get('/empleados', 'EmpleadosController@index')->name('empleados.index');
 Route::delete('/empleados/{id_emp}','EmpleadosController@eliminaempleado')->name('empleados.eliminaempleado');
@@ -131,8 +129,4 @@ Route::delete('subsidios/{id_subsidio}','SubsidioController@eliminarsubsidio')->
 
 //Incidencias
 Route::get('/incidencias','IncidenciaController@index')->name('incidencias.index');
-Route::get('/selectempincidencias/{id}','IncidenciaController@seleccionarempleado')->name('incidencias.seleccionarempleado');
-Route::get('/selectempincidencias/{id}/{id_con}','IncidenciaController@seleccionarempleado2')->name('incidencias.seleccionarempleado2');
-Route::get('/selectconincidencias/{id}','IncidenciaController@seleccionarconcept')->name('incidencias.seleccionarconcept');
-Route::get('/selectconincidencias/{id}/{id_emp}','IncidenciaController@seleccionarconcept2')->name('incidencias.seleccionarconcept2');
-//Route::delete('/conceptos/{id}','ConceptosController@eliminaconcepto')->name('conceptos.eliminaconcepto');
+Route::delete('/incidencias/delete/{id}', 'IncidenciaController@eliminar')->name('incidencias.destroy');
