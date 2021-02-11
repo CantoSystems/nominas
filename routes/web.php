@@ -130,3 +130,6 @@ Route::delete('subsidios/{id_subsidio}','SubsidioController@eliminarsubsidio')->
 //Incidencias
 Route::get('/incidencias','IncidenciaController@index')->name('incidencias.index');
 Route::delete('/incidencias/delete/{id}', 'IncidenciaController@eliminar')->name('incidencias.destroy');
+
+//Horas Extras
+Route::get('/horas-extras','ExtrasController@index')->name('horasextras.index');
