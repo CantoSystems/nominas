@@ -21,11 +21,11 @@
                     <div class="col-md-3">
                         <label>Periodo seleccionado:</label>
                         <select class="custom-select" name="periodo_id">
-                            <option value="{{$periodo ?? ''}}"> {{$ptrabajo->fecha_inicio ?? ''}} al {{$ptrabajo->fecha_fin ?? ''}} </option>
+                            <option value="{{$trabajo_periodo}}"> {{$periodot->fecha_inicio ?? ''}} al {{$periodot->fecha_fin ?? ''}} </option>
                         </select>
-                        <input type="hidden" name="id" value="{{ $hora->id ?? ''}}">
+                        <input type="hidden" name="id_tiempo" value="{{$extras_horas->id_tiempo ?? ''}}">
                     </div>
-                    <div class="col-sm-4 ">
+                    <div class="col-sm-2 ">
                         <label>Clave empleado: </label>
                         <div class=" input-group mb-3">
                             <input  type="text" 
@@ -33,7 +33,7 @@
                                     id="clave_empledo"
                                     maxlength="4" 
                                     class="form-control"
-                                    value="{{$hora->clave_empleado ?? ''}}" 
+                                    value="{{$extras_horas->clave_empleado ?? ''}}" 
                                     onkeyup="mayus(this);">
                             <div class="input-group-append">
                                 <span   class="input-group-text" data-toggle="modal" 
@@ -51,13 +51,13 @@
                         </div>
                     </div>
 
-                  <div class="col-sm-4">
+                  <div class="col-sm-3">
                         <div class="form-group">
                             <label>Nombre:</label>
                             <input  type="text" 
                                     name="nombre" 
                                     class="form-control"
-                                    value="{{$ausentismo->nombre ?? ''}} {{$ausentismo->apellido_paterno ?? ''}} {{$ausentismo->apellido_materno ?? ''}}" 
+                                    value="{{$extras_horas->nombre ?? ''}} {{$extras_horas->apellido_paterno ?? ''}} {{$extras_horas->apellido_materno ?? ''}}"
                                     id="nombre_empleado" 
                                     onkeyup="mayus(this);">
                                     @error('nombre')
@@ -69,13 +69,13 @@
                     </div>
             
 
-                <div class="col-sm-2">
+                <div class="col-sm-1">
                     <div class="form-group">
                         <label>Cantidad:</label>
                         <input  type="number" 
                                 name="cantidad_tiempo"
                                 class="form-control"
-                                value="{{$hora->cantidad_tiempo ?? ''}}"
+                                value="{{$extras_horas->cantidad_tiempo ?? ''}}"
                                 step="1" 
                                 onkeyup="mayus(this);"
                                 onkeypress="return numeros(event)">
@@ -94,7 +94,7 @@
                             <input  type="date" 
                                     name="fecha_extra" 
                                     class="form-control" 
-                                    value="{{$hora-->fecha_extra ?? ''}}" 
+                                    value="{{$extras_horas->fecha_extra ?? ''}}" 
                                     onkeyup="mayus(this);"
                                     onkeypress="return numeros(event)">
                                     @error('fecha_extra')
@@ -110,7 +110,7 @@
                             <div class="card-body">
                                 <div class="margin">
                                     <div class="btn-group">
-                                   <!-- @isset($hora)
+                                   @isset($extras_horas)
                                         <div class="form-group">
                                             <button type="submit"  name="acciones" value="primero" id="primero" style='width:70px; height:40px'><i class="fas fa-backward" ></i></button>
                                         </div>
@@ -123,7 +123,7 @@
                                         <div class="form-group">
                                             <button type="submit" name="acciones" value="ultimo" id="ultimo" style='width:70px; height:40px'><i class="fas fa-forward"></i></button>
                                         </div>
-                                    @endisset-->
+                                    @endisset
                                     </div>
                                 </div>
                             </div>
@@ -135,7 +135,7 @@
                                 <div class="btn-group">
                                     @canany(['administrador','capturista','reportes'])
                                         <div class="form-group">
-                                            @isset($hora)
+                                            @isset($extras_horas)
                                                 <button id="buscar" type="button" data-toggle="modal" data-target="#exampleModal" style='width:70px; height:40px'>
                                                     <i class="fas fa-search"></i>
                                                 </button>
@@ -146,16 +146,16 @@
                                         <div class="form-group">
                                             <button type="button" id="nuevo" style='width:70px; height:40px'> <i class="fas fa-user-plus"></i></button>
                                         </div>
-                                        @isset($hora)
+                                        @isset($extras_horas)
                                             <div class="form-group">
                                                 <button type="button" id="actualizar" style='width:70px; height:40px'> <i class="fas fa-pen-square"></i></button>
                                             </div>
                                         @endisset
                                     @endcanany
                                     @can('administrador')
-                                            @isset($hora)
+                                            @isset($extras_horas)
                                             <div class="form-group">
-                                                <a id="eliminar" data-target="#modal-deleteausent-{{$hora->id}}" data-toggle="modal">
+                                                <a id="eliminar" data-target="#modal-deleteausent-{{$extras_horas->id_tiempo}}" data-toggle="modal">
                                                     <button type="button" style='width:70px; height:40px'>
                                                         <i class="far fa-trash-alt">
                                                         </i>
@@ -214,6 +214,17 @@
                             </tr>
                         </thead>
                         <tbody>
+                            @foreach($aux as $textra)
+                            <tr>
+                                <td>{{$textra->id_tiempo ?? ''}}</td>
+                                <td>{{$textra->clave_empleado ?? ''}}
+                                    {{$textra->nombre ?? ''}}
+                                    {{$textra->apellido_paterno ?? ''}}
+                                    {{$textra->apellido_materno ?? ''}}</td>
+                                    <td>{{$textra->cantidad_tiempo ?? ''}}</td>
+                                    <td>{{$textra->fecha_extra ?? ''}}</td>
+                            </tr>
+                           @endforeach 
                      
                             
 
@@ -225,7 +236,10 @@
             </div>
         </div>
         <!--Fin Datatables-->
-
+@isset($extras_horas)
+    @include('tiempo_extra.deletemodalextras')
+@endisset
+@include('tiempo_extra.busquedatiempo')
     </div>
 </div>
 </div>

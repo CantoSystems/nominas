@@ -40,8 +40,9 @@ class AusentismoController extends Controller
                 ->join('empleados','empleados.clave_empleado','=','ausentismos.clave_empleado')
                 ->join('conceptos','conceptos.clave_concepto','=','ausentismos.clave_concepto')
                 ->join('periodos','periodos.id','=','ausentismos.identificador_periodo')
-                ->select('ausentismos.*','empleados.*','conceptos.*','periodos.*')
+                ->select('ausentismos.*','empleados.*','conceptos.*','periodos.*','ausentismos.id AS identificador_ausentismo')
                 ->get();
+                
                 
                 $conceptos=DB::connection('DB_Serverr')->table('conceptos')->get();
 
@@ -83,9 +84,9 @@ class AusentismoController extends Controller
                 ->join('empleados','empleados.clave_empleado','=','ausentismos.clave_empleado')
                 ->join('conceptos','conceptos.clave_concepto','=','ausentismos.clave_concepto')
                 ->join('periodos','periodos.id','=','ausentismos.identificador_periodo')
-                ->select('ausentismos.*','empleados.*','conceptos.*','periodos.*')
+                ->select('ausentismos.*','empleados.*','conceptos.*','periodos.*','ausentismos.id AS identificador_ausentismo')
                 ->get();
-                
+                //dd($aux);
                 $conceptos=DB::connection('DB_Serverr')->table('conceptos')->get();
 
                 return view('ausentismo.crudausentismo', compact('periodo','ptrabajo','empleado','conceptos','ausentismo','aux'));   
@@ -119,7 +120,7 @@ class AusentismoController extends Controller
                 ->join('empleados','empleados.clave_empleado','=','ausentismos.clave_empleado')
                 ->join('conceptos','conceptos.clave_concepto','=','ausentismos.clave_concepto')
                 ->join('periodos','periodos.id','=','ausentismos.identificador_periodo')
-                ->select('ausentismos.*','empleados.*','conceptos.*','periodos.*')
+                ->select('ausentismos.*','empleados.*','conceptos.*','periodos.*','ausentismos.id AS identificador_ausentismo')
                 ->get();
                 
                 $conceptos=DB::connection('DB_Serverr')->table('conceptos')->get();
@@ -146,7 +147,7 @@ class AusentismoController extends Controller
                 ->join('empleados','empleados.clave_empleado','=','ausentismos.clave_empleado')
                 ->join('conceptos','conceptos.clave_concepto','=','ausentismos.clave_concepto')
                 ->join('periodos','periodos.id','=','ausentismos.identificador_periodo')
-                ->select('ausentismos.*','empleados.*','conceptos.*','periodos.*')
+                ->select('ausentismos.*','empleados.*','conceptos.*','periodos.*','ausentismos.id AS identificador_ausentismo')
                 ->get();
                 
                 $conceptos=DB::connection('DB_Serverr')->table('conceptos')->get();
@@ -172,7 +173,7 @@ class AusentismoController extends Controller
                 ->join('empleados','empleados.clave_empleado','=','ausentismos.clave_empleado')
                 ->join('conceptos','conceptos.clave_concepto','=','ausentismos.clave_concepto')
                 ->join('periodos','periodos.id','=','ausentismos.identificador_periodo')
-                ->select('ausentismos.*','empleados.*','conceptos.*','periodos.*')
+                ->select('ausentismos.*','empleados.*','conceptos.*','periodos.*','ausentismos.id AS identificador_ausentismo')
                 ->get();
                 
                 $conceptos=DB::connection('DB_Serverr')->table('conceptos')->get();
@@ -212,7 +213,7 @@ class AusentismoController extends Controller
                 ->join('empleados','empleados.clave_empleado','=','ausentismos.clave_empleado')
                 ->join('conceptos','conceptos.clave_concepto','=','ausentismos.clave_concepto')
                 ->join('periodos','periodos.id','=','ausentismos.identificador_periodo')
-                ->select('ausentismos.*','empleados.*','conceptos.*','periodos.*')
+                ->select('ausentismos.*','empleados.*','conceptos.*','periodos.*','ausentismos.id AS identificador_ausentismo')
                 ->get();
                 
                 $conceptos=DB::connection('DB_Serverr')->table('conceptos')->get();
@@ -243,7 +244,7 @@ class AusentismoController extends Controller
                         ->join('empleados','empleados.clave_empleado','=','ausentismos.clave_empleado')
                         ->join('conceptos','conceptos.clave_concepto','=','ausentismos.clave_concepto')
                         ->join('periodos','periodos.id','=','ausentismos.identificador_periodo')
-                        ->select('ausentismos.*','empleados.*','conceptos.*','periodos.*')
+                        ->select('ausentismos.*','empleados.*','conceptos.*','periodos.*','ausentismos.id AS identificador_ausentismo')
                         ->get();
                 
                         $conceptos=DB::connection('DB_Serverr')->table('conceptos')->get();
