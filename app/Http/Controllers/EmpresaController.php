@@ -426,6 +426,17 @@ class EmpresaController extends Controller{
             $table->timestamps();
         });
 
+        Schema::connection('DB_Serverr')->create('tiempo_extra', function($table){
+            $table->increments('id_tiempo');
+            $table->integer('periodo_id');
+            $table->char('clave_empleado',5);
+            $table->double('cantidad_tiempo');
+            $table->date('fecha_extra');
+            $table->timestamps();
+        });
+
+
+
         $empresa->nombre= $datos->nombre;
         $empresa->nombre_nomina= $datos->nombre_nomina;
         $empresa->rfc= $datos->rfc;

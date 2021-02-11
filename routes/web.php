@@ -136,3 +136,8 @@ Route::get('/selectempincidencias/{id}/{id_con}','IncidenciaController@seleccion
 Route::get('/selectconincidencias/{id}','IncidenciaController@seleccionarconcept')->name('incidencias.seleccionarconcept');
 Route::get('/selectconincidencias/{id}/{id_emp}','IncidenciaController@seleccionarconcept2')->name('incidencias.seleccionarconcept2');
 //Route::delete('/conceptos/{id}','ConceptosController@eliminaconcepto')->name('conceptos.eliminaconcepto');
+
+
+
+//Horas Extras
+Route::get('/horas-extras','ExtrasController@index')->name('horasextras.index');
