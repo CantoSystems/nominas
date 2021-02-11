@@ -44,32 +44,30 @@
                             {{ csrf_field() }}
                             </div>
                             @error('clave_empledo')
-                                    <div class="alert alert-secondary">
-                                        {{ $message }}
-                                    </div>
-                                @enderror
+                                <div class="alert alert-secondary">
+                                    {{ $message }}
+                                </div>
+                            @enderror
                         </div>
                     </div>
-            
+                    <div class="col-sm-2">
+                        <div class="form-group">
+                            <label>Cantidad:</label>
+                            <input  type="number" 
+                                    name="cantidad_ausentismo"
+                                    class="form-control"
+                                    value="{{$ausentismo->cantidad_ausentismo ?? ''}}"
+                                    step="1" 
+                                    onkeyup="mayus(this);"
+                                    onkeypress="return numeros(event)">
+                                    @error('cantidad_ausentismo')
+                                        <div class="alert alert-secondary">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
 
-                <div class="col-sm-2">
-                    <div class="form-group">
-                        <label>Cantidad:</label>
-                        <input  type="number" 
-                                name="cantidad_ausentismo"
-                                class="form-control"
-                                value="{{$ausentismo->cantidad_ausentismo ?? ''}}"
-                                step="1" 
-                                onkeyup="mayus(this);"
-                                onkeypress="return numeros(event)">
-                                @error('cantidad_ausentismo')
-                                    <div class="alert alert-secondary">
-                                        {{ $message }}
-                                    </div>
-                                @enderror
-
+                        </div>
                     </div>
-                </div>
                     <div class="col-sm-3">
                         <label>Concepto:</label>
                         <div class=" input-group mb-3">
@@ -87,9 +85,9 @@
                                 {{ csrf_field() }}
                             </div>
                             @error('concepto_clave')
-                                    <div class="alert alert-secondary">
-                                        {{ $message }}
-                                    </div>
+                                <div class="alert alert-secondary">
+                                    {{ $message }}
+                                </div>
                             @enderror
                         </div>
                     </div>
@@ -103,9 +101,9 @@
                                     onkeyup="mayus(this);"
                                     onkeypress="return numeros(event)">
                                     @error('fecha_ausentismo')
-                                    <div class="alert alert-secondary">
-                                        {{ $message }}
-                                    </div>
+                                        <div class="alert alert-secondary">
+                                            {{ $message }}
+                                        </div>
                                     @enderror
                         </div>
                     </div>
@@ -118,9 +116,9 @@
                                     value="{{$ausentismo->incapacidad ?? ''}}" 
                                     onkeyup="mayus(this);">
                                     @error('incapacidad')
-                                    <div class="alert alert-secondary">
-                                        {{ $message }}
-                                    </div>
+                                        <div class="alert alert-secondary">
+                                            {{ $message }}
+                                        </div>
                                     @enderror
                         </div>
                     </div>
@@ -134,9 +132,9 @@
                                     id="nombre_empleado" 
                                     onkeyup="mayus(this);">
                                     @error('nombre')
-                                    <div class="alert alert-secondary">
-                                        {{ $message }}
-                                    </div>
+                                        <div class="alert alert-secondary">
+                                            {{ $message }}
+                                        </div>
                                     @enderror
                         </div>
                     </div>
@@ -149,9 +147,9 @@
                                     value="{{$ausentismo->descripcion ?? ''}}" 
                                     onkeyup="mayus(this);">
                                     @error('descripcion')
-                                    <div class="alert alert-secondary">
-                                        {{ $message }}
-                                    </div>
+                                        <div class="alert alert-secondary">
+                                            {{ $message }}
+                                        </div>
                                     @enderror
                         </div>
                     </div>
@@ -160,20 +158,20 @@
                             <div class="card-body">
                                 <div class="margin">
                                     <div class="btn-group">
-                                    @isset($ausentismo)
-                                        <div class="form-group">
-                                            <button type="submit"  name="acciones" value="primero" id="primero" style='width:70px; height:40px'><i class="fas fa-backward" ></i></button>
-                                        </div>
-                                        <div class="form-group">
-                                            <button type="submit" name="acciones" value="atras" id="atras" style='width:70px; height:40px'><i class="fas fa-arrow-circle-left"></i></button>
-                                        </div>
-                                        <div class="form-group">
-                                            <button type="submit" name="acciones" value="siguiente" id="siguiente" style='width:70px; height:40px'><i class="fas fa-arrow-circle-right"></i></button>
-                                        </div>
-                                        <div class="form-group">
-                                            <button type="submit" name="acciones" value="ultimo" id="ultimo" style='width:70px; height:40px'><i class="fas fa-forward"></i></button>
-                                        </div>
-                                    @endisset
+                                        @isset($ausentismo)
+                                            <div class="form-group">
+                                                <button type="submit"  name="acciones" value="primero" id="primero" style='width:70px; height:40px'><i class="fas fa-backward" ></i></button>
+                                            </div>
+                                            <div class="form-group">
+                                                <button type="submit" name="acciones" value="atras" id="atras" style='width:70px; height:40px'><i class="fas fa-arrow-circle-left"></i></button>
+                                            </div>
+                                            <div class="form-group">
+                                                <button type="submit" name="acciones" value="siguiente" id="siguiente" style='width:70px; height:40px'><i class="fas fa-arrow-circle-right"></i></button>
+                                            </div>
+                                            <div class="form-group">
+                                                <button type="submit" name="acciones" value="ultimo" id="ultimo" style='width:70px; height:40px'><i class="fas fa-forward"></i></button>
+                                            </div>
+                                        @endisset
                                     </div>
                                 </div>
                             </div>
@@ -203,17 +201,17 @@
                                         @endisset
                                     @endcanany
                                     @can('administrador')
-                                            @isset($ausentismo)
-                                            <div class="form-group">
-                                                <a id="eliminar" data-target="#modal-deleteausent-{{$ausentismo->id}}" data-toggle="modal">
-                                                    <button type="button" style='width:70px; height:40px'>
-                                                        <i class="far fa-trash-alt">
-                                                        </i>
-                                                    </button>
-                                                </a>
-                                            </div>
-                                            @endisset
-                                        @endcan
+                                        @isset($ausentismo)
+                                        <div class="form-group">
+                                            <a id="eliminar" data-target="#modal-deleteausent-{{$ausentismo->id}}" data-toggle="modal">
+                                                <button type="button" style='width:70px; height:40px'>
+                                                    <i class="far fa-trash-alt">
+                                                    </i>
+                                                </button>
+                                            </a>
+                                        </div>
+                                        @endisset
+                                    @endcan
                                 </div>
                             </div>
                         </div>
@@ -236,14 +234,9 @@
                         </div>
                     </div>
                 </div>
-               
             </form>
-            
-         
         </div>
 
-
-         <!-- Inicio Datatables-->
         <div class="row">
             <div class="col">
                 <div class="card card-secondary">
@@ -266,51 +259,47 @@
                             </tr>
                         </thead>
                         <tbody>
-                        @foreach($aux as $ausent)
-                           <tr>
-                                <td>
-                                    {{$ausent->fecha_inicio ?? ''}}  al {{$ausent->fecha_fin ?? ''}}
-                                </td>
-                                <td>
-                                    {{$ausent->clave_empleado ?? ''}}
-                                    {{$ausent->nombre ?? ''}} 
-                                    {{$ausent->apellido_paterno ?? ''}}
-                                    {{$ausent->apellido_materno ?? ''}}
-                                </td>
-                                <td>
-                                   {{ $ausent->cantidad_ausentismo ?? ''}} 
-                                </td>
-                                <td>
-                                    {{$ausent->clave_concepto ?? ''}}
-                                    {{$ausent->concepto ?? ''}}
-                                </td>
-                                <td>
-                                    {{$ausent->fecha_ausentismo ?? ''}}
-                                </td>
-                                <td>
-                                    {{$ausent->incapacidad ?? ''}}
-                                </td>
-                                <td>
-                                    {{$ausent->descripcion ?? ''}}
-                                </td>
-                           </tr>
-                        @endforeach
-                            
-
+                            @foreach($aux as $ausent)
+                                <tr>
+                                    <td>
+                                        {{$ausent->fecha_inicio ?? ''}}  al {{$ausent->fecha_fin ?? ''}}
+                                    </td>
+                                    <td>
+                                        {{$ausent->clave_empleado ?? ''}}
+                                        {{$ausent->nombre ?? ''}} 
+                                        {{$ausent->apellido_paterno ?? ''}}
+                                        {{$ausent->apellido_materno ?? ''}}
+                                    </td>
+                                    <td>
+                                    {{ $ausent->cantidad_ausentismo ?? ''}} 
+                                    </td>
+                                    <td>
+                                        {{$ausent->clave_concepto ?? ''}}
+                                        {{$ausent->concepto ?? ''}}
+                                    </td>
+                                    <td>
+                                        {{$ausent->fecha_ausentismo ?? ''}}
+                                    </td>
+                                    <td>
+                                        {{$ausent->incapacidad ?? ''}}
+                                    </td>
+                                    <td>
+                                        {{$ausent->descripcion ?? ''}}
+                                    </td>
+                                </tr>
+                            @endforeach
                         </tbody>
                     </table>
                 </div>
             </div>
         </div>
-            </div>
-        </div>
-        <!--Fin Datatables-->
-
-        @isset($ausentismo)
-                @include('ausentismo.deleteausentismo')
-        @endisset
-        @include('ausentismo.busquedaausentismo')
     </div>
+</div>
+@isset($ausentismo)
+    @include('ausentismo.deleteausentismo')
+@endisset
+@include('ausentismo.busquedaausentismo')
+</div>
 </div>
 </div>
 @endsection
