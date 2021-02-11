@@ -15,7 +15,7 @@
                   <div class="input-group-prepend">
                     <select class="custom-select" name="opcion">
                       <option value="clave_empleado">Clave empleado</option>
-                      <option value="incapacidad">Incapacidad</option>
+                      <option value="identificador">Identificador</option>
                     </select>
                   </div>
                  

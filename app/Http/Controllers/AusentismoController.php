@@ -189,12 +189,12 @@ class AusentismoController extends Controller
                 $criterio= $request->opcion;
                 //dd($criterio);
 
-                if($criterio == 'clave_empleado')
+                if($criterio == 'identificador')
                 {
                     $ausentismo = DB::connection('DB_Serverr')->table('ausentismos')
                         ->join('empleados','empleados.clave_empleado','=','ausentismos.clave_empleado')
                         ->select('ausentismos.*','empleados.*')
-                        ->where('ausentismos.clave_empleado',$request->busca)->first();
+                        ->where('ausentismos.id',$request->busca)->first();
 
                         if($ausentismo == ""){
                              return back()->with('busqueda','Coincidencia no encontrada');
@@ -363,7 +363,6 @@ class AusentismoController extends Controller
 
 
         $coincidencia = DB::connection('DB_Serverr')->table('ausentismos')
-        ->where('clave_empleado','=',$datos->clave_empledo)
         ->orWhere('incapacidad','=',$datos->incapacidad)
         ->get();
 
