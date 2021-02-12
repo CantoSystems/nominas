@@ -364,7 +364,7 @@ class AusentismoController extends Controller
 
 
         $coincidencia = DB::connection('DB_Serverr')->table('ausentismos')
-        ->orWhere('incapacidad','=',$datos->incapacidad)
+        ->where('incapacidad','=',$datos->incapacidad)
         ->get();
 
         if($coincidencia->count() == 0){
