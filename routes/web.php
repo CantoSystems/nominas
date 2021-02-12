@@ -133,3 +133,4 @@ Route::delete('/incidencias/delete/{id}', 'IncidenciaController@eliminar')->name
 
 //Horas Extras
 Route::get('/horas-extras','ExtrasController@index')->name('horasextras.index');
+Route::delete('horas-extras/delete/{id_tiempo}', 'ExtrasController@elimina')->name('tiempo.destroy');

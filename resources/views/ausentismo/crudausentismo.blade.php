@@ -249,6 +249,7 @@
                     <table id="example1" class="table table-bordered table-striped">
                         <thead>
                             <tr>
+                                <th>ID</th>
                                 <th>Periodo</th>
                                 <th>Clave del empleado y nombre</th>
                                 <th>Cantidad</th>
@@ -261,6 +262,9 @@
                         <tbody>
                             @foreach($aux as $ausent)
                                 <tr>
+                                    <td>
+                                        {{ $ausent->identificador_ausentismo ?? ''}}
+                                    </td>
                                     <td>
                                         {{$ausent->fecha_inicio ?? ''}}  al {{$ausent->fecha_fin ?? ''}}
                                     </td>
