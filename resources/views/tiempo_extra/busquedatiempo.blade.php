@@ -14,12 +14,9 @@
                 <div class="input-group col-md-12">
                   <div class="input-group-prepend">
                     <select class="custom-select" name="opcion">
-                      <option value="clave_empleado">Clave empleado</option>
                       <option value="identificador">Identificador</option>
                     </select>
                   </div>
-                 
-
                   <input type="text" class="form-control" aria-label="Username" name="busca" aria-describedby="basic-addon1" align='right' required>
                    
                 </div>

@@ -17,6 +17,12 @@
                             {{ session('busqueda')}}
                         </div>
                     @endif
+                    @if(session()->has('msj'))
+                        <div class="alert alert-danger" role="alert">
+                            {{ session('msj')}}
+                        </div>
+                    @endif
+
                     <form action="{{ route('retenciones.index')}}" method="GET" autocomplete="off">
                         <div class="row">
                             <div class="col-sm-2">
@@ -30,6 +36,11 @@
                                             maxlength="4"
                                             step="0.1" 
                                             onkeyup="mayus(this);">
+                                    @error('limite_inferior')
+                                        <div class="alert alert-secondary">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
                                 </div>
                             </div>
                             <div class="col-sm-2">
@@ -41,6 +52,11 @@
                                             class="form-control"
                                             step="0.1" 
                                             onkeyup="mayus(this);">
+                                    @error('cuota_fija')
+                                        <div class="alert alert-secondary">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
                                 </div>
                             </div>
                             <div class="col-sm-2">
@@ -52,17 +68,27 @@
                                             class="form-control"
                                             step="0.1"
                                             onkeyup="mayus(this);">
+                                    @error('limite_superior')
+                                        <div class="alert alert-secondary">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
                                 </div>
                             </div>
                             <div class="col-sm-2">
                                 <div class="form-group">
-                                    <label>Porcentaje excedente:</label>
+                                    <label>% excedente:</label>
                                     <input  type="number" 
                                             name="porcentaje_excedente"
                                             value="{{$retencion->porcentaje_excedente ?? ''}}" 
                                             class="form-control"
                                             step="0.1"
                                             onkeyup="mayus(this);">
+                                    @error('porcentaje_excedente')
+                                        <div class="alert alert-secondary">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
                                 </div>
                             </div>
                             <div class="col-sm-4">
@@ -88,6 +114,11 @@
                                         <option value="ANUAL">ANUAL</option>
                                     </select>
                                     @endif
+                                    @error('periodo_retencion')
+                                        <div class="alert alert-secondary">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
 
                                 </div>
                             </div>

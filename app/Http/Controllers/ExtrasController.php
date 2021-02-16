@@ -122,7 +122,7 @@ class ExtrasController extends Controller
 
             case 'atras':
 
-                 $extras_horas = DB::connection('DB_Serverr')->table('tiempo_extra')
+                $extras_horas = DB::connection('DB_Serverr')->table('tiempo_extra')
                 ->join('empleados','empleados.clave_empleado','=','tiempo_extra.clave_empleado')
                 ->select('tiempo_extra.*','empleados.*')
                 ->where('id_tiempo','<',$indic)
@@ -159,6 +159,32 @@ class ExtrasController extends Controller
 
                 case 'buscar':
                     $criterio= $request->opcion;
+                    if($criterio == 'identificador')
+                    {
+                        $extras_horas = DB::connection('DB_Serverr')->table('tiempo_extra')
+                        ->join('empleados','empleados.clave_empleado','=','tiempo_extra.clave_empleado')
+                        ->select('tiempo_extra.*','empleados.*')
+                        ->where('id_tiempo',$request->busca)
+                        ->first();
+
+                        if($extras_horas == ""){
+                             return back()->with('busqueda','Coincidencia no encontrada');
+                        }
+
+                            $periodot = DB::connection('DB_Serverr')->table('periodos')
+                            ->where('numero','=',$trabajo_periodo)
+                            ->first();
+
+                            $aux= DB::connection('DB_Serverr')->table('tiempo_extra')
+                            ->join('empleados','empleados.clave_empleado','=','tiempo_extra.clave_empleado')
+                            ->join('periodos','periodos.id','=','tiempo_extra.periodo_id')
+                            ->select('tiempo_extra.*','empleados.*','periodos.*')
+                            ->orderBy('id_tiempo')->get();
+
+                            return view('tiempo_extra.crudextras',compact('trabajo_periodo','periodot','extras_horas','aux'));
+
+
+                    }
                  
 
             
@@ -207,6 +233,7 @@ class ExtrasController extends Controller
         ]);
 
 
+
         DB::connection('DB_Serverr')->insert('insert into tiempo_extra (
             periodo_id,
             clave_empleado,
@@ -228,7 +255,14 @@ class ExtrasController extends Controller
         $clv_empresa=$this->conectar($clv);
         \Config::set('database.connections.DB_Serverr', $clv_empresa);
 
-         $aux1 = DB::connection('DB_Serverr')->table('tiempo_extra')->where('id_tiempo',$datos->id_tiempo)->first();
+         $datos->validate([
+              'clave_empledo' => 'required',
+              'cantidad_tiempo' => 'required',
+              'fecha_extra' => 'required',
+        ]);
+         
+        $aux1 = DB::connection('DB_Serverr')->table('tiempo_extra')->where('id_tiempo',$datos->id_tiempo)->first();
+
         DB::connection('DB_Serverr')->table('tiempo_extra')->where('id_tiempo',$datos->id_tiempo)->update(['clave_empleado'=>$datos->clave_empledo,
                     'cantidad_tiempo'=>$datos->cantidad_tiempo,
                     'fecha_extra'=>$datos->fecha_extra
