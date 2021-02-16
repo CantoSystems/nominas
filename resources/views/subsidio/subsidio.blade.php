@@ -38,29 +38,56 @@
                     <h3 class="card-title">Subsidio Mensual</h3>
                 </div>
                 <div class="card-body">
+                    @if(session()->has('msj'))
+                        <div class="alert alert-danger" role="alert">
+                            {{ session('msj')}}
+                        </div>
+                    @endif
+                    @if(session()->has('busqueda'))
+                    <div class="alert alert-danger" role="alert">
+                        {{ session('busqueda')}}
+                    </div>
+                    @endif
+
+
                     <form action="{{ route('subsidio.acciones')}}" method="GET" autocomplete="off">
                         <div class="row">
-                            @if(isset($subsidio))
+                           
                                 <div class="col-sm-6">
                                     <div class="form-group">
                                         <label>Para ingresos de ($):</label>
-                                        <input type="hidden" name="id_subsidio" value="{{ $subsidio->id_subsidio }}" class="form-control">
-                                        <input type="text" name="paraingresos" value="{{ $subsidio->ParaIngresos }}" class="form-control">
+                                        <input type="hidden" name="id_subsidio" value="{{ $subsidio->id_subsidio ?? ''}}" class="form-control">
+                                        <input type="text" name="paraingresos" value="{{ $subsidio->ParaIngresos ?? '' }}" class="form-control">
+                                        @error('paraingresos')
+                                            <div class="alert alert-secondary">
+                                                {{ $message }}
+                                            </div>
+                                        @enderror
                                     </div>
                                 </div>
                                 <div class="col-sm-6">
                                     <div class="form-group">
                                         <label>Hasta ingresos de ($):</label>
-                                        <input type="text" name="hastaingresos" value="{{ $subsidio->IngresosDe }}" class="form-control">
+                                        <input type="text" name="hastaingresos" value="{{ $subsidio->IngresosDe ?? ''}}" class="form-control">
+                                        @error('hastaingresos')
+                                            <div class="alert alert-secondary">
+                                                {{ $message }}
+                                            </div>
+                                        @enderror
                                     </div>
                                 </div>
                                 <div class="col-sm-12">
                                     <div class="form-group">
                                         <label>Cantidad de subsidio para el empleo mensual ($):</label>
-                                        <input type="text" name="subsidiomensual" value="{{ $subsidio->SubsidioMensual }}" class="form-control">
+                                        <input type="text" name="subsidiomensual" value="{{ $subsidio->SubsidioMensual ?? '' }}" class="form-control">
+                                        @error('subsidiomensual')
+                                            <div class="alert alert-secondary">
+                                                {{ $message }}
+                                            </div>
+                                        @enderror
                                     </div>
                                 </div>
-                            @endif
+                         
                             @canany(['administrador','capturista','reportes'])
                                 <div class="col-sm-5">
                                     <div class="card-body">
@@ -152,6 +179,7 @@
 </div>
 @if(!empty($sub))
   @include('subsidio.modaldeletesubsidio')
+  @include('subsidio.busquedasubsidio')
 @endif
 
 @endsection

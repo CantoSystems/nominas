@@ -59,14 +59,34 @@ class SubsidioController extends Controller{
             case 'cancelar':
                 return redirect()->route('subsidio.acciones');
                 break;
-            /*case 'buscar':
-                $imss = IMSS::where('concepto',$request->busca)->first();
-                if($imss==""){
-                    $imss= IMSS::first();
+            case 'buscar':
+                //dd($request->opcion);
+
+                $criterio = $request->opcion;
+
+                
+                if($criterio == 'de')
+                {
+                    $subsidio = Subsidio::where('IngresosDe','=',$request->busca)->first();
+                    if($subsidio == ""){
+                         return back()->with('busqueda','Coincidencia no encontrada');
+                    }
+
+                    $subsidios = Subsidio::all();
+                    return view('subsidio.subsidio', compact('subsidio','subsidios'));
+
+                }else if ($criterio == 'hasta'){
+
+                    $subsidio = Subsidio::where('ParaIngresos','=',$request->busca)->first();
+                    if($subsidio == ""){
+                         return back()->with('busqueda','Coincidencia no encontrada');
+                    }
+
+                    $subsidios = Subsidio::all();
+                    return view('subsidio.subsidio', compact('subsidio','subsidios'));
                 }
-                $imsss= IMSS::all();
-                return view('imss.imss', compact('imss','imsss'));
-            break;*/
+            break;
+
             default:
                 # code...
             break;
@@ -74,23 +94,36 @@ class SubsidioController extends Controller{
     }
 
     public function registrar($datos){
-        /*$datos->validate([
-            'clave_banco' => 'required|unique:bancos',
-            'nombre_banco' => 'required|unique:bancos',
-        ]);*/
+       $datos->validate([
+            'hastaingresos' => 'required',
+            'paraingresos' => 'required',
+            'subsidiomensual' => 'required'
+        ]);
 
-        $sub = new Subsidio;
-        $sub->IngresosDe = $datos->hastaingresos;
-        $sub->ParaIngresos = $datos->paraingresos;
-        $sub->SubsidioMensual = $datos->subsidiomensual;
-        $sub->save();
+        $coincidencia = Subsidio::where([
+            ['IngresosDe','=',$datos->hastaingresos],
+            ['ParaIngresos','=',$datos->paraingresos],
+        ])->get();
+
+        if($coincidencia->count() === 0){
+            $sub = new Subsidio;
+            $sub->IngresosDe = $datos->hastaingresos;
+            $sub->ParaIngresos = $datos->paraingresos;
+            $sub->SubsidioMensual = $datos->subsidiomensual;
+            $sub->save();
+        }else{
+            return back()->with('msj','Registro duplicado');
+        }
+
+        
     }
 
     public function actualizar($datos){
-        /*$datos->validate([
-            'clave_banco' => 'required',
-            'nombre_banco' => 'required',
-        ]);*/
+        $datos->validate([
+            'hastaingresos' => 'required',
+            'paraingresos' => 'required',
+            'subsidiomensual' => 'required'
+        ]);
 
         $sub = Subsidio::where('id_subsidio',$datos->id_subsidio)->first();
         $sub->IngresosDe = $datos->hastaingresos;

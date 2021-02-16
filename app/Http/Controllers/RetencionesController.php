@@ -106,18 +106,46 @@ class RetencionesController extends Controller
 
     public function store($datos)
     {
-        $retencion = new Retenciones;
-        $retencion->limite_inferior = $datos->limite_inferior;
-        $retencion->cuota_fija = $datos->cuota_fija;
-        $retencion->limite_superior = $datos->limite_superior;
-        $retencion->porcentaje_excedente = $datos->porcentaje_excedente;
-        $retencion->periodo_retencion = $datos->periodo_retencion;
-        $retencion->save();
+        $datos->validate([
+              'limite_inferior' => 'required',
+              'cuota_fija' => 'required',
+              'limite_superior' => 'required',
+              'porcentaje_excedente' => 'required',
+              'periodo_retencion' => 'required'
+        ]);
+
+        
+        $coincidencia = Retenciones::where([
+            ['limite_inferior','=',$datos->limite_inferior],
+            ['limite_superior','=',$datos->limite_superior],
+        ])->get();
+
+        if($coincidencia->count() === 0)
+        {
+            $retencion = new Retenciones;
+            $retencion->limite_inferior = $datos->limite_inferior;
+            $retencion->cuota_fija = $datos->cuota_fija;
+            $retencion->limite_superior = $datos->limite_superior;
+            $retencion->porcentaje_excedente = $datos->porcentaje_excedente;
+            $retencion->periodo_retencion = $datos->periodo_retencion;
+            $retencion->save();  
+        }else{
+            return back()->with('msj','Registro duplicado');
+        }
+        
     }
 
    
     public function update($datos)
     {
+        $datos->validate([
+              'limite_inferior' => 'required',
+              'cuota_fija' => 'required',
+              'limite_superior' => 'required',
+              'porcentaje_excedente' => 'required',
+              'periodo_retencion' => 'required'
+        ]);
+
         $retencion= Retenciones::where('id',$datos->id)->first();
         $retencion->limite_inferior = $datos->limite_inferior;
         $retencion->cuota_fija = $datos->cuota_fija;

@@ -81,12 +81,24 @@ class BancosController extends Controller
                 return redirect()->route('bancos.acciones');
                 break;
               case 'buscar':
-                $banco = Banco::where('nombre_banco',$request->busca)->first();
-                if($banco==""){
-                  $banco= Banco::first();
-                }
-                $bancos= Banco::all();
-              return view('bancos.bancos',compact('banco','bancos'));
+               $criterio = $request->opcion;
+               if($criterio == 'clave'){
+                  $banco = Banco::where('nombre_banco','=',$request->busca)->first();
+                  if($banco == ""){
+                    return back()->with('busqueda','Coincidencia no encontrada');
+                  }
+                $bancos=Banco::all();
+                return view('bancos.bancos', compact('banco','bancos'));
+
+               }else if($criterio == 'banco'){
+                $banco = Banco::where('clave_banco','=',$request->busca)->first();
+                  if($banco == ""){
+                    return back()->with('busqueda','Coincidencia no encontrada');
+                  }
+                $bancos=Banco::all();
+                return view('bancos.bancos', compact('banco','bancos'));
+
+               }
                 break;
               default:
                    # code...

@@ -37,6 +37,16 @@
                     <h3 class="card-title">Bancos</h3>
                 </div>
                 <div class="card-body">
+                    @if(session()->has('busqueda'))
+                        <div class="alert alert-danger" role="alert">
+                            {{ session('busqueda')}}
+                        </div>
+                    @endif
+                    @if(session()->has('msj'))
+                        <div class="alert alert-danger" role="alert">
+                            {{ session('msj')}}
+                        </div>
+                    @endif
                     <form action="{{ route('bancos.acciones')}}" method="GET" autocomplete="off">
                         <div class="row">
                             <div class="col-sm-6">

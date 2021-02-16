@@ -239,6 +239,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
           $('input[type="text"]').val('');
           $('input[type="email"]').val('');
           $('input[type="password"]').val('');
+          $('input[type="number"]').val('');
           $('#primero').hide();
           $('#atras').hide();
           $('#siguiente').hide();
