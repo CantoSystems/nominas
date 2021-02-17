@@ -37,19 +37,23 @@ class IncidenciaController extends Controller{
                 return view('incidencias.incidencias',compact('incidencias2','incidencias','emp','conceptos'));
             break;
             case 'atras':
+
                 $idIncidencia = DB::connection('DB_Serverr')->table('incidencias')
                 ->join('empleados','empleados.clave_empleado','=','incidencias.clave_empleado')
                 ->join('conceptos','conceptos.clave_concepto','=','incidencias.clave_concepto')
                 ->select('incidencias.*','empleados.*','conceptos.concepto')
                 ->first();
+
+
                 
                 $incidencias = DB::connection('DB_Serverr')->table('incidencias')
                 ->where('id_incidencia','<',$idIncidencia->id_incidencia)
-                ->orderBy('id_incidencia','desc')
                 ->join('empleados','empleados.clave_empleado','=','incidencias.clave_empleado')
                 ->join('conceptos','conceptos.clave_concepto','=','incidencias.clave_concepto')
                 ->select('incidencias.*','empleados.*','conceptos.concepto')
+                ->orderBy('id_incidencia','desc')
                 ->first();
+                dd($incidencias);
 
                 if(is_null($incidencias)){
                     $incidencias = DB::connection('DB_Serverr')->table('incidencias')
@@ -148,13 +152,8 @@ class IncidenciaController extends Controller{
             break;
             case 'registrar':
                 $this->registrar($request);
-                $incidencias = DB::connection('DB_Serverr')->table('incidencias')->first();
+                return redirect()->route('incidencias.index');
 
-                $emp = DB::connection('DB_Serverr')->table('empleados')->get();
-
-                $conceptos = DB::connection('DB_Serverr')->table('conceptos')->get();
-
-                return view('incidencias.incidencias',compact('incidencias','emp','conceptos'));
             break;
             case 'actualizar':
                 $this->actualizar($request);
@@ -215,6 +214,14 @@ class IncidenciaController extends Controller{
 
         \Config::set('database.connections.DB_Serverr', $clv_empresa);
 
+        $datos->validate([
+                'clave_empledo' => 'required',
+                'concepto_clave' => 'required',
+                'cantidad' => 'required',
+                'importe' => 'required',
+                'monto' => 'required',
+        ]);
+
         DB::connection('DB_Serverr')->insert('INSERT INTO incidencias (clave_concepto
                                                                       ,clave_empleado
                                                                       ,cantidad
@@ -238,11 +245,11 @@ class IncidenciaController extends Controller{
         \Config::set('database.connections.DB_Serverr', $clv_empresa);
 
         $datos->validate([
-              'concepto_clave' => 'required',
-              'clave_empledo' => 'required',
-              'cantidad' => 'required',
-              'importe' => 'required',
-              'monto' => 'required',
+                'clave_empledo' => 'required',
+                'concepto_clave' => 'required',
+                'cantidad' => 'required',
+                'importe' => 'required',
+                'monto' => 'required',
         ]);
 
         DB::connection('DB_Serverr')->table('incidencias')->where('id_incidencia',$datos->idIncidencia)

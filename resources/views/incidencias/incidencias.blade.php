@@ -100,18 +100,33 @@
                         <div class="form-group">
                             <label>Cantidad:</label>
                             <input type="number" name="cantidad" value="{{ $incidencias->cantidad ?? '' }}" class="form-control" step="0.1" onkeyup="mayus(this);">
+                            @error('cantidad')
+                                <div class="alert alert-secondary">
+                                    {{ $message }}
+                                </div>
+                            @enderror
                         </div>
                     </div>
                     <div class="col-sm-4">
                         <div class="form-group">
                             <label>Importe:</label>
                             <input type="number" name="importe" value="{{ $incidencias->importe ?? '' }}" class="form-control" step="0.1">
+                            @error('importe')
+                                <div class="alert alert-secondary">
+                                    {{ $message }}
+                                </div>
+                            @enderror
                         </div>
                     </div>
                     <div class="col-sm-4">
                         <div class="form-group">
                             <label>Monto:</label>
                             <input type="number" name="monto"  value="{{ $incidencias->monto ?? '' }}"class="form-control" step="0.1">
+                            @error('monto')
+                                <div class="alert alert-secondary">
+                                    {{ $message }}
+                                </div>
+                            @enderror
                         </div>
                     </div>
                     @canany(['administrador','capturista','reportes'])
