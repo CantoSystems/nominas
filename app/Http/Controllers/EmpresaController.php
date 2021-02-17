@@ -134,6 +134,8 @@ class EmpresaController extends Controller{
         $datos->validate([
               'nombre' => 'required',
               'rfc' => 'required',
+              'clave' => 'required',
+              'nombre_nomina' => 'required',
               'segurosocial' => 'required',
               'registro_estatal' => 'required',
               'calle' => 'required',

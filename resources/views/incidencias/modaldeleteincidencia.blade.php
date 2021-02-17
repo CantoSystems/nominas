@@ -13,7 +13,7 @@
 					@method('DELETE')
 					@csrf
 					<div class="row">
-						<h5 style="text-align: center;">¿Estas seguro de eliminar el/la <strong>{{ $incidencias->concepto }}</strong> de <strong>{{ $incidencias->nombre }} {{ $incidencias->apellido_paterno }} {{ $incidencias->apellido_materno }}</strong>:</h5>
+						<h5 style="text-align: center;">¿Estas seguro de eliminar el/la <strong>{{ $incidencias->concepto ?? '' }}</strong> de <strong>{{ $incidencias->nombre }} {{ $incidencias->apellido_paterno }} {{ $incidencias->apellido_materno }}</strong>:</h5>
 					</div>
 					<div class="modal-footer">
 						<button type="button" data-dismiss="modal" style="width:80px; height:40px">Cancelar</button>

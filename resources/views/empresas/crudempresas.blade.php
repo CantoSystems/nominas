@@ -17,8 +17,18 @@
                         <label>Nombre:</label>
                         @if(isset($empresa))
                             <input type="text" name="nombre"  class="form-control" value="{{$empresa->nombre}}" onkeyup="mayus(this)"; onkeypress="return validar(event)">
+                            @error('nombre')
+                                <div class="alert alert-secondary">
+                                    {{ $message }}
+                                </div>
+                            @enderror
                         @else
                             <input type="text" name="nombre"  class="form-control" value="" onkeyup="mayus(this)"; onkeypress="return validar(event)">
+                            @error('nombre')
+                                <div class="alert alert-secondary">
+                                    {{ $message }}
+                                </div>
+                            @enderror
                         @endif
                     </div>
                 </div>    
@@ -27,9 +37,19 @@
                         <label>Clave:</label>
                         @if(isset($empresa))
                             <input type="text" name="clave" class="form-control" value="{{$empresa->clave}}" maxlength="4" onkeyup="mayus(this);">
+                            @error('clave')
+                                <div class="alert alert-secondary">
+                                    {{ $message }}
+                                </div>
+                            @enderror
                         @else
                             <input type="text" name="clave" class="form-control" value=""  maxlength="4" 
                             onkeyup="mayus(this);">
+                            @error('clave')
+                                <div class="alert alert-secondary">
+                                    {{ $message }}
+                                </div>
+                            @enderror
                         @endif
 
                     </div>
@@ -39,8 +59,18 @@
                         <label>Nombre Nómina:</label>
                         @if(isset($empresa))
                             <input type="text" name="nombre_nomina" class="form-control" value="{{$empresa->nombre_nomina}}" onkeyup="mayus(this);">
+                            @error('nombre_nomina')
+                                <div class="alert alert-secondary">
+                                    {{ $message }}
+                                </div>
+                            @enderror
                         @else
                             <input type="text" name="nombre_nomina" class="form-control" value="" onkeyup="mayus(this);">
+                            @error('nombre_nomina')
+                                <div class="alert alert-secondary">
+                                    {{ $message }}
+                                </div>
+                            @enderror
                         @endif
 
                     </div>
@@ -50,8 +80,18 @@
                         <label>RFC (Empresa):</label>
                         @if(isset($empresa))
                             <input type="text" name="rfc" maxlength="13" minlength="12" class="form-control" value="{{$empresa->rfc}}" onkeyup="mayus(this);" pattern="^([A-ZÑ\x26]{3,4}([0-9]{2})(0[1-9]|1[0-2])(0[1-9]|1[0-9]|2[0-9]|3[0-1])([A-Z]|[0-9]){2}([A-ZÑ\x26]|[0-9]){1})?$">
+                            @error('rfc')
+                                <div class="alert alert-secondary">
+                                    {{ $message }}
+                                </div>
+                            @enderror
                         @else
                             <input type="text" name="rfc" maxlength="13" minlength="12" class="form-control" value="" onkeyup="mayus(this);" pattern="^([A-ZÑ\x26]{3,4}([0-9]{2})(0[1-9]|1[0-2])(0[1-9]|1[0-9]|2[0-9]|3[0-1])([A-Z]|[0-9]){2}([A-ZÑ\x26]|[0-9]){1})?$">
+                            @error('rfc')
+                                <div class="alert alert-secondary">
+                                    {{ $message }}
+                                </div>
+                            @enderror
                         @endif
 
                     </div>
@@ -61,8 +101,18 @@
                         <label>Seguro social:</label>
                         @if(isset($empresa))
                             <input type="text" name="segurosocial" maxlength="11" class="form-control" value="{{$empresa->segurosocial}}" onkeyup="mayus(this)"; onkeypress="return numeros(event)">
+                            @error('segurosocial')
+                                <div class="alert alert-secondary">
+                                    {{ $message }}
+                                </div>
+                            @enderror
                         @else
                             <input type="text" name="segurosocial" maxlength="11" class="form-control" value="" onkeyup="mayus(this)"; onkeypress="return numeros(event)">
+                            @error('segurosocial')
+                                <div class="alert alert-secondary">
+                                    {{ $message }}
+                                </div>
+                            @enderror
                         @endif
 
                     </div>
@@ -72,8 +122,18 @@
                         <label>Registro estatal ( REC ):</label>
                         @if(isset($empresa))
                             <input type="text" name="registro_estatal" class="form-control" value="{{$empresa->registro_estatal}}" maxlength="11"onkeyup="mayus(this);">
+                            @error('registro_estatal')
+                                <div class="alert alert-secondary">
+                                    {{ $message }}
+                                </div>
+                            @enderror
                         @else
                             <input type="text" name="registro_estatal" class="form-control" value="" maxlength="11"onkeyup="mayus(this);">
+                            @error('registro_estatal')
+                                <div class="alert alert-secondary">
+                                    {{ $message }}
+                                </div>
+                            @enderror
                         @endif
                     </div>
                 </div>
@@ -82,8 +142,18 @@
                         <label>Calle:</label>
                         @if(isset($empresa))
                             <input type="text" name="calle" class="form-control" value="{{$empresa->calle}}" onkeyup="mayus(this)"; onkeypress="return validar(event)">
+                            @error('calle')
+                                <div class="alert alert-secondary">
+                                    {{ $message }}
+                                </div>
+                            @enderror
                         @else
                             <input type="text" name="calle" class="form-control" value="" onkeyup="mayus(this)"; onkeypress="return validar(event)">
+                            @error('calle')
+                                <div class="alert alert-secondary">
+                                    {{ $message }}
+                                </div>
+                            @enderror
                         @endif
                     </div>
                 </div>
@@ -92,8 +162,18 @@
                         <label>Número interno:</label>
                         @if(isset($empresa))
                             <input type="text" name="num_interno" max="6000" min="1" class="form-control" value="{{$empresa->num_interno}}" onkeypress="return numeros(event)">
+                            @error('num_interno')
+                                <div class="alert alert-secondary">
+                                    {{ $message }}
+                                </div>
+                            @enderror
                         @else
                             <input type="text" name="num_interno" max="6000" min="1" class="form-control" value="" onkeypress="return numeros(event)">
+                            @error('num_interno')
+                                <div class="alert alert-secondary">
+                                    {{ $message }}
+                                </div>
+                            @enderror
                         @endif
                     </div>
                 </div>
@@ -102,8 +182,18 @@
                         <label>Número externo:</label>
                         @if(isset($empresa))
                             <input type="text" name="num_externo" class="form-control" value="{{$empresa->num_externo}}" onkeypress="return numeros(event)">
+                            @error('num_externo')
+                                <div class="alert alert-secondary">
+                                    {{ $message }}
+                                </div>
+                            @enderror
                         @else
                             <input type="text" name="num_externo" class="form-control" value="" onkeypress="return numeros(event)">
+                            @error('num_externo')
+                                <div class="alert alert-secondary">
+                                    {{ $message }}
+                                </div>
+                            @enderror
                         @endif
                     </div>
                 </div>
@@ -112,8 +202,18 @@
                         <label>Colonia:</label>
                         @if(isset($empresa))
                             <input type="text" name="colonia" class="form-control" value="{{$empresa->colonia}}" onkeyup="mayus(this);" onkeypress="return validar(event)">
+                            @error('colonia')
+                                <div class="alert alert-secondary">
+                                    {{ $message }}
+                                </div>
+                            @enderror
                         @else
                             <input type="text" name="colonia" class="form-control" value="" onkeyup="mayus(this);" onkeypress="return validar(event)">
+                            @error('colonia')
+                                <div class="alert alert-secondary">
+                                    {{ $message }}
+                                </div>
+                            @enderror
                         @endif
 
                     </div>
@@ -123,8 +223,18 @@
                         <label>Municipio:</label>
                         @if(isset($empresa))
                             <input type="text" name="municipio" class="form-control" value="{{$empresa->municipio}}" onkeyup="mayus(this);" onkeypress="return validar(event)">
+                            @error('municipio')
+                                <div class="alert alert-secondary">
+                                    {{ $message }}
+                                </div>
+                            @enderror
                         @else
                             <input type="text" name="municipio" class="form-control" value="" onkeyup="mayus(this);" onkeypress="return validar(event)">
+                            @error('municipio')
+                                <div class="alert alert-secondary">
+                                    {{ $message }}
+                                </div>
+                            @enderror
                         @endif
                     </div>
                 </div>
@@ -133,8 +243,18 @@
                         <label>Ciudad:</label>
                         @if(isset($empresa))
                             <input type="text" name="ciudad" class="form-control" value="{{$empresa->ciudad}}" onkeyup="mayus(this);" onkeypress="return validar(event)">
+                            @error('ciudad')
+                                <div class="alert alert-secondary">
+                                    {{ $message }}
+                                </div>
+                            @enderror
                         @else
                             <input type="text" name="ciudad" class="form-control" value="" onkeyup="mayus(this);" onkeypress="return validar(event)">
+                            @error('ciudad')
+                                <div class="alert alert-secondary">
+                                    {{ $message }}
+                                </div>
+                            @enderror
                         @endif
 
                     </div>
@@ -144,8 +264,18 @@
                         <label>País:</label>
                         @if(isset($empresa))
                             <input type="text" name="pais" class="form-control" value="{{$empresa->pais}}" onkeyup="mayus(this);" onkeypress="return validar(event)">
+                            @error('pais')
+                                <div class="alert alert-secondary">
+                                    {{ $message }}
+                                </div>
+                            @enderror
                         @else
                             <input type="text" name="pais" class="form-control" value="" onkeyup="mayus(this);" onkeypress="return validar(event)">
+                            @error('pais')
+                                <div class="alert alert-secondary">
+                                    {{ $message }}
+                                </div>
+                            @enderror
                         @endif
                     </div>
                 </div>
@@ -154,8 +284,18 @@
                         <label>Representante legal:</label>
                         @if(isset($empresa))
                             <input type="text" name="representante_legal" maxlength="20" class="form-control" value="{{$empresa->representante_legal}}" onkeyup="mayus(this);" onkeypress="return validar(event)">
+                            @error('representante_legal')
+                                <div class="alert alert-secondary">
+                                    {{ $message }}
+                                </div>
+                            @enderror
                         @else
                             <input type="text" name="representante_legal" maxlength="20" class="form-control" value="" onkeyup="mayus(this);" onkeypress="return validar(event)">
+                            @error('representante_legal')
+                                <div class="alert alert-secondary">
+                                    {{ $message }}
+                                </div>
+                            @enderror
                         @endif
                     </div>
                 </div>
@@ -164,8 +304,18 @@
                         <label>RFC (Representante legal):</label>
                         @if(isset($empresa))
                             <input type="text" name="rfc_representante" maxlength="13" class="form-control" value="{{$empresa->rfc_representante}}" onkeyup="mayus(this);" pattern="^([A-ZÑ\x26]{3,4}([0-9]{2})(0[1-9]|1[0-2])(0[1-9]|1[0-9]|2[0-9]|3[0-1])([A-Z]|[0-9]){2}([A-ZÑ\x26]|[0-9]){1})?$">
+                            @error('rfc_representante')
+                                <div class="alert alert-secondary">
+                                    {{ $message }}
+                                </div>
+                            @enderror
                         @else
                             <input type="text" name="rfc_representante" maxlength="13" class="form-control" value="" onkeyup="mayus(this);" pattern="^([A-ZÑ\x26]{3,4}([0-9]{2})(0[1-9]|1[0-2])(0[1-9]|1[0-9]|2[0-9]|3[0-1])([A-Z]|[0-9]){2}([A-ZÑ\x26]|[0-9]){1})?$">
+                            @error('rfc_representante')
+                                <div class="alert alert-secondary">
+                                    {{ $message }}
+                                </div>
+                            @enderror
                         @endif
                     </div>
                 </div>
@@ -174,8 +324,18 @@
                         <label>Teléfono:</label>
                         @if(isset($empresa))
                             <input type="text" name="telefono" id="telefono" max="10" class="form-control telefono" value="{{$empresa->telefono}}" onkeypress="return numeros(event)">
+                            @error('telefono')
+                                <div class="alert alert-secondary">
+                                    {{ $message }}
+                                </div>
+                            @enderror
                         @else
                             <input type="text" name="telefono" id="telefono" max="10" class="form-control telefono" value="" onkeypress="return numeros(event)">
+                            @error('telefono')
+                                <div class="alert alert-secondary">
+                                    {{ $message }}
+                                </div>
+                            @enderror
                         @endif
                     </div>
                 </div>
@@ -184,8 +344,19 @@
                         <label>Correo electrónico:</label>
                         @if(isset($empresa))
                             <input type="email" name="email" class="form-control" value="{{$empresa->email}}">
+                            @error('email')
+                                <div class="alert alert-secondary">
+                                    {{ $message }}
+                                </div>
+                            @enderror
                         @else
                             <input type="email" name="email" class="form-control" value="">
+                            @error('email')
+                                <div class="alert alert-secondary">
+                                    {{ $message }}
+                                </div>
+                            @enderror
+
                         @endif
                     </div>
                 </div>
