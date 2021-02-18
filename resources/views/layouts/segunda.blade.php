@@ -179,7 +179,15 @@ scratch. This page gets rid of all links and provides the needed markup only.
             </ul>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="{{ route('incidencias.index')}}" class="nav-link active">
+                <a href="{{ route('tiempo.index')}}" class="nav-link active">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>New</p>
+                </a>
+              </li>
+            </ul>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{ route('home')}}" class="nav-link active">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Incidencias</p>
                 </a>
@@ -472,6 +480,24 @@ return false;
     });
 
   });
+</script>
+<script>
+$(document).ready(function(){
+  let i = 1;
+    $('#agregar').click(function(e){
+      e.preventDefault();
+    i++;
+    $('#tdinamica_tiempo').append('<tr id="row'+i+'"><td><label>Periodo</label><input  type="text"name="periodo_id[]" id="periodo" class="list-periodo"></td><td><label>Clave enpleado</label><input  type="text" name="clave_empleado[]" id="clave_empleado" class="list-clave"></td><td><label>Cantidad</label><input  type="text" name="cantidad_tiempo[]" id="cantidad_tiempo" class="list-cantidad"></td><td><label>Fecha</label><input  type="text" name="fecha_extra[]"id="fecha_extra" class="list-fecha"></td><td><button class="btn_elimina" name="eliminar" id="'+i+'">X</button></td></tr>');
+    });
+
+    $(document).on('click','.btn_elimina',function(){
+      let button_id = $(this).attr("id");
+      $('#row'+button_id+'').remove();
+    });
+
+
+
+});
 </script>
 
 </body>

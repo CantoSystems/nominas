@@ -44,10 +44,10 @@ class IncidenciaController extends Controller{
                 ->first();
 
                 $incidencias = DB::connection('DB_Serverr')->table('incidencias')
-                ->where('id_incidencia','<',$idIncidencia->id_incidencia)
                 ->join('empleados','empleados.clave_empleado','=','incidencias.clave_empleado')
                 ->join('conceptos','conceptos.clave_concepto','=','incidencias.clave_concepto')
                 ->select('incidencias.*','empleados.*','conceptos.concepto')
+                ->where('id_incidencia','<',$idIncidencia->id_incidencia)
                 ->orderBy('id_incidencia','desc')
                 ->first();
                 dd($incidencias);
@@ -113,7 +113,7 @@ class IncidenciaController extends Controller{
                 ->join('empleados','empleados.clave_empleado','=','incidencias.clave_empleado')
                 ->join('conceptos','conceptos.clave_concepto','=','incidencias.clave_concepto')
                 ->select('incidencias.*','empleados.*','conceptos.concepto')
-                ->first();
+                ->orderBy('id_incidencia')->first();
 
                 $incidencias2 = DB::connection('DB_Serverr')->table('incidencias')
                 ->join('empleados','empleados.clave_empleado','=','incidencias.clave_empleado')
@@ -132,6 +132,7 @@ class IncidenciaController extends Controller{
                 ->join('empleados','empleados.clave_empleado','=','incidencias.clave_empleado')
                 ->join('conceptos','conceptos.clave_concepto','=','incidencias.clave_concepto')
                 ->select('incidencias.*','empleados.*','conceptos.concepto')
+                ->orderBy('id_incidencia')
                 ->get()
                 ->last();
 
