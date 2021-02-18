@@ -30,9 +30,8 @@
                         <div class=" input-group mb-3">
                             <input  type="text" 
                                     name="clave_empledo"
-                                    id="clave_empledo"
                                     maxlength="4" 
-                                    class="form-control"
+                                    class="form-control clave_empledo"
                                     value="{{$extras_horas->clave_empleado ?? ''}}" 
                                     onkeyup="mayus(this);">
                             <div class="input-group-append">
@@ -40,7 +39,7 @@
                                         data-target="#modal-buscarempleado">
                                         <i class="fas fa-search">  </i>
                                 </span>
-                                <div id="listaclave_empleado"></div>
+                                <div class="listaclave_empleado"></div>
                             {{ csrf_field() }}
                             </div>
                             @error('clave_empledo')
@@ -56,9 +55,8 @@
                             <label>Nombre:</label>
                             <input  type="text" 
                                     name="nombre" 
-                                    class="form-control"
+                                    class="form-control nombre_empleado"
                                     value="{{$extras_horas->nombre ?? ''}} {{$extras_horas->apellido_paterno ?? ''}} {{$extras_horas->apellido_materno ?? ''}}"
-                                    id="nombre_empleado" 
                                     onkeyup="mayus(this);">
                                     @error('nombre')
                                     <div class="alert alert-secondary">
