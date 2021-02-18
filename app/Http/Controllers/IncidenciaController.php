@@ -37,15 +37,12 @@ class IncidenciaController extends Controller{
                 return view('incidencias.incidencias',compact('incidencias2','incidencias','emp','conceptos'));
             break;
             case 'atras':
-
                 $idIncidencia = DB::connection('DB_Serverr')->table('incidencias')
                 ->join('empleados','empleados.clave_empleado','=','incidencias.clave_empleado')
                 ->join('conceptos','conceptos.clave_concepto','=','incidencias.clave_concepto')
                 ->select('incidencias.*','empleados.*','conceptos.concepto')
                 ->first();
 
-
-                
                 $incidencias = DB::connection('DB_Serverr')->table('incidencias')
                 ->join('empleados','empleados.clave_empleado','=','incidencias.clave_empleado')
                 ->join('conceptos','conceptos.clave_concepto','=','incidencias.clave_concepto')
@@ -152,9 +149,9 @@ class IncidenciaController extends Controller{
                 return view('incidencias.incidencias',compact('incidencias2','incidencias','emp','conceptos'));
             break;
             case 'registrar':
+                
                 $this->registrar($request);
-                return redirect()->route('incidencias.index');
-
+                //return redirect()->route('incidencias.index');
             break;
             case 'actualizar':
                 $this->actualizar($request);
@@ -215,28 +212,30 @@ class IncidenciaController extends Controller{
 
         \Config::set('database.connections.DB_Serverr', $clv_empresa);
 
-        $datos->validate([
+        /*$datos->validate([
                 'clave_empledo' => 'required',
                 'concepto_clave' => 'required',
                 'cantidad' => 'required',
                 'importe' => 'required',
                 'monto' => 'required',
-        ]);
+        ]);*/
 
-        DB::connection('DB_Serverr')->insert('INSERT INTO incidencias (clave_concepto
-                                                                      ,clave_empleado
-                                                                      ,cantidad
-                                                                      ,importe
-                                                                      ,monto)
-                                                                VALUES (?
-                                                                       ,?
-                                                                       ,?
-                                                                       ,?
-                                                                       ,?)',[$datos->concepto_clave
-                                                                            ,$datos->clave_empledo
-                                                                            ,$datos->cantidad
-                                                                            ,$datos->importe
-                                                                            ,$datos->monto]);
+        foreach ($datos as $d) {
+            DB::connection('DB_Serverr')->insert('INSERT INTO incidencias (clave_concepto
+                                                                          ,clave_empleado
+                                                                          ,cantidad
+                                                                          ,importe
+                                                                          ,monto)
+                                                                  VALUES (?
+                                                                         ,?
+                                                                         ,?
+                                                                         ,?
+                                                                         ,?)',[$d["clave_concepto"]
+                                                                             ,$d["clave_empleado"]
+                                                                             ,$d["cantidad"]
+                                                                             ,$d["importe"]
+                                                                             ,$d["monto"]]);
+        }
     }
 
     public function actualizar($datos){

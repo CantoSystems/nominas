@@ -78,22 +78,16 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
     <!-- Sidebar -->
     <div class="sidebar">
-      <!-- Sidebar user panel (optional) -->
-
-      <!-- Sidebar Menu -->
       <nav class="mt-2">
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-          <!-- Add icons to the links using the .nav-icon class
-               with font-awesome or any other icon font library -->
           <li class="nav-item has-treeview menu-open">
             <a href="#" class="nav-link active">
-              <i class="nav-icon fas fa-tachometer-alt"></i>
+              <i class="fas fa-list-ul"></i>
               <p>
-                Catalogos
+                Catálogos
                 <i class="right fas fa-angle-left"></i>
               </p>
             </a>
-
             <ul class="nav nav-treeview">
               <li class="nav-item">
                 <a href="{{ route('empleados.index')}}" class="nav-link active">
@@ -102,7 +96,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 </a>
               </li>
             </ul>
-            
             <ul class="nav nav-treeview">
               <li class="nav-item">
                 <a href="{{route('conceptos.index')}}" class="nav-link active">
@@ -110,22 +103,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
                   <p>Conceptos</p>
                 </a>
               </li> 
-            </ul>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="{{ route('ausentismo.index')}}" class="nav-link active">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Ausentismo</p>
-                </a>
-              </li>
-            </ul>
-             <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="{{ route('horasextras.index')}}" class="nav-link active">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Horas extras</p>
-                </a>
-              </li>
             </ul>
             <ul class="nav nav-treeview">
               <li class="nav-item">
@@ -140,14 +117,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <a href="{{ route('departamentos.index')}}" class="nav-link active">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Departamentos</p>
-                </a>
-              </li>
-            </ul>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="{{ route('incidencias.index')}}" class="nav-link active">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Incidencias</p>
                 </a>
               </li>
             </ul>
@@ -177,6 +146,39 @@ scratch. This page gets rid of all links and provides the needed markup only.
             </ul>
             <ul class="nav nav-treeview">
               <li class="nav-item">
+                <a href="{{ route('home')}}" class="nav-link active">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Cambiar empresa</p>
+                </a>
+              </li>  
+            </ul>
+          </li>
+          <li class="nav-item has-treeview menu-open">
+            <a href="#" class="nav-link active">
+              <i class="nav-icon fas fa-tachometer-alt"></i>
+              <p>
+                Incidencias
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{ route('ausentismo.index')}}" class="nav-link active">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Ausentismo</p>
+                </a>
+              </li>
+            </ul>
+             <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{ route('horasextras.index')}}" class="nav-link active">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Horas extras</p>
+                </a>
+              </li>
+            </ul>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
                 <a href="{{ route('tiempo.index')}}" class="nav-link active">
                   <i class="far fa-circle nav-icon"></i>
                   <p>New</p>
@@ -187,9 +189,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
               <li class="nav-item">
                 <a href="{{ route('home')}}" class="nav-link active">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Cambiar empresa</p>
+                  <p>Incidencias</p>
                 </a>
-              </li>  
+              </li>
             </ul>
           </li>
         </ul>
