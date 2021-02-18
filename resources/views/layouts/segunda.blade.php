@@ -180,8 +180,11 @@ scratch. This page gets rid of all links and provides the needed markup only.
             <ul class="nav nav-treeview">
               <li class="nav-item">
 <<<<<<< HEAD
+<<<<<<< HEAD
                 <a href="{{ route('incidencias.index')}}" class="nav-link active">
 =======
+=======
+>>>>>>> 13e682100d27a40c669e8645191c760acf08477c
                 <a href="{{ route('tiempo.index')}}" class="nav-link active">
                   <i class="far fa-circle nav-icon"></i>
                   <p>New</p>
@@ -191,7 +194,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
             <ul class="nav nav-treeview">
               <li class="nav-item">
                 <a href="{{ route('home')}}" class="nav-link active">
+<<<<<<< HEAD
 >>>>>>> 43c061a8a72f607517d11b3f5181500e9b06fd66
+=======
+>>>>>>> 13e682100d27a40c669e8645191c760acf08477c
                   <i class="far fa-circle nav-icon"></i>
                   <p>Incidencias</p>
                 </a>
