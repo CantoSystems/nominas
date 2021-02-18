@@ -3,62 +3,56 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use DB;
+use Session;
+use DataTables;
+use Illuminate\Support\Facades\Schema;
 
 class TiempoController extends Controller
-{
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+{   
+    public function conectar($clv)
     {
-        return view('tiempo_extra.crudtiempo');
+
+        $configDb = [
+        'driver'      => 'mysql',
+        'host'        => env('DB_HOST', 'localhost'),
+        'port'        => env('DB_PORT', '3306'),
+        'database'    => $clv,
+        'username'    => env('DB_USERNAME', 'root'),
+        'password'    => env('DB_PASSWORD', ''),
+        'unix_socket' => env('DB_SOCKET', ''),
+        'charset'     => 'utf8',
+        'collation'   => 'utf8_unicode_ci',
+        'prefix'      => '',
+        'strict'      => true,
+        'engine'      => null,
+        ];
+
+        return $configDb;
+
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+    public function index(Request $request)
     {
-        //
+        $clv=Session::get('clave_empresa');
+        $clv_empresa=$this->conectar($clv);
+        $extras_periodo= Session::get('num_periodo');
+        \Config::set('database.connections.DB_Serverr', $clv_empresa);
+        $periodot_extras = DB::connection('DB_Serverr')->table('periodos')
+                ->where('numero','=',$extras_periodo)
+                ->first();
+
+        //dd($periodot_extras);
+        return view('tiempo_extra.crudtiempo',compact('periodot_extras'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+  
     public function store(Request $request)
     {
         //
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
+    
     /**
      * Update the specified resource in storage.
      *

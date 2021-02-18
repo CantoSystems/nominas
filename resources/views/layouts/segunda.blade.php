@@ -413,7 +413,7 @@ return false;
 
 <script>
   $(document).ready(function(){ 
-    $('#clave_empledo').keyup(function(){
+    $('.clave_empledo').keyup(function(){
       let query = $(this).val();  
 
         if(query != '')
@@ -425,8 +425,8 @@ return false;
             data:{query:query,_token:_token},
             success:function(data)
             {
-              $('#listaclave_empleado').fadeIn();
-              $('#listaclave_empleado').html(data);
+              $('.listaclave_empleado').fadeIn();
+              $('.listaclave_empleado').html(data);
             //console.log(data);
             }
             
@@ -440,9 +440,9 @@ return false;
       let empleado_clave = infoempleado.substring(0,4);
       //console.log(empleado_clave);
       //console.log(infoempleado);
-      $('#clave_empledo').val(empleado_clave);
-      $('#listaclave_empleado').fadeOut();
-      $('#nombre_empleado').val(empleado_nombre);
+      $('.clave_empledo').val(empleado_clave);
+      $('.listaclave_empleado').fadeOut();
+      $('.nombre_empleado').val(empleado_nombre);
     
     });
 
@@ -487,7 +487,7 @@ $(document).ready(function(){
     $('#agregar').click(function(e){
       e.preventDefault();
     i++;
-    $('#tdinamica_tiempo').append('<tr id="row'+i+'"><td><label>Periodo</label><input  type="text"name="periodo_id[]" id="periodo" class="list-periodo"></td><td><label>Clave enpleado</label><input  type="text" name="clave_empleado[]" id="clave_empleado" class="list-clave"></td><td><label>Cantidad</label><input  type="text" name="cantidad_tiempo[]" id="cantidad_tiempo" class="list-cantidad"></td><td><label>Fecha</label><input  type="text" name="fecha_extra[]"id="fecha_extra" class="list-fecha"></td><td><button class="btn_elimina" name="eliminar" id="'+i+'">X</button></td></tr>');
+    $('#tdinamica_tiempo').append('<tr id="row'+i+'"><td><div class="form-group"><!--Campo periodo--><input  type="text" name="periodo_id[]" id="periodo" value="{{$periodot_extras->id ?? ''}}" class="list-periodo"><!--Campo Clave empleado--><input  type="text" name="clave_empledo[]" id="clave_empledo" maxlength="4" class="form-control clave_empledo" value="" onkeyup="mayus(this);"><div class="input-group-append"><span class="input-group-text"><i class="fas fa-search"></i></span><div class="listaclave_empleado"></div>{{ csrf_field() }}</div></div></td><td><div class="form-group"><input  type="text" name="nombre[]" id="nombre" class="form-control nombre_empleado" value="" onkeyup="mayus(this);"></div></td><td> <div class="form-group"><input  type="text" name="cantidad_tiempo[]" id="cantidad_tiempo" class="list-cantidad form-control" onkeyup="mayus(this);"></div></td><td><div class="form-group"><input  type="date" name="fecha_extra[]" id="fecha_extra" class="list-fecha form-control"></div></td><td><button class="btn_elimina" name="eliminar" id="'+i+'">X</button></td></tr>');
     });
 
     $(document).on('click','.btn_elimina',function(){
