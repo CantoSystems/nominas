@@ -179,12 +179,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
             </ul>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-<<<<<<< HEAD
-<<<<<<< HEAD
-                <a href="{{ route('incidencias.index')}}" class="nav-link active">
-=======
-=======
->>>>>>> 13e682100d27a40c669e8645191c760acf08477c
                 <a href="{{ route('tiempo.index')}}" class="nav-link active">
                   <i class="far fa-circle nav-icon"></i>
                   <p>New</p>
@@ -194,10 +188,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
             <ul class="nav nav-treeview">
               <li class="nav-item">
                 <a href="{{ route('home')}}" class="nav-link active">
-<<<<<<< HEAD
->>>>>>> 43c061a8a72f607517d11b3f5181500e9b06fd66
-=======
->>>>>>> 13e682100d27a40c669e8645191c760acf08477c
                   <i class="far fa-circle nav-icon"></i>
                   <p>Incidencias</p>
                 </a>
@@ -492,22 +482,26 @@ return false;
   });
 </script>
 <script>
-$(document).ready(function(){
-  let i = 1;
+  $(document).ready(function(){
+    let i = 1;
     $('#agregar').click(function(e){
-      e.preventDefault();
-    i++;
-    $('#tdinamica_tiempo').append('<tr id="row'+i+'"><td><div class="form-group"><!--Campo periodo--><input  type="text" name="periodo_id[]" id="periodo" value="{{$periodot_extras->id ?? ''}}" class="list-periodo"><!--Campo Clave empleado--><input  type="text" name="clave_empledo[]" id="clave_empledo" maxlength="4" class="form-control clave_empledo" value="" onkeyup="mayus(this);"><div class="input-group-append"><span class="input-group-text"><i class="fas fa-search"></i></span><div class="listaclave_empleado"></div>{{ csrf_field() }}</div></div></td><td><div class="form-group"><input  type="text" name="nombre[]" id="nombre" class="form-control nombre_empleado" value="" onkeyup="mayus(this);"></div></td><td> <div class="form-group"><input  type="text" name="cantidad_tiempo[]" id="cantidad_tiempo" class="list-cantidad form-control" onkeyup="mayus(this);"></div></td><td><div class="form-group"><input  type="date" name="fecha_extra[]" id="fecha_extra" class="list-fecha form-control"></div></td><td><button class="btn_elimina" name="eliminar" id="'+i+'">X</button></td></tr>');
+      i++;
+		  e.preventDefault();
+      var periodoID = $('#periodoID').val();
+      var clave_empledo = $('#clave_empledo').val();
+      var nombre = $('#nombre').val();
+      var cantidad_tiempo = $('#cantidad_tiempo').val();
+      var fecha_extra = $('#fecha_extra').val();
+      var htmlTags = '<tr>'+
+                        '<td>' + periodoID + '</td>'+
+                        '<td>' + clave_empledo + '</td>'+
+                        '<td>' + nombre + '</td>'+
+                        '<td>' + cantidad_tiempo + '</td>'+
+                        '<td>' + fecha_extra + '</td>'+
+                      '</tr>'
+      $('#example12 tbody').append(htmlTags);
     });
-
-    $(document).on('click','.btn_elimina',function(){
-      let button_id = $(this).attr("id");
-      $('#row'+button_id+'').remove();
-    });
-
-
-
-});
+  });
 </script>
 
 </body>

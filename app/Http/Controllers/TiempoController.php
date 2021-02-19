@@ -32,18 +32,57 @@ class TiempoController extends Controller
 
     }
 
-    public function index(Request $request)
-    {
+    public function index(Request $request){
         $clv=Session::get('clave_empresa');
+        $accion= $request->acciones;
         $clv_empresa=$this->conectar($clv);
+
         $extras_periodo= Session::get('num_periodo');
         \Config::set('database.connections.DB_Serverr', $clv_empresa);
-        $periodot_extras = DB::connection('DB_Serverr')->table('periodos')
+
+        switch ($accion) {
+            case '':
+                $periodot_extras = DB::connection('DB_Serverr')->table('periodos')
                 ->where('numero','=',$extras_periodo)
                 ->first();
+                return view('tiempo_extra.crudtiempo',compact('periodot_extras'));
+            break;
+            case 'Finalizar':
+                echo "Prueba";
+                $htmlContent = file_get_contents("http://127.0.0.1:8000/tiempo");
+                
+                $DOM = new DOMDocument();
+                $DOM->loadHTML($htmlContent);
+                
+                $Header = $DOM->getElementsByTagName('th');
+                $Detail = $DOM->getElementsByTagName('td');
 
-        //dd($periodot_extras);
-        return view('tiempo_extra.crudtiempo',compact('periodot_extras'));
+                foreach($Header as $NodeHeader){
+                    $aDataTableHeaderHTML[] = trim($NodeHeader->textContent);
+                }
+
+                $i = 0;
+                $j = 0;
+                foreach($Detail as $sNodeDetail){
+                    $aDataTableDetailHTML[$j][] = trim($sNodeDetail->textContent);
+                    $i = $i + 1;
+                    $j = $i % count($aDataTableHeaderHTML) == 0 ? $j + 1 : $j;
+                }
+
+                for($i = 0; $i < count($aDataTableDetailHTML); $i++){
+                    for($j = 0; $j < count($aDataTableHeaderHTML); $j++){
+                        $aTempData[$i][$aDataTableHeaderHTML[$j]] = $aDataTableDetailHTML[$i][$j];
+                    }
+                }
+                $aDataTableDetailHTML = $aTempData; 
+                unset($aTempData);
+                print_r($aDataTableDetailHTML); 
+                die();
+                return view('tiempo_extra.crudtiempo',compact('periodot_extras'));
+            break;
+            default:
+            break;
+        }
     }
 
   
