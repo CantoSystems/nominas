@@ -38,6 +38,13 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
   <!-- Jquery UI-->
   <link rel="stylesheet" type="text/css" href="{{ asset('/Admin/plugins/jquery-ui/jquery-ui.min.css')}}">
+  <style type="text/css">
+    .form-control-nueva{
+      border:0;
+      width: 6em;
+      opacity: 0.9;
+    }
+  </style>
 </head>
 <body class="hold-transition sidebar-mini">
 <div class="wrapper">
@@ -487,20 +494,42 @@ return false;
     $('#agregar').click(function(e){
       i++;
 		  e.preventDefault();
-      var periodoID = $('#periodoID').val();
-      var clave_empledo = $('#clave_empledo').val();
-      var nombre = $('#nombre').val();
-      var cantidad_tiempo = $('#cantidad_tiempo').val();
-      var fecha_extra = $('#fecha_extra').val();
-      var htmlTags = '<tr>'+
-                        '<td>' + periodoID + '</td>'+
-                        '<td>' + clave_empledo + '</td>'+
-                        '<td>' + nombre + '</td>'+
-                        '<td>' + cantidad_tiempo + '</td>'+
-                        '<td>' + fecha_extra + '</td>'+
+      let periodoID = $('#periodoID').val();
+      let clave_empledo = $('#clave_empledo').val();
+      let nombre = $('#nombre').val();
+      let cantidad_tiempo = $('#cantidad_tiempo').val();
+      let fecha_extra = $('#fecha_extra').val();
+      let htmlTags = '<tr>'+
+                        '<td><input name="periodo_id[]" value=" ' + periodoID + '" class="form-control-nueva" disabled></td>'+
+                        '<td><input name="clave_empleado[]" value=" ' + clave_empledo + '" class="form-control-nueva" disabled></td>'+
+                        '<td><input name="cantidad_tiempo[]" value=" ' + cantidad_tiempo + '" class="form-control-nueva" disabled></td>'+
+                         '<td><input name="cantidad_tiempo[]" value=" ' + fecha_extra + '" class="form-control-nueva" disabled></td>'+
                       '</tr>'
       $('#example12 tbody').append(htmlTags);
+      $('input[type="text"]').val('');
+      $('input[type="date"]').val('');
+      $('input[type="number"]').val('');
     });
+
+
+  $('#finalizar').click(function (e){
+     e.preventDefault();
+    $.ajax({
+      url: "{{ route('tiempo.store')}}",
+      method: "POST",
+      data: {
+        _token: $("meta[name='csrf-token']").attr("content"),
+        info: $("#informacion_tiempo").serialize()
+      },
+      success:function(data){
+        console.log(data);
+        //document.getElementById("informacion_tiempo").reset();
+      }
+
+    });
+
+  });
+
   });
 </script>
 

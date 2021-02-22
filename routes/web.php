@@ -138,4 +138,5 @@ Route::delete('horas-extras/delete/{id_tiempo}', 'ExtrasController@elimina')->na
 
 //ajax tiempo extra
 Route::get('/tiempo','TiempoController@index')->name('tiempo.index');
+Route::post('/tiempo/enviodata','TiempoController@store')->name('tiempo.store');
 
