@@ -500,36 +500,45 @@ return false;
       let cantidad_tiempo = $('#cantidad_tiempo').val();
       let fecha_extra = $('#fecha_extra').val();
       let htmlTags = '<tr>'+
-                        '<td><input name="periodo_id[]" value=" ' + periodoID + '" class="form-control-nueva" disabled></td>'+
-                        '<td><input name="clave_empleado[]" value=" ' + clave_empledo + '" class="form-control-nueva" disabled></td>'+
-                        '<td><input name="cantidad_tiempo[]" value=" ' + cantidad_tiempo + '" class="form-control-nueva" disabled></td>'+
-                         '<td><input name="cantidad_tiempo[]" value=" ' + fecha_extra + '" class="form-control-nueva" disabled></td>'+
+                        '<td class="periodo">' + periodoID + '</td>'+
+                        '<td class="empleado">' + clave_empledo + '</td>'+
+                        '<td class="cantidad">' + cantidad_tiempo + '</td>'+
+                        '<td class="fecha">' + fecha_extra + '</td>'+
                       '</tr>'
       $('#example12 tbody').append(htmlTags);
       $('input[type="text"]').val('');
       $('input[type="date"]').val('');
       $('input[type="number"]').val('');
     });
-
-
-  $('#finalizar').click(function (e){
-     e.preventDefault();
-    $.ajax({
-      url: "{{ route('tiempo.store')}}",
-      method: "POST",
-      data: {
-        _token: $("meta[name='csrf-token']").attr("content"),
-        info: $("#informacion_tiempo").serialize()
-      },
-      success:function(data){
-        console.log(data);
-        //document.getElementById("informacion_tiempo").reset();
-      }
-
-    });
-
   });
 
+  $('#finalizar').click(function (e){
+    let myTableArray = [];
+    document.querySelectorAll('.example12 tbody tr').forEach(function(e){
+      let fila = {
+        periodo: e.querySelector('.periodo').innerText,
+        empleado: e.querySelector('.empleado').innerText,
+        cantidad: e.querySelector('.cantidad').innerText,
+        fecha: e.querySelector('.fecha').innerText
+      };
+      myTableArray.push(fila);
+    });
+    $.ajax({
+      url: "{{ route('tiempo.store') }}",
+      method: "POST",
+      dataType: 'json',
+      data: {
+        _token: $("meta[name='csrf-token']").attr("content"),
+        myTableArray : myTableArray
+      },
+      success: function(data){
+        console("info enviada");
+      },
+      error: function(data){
+        console.log("Error");
+      }
+    });
+    console.log(myTableArray);
   });
 </script>
 
