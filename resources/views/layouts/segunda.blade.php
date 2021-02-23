@@ -522,23 +522,26 @@ return false;
         fecha: e.querySelector('.fecha').innerText
       };
       myTableArray.push(fila);
+
     });
-    $.ajax({
+   let jsonString = JSON.stringify(myTableArray);
+   $.ajax({
       url: "{{ route('tiempo.store') }}",
       method: "POST",
       dataType: 'json',
       data: {
         _token: $("meta[name='csrf-token']").attr("content"),
-        myTableArray : myTableArray
+        info : jsonString,
       },
       success: function(data){
-        console("info enviada");
+        console.log(data);
+        //$("#informacion_tiempo")[0].reset();
       },
       error: function(data){
         console.log("Error");
       }
     });
-    console.log(myTableArray);
+    //console.log(myTableArray);
   });
 </script>
 
