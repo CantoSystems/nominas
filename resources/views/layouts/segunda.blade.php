@@ -528,20 +528,21 @@ return false;
    $.ajax({
       url: "{{ route('tiempo.store') }}",
       method: "POST",
-      dataType: 'json',
       data: {
         _token: $("meta[name='csrf-token']").attr("content"),
         info : jsonString,
       },
       success: function(data){
         console.log(data);
-        //$("#informacion_tiempo")[0].reset();
       },
-      error: function(data){
-        console.log("Error");
+      error: function(xhr, status, error) {
+        var err = JSON.parse(xhr.responseText);
+        console.log(err.Message);
       }
+
     });
     //console.log(myTableArray);
+
   });
 </script>
 
