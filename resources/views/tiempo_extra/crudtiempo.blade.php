@@ -6,8 +6,8 @@
             <h3 class="card-title">Tiempos Extras Periodo: {{$periodot_extras->fecha_inicio ?? ''}} a {{$periodot_extras->fecha_fin ?? ''}}  </h3>
         </div>
         <div class="card-body">
-            
-            <form autocomplete="off">
+            <form autocomplete="off" action="{{ route('tiempo.index')}}" method="GET">
+                <meta name="csrf-token" content="{{ csrf_token() }}">
                 <div class="row">
                     <div class="col-sm-3">
                         <label>Clave empleado:</label>
@@ -66,7 +66,6 @@
                 </div>
                 <center>
                     <input type="button" name="agregar" id="agregar" value="Agregar Nuevo" style='width:125px; height:40px'>
-                    
                 </center>
                 <br>
                 <div class="row">
@@ -78,9 +77,7 @@
                                 </h3>
                             </div>
                             <div class="card-body">
-                               <form name="informacion_tiempo" id="informacion_tiempo" method="POST">
-                                       <meta name="csrf-token" content="{{ csrf_token() }}">
-                                <table id="example12" class="table table-bordered table-striped">
+                                <table id="example12" class="table table-bordered table-striped example12">
                                     <thead>
                                         <tr>
                                             <th>Periodo</th>
@@ -89,16 +86,11 @@
                                             <th>Cantidad</th>
                                         </tr>
                                     </thead>
-                                    
-                                      <tbody>
-                                     
-                                      
-                                      </tbody>
-                                     
-                                    
+                                    <tbody>
+                                    </tbody>
                                 </table>
-                                 <input type="submit" id="finalizar" value="Finalizar" style='width:80px; height:40px'>
-                                </form>
+                                <input type="button" id="finalizar" value="Finalizar" style='width:80px; height:40px'>
+                                <!--<button type="submit" name="acciones" id="Finalizar" value="Finalizar" style='width:80px; height:40px'></button>-->
                             </div>
                         </div>
                     </div>

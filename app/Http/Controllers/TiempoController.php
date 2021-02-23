@@ -48,37 +48,7 @@ class TiempoController extends Controller
                 return view('tiempo_extra.crudtiempo',compact('periodot_extras'));
             break;
             case 'Finalizar':
-                echo "Prueba";
-                $htmlContent = file_get_contents("http://127.0.0.1:8000/tiempo");
-                
-                $DOM = new DOMDocument();
-                $DOM->loadHTML($htmlContent);
-                
-                $Header = $DOM->getElementsByTagName('th');
-                $Detail = $DOM->getElementsByTagName('td');
-
-                foreach($Header as $NodeHeader){
-                    $aDataTableHeaderHTML[] = trim($NodeHeader->textContent);
-                }
-
-                $i = 0;
-                $j = 0;
-                foreach($Detail as $sNodeDetail){
-                    $aDataTableDetailHTML[$j][] = trim($sNodeDetail->textContent);
-                    $i = $i + 1;
-                    $j = $i % count($aDataTableHeaderHTML) == 0 ? $j + 1 : $j;
-                }
-
-                for($i = 0; $i < count($aDataTableDetailHTML); $i++){
-                    for($j = 0; $j < count($aDataTableHeaderHTML); $j++){
-                        $aTempData[$i][$aDataTableHeaderHTML[$j]] = $aDataTableDetailHTML[$i][$j];
-                    }
-                }
-                $aDataTableDetailHTML = $aTempData; 
-                unset($aTempData);
-                print_r($aDataTableDetailHTML); 
-                die();
-                return view('tiempo_extra.crudtiempo',compact('periodot_extras'));
+                //return view('tiempo_extra.crudtiempo',compact('periodot_extras'));
             break;
             default:
             break;
