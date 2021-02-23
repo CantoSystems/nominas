@@ -58,7 +58,37 @@ class TiempoController extends Controller
   
     public function store(Request $request)
     {
-        return $request->json()->all();
+
+        if (empty($request->all())) {
+            return response()->json(["error" => "Sin data"]);
+        }
+
+
+        foreach ($request->only('info') as $value) {
+            $data = json_decode($value);
+        }
+
+        /*
+            Primer opción aunque envia  todos los valores de jalón
+        */
+        /*foreach ($data as $value) {
+            foreach ($value as $value1) {
+                echo $value1.PHP_EOL;
+            }
+        }*/
+
+
+        $clv=Session::get('clave_empresa');
+        $clv_empresa=$this->conectar($clv);
+        \Config::set('database.connections.DB_Serverr', $clv_empresa);
+
+        foreach ($data as $value) {
+            //echo ;
+            //echo $value->
+             DB::connection('DB_Serverr')->insert('INSERT INTO tiempo_extra (periodo_id,clave_empleado,cantidad_tiempo,fecha_extra)VALUES (?,?,?,?)',[$value->periodo,$value->empleado,$value->cantidad,$value->fecha]);
+        }
+
+     
     }
 
     

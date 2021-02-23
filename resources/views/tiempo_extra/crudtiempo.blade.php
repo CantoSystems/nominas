@@ -6,7 +6,12 @@
             <h3 class="card-title">Tiempos Extras Periodo: {{$periodot_extras->fecha_inicio ?? ''}} a {{$periodot_extras->fecha_fin ?? ''}}  </h3>
         </div>
         <div class="card-body">
-            <form autocomplete="off" id="informacion_tiempo">
+          @if(session()->has('registro'))
+                        <div class="alert alert-danger" role="alert">
+                            {{ session('registro')}}
+                        </div>
+                    @endif
+            <form autocomplete="off">
                 <meta name="csrf-token" content="{{ csrf_token() }}">
                 <div class="row">
                     <div class="col-sm-3">
