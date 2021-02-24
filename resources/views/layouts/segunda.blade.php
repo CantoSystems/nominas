@@ -535,13 +535,11 @@ return false;
       },
       success: function(data){
         console.log(data);
-        //$("#informacion_tiempo")[0].reset();
       },
       error: function(data){
         console.log("Error");
       }
     });
-    //console.log(myTableArray);
   });
 </script>
 
