@@ -194,7 +194,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
             </ul>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="{{ route('home')}}" class="nav-link active">
+                <a href="{{ route('incidencias.index')}}" class="nav-link active">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Incidencias</p>
                 </a>
@@ -281,7 +281,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
     $('#duracion9').daterangepicker()
   });
 </script>
-
 <script>
   //Funcionamiento de los botones de los catalogos Actualizar y registrar
   $(function(){
@@ -310,15 +309,15 @@ scratch. This page gets rid of all links and provides the needed markup only.
     });
     $('#actualizar').click(function(){
       $('#nuevo_reg').hide();
-    $('#actualizar_reg').show();
-    $('#cancelar_reg').show();
-    $('#primero').hide();
-    $('#atras').hide();
-    $('#siguiente').hide();
-    $('#ultimo').hide();
-    $('#nuevo').hide();
-    $('#eliminar').hide();
-    $('#buscar').hide();
+      $('#actualizar_reg').show();
+      $('#cancelar_reg').show();
+      $('#primero').hide();
+      $('#atras').hide();
+      $('#siguiente').hide();
+      $('#ultimo').hide();
+      $('#nuevo').hide();
+      $('#eliminar').hide();
+      $('#buscar').hide();
     });
     $('.actualizarporid').click(function(){
       $('.prueba').modal('show');
@@ -332,7 +331,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
     $("#example1").DataTable({
       "responsive": true,
       "autoWidth": false,
-      
     });
     $('#example2').DataTable({
       "paging": true,
@@ -391,9 +389,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
   function validar(e) {
   tecla = (document.all) ? e.keyCode : e.which;
   if (tecla==8) return true;
-  patron =/[A-Za-z\s]/;
-  te = String.fromCharCode(tecla);
-  return patron.test(te);
+    patron =/[A-Za-z\s]/;
+    te = String.fromCharCode(tecla);
+    return patron.test(te);
   }
 </script>
 
@@ -402,41 +400,36 @@ scratch. This page gets rid of all links and provides the needed markup only.
   function validasangre(e) {
   tecla = (document.all) ? e.keyCode : e.which;
   if (tecla==8) return true;
-  patron =/[A-Za-z-+\s]/;
-  te = String.fromCharCode(tecla);
-  return patron.test(te);
+    patron =/[A-Za-z-+\s]/;
+    te = String.fromCharCode(tecla);
+    return patron.test(te);
   }
 </script>
 
 <script type="text/javascript">
   //validar solo números
-function numeros(event) {
-if(event.charCode >=48 && event.charCode <=57 ){
-  return true;
-}
-return false;
-}
+  function numeros(event) {
+    if(event.charCode >=48 && event.charCode <=57 ){
+      return true;
+    }
+    return false;
+  }
 </script>
 
 <script>
   $(document).ready(function(){ 
     $('.clave_empledo').keyup(function(){
       let query = $(this).val();  
-
-        if(query != '')
-        {
+        if(query != ''){
           let _token = $('input[name="_token"]').val();
           $.ajax({
             url:"{{ route('ausentismo.mostrarempleado') }}",
             method: "POST",
             data:{query:query,_token:_token},
-            success:function(data)
-            {
+            success:function(data){
               $('.listaclave_empleado').fadeIn();
               $('.listaclave_empleado').html(data);
-            //console.log(data);
             }
-            
           });
         }
     });
@@ -445,22 +438,17 @@ return false;
       let infoempleado = $(this).text();
       let empleado_nombre = infoempleado.substring(4);
       let empleado_clave = infoempleado.substring(0,4);
-      //console.log(empleado_clave);
-      //console.log(infoempleado);
       $('.clave_empledo').val(empleado_clave);
       $('.listaclave_empleado').fadeOut();
       $('.nombre_empleado').val(empleado_nombre);
-    
     });
-
   });
 </script>
 <script>
   $(document).ready(function(){ 
     $('#concepto_clave').keyup(function(){
       let consulta = $(this).val();  
-        if(consulta != '')
-        {
+        if(consulta != ''){
           let _token = $('input[name="_token"]').val();
           $.ajax({
             url:"{{ route('ausentismo.mostrarconcepto') }}",
@@ -471,9 +459,7 @@ return false;
               $('#listaconcepto_clave').fadeIn();
               $('#listaconcepto_clave').html(data);
             }
-
           });
-           //console.log(data);
         }
     });
 
@@ -489,6 +475,11 @@ return false;
   });
 </script>
 <script>
+  $(document).on('click', '.borrar', function (event) {
+    event.preventDefault();
+    $(this).closest('tr').remove();
+  });
+
   $(document).ready(function(){
     let i = 1;
     $('#agregar').click(function(e){
@@ -504,6 +495,7 @@ return false;
                         '<td class="empleado">' + clave_empledo + '</td>'+
                         '<td class="cantidad">' + cantidad_tiempo + '</td>'+
                         '<td class="fecha">' + fecha_extra + '</td>'+
+                        '<td class="fecha" style="text-align: center; width:70px; height:40px;"><button class="borrar" type="button" style="width:70px; height:40px"><i class="far fa-trash-alt"></i></button></td>'+
                       '</tr>'
       $('#example12 tbody').append(htmlTags);
       $('input[type="text"]').val('');
@@ -534,20 +526,73 @@ return false;
       },
       success: function(data){
         console.log(data);
-
-        $('#example12').empty();
-               
+        $(".example12 tbody tr").closest('tr').remove();
         alert('Registro Éxitoso');
       },
       error: function(xhr, status, error) {
         var err = JSON.parse(xhr.responseText);
         console.log(err.Message);
-
       }
+    });
+  });
+</script>
+
+//
+<script>
+  $(document).ready(function(){
+    let i = 1;
+    $('#agregar').click(function(e){
+      i++;
+		  e.preventDefault();
+      let periodoID = $('#periodoID').val();
+      let clave_empledo = $('#clave_empledo').val();
+      let nombre = $('#nombre').val();
+      let cantidad_tiempo = $('#cantidad_tiempo').val();
+      let fecha_extra = $('#fecha_extra').val();
+      let htmlTags = '<tr>'+
+                        '<td class="periodo">' + periodoID + '</td>'+
+                        '<td class="empleado">' + clave_empledo + '</td>'+
+                        '<td class="cantidad">' + cantidad_tiempo + '</td>'+
+                        '<td class="fecha">' + fecha_extra + '</td>'+
+                        '<td class="fecha" style="text-align: center; width:70px; height:40px;"><button class="borrar" type="button" style="width:70px; height:40px"><i class="far fa-trash-alt"></i></button></td>'+
+                      '</tr>'
+      $('#example12 tbody').append(htmlTags);
+      $('input[type="text"]').val('');
+      $('input[type="date"]').val('');
+      $('input[type="number"]').val('');
+    });
+  });
+
+  $('#finalizar').click(function (e){
+    let myTableArray = [];
+    document.querySelectorAll('.example12 tbody tr').forEach(function(e){
+      let fila = {
+        periodo: e.querySelector('.periodo').innerText,
+        empleado: e.querySelector('.empleado').innerText,
+        cantidad: e.querySelector('.cantidad').innerText,
+        fecha: e.querySelector('.fecha').innerText
+      };
+      myTableArray.push(fila);
 
     });
-    //console.log(myTableArray);
-
+   let jsonString = JSON.stringify(myTableArray);
+   $.ajax({
+      url: "{{ route('tiempo.store') }}",
+      method: "POST",
+      data: {
+        _token: $("meta[name='csrf-token']").attr("content"),
+        info : jsonString,
+      },
+      success: function(data){
+        console.log(data);
+        $(".example12 tbody tr").closest('tr').remove();
+        alert('Registro Éxitoso');
+      },
+      error: function(xhr, status, error) {
+        var err = JSON.parse(xhr.responseText);
+        console.log(err.Message);
+      }
+    });
   });
 </script>
 
