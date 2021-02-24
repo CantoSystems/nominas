@@ -534,7 +534,9 @@ return false;
       },
       success: function(data){
         console.log(data);
-        $( "#example12").remove();
+
+        $('#example12').empty();
+               
         alert('Registro Éxitoso');
       },
       error: function(xhr, status, error) {
@@ -547,6 +549,20 @@ return false;
     //console.log(myTableArray);
 
   });
+</script>
+
+<script>
+  window.onload = function(){
+  var fecha = new Date(); //Fecha actual
+  var mes = fecha.getMonth()+1; //obteniendo mes
+  var dia = fecha.getDate()-1; //obteniendo dia
+  var ano = fecha.getFullYear(); //obteniendo año
+  if(dia<10)
+    dia='0'+dia; //agrega cero si el menor de 10
+  if(mes<10)
+    mes='0'+mes //agrega cero si el menor de 10
+  document.getElementById('fecha_extra').value=ano+"-"+mes+"-"+dia;
+}
 </script>
 
 </body>
