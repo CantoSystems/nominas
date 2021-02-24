@@ -528,7 +528,6 @@ return false;
    $.ajax({
       url: "{{ route('tiempo.store') }}",
       method: "POST",
-      dataType: 'json',
       data: {
         _token: $("meta[name='csrf-token']").attr("content"),
         info : jsonString,
@@ -536,9 +535,11 @@ return false;
       success: function(data){
         console.log(data);
       },
-      error: function(data){
-        console.log("Error");
+      error: function(xhr, status, error) {
+        var err = JSON.parse(xhr.responseText);
+        console.log(err.Message);
       }
+
     });
   });
 </script>
