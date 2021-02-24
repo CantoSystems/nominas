@@ -534,10 +534,13 @@ return false;
       },
       success: function(data){
         console.log(data);
+        $( "#example12").remove();
+        alert('Registro Éxitoso');
       },
       error: function(xhr, status, error) {
         var err = JSON.parse(xhr.responseText);
         console.log(err.Message);
+
       }
 
     });
