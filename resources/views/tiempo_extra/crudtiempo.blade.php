@@ -65,7 +65,6 @@
                             <input type="date" 
                                    name="fecha_extra[]" 
                                    id="fecha_extra"
-                                   value="{{$fechapast}}" 
                                    class="list-fecha form-control">
                         </div>
                     </div>
