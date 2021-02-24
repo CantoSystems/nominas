@@ -6,11 +6,11 @@
             <h3 class="card-title">Tiempos Extras Periodo: {{$periodot_extras->fecha_inicio ?? ''}} a {{$periodot_extras->fecha_fin ?? ''}}  </h3>
         </div>
         <div class="card-body">
-          @if(session()->has('registro'))
-                        <div class="alert alert-danger" role="alert">
-                            {{ session('registro')}}
-                        </div>
-                    @endif
+            @if(session()->has('registro'))
+                <div class="alert alert-danger" role="alert">
+                    {{ session('registro')}}
+                </div>
+            @endif
             <form autocomplete="off">
                 <meta name="csrf-token" content="{{ csrf_token() }}">
                 <div class="row">
@@ -89,13 +89,16 @@
                                             <th>Clave del empleado</th>
                                             <th>Cantidad</th>
                                             <th>Cantidad</th>
+                                            <th></th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                     </tbody>
                                 </table>
-                                <input type="button" id="finalizar" value="Finalizar" style='width:80px; height:40px'>
-                                <!--<button type="submit" name="acciones" id="Finalizar" value="Finalizar" style='width:80px; height:40px'></button>-->
+                                <br>
+                                <center>
+                                    <input type="button" id="finalizar" value="Finalizar" style='width:80px; height:40px'>
+                                </center>
                             </div>
                         </div>
                     </div>
