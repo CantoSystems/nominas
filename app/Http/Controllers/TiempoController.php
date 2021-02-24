@@ -45,6 +45,7 @@ class TiempoController extends Controller
                 $periodot_extras = DB::connection('DB_Serverr')->table('periodos')
                 ->where('numero','=',$extras_periodo)
                 ->first();
+
                 return view('tiempo_extra.crudtiempo',compact('periodot_extras'));
             break;
 
