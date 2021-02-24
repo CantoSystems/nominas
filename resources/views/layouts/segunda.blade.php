@@ -541,8 +541,6 @@ return false;
       }
 
     });
-    //console.log(myTableArray);
-
   });
 </script>
 
