@@ -47,9 +47,7 @@ class TiempoController extends Controller
                 ->first();
                 return view('tiempo_extra.crudtiempo',compact('periodot_extras'));
             break;
-            case 'Finalizar':
-                //return view('tiempo_extra.crudtiempo',compact('periodot_extras'));
-            break;
+
             default:
             break;
         }
@@ -87,7 +85,6 @@ class TiempoController extends Controller
             //echo $value->
              DB::connection('DB_Serverr')->insert('INSERT INTO tiempo_extra (periodo_id,clave_empleado,cantidad_tiempo,fecha_extra)VALUES (?,?,?,?)',[$value->periodo,$value->empleado,$value->cantidad,$value->fecha]);
         }
-
      
     }
 
