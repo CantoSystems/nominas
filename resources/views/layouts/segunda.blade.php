@@ -180,7 +180,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
               <li class="nav-item">
                 <a href="{{ route('horasextras.index')}}" class="nav-link active">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Horas extras</p>
+                  <p>Movimientos Tiempo extra</p>
                 </a>
               </li>
             </ul>
@@ -188,7 +188,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
               <li class="nav-item">
                 <a href="{{ route('tiempo.index')}}" class="nav-link active">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>New</p>
+                  <p>Captura tiempo extra</p>
                 </a>
               </li>
             </ul>
@@ -474,10 +474,21 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
   });
 </script>
+
+<!--Funcionamiento de Tiempo Extra-->
 <script>
   $(document).on('click', '.borrar', function (event) {
     event.preventDefault();
     $(this).closest('tr').remove();
+    var fecha = new Date(); //Fecha actual
+    var mes = fecha.getMonth()+1; //obteniendo mes
+    var dia = fecha.getDate()-1; //obteniendo dia
+    var ano = fecha.getFullYear(); //obteniendo año
+    if(dia<10)
+     dia='0'+dia; //agrega cero si el menor de 10
+    if(mes<10)
+      mes='0'+mes //agrega cero si el menor de 10
+    document.getElementById('fecha_extra').value=ano+"-"+mes+"-"+dia;
   });
 
   $(document).ready(function(){
@@ -501,6 +512,15 @@ scratch. This page gets rid of all links and provides the needed markup only.
       $('input[type="text"]').val('');
       $('input[type="date"]').val('');
       $('input[type="number"]').val('');
+      let fecha = new Date(); //Fecha actual
+      let mes = fecha.getMonth()+1; //obteniendo mes
+      let dia = fecha.getDate()-1; //obteniendo dia
+      let ano = fecha.getFullYear(); //obteniendo año
+    if(dia<10)
+     dia='0'+dia; //agrega cero si el menor de 10
+    if(mes<10)
+      mes='0'+mes //agrega cero si el menor de 10
+    document.getElementById('fecha_extra').value=ano+"-"+mes+"-"+dia;
     });
   });
 
