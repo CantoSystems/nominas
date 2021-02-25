@@ -164,15 +164,23 @@ scratch. This page gets rid of all links and provides the needed markup only.
             <a href="#" class="nav-link active">
               <i class="nav-icon fas fa-tachometer-alt"></i>
               <p>
-                Incidencias
+                Incidencias 
                 <i class="right fas fa-angle-left"></i>
               </p>
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
+                <a href="{{ route('ausencia.index')}}" class="nav-link active">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Captura ausentismo</p>
+                </a>
+              </li>
+            </ul>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
                 <a href="{{ route('ausentismo.index')}}" class="nav-link active">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Ausentismo</p>
+                  <p>Movimientos Ausentismo</p>
                 </a>
               </li>
             </ul>
@@ -474,7 +482,99 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
   });
 </script>
+<!--Funcionamiento de Ausentismo-->
+<script>
+  $(document).on('click', '.borrar_ausencia', function (event) {
+    event.preventDefault();
+    $(this).closest('tr').remove();
+    let fecha = new Date(); //Fecha actual
+    let mes = fecha.getMonth()+1; //obteniendo mes
+    let dia = fecha.getDate()-1; //obteniendo dia
+    let ano = fecha.getFullYear(); //obteniendo año
+    if(dia<10)
+     dia='0'+dia; //agrega cero si el menor de 10
+    if(mes<10)
+      mes='0'+mes //agrega cero si el menor de 10
+    document.getElementById('fecha_ausentismo').value=ano+"-"+mes+"-"+dia;
+  });
 
+ $(document).ready(function(){
+    let i = 1;
+    $('#agregar_ausencia').click(function(e){
+      i++;
+      e.preventDefault();
+      let periodo_identificador = $('#periodo_identificador').val();
+      let clave_empledo = $('#clave_empledo').val();
+      let nombre = $('#nombre').val();
+      let cantidad_ausentismo = $('#cantidad_ausentismo').val();
+      let concepto_clave = $('#concepto_clave').val();
+      let fecha_ausentismo = $('#fecha_ausentismo').val();
+      let incapacidad_ausencia = $('#incapacidad_ausencia').val();
+      let descripcion = $('#descripcion').val();
+      let htmlTags = '<tr>'+
+                        '<td class="identificador">' + periodo_identificador + '</td>'+
+                        '<td class="empleado">' + clave_empledo + '</td>'+
+                        '<td class="ausentismo">' + cantidad_ausentismo + '</td>'+
+                        '<td class="concepto">' + concepto_clave + '</td>'+
+                        '<td class="fecha">' + fecha_ausentismo + '</td>'+
+                        '<td class="incapacidad">' + incapacidad_ausencia + '</td>'+
+                        '<td class="descripcion">' + descripcion + '</td>'+
+                        '<td class="elimina" style="text-align: center; width:70px; height:40px;"><button class="borrar_ausencia" type="button" style="width:70px; height:40px"><i class="far fa-trash-alt"></i></button></td>'+
+                      '</tr>'
+      $('#example13 tbody').append(htmlTags);
+      $('input[type="text"]').val('');
+      $('input[type="date"]').val('');
+      $('input[type="number"]').val('');
+      let fecha = new Date(); //Fecha actual
+      let mes = fecha.getMonth()+1; //obteniendo mes
+      let dia = fecha.getDate()-1; //obteniendo dia
+      let ano = fecha.getFullYear(); //obteniendo año
+    if(dia<10)
+     dia='0'+dia; //agrega cero si el menor de 10
+    if(mes<10)
+      mes='0'+mes //agrega cero si el menor de 10
+    document.getElementById('fecha_ausentismo').value=ano+"-"+mes+"-"+dia;
+    });
+  }); 
+
+ $('#finalizar_ausencia').click(function (e){
+    let myTableArrayAusencia = [];
+    document.querySelectorAll('.example13 tbody tr').forEach(function(e){
+      let filas = {
+        identificador: e.querySelector('.identificador').innerText,
+        empleado: e.querySelector('.empleado').innerText,
+        ausentismo: e.querySelector('.ausentismo').innerText,
+        concepto: e.querySelector('.concepto').innerText,
+        fecha: e.querySelector('.fecha').innerText,
+        incapacidad: e.querySelector('.incapacidad').innerText,
+        descripcion: e.querySelector('.descripcion').innerText
+      };
+      myTableArrayAusencia.push(filas);
+
+    });
+    let jsonStringa = JSON.stringify(myTableArrayAusencia);
+   $.ajax({
+      url: "{{ route('ausencia.store') }}",
+      method: "POST",
+      data: {
+        _token: $("meta[name='csrf-token']").attr("content"),
+        info : jsonStringa,
+      },
+      success: function(data){
+        console.log(data);
+        $(".example13 tbody tr").closest('tr').remove();
+        alert('Registro Éxitoso');
+      },
+      error: function(xhr, status, error) {
+        var err = JSON.parse(xhr.responseText);
+        console.log(err.Message);
+      }
+    });
+   console.log(myTableArrayAusencia);
+  });
+
+</script>
+<!-- FINFuncionamiento de Ausentismo-->
 <!--Funcionamiento de Tiempo Extra-->
 <script>
   $(document).on('click', '.borrar', function (event) {
@@ -495,7 +595,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
     let i = 1;
     $('#agregar').click(function(e){
       i++;
-		  e.preventDefault();
+      e.preventDefault();
       let periodoID = $('#periodoID').val();
       let clave_empledo = $('#clave_empledo').val();
       let nombre = $('#nombre').val();
@@ -556,6 +656,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
     });
   });
 </script>
+<!-- Fin Funcionamiento de Tiempo Extra-->
 
 <!--Script para incidencias-->
 <script>
@@ -563,7 +664,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
     let i = 1;
     $('#agregarIncidencia').click(function(e){
       i++;
-		  e.preventDefault();
+      e.preventDefault();
       let clave_empledo = $('#clave_empledo').val();
       let concepto_clave = $('#concepto_clave').val();
       let cantidad = $('#cantidad').val();
@@ -617,3 +718,4 @@ scratch. This page gets rid of all links and provides the needed markup only.
 </script>
 </body>
 </html>
+
