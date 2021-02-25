@@ -135,7 +135,10 @@ Route::delete('/incidencias/enviodata', 'IncidenciaController@store')->name('inc
 Route::get('/horas-extras','ExtrasController@index')->name('horasextras.index');
 Route::delete('horas-extras/delete/{id_tiempo}', 'ExtrasController@elimina')->name('tiempo.destroy');
 
-//ajax tiempo extra
+//Ajax-Insert-Multiple Tiempo extra
 Route::get('/tiempo','TiempoController@index')->name('tiempo.index');
 Route::post('/tiempo/enviodata','TiempoController@store')->name('tiempo.store');
 
+//Ajax-Insert-Multiple Ausentismo
+Route::get('/ausencia','AusenciaController@index')->name('ausencia.index');
+Route::post('/ausencia/enviamultiple','AusenciaController@store')->name('ausencia.store');
