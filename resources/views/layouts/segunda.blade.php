@@ -180,7 +180,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
               <li class="nav-item">
                 <a href="{{ route('horasextras.index')}}" class="nav-link active">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Horas extras</p>
+                  <p>Movimientos Tiempo extra</p>
                 </a>
               </li>
             </ul>
@@ -188,7 +188,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
               <li class="nav-item">
                 <a href="{{ route('tiempo.index')}}" class="nav-link active">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>New</p>
+                  <p>Captura tiempo extra</p>
                 </a>
               </li>
             </ul>
@@ -474,6 +474,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
   });
 </script>
+
+<!--Funcionamiento de Tiempo Extra-->
 <script>
   $(document).on('click', '.borrar', function (event) {
     event.preventDefault();
@@ -510,69 +512,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
       $('input[type="text"]').val('');
       $('input[type="date"]').val('');
       $('input[type="number"]').val('');
-    });
-  });
-
-  $('#finalizar').click(function (e){
-    let myTableArray = [];
-    document.querySelectorAll('.example12 tbody tr').forEach(function(e){
-      let fila = {
-        periodo: e.querySelector('.periodo').innerText,
-        empleado: e.querySelector('.empleado').innerText,
-        cantidad: e.querySelector('.cantidad').innerText,
-        fecha: e.querySelector('.fecha').innerText
-      };
-      myTableArray.push(fila);
-
-    });
-   let jsonString = JSON.stringify(myTableArray);
-   $.ajax({
-      url: "{{ route('tiempo.store') }}",
-      method: "POST",
-      data: {
-        _token: $("meta[name='csrf-token']").attr("content"),
-        info : jsonString,
-      },
-      success: function(data){
-        console.log(data);
-        $(".example12 tbody tr").closest('tr').remove();
-        alert('Registro Éxitoso');
-      },
-      error: function(xhr, status, error) {
-        var err = JSON.parse(xhr.responseText);
-        console.log(err.Message);
-      }
-    });
-  });
-</script>
-
-//
-<script>
-  $(document).ready(function(){
-    let i = 1;
-    $('#agregar').click(function(e){
-      i++;
-		  e.preventDefault();
-      let periodoID = $('#periodoID').val();
-      let clave_empledo = $('#clave_empledo').val();
-      let nombre = $('#nombre').val();
-      let cantidad_tiempo = $('#cantidad_tiempo').val();
-      let fecha_extra = $('#fecha_extra').val();
-      let htmlTags = '<tr>'+
-                        '<td class="periodo">' + periodoID + '</td>'+
-                        '<td class="empleado">' + clave_empledo + '</td>'+
-                        '<td class="cantidad">' + cantidad_tiempo + '</td>'+
-                        '<td class="fecha">' + fecha_extra + '</td>'+
-                        '<td class="fecha" style="text-align: center; width:70px; height:40px;"><button class="borrar" type="button" style="width:70px; height:40px"><i class="far fa-trash-alt"></i></button></td>'+
-                      '</tr>'
-      $('#example12 tbody').append(htmlTags);
-      $('input[type="text"]').val('');
-      $('input[type="date"]').val('');
-      $('input[type="number"]').val('');
-    var fecha = new Date(); //Fecha actual
-    var mes = fecha.getMonth()+1; //obteniendo mes
-    var dia = fecha.getDate()-1; //obteniendo dia
-    var ano = fecha.getFullYear(); //obteniendo año
+      let fecha = new Date(); //Fecha actual
+      let mes = fecha.getMonth()+1; //obteniendo mes
+      let dia = fecha.getDate()-1; //obteniendo dia
+      let ano = fecha.getFullYear(); //obteniendo año
     if(dia<10)
      dia='0'+dia; //agrega cero si el menor de 10
     if(mes<10)
@@ -614,19 +557,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
   });
 </script>
 
-<script>
-  window.onload = function(){
-  var fecha = new Date(); //Fecha actual
-  var mes = fecha.getMonth()+1; //obteniendo mes
-  var dia = fecha.getDate()-1; //obteniendo dia
-  var ano = fecha.getFullYear(); //obteniendo año
-  if(dia<10)
-    dia='0'+dia; //agrega cero si el menor de 10
-  if(mes<10)
-    mes='0'+mes //agrega cero si el menor de 10
-  document.getElementById('fecha_extra').value=ano+"-"+mes+"-"+dia;
-}
-</script>
+
+
 
 </body>
 </html>
