@@ -84,7 +84,7 @@ class TiempoController extends Controller
         foreach ($data as $value) {
             //echo ;
             //echo $value->
-             DB::connection('DB_Serverr')->insert('INSERT INTO tiempo_extra (periodo_id,clave_empleado,cantidad_tiempo,fecha_extra)VALUES (?,?,?,?)',[$value->periodo,$value->empleado,$value->cantidad,$value->fecha]);
+             DB::connection('DB_Serverr')->insert('INSERT INTO tiempo_extra (periodo_id,clave_empleado,cantidad_tiempo,fecha_extra) VALUES (?,?,?,?)',[$value->periodo,$value->empleado,$value->cantidad,$value->fecha]);
         }
      
     }
