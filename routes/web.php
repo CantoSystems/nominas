@@ -129,12 +129,11 @@ Route::delete('subsidios/{id_subsidio}','SubsidioController@eliminarsubsidio')->
 
 //Incidencias
 Route::get('/incidencias','IncidenciaController@index')->name('incidencias.index');
-Route::delete('/incidencias/delete/{id}', 'IncidenciaController@eliminar')->name('incidencias.destroy');
+Route::delete('/incidencias/enviodata', 'IncidenciaController@store')->name('incidencias.store');
 
 //Horas Extras
 Route::get('/horas-extras','ExtrasController@index')->name('horasextras.index');
 Route::delete('horas-extras/delete/{id_tiempo}', 'ExtrasController@elimina')->name('tiempo.destroy');
-
 
 //ajax tiempo extra
 Route::get('/tiempo','TiempoController@index')->name('tiempo.index');

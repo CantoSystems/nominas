@@ -18,16 +18,12 @@
                         <label>Clave del Empleado</label>
                         <div class="input-group mb-3">
                             <input type="text" 
-                                    name="clave_empledo"
+                                    name="clave_empledo[]"
                                     id="clave_empledo"
                                     maxlength="4" 
-                                    class="form-control"
-                                    value="{{ $incidencias->clave_empleado ?? '' }}" 
+                                    class="form-control clave_empledo"
+                                    value="" 
                                     onkeyup="mayus(this);">
-                                <input type="hidden"
-                                       name="idIncidencia"
-                                       id="idIncidencia"
-                                       value="{{ $incidencias->id_incidencia ?? '' }}">
                             <div class="input-group-append">
                                 <span class="input-group-text" data-toggle="modal" 
                                         data-target="#modal-buscarempleado">
@@ -36,11 +32,6 @@
                                 <div id="listaclave_empleado"></div>
                                 {{ csrf_field() }}
                             </div>
-                            @error('clave_empledo')
-                                <div class="alert alert-secondary">
-                                    {{ $message }}
-                                </div>
-                            @enderror
                         </div>
                     </div>
                     <div class="col-sm-4">
@@ -49,10 +40,9 @@
                             <input type="text" 
                                    name="nombre" 
                                    class="form-control"
-                                   value="{{ $incidencias->nombre ?? '' }} {{ $incidencias->apellido_paterno ?? '' }} {{ $incidencias->apellido_materno ?? '' }}" 
+                                   value="" 
                                    id="nombre_empleado" 
-                                   disabled
-                                   onkeyup="mayus(this);">
+                                   disabled>
                         </div>
                     </div>
                     <div class="col-sm-2">
@@ -63,7 +53,7 @@
                                     id="concepto_clave"
                                     maxlength="3" 
                                     class="form-control"
-                                    value="{{ $incidencias->clave_concepto ?? '' }}" 
+                                    value="" 
                                     onkeyup="mayus(this);">
                             <div class="input-group-append">
                                 <span class="input-group-text" data-toggle="modal" 
@@ -83,31 +73,30 @@
                                     class="form-control"
                                     id="nomConcepto"
                                     value="" 
-                                    disabled
-                                    onkeyup="mayus(this);">
+                                    disabled>
                         </div>
                     </div>
                     <div class="col-sm-4">
                         <div class="form-group">
                             <label>Cantidad:</label>
-                            <input type="number" name="cantidad" class="form-control" step="0.1" onkeyup="mayus(this);">
+                            <input type="number" name="cantidad" id="cantidad" class="form-control" step="0.1">
                         </div>
                     </div>
                     <div class="col-sm-4">
                         <div class="form-group">
                             <label>Importe:</label>
-                            <input type="number" name="importe" class="form-control" step="0.1">
+                            <input type="number" name="importe" id="importe" class="form-control" step="0.1">
                         </div>
                     </div>
                     <div class="col-sm-4">
                         <div class="form-group">
                             <label>Monto:</label>
-                            <input type="number" name="monto" class="form-control" step="0.1">
+                            <input type="number" name="monto" id="monto" class="form-control" step="0.1">
                         </div>
                     </div>
                 </div>
                 <center>
-                    <input type="button" name="agregar" id="agregar" value="Agregar Nuevo" style='width:125px; height:40px'>
+                    <input type="button" name="agregarIncidencia" id="agregarIncidencia" value="Agregar Nuevo" style='width:125px; height:40px'>
                 </center>
                 <br>
 
@@ -136,7 +125,7 @@
                             </table>
                             <br>
                             <center>
-                                <input type="button" id="finalizar" value="Finalizar" style='width:80px; height:40px'>
+                                <input type="button" id="finalizarIncidencia" value="Finalizar" style='width:80px; height:40px'>
                             </center>
                         </div>
                     </div>
