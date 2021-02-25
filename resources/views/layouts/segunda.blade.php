@@ -495,7 +495,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                         '<td class="empleado">' + clave_empledo + '</td>'+
                         '<td class="cantidad">' + cantidad_tiempo + '</td>'+
                         '<td class="fecha">' + fecha_extra + '</td>'+
-                        '<td class="fecha" style="text-align: center; width:70px; height:40px;"><button class="borrar" type="button" style="width:70px; height:40px"><i class="far fa-trash-alt"></i></button></td>'+
+                        '<td style="text-align: center; width:70px; height:40px;"><button class="borrar" type="button" style="width:70px; height:40px"><i class="far fa-trash-alt"></i></button></td>'+
                       '</tr>'
       $('#example12 tbody').append(htmlTags);
       $('input[type="text"]').val('');
@@ -537,47 +537,47 @@ scratch. This page gets rid of all links and provides the needed markup only.
   });
 </script>
 
-//
+<!--Script para incidencias-->
 <script>
   $(document).ready(function(){
     let i = 1;
-    $('#agregar').click(function(e){
+    $('#agregarIncidencia').click(function(e){
       i++;
 		  e.preventDefault();
-      let periodoID = $('#periodoID').val();
       let clave_empledo = $('#clave_empledo').val();
-      let nombre = $('#nombre').val();
-      let cantidad_tiempo = $('#cantidad_tiempo').val();
-      let fecha_extra = $('#fecha_extra').val();
+      let concepto_clave = $('#concepto_clave').val();
+      let cantidad = $('#cantidad').val();
+      let importe = $('#importe').val();
+      let monto = $('#monto').val();
       let htmlTags = '<tr>'+
-                        '<td class="periodo">' + periodoID + '</td>'+
                         '<td class="empleado">' + clave_empledo + '</td>'+
-                        '<td class="cantidad">' + cantidad_tiempo + '</td>'+
-                        '<td class="fecha">' + fecha_extra + '</td>'+
-                        '<td class="fecha" style="text-align: center; width:70px; height:40px;"><button class="borrar" type="button" style="width:70px; height:40px"><i class="far fa-trash-alt"></i></button></td>'+
+                        '<td class="concepto">' + concepto_clave + '</td>'+
+                        '<td class="cantidad">' + cantidad + '</td>'+
+                        '<td class="importe">' + importe + '</td>'+
+                        '<td class="monto">' + monto + '</td>'+
+                        '<td style="text-align: center; width:70px; height:40px;"><button class="borrar" type="button" style="width:70px; height:40px"><i class="far fa-trash-alt"></i></button></td>'+
                       '</tr>'
       $('#example12 tbody').append(htmlTags);
       $('input[type="text"]').val('');
-      $('input[type="date"]').val('');
       $('input[type="number"]').val('');
     });
   });
 
-  $('#finalizar').click(function (e){
+  $('#finalizarIncidencia').click(function (e){
     let myTableArray = [];
     document.querySelectorAll('.example12 tbody tr').forEach(function(e){
       let fila = {
-        periodo: e.querySelector('.periodo').innerText,
         empleado: e.querySelector('.empleado').innerText,
+        concepto: e.querySelector('.concepto').innerText,
         cantidad: e.querySelector('.cantidad').innerText,
-        fecha: e.querySelector('.fecha').innerText
+        importe: e.querySelector('.importe').innerText,
+        monto: e.querySelector('.monto').innerText
       };
       myTableArray.push(fila);
-
     });
    let jsonString = JSON.stringify(myTableArray);
    $.ajax({
-      url: "{{ route('tiempo.store') }}",
+      url: "{{ route('incidencias.store') }}",
       method: "POST",
       data: {
         _token: $("meta[name='csrf-token']").attr("content"),
