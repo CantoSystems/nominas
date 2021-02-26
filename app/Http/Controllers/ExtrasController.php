@@ -45,8 +45,7 @@ class ExtrasController extends Controller
             break;
 
             case 'registrar':
-                $this->registrarextras($request);
-                return redirect()->route('horasextras.index');
+                return redirect()->route('tiempo.index');
                 break;
 
             case 'cancelar':
@@ -75,6 +74,7 @@ class ExtrasController extends Controller
                $extras_horas = DB::connection('DB_Serverr')->table('tiempo_extra')
                 ->join('empleados','empleados.clave_empleado','=','tiempo_extra.clave_empleado')
                 ->select('tiempo_extra.*','empleados.*')
+                ->orderBy('id_tiempo')
                 ->get()->last();
 
                 $periodot = DB::connection('DB_Serverr')->table('periodos')
@@ -134,6 +134,7 @@ class ExtrasController extends Controller
                      $extras_horas = DB::connection('DB_Serverr')->table('tiempo_extra')
                     ->join('empleados','empleados.clave_empleado','=','tiempo_extra.clave_empleado')
                     ->select('tiempo_extra.*','empleados.*')
+                    ->orderBy('id_tiempo')
                     ->get()->last();
                 }
                 $periodot = DB::connection('DB_Serverr')->table('periodos')
