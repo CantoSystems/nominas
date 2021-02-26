@@ -54,8 +54,8 @@ class AusentismoController extends Controller
             break;
 
             case 'registrar':
-                $this->registrar($request);
-                return redirect()->route('ausentismo.index');
+               
+                return redirect()->route('ausencia.index');
             break;
 
             case 'atras':

@@ -8,7 +8,10 @@
           <h3 class="card-title">
             Captura Ausencia
             {{$ausenciap->fecha_inicio ?? ''}} a {{$ausenciap->fecha_fin ?? ''}}  
-          </h3>
+          </h3><br>
+          <a href="{{ route('ausentismo.index')}}">
+            <button>Regresar a movimientos </button>
+          </a>
         </div>
         <div class="card-body">
           <form autocomplete="off">

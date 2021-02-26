@@ -142,7 +142,7 @@
                                     @endcanany
                                     @canany(['administrador','capturista'])
                                         <div class="form-group">
-                                            <button type="button" id="nuevo" style='width:70px; height:40px'> <i class="fas fa-user-plus"></i></button>
+                                            <button name="acciones" value="registrar" type="submit" style='width:70px; height:40px'> <i class="fas fa-user-plus"></i></button>
                                         </div>
                                         @isset($extras_horas)
                                             <div class="form-group">
@@ -170,9 +170,7 @@
                         <div class="card-body">
                             <div class="margin">
                                 <div class="btn-group">
-                                    <div class="form-group">
-                                        <button id="nuevo_reg" name="acciones" value="registrar" type="submit" style="display: none;width:70px; height:40px"><i class="fas fa-save"></i></button>
-                                    </div>
+                                 
                                     <div class="form-group">
                                         <button name="acciones" value="actualizar" id="actualizar_reg" type="submit" style="display: none;width:70px; height:40px"><i class="fas fa-save"></i></button>
                                     </div>

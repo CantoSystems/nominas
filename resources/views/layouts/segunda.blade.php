@@ -186,17 +186,17 @@ scratch. This page gets rid of all links and provides the needed markup only.
             </ul>
              <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="{{ route('horasextras.index')}}" class="nav-link active">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Movimientos Tiempo extra</p>
-                </a>
-              </li>
-            </ul>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
                 <a href="{{ route('tiempo.index')}}" class="nav-link active">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Captura tiempo extra</p>
+                </a>
+              </li>
+            </ul>
+             <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{ route('horasextras.index')}}" class="nav-link active">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Movimientos Tiempo extra</p>
                 </a>
               </li>
             </ul>

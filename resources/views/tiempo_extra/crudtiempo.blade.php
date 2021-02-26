@@ -4,6 +4,10 @@
     <div class="card card-secondary">
         <div class="card-header">
             <h3 class="card-title">Tiempos Extras Periodo: {{$periodot_extras->fecha_inicio ?? ''}} a {{$periodot_extras->fecha_fin ?? ''}}  </h3>
+            <br>
+          <a href="{{ route('horasextras.index')}}">
+            <button>Regresar a movimientos </button>
+          </a>
         </div>
         <div class="card-body">
             @if(session()->has('registro'))
