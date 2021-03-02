@@ -17,9 +17,9 @@ class CreateIMSSTable extends Migration
             $table->bigIncrements('id_imss');
             $table->string('concepto')->unique();
             $table->string('prestaciones');
-            $table->string('cuotapatron1');
-            $table->string('cuotapatron2')->nullable();
-            $table->string('cuotatrabajador');
+            $table->string('cuotapatron')->nullable();
+            $table->string('cuotatrabajador')->nullable();
+            $table->string('cuotatotal')->nullable();
             $table->string('base');
             $table->timestamps();
         });
