@@ -99,17 +99,10 @@ Route::delete('clasificacion/{id}','ClasificacionController@destroy')->name('cla
 Route::get('/conceptos','ConceptosController@index')->name('conceptos.index');
 Route::delete('/conceptos/{id}','ConceptosController@eliminaconcepto')->name('conceptos.eliminaconcepto');
 
-//ausentismo
-Route::get('/ausentismo','AusentismoController@index')->name('ausentismo.index');
-Route::post('/ausentismo/busqueda','AusentismoController@mostrarempleado')->name('ausentismo.mostrarempleado');
-Route::post('/ausentismo/busquedaconcepto','AusentismoController@mostrarconcepto')->name('ausentismo.mostrarconcepto');
-Route::delete('ausentismo/delete/{id}', 'AusentismoController@eliminar')->name('ausentismo.destroy');
-
 //Empleados
 Route::get('/empleados', 'EmpleadosController@index')->name('empleados.index');
 Route::delete('/empleados/{id_emp}','EmpleadosController@eliminaempleado')->name('empleados.eliminaempleado');
 Route::patch('/empleados/{id_emp}','EmpleadosController@actualizar_empleado')->name('empleados.actualizarempleado');
-
 
 //Usuarios
 Route::get('/usuarios','UsersController@index')->name('usuarios.index');
@@ -127,18 +120,27 @@ Route::delete('imss/{id_imss}','IMSSController@eliminarimss')->name('imss.elimin
 Route::get('subsidios','SubsidioController@acciones')->name('subsidio.acciones');
 Route::delete('subsidios/{id_subsidio}','SubsidioController@eliminarsubsidio')->name('subsidio.eliminarsubsidio');
 
-//Incidencias
+//Ajax-Insert-Multiple Incidencias
 Route::get('/incidencias','IncidenciaController@index')->name('incidencias.index');
 Route::delete('/incidencias/enviodata', 'IncidenciaController@store')->name('incidencias.store');
 
-//Horas Extras
-Route::get('/horas-extras','ExtrasController@index')->name('horasextras.index');
-Route::delete('horas-extras/delete/{id_tiempo}', 'ExtrasController@elimina')->name('tiempo.destroy');
+//Incidencias
+Route::get('/incid','IncidenController@index')->name('incid2.index');
 
 //Ajax-Insert-Multiple Tiempo extra
 Route::get('/tiempo','TiempoController@index')->name('tiempo.index');
 Route::post('/tiempo/enviodata','TiempoController@store')->name('tiempo.store');
 
+//Horas Extras
+Route::get('/horas-extras','ExtrasController@index')->name('horasextras.index');
+Route::delete('horas-extras/delete/{id_tiempo}', 'ExtrasController@elimina')->name('tiempo.destroy');
+
 //Ajax-Insert-Multiple Ausentismo
 Route::get('/ausencia','AusenciaController@index')->name('ausencia.index');
 Route::post('/ausencia/enviamultiple','AusenciaController@store')->name('ausencia.store');
+
+//ausentismo
+Route::get('/ausentismo','AusentismoController@index')->name('ausentismo.index');
+Route::post('/ausentismo/busqueda','AusentismoController@mostrarempleado')->name('ausentismo.mostrarempleado');
+Route::post('/ausentismo/busquedaconcepto','AusentismoController@mostrarconcepto')->name('ausentismo.mostrarconcepto');
+Route::delete('ausentismo/delete/{id}', 'AusentismoController@eliminar')->name('ausentismo.destroy');
