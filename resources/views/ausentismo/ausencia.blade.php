@@ -99,17 +99,6 @@
 
               <div class="col-sm-3">
                 <div class="form-group">
-                  <label>Incapacidad:</label>
-                    <input  type="text" 
-                            name="incapacidad"
-                            id="incapacidad_ausencia" 
-                            class="form-control" 
-                            value="" 
-                            onkeyup="mayus(this);">
-                </div>
-              </div>
-
-              <div class="col-sm-6">
                 <div class="form-group">
                   <label>Descripcion:</label>
                     <input  type="text" 
@@ -128,10 +117,19 @@
               </div>
             </div>
         </div>
-      </div>
-    <!--Fin inputs-->
+      <           <label>Incapacidad:</label>
+                    <input  type="text" 
+                            name="incapacidad"
+                            id="incapacidad_ausencia" 
+                            class="form-control" 
+                            value="" 
+                            onkeyup="mayus(this);">
+                </div>
+              </div>
 
-    <!--Inicio tabla-->
+              <div class="col-sm-6">
+       /div>
+
     <div class="col">
       <div class="card card-secondary">
         <div class="card-header">
@@ -140,8 +138,7 @@
           </h3>
         </div>
         <div class="card-body">
-          <table  id="example13" 
-                  class="table table-bordered table-striped example13">
+          <table id="example13" class="table table-bordered table-striped example13">
             <thead>
               <tr>
                 <th>Periodo</th>
@@ -154,14 +151,12 @@
               </tr>
             </thead>
             <tbody>
-
             </tbody>
           </table>
           <br>
-            <center>
-              <input type="button" id="finalizar_ausencia" value="Finalizar" style='width:80px; height:40px'>
-            </center>
-
+          <center>
+            <input type="button" id="finalizar_ausencia" value="Finalizar" style='width:80px; height:40px'>
+          </center>
         </div>  
       </div>
     </div>

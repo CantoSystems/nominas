@@ -172,7 +172,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
               <li class="nav-item">
                 <a href="{{ route('ausencia.index')}}" class="nav-link active">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Captura ausentismo</p>
+                  <p>Captura Ausentismo</p>
                 </a>
               </li>
             </ul>
@@ -188,7 +188,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
               <li class="nav-item">
                 <a href="{{ route('tiempo.index')}}" class="nav-link active">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Captura tiempo extra</p>
+                  <p>Captura Tiempo Extra</p>
                 </a>
               </li>
             </ul>
@@ -196,7 +196,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
               <li class="nav-item">
                 <a href="{{ route('horasextras.index')}}" class="nav-link active">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Movimientos Tiempo extra</p>
+                  <p>Movimientos Tiempo Extra</p>
                 </a>
               </li>
             </ul>
@@ -204,7 +204,15 @@ scratch. This page gets rid of all links and provides the needed markup only.
               <li class="nav-item">
                 <a href="{{ route('incidencias.index')}}" class="nav-link active">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Incidencias</p>
+                  <p>Captura Incidencias</p>
+                </a>
+              </li>
+            </ul>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{ route('incid2.index')}}" class="nav-link active">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Movimientos Incidencias</p>
                 </a>
               </li>
             </ul>

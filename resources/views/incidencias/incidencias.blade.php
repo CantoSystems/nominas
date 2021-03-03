@@ -18,18 +18,17 @@
                         <label>Clave del Empleado</label>
                         <div class="input-group mb-3">
                             <input type="text" 
-                                    name="clave_empledo[]"
-                                    id="clave_empledo"
-                                    maxlength="4" 
-                                    class="form-control clave_empledo"
-                                    value="" 
-                                    onkeyup="mayus(this);">
+                                   name="clave_empledo[]"
+                                   id="clave_empledo" 
+                                   maxlength="4" 
+                                   class="form-control clave_empledo"
+                                   value="" 
+                                   onkeyup="mayus(this);">
                             <div class="input-group-append">
-                                <span class="input-group-text" data-toggle="modal" 
-                                        data-target="#modal-buscarempleado">
-                                        <i class="fas fa-search"></i>
+                                <span class="input-group-text">
+                                    <i class="fas fa-search"></i>
                                 </span>
-                                <div id="listaclave_empleado"></div>
+                                <div class="listaclave_empleado"></div>
                                 {{ csrf_field() }}
                             </div>
                         </div>
@@ -38,8 +37,8 @@
                         <div class="form-group">
                             <label>Nombre:</label>
                             <input type="text" 
-                                   name="nombre" 
-                                   class="form-control"
+                                   name="nombre_empleado" 
+                                   class="form-control nombre_empleado"
                                    value="" 
                                    id="nombre_empleado" 
                                    disabled>
