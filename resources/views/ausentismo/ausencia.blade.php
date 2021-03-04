@@ -84,7 +84,7 @@
                   </div>
               </div>
 
-              <div class="col-sm-3">
+              <div class="col-sm-4">
                 <div class="form-group">
                   <label>Fecha:</label>
                     <input  type="date" 
@@ -97,8 +97,21 @@
                 </div>
               </div>
 
-              <div class="col-sm-3">
+               <div class="col-sm-4">
                 <div class="form-group">
+                   <label>Incapacidad:</label>
+                    <input  type="text" 
+                            name="incapacidad"
+                            id="incapacidad_ausencia" 
+                            class="form-control" 
+                            value="" 
+                            onkeyup="mayus(this);">
+                </div>
+              </div>
+                  
+
+
+              <div class="col-sm-4">
                 <div class="form-group">
                   <label>Descripcion:</label>
                     <input  type="text" 
@@ -117,18 +130,7 @@
               </div>
             </div>
         </div>
-      <           <label>Incapacidad:</label>
-                    <input  type="text" 
-                            name="incapacidad"
-                            id="incapacidad_ausencia" 
-                            class="form-control" 
-                            value="" 
-                            onkeyup="mayus(this);">
-                </div>
-              </div>
-
-              <div class="col-sm-6">
-       /div>
+      </div>
 
     <div class="col">
       <div class="card card-secondary">

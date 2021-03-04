@@ -8,11 +8,13 @@
     <div class="card-body">
       <div class="margin">
           <div class="btn-group">
+            @canany(['administrador','capturista'])
               <div class="form-group">
                 <button type="button" style='width:70px; height:40px; align-items:center;' data-toggle="modal" data-target="#modalcrudempleado">
                   <i class="fas fa-user-plus"></i>
                 </button>
               </div>
+            @endcanany
           </div>
       </div>
     </div>
@@ -36,6 +38,7 @@
             <td>{{ $persona->departamento }}</td>
             <td>{{ $persona->area }}   </td>
             <td>
+              @canany(['administrador','capturista'])
               <div>
 
              
@@ -44,6 +47,8 @@
                     <i class="fas fa-eye"></i>
                   </button>
                 </a>
+              @endcanany
+              @can('administrador')
       
                 <a id="eliminaempleado" data-target="#modaldeleteempleado{{$persona->id_emp}}" data-toggle="modal" style='width:70px; height:40px'>
                   <button type="button" style='width:70px; height:40px'>
@@ -56,6 +61,8 @@
                         @include('empleados.modaldeleteempleado')
                         @include('empleados.modalmostrarporid')                
               </div>
+              @endcan
+
             </td>
           </tr>
         @endforeach

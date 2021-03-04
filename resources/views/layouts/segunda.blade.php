@@ -164,7 +164,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
             <a href="#" class="nav-link active">
               <i class="nav-icon fas fa-tachometer-alt"></i>
               <p>
-                Incidencias 
+               Captura
                 <i class="right fas fa-angle-left"></i>
               </p>
             </a>
@@ -172,47 +172,63 @@ scratch. This page gets rid of all links and provides the needed markup only.
               <li class="nav-item">
                 <a href="{{ route('ausencia.index')}}" class="nav-link active">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Captura Ausentismo</p>
+                  <p>Ausentismo</p>
                 </a>
               </li>
             </ul>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="{{ route('ausentismo.index')}}" class="nav-link active">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Movimientos Ausentismo</p>
-                </a>
-              </li>
-            </ul>
+            
              <ul class="nav nav-treeview">
               <li class="nav-item">
                 <a href="{{ route('tiempo.index')}}" class="nav-link active">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Captura Tiempo Extra</p>
+                  <p>Tiempo Extra</p>
                 </a>
               </li>
             </ul>
-             <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="{{ route('horasextras.index')}}" class="nav-link active">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Movimientos Tiempo Extra</p>
-                </a>
-              </li>
-            </ul>
+            
             <ul class="nav nav-treeview">
               <li class="nav-item">
                 <a href="{{ route('incidencias.index')}}" class="nav-link active">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Captura Incidencias</p>
+                  <p>Incidencias</p>
                 </a>
               </li>
             </ul>
+         
+
+
+          <li class="nav-item has-treeview menu-open">
+            <a href="#" class="nav-link active">
+              <i class="nav-icon fas fa-tachometer-alt"></i>
+              <p>
+                Cambios y consultas
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{ route('ausentismo.index')}}" class="nav-link active">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Ausentismo</p>
+                </a>
+              </li>
+            </ul>
+ 
+             <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{ route('horasextras.index')}}" class="nav-link active">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Tiempo Extra</p>
+                </a>
+              </li>
+            </ul>
+
             <ul class="nav nav-treeview">
               <li class="nav-item">
                 <a href="{{ route('incid2.index')}}" class="nav-link active">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Movimientos Incidencias</p>
+                  <p>Incidencias</p>
                 </a>
               </li>
             </ul>
