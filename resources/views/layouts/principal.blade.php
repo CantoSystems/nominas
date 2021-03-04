@@ -240,6 +240,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
           $('input[type="email"]').val('');
           $('input[type="password"]').val('');
           $('input[type="number"]').val('');
+          $('#basesalarial').find('option:first').attr('selected', 'selected').parent('select');
           $('#primero').hide();
           $('#atras').hide();
           $('#siguiente').hide();
@@ -251,28 +252,26 @@ scratch. This page gets rid of all links and provides the needed markup only.
            $('#for_roles').hide();
         });
 
-      //Acción al actualizar el registro
-        $('#actualizar').click(function(){
-	      $('#nuevo_reg').hide();
-        $('#actualizar_reg').show();
-        $('#cancelar_reg').show();
-        $('#primero').hide();
-        $('#atras').hide();
-        $('#siguiente').hide();
-        $('#ultimo').hide();
-        $('#nuevo').hide();
-        $('#eliminar').hide();
-        $('#contra').hide();
-        $('#contra1').hide();
-        $('#for_roles').hide();
-        $('#contra-label').hide();
-        $('#contra1-label').hide();
-        $('#buscar').hide();
-
+          //Acción al actualizar el registro
+          $('#actualizar').click(function(){
+          $('#nuevo_reg').hide();
+          $('#actualizar_reg').show();
+          $('#cancelar_reg').show();
+          $('#primero').hide();
+          $('#atras').hide();
+          $('#siguiente').hide();
+          $('#ultimo').hide();
+          $('#nuevo').hide();
+          $('#eliminar').hide();
+          $('#contra').hide();
+          $('#contra1').hide();
+          $('#for_roles').hide();
+          $('#contra-label').hide();
+          $('#contra1-label').hide();
+          $('#buscar').hide();
         });
       })
 </script>
-
 <script>
   //Función para convertir en texto en mayusculas
   function mayus(e) {
@@ -310,24 +309,22 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <script>
   $(document).on('change', '#prestacionIMSS', function(event) {
     if(($("#seguroIMSS option:selected").val()=="Enfermedades y Maternidad") && ($("#prestacionIMSS option:selected").val()=="En especie")){
-      console.log("Entre1");   
-      $("#divcuotapatron2").css("display", "block");
+      $("#cuotapatron2").prop("disabled", false );
+      console.log("Primero");
     }else{
-      console.log("Entre2");
-      $("#divcuotapatron2").css("display", "none");
+      $("#cuotapatron2").prop("disabled", true );
+      console.log("Segundo");
     }
-    console.log("prueba");
   });
 
   $(document).on('change', '#seguroIMSS', function(event) {
     if(($("#seguroIMSS option:selected").val()=="Enfermedades y Maternidad") && ($("#prestacionIMSS option:selected").val()=="En especie")){
-      console.log("Entre3");
-      $("#divcuotapatron2").css("display", "block");
+      $("#cuotapatron2").prop("disabled", false );
+      console.log("Tercero");
     }else{
-      console.log("Entre4");
-      $("#divcuotapatron2").css("display", "none");
+      $("#cuotapatron2").prop("disabled", true );
+      console.log("Cuarto");
     }
-    console.log("prueba2");
   });
 </script>
 

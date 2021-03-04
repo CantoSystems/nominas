@@ -163,39 +163,44 @@
                                         <input type="number" name="cuotapatron" value="{{ $imss->cuotapatron1 }}" class="form-control" step="0.01" >
                                     </div>
                                 </div>
-                                @if($imss->cuotapatron2!=null)
-                                    <div id="divcuotapatron2" class="col-sm-4">
-                                        <div class="form-group">
-                                            <label>2da Cuota (Patrón):</label>
-                                            <input type="number" name="cuotapatron2" value="{{ $imss->cuotapatron2 }}" class="form-control" step="0.01" >
-                                        </div>
-                                    </div>
-                                @endif
                                 <div class="col-sm-4">
                                     <div class="form-group">
                                         <label>2da Cuota (Patrón):</label>
-                                        <input type="number" name="cuotapatron2" value="{{ $imss->cuotapatron2 }}" class="form-control" step="0.01" >
+                                        @if($imss->cuotapatron2!=null)
+                                            <input type="number" name="cuotapatron2" id="cuotapatron2" value="{{ $imss->cuotapatron2 }}" class="form-control" step="0.01" >
+                                        @else
+                                            <input type="number" name="cuotapatron2" id="cuotapatron2" disabled class="form-control" step="0.01" >
+                                        @endif
                                     </div>
                                 </div>
-                                
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label>Cuota (Trabajador):</label>
+                                        <input type="number" name="cuotatrabajador" value="{{ $imss->cuotatrabajador }}" class="form-control" step="0.01">
+                                    </div>
+                                </div>
                                 <div class="col-sm-4">
                                     <div class="form-group">
                                         <label>Base Salarial:</label>
-                                        @if($imss->base == 'SBC')
-                                        <select class="custom-select" name="basesalarial">
-                                            <option value="">Selecciona una opción</option>
-                                            <option value="{{ $imss->base }}">{{ $imss->base }}</option>
-                                             <option value="UMA">UMA</option>
-                                        </select>
-                                        @else
-                                        <select class="custom-select" name="basesalarial">
-                                            <option value="">Selecciona una opción</option>
-                                            <option value="{{ $imss->base }}">{{ $imss->base }}</option>
-                                             <option value="SBC">SBC</option>
-                                        </select>
+                                        @if($imss->base=='SBC')
+                                            <select class="custom-select" name="basesalarial">
+                                                <option value="N/A">Selecciona una opción</option>
+                                                <option value="SBC" selected>SBC</option>
+                                                <option value="UMA">UMA</option>
+                                            </select>
+                                        @elseif($imss->base=='UMA')
+                                            <select class="custom-select" name="basesalarial">
+                                                <option value="N/A">Selecciona una opción</option>
+                                                <option value="SBC">SBC</option>
+                                                <option value="UMA" selected>UMA</option>
+                                            </select>
+                                        @elseif($imss->base=='N/A')
+                                            <select class="custom-select" name="basesalarial">
+                                                <option value="N/A" selected>Selecciona una opción</option>
+                                                <option value="SBC">SBC</option>
+                                                <option value="UMA">UMA</option>
+                                            </select>
                                         @endif
-
-                                        
                                     </div>
                                 </div>
                             @else
@@ -234,10 +239,10 @@
                                         <input type="number" name="cuotapatron" class="form-control" step="0.01" >
                                     </div>
                                 </div>
-                                <div id="divcuotapatron2" class="col-sm-4">
+                                <div class="col-sm-4">
                                     <div class="form-group">
                                         <label>2da Cuota (Patrón):</label>
-                                        <input type="number" name="cuotapatron2" class="form-control" step="0.01" >
+                                        <input type="number" name="cuotapatron2" id="cuotapatron2" disabled class="form-control" step="0.01" >    
                                     </div>
                                 </div>
                                 <div class="col-sm-4">
@@ -250,7 +255,7 @@
                                     <div class="form-group">
                                         <label>Base Salarial:</label>
                                     <select class="custom-select" name="basesalarial">
-                                        <option value="">Selecciona una opción</option>
+                                        <option value="N/A">Selecciona una opción</option>
                                         <option value="SBC">SBC</option>
                                         <option value="UMA">UMA</option>
                                     </select>
@@ -352,5 +357,4 @@
   @include('imss.modaldeleteimss')
   @include('imss.modalsearchimss')
 @endif
-
 @endsection
