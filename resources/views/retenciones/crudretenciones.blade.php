@@ -202,17 +202,17 @@
                                         <div class="btn-group">
                                             <div class="form-group">
                                                 <button id="nuevo_reg" name="acciones" value="registrar" type="submit"
-                                                    style="display: none;width:40px; height:27px'"><i
+                                                    style='width:40px; height:27px'><i
                                                         class="fas fa-save"></i></button>
                                             </div>
                                             <div class="form-group">
                                                 <button name="acciones" value="actualizar" id="actualizar_reg"
-                                                    type="submit" style="display: none;width:40px; height:27px'"><i
+                                                    type="submit" style='width:40px; height:27px'><i
                                                         class="fas fa-save"></i></button>
                                             </div>
                                             <div class="form-group">
                                                 <button name="acciones" value="cancelar" id="cancelar_reg" type="submit"
-                                                    style="display: none;width:40px; height:28px"><i
+                                                   style='width:40px; height:27px'><i
                                                         class="far fa-window-close"></i></button>
                                             </div>
                                         </div>

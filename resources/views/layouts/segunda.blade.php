@@ -39,11 +39,11 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <!-- Jquery UI-->
   <link rel="stylesheet" type="text/css" href="{{ asset('/Admin/plugins/jquery-ui/jquery-ui.min.css')}}">
   <style type="text/css">
-    .form-control-nueva{
-      border:0;
-      width: 6em;
-      opacity: 0.9;
+    ul.nav.nav-treeview li.nav-item.active a.nav-link.active{
+      background: #0AACE9;
+      color: #fff; 
     }
+
   </style>
 </head>
 <body class="hold-transition sidebar-mini">
@@ -88,7 +88,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
       <nav class="mt-2">
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
           <li class="nav-item has-treeview menu-open">
-            <a href="#" class="nav-link active">
+            <a href="#" class="nav-link">
               <i class="fas fa-list-ul"></i>
               <p>
                 Catálogos
@@ -96,7 +96,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
               </p>
             </a>
             <ul class="nav nav-treeview">
-              <li class="nav-item">
+              <li class="nav-item" >
                 <a href="{{ route('empleados.index')}}" class="nav-link active">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Empleados</p>
@@ -153,7 +153,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
             </ul>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="{{ route('home')}}" class="nav-link active">
+                <a href="{{ route('home')}}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Cambiar empresa</p>
                 </a>
@@ -161,7 +161,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
             </ul>
           </li>
           <li class="nav-item has-treeview menu-open">
-            <a href="#" class="nav-link active">
+            <a href="#" class="nav-link">
               <i class="nav-icon fas fa-tachometer-alt"></i>
               <p>
                Captura
@@ -198,7 +198,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
 
           <li class="nav-item has-treeview menu-open">
-            <a href="#" class="nav-link active">
+            <a href="#" class="nav-link">
               <i class="nav-icon fas fa-tachometer-alt"></i>
               <p>
                 Cambios y consultas
@@ -297,6 +297,15 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <script src="{{ asset('/Admin/plugins/datatables-responsive/js/responsive.bootstrap4.min.js')}}"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.10/jquery.mask.js"></script>
 <script src="{{ asset('/Admin/plugins/jquery-ui/jquery-ui.min.js')}}"></script>
+<script>
+  $(document).on('click', 'ul li', function(){
+    //e.preventDefault();
+  $(this).addClass('active').siblings().removeClass('active')
+  
+  });
+
+
+</script>
 
 <script>
   //funcionaiento del datarange de los input tipo fecha
