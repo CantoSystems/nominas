@@ -536,7 +536,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
     $('#agregar_ausencia').click(function(e){
       i++;
       e.preventDefault();
-      let periodo_identificador = $('#periodo_identificador').val();
       let clave_empledo = $('#clave_empledo').val();
       let nombre = $('#nombre').val();
       let cantidad_ausentismo = $('#cantidad_ausentismo').val();
@@ -545,7 +544,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
       let incapacidad_ausencia = $('#incapacidad_ausencia').val();
       let descripcion = $('#descripcion').val();
       let htmlTags = '<tr>'+
-                        '<td class="identificador">' + periodo_identificador + '</td>'+
                         '<td class="empleado">' + clave_empledo + '</td>'+
                         '<td class="ausentismo">' + cantidad_ausentismo + '</td>'+
                         '<td class="concepto">' + concepto_clave + '</td>'+
@@ -574,7 +572,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
     let myTableArrayAusencia = [];
     document.querySelectorAll('.example13 tbody tr').forEach(function(e){
       let filas = {
-        identificador: e.querySelector('.identificador').innerText,
         empleado: e.querySelector('.empleado').innerText,
         ausentismo: e.querySelector('.ausentismo').innerText,
         concepto: e.querySelector('.concepto').innerText,
@@ -596,7 +593,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
       success: function(data){
         console.log(data);
         $(".example13 tbody tr").closest('tr').remove();
-        alert('Registro Éxitoso');
       },
       error: function(xhr, status, error) {
         var err = JSON.parse(xhr.responseText);
