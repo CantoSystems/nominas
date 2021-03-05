@@ -8,7 +8,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form action="{{ route('incidencias.index')}}" method="GET" autocomplete="off">
+                <form action="{{ route('incid2.index')}}" method="GET" autocomplete="off">
                     <div class="row">
                         <div class="input-group col-md-12">
                             <div class="input-group-prepend">

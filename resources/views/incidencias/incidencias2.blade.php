@@ -2,7 +2,46 @@
 @section('content')
 <div class="container">
     <div class="card card-secondary">
-        <div class="card-header">
+        <div class="row">
+            <div class="col">
+                <div class="card card-secondary">
+                    <div class="card-header">
+                        <h3 class="card-title">
+                            Incidencias
+                        </h3>
+                    </div>
+                <div class="card-body">
+                    <table id="example1" class="table table-bordered table-striped">
+                        <thead>
+                            <tr>
+                                <th>Incidencia No.</th>
+                                <th>Clave Empleado</th>
+                                <th>Concepto</th>
+                                <th>Cantidad</th>
+                                <th>Importe</th>
+                                <th>Monto</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if(!empty($incidencias2))
+                                @foreach($incidencias2 as $datos)
+                                    <tr>
+                                        <th>{{ $datos->id_incidencia }}</th>
+                                        <th>{{ $datos->nombre }} {{ $datos->apellido_paterno }} {{ $datos->apellido_materno }}</th>
+                                        <th>{{ $datos->concepto }}</th>
+                                        <th>{{ $datos->cantidad }}</th>
+                                        <th>{{ $datos->importe }}</th>
+                                        <th>{{ $datos->monto }}</th>
+                                    </tr>
+                                @endforeach
+                            @endif
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div> 
+    <div class="card-header">
             <h3 class="card-title">Incidencias</h3>
         </div>
         <div class="card-body">
@@ -16,7 +55,7 @@
                     {{ session('busqueda')}}
                 </div>
             @endif
-            <form action="{{ route('incidencias.index')}}" method="GET" autocomplete="off">
+            <form action="{{ route('incid2.index')}}" method="GET" autocomplete="off">
                 <div class="row">
                     <div class="col-sm-2">
                         <label>Clave del Empleado</label>
@@ -153,9 +192,9 @@
                                     </div>
                                     @endcanany
                                     @canany(['administrador','capturista'])
-                                        <div class="form-group">
+                                        <!--<div class="form-group">
                                             <button type="button" id="nuevo" style='width:40px; height:27px'><i class="fas fa-user-plus"></i></button>
-                                        </div>
+                                        </div>-->
                                         @isset($incidencias)
                                             <div class="form-group">
                                                 <button type="button" id="actualizar" style='width:40px; height:27px'>
@@ -199,48 +238,12 @@
                     </div>
                 </div>
             </form>
-        </div>
-        <div class="row">
-            <div class="col">
-                <div class="card card-secondary">
-                <div class="card-header">
-                    <h3 class="card-title">
-                        Incidencias
-                    </h3>
-                </div>
-                <div class="card-body">
-                    <table id="example1" class="table table-bordered table-striped">
-                        <thead>
-                            <tr>
-                                <th>Incidencia No.</th>
-                                <th>Clave Empleado</th>
-                                <th>Concepto</th>
-                                <th>Cantidad</th>
-                                <th>Importe</th>
-                                <th>Monto</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @if(!empty($incidencias2))
-                                @foreach($incidencias2 as $datos)
-                                    <tr>
-                                        <th>{{ $datos->id_incidencia }}</th>
-                                        <th>{{ $datos->nombre }} {{ $datos->apellido_paterno }} {{ $datos->apellido_materno }}</th>
-                                        <th>{{ $datos->concepto }}</th>
-                                        <th>{{ $datos->cantidad }}</th>
-                                        <th>{{ $datos->importe }}</th>
-                                        <th>{{ $datos->monto }}</th>
-                                    </tr>
-                                @endforeach
-                            @endif
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-    </div>  
-</div>
-
+        </div> 
+    </div>
+    @isset($incidencias)
+        @include('incidencias.modaldeleteincidencia')
+    @endisset
+    @include('incidencias.modalsearchincidencia')
 </div>
 </div>
 </div>
