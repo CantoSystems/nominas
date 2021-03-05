@@ -205,15 +205,15 @@
                                   
                                         <div class="form-group">
 
-                                            <button id="nuevo_reg" name="acciones" value="registrar" type="submit" style="display: none;width:40px; height:27px'"><i class="fas fa-save"></i></button>
+                                            <button id="nuevo_reg" name="acciones" value="registrar" type="submit" style='width:40px; height:27px'><i class="fas fa-save"></i></button>
                                         </div>
                                         
                                         <div class="form-group">
-                                            <button name="acciones" value="actualizar" id="actualizar_reg" type="submit" style="display: none;width:40px; height:27px'"><i class="fas fa-save"></i></button>
+                                            <button name="acciones" value="actualizar" id="actualizar_reg" type="submit" style='width:40px; height:27px'><i class="fas fa-save"></i></button>
                                         </div>
                                        
                                         <div class="form-group">
-                                            <button name="acciones" value="cancelar_periodos" id="cancelar_reg" type="submit" style="display: none;width:40px; height:28px"><i class="far fa-window-close"></i></button>
+                                            <button name="acciones" value="cancelar_periodos" id="cancelar_reg" type="submit" style='width:40px; height:27px'><i class="far fa-window-close"></i></button>
                                         </div>
                                   
                                     </div>

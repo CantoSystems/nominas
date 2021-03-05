@@ -408,7 +408,6 @@ class EmpresaController extends Controller{
 
         Schema::connection('DB_Serverr')->create('ausentismos', function($table){
             $table->increments('id');
-            $table->integer('identificador_periodo');
             $table->char('clave_empleado',5);
             $table->double('cantidad_ausentismo');
             $table->char('clave_concepto',5);
@@ -430,7 +429,6 @@ class EmpresaController extends Controller{
 
         Schema::connection('DB_Serverr')->create('tiempo_extra', function($table){
             $table->increments('id_tiempo');
-            $table->integer('periodo_id');
             $table->char('clave_empleado',5);
             $table->double('cantidad_tiempo');
             $table->date('fecha_extra');

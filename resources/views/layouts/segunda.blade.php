@@ -96,7 +96,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
               </p>
             </a>
             <ul class="nav nav-treeview">
-              <li class="nav-item active" >
+              <li class="nav-item" >
                 <a href="{{ route('empleados.index')}}" class="nav-link active">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Empleados</p>
@@ -153,7 +153,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
             </ul>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="{{ route('home')}}" class="nav-link active">
+                <a href="{{ route('home')}}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Cambiar empresa</p>
                 </a>
@@ -297,6 +297,15 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <script src="{{ asset('/Admin/plugins/datatables-responsive/js/responsive.bootstrap4.min.js')}}"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.10/jquery.mask.js"></script>
 <script src="{{ asset('/Admin/plugins/jquery-ui/jquery-ui.min.js')}}"></script>
+<script>
+  $(document).on('click', 'ul li', function(){
+    //e.preventDefault();
+  $(this).addClass('active').siblings().removeClass('active')
+  
+  });
+
+
+</script>
 
 <script>
   //funcionaiento del datarange de los input tipo fecha
