@@ -126,6 +126,7 @@ Route::delete('/incidencias/enviodata', 'IncidenciaController@store')->name('inc
 
 //Incidencias
 Route::get('/incid','IncidenController@index')->name('incid2.index');
+Route::delete('/incid/delete/{id}', 'IncidenController@eliminar')->name('incid2.destroy');
 
 //Ajax-Insert-Multiple Tiempo extra
 Route::get('/tiempo','TiempoController@index')->name('tiempo.index');
