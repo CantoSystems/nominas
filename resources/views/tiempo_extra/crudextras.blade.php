@@ -1,6 +1,52 @@
 @extends('layouts.segunda')
 @section('content')
 <div class="container">
+    <div class="col">
+                 <!-- Inicio Datatables-->
+        <div class="row">
+            <div class="col">
+                <div class="card card-secondary">
+                <div class="card-header">
+                    <h3 class="card-title">
+                        Tiempo extra
+                    </h3>
+                </div>
+                <div class="card-body">
+                    <table id="example1" class="table table-bordered table-striped">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Clave del empleado y nombre</th>
+                                <th>Cantidad</th>
+                                <th>Fecha hora extra</th>
+                                
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach($aux as $textra)
+                            <tr>
+                                <td>{{$textra->id_tiempo ?? ''}}</td>
+                                <td>{{$textra->clave_empleado ?? ''}}
+                                    {{$textra->nombre ?? ''}}
+                                    {{$textra->apellido_paterno ?? ''}}
+                                    {{$textra->apellido_materno ?? ''}}</td>
+                                    <td>{{$textra->cantidad_tiempo ?? ''}}</td>
+                                    <td>{{$textra->fecha_extra ?? ''}}</td>
+                            </tr>
+                           @endforeach 
+                     
+                            
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
     <div class="card card-secondary">
         <div class="card-header">
             <h3 class="card-title">Tiempos Extras</h3>
@@ -18,15 +64,9 @@
             @endif
             <form action="{{ route('horasextras.index')}}" method="GET" autocomplete="off">
                 <div class="row">
-                    <div class="col-md-3">
-                        <label>Periodo seleccionado:</label>
-                        <select class="custom-select" name="periodo_id">
-                            <option value="{{$trabajo_periodo}}"> {{$periodot->fecha_inicio ?? ''}} al {{$periodot->fecha_fin ?? ''}} </option>
-                        </select>
-                        <input type="hidden" name="id_tiempo" value="{{$extras_horas->id_tiempo ?? ''}}">
-                    </div>
-                    <div class="col-sm-2 ">
+                    <div class="col-sm-3">
                         <label>Clave empleado: </label>
+                         <input type="hidden" name="id_tiempo" value="{{$extras_horas->id_tiempo ?? ''}}">
                         <div class=" input-group mb-3">
                             <input  type="text" 
                                     name="clave_empledo"
@@ -67,7 +107,7 @@
                     </div>
             
 
-                <div class="col-sm-1">
+                <div class="col-sm-3">
                     <div class="form-group">
                         <label>Cantidad:</label>
                         <input  type="number" 
@@ -141,9 +181,6 @@
                                         </div>
                                     @endcanany
                                     @canany(['administrador','capturista'])
-                                        <div class="form-group">
-                                            <button name="acciones" value="registrar" type="submit" style='width:70px; height:40px'> <i class="fas fa-user-plus"></i></button>
-                                        </div>
                                         @isset($extras_horas)
                                             <div class="form-group">
                                                 <button type="button" id="actualizar" style='width:70px; height:40px'> <i class="fas fa-pen-square"></i></button>
@@ -172,10 +209,10 @@
                                 <div class="btn-group">
                                  
                                     <div class="form-group">
-                                        <button name="acciones" value="actualizar" id="actualizar_reg" type="submit" style='width:40px; height:27px'><i class="fas fa-save"></i></button>
+                                        <button name="acciones" value="actualizar" id="actualizar_reg" type="submit" style='width:70px; height:40px'><i class="fas fa-save"></i></button>
                                     </div>
                                     <div class="form-group">
-                                        <button name="acciones" value="cancelar" id="cancelar_reg" type="submit" style='width:40px; height:27px'><i class="far fa-window-close"></i></button>
+                                        <button name="acciones" value="cancelar" id="cancelar_reg" type="submit" style='width:70px; height:40px'><i class="far fa-window-close"></i></button>
                                     </div>
                                 </div>
                             </div>
@@ -189,46 +226,7 @@
         </div>
 
 
-         <!-- Inicio Datatables-->
-        <div class="row">
-            <div class="col">
-                <div class="card card-secondary">
-                <div class="card-header">
-                    <h3 class="card-title">
-                        Ausentismos
-                    </h3>
-                </div>
-                <div class="card-body">
-                    <table id="example1" class="table table-bordered table-striped">
-                        <thead>
-                            <tr>
-                                <th>ID</th>
-                                <th>Clave del empleado y nombre</th>
-                                <th>Cantidad</th>
-                                <th>Fecha hora extra</th>
-                                
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach($aux as $textra)
-                            <tr>
-                                <td>{{$textra->id_tiempo ?? ''}}</td>
-                                <td>{{$textra->clave_empleado ?? ''}}
-                                    {{$textra->nombre ?? ''}}
-                                    {{$textra->apellido_paterno ?? ''}}
-                                    {{$textra->apellido_materno ?? ''}}</td>
-                                    <td>{{$textra->cantidad_tiempo ?? ''}}</td>
-                                    <td>{{$textra->fecha_extra ?? ''}}</td>
-                            </tr>
-                           @endforeach 
-                     
-                            
 
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
             </div>
         </div>
         <!--Fin Datatables-->

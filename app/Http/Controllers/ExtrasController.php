@@ -15,7 +15,6 @@ class ExtrasController extends Controller
     {
         $clv=Session::get('clave_empresa');
         $clv_empresa=$this->conectar($clv);
-        $trabajo_periodo= Session::get('num_periodo');
         $indic=$request->id_tiempo;
 
        //dd($trabajo_periodo);
@@ -25,9 +24,6 @@ class ExtrasController extends Controller
 
          switch ($accion) {
             case '':
-                $periodot = DB::connection('DB_Serverr')->table('periodos')
-                ->where('numero','=',$trabajo_periodo)
-                ->first();
 
                 $extras_horas = DB::connection('DB_Serverr')->table('tiempo_extra')
                 ->join('empleados','empleados.clave_empleado','=','tiempo_extra.clave_empleado')
@@ -36,26 +32,18 @@ class ExtrasController extends Controller
 
                 $aux= DB::connection('DB_Serverr')->table('tiempo_extra')
                 ->join('empleados','empleados.clave_empleado','=','tiempo_extra.clave_empleado')
-                 ->join('periodos','periodos.id','=','tiempo_extra.periodo_id')
-                ->select('tiempo_extra.*','empleados.*','periodos.*')
+                ->select('tiempo_extra.*','empleados.*')
                 ->orderBy('id_tiempo')->get();
 
-                return view('tiempo_extra.crudextras',compact('trabajo_periodo','periodot','extras_horas','aux'));
+                return view('tiempo_extra.crudextras',compact('extras_horas','aux'));
                     
             break;
-
-            case 'registrar':
-                return redirect()->route('tiempo.index');
-                break;
 
             case 'cancelar':
                 return redirect()->route('horasextras.index');
                 break;
 
             case 'primero':
-            $periodot = DB::connection('DB_Serverr')->table('periodos')
-                ->where('numero','=',$trabajo_periodo)
-                ->first();
 
                 $extras_horas = DB::connection('DB_Serverr')->table('tiempo_extra')
                 ->join('empleados','empleados.clave_empleado','=','tiempo_extra.clave_empleado')
@@ -64,11 +52,10 @@ class ExtrasController extends Controller
 
                 $aux= DB::connection('DB_Serverr')->table('tiempo_extra')
                 ->join('empleados','empleados.clave_empleado','=','tiempo_extra.clave_empleado')
-                 ->join('periodos','periodos.id','=','tiempo_extra.periodo_id')
-                ->select('tiempo_extra.*','empleados.*','periodos.*')
+                ->select('tiempo_extra.*','empleados.*')
                 ->orderBy('id_tiempo')->get();
 
-                return view('tiempo_extra.crudextras',compact('trabajo_periodo','periodot','extras_horas','aux'));
+                return view('tiempo_extra.crudextras',compact('extras_horas','aux'));
                 break;
             case 'ultimo':
                $extras_horas = DB::connection('DB_Serverr')->table('tiempo_extra')
@@ -77,17 +64,12 @@ class ExtrasController extends Controller
                 ->orderBy('id_tiempo')
                 ->get()->last();
 
-                $periodot = DB::connection('DB_Serverr')->table('periodos')
-                ->where('numero','=',$trabajo_periodo)
-                ->first();
-
                  $aux= DB::connection('DB_Serverr')->table('tiempo_extra')
                 ->join('empleados','empleados.clave_empleado','=','tiempo_extra.clave_empleado')
-                 ->join('periodos','periodos.id','=','tiempo_extra.periodo_id')
-                ->select('tiempo_extra.*','empleados.*','periodos.*')
+                ->select('tiempo_extra.*','empleados.*')
                 ->orderBy('id_tiempo')->get();
 
-                return view('tiempo_extra.crudextras',compact('trabajo_periodo','periodot','extras_horas','aux'));
+                return view('tiempo_extra.crudextras',compact('extras_horas','aux'));
                 break;
 
             case 'siguiente':
@@ -106,17 +88,14 @@ class ExtrasController extends Controller
                     ->select('tiempo_extra.*','empleados.*')
                     ->orderBy('id_tiempo')->first();
                 }
-                $periodot = DB::connection('DB_Serverr')->table('periodos')
-                ->where('numero','=',$trabajo_periodo)
-                ->first();
+
 
                  $aux= DB::connection('DB_Serverr')->table('tiempo_extra')
                 ->join('empleados','empleados.clave_empleado','=','tiempo_extra.clave_empleado')
-                 ->join('periodos','periodos.id','=','tiempo_extra.periodo_id')
-                ->select('tiempo_extra.*','empleados.*','periodos.*')
+                ->select('tiempo_extra.*','empleados.*')
                 ->orderBy('id_tiempo')->get();
 
-                return view('tiempo_extra.crudextras',compact('trabajo_periodo','periodot','extras_horas','aux'));
+                return view('tiempo_extra.crudextras',compact('extras_horas','aux'));
 
                 break;
 
@@ -137,17 +116,13 @@ class ExtrasController extends Controller
                     ->orderBy('id_tiempo')
                     ->get()->last();
                 }
-                $periodot = DB::connection('DB_Serverr')->table('periodos')
-                ->where('numero','=',$trabajo_periodo)
-                ->first();
 
                  $aux= DB::connection('DB_Serverr')->table('tiempo_extra')
                 ->join('empleados','empleados.clave_empleado','=','tiempo_extra.clave_empleado')
-                 ->join('periodos','periodos.id','=','tiempo_extra.periodo_id')
-                ->select('tiempo_extra.*','empleados.*','periodos.*')
+                ->select('tiempo_extra.*','empleados.*')
                 ->orderBy('id_tiempo')->get();
 
-                return view('tiempo_extra.crudextras',compact('trabajo_periodo','periodot','extras_horas','aux'));
+                return view('tiempo_extra.crudextras',compact('extras_horas','aux'));
 
 
                 break;
@@ -172,23 +147,16 @@ class ExtrasController extends Controller
                              return back()->with('busqueda','Coincidencia no encontrada');
                         }
 
-                            $periodot = DB::connection('DB_Serverr')->table('periodos')
-                            ->where('numero','=',$trabajo_periodo)
-                            ->first();
-
+                          
                             $aux= DB::connection('DB_Serverr')->table('tiempo_extra')
                             ->join('empleados','empleados.clave_empleado','=','tiempo_extra.clave_empleado')
-                            ->join('periodos','periodos.id','=','tiempo_extra.periodo_id')
-                            ->select('tiempo_extra.*','empleados.*','periodos.*')
+                            ->select('tiempo_extra.*','empleados.*')
                             ->orderBy('id_tiempo')->get();
 
-                            return view('tiempo_extra.crudextras',compact('trabajo_periodo','periodot','extras_horas','aux'));
+                            return view('tiempo_extra.crudextras',compact('extras_horas','aux'));
 
 
                     }
-                 
-
-            
 
                     break;
              

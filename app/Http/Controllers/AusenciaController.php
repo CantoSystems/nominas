@@ -16,17 +16,13 @@ class AusenciaController extends Controller
         $clv=Session::get('clave_empresa');
         $accion= $request->acciones;
         $clv_empresa=$this->conectar($clv);
-        $periodoausencia= Session::get('num_periodo');
+        
 
         \Config::set('database.connections.DB_Serverr', $clv_empresa);
 
-        $ausenciap = DB::connection('DB_Serverr')->table('periodos')
-                ->where('numero','=',$periodoausencia)
-                ->first();
+        
 
-        //dd($ausenciap);
-
-        return view('ausentismo.ausencia', compact('ausenciap'));
+        return view('ausentismo.ausencia');
          
 
     }
@@ -71,15 +67,13 @@ class AusenciaController extends Controller
         foreach ($data as $value) {
             //echo $value->incapacidad;
             DB::connection('DB_Serverr')->insert('INSERT INTO ausentismos (
-            identificador_periodo,
             clave_empleado,
             cantidad_ausentismo,
             clave_concepto,
             fecha_ausentismo,
             incapacidad,
             descripcion)
-            values (?,?,?,?,?,?,?)',[ $value->identificador,
-                                    $value->empleado,
+            values (?,?,?,?,?,?)',[$value->empleado,
                                     $value->ausentismo,
                                     $value->concepto,
                                     $value->fecha,

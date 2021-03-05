@@ -3,11 +3,7 @@
 <div class="container">
     <div class="card card-secondary">
         <div class="card-header">
-            <h3 class="card-title">Tiempos Extras Periodo: {{$periodot_extras->fecha_inicio ?? ''}} a {{$periodot_extras->fecha_fin ?? ''}}  </h3>
-            <br>
-          <a href="{{ route('horasextras.index')}}">
-            <button>Regresar a movimientos </button>
-          </a>
+            <h3 class="card-title">Tiempos Extras </h3>
         </div>
         <div class="card-body">
             @if(session()->has('registro'))
@@ -20,11 +16,6 @@
                 <div class="row">
                     <div class="col-sm-3">
                         <label>Clave empleado:</label>
-                         <input type="hidden"
-                               name="periodo_id" 
-                               id="periodoID" 
-                               value="{{$periodot_extras->id ?? ''}}" 
-                               class="form-control">
                         <div class="input-group mb-3">
                             <input type="text" 
                                    name="clave_empledo[]"
@@ -82,14 +73,13 @@
                         <div class="card card-secondary">
                             <div class="card-header">
                                 <h3 class="card-title">
-                                    Ausentismos 
+                                    Tiempo extra
                                 </h3>
                             </div>
                             <div class="card-body">
                                 <table id="example12" class="table table-bordered table-striped example12">
                                     <thead>
                                         <tr>
-                                            <th>Periodo</th>
                                             <th>Clave del empleado</th>
                                             <th>Cantidad</th>
                                             <th>Cantidad</th>

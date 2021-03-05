@@ -625,13 +625,11 @@ scratch. This page gets rid of all links and provides the needed markup only.
     $('#agregar').click(function(e){
       i++;
       e.preventDefault();
-      let periodoID = $('#periodoID').val();
       let clave_empledo = $('#clave_empledo').val();
       let nombre = $('#nombre').val();
       let cantidad_tiempo = $('#cantidad_tiempo').val();
       let fecha_extra = $('#fecha_extra').val();
       let htmlTags = '<tr>'+
-                        '<td class="periodo">' + periodoID + '</td>'+
                         '<td class="empleado">' + clave_empledo + '</td>'+
                         '<td class="cantidad">' + cantidad_tiempo + '</td>'+
                         '<td class="fecha">' + fecha_extra + '</td>'+
@@ -657,7 +655,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
     let myTableArray = [];
     document.querySelectorAll('.example12 tbody tr').forEach(function(e){
       let fila = {
-        periodo: e.querySelector('.periodo').innerText,
         empleado: e.querySelector('.empleado').innerText,
         cantidad: e.querySelector('.cantidad').innerText,
         fecha: e.querySelector('.fecha').innerText
@@ -676,7 +673,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
       success: function(data){
         console.log(data);
         $(".example12 tbody tr").closest('tr').remove();
-        alert('Registro Éxitoso');
+        //alert('Registro Éxitoso');
       },
       error: function(xhr, status, error) {
         var err = JSON.parse(xhr.responseText);
