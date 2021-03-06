@@ -6,12 +6,8 @@
       <div class="card card-secondary">
         <div class="card-header">
           <h3 class="card-title">
-            Captura Ausencia
-            {{$ausenciap->fecha_inicio ?? ''}} a {{$ausenciap->fecha_fin ?? ''}}  
+            Captura Ausencia  
           </h3><br>
-          <a href="{{ route('ausentismo.index')}}">
-            <button>Regresar a movimientos </button>
-          </a>
         </div>
         <div class="card-body">
           <form autocomplete="off">
@@ -19,11 +15,6 @@
             <div class="row">
               <div class="col-sm-2">
                 <label>Clave empleado:</label>
-                  <input  type="hidden"
-                          name="periodo_id" 
-                          id="periodo_identificador" 
-                          value="{{$ausenciap->numero}}" 
-                          class="form-control">
                   <div class="input-group mb-3">
                   <input  type="text" 
                           name="clave_empledo"
@@ -143,7 +134,6 @@
           <table id="example13" class="table table-bordered table-striped example13">
             <thead>
               <tr>
-                <th>Periodo</th>
                 <th>Clave del empleado</th>
                 <th>Cantidad</th>
                 <th>Clave concepto</th>

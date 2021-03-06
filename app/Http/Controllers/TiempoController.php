@@ -37,16 +37,12 @@ class TiempoController extends Controller
         $accion= $request->acciones;
         $clv_empresa=$this->conectar($clv);
 
-        $extras_periodo= Session::get('num_periodo');
+        
         \Config::set('database.connections.DB_Serverr', $clv_empresa);
 
         switch ($accion) {
             case '':
-                $periodot_extras = DB::connection('DB_Serverr')->table('periodos')
-                ->where('numero','=',$extras_periodo)
-                ->first();
-
-                return view('tiempo_extra.crudtiempo',compact('periodot_extras'));
+                return view('tiempo_extra.crudtiempo');
             break;
 
             default:
@@ -84,32 +80,8 @@ class TiempoController extends Controller
         foreach ($data as $value) {
             //echo ;
             //echo $value->
-             DB::connection('DB_Serverr')->insert('INSERT INTO tiempo_extra (periodo_id,clave_empleado,cantidad_tiempo,fecha_extra) VALUES (?,?,?,?)',[$value->periodo,$value->empleado,$value->cantidad,$value->fecha]);
+             DB::connection('DB_Serverr')->insert('INSERT INTO tiempo_extra (clave_empleado,cantidad_tiempo,fecha_extra) VALUES (?,?,?)',[$value->empleado,$value->cantidad,$value->fecha]);
         }
      
-    }
-
-    
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
     }
 }

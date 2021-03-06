@@ -14,7 +14,6 @@ class AusentismoController extends Controller
     {
         $clv=Session::get('clave_empresa');
         $clv_empresa=$this->conectar($clv);
-        $periodo= Session::get('num_periodo');
         $indic=$request->id;
          
         \Config::set('database.connections.DB_Serverr', $clv_empresa);
@@ -23,9 +22,6 @@ class AusentismoController extends Controller
 
          switch ($accion) {
              case '':
-                $ptrabajo = DB::connection('DB_Serverr')->table('periodos')
-                ->where('numero','=',$periodo)
-                ->first();
 
                 $empleado=DB::connection('DB_Serverr')->table('empleados')
                         ->get();
@@ -39,14 +35,13 @@ class AusentismoController extends Controller
                 $aux= DB::connection('DB_Serverr')->table('ausentismos')
                 ->join('empleados','empleados.clave_empleado','=','ausentismos.clave_empleado')
                 ->join('conceptos','conceptos.clave_concepto','=','ausentismos.clave_concepto')
-                ->join('periodos','periodos.id','=','ausentismos.identificador_periodo')
-                ->select('ausentismos.*','empleados.*','conceptos.*','periodos.*','ausentismos.id AS identificador_ausentismo')
+                ->select('ausentismos.*','empleados.*','conceptos.*')
                 ->get();
                 
                 
                 $conceptos=DB::connection('DB_Serverr')->table('conceptos')->get();
 
-                return view('ausentismo.crudausentismo', compact('periodo','ptrabajo','empleado','conceptos','ausentismo','aux'));
+                return view('ausentismo.crudausentismo', compact('empleado','conceptos','ausentismo','aux'));
             break;
 
             case 'cancelar':
@@ -73,9 +68,6 @@ class AusentismoController extends Controller
                 ->last();
                 }
 
-                $ptrabajo = DB::connection('DB_Serverr')->table('periodos')
-                ->where('id','=',$periodo)
-                ->first();
 
                 $empleado=DB::connection('DB_Serverr')->table('empleados')
                         ->get();
@@ -83,13 +75,12 @@ class AusentismoController extends Controller
                 $aux= DB::connection('DB_Serverr')->table('ausentismos')
                 ->join('empleados','empleados.clave_empleado','=','ausentismos.clave_empleado')
                 ->join('conceptos','conceptos.clave_concepto','=','ausentismos.clave_concepto')
-                ->join('periodos','periodos.id','=','ausentismos.identificador_periodo')
-                ->select('ausentismos.*','empleados.*','conceptos.*','periodos.*','ausentismos.id AS identificador_ausentismo')
+                ->select('ausentismos.*','empleados.*','conceptos.*')
                 ->get();
                 //dd($aux);
                 $conceptos=DB::connection('DB_Serverr')->table('conceptos')->get();
 
-                return view('ausentismo.crudausentismo', compact('periodo','ptrabajo','empleado','conceptos','ausentismo','aux'));   
+                return view('ausentismo.crudausentismo', compact('empleado','conceptos','ausentismo','aux'));   
             break;
 
             case 'siguiente':
@@ -109,9 +100,6 @@ class AusentismoController extends Controller
                 ->first();
                 }
 
-                $ptrabajo = DB::connection('DB_Serverr')->table('periodos')
-                ->where('id','=',$periodo)
-                ->first();
 
                 $empleado=DB::connection('DB_Serverr')->table('empleados')
                         ->get();
@@ -119,19 +107,15 @@ class AusentismoController extends Controller
                 $aux= DB::connection('DB_Serverr')->table('ausentismos')
                 ->join('empleados','empleados.clave_empleado','=','ausentismos.clave_empleado')
                 ->join('conceptos','conceptos.clave_concepto','=','ausentismos.clave_concepto')
-                ->join('periodos','periodos.id','=','ausentismos.identificador_periodo')
-                ->select('ausentismos.*','empleados.*','conceptos.*','periodos.*','ausentismos.id AS identificador_ausentismo')
+                ->select('ausentismos.*','empleados.*','conceptos.*')
                 ->get();
                 
                 $conceptos=DB::connection('DB_Serverr')->table('conceptos')->get();
 
-                return view('ausentismo.crudausentismo', compact('periodo','ptrabajo','empleado','conceptos','ausentismo','aux'));
+                return view('ausentismo.crudausentismo', compact('empleado','conceptos','ausentismo','aux'));
             break;
 
             case 'primero':
-                $ptrabajo = DB::connection('DB_Serverr')->table('periodos')
-                ->where('id','=',$periodo)
-                ->first();
 
                 $empleado=DB::connection('DB_Serverr')->table('empleados')
                         ->get();
@@ -146,13 +130,12 @@ class AusentismoController extends Controller
                 $aux= DB::connection('DB_Serverr')->table('ausentismos')
                 ->join('empleados','empleados.clave_empleado','=','ausentismos.clave_empleado')
                 ->join('conceptos','conceptos.clave_concepto','=','ausentismos.clave_concepto')
-                ->join('periodos','periodos.id','=','ausentismos.identificador_periodo')
-                ->select('ausentismos.*','empleados.*','conceptos.*','periodos.*','ausentismos.id AS identificador_ausentismo')
+                ->select('ausentismos.*','empleados.*','conceptos.*')
                 ->get();
                 
                 $conceptos=DB::connection('DB_Serverr')->table('conceptos')->get();
 
-                return view('ausentismo.crudausentismo', compact('periodo','ptrabajo','empleado','conceptos','ausentismo','aux'));
+                return view('ausentismo.crudausentismo', compact('empleado','conceptos','ausentismo','aux'));
             break;
 
             case 'ultimo':
@@ -162,9 +145,7 @@ class AusentismoController extends Controller
                 ->select('ausentismos.*','empleados.*')
                 ->get()
                 ->last();
-            $ptrabajo = DB::connection('DB_Serverr')->table('periodos')
-                ->where('id','=',$periodo)
-                ->first();
+
 
             $empleado=DB::connection('DB_Serverr')->table('empleados')
                         ->get();
@@ -172,13 +153,12 @@ class AusentismoController extends Controller
             $aux= DB::connection('DB_Serverr')->table('ausentismos')
                 ->join('empleados','empleados.clave_empleado','=','ausentismos.clave_empleado')
                 ->join('conceptos','conceptos.clave_concepto','=','ausentismos.clave_concepto')
-                ->join('periodos','periodos.id','=','ausentismos.identificador_periodo')
-                ->select('ausentismos.*','empleados.*','conceptos.*','periodos.*','ausentismos.id AS identificador_ausentismo')
+                ->select('ausentismos.*','empleados.*','conceptos.*')
                 ->get();
                 
                 $conceptos=DB::connection('DB_Serverr')->table('conceptos')->get();
 
-                return view('ausentismo.crudausentismo', compact('periodo','ptrabajo','empleado','conceptos','ausentismo','aux'));
+                return view('ausentismo.crudausentismo', compact('empleado','conceptos','ausentismo','aux'));
             break;
 
             case 'actualizar':
@@ -202,9 +182,6 @@ class AusentismoController extends Controller
                         }
 
 
-                $ptrabajo = DB::connection('DB_Serverr')->table('periodos')
-                ->where('id','=',$periodo)
-                ->first();
 
                 $empleado=DB::connection('DB_Serverr')->table('empleados')
                         ->get();
@@ -212,13 +189,12 @@ class AusentismoController extends Controller
                 $aux= DB::connection('DB_Serverr')->table('ausentismos')
                 ->join('empleados','empleados.clave_empleado','=','ausentismos.clave_empleado')
                 ->join('conceptos','conceptos.clave_concepto','=','ausentismos.clave_concepto')
-                ->join('periodos','periodos.id','=','ausentismos.identificador_periodo')
-                ->select('ausentismos.*','empleados.*','conceptos.*','periodos.*','ausentismos.id AS identificador_ausentismo')
+                ->select('ausentismos.*','empleados.*','conceptos.*')
                 ->get();
                 
                 $conceptos=DB::connection('DB_Serverr')->table('conceptos')->get();
 
-                return view('ausentismo.crudausentismo', compact('periodo','ptrabajo','empleado','conceptos','ausentismo','aux'));
+                return view('ausentismo.crudausentismo', compact('empleado','conceptos','ausentismo','aux'));
 
                     
                 }else if($criterio == 'incapacidad'){
@@ -233,23 +209,18 @@ class AusentismoController extends Controller
                                 }
 
 
-                        $ptrabajo = DB::connection('DB_Serverr')->table('periodos')
-                        ->where('id','=',$periodo)
-                        ->first();
-
                         $empleado=DB::connection('DB_Serverr')->table('empleados')
                         ->get();
 
                         $aux= DB::connection('DB_Serverr')->table('ausentismos')
                         ->join('empleados','empleados.clave_empleado','=','ausentismos.clave_empleado')
                         ->join('conceptos','conceptos.clave_concepto','=','ausentismos.clave_concepto')
-                        ->join('periodos','periodos.id','=','ausentismos.identificador_periodo')
-                        ->select('ausentismos.*','empleados.*','conceptos.*','periodos.*','ausentismos.id AS identificador_ausentismo')
+                        ->select('ausentismos.*','empleados.*','conceptos.*')
                         ->get();
                 
                         $conceptos=DB::connection('DB_Serverr')->table('conceptos')->get();
 
-                        return view('ausentismo.crudausentismo', compact('periodo','ptrabajo','empleado','conceptos','ausentismo','aux'));
+                        return view('ausentismo.crudausentismo', compact('empleado','conceptos','ausentismo','aux'));
 
                 }
 

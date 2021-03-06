@@ -1,6 +1,84 @@
 @extends('layouts.segunda')
 @section('content')
 <div class="container">
+
+     <div class="row">
+            <div class="col">
+                <div class="card card-secondary">
+                <div class="card-header">
+                    <h3 class="card-title">
+                        Ausentismos
+                    </h3>
+                </div>
+                <div class="card-body">
+                    <table id="example1" class="table table-bordered table-striped">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Clave del empleado y nombre</th>
+                                <th>Cantidad</th>
+                                <th>Clave y concepto</th>
+                                <th>Fecha ausentismo</th>
+                                <th>Incapacidad </th>
+                                <th>Descripción</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach($aux as $ausent)
+                                <tr>
+                                    <td>
+                                        {{$ausent->id ?? ''}}  
+                                    </td>
+                                    <td>
+                                        {{$ausent->clave_empleado ?? ''}}
+                                        {{$ausent->nombre ?? ''}} 
+                                        {{$ausent->apellido_paterno ?? ''}}
+                                        {{$ausent->apellido_materno ?? ''}}
+                                    </td>
+                                    <td>
+                                    {{ $ausent->cantidad_ausentismo ?? ''}} 
+                                    </td>
+                                    <td>
+                                        {{$ausent->clave_concepto ?? ''}}
+                                        {{$ausent->concepto ?? ''}}
+                                    </td>
+                                    <td>
+                                        {{$ausent->fecha_ausentismo ?? ''}}
+                                    </td>
+                                    <td>
+                                        {{$ausent->incapacidad ?? ''}}
+                                    </td>
+                                    <td>
+                                        {{$ausent->descripcion ?? ''}}
+                                    </td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <!--Fin Datatable-->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     <div class="card card-secondary">
         <div class="card-header">
             <h3 class="card-title">Ausentismo</h3>
@@ -18,15 +96,10 @@
             @endif
             <form action="{{ route('ausentismo.index')}}" method="GET" autocomplete="off">
                 <div class="row">
-                    <div class="col-md-3">
-                        <label>Periodo seleccionado:</label>
-                        <select class="custom-select" name="identificador_periodo">
-                            <option value="{{$periodo}}"> {{$ptrabajo->fecha_inicio}} al {{$ptrabajo->fecha_fin}} </option>
-                        </select>
-                        <input type="hidden" name="id" value="{{ $ausentismo->id ?? ''}}">
-                    </div>
+                    
                     <div class="col-sm-4 ">
                         <label>Clave empleado: </label>
+                        <input type="hidden" name="id" value="{{ $ausentismo->id ?? ''}}">
                         <div class=" input-group mb-3">
                             <input  type="text" 
                                     name="clave_empledo"
@@ -191,9 +264,6 @@
                                         </div>
                                     @endcanany
                                     @canany(['administrador','capturista'])
-                                        <div class="form-group">
-                                            <button type="submit" value="registrar" name="acciones" style='width:70px; height:40px'> <i class="fas fa-user-plus"></i></button>
-                                        </div>
                                         @isset($ausentismo)
                                             <div class="form-group">
                                                 <button type="button" id="actualizar" style='width:70px; height:40px'> <i class="fas fa-pen-square"></i></button>
@@ -222,10 +292,10 @@
                                 <div class="btn-group">
                                     
                                     <div class="form-group">
-                                        <button name="acciones" value="actualizar" id="actualizar_reg" type="submit" style="display: none;width:70px; height:40px"><i class="fas fa-save"></i></button>
+                                        <button name="acciones" value="actualizar" id="actualizar_reg" type="submit" style="width:70px; height:40px"><i class="fas fa-save"></i></button>
                                     </div>
                                     <div class="form-group">
-                                        <button name="acciones" value="cancelar" id="cancelar_reg" type="submit" style="display: none;width:70px; height:40px"><i class="far fa-window-close"></i></button>
+                                        <button name="acciones" value="cancelar" id="cancelar_reg" type="submit" style="width:70px; height:40px"><i class="far fa-window-close"></i></button>
                                     </div>
                                 </div>
                             </div>
@@ -235,66 +305,7 @@
             </form>
         </div>
 
-        <div class="row">
-            <div class="col">
-                <div class="card card-secondary">
-                <div class="card-header">
-                    <h3 class="card-title">
-                        Ausentismos
-                    </h3>
-                </div>
-                <div class="card-body">
-                    <table id="example1" class="table table-bordered table-striped">
-                        <thead>
-                            <tr>
-                                <th>ID</th>
-                                <th>Periodo</th>
-                                <th>Clave del empleado y nombre</th>
-                                <th>Cantidad</th>
-                                <th>Clave y concepto</th>
-                                <th>Fecha ausentismo</th>
-                                <th>Incapacidad </th>
-                                <th>Descripción</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach($aux as $ausent)
-                                <tr>
-                                    <td>
-                                        {{ $ausent->identificador_ausentismo ?? ''}}
-                                    </td>
-                                    <td>
-                                        {{$ausent->fecha_inicio ?? ''}}  al {{$ausent->fecha_fin ?? ''}}
-                                    </td>
-                                    <td>
-                                        {{$ausent->clave_empleado ?? ''}}
-                                        {{$ausent->nombre ?? ''}} 
-                                        {{$ausent->apellido_paterno ?? ''}}
-                                        {{$ausent->apellido_materno ?? ''}}
-                                    </td>
-                                    <td>
-                                    {{ $ausent->cantidad_ausentismo ?? ''}} 
-                                    </td>
-                                    <td>
-                                        {{$ausent->clave_concepto ?? ''}}
-                                        {{$ausent->concepto ?? ''}}
-                                    </td>
-                                    <td>
-                                        {{$ausent->fecha_ausentismo ?? ''}}
-                                    </td>
-                                    <td>
-                                        {{$ausent->incapacidad ?? ''}}
-                                    </td>
-                                    <td>
-                                        {{$ausent->descripcion ?? ''}}
-                                    </td>
-                                </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
+       
     </div>
 </div>
 @isset($ausentismo)
