@@ -215,7 +215,9 @@ class IncidenController extends Controller{
         $clv= Session::get('clave_empresa');
         $clv_empresa=$this->conectar($clv);
         \Config::set('database.connections.DB_Serverr', $clv_empresa);
+        
         $aux1 = DB::connection('DB_Serverr')->table('incidencias')->where('id_incidencia',$id)->delete();
+        
         return redirect()->route('incid2.index');
     }
 }
