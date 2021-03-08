@@ -71,7 +71,6 @@ class ExtrasController extends Controller
 
                 return view('tiempo_extra.crudextras',compact('extras_horas','aux'));
                 break;
-
             case 'siguiente':
                 //dd($indic);
                $extras_horas = DB::connection('DB_Serverr')->table('tiempo_extra')

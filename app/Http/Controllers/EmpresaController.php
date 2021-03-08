@@ -405,7 +405,6 @@ class EmpresaController extends Controller{
             $table->timestamps();
         });
         
-
         Schema::connection('DB_Serverr')->create('ausentismos', function($table){
             $table->increments('id');
             $table->char('clave_empleado',5);
