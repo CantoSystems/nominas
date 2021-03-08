@@ -733,13 +733,14 @@ scratch. This page gets rid of all links and provides the needed markup only.
       success: function(data){
         console.log(data);
         $(".example12 tbody tr").closest('tr').remove();
-        alert('Registro Éxitoso');
+        //alert('Registro Éxitoso');
       },
       error: function(xhr, status, error) {
         var err = JSON.parse(xhr.responseText);
         console.log(err.Message);
       }
     });
+    console.log(myTableArray);
   });
 </script>
 </body>

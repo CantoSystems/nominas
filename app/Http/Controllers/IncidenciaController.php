@@ -89,8 +89,8 @@ class IncidenciaController extends Controller{
                                                                          ,?
                                                                          ,?
                                                                          ,?
-                                                                         ,?)',[$value->empleado
-                                                                             ,$value->concepto
+                                                                         ,?)',[$value->concepto
+                                                                             ,$value->empleado
                                                                              ,$value->cantidad
                                                                              ,$value->importe
                                                                              ,$value->monto]);
