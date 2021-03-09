@@ -22,6 +22,13 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <!-- DataTables -->
   <link rel="stylesheet" href="{{ asset('/Admin/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css')}}">
   <link rel="stylesheet" href="{{ asset('/Admin/plugins/datatables-responsive/css/responsive.bootstrap4.min.css')}}">
+  <style type="text/css">
+
+    .botones{
+      width:2em;
+      height:auto;
+    }
+  </style>
 </head>
 <body>
 <div class="wrapper">
@@ -233,42 +240,46 @@ scratch. This page gets rid of all links and provides the needed markup only.
       $(function(){ 
         $('#nuevo').click(function(){
           $('#actualizar_reg').hide();
-          $('#buscar').hide();
+          $('#buscar').attr("disabled", true);
           $('#nuevo_reg').show();
-          $('#cancelar_reg').show();
+          $('.cancelar_reg').attr("disabled", false);
           $('input[type="text"]').val('');
           $('input[type="email"]').val('');
           $('input[type="password"]').val('');
           $('input[type="number"]').val('');
           $('#basesalarial').find('option:first').attr('selected', 'selected').parent('select');
-          $('#primero').hide();
-          $('#atras').hide();
-          $('#siguiente').hide();
-          $('#ultimo').hide();
-          $('#actualizar').hide();
+          $('#primero'). attr("disabled", true);
+          $('#atras'). attr("disabled", true);
+          $('#siguiente'). attr("disabled", true);
+          $('#ultimo'). attr("disabled", true);
+          $('#actualizar').attr("disabled", true);
           $('#eliminar').hide();
+          $('#eliminar_falso').show();
+          $('#guardar_falso').hide();
           $('#contra').removeAttr("readOnly");
           $('#contra1').removeAttr("readOnly");
-           $('#for_roles').hide();
+          $('#for_roles').hide();
         });
 
           //Acción al actualizar el registro
           $('#actualizar').click(function(){
+          $('#guardar_falso').hide();
+          $('.cancelar_reg').attr("disabled", false);
           $('#nuevo_reg').hide();
           $('#actualizar_reg').show();
-          $('#cancelar_reg').show();
-          $('#primero').hide();
-          $('#atras').hide();
-          $('#siguiente').hide();
-          $('#ultimo').hide();
-          $('#nuevo').hide();
+          $('#eliminar_falso').show();
+          $('#primero').attr("disabled", true);
+          $('#atras').attr("disabled", true);
+          $('#siguiente').attr("disabled", true);
+          $('#ultimo').attr("disabled", true);
+          $('#nuevo').attr("disabled", true);
           $('#eliminar').hide();
           $('#contra').hide();
           $('#contra1').hide();
           $('#for_roles').hide();
           $('#contra-label').hide();
           $('#contra1-label').hide();
-          $('#buscar').hide();
+          $('#buscar').attr("disabled", true);
         });
       })
 </script>
