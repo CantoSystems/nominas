@@ -27,7 +27,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
       width:2em;
       height:auto;
     }
-
+    .botonesgrandes{
+      width:3.5em;
+      height:auto;
+    }
     .not-active {
       pointer-events: none;
     }
@@ -245,7 +248,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
           $('#actualizar_reg').hide();
           $('#buscar').attr("disabled", true);
           $('#nuevo_reg').show();
-          $('.cancelar_reg').attr("disabled", false);
+          $('#cancelar_reg').attr("disabled", false);
           $('input[type="text"]').val('');
           $('input[type="email"]').val('');
           $('input[type="password"]').val('');
@@ -256,6 +259,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
           $('#siguiente').attr("disabled", true);
           $('#ultimo').attr("disabled", true);
           $('#actualizar').attr("disabled", true);
+          //$('#eliminar').attr("disabled","disabled");
+          //$('#eliminar_falso').show();
           $('#eliminar').addClass("not-active");
           $('#guardar_falso').hide();
           $('#contra').removeAttr("readOnly");
@@ -275,7 +280,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
           $('#siguiente').attr("disabled", true);
           $('#ultimo').attr("disabled", true);
           $('#nuevo').attr("disabled", true);
-          $('#eliminar').hide();
+          $('#eliminar').addClass("not-active");
           $('#contra').hide();
           $('#contra1').hide();
           $('#for_roles').hide();
