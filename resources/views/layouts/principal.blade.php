@@ -28,6 +28,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
       width:2em;
       height:auto;
     }
+    .botonesgrandes{
+      width:3.3em;
+      height:auto;
+    }
   </style>
 </head>
 <body>
@@ -253,7 +257,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
           $('#siguiente'). attr("disabled", true);
           $('#ultimo'). attr("disabled", true);
           $('#actualizar').attr("disabled", true);
-          $('#eliminar').hide();
+          //$('#eliminar').attr("disabled","disabled");
           $('#eliminar_falso').show();
           $('#guardar_falso').hide();
           $('#contra').removeAttr("readOnly");
