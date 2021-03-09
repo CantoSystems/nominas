@@ -23,14 +23,16 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <link rel="stylesheet" href="{{ asset('/Admin/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css')}}">
   <link rel="stylesheet" href="{{ asset('/Admin/plugins/datatables-responsive/css/responsive.bootstrap4.min.css')}}">
   <style type="text/css">
-
     .botones{
       width:2em;
       height:auto;
     }
     .botonesgrandes{
-      width:3.3em;
+      width:3.5em;
       height:auto;
+    }
+    .not-active {
+      pointer-events: none;
     }
   </style>
 </head>
@@ -246,19 +248,20 @@ scratch. This page gets rid of all links and provides the needed markup only.
           $('#actualizar_reg').hide();
           $('#buscar').attr("disabled", true);
           $('#nuevo_reg').show();
-          $('.cancelar_reg').attr("disabled", false);
+          $('#cancelar_reg').attr("disabled", false);
           $('input[type="text"]').val('');
           $('input[type="email"]').val('');
           $('input[type="password"]').val('');
           $('input[type="number"]').val('');
           $('#basesalarial').find('option:first').attr('selected', 'selected').parent('select');
-          $('#primero'). attr("disabled", true);
-          $('#atras'). attr("disabled", true);
-          $('#siguiente'). attr("disabled", true);
-          $('#ultimo'). attr("disabled", true);
+          $('#primero').attr("disabled", true);
+          $('#atras').attr("disabled", true);
+          $('#siguiente').attr("disabled", true);
+          $('#ultimo').attr("disabled", true);
           $('#actualizar').attr("disabled", true);
           //$('#eliminar').attr("disabled","disabled");
-          $('#eliminar_falso').show();
+          //$('#eliminar_falso').show();
+          $('#eliminar').addClass("not-active");
           $('#guardar_falso').hide();
           $('#contra').removeAttr("readOnly");
           $('#contra1').removeAttr("readOnly");
@@ -277,7 +280,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
           $('#siguiente').attr("disabled", true);
           $('#ultimo').attr("disabled", true);
           $('#nuevo').attr("disabled", true);
-          $('#eliminar').hide();
+          $('#eliminar').addClass("not-active");
           $('#contra').hide();
           $('#contra1').hide();
           $('#for_roles').hide();

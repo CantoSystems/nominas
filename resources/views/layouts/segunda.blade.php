@@ -740,7 +740,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
         console.log(err.Message);
       }
     });
-    console.log(myTableArray);
   });
 </script>
 </body>
