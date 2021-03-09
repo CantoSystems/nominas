@@ -23,10 +23,13 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <link rel="stylesheet" href="{{ asset('/Admin/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css')}}">
   <link rel="stylesheet" href="{{ asset('/Admin/plugins/datatables-responsive/css/responsive.bootstrap4.min.css')}}">
   <style type="text/css">
-
     .botones{
       width:2em;
       height:auto;
+    }
+
+    .not-active {
+      pointer-events: none;
     }
   </style>
 </head>
@@ -248,13 +251,12 @@ scratch. This page gets rid of all links and provides the needed markup only.
           $('input[type="password"]').val('');
           $('input[type="number"]').val('');
           $('#basesalarial').find('option:first').attr('selected', 'selected').parent('select');
-          $('#primero'). attr("disabled", true);
-          $('#atras'). attr("disabled", true);
-          $('#siguiente'). attr("disabled", true);
-          $('#ultimo'). attr("disabled", true);
+          $('#primero').attr("disabled", true);
+          $('#atras').attr("disabled", true);
+          $('#siguiente').attr("disabled", true);
+          $('#ultimo').attr("disabled", true);
           $('#actualizar').attr("disabled", true);
-          $('#eliminar').hide();
-          $('#eliminar_falso').show();
+          $('#eliminar').addClass("not-active");
           $('#guardar_falso').hide();
           $('#contra').removeAttr("readOnly");
           $('#contra1').removeAttr("readOnly");
