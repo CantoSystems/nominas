@@ -116,36 +116,32 @@
 
                             <!---Operaciones-->
                             <div class="col-sm-5">
-                                    <div class="margin">
-                                        @canany(['administrador','capturista','reportes'])
-                                            <div class="btn-group">
-                                                <div class="form-group">
-                                        
-                                                    <button id="buscar" type="button" data-toggle="modal" data-target="#exampleModal" style='width:40px; height:27px' disabled>
-                                                        <i class="fas fa-search"></i>
+                                <div class="margin">
+                                    @canany(['administrador','capturista','reportes'])
+                                        <div class="btn-group">
+                                            <div class="form-group">
+                                                <button id="buscar" type="button" data-toggle="modal" data-target="#exampleModal" style='width:40px; height:27px' disabled>
+                                                    <i class="fas fa-search"></i>
+                                                </button>
+                                            </div>
+                                        @endcanany
+                                        @canany(['administrador','capturista'])
+                                            <div class="form-group">
+                                                <button type="button" id="nuevo" style='width:40px; height:27px'> <i class="fas fa-user-plus"></i></button>
+                                            </div>
+                                            <div class="form-group">
+                                                <button type="button" id="actualizar" style='width:40px; height:27px' disabled> <i class="fas fa-pen-square"></i></button>
+                                            </div>
+                                        @endcanany
+                                        @can('administrador')
+                                            <div class="form-group">
+                                                <a id="eliminar_vacio">
+                                                    <button type="button" disabled style='width:40px; height:27px'>
+                                                        <i class="far fa-trash-alt"></i>
                                                     </button>
-                                               
-                                                </div>
-                                            @endcanany
-                                            @canany(['administrador','capturista'])
-                                                <div class="form-group">
-                                                    <button type="button" id="nuevo" style='width:40px; height:27px'> <i class="fas fa-user-plus"></i></button>
-                                                </div>
-                                               
-                                                    <div class="form-group">
-                                                        <button type="button" id="actualizar" style='width:40px; height:27px' disabled> <i class="fas fa-pen-square"></i></button>
-                                                    </div>
-                                                
-                                            @endcanany
-                                            @can('administrador')
-                                                <div class="form-group">
-                                                    <a id="eliminar_vacio">
-                                                        <button type="button" disabled style='width:40px; height:27px'>
-                                                            <i class="far fa-trash-alt"></i>
-                                                        </button>
-                                                    </a>
-                                                </div>
-                                                @isset($banco)
+                                                </a>
+                                            </div>
+                                            @isset($banco)
                                                 <div class="form-group">
                                                     <a id="eliminar" data-target="#modal-deletebanco-{{$banco->id}}" data-toggle="modal">
                                                         <button type="button" style='width:40px; height:27px'>
@@ -153,42 +149,37 @@
                                                         </button>
                                                     </a>
                                                 </div>
-                                                @endisset
-                                            @endcan
-                                        </div>
+                                            @endisset
+                                        @endcan
                                     </div>
+                                </div>
                             </div>
 
-                             <!---Acciones-->
-                             <div class="col-sm-2">
-                                    <div class="margin">
-                                        <div class="btn-group">
-                                            <!--Su uso solo es para visualizar la existencia del los iconos -->
-                                            <div class="form-group">
-                                                <button id="guardar_falso" disabled style='width:40px; height:27px'><i class="fas fa-save"></i></button>
-                                            </div>
-                                            <div class="form-group">
-                                                <button id="nuevo_reg" name="acciones" value="registrar" type="submit" style="display: none;width:40px; height:27px'"><i class="fas fa-save"></i></button>
-                                            </div>
-                                            <div class="form-group">
-                                                <button name="acciones" value="actualizar" id="actualizar_reg" type="submit" style="display: none;width:40px; height:27px'"><i class="fas fa-save"></i></button>
-                                            </div>
-                                            <div class="form-group">
-                                                <button name="acciones" value="cancelar" id="cancelar_reg" type="submit" style='width:40px; height:27px'><i class="far fa-window-close"></i></button>
-                                            </div>
-                                            
+                            <!---Acciones-->
+                            <div class="col-sm-2">
+                                <div class="margin">
+                                    <div class="btn-group">
+                                        <!--Su uso solo es para visualizar la existencia del los iconos -->
+                                        <div class="form-group">
+                                            <button id="guardar_falso" disabled style='width:40px; height:27px'><i class="fas fa-save"></i></button>
+                                        </div>
+                                        <div class="form-group">
+                                            <button id="nuevo_reg" name="acciones" value="registrar" type="submit" style="display: none;width:40px; height:27px'"><i class="fas fa-save"></i></button>
+                                        </div>
+                                        <div class="form-group">
+                                            <button name="acciones" value="actualizar" id="actualizar_reg" type="submit" style="display: none;width:40px; height:27px'"><i class="fas fa-save"></i></button>
+                                        </div>
+                                        <div class="form-group">
+                                            <button name="acciones" value="cancelar" id="cancelar_reg" type="submit" style='width:40px; height:27px'><i class="far fa-window-close"></i></button>
                                         </div>
                                     </div>
                                 </div>
-                            </div>                        </div>
-
-
-                      
+                            </div>
+                        </div>                        
                     </form>
                     @isset($banco)
                         @include('bancos.modaldeletebanco')
                     @endisset
-
                     @include('bancos.modalsearchbancos')
                    </div>
                 </div>
