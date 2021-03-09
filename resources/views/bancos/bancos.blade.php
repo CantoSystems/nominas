@@ -182,9 +182,8 @@
                                     </div>
                                 </div>
                             </div>
-
-                             <!---Acciones-->
-                             <div class="col-md-2">
+                            <!---Acciones-->
+                            <div class="col-md-2">
                                     <div class="margin">
                                         <div class="btn-group">
                                             <!--Su uso solo es para visualizar la existencia del los iconos -->
@@ -197,14 +196,9 @@
                                             <div class="form-group">
                                                 <button name="acciones" value="actualizar" id="actualizar_reg" type="submit" style="display: none;background-color: yellow" class="botones"><i class="fas fa-save"></i></button>
                                             </div>
-
                                             <div class="form-group">
                                                 <button name="acciones" value="cancelar" class="cancelar_reg" type="submit" class="botones"><i class="far fa-window-close" ></i></button>
                                             </div>
-
-                            
-                                            
-                                            
                                         </div>
                                     </div>
                                 </div>
