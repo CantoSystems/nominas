@@ -170,7 +170,6 @@
                                                         <button type="button" class="botones" disabled> <i class="fas fa-pen-square"></i></button>
                                                     </div>
 
-
                                             @endcanany
                                             @can('administrador')  
                                                 @if(isset($banco))

@@ -224,8 +224,7 @@
                             <div class="col-md-5">
                                     <div class="margin">
                                         <div class="btn-group">
-                                        @isset($usuarios)
-                                            <div class="form-group">
+                                        @if(isset($usuarios))                                            <div class="form-group">
                                                 <button type="submit"  name="acciones" value="primero" id="primero" class="botones"><i class="fas fa-backward" ></i></button>
                                             </div>
                                             <div class="form-group">
@@ -237,7 +236,20 @@
                                             <div class="form-group">
                                                 <button type="submit" name="acciones" value="ultimo" id="ultimo" class="botones"><i class="fas fa-forward"></i></button>
                                             </div>
-                                        @endisset
+                                        @else
+                                        <div class="form-group">
+                                                    <button type="submit" class="botones" disabled><i class="fas fa-backward" ></i></button>
+                                                </div>
+                                                <div class="form-group">
+                                                    <button type="submit" class="botones" disabled><i class="fas fa-arrow-circle-left"></i></button>
+                                                </div>
+                                                <div class="form-group">
+                                                    <button type="submit" class="botones" disabled><i class="fas fa-arrow-circle-right"></i></button>
+                                                </div>
+                                                <div class="form-group">
+                                                    <button type="submit" class="botones" disabled><i class="fas fa-forward"></i></button>
+                                                </div>
+                                        @endif
                                         </div>
                                     </div>
                             </div>
@@ -246,32 +258,55 @@
                             <div class="col-md-5">
                                     <div class="margin">
                                         <div class="btn-group">
+                                           
+                                            @if(isset($usuarios))
                                             <div class="form-group">
-                                            @isset($usuarios)
                                                 <button id="buscar" type="button" data-toggle="modal" data-target="#exampleModal" class="botones">
                                                     <i class="fas fa-search"></i>
                                                   </button>
-                                            @endisset
                                             </div>
-                                        
+                                            @else
+                                                <div class="form-group">
+                                                        <button id="buscar_falso" type="button" class="botones" disabled>
+                                                            <i class="fas fa-search"></i>
+                                                        </button>
+                                                    </div>
+
+                                            @endif
                                             <div class="form-group">
                                                 <button type="button" id="nuevo" class="botones"> <i class="fas fa-user-plus"></i></button>
                                             </div>
+                                            
+                                            @if(isset($usuarios))
                                             <div class="form-group">
-                                            @isset($usuarios)
                                                 <button type="button" id="actualizar" class="botones"> <i class="fas fa-pen-square"></i></button>
-                                            @endisset
                                             </div>
+                                            @else 
+                                                    <div class="form-group">
+                                                        <button type="button" class="botones" disabled> <i class="fas fa-pen-square"></i></button>
+                                                    </div>
+                                            @endif
+                                            
+                                            
+                                            @if(isset($usuarios))
                                             <div class="form-group">
-                                            @isset($usuarios)
                                                 <a id="eliminar" data-target="#delete-{{$usuarios->id}}" data-toggle="modal">
                                                     <button type="button" class="botones">
                                                         <i class="far fa-trash-alt">
                                                         </i>
                                                     </button>
                                                 </a>
-                                            @endisset
                                             </div>
+                                            @else
+                                                    <div class="form-group">
+                                                        <a id="eliminar_vacio">
+                                                            <button type="button" disabled class="botones">
+                                                                <i class="far fa-trash-alt"></i>
+                                                            </button>
+                                                        </a>
+                                                    </div>
+                                            @endif
+                                            
                                         </div>
                                     </div>
                             </div>
@@ -279,11 +314,13 @@
                 <div class="col-md-2">
                         <div class="margin">
                             <div class="btn-group">
+
+                                 <!--Su uso solo es para visualizar la existencia del los iconos -->
+                                            <div class="form-group">
+                                                <button id="guardar_falso" disabled class="botones"><i class="fas fa-save"></i></button>
+                                            </div>
                                 <div class="form-group">
-
                                        <button id="nuevo_reg" name="acciones" value="registrar" type="submit" style="display: none;" class="botones"><i class="fas fa-save"></i></button>
-
-
                                 </div>
                                 <div class="form-group">
                                     <button name="acciones" value="actualizar" id="actualizar_reg" type="submit" style='display: none;' class="botones"><i class="fas fa-save"></i></button>
@@ -291,7 +328,7 @@
 
 
                                 <div class="form-group">
-                                    <button name="acciones" value="cancelar" id="cancelar_reg" type="submit" class="botones" ><i class="far fa-window-close"></i></button>
+                                    <button name="acciones" value="cancelar" id="cancelar_reg" type="submit" class="botones" disabled><i class="far fa-window-close"></i></button>
                                 </div>
                             </div>
                         </div>

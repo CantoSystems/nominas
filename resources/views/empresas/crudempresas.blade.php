@@ -363,89 +363,136 @@
 
                 @canany(['administrador','capturista','reportes'])
                 <div class="col-sm-5">
-                    <div class="card-body">
                         <div class="margin">
                             <div class="btn-group">
-                            @isset($empresa)
+                            @if(isset($empresa))
                                 <div class="form-group">
-                                    <button type="submit"  name="acciones" value="primero" id="primero" style='width:70px; height:40px'><i class="fas fa-backward" ></i></button>
+                                    <button type="submit"  name="acciones" value="primero" id="primero" class="botonesgrandes"><i class="fas fa-backward" ></i></button>
                                 </div>
                                 <div class="form-group">
-                                <button type="submit" name="acciones" value="atras" id="atras" style='width:70px; height:40px'><i class="fas fa-arrow-circle-left"></i></button>
+                                <button type="submit" name="acciones" value="atras" id="atras" class="botonesgrandes"><i class="fas fa-arrow-circle-left"></i></button>
                                 </div>
                                 <div class="form-group">
-                                    <button type="submit" name="acciones" value="siguiente" id="siguiente" style='width:70px; height:40px'><i class="fas fa-arrow-circle-right"></i></button>
+                                    <button type="submit" name="acciones" value="siguiente" id="siguiente" class="botonesgrandes"><i class="fas fa-arrow-circle-right"></i></button>
                                 </div>
                                 <div class="form-group">
-                                    <button type="submit" name="acciones" value="ultimo" id="ultimo" style='width:70px; height:40px'><i class="fas fa-forward"></i></button>
+                                    <button type="submit" name="acciones" value="ultimo" id="ultimo" class="botonesgrandes"><i class="fas fa-forward"></i></button>
                                 </div>
-                            @endisset
+                            @else
+                                <div class="form-group">
+                                    <button type="submit" class="botonesgrandes" disabled><i class="fas fa-backward" ></i></button>
+                                </div>
+                                <div class="form-group">
+                                    <button type="submit" class="botonesgrandes" disabled><i class="fas fa-arrow-circle-left"></i></button>
+                                </div>
+                                <div class="form-group">
+                                    <button type="submit" class="botonesgrandes" disabled><i class="fas fa-arrow-circle-right"></i></button>
+                                </div>
+                                <div class="form-group">
+                                    <button type="submit" class="botonesgrandes" disabled><i class="fas fa-forward"></i></button>
+                                </div>
+                            @endif
                             </div>
                         </div>
-                    </div>
                 </div>
                 @endcanany
 
 
-                <div class="col-sm-5">
-                    <div class="card-body">
+                <div class="col-md-5">
                         <div class="margin">
                             <div class="btn-group">
                                 @canany(['administrador','capturista','reportes'])
-                                    @isset($empresa)
+                                    @if(isset($empresa))
                                         <div class="form-group">
-                                            <button id="buscar" type="button" data-toggle="modal" data-target="#exampleModal" style='width:70px; height:40px'>
+                                            <button id="buscar" type="button" data-toggle="modal" data-target="#exampleModal" class="botonesgrandes">
                                                     <i class="fas fa-search"></i>
                                             </button>
                                         </div>
-                                    @endisset
+                                    @else 
+                                        <div class="form-group">
+                                            <button id="buscar_falso" type="button" class="botones" disabled>
+                                                <i class="fas fa-search"></i>
+                                            </button>
+                                        </div>
+                                    @endif
                                 @endcanany
                                 @canany(['administrador','capturista'])
                                 <div class="form-group">
-                                    <button type="button" id="nuevo" style='width:70px; height:40px'> <i class="fas fa-user-plus"></i></button>
+                                    <button type="button" id="nuevo" class="botonesgrandes"> <i class="fas fa-user-plus"></i></button>
+                                </div>
+                                @elsecanany(['reportes'])
+                                <div class="form-group">
+                                    <button type="button" disabled class="botonesgrandes"> <i class="fas fa-user-plus"></i></button>
                                 </div>
                                 @endcanany
+
+
                                 @canany(['administrador','capturista'])
-                                    @isset($empresa)
+                                    @if(isset($empresa))
                                         <div class="form-group">
-                                            <button type="button" id="actualizar" style='width:70px; height:40px'> <i class="fas fa-pen-square"></i></button>
+                                            <button type="button" id="actualizar" class="botonesgrandes"> <i class="fas fa-pen-square"></i></button>
                                         </div>
-                                    @endisset
+                                    @else
+                                        <div class="form-group">
+                                            <button type="button" class="botonesgrandes"> <i class="fas fa-pen-square"></i></button>
+                                        </div>
+                                    @endif
+                                @elsecanany(['reportes'])
+                                    <div class="form-group">
+                                            <button type="button" disabled class="botonesgrandes"> <i class="fas fa-pen-square"></i></button>
+                                        </div>
                                 @endcanany
                                 @can('administrador')
                                 <div class="form-group">
-                                    @isset($empresa)
-                                    <a href="#" id="eliminar" data-target="#modal-deletenom-{{$empresa->id}}" data-toggle="modal" style='width:70px; height:40px'>
-                                        <button type="button" style='width:70px; height:40px'>
+                                    @if(isset($empresa))
+                                    <a href="#" id="eliminar" data-target="#modal-deletenom-{{$empresa->id}}" data-toggle="modal">
+                                        <button type="button" class="botonesgrandes">
                                             <i class="far fa-trash-alt"></i>
                                         </button>
                                     </a>
+                                    @else
+                                    <div class="form-group">
+                                        <a id="eliminar_vacio">
+                                            <button type="button" disabled class="botonesgrandes">
+                                                <i class="far fa-trash-alt"></i>
+                                            </button>
+                                        </a>
+                                    </div>
                                     @endif
                                 </div>
+                                @elsecanany(['capturista','reportes'])
+                                                <div class="form-group">
+                                                        <a id="eliminar_">
+                                                            <button type="button" disabled class="botonesgrandes">
+                                                                <i class="far fa-trash-alt"></i>
+                                                            </button>
+                                                        </a>
+                                                    </div>
                                 @endcan
                             </div>
                         </div>
-                    </div>
                 </div> 
+
                 <div class="col-sm-2">
-                    <div class="card-body">
                         <div class="margin">
                             <div class="btn-group">
+                                 <!--Su uso solo es para visualizar la existencia del los iconos -->
+                                            <div class="form-group">
+                                                <button id="guardar_falso" disabled class="botonesgrandes"><i class="fas fa-save"></i></button>
+                                            </div>
+
+
                                 <div class="form-group">
-                                    <button id="nuevo_reg" name="acciones" value="registrar" type="submit" style="display: none;width:70px; height:40px"><i class="fas fa-save"></i></button>
+                                    <button id="nuevo_reg" name="acciones" value="registrar" type="submit" style="display: none;background-color: red;" class="botonesgrandes"><i class="fas fa-save"></i></button>
                                 </div>
                                 <div class="form-group">
-                                    <button name="acciones" value="actualizar" id="actualizar_reg" type="submit" style="display: none;width:70px; height:40px"><i class="fas fa-save"></i></button>
+                                    <button name="acciones" value="actualizar" id="actualizar_reg" type="submit" style="display: none;background-color: blue;" class="botonesgrandes"><i class="fas fa-save"></i></button>
                                 </div>
                                 <div class="form-group">
-                                    <button name="acciones" value="cancelar" id="cancelar_reg" type="submit" style="display: none;width:70px; height:40px"><i class="far fa-window-close"></i></button>
+                                    <button name="acciones" value="cancelar" id="cancelar_reg" type="submit" disabled class="botonesgrandes"><i class="far fa-window-close"></i></button>
                                 </div>
-                                <div class="form-group">
-                                    <button name="acciones" value="cancelar_actualiza" id="cancelar_actualiza" type="submit" style="display: none;width:70px; height:40px"><i class="fas fa-window-close"></i></button>
-                                </div>
-                            </div>
+                                
                         </div>
-                    </div>
                 </div>
             </div>	
     	</form>

@@ -43,7 +43,17 @@ scratch. This page gets rid of all links and provides the needed markup only.
       background: #0AACE9;
       color: #fff; 
     }
-
+    .botones{
+      width:2em;
+      height:auto;
+    }
+    .botonesgrandes{
+      width:3.5em;
+      height:auto;
+    }
+    .not-active {
+      pointer-events: none;
+    }
   </style>
 </head>
 <body class="hold-transition sidebar-mini">
@@ -327,38 +337,40 @@ scratch. This page gets rid of all links and provides the needed markup only.
   $(function(){
     $('#nuevo').click(function(){
       $('#actualizar_reg').hide();
-      $('#buscar').hide();
+      $('#guardar_falso').hide();
+      $('#buscar').attr("disabled", true);
       $('#nuevo_reg').show();
-      $('#cancelar_reg').show();
+      $('#cancelar_reg').attr("disabled", false);
       $('input[type="text"]').val('');
       $('input[type="date"]').val('');
       $('input[type="number"]').val('');
       $("input:checkbox").removeAttr("checked");
       $("#naturaleza > option[value=1]").attr("selected",true);
       $("#manejo > option[value=1]").attr("selected",true);
-      $('#primero').hide();
-      $('#atras').hide();
-      $('#siguiente').hide();
-      $('#ultimo').hide();
-      $('#principal').hide();
+      $('#primero').attr("disabled", true);
+      $('#atras').attr("disabled", true);
+      $('#siguiente').attr("disabled", true);
+      $('#ultimo').attr("disabled", true);
+      $('#principal').attr("disabled", true);
       $('#opcion').show();
       $("#areas > option[value=1]").attr("selected",true);
       $('#first_areas').hide();
-      $('#actualizar').hide();
-      $('#eliminar').hide();
-      $('#buscar').hide();
+      $('#actualizar').attr("disabled", true);
+      $('#eliminar').addClass("not-active");
+      $('#buscar').attr("disabled", true);
     });
     $('#actualizar').click(function(){
-      $('#nuevo_reg').hide();
+      $('#nuevo_reg').attr("disabled", true);
       $('#actualizar_reg').show();
-      $('#cancelar_reg').show();
-      $('#primero').hide();
-      $('#atras').hide();
-      $('#siguiente').hide();
-      $('#ultimo').hide();
-      $('#nuevo').hide();
-      $('#eliminar').hide();
-      $('#buscar').hide();
+      $('#guardar_falso').hide();
+      $('#cancelar_reg').attr("disabled", false);
+      $('#primero').attr("disabled", true);
+      $('#atras').attr("disabled", true);
+      $('#siguiente').attr("disabled", true);
+      $('#ultimo').attr("disabled", true);
+      $('#nuevo').attr("disabled", true);
+      $('#eliminar').addClass("not-active");
+      $('#buscar').attr("disabled", true);
     });
     $('.actualizarporid').click(function(){
       $('.prueba').modal('show');
