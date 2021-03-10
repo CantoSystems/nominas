@@ -41,7 +41,7 @@
                               id="nombre" 
                               class="form-control nombre_empleado"
                               value="" 
-                              onkeyup="mayus(this);">
+                              disabled>
                 </div>
               </div>
 
