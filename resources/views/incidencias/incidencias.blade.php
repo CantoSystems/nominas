@@ -11,7 +11,7 @@
                     {{ session('registro')}}
                 </div>
             @endif
-            <form autocomplete="off">
+            <form id="formIncidencias" autocomplete="off">
                 <meta name="csrf-token" content="{{ csrf_token() }}">
                 <div class="row">
                     <div class="col-sm-2">
@@ -23,7 +23,8 @@
                                    maxlength="4" 
                                    class="form-control clave_empledo"
                                    value="" 
-                                   onkeyup="mayus(this);">
+                                   onkeyup="mayus(this);"
+                                   required>
                             <div class="input-group-append">
                                 <span class="input-group-text">
                                     <i class="fas fa-search"></i>
@@ -53,11 +54,12 @@
                                     maxlength="3" 
                                     class="form-control"
                                     value="" 
-                                    onkeyup="mayus(this);">
+                                    onkeyup="mayus(this);"
+                                    required>
                             <div class="input-group-append">
                                 <span class="input-group-text" data-toggle="modal" 
-                                        data-target="#modal-buscarempleado">
-                                        <i class="fas fa-search"></i>
+                                    data-target="#modal-buscarempleado">
+                                    <i class="fas fa-search"></i>
                                 </span>
                                 <div id="listaconcepto_clave"></div>
                                 {{ csrf_field() }}
@@ -78,19 +80,19 @@
                     <div class="col-sm-4">
                         <div class="form-group">
                             <label>Cantidad:</label>
-                            <input type="number" name="cantidad" id="cantidad" class="form-control" step="0.1">
+                            <input type="number" name="cantidad" id="cantidad" required class="form-control" step="0.1">
                         </div>
                     </div>
                     <div class="col-sm-4">
                         <div class="form-group">
                             <label>Importe:</label>
-                            <input type="number" name="importe" id="importe" class="form-control" step="0.1">
+                            <input type="number" name="importe" id="importe" required class="form-control" step="0.1">
                         </div>
                     </div>
                     <div class="col-sm-4">
                         <div class="form-group">
                             <label>Monto:</label>
-                            <input type="number" name="monto" id="monto" class="form-control" step="0.1">
+                            <input type="number" name="monto" id="monto" required class="form-control" step="0.1">
                         </div>
                     </div>
                 </div>
