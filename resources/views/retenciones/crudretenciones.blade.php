@@ -185,7 +185,7 @@
                                                     </div>
                                                 @endif
                                             
-                                            @endcanany
+                                        @endcanany
                                             @canany(['administrador','capturista'])
                                                 <div class="form-group">
                                                     <button type="button" id="nuevo" class="botonesgrandes"> <i
@@ -201,7 +201,7 @@
                                                         <button type="button" class="botonesgrandes" disabled> <i class="fas fa-pen-square"></i></button>
                                                     </div>
                                                 @endif
-                                            @elsecanany(['capturista','reportes'])
+                                            @elsecanany(['reportes'])
                                                 <div class="form-group">
                                                     <button type="button" disabled class="botonesgrandes"> <i class="fas fa-user-plus"></i></button>
                                                 </div>

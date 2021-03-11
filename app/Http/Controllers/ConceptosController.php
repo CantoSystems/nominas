@@ -183,7 +183,7 @@ class ConceptosController extends Controller{
 
     public function actualizar($datos){
         $clv=Session::get('clave_empresa');
-        $clave_concepto= $datos->clave_concepto.$datos->naturaleza;
+        //$clave_concepto= $datos->clave_concepto.$datos->naturaleza;
 
         if($datos->isr=="on"){
             $isr=1;
@@ -222,8 +222,7 @@ class ConceptosController extends Controller{
         ]);
         if($aux1!==""){
             DB::connection('DB_Serverr')->table('conceptos')->where('id',$datos->id)
-            ->update(['clave_concepto'=>$clave_concepto
-                     ,'concepto'=>$datos->concepto
+            ->update(['concepto'=>$datos->concepto
                      ,'formula'=>$datos->formula
                      ,'naturaleza'=>$datos->naturaleza
                      ,'manejo'=>$datos->manejo
