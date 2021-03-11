@@ -158,6 +158,13 @@
                                                         <button type="button" class="botones" disabled> <i class="fas fa-pen-square"></i></button>
                                                     </div>
                                                 @endif
+                                            @elsecanany(['capturista','reportes'])
+                                                <div class="form-group">
+                                                    <button type="button" disabled class="botones"> <i class="fas fa-user-plus"></i></button>
+                                                </div>
+                                                <div class="form-group">
+                                                        <button type="button" class="botones" disabled> <i class="fas fa-pen-square"></i></button>
+                                                    </div>
                                             @endcanany
                                             @can('administrador')  
                                                 @if(isset($banco))

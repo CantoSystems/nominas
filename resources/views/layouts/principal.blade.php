@@ -271,7 +271,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
           //Acción al actualizar el registro
           $('#actualizar').click(function(){
           $('#guardar_falso').hide();
-          $('.cancelar_reg').attr("disabled", false);
+          $('#cancelar_reg').attr("disabled", false);
           $('#nuevo_reg').hide();
           $('#actualizar_reg').show();
           $('#eliminar_falso').show();

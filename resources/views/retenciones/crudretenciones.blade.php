@@ -237,7 +237,7 @@
                                                             </button>
                                                         </a>
                                                     </div>
-                                            @endcan
+                                            @endcanany
                                         </div>
 
 
@@ -246,23 +246,24 @@
 
 
 
-                            <div class="col-sm-3">
+                            <div class="col-md-2">
                                     <div class="margin">
                                         <div class="btn-group">
+                                            <!--Su uso solo es para visualizar la existencia del los iconos -->
                                             <div class="form-group">
-                                                <button id="nuevo_reg" name="acciones" value="registrar" type="submit"
-                                                    style='width:40px; height:27px'><i
+                                                <button id="guardar_falso" disabled class="botonesgrandes"><i class="fas fa-save"></i></button>
+                                            </div>
+                                            <div class="form-group">
+                                                <button id="nuevo_reg" name="acciones" value="registrar" type="submit" class="botonesgrandes" style="display: none;"><i
                                                         class="fas fa-save"></i></button>
                                             </div>
                                             <div class="form-group">
                                                 <button name="acciones" value="actualizar" id="actualizar_reg"
-                                                    type="submit" style='width:40px; height:27px'><i
+                                                    type="submit" style="display: none;" class="botonesgrandes"><i
                                                         class="fas fa-save"></i></button>
                                             </div>
                                             <div class="form-group">
-                                                <button name="acciones" value="cancelar" id="cancelar_reg" type="submit"
-                                                   style='width:40px; height:27px'><i
-                                                        class="far fa-window-close"></i></button>
+                                                <button name="acciones" value="cancelar" id="cancelar_reg" type="submit" class="botonesgrandes" disabled><i class="far fa-window-close"></i></button>
                                             </div>
                                         </div>
                                     </div>
