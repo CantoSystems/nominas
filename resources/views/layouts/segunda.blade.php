@@ -54,6 +54,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
     .not-active {
       pointer-events: none;
     }
+    .activo{
+      background: #9B9898;
+      color: #000000;
+    }
   </style>
 </head>
 <body class="hold-transition sidebar-mini">
@@ -106,7 +110,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
               </p>
             </a>
             <ul class="nav nav-treeview">
-              <li class="nav-item" >
+              <li class="nav-item {{!Route::is('empleados.index') ?: 'active'}}">
                 <a href="{{ route('empleados.index')}}" class="nav-link active">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Empleados</p>
@@ -114,7 +118,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
               </li>
             </ul>
             <ul class="nav nav-treeview">
-              <li class="nav-item">
+              <li class="nav-item {{!Route::is('conceptos.index') ?: 'active'}}">
                 <a href="{{route('conceptos.index')}}" class="nav-link active">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Conceptos</p>
@@ -122,7 +126,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
               </li> 
             </ul>
             <ul class="nav nav-treeview">
-              <li class="nav-item">
+              <li class="nav-item {{!Route::is('areas.index') ?: 'active'}}">
               <a href="{{route('areas.index')}}" class="nav-link active">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Áreas</p>
@@ -130,7 +134,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
               </li>
             </ul>
             <ul class="nav nav-treeview">
-              <li class="nav-item">
+              <li class="nav-item {{!Route::is('departamentos.index') ?: 'active'}}">
                 <a href="{{ route('departamentos.index')}}" class="nav-link active">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Departamentos</p>
@@ -138,7 +142,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
               </li>
             </ul>
             <ul class="nav nav-treeview">
-              <li class="nav-item">
+              <li class="nav-item {{!Route::is('puestos.index') ?: 'active'}}">
               <a href="{{route('puestos.index')}}" class="nav-link active">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Puestos</p>
@@ -146,7 +150,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
               </li> 
             </ul>
             <ul class="nav nav-treeview">
-              <li class="nav-item">
+              <li class="nav-item {{!Route::is('periodos.acciones') ?: 'active'}}">
                 <a href="{{ route('periodos.acciones')}}" class="nav-link active">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Periodos</p>
@@ -154,21 +158,14 @@ scratch. This page gets rid of all links and provides the needed markup only.
               </li>
             </ul>
             <ul class="nav nav-treeview">
-              <li class="nav-item">
+              <li class="nav-item {{!Route::is('prestaciones.index') ?: 'active'}}">
                 <a href="{{ route('prestaciones.index')}}" class="nav-link active">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Prestaciones</p>
                 </a>
               </li>
             </ul>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="{{ route('home')}}" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Cambiar empresa</p>
-                </a>
-              </li>  
-            </ul>
+           
           </li>
           <li class="nav-item has-treeview menu-open">
             <a href="#" class="nav-link">
@@ -179,7 +176,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
               </p>
             </a>
             <ul class="nav nav-treeview">
-              <li class="nav-item">
+              <li class="nav-item {{!Route::is('ausencia.index') ?: 'active'}}">
                 <a href="{{ route('ausencia.index')}}" class="nav-link active">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Ausentismo</p>
@@ -188,7 +185,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
             </ul>
             
              <ul class="nav nav-treeview">
-              <li class="nav-item">
+              <li class="nav-item {{!Route::is('tiempo.index') ?: 'active'}}">
                 <a href="{{ route('tiempo.index')}}" class="nav-link active">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Tiempo Extra</p>
@@ -197,7 +194,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
             </ul>
             
             <ul class="nav nav-treeview">
-              <li class="nav-item">
+              <li class="nav-item {{!Route::is('incidencias.index') ?: 'active'}}">
                 <a href="{{ route('incidencias.index')}}" class="nav-link active">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Incidencias</p>
@@ -217,7 +214,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
             </a>
 
             <ul class="nav nav-treeview">
-              <li class="nav-item">
+              <li class="nav-item {{!Route::is('ausentismo.index') ?: 'active'}}">
                 <a href="{{ route('ausentismo.index')}}" class="nav-link active">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Ausentismo</p>
@@ -226,7 +223,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
             </ul>
  
              <ul class="nav nav-treeview">
-              <li class="nav-item">
+              <li class="nav-item {{!Route::is('horasextras.index') ?: 'active'}}">
                 <a href="{{ route('horasextras.index')}}" class="nav-link active">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Tiempo Extra</p>
@@ -235,7 +232,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
             </ul>
 
             <ul class="nav nav-treeview">
-              <li class="nav-item">
+              <li class="nav-item {{!Route::is('incid2.index') ?: 'active'}}">
                 <a href="{{ route('incid2.index')}}" class="nav-link active">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Incidencias</p>
@@ -244,10 +241,21 @@ scratch. This page gets rid of all links and provides the needed markup only.
             </ul>
           </li>
         </ul>
-      </nav>
-      <!-- /.sidebar-menu -->
-    </div>
+              <!-- /.sidebar-menu -->
+        <hr>
+          <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{ route('home')}}" class="nav-link">
+                <i class="fas fa-external-link-alt"></i>
+                  Cambiar empresa
+                </a>
+              </li>  
+            </ul>
+
+     <hr>
     <!-- /.sidebar -->
+      </nav>
+
   </aside>
 
   <!-- Content Wrapper. Contains page content -->
@@ -308,9 +316,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.10/jquery.mask.js"></script>
 <script src="{{ asset('/Admin/plugins/jquery-ui/jquery-ui.min.js')}}"></script>
 <script>
+  
   $(document).on('click', 'ul li', function(){
     //e.preventDefault();
-  $(this).addClass('active').siblings().removeClass('active')
+  $(this).addClass('activo').siblings().removeClass('activo')
   
   });
 
