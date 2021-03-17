@@ -1,15 +1,18 @@
 @extends('layouts.segunda')
 @section('content')
+
+
+
 <div class="container">
   <div class="card card-secondary">
     <div class="card-header">
       <h3 class="card-title">Empleados</h3>
     </div>
-    
+
     <div class="col-md-12">
           <div class="card-body">
             <div class="margin">
-              <div class="btn-group" style="text-align: center;">
+              <div class="btn-group">
                 @canany(['administrador','capturista'])
                   <div class="form-group">
                     <button type="button" style='width:70px; height:40px; align-items:center;' data-toggle="modal" data-target="#modalcrudempleado">
