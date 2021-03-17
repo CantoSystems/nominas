@@ -146,3 +146,6 @@ Route::get('/ausentismo','AusentismoController@index')->name('ausentismo.index')
 Route::post('/ausentismo/busqueda','AusentismoController@mostrarempleado')->name('ausentismo.mostrarempleado');
 Route::post('/ausentismo/busquedaconcepto','AusentismoController@mostrarconcepto')->name('ausentismo.mostrarconcepto');
 Route::delete('ausentismo/delete/{id}', 'AusentismoController@eliminar')->name('ausentismo.destroy');
+
+// Reestructuración catalogos
+Route::get('/empleado', 'EmpleaController@index')->name('emplea.index');
