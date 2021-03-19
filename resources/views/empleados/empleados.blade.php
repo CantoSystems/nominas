@@ -57,7 +57,8 @@
                         </a>
                         <!--Incluye los modales por cada accion de eliminar generando sean direfentes los ID -->
                         @include('empleados.modaldeleteempleado')
-                        @include('empleados.modalmostrarporid')                
+                        @include('empleados.modalmostrarporid')  
+                        @include('empleados.modalmostrarporid2')                
                       </div>
                     @endcan
                   </td>

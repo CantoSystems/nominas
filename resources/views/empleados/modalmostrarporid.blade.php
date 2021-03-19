@@ -2,7 +2,7 @@
   <div class="modal-dialog modal-dialog-centered modal-xl">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Registro Empleados {{ $persona->clave_empleado }}  {{$persona->apellido_paterno }}</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Registro Empleados: {{ $persona->clave_empleado }} - {{ $persona->nombre }} {{ $persona->apellido_paterno }}</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -1105,35 +1105,25 @@
               
                  
                  
-            
-                      <div class="col-sm-6">
-                        <div class="card-body">
-                          <div class="margin">
-                            <div class="btn-group">
-                              <div class="form-group">
-                                <button type="button" class="actualizarporid" style='width:70px; height:40px'> <i class="fas fa-pen-square"></i></button>
+                      <center>
+                        <div class="col-sm-8">
+                          <div class="card-body">
+                            <div class="margin">
+                              <div class="btn-group">
+                                <div class="form-group">
+                                  <button type="button" class="actualizarporid" style='width: 70px; height: 40px'> <i class="fas fa-pen-square"></i></button>
+                                  <button type="submit" disabled class="prueba" style="width: 70px; height: 40px"><i class="fas fa-save"></i></button>
+                                  <button name="acciones" value="cancelar" class="cancelar_actualizar" style="width:70px; height: 40px;"><i class="far fa-window-close"></i></button>
+                                  <button type="submit" name="acciones" value="primero" id="primero" style="width:70px; height: 40px;" class="botones"><i class="fas fa-backward" ></i></button>
+                                  <button type="submit" name="acciones" value="atras" id="atras" style="width:70px; height: 40px;" class="botones"><i class="fas fa-arrow-circle-left"></i></button>
+                                  <button type="submit" name="acciones" value="siguiente" id="siguiente" style="width:70px; height: 40px;" class="botones"><i class="fas fa-arrow-circle-right"></i></button>
+                                  <button type="submit" name="acciones" value="ultimo" id="ultimo" style="width:70px; height: 40px;" class="botones"><i class="fas fa-forward"></i></button>
+                                </div>
                               </div>
                             </div>
                           </div>
                         </div>
-                      </div>
-
-
-                      <div class="col-sm-2">
-                        <div class="card-body">
-                          <div class="margin">
-                            <div class="btn-group">
-                              <div class="form-group">
-                                <button class="prueba" type="submit" style="display: none;width:70px; height:40px"><i class="fas fa-save"></i></button>
-                              </div>
-                              <div class="form-group">
-                                  <button name="acciones" value="cancelar" class="cancelar_actualizar" style="display: none;width:70px; height:40px"><i class="far fa-window-close"></i></button>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-
+                      </center>
                     </form>
                   </div>
                 </div><!--Final CARD principal-->
