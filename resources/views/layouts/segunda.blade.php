@@ -382,8 +382,12 @@ scratch. This page gets rid of all links and provides the needed markup only.
       $('#buscar').attr("disabled", true);
     });
     $('.actualizarporid').click(function(){
-      $('.prueba').modal('show');
-      $('.cancelar_actualizar').modal('show');
+      $('.prueba').attr("disabled", false)
+      $('.actualizarporid').attr("disabled", true);
+      $('#primero').attr("disabled", true);
+      $('#atras').attr("disabled", true);
+      $('#siguiente').attr("disabled", true);
+      $('#ultimo').attr("disabled", true);
     });
   })
 </script>
