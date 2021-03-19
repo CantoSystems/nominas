@@ -410,7 +410,7 @@
                                         </div>
                                     @else 
                                         <div class="form-group">
-                                            <button id="buscar_falso" type="button" class="botones" disabled>
+                                            <button id="buscar_falso" type="button" class="botonesgrandes" disabled>
                                                 <i class="fas fa-search"></i>
                                             </button>
                                         </div>
@@ -430,11 +430,11 @@
                                 @canany(['administrador','capturista'])
                                     @if(isset($empresa))
                                         <div class="form-group">
-                                            <button type="button" id="actualizar" class="botonesgrandes"> <i class="fas fa-pen-square"></i></button>
+                                            <button type="button" id="actualizar" class="botonesgrandes" style="background-color: red"> <i class="fas fa-pen-square"></i></button>
                                         </div>
                                     @else
                                         <div class="form-group">
-                                            <button type="button" class="botonesgrandes"> <i class="fas fa-pen-square"></i></button>
+                                            <button type="button" disabled class="botonesgrandes"> <i class="fas fa-pen-square"></i></button>
                                         </div>
                                     @endif
                                 @elsecanany(['reportes'])
@@ -483,10 +483,10 @@
 
 
                                 <div class="form-group">
-                                    <button id="nuevo_reg" name="acciones" value="registrar" type="submit" style="display: none;background-color: red;" class="botonesgrandes"><i class="fas fa-save"></i></button>
+                                    <button id="nuevo_reg" name="acciones" value="registrar" type="submit" style="display: none;" class="botonesgrandes"><i class="fas fa-save"></i></button>
                                 </div>
                                 <div class="form-group">
-                                    <button name="acciones" value="actualizar" id="actualizar_reg" type="submit" style="display: none;background-color: blue;" class="botonesgrandes"><i class="fas fa-save"></i></button>
+                                    <button name="acciones" value="actualizar" id="actualizar_reg" type="submit" style="display: none;" class="botonesgrandes"><i class="fas fa-save"></i></button>
                                 </div>
                                 <div class="form-group">
                                     <button name="acciones" value="cancelar" id="cancelar_reg" type="submit" disabled class="botonesgrandes"><i class="far fa-window-close"></i></button>
