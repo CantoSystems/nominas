@@ -118,6 +118,14 @@ scratch. This page gets rid of all links and provides the needed markup only.
               </li>
             </ul>
             <ul class="nav nav-treeview">
+              <li class="nav-item {{!Route::is('emplea.index') ?: 'active'}}">
+                <a href="{{ route('emplea.index')}}" class="nav-link active">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Empleado</p>
+                </a>
+              </li>
+            </ul>
+            <ul class="nav nav-treeview">
               <li class="nav-item {{!Route::is('conceptos.index') ?: 'active'}}">
                 <a href="{{route('conceptos.index')}}" class="nav-link active">
                   <i class="far fa-circle nav-icon"></i>
