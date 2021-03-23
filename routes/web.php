@@ -149,3 +149,4 @@ Route::delete('ausentismo/delete/{id}', 'AusentismoController@eliminar')->name('
 
 // Reestructuración catalogos
 Route::get('/empleado', 'EmpleaController@index')->name('emplea.index');
+Route::get('/empleado/mostrar/{id_emp}','EmpleaController@show')->name('emplea.mostrar');

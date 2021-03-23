@@ -68,8 +68,9 @@ class EmpleaController extends Controller
                 ->get();
 
                 return view('emplea.emplea',compact('departamentos','puestos','bancos','persona','empleados'));
-                break;
+            break;
             case 'busqueda':
+                echo $request->identificador;
                 $departamentos = DB::connection('DB_Serverr')->table('departamentos')->get();
 
                 $puestos = DB::connection('DB_Serverr')->table('puestos')->get();
@@ -81,7 +82,9 @@ class EmpleaController extends Controller
                 ->join('puestos','puestos.clave_puesto','=','empleados.clave_puesto')
                 ->join('areas','areas.clave_area', '=','departamentos.clave_area')
                 ->select('empleados.*','areas.*','departamentos.*','puestos.*')
-                ->latest('id_emp')->first();
+                ->where('id_emp',$request->idEmp)
+                ->orderBy('id_emp')
+				->get()->first();
 
                 $empleados = DB::connection('DB_Serverr')->table('empleados')
                 ->join('departamentos','departamentos.clave_departamento','=','empleados.clave_departamento')
@@ -91,7 +94,7 @@ class EmpleaController extends Controller
                 ->get();
 
                 return view('emplea.emplea',compact('departamentos','puestos','bancos','persona','empleados'));
-                break;
+            break;
             case 'registrar':
                 //return 1;
                 //$this->store($request);
@@ -115,7 +118,14 @@ class EmpleaController extends Controller
                 ->orderBy('id_emp')
                 ->get()->last();
 
-                return view('emplea.emplea',compact('departamentos','puestos','bancos','persona'));
+                $empleados = DB::connection('DB_Serverr')->table('empleados')
+                ->join('departamentos','departamentos.clave_departamento','=','empleados.clave_departamento')
+                ->join('puestos','puestos.clave_puesto','=','empleados.clave_puesto')
+                ->join('areas','areas.clave_area', '=','departamentos.clave_area')
+                ->select('empleados.*','areas.*','departamentos.*','puestos.*')
+                ->get();
+
+                return view('emplea.emplea',compact('departamentos','puestos','bancos','persona','empleados'));
             break;
             case 'primero':
                 $departamentos=DB::connection('DB_Serverr')->table('departamentos')->get();
@@ -131,7 +141,14 @@ class EmpleaController extends Controller
                 ->select('empleados.*','areas.*','departamentos.*','puestos.*')
                 ->get()->first();
 
-                return view('emplea.emplea',compact('departamentos','puestos','bancos','persona'));
+                $empleados = DB::connection('DB_Serverr')->table('empleados')
+                ->join('departamentos','departamentos.clave_departamento','=','empleados.clave_departamento')
+                ->join('puestos','puestos.clave_puesto','=','empleados.clave_puesto')
+                ->join('areas','areas.clave_area', '=','departamentos.clave_area')
+                ->select('empleados.*','areas.*','departamentos.*','puestos.*')
+                ->get();
+
+                return view('emplea.emplea',compact('departamentos','puestos','bancos','persona','empleados'));
             break;
             case 'siguiente':
                 $departamentos=DB::connection('DB_Serverr')->table('departamentos')->get();
@@ -156,10 +173,16 @@ class EmpleaController extends Controller
                   ->select('empleados.*','areas.*','departamentos.*','puestos.*')
                   ->get()->first();
                 }
+                
+                $empleados = DB::connection('DB_Serverr')->table('empleados')
+                ->join('departamentos','departamentos.clave_departamento','=','empleados.clave_departamento')
+                ->join('puestos','puestos.clave_puesto','=','empleados.clave_puesto')
+                ->join('areas','areas.clave_area', '=','departamentos.clave_area')
+                ->select('empleados.*','areas.*','departamentos.*','puestos.*')
+                ->get();
 
-                return view('emplea.emplea',compact('departamentos','puestos','bancos','persona'));
-              break;
-
+                return view('emplea.emplea',compact('departamentos','puestos','bancos','persona','empleados'));
+            break;
             case 'atras':
                 $departamentos=DB::connection('DB_Serverr')->table('departamentos')->get();
 
@@ -185,10 +208,15 @@ class EmpleaController extends Controller
                   ->get()->last();
                 }
 
-                return view('emplea.emplea',compact('departamentos','puestos','bancos','persona'));
-              break;
+                $empleados = DB::connection('DB_Serverr')->table('empleados')
+                ->join('departamentos','departamentos.clave_departamento','=','empleados.clave_departamento')
+                ->join('puestos','puestos.clave_puesto','=','empleados.clave_puesto')
+                ->join('areas','areas.clave_area', '=','departamentos.clave_area')
+                ->select('empleados.*','areas.*','departamentos.*','puestos.*')
+                ->get();
 
-            
+                return view('emplea.emplea',compact('departamentos','puestos','bancos','persona','empleados'));
+            break;
             default:
                 # code...
                 break;
@@ -701,9 +729,33 @@ class EmpleaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
-    {
-        //
+    public function show($id_emp){
+        $clv=Session::get('clave_empresa');
+        $clv_empresa=$this->conectar($clv);
+
+        \Config::set('database.connections.DB_Serverr', $clv_empresa);
+        $departamentos = DB::connection('DB_Serverr')->table('departamentos')->get();
+
+        $puestos = DB::connection('DB_Serverr')->table('puestos')->get();
+
+        $bancos = Banco::all();
+
+        $persona = DB::connection('DB_Serverr')->table('empleados')
+        ->join('departamentos','departamentos.clave_departamento','=','empleados.clave_departamento')
+        ->join('puestos','puestos.clave_puesto','=','empleados.clave_puesto')
+        ->join('areas','areas.clave_area', '=','departamentos.clave_area')
+        ->select('empleados.*','areas.*','departamentos.*','puestos.*')
+        ->where('id_emp',$id_emp)
+        ->first();
+        
+        $empleados = DB::connection('DB_Serverr')->table('empleados')
+        ->join('departamentos','departamentos.clave_departamento','=','empleados.clave_departamento')
+        ->join('puestos','puestos.clave_puesto','=','empleados.clave_puesto')
+        ->join('areas','areas.clave_area', '=','departamentos.clave_area')
+        ->select('empleados.*','areas.*','departamentos.*','puestos.*')
+        ->get();
+
+        return view('emplea.emplea',compact('departamentos','puestos','bancos','persona','empleados'));
     }
 
     /**
