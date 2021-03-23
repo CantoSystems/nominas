@@ -80,19 +80,19 @@
                     <div class="col-sm-4">
                         <div class="form-group">
                             <label>Cantidad:</label>
-                            <input type="number" name="cantidad" id="cantidad" required class="form-control" step="0.1">
+                            <input type="number" name="cantidad"  onkeypress="return numeros(event)" id="cantidad" required class="form-control" step="0.1">
                         </div>
                     </div>
                     <div class="col-sm-4">
                         <div class="form-group">
                             <label>Importe:</label>
-                            <input type="number" name="importe" id="importe" required class="form-control" step="0.1">
+                            <input type="number" name="importe"  onkeypress="return numeros(event)" id="importe" required class="form-control" step="0.1">
                         </div>
                     </div>
                     <div class="col-sm-4">
                         <div class="form-group">
                             <label>Monto:</label>
-                            <input type="number" name="monto" id="monto" required class="form-control" step="0.1">
+                            <input type="number" name="monto" onkeypress="return numeros(event)" id="monto" required class="form-control" step="0.1">
                         </div>
                     </div>
                 </div>

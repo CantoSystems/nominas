@@ -138,19 +138,19 @@
                     <div class="col-sm-4">
                         <div class="form-group">
                             <label>Cantidad:</label>
-                            <input type="number" name="cantidad" value="{{ $incidencias->cantidad ?? '' }}" class="form-control" step="0.1" onkeyup="mayus(this);">
+                            <input type="number" name="cantidad" value="{{ $incidencias->cantidad ?? '' }}" onkeypress="return numeros(event)" class="form-control" step="0.1" onkeyup="mayus(this);">
                         </div>
                     </div>
                     <div class="col-sm-4">
                         <div class="form-group">
                             <label>Importe:</label>
-                            <input type="number" name="importe" value="{{ $incidencias->importe ?? '' }}" class="form-control" step="0.1">
+                            <input type="number" onkeypress="return numeros(event)" name="importe" value="{{ $incidencias->importe ?? '' }}" class="form-control" step="0.1">
                         </div>
                     </div>
                     <div class="col-sm-4">
                         <div class="form-group">
                             <label>Monto:</label>
-                            <input type="number" name="monto"  value="{{ $incidencias->monto ?? '' }}"class="form-control" step="0.1">
+                            <input type="number" name="monto" onkeypress="return numeros(event)"  value="{{ $incidencias->monto ?? '' }}"class="form-control" step="0.1">
                         </div>
                     </div>
                     <div class="col-md-12">

@@ -51,6 +51,7 @@
                                    name="cantidad_tiempo[]" 
                                    id="cantidad_tiempo"
                                    class="list-cantidad form-control"
+                                   onkeypress="return numeros(event)"
                                    onkeyup="mayus(this);">
                         </div>
                     </div>
