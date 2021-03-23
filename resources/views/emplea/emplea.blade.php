@@ -1106,32 +1106,32 @@
                     <div class="btn-group">
                       @canany(['administrador','capturista','reportes'])
                         @if(isset($persona))
-                                <div class="form-group">
-                                    <button type="submit"  name="acciones" value="primero" id="primero" class="botonesgrandes"><i class="fas fa-backward" ></i></button>
-                                </div>
-                                <div class="form-group">
-                                <button type="submit" name="acciones" value="atras" id="atras" class="botonesgrandes"><i class="fas fa-arrow-circle-left"></i></button>
-                                </div>
-                                <div class="form-group">
-                                    <button type="submit" name="acciones" value="siguiente" id="siguiente" class="botonesgrandes"><i class="fas fa-arrow-circle-right"></i></button>
-                                </div>
-                                <div class="form-group">
-                                    <button type="submit" name="acciones" value="ultimo" id="ultimo" class="botonesgrandes"><i class="fas fa-forward"></i></button>
-                                </div>
-                            @else
-                                <div class="form-group">
-                                    <button type="submit" class="botonesgrandes" disabled><i class="fas fa-backward" ></i></button>
-                                </div>
-                                <div class="form-group">
-                                    <button type="submit" class="botonesgrandes" disabled><i class="fas fa-arrow-circle-left"></i></button>
-                                </div>
-                                <div class="form-group">
-                                    <button type="submit" class="botonesgrandes" disabled><i class="fas fa-arrow-circle-right"></i></button>
-                                </div>
-                                <div class="form-group">
-                                    <button type="submit" class="botonesgrandes" disabled><i class="fas fa-forward"></i></button>
-                                </div>
-                            @endif
+                          <div class="form-group">
+                            <button type="submit" name="acciones" value="primero" id="primero" class="botonesgrandes"><i class="fas fa-backward" ></i></button>
+                          </div>
+                          <div class="form-group">
+                            <button type="submit" name="acciones" value="atras" id="atras" class="botonesgrandes"><i class="fas fa-arrow-circle-left"></i></button>
+                          </div>
+                          <div class="form-group">
+                            <button type="submit" name="acciones" value="siguiente" id="siguiente" class="botonesgrandes"><i class="fas fa-arrow-circle-right"></i></button>
+                          </div>
+                          <div class="form-group">
+                            <button type="submit" name="acciones" value="ultimo" id="ultimo" class="botonesgrandes"><i class="fas fa-forward"></i></button>
+                          </div>
+                        @else
+                          <div class="form-group">
+                            <button type="submit" class="botonesgrandes" disabled><i class="fas fa-backward" ></i></button>
+                          </div>
+                          <div class="form-group">
+                            <button type="submit" class="botonesgrandes" disabled><i class="fas fa-arrow-circle-left"></i></button>
+                          </div>
+                          <div class="form-group">
+                            <button type="submit" class="botonesgrandes" disabled><i class="fas fa-arrow-circle-right"></i></button>
+                          </div>
+                          <div class="form-group">
+                            <button type="submit" class="botonesgrandes" disabled><i class="fas fa-forward"></i></button>
+                          </div>
+                        @endif
                       @endcanany
 
                       <!--eSPACIO ENTRE BOTONES-->
@@ -1141,29 +1141,29 @@
                        &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
 
 
-                      @canany(['administrador','capturista','reportes'])
-                                    @if(isset($persona))
-                                        <div class="form-group">
-                                            <button id="buscar" type="button" data-toggle="modal" data-target="#exampleModal" class="botonesgrandes">
-                                                    <i class="fas fa-search"></i>
-                                            </button>
-                                        </div>
-                                    @else 
-                                        <div class="form-group">
-                                            <button id="buscar_falso" type="button" class="botonesgrandes" disabled>
-                                                <i class="fas fa-search"></i>
-                                            </button>
-                                        </div>
-                                    @endif
+                                @canany(['administrador','capturista','reportes'])
+                                  @if(isset($persona))
+                                    <div class="form-group">
+                                      <button id="buscar" type="button" data-toggle="modal" data-target="#modalbusquedaemp" class="botonesgrandes">
+                                        <i class="fas fa-search"></i>
+                                      </button>
+                                    </div>
+                                  @else 
+                                    <div class="form-group">
+                                      <button id="buscar_falso" type="button" class="botonesgrandes" disabled>
+                                        <i class="fas fa-search"></i>
+                                      </button>
+                                    </div>
+                                  @endif
                                 @endcanany
                                 @canany(['administrador','capturista'])
-                                <div class="form-group">
+                                  <div class="form-group">
                                     <button type="button" id="nuevo" class="botonesgrandes"> <i class="fas fa-user-plus"></i></button>
-                                </div>
+                                  </div>
                                 @elsecanany(['reportes'])
-                                <div class="form-group">
+                                  <div class="form-group">
                                     <button type="button" disabled class="botonesgrandes"> <i class="fas fa-user-plus"></i></button>
-                                </div>
+                                  </div>
                                 @endcanany
 
 
@@ -1250,7 +1250,9 @@
       </div>
       </div>
     </div>
+    @include('emplea.modalbusqid')
   </div>
+  
 </div>
  
 @endsection
