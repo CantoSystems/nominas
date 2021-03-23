@@ -5,6 +5,12 @@
     <div class="card card-secondary">
       <div class="card-header">
         <h3 class="card-title">Empleados</h3>
+        <center>
+          {{$persona->nombre ?? ''}}
+          {{$persona->apellido_paterno ?? ''}}
+          {{$persona->apellido_materno ?? ''}}
+        </center>
+        
       </div>
       <div class="card-body">
       <div class="margin">
@@ -53,22 +59,47 @@
                             value="{{ $persona->clave_empleado ?? ''}}">
                             <input type="hidden" class="form-control" name="id_emp" 
                             value="{{ $persona->id_emp ?? ''}}">
+                            @error('clave_empleado')
+                                <div class="alert alert-secondary">
+                                    {{ $message }}
+                                </div>
+                            @enderror
                           </div>
                           <div class="col-md-2">
                             <label for="validationDefault02">Clasificación</label>
                             <input  type="text" class="form-control" name="clasificacion" value="{{$persona->clasificacion ?? ''}}" onkeyup="mayus(this);" onkeypress="return validar(event)">
+                            @error('clasificacion')
+                                <div class="alert alert-secondary">
+                                    {{ $message }}
+                                </div>
+                            @enderror
                           </div>
                           <div class="col-md-3 mb-3">
                             <label for="validationDefault03">Nombre</label>
                             <input  type="text" class="form-control" name="nombre"  onkeyup="mayus(this);" value="{{$persona->nombre ?? ''}}" onkeypress="return validar(event)">
+                            @error('nombre')
+                                <div class="alert alert-secondary">
+                                    {{ $message }}
+                                </div>
+                            @enderror
                           </div>
                           <div class="col-md-3 mb-3">
                             <label for="validationDefault03">Apellido Paterno</label>
                             <input  type="text" class="form-control" name="apellido_paterno" onkeyup="mayus(this);" value="{{$persona->apellido_paterno ?? ''}}" onkeypress="return validar(event)">
+                            @error('nombre')
+                                <div class="alert alert-secondary">
+                                    {{ $message }}
+                                </div>
+                            @enderror
                           </div>
                           <div class="col-md-3 mb-3">
                             <label for="validationDefault03">Apellido Materno</label>
                             <input  type="text" class="form-control" name="apellido_materno" onkeyup="mayus(this);" value="{{$persona->apellido_materno ?? ''}}" onkeypress="return validar(event)">
+                            @error('nombre')
+                                <div class="alert alert-secondary">
+                                    {{ $message }}
+                                </div>
+                            @enderror
                           </div>
                           <div class="col-md-2 mb-3">
                             <label for="validationDefault03">Fecha de alta</label>
@@ -1184,8 +1215,8 @@
                                 @endcanany
                                 @can('administrador')
                                 <div class="form-group">
-                                    @if(isset($empresa))
-                                    <a href="#" id="eliminar" data-target="#modal-deletenom-{{$empresa->id}}" data-toggle="modal">
+                                    @if(isset($persona))
+                                    <a href="#" id="eliminar" data-target="#modaldeleteempleado{{$persona->id_emp}}" data-toggle="modal">
                                         <button type="button" class="botonesgrandes">
                                             <i class="far fa-trash-alt"></i>
                                         </button>
@@ -1226,7 +1257,7 @@
 
 
                                 <div class="form-group">
-                                    <button id="nuevo_reg" name="acciones" value="registrar" type="submit" style="display: none;background-color:" class="botonesgrandes"><i class="fas fa-save"></i></button>
+                                    <button id="nuevo_reg" name="acciones" value="registrar" type="submit" style="display: none;" class="botonesgrandes"><i class="fas fa-save"></i></button>
                                 </div>
                                 <div class="form-group">
                                     <button name="acciones" value="actualizar" id="actualizar_reg" type="submit" style="display: none;" class="botonesgrandes"><i class="fas fa-save"></i></button>
@@ -1251,6 +1282,7 @@
       </div>
     </div>
     @include('emplea.modalbusqid')
+    @include('emplea.modalelimina')
   </div>
   
 </div>

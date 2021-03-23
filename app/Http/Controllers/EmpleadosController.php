@@ -372,7 +372,7 @@ class EmpleadosController extends Controller{
         }else if(is_null($datos->porcentaje4)){
             $datos->porcentaje4 = 0;
         }
-
+        /*
         $datos->validate([
               'clave_empleado' => 'required',
               'clasificacion' => 'required',
@@ -447,7 +447,7 @@ class EmpleadosController extends Controller{
               'clave_banco' => 'required',
               'cuenta_bancaria' => 'required',
               'clabe_interbancaria' => 'required',
-        ]);
+        ]);*/
 
         DB::connection('DB_Serverr')->insert('insert into empleados(clave_empleado
                                                                    ,clasificacion
@@ -807,6 +807,6 @@ class EmpleadosController extends Controller{
         \Config::set('database.connections.DB_Serverr', $clv_empresa);
 
         $aux1 = DB::connection('DB_Serverr')->table('empleados')->where('id_emp',$id_emp)->delete();
-        return redirect()->route('empleados.index');
+        return redirect()->route('emplea.index');
     }
 }

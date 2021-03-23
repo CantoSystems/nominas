@@ -93,9 +93,9 @@ class EmpleaController extends Controller
                 return view('emplea.emplea',compact('departamentos','puestos','bancos','persona','empleados'));
                 break;
             case 'registrar':
-                //return 1;
-                //$this->store($request);
-                //return redirect()->route('emplea.index');
+
+                $this->store($request);
+                return redirect()->route('emplea.index');
             break;
             case 'cancelar':
                 return redirect()->route('emplea.index');
@@ -187,6 +187,11 @@ class EmpleaController extends Controller
 
                 return view('emplea.emplea',compact('departamentos','puestos','bancos','persona'));
               break;
+
+              case 'actualizar':
+                $this->update($request);
+                return redirect()->route("emplea.index");
+                break;
 
             
             default:
@@ -695,38 +700,236 @@ class EmpleaController extends Controller
                                                             ,$datos->observaciones]);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
+    public function update($datos)
     {
-        //
-    }
+        $clv=Session::get('clave_empresa');
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
+        $clv_empresa=$this->conectar($clv);
+        \Config::set('database.connections.DB_Serverr', $clv_empresa);
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
+        if(is_null($datos->finado_padre)){
+            $finado_padre = 1;
+        }else{
+            $finado_padre = 0;
+        }
+
+        if(is_null($datos->finado_madre)){
+            $finado_madre = 1;
+        }else{
+            $finado_madre = 0;
+        }
+
+        if (is_null($datos->solicitar_informes)) {
+            $solicitar_informes = 1;
+        }else{
+            $solicitar_informes = 0;
+        }
+
+        if (is_null($datos->solicitar_informes1)) {
+            $solicitar_informes1 = 1;
+        }else{
+            $solicitar_informes1 = 0;
+        }
+
+        if (is_null($datos->solicitar_informes2)) {
+            $solicitar_informes2 = 1;
+        }else{
+            $solicitar_informes2 = 0;
+        }
+
+        if (is_null($datos->solicitar_informes3)) {
+            $solicitar_informes3 = 1;
+        }else{
+            $solicitar_informes3 = 0;
+        }
+        if (is_null($datos->ptu)) {
+            $ptu = 1;
+        }else{
+            $ptu = 0;
+        }
+
+        if(is_null($datos->porcentaje)){
+            $datos->porcentaje = 0;
+        }else if(is_null($datos->porcentaje1)){
+            $datos->porcentaje1 = 0;
+        }else if(is_null($datos->porcentaje2)){
+            $datos->porcentaje2 = 0;
+        }else if(is_null($datos->porcentaje3)){
+            $datos->porcentaje3 = 0;
+        }else if(is_null($datos->porcentaje4)){
+            $datos->porcentaje4 = 0;
+        }
+
+        $aux1 = DB::connection('DB_Serverr')->table('empleados')->where('id_emp',$datos->id_emp)->first();
+        if($aux1!==""){
+            DB::connection('DB_Serverr')->table('empleados')->where('id_emp',$datos->id_emp)
+            ->update(['clasificacion'=>$datos->clasificacion
+                     ,'nombre'=>$datos->nombre
+                     ,'apellido_paterno'=>$datos->apellido_paterno
+                     ,'apellido_materno'=>$datos->apellido_materno
+                     ,'fecha_alta'=>$datos->fecha_alta
+                     ,'fecha_baja'=>$datos->fecha_baja
+                     ,'causa_baja'=>$datos->causa_baja
+                     ,'clave_departamento'=>$datos->clave_departamento
+                     ,'clave_puesto'=>$datos->clave_puesto
+                     ,'rfc'=>$datos->rfc
+                     ,'curp'=>$datos->curp
+                     ,'imss'=>$datos->imss
+                     ,'afore'=>$datos->afore
+                     ,'ine'=>$datos->ine
+                     ,'pasaporte'=>$datos->pasaporte
+                     ,'cartilla'=>$datos->cartilla
+                     ,'licencia'=>$datos->licencia
+                     ,'documento_migratorio'=>$datos->documento_migratorio
+                     ,'calle'=>$datos->calle
+                     ,'numero_interno'=>$datos->numero_interno
+                     ,'numero_externo'=>$datos->numero_externo
+                     ,'colonia'=>$datos->colonia
+                     ,'cp'=>$datos->cp
+                     ,'ciudad'=>$datos->ciudad
+                     ,'municipio'=>$datos->municipio
+                     ,'estado'=>$datos->estado
+                     ,'telefono_empleado'=>$datos->telefono_empleado
+                     ,'correo'=>$datos->correo
+                     ,'sexo'=>$datos->sexo
+                     ,'estado_civil'=>$datos->estado_civil
+                     ,'nacionalidad'=>$datos->nacionalidad
+                     ,'tipo_sangre'=>$datos->tipo_sangre
+                     ,'alergias'=>$datos->alergias
+                     ,'estatura'=>$datos->estatura
+                     ,'peso'=>$datos->peso
+                     ,'enfermedad_cronica'=>$datos->enfermedad_cronica
+                     ,'deporte'=>$datos->deporte
+                     ,'pasatiempo'=>$datos->pasatiempo
+                     ,'asosiacion'=>$datos->asosiacion
+                     ,'objetivo_vida'=>$datos->objetivo_vida
+                     ,'fecha_nacimiento'=>$datos->fecha_nacimiento
+                     ,'lugar'=>$datos->lugar
+                     ,'umf'=>$datos->umf
+                     ,'nombre_padre'=>$datos->nombre_padre
+                     ,'nombre_madre'=>$datos->nombre_madre
+                     ,'finado_padre'=>$finado_padre
+                     ,'finado_madre'=>$finado_madre
+                     ,'direccion_padre'=>$datos->direccion_padre
+                     ,'direccion_madre'=>$datos->direccion_madre
+                     ,'ocupacion_padre'=>$datos->ocupacion_padre
+                     ,'ocupacion_madre'=>$datos->ocupacion_madre
+                     ,'hijos'=>$datos->hijos
+                     ,'idiomas'=>$datos->idiomas
+                     ,'funciones_oficina'=>$datos->funciones_oficina
+                     ,'maquinas_oficina'=>$datos->maquinas_oficina
+                     ,'software'=>$datos->software
+                     ,'otras_funciones'=>$datos->otras_funciones
+                     ,'beneficiario'=>$datos->beneficiario
+                     ,'beneficiario1'=>$datos->beneficiario1
+                     ,'beneficiario2'=>$datos->beneficiario2
+                     ,'beneficiario3'=>$datos->beneficiario3
+                     ,'beneficiario4'=>$datos->beneficiario4
+                     ,'parentesco'=>$datos->parentesco
+                     ,'parentesco1'=>$datos->parentesco1
+                     ,'parentesco2'=>$datos->parentesco2
+                     ,'parentesco3'=>$datos->parentesco3
+                     ,'parentesco4'=>$datos->parentesco4
+                     ,'porcentaje'=>$datos->porcentaje
+                     ,'porcentaje1'=>$datos->porcentaje1
+                     ,'porcentaje2'=>$datos->porcentaje2
+                     ,'porcentaje3'=>$datos->porcentaje3
+                     ,'porcentaje4'=>$datos->porcentaje4
+                     ,'primaria'=>$datos->primaria
+                     ,'duracion_primaria'=>$datos->duracion_primaria
+                     ,'titulo_primaria'=>$datos->titulo_primaria
+                     ,'secundaria'=>$datos->secundaria
+                     ,'duracion_secundaria'=>$datos->duracion_secundaria
+                     ,'titulo_secundaria'=>$datos->titulo_secundaria
+                     ,'preparatoria'=>$datos->preparatoria
+                     ,'duracion_preparatoria'=>$datos->duracion_preparatoria
+                     ,'titulo_preparatoria'=>$datos->titulo_preparatoria
+                     ,'profesional'=>$datos->profesional
+                     ,'duracion_profesional'=>$datos->duracion_profesional
+                     ,'titulo_profesional'=>$datos->titulo_profesional
+                     ,'otras'=>$datos->otras
+                     ,'duracion_otras'=>$datos->duracion_otras
+                     ,'titulo_otras'=>$datos->titulo_otras
+                     ,'estudio_actual'=>$datos->estudio_actual
+                     ,'carrera'=>$datos->carrera
+                     ,'grado'=>$datos->grado
+                     ,'horario'=>$datos->horario
+                     ,'duracion_trabajo'=>$datos->duracion_trabajo
+                     ,'nombre_compania'=>$datos->nombre_compania
+                     ,'direccion_compania'=>$datos->direccion_compania
+                     ,'telefono_compania'=>$datos->telefono_compania
+                     ,'sueldo'=>$datos->sueldo
+                     ,'motivo_separacion'=>$datos->motivo_separacion
+                     ,'nombre_jefe'=>$datos->nombre_jefe
+                     ,'puesto_jefe'=>$datos->puesto_jefe
+                     ,'solicitar_informes'=>$solicitar_informes
+                     ,'razones'=>$datos->razones
+                     ,'duracion_trabajo1'=>$datos->duracion_trabajo1
+                     ,'nombre_compania1'=>$datos->nombre_compania1
+                     ,'direccion1_trabajo1'=>$datos->direccion1_trabajo1
+                     ,'telefono1'=>$datos->telefono1
+                     ,'sueldo1'=>$datos->sueldo1
+                     ,'motivo_separacion1'=>$datos->motivo_separacion1
+                     ,'nombre_jefe1'=>$datos->nombre_jefe1
+                     ,'puesto_jefe1'=>$datos->puesto_jefe1
+                     ,'solicitar_informes1'=>$solicitar_informes1
+                     ,'razones1'=>$datos->razones1
+                     ,'duracion_trabajo2'=>$datos->duracion_trabajo2
+                     ,'nombre_compania2'=>$datos->nombre_compania2
+                     ,'direccion_compania2'=>$datos->direccion_compania2
+                     ,'telefono2'=>$datos->telefono2
+                     ,'sueldo2'=>$datos->sueldo2
+                     ,'motivo_separacion2'=>$datos->motivo_separacion2
+                     ,'nombre_jefe2'=>$datos->nombre_jefe2
+                     ,'puesto_jefe2'=>$datos->puesto_jefe2
+                     ,'solicitar_informes2'=>$solicitar_informes2
+                     ,'razones2'=>$datos->razones2
+                     ,'duracion_trabajo3'=>$datos->duracion_trabajo3
+                     ,'nombre_compania3'=>$datos->nombre_compania3
+                     ,'direccion3'=>$datos->direccion3
+                     ,'telefono3'=>$datos->telefono3
+                     ,'sueldo3'=>$datos->sueldo3
+                     ,'motivo_separacion3'=>$datos->motivo_separacion3
+                     ,'nombre_jefe3'=>$datos->nombre_jefe3
+                     ,'puesto_jefe3'=>$datos->puesto_jefe3
+                     ,'solicitar_informes3'=>$solicitar_informes3
+                     ,'razones3'=>$datos->razones3
+                     ,'referencia'=>$datos->referencia
+                     ,'direccion_trabajo'=>$datos->direccion_trabajo
+                     ,'telefono_referencia'=>$datos->telefono_referencia
+                     ,'ocupacion'=>$datos->ocupacion
+                     ,'tiempo'=>$datos->tiempo
+                     ,'referencia1'=>$datos->referencia1
+                     ,'direccion1'=>$datos->direccion1
+                     ,'telefono_referencia1'=>$datos->telefono_referencia1
+                     ,'ocupacion1'=>$datos->ocupacion1
+                     ,'tiempo1'=>$datos->tiempo1
+                     ,'referencia2'=>$datos->referencia2
+                     ,'direccion2'=>$datos->direccion2
+                     ,'telefono_referencia2'=>$datos->telefono_referencia2
+                     ,'ocupacion2'=>$datos->ocupacion2
+                     ,'tiempo2'=>$datos->tiempo2
+                     ,'tipo_trabajador'=>$datos->tipo_trabajador
+                     ,'turno'=>$datos->turno
+                     ,'contrato'=>$datos->contrato
+                     ,'vigencia'=>$datos->vigencia
+                     ,'horario_trabajoinicio'=>$datos->horario_trabajoinicio
+                     ,'horario_trabajofin'=>$datos->horario_trabajofin
+                     ,'sueldo_diario'=>$datos->sueldo_diario
+                     ,'nivel'=>$datos->nivel
+                     ,'categoria'=>$datos->categoria
+                     ,'tipo_salario'=>$datos->tipo_salario
+                     ,'tipo_jornada'=>$datos->tipo_jornada
+                     ,'dias'=>$datos->dias
+                     ,'horas_diarias'=>$datos->horas_diarias
+                     ,'forma_pago'=>$datos->forma_pago
+                     ,'cuenta_bancaria'=>$datos->cuenta_bancaria
+                     ,'clabe_interbancaria'=>$datos->clabe_interbancaria
+                     ,'clave_banco'=>'BNC1'
+                     ,'ptu'=>$ptu
+                     ,'observaciones'=>$datos->observaciones]);
+        }
+        
     }
 
     /**
@@ -735,8 +938,14 @@ class EmpleaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($id_emp)
     {
-        //
+        $clv= Session::get('clave_empresa');
+        $clv_empresa=$this->conectar($clv);
+
+        \Config::set('database.connections.DB_Serverr', $clv_empresa);
+
+        $aux1 = DB::connection('DB_Serverr')->table('empleados')->where('id_emp',$id_emp)->delete();
+        return redirect()->route('emplea.index');
     }
 }
