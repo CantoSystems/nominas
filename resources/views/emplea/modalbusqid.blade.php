@@ -9,7 +9,7 @@
 					<span aria-hidden="true">×</span>
 				</button>
 			</div>
-            <form method="GET" action="{{ route('emplea.index')}}">
+            <form method="GET">
                 <div class="modal-body">
                     <table class="table table-bordered table-striped" id="example1">
                         <div class="col-sm-12">
@@ -25,20 +25,22 @@
                             </thead>
                             <tbody>
                                 @if(!empty($empleados))
-                                    @foreach($empleados as $persona)
+                                    @foreach($empleados as $per)
                                         <tr>
-                                            <td scope="row">{{ $persona->clave_empleado }}</td>
-                                            <td>{{ $persona->nombre}} {{ $persona->apellido_paterno }} {{ $persona->apellido_materno }}</td>
-                                            <td>{{ $persona->nombre_puesto }}</td>
-                                            <td>{{ $persona->departamento }}</td>
-                                            <td>{{ $persona->area }}</td>
+                                            <td scope="row">{{ $per->clave_empleado }}</td>
+                                            <td>{{ $per->nombre}} {{ $per->apellido_paterno }} {{ $per->apellido_materno }}</td>
+                                            <td>{{ $per->nombre_puesto }}</td>
+                                            <td>{{ $per->departamento }}</td>
+                                            <td>{{ $per->area }}</td>
                                             <td style="width: 20px;">
                                                 @canany(['administrador','capturista'])
                                                     <div>
                                                         <center>
-                                                            <button type="submit" name="acciones" value="busqueda" id="busqueda" style='width:70px; height:40px'>
-                                                                <i class="far fa-eye"></i>
-                                                            </button>
+                                                            <a href="{{ route('emplea.mostrar',$per->id_emp) }}">
+                                                                <button type="button" style='width:70px; height:40px'>
+                                                                    <i class="far fa-eye"></i>
+                                                                </button>
+                                                            </a>
                                                         </center>         
                                                     </div>
                                                 @endcan

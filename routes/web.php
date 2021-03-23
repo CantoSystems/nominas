@@ -150,5 +150,8 @@ Route::delete('ausentismo/delete/{id}', 'AusentismoController@eliminar')->name('
 
 
 // Reestructuración catalogos
-Route::delete('/empleados/{id_emp}','EmpleaController@destroy')->name('emplea.destroy');
+
 Route::get('/empleado', 'EmpleaController@index')->name('emplea.index');
+Route::get('/empleado/mostrar/{id_emp}','EmpleaController@show')->name('emplea.mostrar');
+Route::delete('/empleados/{id_emp}','EmpleaController@destroy')->name('emplea.destroy');
+
