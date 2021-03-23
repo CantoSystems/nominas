@@ -51,8 +51,6 @@
                             <label for="validationDefault01">Clave</label>
                             <input type="text" class="form-control" name="clave_empleado" onkeypress="return numeros(event)" maxlength="4" 
                             value="{{ $persona->clave_empleado ?? ''}}">
-                            <input type="hidden" class="form-control" name="id_emp" 
-                            value="{{ $persona->id_emp ?? ''}}">
                           </div>
                           <div class="col-md-2">
                             <label for="validationDefault02">Clasificación</label>
