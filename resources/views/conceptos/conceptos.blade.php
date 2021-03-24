@@ -119,19 +119,19 @@
                         <div class="col-sm-2">
                             <div class="form-group">
                                 <label>Cantidad:</label>
-                                <input type="text" name="cantidad" class="form-control" value="{{$aux->cantidad}}" onkeyup="mayus(this);" onkeypress="return numeros(event)">
+                                <input type="number" name="cantidad" class="form-control" value="{{$aux->cantidad}}" onkeyup="mayus(this);" onkeypress="return numeros(event)">
                             </div>
                         </div>
                         <div class="col-sm-2">
                             <div class="form-group">
                                 <label>Importe:</label>
-                                <input type="text" name="importe" class="form-control" value="{{$aux->importe}}" onkeyup="mayus(this);">
+                                <input type="number" name="importe" class="form-control" value="{{$aux->importe}}" onkeypress="return numeros(event)" onkeyup="mayus(this);">
                             </div>
                         </div>
                         <div class="col-sm-2">
                             <div class="form-group">
                                 <label>Monto:</label>
-                                <input type="text" name="monto" class="form-control" value="{{$aux->monto}}" onkeyup="mayus(this);">
+                                <input type="number" name="monto" class="form-control" value="{{$aux->monto}}" onkeypress="return numeros(event)" onkeyup="mayus(this);">
                             </div>
                         </div>
                         <div class="col-sm-4">

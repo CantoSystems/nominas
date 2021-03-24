@@ -379,6 +379,7 @@ class EmpleaController extends Controller
               'clabe_interbancaria' => 'required',
         ]);
 
+        
         DB::connection('DB_Serverr')->insert('insert into empleados(clave_empleado
                                                                    ,clasificacion
                                                                    ,nombre

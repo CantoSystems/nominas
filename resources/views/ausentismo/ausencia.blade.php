@@ -52,6 +52,7 @@
                             name="cantidad_ausentismo" 
                             id="cantidad_ausentismo"
                             class="list-cantidad form-control"
+                            onkeypress="return numeros(event)"
                             onkeyup="mayus(this);">
                 </div>
               </div>

@@ -13,6 +13,13 @@
         
       </div>
       <div class="card-body">
+        @if ($errors->any())
+          <div class="alert alert-danger">
+              <ul>
+                  <li>Registro sin éxito, es necesario rellenar los campos obligatorios</li>
+               </ul>
+          </div>
+        @endif
       <div class="margin">
               <div class="card card-secondary card-tabs">
                 <!--INICIO Cabeceras-->
@@ -48,15 +55,16 @@
                   <div class="tab-content" id="custom-tabs-one-tabContent">
                     <!--Inicio Personal-->
                      <div class="tab-pane fade show active" id="custom-tabs-one-personal" role="tabpanel" aria-labelledby="custom-tabs-one-personal-tab">
-                      <form method="GET" action="{{ route('emplea.index')}}">
+                      <form method="GET" action="{{ route('emplea.index')}}" >
                         
                         <!--Inicio FORM-->
                         <!--Personal 1-->
                         <div class="form-row">
                           <div class="col-md-1 mb-2">
                             <label for="validationDefault01">Clave</label>
-                            <input type="text" class="form-control" name="clave_empleado" onkeypress="return numeros(event)" maxlength="4" 
+                            <input type="text" class="form-control" name="clave_empleado" maxlength="4" onkeyup="mayus(this);"
                             value="{{ $persona->clave_empleado ?? ''}}">
+
                             <input type="hidden" class="form-control" name="id_emp" 
                             value="{{ $persona->id_emp ?? ''}}">
                             @error('clave_empleado')
@@ -1304,11 +1312,7 @@
                             <br>
                             <label for="validationDefault01">Sueldo diario integrado</label>
                             <input  type="number" class="form-control" name="sueldo_integrado" value="{{$persona->sueldo_integrado ?? ''}}" maxlength="5" min="0.01" max="10000.00" step="0.01" onkeypress="return numeros(event)" readonly>
-                            @error('sueldo_integrado')
-                                <div class="alert alert-secondary">
-                                    {{ $message }}
-                                </div>
-                          @enderror
+                            
                           </div>
                           <div class="col-md-3 mb-2">
                             <label for="validationDefault01">Tabulación<br>Nivel</label>

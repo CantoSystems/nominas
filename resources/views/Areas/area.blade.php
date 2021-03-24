@@ -77,14 +77,14 @@
                                 <div class="form-group">
                                     <label>Nombre del área</label>
                                     @if(isset($aux))
-                                        <input type="text" name="area" class="form-control" value="{{$aux->area}}" onkeyup="mayus(this);">
+                                        <input type="text" name="area" class="form-control" value="{{$aux->area}}" onkeyup="mayus(this);" onkeypress="return validar(event)">
                                         @error('area')
                                             <div class="alert alert-secondary">
                                                 {{ $message }}
                                             </div>
                                         @enderror
                                     @else
-                                        <input type="text" name="area" class="form-control" onkeyup="mayus(this);">
+                                        <input type="text" name="area" class="form-control" onkeyup="mayus(this);" onkeypress="return validar(event)">
                                         @error('area')
                                             <div class="alert alert-secondary">
                                                 {{ $message }}
