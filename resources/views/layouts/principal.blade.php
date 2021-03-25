@@ -87,7 +87,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
           <img src="{{ asset('/Admin/dist/img/user2-160x160.jpg')}}" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
-          <a href="#" class="d-block">{{ auth()->user()->nombre }} {{ auth()->user()->nombre }}</a>
+          <a href="#" class="d-block">{{ auth()->user()->nombre }} {{ auth()->user()->apellido_paterno }}</a>
         </div>
       </div>
 

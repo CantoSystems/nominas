@@ -101,6 +101,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <div class="sidebar">
       <nav class="mt-2">
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+          
           <li class="nav-item has-treeview menu-open">
             <a href="#" class="nav-link">
               <i class="fas fa-list-ul"></i>
@@ -109,14 +110,14 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <i class="right fas fa-angle-left"></i>
               </p>
             </a>
-            <ul class="nav nav-treeview">
+            <!--<ul class="nav nav-treeview">
               <li class="nav-item {{!Route::is('empleados.index') ?: 'active'}}">
                 <a href="{{ route('empleados.index')}}" class="nav-link active">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Empleados</p>
                 </a>
               </li>
-            </ul>
+            </ul>-->
             <ul class="nav nav-treeview">
               <li class="nav-item {{!Route::is('emplea.index') ?: 'active'}}">
                 <a href="{{ route('emplea.index')}}" class="nav-link active">
@@ -175,6 +176,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
             </ul>
            
           </li>
+
           <li class="nav-item has-treeview menu-open">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-tachometer-alt"></i>
@@ -209,7 +211,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 </a>
               </li>
             </ul>
-         
+          </li>
 
 
           <li class="nav-item has-treeview menu-open">
@@ -248,7 +250,28 @@ scratch. This page gets rid of all links and provides the needed markup only.
               </li>
             </ul>
           </li>
-        </ul>
+        
+        <!---->
+        <li class="nav-item has-treeview menu-open">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-tachometer-alt"></i>
+              <p>
+               Nómina
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+
+            <ul class="nav nav-treeview">
+              <li class="nav-item {{!Route::is('reportnomina.index') ?: 'active'}}">
+                <a href="{{ route('reportnomina.index')}}" class="nav-link active">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Nómina normal</p>
+                </a>
+              </li>
+            </ul>
+ 
+            
+        
               <!-- /.sidebar-menu -->
         <hr>
           <ul class="nav nav-treeview">
@@ -262,7 +285,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
      <hr>
     <!-- /.sidebar -->
+          </ul>
       </nav>
+    </div>
 
   </aside>
 
