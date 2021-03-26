@@ -37,6 +37,21 @@
 					<td>{{$persona->clave_empleado}} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 						{{ $persona->nombre}} {{ $persona->apellido_paterno }} {{ $persona->apellido_materno }}
 					</td>
+					<td></td>
+					<td>
+						<table>
+							<thead>
+								@foreach($deducciones as $ded)
+								<tr>
+									
+									<td>{{$ded->concepto}} - {{$ded->fecha_ausentismo}}</td>
+									
+								</tr>
+
+								@endforeach
+							</thead>
+						</table>
+					</td>
 				</tr>
 			</tbody>
 		</table>

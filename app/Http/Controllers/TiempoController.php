@@ -7,6 +7,7 @@ use DB;
 use Session;
 use DataTables;
 use Illuminate\Support\Facades\Schema;
+use Carbon\Carbon;
 
 class TiempoController extends Controller
 {   
@@ -80,7 +81,8 @@ class TiempoController extends Controller
         foreach ($data as $value) {
             //echo ;
             //echo $value->
-             DB::connection('DB_Serverr')->insert('INSERT INTO tiempo_extra (clave_empleado,cantidad_tiempo,fecha_extra) VALUES (?,?,?)',[$value->empleado,$value->cantidad,$value->fecha]);
+            $fecha_periodo = now()->toDateString();
+             DB::connection('DB_Serverr')->insert('INSERT INTO tiempo_extra (clave_empleado,cantidad_tiempo,fecha_extra,created_at,updated_at) VALUES (?,?,?,?,?)',[$value->empleado,$value->cantidad,$value->fecha,$fecha_periodo,$fecha_periodo]);
         }
      
     }

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use DB;
 use Session;
+use Carbon\Carbon;
 
 class IncidenciaController extends Controller{
 
@@ -80,20 +81,21 @@ class IncidenciaController extends Controller{
         \Config::set('database.connections.DB_Serverr', $clv_empresa);
 
         foreach ($data as $value) {
+            $fecha_periodo = now()->toDateString();
             DB::connection('DB_Serverr')->insert('INSERT INTO incidencias (clave_concepto
                                                                           ,clave_empleado
                                                                           ,cantidad
                                                                           ,importe
-                                                                          ,monto)
+                                                                          ,monto,created_at,updated_at)
                                                                   VALUES (?
                                                                          ,?
                                                                          ,?
                                                                          ,?
-                                                                         ,?)',[$value->concepto
+                                                                         ,?,?,?)',[$value->concepto
                                                                              ,$value->empleado
                                                                              ,$value->cantidad
                                                                              ,$value->importe
-                                                                             ,$value->monto]);
+                                                                             ,$value->monto,$fecha_periodo,$fecha_periodo]);
         }
     }
 }
