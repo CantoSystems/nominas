@@ -14,7 +14,7 @@ class CreateSalarioMinimosTable extends Migration
     public function up()
     {
         Schema::create('salario_minimos', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->bigIncrements('idSalarioMinimo');
             $table->date('fechaInicio');
             $table->date('fechafin');
             $table->string('region');
