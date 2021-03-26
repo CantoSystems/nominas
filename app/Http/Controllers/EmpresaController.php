@@ -211,7 +211,7 @@ class EmpresaController extends Controller{
             $table->increments('id');
             $table->char('clave_concepto', 5);
             $table->string('concepto',100);
-            $table->string('formula',100);
+            $table->string('formula',100)->nullable();
             $table->string('naturaleza',100);
             $table->string('manejo',100);
             $table->float('cantidad')->nullable();

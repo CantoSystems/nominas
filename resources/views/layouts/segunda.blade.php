@@ -91,11 +91,18 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <!-- Main Sidebar Container -->
   <aside class="main-sidebar sidebar-dark-primary bg-gray elevation-4">
     <!-- Brand Logo -->
-    <a href="index3.html" class="brand-link">
+    <a href="#" class="brand-link">
       <img src="{{ asset('/Admin/dist/img/logo.png')}}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
            style="opacity: .8">
-      <span class="brand-text font-weight-light">{{ Session::get('clave_empresa') }}</span>
+      <span class="brand-text font-weight-light">{{ Session::get('empresa') }} <br>
+      </span>
     </a>
+    <center>
+           <a href="{{ route('home')}}" class="nav-link">
+                <i class="fas fa-external-link-alt"></i>
+                  Cambiar empresa
+                </a>
+        </center>
 
     <!-- Sidebar -->
     <div class="sidebar">
@@ -269,22 +276,12 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 </a>
               </li>
             </ul>
+          </li>
+
  
             
         
-              <!-- /.sidebar-menu -->
-        <hr>
-          <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="{{ route('home')}}" class="nav-link">
-                <i class="fas fa-external-link-alt"></i>
-                  Cambiar empresa
-                </a>
-              </li>
-            </ul>
-
-     <hr>
-    <!-- /.sidebar -->
+    
           </ul>
       </nav>
     </div>
@@ -298,7 +295,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-
           </div><!-- /.col -->
 
         </div><!-- /.row -->
@@ -308,6 +304,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
     <!-- Main content -->
     @yield('content')
+</div>
+
+</body>
+
 
   <!-- Main Footer -->
   <footer class="main-footer">
@@ -315,7 +315,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <strong>Canto Contadores &copy; 1989-2020</strong>
   </footer>
 <!-- ./wrapper -->
-
+</html>
 <!-- REQUIRED SCRIPTS -->
 
 <!-- jQuery -->
