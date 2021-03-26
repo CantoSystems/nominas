@@ -94,7 +94,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <a href="index3.html" class="brand-link">
       <img src="{{ asset('/Admin/dist/img/logo.png')}}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
            style="opacity: .8">
-      <span class="brand-text font-weight-light">CDB Nominas</span>
+      <span class="brand-text font-weight-light">{{ Session::get('clave_empresa') }}</span>
     </a>
 
     <!-- Sidebar -->
@@ -109,19 +109,19 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <i class="right fas fa-angle-left"></i>
               </p>
             </a>
-            <ul class="nav nav-treeview">
+            <!--<ul class="nav nav-treeview">
               <li class="nav-item {{!Route::is('empleados.index') ?: 'active'}}">
                 <a href="{{ route('empleados.index')}}" class="nav-link active">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Empleados</p>
                 </a>
               </li>
-            </ul>
+            </ul>-->
             <ul class="nav nav-treeview">
               <li class="nav-item {{!Route::is('emplea.index') ?: 'active'}}">
                 <a href="{{ route('emplea.index')}}" class="nav-link active">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Empleado</p>
+                  <p>Empleados</p>
                 </a>
               </li>
             </ul>
@@ -177,9 +177,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
           </li>
           <li class="nav-item has-treeview menu-open">
             <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-tachometer-alt"></i>
+              <i class="far fa-edit"></i>
               <p>
-               Captura
+                Captura
                 <i class="right fas fa-angle-left"></i>
               </p>
             </a>
@@ -214,7 +214,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
           <li class="nav-item has-treeview menu-open">
             <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-tachometer-alt"></i>
+              <i class="fas fa-book"></i>
               <p>
                 Cambios y consultas
                 <i class="right fas fa-angle-left"></i>
@@ -248,20 +248,37 @@ scratch. This page gets rid of all links and provides the needed markup only.
               </li>
             </ul>
           </li>
-        </ul>
-              <!-- /.sidebar-menu -->
-        <hr>
-          <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="{{ route('home')}}" class="nav-link">
-                <i class="fas fa-external-link-alt"></i>
-                  Cambiar empresa
-                </a>
-              </li>  
-            </ul>
 
-     <hr>
-    <!-- /.sidebar -->
+          <li class="nav-item has-treeview menu-open">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-tachometer-alt"></i>
+              <p>
+                Emisión de nóminas
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+
+            <ul class="nav nav-treeview">
+              <li class="nav-item {{!Route::is('ausentismo.index') ?: 'active'}}">
+                <a href="{{ route('ausentismo.index')}}" class="nav-link active">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Nómina normal</p>
+                </a>
+              </li>
+            </ul>
+          </ul>
+              <!-- /.sidebar-menu -->
+          <hr>
+          <ul class="nav nav-treeview">
+            <li class="nav-item">
+              <a href="{{ route('home')}}" class="nav-link">
+              <i class="fas fa-external-link-alt"></i>
+                Cambiar empresa
+              </a>
+            </li>  
+          </ul>
+          <hr>
+        </ul>
       </nav>
 
   </aside>

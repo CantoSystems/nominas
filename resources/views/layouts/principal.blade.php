@@ -87,7 +87,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
           <img src="{{ asset('/Admin/dist/img/user2-160x160.jpg')}}" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
-          <a href="#" class="d-block">{{ auth()->user()->nombre }} {{ auth()->user()->nombre }}</a>
+          <a href="#" class="d-block">{{ auth()->user()->nombre }} {{ auth()->user()->apellido_paterno }}</a>
         </div>
       </div>
 
@@ -155,15 +155,23 @@ scratch. This page gets rid of all links and provides the needed markup only.
               </p>
             </a>
           </li>
-          @can('administrador')
-          <li class="nav-item {{!Route::is('usuarios.index') ?: 'activo'}}">
-            <a href="{{ route('usuarios.index')}}" class="nav-link">
+          <li class="nav-item {{!Route::is('salariomin.acciones') ?: 'activo'}}">
+            <a href="{{ route('salariomin.acciones')}}" class="nav-link">
               <i class="nav-icon fas fa-th"></i>
               <p>
-                Usuarios
+                Tabla Salario Mínimo
               </p>
             </a>
           </li>
+          @can('administrador')
+            <li class="nav-item {{!Route::is('usuarios.index') ?: 'activo'}}">
+              <a href="{{ route('usuarios.index')}}" class="nav-link">
+                <i class="nav-icon fas fa-th"></i>
+                <p>
+                  Usuarios
+                </p>
+              </a>
+            </li>
           @endcan
           <div class="sidebar">
             <div class="info">
