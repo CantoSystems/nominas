@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 class SalarioMinimoController extends Controller{
     public function acciones(Request $request){
         $accion= $request->acciones;
-        //$clv=$request->id_imss;
+        $clv=$request->idSalMin;
 
         switch ($accion) {
             case '':
@@ -16,132 +16,82 @@ class SalarioMinimoController extends Controller{
                 $salMins = SalarioMinimo::all();
                 return view('salarios.crudsalarios', compact('salMin','salMins'));
                 break;
-            /*case 'atras':
-                $id= IMSS::where('id_imss',$clv)->first();
-                $imss= IMSS::where('id_imss','<',$id->id_imss)->orderBy('id_imss','desc')->first();
-                if($imss==""){
-                    $imss= IMSS::get()->last();
+            case 'atras':
+                $SalMin2 = SalarioMinimo::where('idSalarioMinimo',$clv)->first();
+                $salMin = SalarioMinimo::where('idSalarioMinimo','<',$SalMin2->idSalarioMinimo)
+                ->orderBy('idSalarioMinimo','desc')->first();
+
+                if($salMin==""){
+                    $salMin = SalarioMinimo::get()->last();
                 }
-                $imsss=IMSS::all();
-                return view('imss.imss', compact('imss','imsss'));
+                $SalMins = SalarioMinimo::all();
+                return view('salarios.crudsalarios', compact('salMin','SalMins'));
             break;
             case 'siguiente':
-                $ims = IMSS::where('id_imss',$clv)->first();
-                $indic= $ims->id_imss;
-                $imss = IMSS::where('id_imss','>',$indic)->first();
-                if($imss==""){
-                    $imss = IMSS::first();
+                $SalMin2 = SalarioMinimo::where('idSalarioMinimo',$clv)->first();
+                $indic = $SalMin2->idSalarioMinimo;
+
+                $salMin = SalarioMinimo::where('idSalarioMinimo','>',$indic)->first();
+                if($salMin==""){
+                    $salMin = SalarioMinimo::first();
                 }
-                $imsss = IMSS::all();
-                return view('imss.imss', compact('imss','imsss'));
+                $SalMins = SalarioMinimo::all();
+                return view('salarios.crudsalarios', compact('salMin','SalMins'));
             break;
             case 'primero':
-                $imss = IMSS::first();
-                $imsss =IMSS::all();
-                return view('imss.imss', compact('imss','imsss'));
+                $salMin = SalarioMinimo::first();
+                $SalMins = SalarioMinimo::all();
+                return view('salarios.crudsalarios', compact('salMin','SalMins'));
             break;
             case 'ultimo':
-                $imss= IMSS::get()->last();
-                $imsss=IMSS::all();
-                return view('imss.imss', compact('imss','imsss'));
+                $salMin = SalarioMinimo::get()->last();
+                $SalMins = SalarioMinimo::all();
+                return view('salarios.crudsalarios', compact('salMin','SalMins'));
             break;
             case 'registrar':
                 $this->registrar($request);
-                return redirect()->route('imss.acciones');
+                return redirect()->route('salariomin.acciones');
             break;
             case 'actualizar':
                 $this->actualizar($request);
-                return redirect()->route('imss.acciones');
+                return redirect()->route('salariomin.acciones');
             break;
             case 'cancelar':
-                return redirect()->route('imss.acciones');
-                break;
-            case 'buscar':
-                $imss = IMSS::where('concepto',$request->busca)->first();
-                if($imss==""){
-                    $imss= IMSS::first();
-                }
-                $imsss= IMSS::all();
-                return view('imss.imss', compact('imss','imsss'));
-            break;*/
+                return redirect()->route('salariomin.acciones');
+            break;
             default:
                 # code...
             break;
         }
     }
 
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index(){
-        //
+    public function registrar($datos){
+        $SalMin = new SalarioMinimo;
+        $SalMin->fechaInicio = $datos->fechaInicioSal;
+        $SalMin->fechafin = $datos->fechaTerminoSal;
+        $SalMin->region = $datos->regionSalario;
+        $SalMin->importe = $datos->importeSal;
+        $SalMin->save();
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+    public function actualizar($datos){
+        $SalMin = SalarioMinimo::where('idSalarioMinimo',$datos->idSalMin)->first();
+        $SalMin->fechaInicio = $datos->fechaInicioSal;
+        $SalMin->fechafin = $datos->fechaTerminoSal;
+        $SalMin->region = $datos->regionSalario;
+        $SalMin->importe = $datos->importeSal;
+        $SalMin->save();
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
+    public function show($idSalMin){
+        $salMin = SalarioMinimo::where('idSalarioMinimo',$idSalMin)->first();
+        $SalMins = SalarioMinimo::all();
+
+        return view('salarios.crudsalarios', compact('salMin','SalMins'));
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\SalarioMinimo  $salarioMinimo
-     * @return \Illuminate\Http\Response
-     */
-    public function show(SalarioMinimo $salarioMinimo)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\SalarioMinimo  $salarioMinimo
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(SalarioMinimo $salarioMinimo)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\SalarioMinimo  $salarioMinimo
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, SalarioMinimo $salarioMinimo)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\SalarioMinimo  $salarioMinimo
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(SalarioMinimo $salarioMinimo)
-    {
-        //
+    public function destroy($idSalMin){
+        $aux1 = SalarioMinimo::where('idSalarioMinimo',$idSalMin)->delete();
+        return redirect()->route('salariomin.acciones');
     }
 }

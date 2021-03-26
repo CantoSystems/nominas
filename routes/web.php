@@ -152,6 +152,8 @@ Route::delete('/empleados/{id_emp}','EmpleaController@destroy')->name('emplea.de
 
 //Salario Mínimo
 Route::get('/salariominimo','SalarioMinimoController@acciones')->name('salariomin.acciones');
+Route::get('/salariominimo/mostrar/{idSalarioMinimo}','SalarioMinimoController@show')->name('salariomin.mostrar');
+Route::delete('/salariominimo/{idSalarioMinimo}','SalarioMinimoController@destroy')->name('salariomin.destroy');
 
 
 
