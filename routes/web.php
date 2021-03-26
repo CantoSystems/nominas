@@ -148,10 +148,32 @@ Route::post('/ausentismo/busquedaconcepto','AusentismoController@mostrarconcepto
 Route::delete('ausentismo/delete/{id}', 'AusentismoController@eliminar')->name('ausentismo.destroy');
 
 
-
 // Reestructuración catalogos
 
 Route::get('/empleado', 'EmpleaController@index')->name('emplea.index');
 Route::get('/empleado/mostrar/{id_emp}','EmpleaController@show')->name('emplea.mostrar');
 Route::delete('/empleados/{id_emp}','EmpleaController@destroy')->name('emplea.destroy');
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//PDF Reporte nómina
+Route::get('/nomina-normal', 'ReportNominaPDFController@index')->name('reportnomina.index');
+Route::get('/nomina-normal/mostrar/{id_emp}', 'ReportNominaPDFController@visualizar')->name('reportnomina.mostrar');
+
+Route::get('/miprueba', function(){
+    $pdf = App::make('dompdf.wrapper');
+$pdf->loadHTML('<h1>Holiis beboo moshoo</h1>');
+return $pdf->stream();
+});
