@@ -152,3 +152,26 @@ Route::delete('/empleados/{id_emp}','EmpleaController@destroy')->name('emplea.de
 
 //Salario Mínimo
 Route::get('/salariominimo','SalarioMinimoController@acciones')->name('salariomin.acciones');
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//PDF Reporte nómina
+Route::get('/nomina-normal', 'ReportNominaPDFController@index')->name('reportnomina.index');
+Route::get('/nomina-normal/mostrar/{id_emp}', 'ReportNominaPDFController@visualizar')->name('reportnomina.mostrar');
+
+Route::get('/miprueba', function(){
+    $pdf = App::make('dompdf.wrapper');
+$pdf->loadHTML('<h1>Holiis beboo moshoo</h1>');
+return $pdf->stream();
+});
