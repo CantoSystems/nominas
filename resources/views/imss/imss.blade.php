@@ -344,13 +344,13 @@
 
                                                 @can('administrador')
                                                     @if(isset($imss))
-                                                            <div class="form-group">
-                                                                <a id="eliminar" data-target="#modal-deleteimsss-{{$ims->id_imss}}" data-toggle="modal">
-                                                                    <button type="button" class="botonesgrandes">
-                                                                        <i class="far fa-trash-alt"></i>
-                                                                    </button>
-                                                                </a>
-                                                            </div>
+                                                        <div class="form-group">
+                                                            <a id="eliminar" data-target="#modal-deleteimsss-{{$imss->id_imss}}" data-toggle="modal">
+                                                                <button type="button" class="botonesgrandes">
+                                                                    <i class="far fa-trash-alt"></i>
+                                                                </button>
+                                                            </a>
+                                                        </div>
                                                     @else
                                                     <div class="form-group">
                                                         <a id="eliminar_vacio">

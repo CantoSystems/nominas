@@ -94,7 +94,6 @@ Route::delete('/prestaciones/{id}','PrestacionesController@eliminarprestacion')-
 Route::get('clasificacion','ClasificacionController@acciones')->name('clasificacion.acciones');
 Route::delete('clasificacion/{id}','ClasificacionController@destroy')->name('clasificacion.eliminar');
 
-
 //conceptos
 Route::get('/conceptos','ConceptosController@index')->name('conceptos.index');
 Route::delete('/conceptos/{id}','ConceptosController@eliminaconcepto')->name('conceptos.eliminaconcepto');
@@ -124,7 +123,6 @@ Route::delete('subsidios/{id_subsidio}','SubsidioController@eliminarsubsidio')->
 Route::get('/incidencias','IncidenciaController@index')->name('incidencias.index');
 Route::post('/incidencias/enviodata', 'IncidenciaController@store')->name('incidencias.store');
 
-
 //Incidencias
 Route::get('/incid','IncidenController@index')->name('incid2.index');
 Route::delete('/incid/delete/{id}', 'IncidenController@eliminar')->name('incid2.destroy');
@@ -147,13 +145,13 @@ Route::post('/ausentismo/busqueda','AusentismoController@mostrarempleado')->name
 Route::post('/ausentismo/busquedaconcepto','AusentismoController@mostrarconcepto')->name('ausentismo.mostrarconcepto');
 Route::delete('ausentismo/delete/{id}', 'AusentismoController@eliminar')->name('ausentismo.destroy');
 
-
 // Reestructuración catalogos
-
 Route::get('/empleado', 'EmpleaController@index')->name('emplea.index');
 Route::get('/empleado/mostrar/{id_emp}','EmpleaController@show')->name('emplea.mostrar');
 Route::delete('/empleados/{id_emp}','EmpleaController@destroy')->name('emplea.destroy');
 
+//Salario Mínimo
+Route::get('/salariominimo','SalarioMinimoController@acciones')->name('salariomin.acciones');
 
 
 

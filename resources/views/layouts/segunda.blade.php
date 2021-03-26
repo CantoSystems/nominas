@@ -94,7 +94,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <a href="index3.html" class="brand-link">
       <img src="{{ asset('/Admin/dist/img/logo.png')}}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
            style="opacity: .8">
-      <span class="brand-text font-weight-light">CDB Nominas</span>
+      <span class="brand-text font-weight-light">{{ Session::get('clave_empresa') }}</span>
     </a>
 
     <!-- Sidebar -->
@@ -122,7 +122,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
               <li class="nav-item {{!Route::is('emplea.index') ?: 'active'}}">
                 <a href="{{ route('emplea.index')}}" class="nav-link active">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Empleado</p>
+                  <p>Empleados</p>
                 </a>
               </li>
             </ul>
@@ -179,9 +179,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
           <li class="nav-item has-treeview menu-open">
             <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-tachometer-alt"></i>
+              <i class="far fa-edit"></i>
               <p>
-               Captura
+                Captura
                 <i class="right fas fa-angle-left"></i>
               </p>
             </a>
@@ -216,7 +216,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
           <li class="nav-item has-treeview menu-open">
             <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-tachometer-alt"></i>
+              <i class="fas fa-book"></i>
               <p>
                 Cambios y consultas
                 <i class="right fas fa-angle-left"></i>
@@ -280,7 +280,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <i class="fas fa-external-link-alt"></i>
                   Cambiar empresa
                 </a>
-              </li>  
+              </li>
             </ul>
 
      <hr>

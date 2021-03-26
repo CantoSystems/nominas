@@ -155,15 +155,23 @@ scratch. This page gets rid of all links and provides the needed markup only.
               </p>
             </a>
           </li>
-          @can('administrador')
-          <li class="nav-item {{!Route::is('usuarios.index') ?: 'activo'}}">
-            <a href="{{ route('usuarios.index')}}" class="nav-link">
+          <li class="nav-item {{!Route::is('salariomin.acciones') ?: 'activo'}}">
+            <a href="{{ route('salariomin.acciones')}}" class="nav-link">
               <i class="nav-icon fas fa-th"></i>
               <p>
-                Usuarios
+                Tabla Salario Mínimo
               </p>
             </a>
           </li>
+          @can('administrador')
+            <li class="nav-item {{!Route::is('usuarios.index') ?: 'activo'}}">
+              <a href="{{ route('usuarios.index')}}" class="nav-link">
+                <i class="nav-icon fas fa-th"></i>
+                <p>
+                  Usuarios
+                </p>
+              </a>
+            </li>
           @endcan
           <div class="sidebar">
             <div class="info">
