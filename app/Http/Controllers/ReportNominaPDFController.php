@@ -46,13 +46,19 @@ class ReportNominaPDFController extends Controller
                 ->where('id_emp','=',$id_emp)
                 ->first();
 
+                $deducciones =  DB::connection('DB_Serverr')->table('ausentismos')
+                ->join('empleados','empleados.clave_empleado','=','ausentismos.clave_empleado')
+                ->join('conceptos','conceptos.clave_concepto','=','ausentismos.clave_concepto')
+                ->where('id_emp','=',$id_emp)
+                ->get();
+
         $nombre_empresa=Session::get('empresa');
         $num_periodo = Session::get('num_periodo');
                 $periodo_act = DB::connection('DB_Serverr')->table('periodos')
                 ->where('numero','=',$num_periodo)
                 ->first();
-                
-        $pdf = PDF::loadView('NominaPDF.report-nomina',compact('persona','nombre_empresa','periodo_act'));
+
+        $pdf = PDF::loadView('NominaPDF.report-nomina',compact('persona','nombre_empresa','periodo_act','deducciones'));
 
         return $pdf->stream();
 

@@ -7,6 +7,7 @@ use DB;
 use Session;
 use DataTables;
 use Illuminate\Support\Facades\Schema;
+use Carbon\Carbon;
 
 class AusenciaController extends Controller
 {
@@ -66,19 +67,20 @@ class AusenciaController extends Controller
 
         foreach ($data as $value) {
             //echo $value->incapacidad;
+            $fecha_periodo = now()->toDateString();
             DB::connection('DB_Serverr')->insert('INSERT INTO ausentismos (
             clave_empleado,
             cantidad_ausentismo,
             clave_concepto,
             fecha_ausentismo,
             incapacidad,
-            descripcion)
-            values (?,?,?,?,?,?)',[$value->empleado,
+            descripcion,created_at,updated_at)
+            values (?,?,?,?,?,?,?,?)',[$value->empleado,
                                     $value->ausentismo,
                                     $value->concepto,
                                     $value->fecha,
                                     $value->incapacidad,
-                                    $value->descripcion
+                                    $value->descripcion,$fecha_periodo,$fecha_periodo
                                 ]);
         }
 
