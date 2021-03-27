@@ -252,5 +252,4 @@ class PeriodosController extends Controller
     return redirect()->route('periodos.acciones');
     }
 
-
 }

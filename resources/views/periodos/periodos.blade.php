@@ -6,7 +6,7 @@
       Periodos
     </div>
     <div class="card-body">
-      <h5 class="card-title">Selecciona el periodo con el que trabajaras: {{ $cant }} </h5><br>
+      <h5 class="card-title">Selecciona el periodo con el que trabajaras: </h5><br>
       
       <br>
       <div class="row">

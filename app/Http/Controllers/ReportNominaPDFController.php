@@ -51,9 +51,9 @@ class ReportNominaPDFController extends Controller
                 $periodo_act = DB::connection('DB_Serverr')->table('periodos')
                 ->where('numero','=',$num_periodo)
                 ->first();
-
-
+                
         $pdf = PDF::loadView('NominaPDF.report-nomina',compact('persona','nombre_empresa','periodo_act'));
+
         return $pdf->stream();
 
 
