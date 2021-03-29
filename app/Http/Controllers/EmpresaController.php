@@ -9,6 +9,23 @@ use Illuminate\Support\Facades\Schema;
 use Session;
 
 class EmpresaController extends Controller{
+    public function conectar($clv){
+        $configDb = [
+            'driver'      => 'mysql',
+            'host'        => env('DB_HOST', 'localhost'),
+            'port'        => env('DB_PORT', '3306'),
+            'database'    => $clv,
+            'username'    => env('DB_USERNAME', 'root'),
+            'password'    => env('DB_PASSWORD', ''),
+            'unix_socket' => env('DB_SOCKET', ''),
+            'charset'     => 'utf8',
+            'collation'   => 'utf8_unicode_ci',
+            'prefix'      => '',
+            'strict'      => true,
+            'engine'      => null,
+        ];
+        return $configDb;
+    }
     /**
     *Función Obtiene el request y genera el vaciado de los registros
     *Control de los botones siguiente, manipulación CRUD
@@ -36,7 +53,7 @@ class EmpresaController extends Controller{
                     $empresa= Empresa::get()->last();
                 }
 
-                 return view('empresas.crudempresas', compact('empresa'));
+                return view('empresas.crudempresas', compact('empresa'));
             break;
             case 'siguiente':
                 $emp= Empresa::where('clave',$clv)->first();
@@ -61,7 +78,7 @@ class EmpresaController extends Controller{
                 break;
             case 'actualizar':
                 $this->actualizar($request);
-                return redirect()->route('nominas.empresas');
+                //return redirect()->route('nominas.empresas');
             break;
             case 'cancelar':
                 return redirect()->route('nominas.empresas');
@@ -74,18 +91,14 @@ class EmpresaController extends Controller{
                 if($criterio == 'clave'){
                     $empresa= Empresa::where('clave',$request->busca)->first();
 
-                    if($empresa == "")
-                        {
-                          return back()->with('busqueda','Coincidencia no encontrada');
-                        }
+                    if($empresa == ""){
+                        return back()->with('busqueda','Coincidencia no encontrada');
+                    }
                      
                     return view('empresas.crudempresas', compact('empresa'));
-
-
                 }
                 break;
             default:
-                # code...
             break;
         }
 
@@ -116,6 +129,7 @@ class EmpresaController extends Controller{
         $emp->rfc_representante= $datos->rfc_representante;
         $emp->telefono= $datos->telefono;
         $emp->email= $datos->email;
+        $emp->tipoPeriodo = $datos->tipoPeriodo;
         $emp ->save();
     }
 
@@ -130,7 +144,6 @@ class EmpresaController extends Controller{
     *@param $datos | Array
     */
     public function registrar($datos){
-
         $datos->validate([
               'nombre' => 'required',
               'rfc' => 'required',
@@ -149,14 +162,13 @@ class EmpresaController extends Controller{
               'rfc_representante' => 'required',
               'telefono' => 'required',
               'email' => 'required',
+              'tipoPeriodo' => 'required',
         ]);
-
 
         $empresa= new Empresa;
         $empresa->rfc= $datos->rfc;
         $empresa->clave= $datos->clave;
         
-
         DB::statement('create database '.$empresa->clave);
             $clv= $empresa->clave;
             $configDb = [
@@ -434,8 +446,6 @@ class EmpresaController extends Controller{
             $table->timestamps();
         });
 
-
-
         $empresa->nombre= $datos->nombre;
         $empresa->nombre_nomina= $datos->nombre_nomina;
         $empresa->rfc= $datos->rfc;
@@ -452,8 +462,58 @@ class EmpresaController extends Controller{
         $empresa->rfc_representante= $datos->rfc_representante;
         $empresa->telefono= $datos->telefono;
         $empresa->email= $datos->email;
+        $empresa->tipoPeriodo = $datos->tipoPeriodo;
         $empresa->save();
 
+        //Variables
+        if($datos->tipoPeriodo == "S"){
+            $numero = date('W');
+            $diaInicio="Monday";
+            $diaFin="Sunday";
+            $strFecha = strtotime(date('Y-m-d'));
+            $fechaInicio = date('Y-m-d',strtotime('last '.$diaInicio,$strFecha));
+            $fechaFin = date('Y-m-d',strtotime('next '.$diaFin,$strFecha));
+    
+            if(date("l",$strFecha)==$diaInicio){
+                $fechaInicio= date("Y-m-d",$strFecha);
+            }
+            if(date("l",$strFecha)==$diaFin){
+                $fechaFin= date("Y-m-d",$strFecha);
+            }
+            $fechaPago = $fechaFin;
+        }else if($datos->tipoPeriodo == "Q"){
+            if(date('d')<15){
+                $numero = (date('m')*2)-1;
+                $fechaInicio = date('Y').'-'.date('m').'-01';
+                $fechaFin = date('Y').'-'.date('m').'-14';
+            }else{
+                $numero = date('m')*2;
+                $fechaInicio = date('Y').'-'.date('m').'-15';
+                $fechaFin = date('Y-m-t');
+            }
+            $fechaPago = $fechaFin;
+        }else if($datos->tipoPeriodo == "M"){
+            $numero = ltrim(date('m'),"0");
+            $fechaInicio = date('Y').'-'.date('m').'-01';
+            $fechaFin = date('Y-m-t');
+            $fechaPago = $fechaFin;
+        }
+
+        $clv_empresa=$this->conectar($clv);
+        \Config::set('database.connections.DB_Serverr', $clv_empresa);
+
+        DB::connection('DB_Serverr')->insert('insert into periodos(numero
+                                                                      ,fecha_inicio
+                                                                      ,fecha_fin
+                                                                      ,fecha_pago)
+                                                                VALUES(?
+                                                                      ,?
+                                                                      ,?
+                                                                      ,?)'
+                                                                      ,[$numero
+                                                                       ,$fechaInicio
+                                                                       ,$fechaFin
+                                                                       ,$fechaPago]);
      }
 
 

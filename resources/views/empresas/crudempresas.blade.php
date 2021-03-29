@@ -51,7 +51,6 @@
                                 </div>
                             @enderror
                         @endif
-
                     </div>
                 </div>
                  <div class="col-sm-5">
@@ -72,7 +71,6 @@
                                 </div>
                             @enderror
                         @endif
-
                     </div>
                 </div>
                 <div class="col-sm-3">
@@ -93,7 +91,6 @@
                                 </div>
                             @enderror
                         @endif
-
                     </div>
                 </div>
                 <div class="col-sm-2">
@@ -114,7 +111,6 @@
                                 </div>
                             @enderror
                         @endif
-
                     </div>
                 </div>
                 <div class="col-sm-3">
@@ -215,7 +211,6 @@
                                 </div>
                             @enderror
                         @endif
-
                     </div>
                 </div>
                 <div class="col-sm-4">
@@ -256,7 +251,6 @@
                                 </div>
                             @enderror
                         @endif
-
                     </div>
                 </div>
                 <div class="col-sm-3">
@@ -339,7 +333,7 @@
                         @endif
                     </div>
                 </div>
-                <div class="col-sm-8">
+                <div class="col-sm-4">
                     <div class="form-group">
                         <label>Correo electrónico:</label>
                         @if(isset($empresa))
@@ -356,146 +350,180 @@
                                     {{ $message }}
                                 </div>
                             @enderror
-
                         @endif
                     </div>
                 </div>
-
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <label>Tipo de Periodo:</label>
+                        @if(isset($empresa))
+                            @if($empresa->tipoPeriodo == "N/A")
+                                <select id="tipoPeriodo" name="tipoPeriodo" class="form-control">
+                                    <option value="N/A" selected>Seleccione una opción:</option>
+                                    <option value="S">Semanal</option>
+                                    <option value="Q">Quincenal</option>
+                                    <option value="M">Mensual</option>
+                                </select>
+                            @elseif($empresa->tipoPeriodo == "S")
+                                <select id="tipoPeriodo" name="tipoPeriodo" class="form-control">
+                                    <option value="N/A">Seleccione una opción:</option>
+                                    <option value="S" selected>Semanal</option>
+                                    <option value="Q">Quincenal</option>
+                                    <option value="M">Mensual</option>
+                                </select>
+                            @elseif($empresa->tipoPeriodo == "Q")
+                                <select id="tipoPeriodo" name="tipoPeriodo" class="form-control">
+                                    <option value="N/A">Seleccione una opción:</option>
+                                    <option value="S">Semanal</option>
+                                    <option value="Q" selected>Quincenal</option>
+                                    <option value="M">Mensual</option>
+                                </select>
+                            @elseif($empresa->tipoPeriodo == "M")
+                                <select id="tipoPeriodo" name="tipoPeriodo" class="form-control">
+                                    <option value="N/A">Seleccione una opción:</option>
+                                    <option value="S">Semanal</option>
+                                    <option value="Q">Quincenal</option>
+                                    <option value="M" selected>Mensual</option>
+                                </select>
+                            @endif
+                        @else
+                            <select id="tipoPeriodo" name="tipoPeriodo" class="form-control">
+                                <option value="N/A" selected>Seleccione una opción:</option>
+                                <option value="S">Semanal</option>
+                                <option value="Q">Quincenal</option>
+                                <option value="M">Mensual</option>
+                            </select>
+                        @endif
+                    </div>
+                </div>
                 @canany(['administrador','capturista','reportes'])
-                <div class="col-sm-5">
+                    <div class="col-sm-5">
                         <div class="margin">
                             <div class="btn-group">
-                            @if(isset($empresa))
-                                <div class="form-group">
-                                    <button type="submit"  name="acciones" value="primero" id="primero" class="botonesgrandes"><i class="fas fa-backward" ></i></button>
-                                </div>
-                                <div class="form-group">
-                                <button type="submit" name="acciones" value="atras" id="atras" class="botonesgrandes"><i class="fas fa-arrow-circle-left"></i></button>
-                                </div>
-                                <div class="form-group">
-                                    <button type="submit" name="acciones" value="siguiente" id="siguiente" class="botonesgrandes"><i class="fas fa-arrow-circle-right"></i></button>
-                                </div>
-                                <div class="form-group">
-                                    <button type="submit" name="acciones" value="ultimo" id="ultimo" class="botonesgrandes"><i class="fas fa-forward"></i></button>
-                                </div>
-                            @else
-                                <div class="form-group">
-                                    <button type="submit" class="botonesgrandes" disabled><i class="fas fa-backward" ></i></button>
-                                </div>
-                                <div class="form-group">
-                                    <button type="submit" class="botonesgrandes" disabled><i class="fas fa-arrow-circle-left"></i></button>
-                                </div>
-                                <div class="form-group">
-                                    <button type="submit" class="botonesgrandes" disabled><i class="fas fa-arrow-circle-right"></i></button>
-                                </div>
-                                <div class="form-group">
-                                    <button type="submit" class="botonesgrandes" disabled><i class="fas fa-forward"></i></button>
-                                </div>
-                            @endif
+                                @if(isset($empresa))
+                                    <div class="form-group">
+                                        <button type="submit"  name="acciones" value="primero" id="primero" class="botonesgrandes"><i class="fas fa-backward" ></i></button>
+                                    </div>
+                                    <div class="form-group">
+                                        <button type="submit" name="acciones" value="atras" id="atras" class="botonesgrandes"><i class="fas fa-arrow-circle-left"></i></button>
+                                    </div>
+                                    <div class="form-group">
+                                        <button type="submit" name="acciones" value="siguiente" id="siguiente" class="botonesgrandes"><i class="fas fa-arrow-circle-right"></i></button>
+                                    </div>
+                                    <div class="form-group">
+                                        <button type="submit" name="acciones" value="ultimo" id="ultimo" class="botonesgrandes"><i class="fas fa-forward"></i></button>
+                                    </div>
+                                @else
+                                    <div class="form-group">
+                                        <button type="submit" class="botonesgrandes" disabled><i class="fas fa-backward" ></i></button>
+                                    </div>
+                                    <div class="form-group">
+                                        <button type="submit" class="botonesgrandes" disabled><i class="fas fa-arrow-circle-left"></i></button>
+                                    </div>
+                                    <div class="form-group">
+                                        <button type="submit" class="botonesgrandes" disabled><i class="fas fa-arrow-circle-right"></i></button>
+                                    </div>
+                                    <div class="form-group">
+                                        <button type="submit" class="botonesgrandes" disabled><i class="fas fa-forward"></i></button>
+                                    </div>
+                                @endif
                             </div>
                         </div>
-                </div>
+                    </div>
                 @endcanany
-
-
                 <div class="col-md-5">
-                        <div class="margin">
-                            <div class="btn-group">
-                                @canany(['administrador','capturista','reportes'])
-                                    @if(isset($empresa))
-                                        <div class="form-group">
-                                            <button id="buscar" type="button" data-toggle="modal" data-target="#exampleModal" class="botonesgrandes">
-                                                    <i class="fas fa-search"></i>
-                                            </button>
-                                        </div>
-                                    @else 
-                                        <div class="form-group">
-                                            <button id="buscar_falso" type="button" class="botonesgrandes" disabled>
-                                                <i class="fas fa-search"></i>
-                                            </button>
-                                        </div>
-                                    @endif
-                                @endcanany
-                                @canany(['administrador','capturista'])
+                    <div class="margin">
+                        <div class="btn-group">
+                            @canany(['administrador','capturista','reportes'])
+                                @if(isset($empresa))
+                                    <div class="form-group">
+                                        <button id="buscar" type="button" data-toggle="modal" data-target="#exampleModal" class="botonesgrandes">
+                                            <i class="fas fa-search"></i>
+                                        </button>
+                                    </div>
+                                @else 
+                                    <div class="form-group">
+                                        <button id="buscar_falso" type="button" class="botonesgrandes" disabled>
+                                            <i class="fas fa-search"></i>
+                                        </button>
+                                    </div>
+                                @endif
+                            @endcanany
+                            @canany(['administrador','capturista'])
                                 <div class="form-group">
                                     <button type="button" id="nuevo" class="botonesgrandes"> <i class="fas fa-user-plus"></i></button>
                                 </div>
-                                @elsecanany(['reportes'])
+                            @elsecanany(['reportes'])
                                 <div class="form-group">
                                     <button type="button" disabled class="botonesgrandes"> <i class="fas fa-user-plus"></i></button>
                                 </div>
-                                @endcanany
-
-
-                                @canany(['administrador','capturista'])
-                                    @if(isset($empresa))
-                                        <div class="form-group">
-                                            <button type="button" id="actualizar" class="botonesgrandes" style="background-color: red"> <i class="fas fa-pen-square"></i></button>
-                                        </div>
-                                    @else
-                                        <div class="form-group">
-                                            <button type="button" disabled class="botonesgrandes"> <i class="fas fa-pen-square"></i></button>
-                                        </div>
-                                    @endif
-                                @elsecanany(['reportes'])
+                            @endcanany
+                            @canany(['administrador','capturista'])
+                                @if(isset($empresa))
                                     <div class="form-group">
-                                            <button type="button" disabled class="botonesgrandes"> <i class="fas fa-pen-square"></i></button>
-                                        </div>
-                                @endcanany
-                                @can('administrador')
+                                        <button type="button" id="actualizar" class="botonesgrandes" style="background-color: red"> <i class="fas fa-pen-square"></i></button>
+                                    </div>
+                                @else
+                                    <div class="form-group">
+                                        <button type="button" disabled class="botonesgrandes"> <i class="fas fa-pen-square"></i></button>
+                                    </div>
+                                @endif
+                            @elsecanany(['reportes'])
+                                <div class="form-group">
+                                    <button type="button" disabled class="botonesgrandes"> <i class="fas fa-pen-square"></i></button>
+                                </div>
+                            @endcanany
+                            @can('administrador')
                                 <div class="form-group">
                                     @if(isset($empresa))
-                                    <a href="#" id="eliminar" data-target="#modal-deletenom-{{$empresa->id}}" data-toggle="modal">
-                                        <button type="button" class="botonesgrandes">
-                                            <i class="far fa-trash-alt"></i>
-                                        </button>
-                                    </a>
-                                    @else
-                                    <div class="form-group">
-                                        <a id="eliminar_vacio">
-                                            <button type="button" disabled class="botonesgrandes">
+                                        <a href="#" id="eliminar" data-target="#modal-deletenom-{{$empresa->id}}" data-toggle="modal">
+                                            <button type="button" class="botonesgrandes">
                                                 <i class="far fa-trash-alt"></i>
                                             </button>
                                         </a>
-                                    </div>
+                                    @else
+                                        <div class="form-group">
+                                            <a id="eliminar_vacio">
+                                                <button type="button" disabled class="botonesgrandes">
+                                                    <i class="far fa-trash-alt"></i>
+                                                </button>
+                                            </a>
+                                        </div>
                                     @endif
                                 </div>
-                                @elsecanany(['capturista','reportes'])
-                                                <div class="form-group">
-                                                        <a id="eliminar_">
-                                                            <button type="button" disabled class="botonesgrandes">
-                                                                <i class="far fa-trash-alt"></i>
-                                                            </button>
-                                                        </a>
-                                                    </div>
-                                @endcan
+                            @elsecanany(['capturista','reportes'])
+                                <div class="form-group">
+                                    <a id="eliminar_">
+                                        <button type="button" disabled class="botonesgrandes">
+                                            <i class="far fa-trash-alt"></i>
+                                        </button>
+                                    </a>
+                                </div>
+                            @endcan
+                        </div>
+                    </div>
+                </div> 
+                <div class="col-sm-2">
+                    <div class="margin">
+                        <div class="btn-group">
+                            <!--Su uso solo es para visualizar la existencia del los iconos -->
+                            <div class="form-group">
+                                <button id="guardar_falso" disabled class="botonesgrandes"><i class="fas fa-save"></i></button>
+                            </div>
+                            <div class="form-group">
+                                <button id="nuevo_reg" name="acciones" value="registrar" type="submit" style="display: none;" class="botonesgrandes"><i class="fas fa-save"></i></button>
+                            </div>
+                            <div class="form-group">
+                                <button name="acciones" value="actualizar" id="actualizar_reg" type="submit" style="display: none;" class="botonesgrandes"><i class="fas fa-save"></i></button>
+                            </div>
+                            <div class="form-group">
+                                <button name="acciones" value="cancelar" id="cancelar_reg" type="submit" disabled class="botonesgrandes"><i class="far fa-window-close"></i></button>
                             </div>
                         </div>
-                </div> 
-
-                <div class="col-sm-2">
-                        <div class="margin">
-                            <div class="btn-group">
-                                 <!--Su uso solo es para visualizar la existencia del los iconos -->
-                                            <div class="form-group">
-                                                <button id="guardar_falso" disabled class="botonesgrandes"><i class="fas fa-save"></i></button>
-                                            </div>
-
-
-                                <div class="form-group">
-                                    <button id="nuevo_reg" name="acciones" value="registrar" type="submit" style="display: none;" class="botonesgrandes"><i class="fas fa-save"></i></button>
-                                </div>
-                                <div class="form-group">
-                                    <button name="acciones" value="actualizar" id="actualizar_reg" type="submit" style="display: none;" class="botonesgrandes"><i class="fas fa-save"></i></button>
-                                </div>
-                                <div class="form-group">
-                                    <button name="acciones" value="cancelar" id="cancelar_reg" type="submit" disabled class="botonesgrandes"><i class="far fa-window-close"></i></button>
-                                </div>
-                                
-                        </div>
+                    </div>
                 </div>
             </div>	
-    	</form>
+        </form>
         @isset($empresa)
             @include('empresas.modaldelete')
             @include('empresas.buscarnomina')
