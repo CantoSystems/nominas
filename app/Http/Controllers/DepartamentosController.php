@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use DB;
 use Session;
 use DataTables;
+use Carbon\Carbon;
 
 class DepartamentosController extends Controller
 {
@@ -202,8 +203,9 @@ class DepartamentosController extends Controller
         ->get();
 
         if($coincidencia->count() == 0){
-		DB::connection('DB_Serverr')->insert('insert into departamentos (clave_departamento, departamento,clave_area)
-		values (?,?,?)',[$datos->clave_departamento,$datos->departamento,$datos->clave_area]);
+        $fecha_periodo = now()->toDateString();
+		DB::connection('DB_Serverr')->insert('insert into departamentos (clave_departamento, departamento,clave_area,created_at,updated_at)
+		values (?,?,?,?,?)',[$datos->clave_departamento,$datos->departamento,$datos->clave_area,$fecha_periodo,$fecha_periodo]);
 		}else{
 			return back()->with('msj','Registro duplicado');
 		}

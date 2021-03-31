@@ -22,7 +22,7 @@
 		
 	</nav>
 	<section>
-		<table>
+		<table border="1">
 			<thead>
 				<tr>
 					<th>Empleado</th>
@@ -37,19 +37,28 @@
 					<td>{{$persona->clave_empleado}} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 						{{ $persona->nombre}} {{ $persona->apellido_paterno }} {{ $persona->apellido_materno }}
 					</td>
-					<td></td>
 					<td>
 						<table>
-							<thead>
+							<tbody>
+								<tr>
+									<td>SUELDO</td>
+									<td> &nbsp;&nbsp; {{ $persona->sueldo_diario }} </td>
+								</tr>
+							</tbody>
+						</table>
+					</td>
+					<td>
+						<table>
+							<tbody>
 								@foreach($deducciones as $ded)
 								<tr>
-									
-									<td>{{$ded->concepto}} - {{$ded->fecha_ausentismo}}</td>
+									<br>
+									<td>{{$ded->concepto}} </td>
 									
 								</tr>
 
 								@endforeach
-							</thead>
+							</tbody>
 						</table>
 					</td>
 				</tr>

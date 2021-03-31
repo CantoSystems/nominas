@@ -82,20 +82,24 @@ class IncidenciaController extends Controller{
 
         foreach ($data as $value) {
             $fecha_periodo = now()->toDateString();
+            $inciden_periodo = Session::get('num_periodo');
             DB::connection('DB_Serverr')->insert('INSERT INTO incidencias (clave_concepto
                                                                           ,clave_empleado
                                                                           ,cantidad
                                                                           ,importe
-                                                                          ,monto,created_at,updated_at)
+                                                                          ,monto,periodo_incidencia,created_at,updated_at)
                                                                   VALUES (?
                                                                          ,?
                                                                          ,?
                                                                          ,?
-                                                                         ,?,?,?)',[$value->concepto
+                                                                         ,?,?,?,?)',[$value->concepto
                                                                              ,$value->empleado
                                                                              ,$value->cantidad
                                                                              ,$value->importe
-                                                                             ,$value->monto,$fecha_periodo,$fecha_periodo]);
+                                                                             ,$value->monto,
+                                                                             $inciden_periodo,
+                                                                             $fecha_periodo,
+                                                                             $fecha_periodo]);
         }
     }
 }

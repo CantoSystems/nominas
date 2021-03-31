@@ -82,7 +82,8 @@ class TiempoController extends Controller
             //echo ;
             //echo $value->
             $fecha_periodo = now()->toDateString();
-             DB::connection('DB_Serverr')->insert('INSERT INTO tiempo_extra (clave_empleado,cantidad_tiempo,fecha_extra,created_at,updated_at) VALUES (?,?,?,?,?)',[$value->empleado,$value->cantidad,$value->fecha,$fecha_periodo,$fecha_periodo]);
+            $te_periodo = Session::get('num_periodo');
+             DB::connection('DB_Serverr')->insert('INSERT INTO tiempo_extra (clave_empleado,cantidad_tiempo,fecha_extra,created_at,updated_at,periodo_extra) VALUES (?,?,?,?,?,?)',[$value->empleado,$value->cantidad,$value->fecha,$fecha_periodo,$fecha_periodo,$te_periodo]);
         }
      
     }
