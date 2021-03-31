@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Session;
 use DB;
 use Illuminate\Support\Facades\Schema;
+use Carbon\Carbon;
 
 class AreasController extends Controller
 {
@@ -177,8 +178,9 @@ class AreasController extends Controller
         ->get();
 
         if($coincidencia->count() == 0){
-          DB::connection('DB_Serverr')->insert('insert into areas (area,clave_area)
-            values (?,?)',[$datos->area,$datos->clave_area]);
+          $fecha_periodo = now()->toDateString();
+          DB::connection('DB_Serverr')->insert('insert into areas (area,clave_area,created_at,updated_at)
+            values (?,?,?,?)',[$datos->area,$datos->clave_area,$fecha_periodo,$fecha_periodo]);
         }else{
           return back()->with('msj','Registro duplicado');
         }

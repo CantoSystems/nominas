@@ -68,19 +68,21 @@ class AusenciaController extends Controller
         foreach ($data as $value) {
             //echo $value->incapacidad;
             $fecha_periodo = now()->toDateString();
+            $ausen_periodo = Session::get('num_periodo');
             DB::connection('DB_Serverr')->insert('INSERT INTO ausentismos (
             clave_empleado,
             cantidad_ausentismo,
             clave_concepto,
             fecha_ausentismo,
             incapacidad,
-            descripcion,created_at,updated_at)
-            values (?,?,?,?,?,?,?,?)',[$value->empleado,
+            descripcion,created_at,updated_at,ausentismo_periodo)
+            values (?,?,?,?,?,?,?,?,?)',[$value->empleado,
                                     $value->ausentismo,
                                     $value->concepto,
                                     $value->fecha,
                                     $value->incapacidad,
-                                    $value->descripcion,$fecha_periodo,$fecha_periodo
+                                    $value->descripcion,$fecha_periodo,$fecha_periodo,
+                                    $ausen_periodo
                                 ]);
         }
 

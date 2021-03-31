@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Session;
 use DB;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Schema;
 
 class PrestacionesController extends Controller{
@@ -135,7 +136,8 @@ class PrestacionesController extends Controller{
         ->get();
 
         if($coincidencia->count() == 0){
-            DB::connection('DB_Serverr')->insert('insert into prestaciones (anio,dias,prima_vacacional,aguinaldo) values (?,?,?,?)',[$datos->anio,$datos->dias,$datos->prima_vacacional,$datos->aguinaldo]);
+            $fecha_periodo = now()->toDateString();
+            DB::connection('DB_Serverr')->insert('insert into prestaciones (anio,dias,prima_vacacional,aguinaldo,created_at,updated_at) values (?,?,?,?,?,?)',[$datos->anio,$datos->dias,$datos->prima_vacacional,$datos->aguinaldo,$fecha_periodo,$fecha_periodo]);
         }else{
             return back()->with('msj','Registro duplicado');
         }

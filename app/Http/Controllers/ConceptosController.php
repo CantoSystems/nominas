@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use DB;
 use Session;
+use Carbon\Carbon;
 
 class ConceptosController extends Controller{
     public function index(Request $request){
@@ -140,7 +141,6 @@ class ConceptosController extends Controller{
         $datos->validate([
               'clave_concepto' => 'required',
               'concepto' => 'required',
-              'formula' => 'required',
               'naturaleza' => 'required',
               'manejo' => 'required',
         ]);
@@ -151,6 +151,7 @@ class ConceptosController extends Controller{
         ->get();
 
         if($coincidencia->count() == 0){
+        $fecha_periodo = now()->toDateString();
         DB::connection('DB_Serverr')->insert('insert into conceptos (clave_concepto
                                                                     ,concepto
                                                                     ,formula
@@ -162,7 +163,7 @@ class ConceptosController extends Controller{
                                                                     ,isr
                                                                     ,imss
                                                                     ,infonavit
-                                                                    ,estatal)
+                                                                    ,estatal,created_at,updated_at)
                                                                 values (?
                                                                        ,?
                                                                        ,?
@@ -174,8 +175,8 @@ class ConceptosController extends Controller{
                                                                        ,?
                                                                        ,?
                                                                        ,?
-                                                                       ,?)',[$clave_concepto,$datos->concepto,$datos->formula,$datos->naturaleza
-        ,$datos->manejo,$datos->cantidad,$datos->importe,$datos->monto,$isr,$imss,$infonavit,$estatal]);
+                                                                       ,?,?,?)',[$clave_concepto,$datos->concepto,$datos->formula,$datos->naturaleza
+        ,$datos->manejo,$datos->cantidad,$datos->importe,$datos->monto,$isr,$imss,$infonavit,$estatal,$fecha_periodo,$fecha_periodo]);
     }else{
         return back()->with('msj','Registro duplicado');
     }

@@ -1689,7 +1689,9 @@
       </div>
     </div>
     @include('emplea.modalbusqid')
-    @include('emplea.modalelimina')
+    @isset($persona)
+      @include('emplea.modalelimina')
+    @endisset
   </div>
   
 </div>

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use DB;
 use Session;
 use DataTables;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Schema;
 
 class PeriodosController extends Controller
@@ -50,8 +51,9 @@ class PeriodosController extends Controller
     //$cant=DB::connection('DB_Serverr')->table('periodos')->count();
 
         if($coincidencia->count() == 0){
-            DB::connection('DB_Serverr')->insert('insert into periodos (numero,fecha_inicio,fecha_fin,fecha_pago)
-            values (?,?,?,?)',[$datos->numero,$datos->fecha_inicio,$datos->fecha_fin,$datos->fecha_pago]);
+            $fecha_periodo = now()->toDateString();
+            DB::connection('DB_Serverr')->insert('insert into periodos (numero,fecha_inicio,fecha_fin,fecha_pago,created_at,updated_at)
+            values (?,?,?,?,?,?)',[$datos->numero,$datos->fecha_inicio,$datos->fecha_fin,$datos->fecha_pago,$fecha_periodo,$fecha_periodo]);
         }else{
             return back()->with('msj','Registro duplicado');
         }

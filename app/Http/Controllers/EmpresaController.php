@@ -425,6 +425,7 @@ class EmpresaController extends Controller{
             $table->date('fecha_ausentismo');
             $table->string('incapacidad',50);
             $table->string('descripcion',50);
+            $table->integer('ausentismo_periodo');
             $table->timestamps();
         });
 
@@ -435,6 +436,7 @@ class EmpresaController extends Controller{
             $table->double('cantidad');
             $table->double('importe');
             $table->double('monto',50);
+            $table->integer('periodo_incidencia');
             $table->timestamps();
         });
 
@@ -443,6 +445,7 @@ class EmpresaController extends Controller{
             $table->char('clave_empleado',5);
             $table->double('cantidad_tiempo');
             $table->date('fecha_extra');
+            $table->integer('periodo_extra');
             $table->timestamps();
         });
 
