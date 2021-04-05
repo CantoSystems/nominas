@@ -171,6 +171,36 @@
                                 </div>
                             </div>
                         </div>
+
+                        <div class="col-sm-2">
+                            <div class="form-group">
+                                <label>UMA ISR:</label>
+                                <input type="number" name="isr_uma" class="form-control" value="{{$aux->isr_uma}}" onkeyup="mayus(this);" onkeypress="return numeros(event)">
+                            </div>
+                        </div>
+
+                        <div class="col-sm-2">
+                            <div class="form-group">
+                                <label>% ISR:</label>
+                                <input type="number" name="isr_porcentaje" class="form-control" value="{{$aux->isr_porcentaje}}" onkeyup="mayus(this);" onkeypress="return numeros(event)">
+                            </div>
+                        </div>
+
+                        <div class="col-sm-2">
+                            <div class="form-group">
+                                <label>UMA IMMS:</label>
+                                <input type="number" name="imss_uma" class="form-control" value="{{$aux->imss_uma}}" onkeyup="mayus(this);" onkeypress="return numeros(event)">
+                            </div>
+                        </div>
+
+                        <div class="col-sm-2">
+                            <div class="form-group">
+                                <label>% IMMS:</label>
+                                <input type="number" name="imss_porcentaje" class="form-control" value="{{$aux->imss_porcentaje}}" onkeyup="mayus(this);" onkeypress="return numeros(event)">
+                            </div>
+                        </div>
+
+
                     @else
                         <div class="col-sm-2">
                             <div class="form-group">
@@ -235,19 +265,19 @@
                         <div class="col-sm-2">
                             <div class="form-group">
                                 <label>Cantidad:</label>
-                                <input type="text" name="cantidad" class="form-control" onkeyup="mayus(this);" onkeypress="return numeros(event)">
+                                <input type="number" name="cantidad" class="form-control" onkeyup="mayus(this);" onkeypress="return numeros(event)">
                             </div>
                         </div>
                         <div class="col-sm-2">
                             <div class="form-group">
                                 <label>Importe:</label>
-                                <input type="text" name="importe" class="form-control" onkeyup="mayus(this);">
+                                <input type="number" name="importe" class="form-control" onkeyup="mayus(this);">
                             </div>
                         </div>
                         <div class="col-sm-2">
                             <div class="form-group">
                                 <label>Monto:</label>
-                                <input type="text" name="monto" class="form-control" onkeyup="mayus(this);">
+                                <input type="number" name="monto" class="form-control" onkeyup="mayus(this);">
                             </div>
                         </div>
                         <div class="col-sm-4">
@@ -271,6 +301,36 @@
                                 </div>
                             </div>
                         </div>
+
+
+                        <div class="col-sm-2">
+                            <div class="form-group">
+                                <label>UMA ISR:</label>
+                                <input type="number" name="isr_uma" class="form-control" value="" onkeyup="mayus(this);" onkeypress="return numeros(event)">
+                            </div>
+                        </div>
+
+                        <div class="col-sm-2">
+                            <div class="form-group">
+                                <label>% ISR:</label>
+                                <input type="number" name="isr_porcentaje" class="form-control" value="" onkeyup="mayus(this);" onkeypress="return numeros(event)">
+                            </div>
+                        </div>
+
+                        <div class="col-sm-2">
+                            <div class="form-group">
+                                <label>UMA IMMS:</label>
+                                <input type="number" name="imss_uma" class="form-control" value="" onkeyup="mayus(this);" onkeypress="return numeros(event)">
+                            </div>
+                        </div>
+
+                        <div class="col-sm-2">
+                            <div class="form-group">
+                                <label>% IMMS:</label>
+                                <input type="number" name="imss_porcentaje" class="form-control" value="" onkeyup="mayus(this);" onkeypress="return numeros(event)">
+                            </div>
+                        </div>
+
                     @endif
                     <div class="col-md-12">
                         <br>
