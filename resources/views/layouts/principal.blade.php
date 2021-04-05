@@ -127,10 +127,19 @@ scratch. This page gets rid of all links and provides the needed markup only.
             <a href="{{ route('bancos.acciones')}}" class="nav-link">
               <i class="nav-icon fas fa-th"></i>
               <p>
-                Bancos
+                Bancos 
               </p>
             </a>
           </li>
+          <li class="nav-item {{!Route::is('umas.index') ?: 'activo'}}">
+            <a href="{{ route('umas.index')}}" class="nav-link">
+              <i class="nav-icon fas fa-th"></i>
+              <p>
+                UMAS
+              </p>
+            </a>
+          </li>
+
           <li class="nav-item {{!Route::is('retenciones.index') ?: 'activo'}}">
             <a href="{{ route('retenciones.index')}}" class="nav-link">
               <i class="nav-icon fas fa-th"></i>

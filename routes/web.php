@@ -156,24 +156,15 @@ Route::get('/salariominimo/mostrar/{idSalarioMinimo}','SalarioMinimoController@s
 Route::delete('/salariominimo/{idSalarioMinimo}','SalarioMinimoController@destroy')->name('salariomin.destroy');
 
 
-
-
-
-
-
-
-
-
-
-
-
-
 //PDF Reporte nómina
 Route::get('/nomina-normal', 'ReportNominaPDFController@index')->name('reportnomina.index');
 Route::get('/nomina-normal/mostrar/{id_emp}', 'ReportNominaPDFController@visualizar')->name('reportnomina.mostrar');
 
-Route::get('/miprueba', function(){
-    $pdf = App::make('dompdf.wrapper');
-$pdf->loadHTML('<h1>Holiis beboo moshoo</h1>');
-return $pdf->stream();
-});
+//Pruebas cálculo tiempo
+
+Route::get('/definir-tiempo','SeleccionTiempoExtraController@index')->name('selecciontiempo.index');
+Route::get('/definir','SeleccionTiempoExtraController@create')->name('selecciontiempo.create');
+Route::get('/define','SeleccionTiempoExtraController@store')->name('selecciontiempo.store');
+
+//UMAS
+Route::get('/umas', 'UmasController@index')->name('umas.index');

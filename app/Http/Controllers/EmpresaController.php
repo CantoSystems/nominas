@@ -238,6 +238,10 @@ class EmpresaController extends Controller{
             $table->boolean('imss');
             $table->boolean('infonavit');
             $table->boolean('estatal');
+            $table->float('isr_uma')->nullable();
+            $table->float('isr_porcentaje')->nullable();
+            $table->float('imss_uma')->nullable();
+            $table->float('imss_porcentaje')->nullable();
             $table->timestamps();
         });
 

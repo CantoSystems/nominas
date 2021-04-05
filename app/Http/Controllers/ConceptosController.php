@@ -134,6 +134,31 @@ class ConceptosController extends Controller{
             $estatal=0;
         }
 
+        if($datos->isr_uma == ""){
+            $isr_uma = 0.00;
+        }else{
+            $isr_uma = $datos->isr_uma;
+        }
+
+        if($datos->isr_porcentaje == ""){
+            $isr_porcentaje = 0.00;
+        }else{
+            $isr_porcentaje = $datos->isr_porcentaje;
+        }
+
+        if($datos->imss_uma == ""){
+            $imss_uma = 0.00;
+        }else{
+            $imss_uma = $datos->imss_uma;
+        }
+
+        if($datos->imss_porcentaje == ""){
+            $imss_porcentaje = 0.00;
+        }else{
+            $imss_porcentaje = $datos->imss_porcentaje;
+        }
+
+
         $clv_empresa=$this->conectar($clv);
 
         \Config::set('database.connections.DB_Serverr', $clv_empresa);
@@ -162,8 +187,14 @@ class ConceptosController extends Controller{
                                                                     ,monto
                                                                     ,isr
                                                                     ,imss
-                                                                    ,infonavit
-                                                                    ,estatal,created_at,updated_at)
+                                                                    ,infonavit,
+                                                                    estatal,
+                                                                    isr_uma,
+                                                                    isr_porcentaje,
+                                                                    imss_uma,
+                                                                    imss_porcentaje,
+                                                                    created_at,
+                                                                    updated_at)
                                                                 values (?
                                                                        ,?
                                                                        ,?
@@ -175,8 +206,13 @@ class ConceptosController extends Controller{
                                                                        ,?
                                                                        ,?
                                                                        ,?
-                                                                       ,?,?,?)',[$clave_concepto,$datos->concepto,$datos->formula,$datos->naturaleza
-        ,$datos->manejo,$datos->cantidad,$datos->importe,$datos->monto,$isr,$imss,$infonavit,$estatal,$fecha_periodo,$fecha_periodo]);
+                                                                       ,?,?,?,?,?,?,?)',[$clave_concepto,$datos->concepto,$datos->formula,$datos->naturaleza
+        ,$datos->manejo,$datos->cantidad,$datos->importe,$datos->monto,$isr,$imss,$infonavit,$estatal,
+        $isr_uma,
+        $isr_porcentaje,
+        $imss_uma,
+        $imss_porcentaje,
+        $fecha_periodo,$fecha_periodo]);
     }else{
         return back()->with('msj','Registro duplicado');
     }
