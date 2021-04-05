@@ -112,7 +112,7 @@ class EmpresaController extends Controller{
     *@param $datos | Array
     */
     public function actualizar($datos){
-        $emp= Empresa::where('clave',$datos->clave)->first();
+        /*$emp= Empresa::where('clave',$datos->clave)->first();
         $emp->nombre= $datos->nombre;
         $emp->nombre_nomina= $datos->nombre_nomina;
         $emp->rfc= $datos->rfc;
@@ -130,7 +130,12 @@ class EmpresaController extends Controller{
         $emp->telefono= $datos->telefono;
         $emp->email= $datos->email;
         $emp->tipoPeriodo = $datos->tipoPeriodo;
-        $emp ->save();
+        $emp ->save();*/
+        $cadena = "SD/HT";
+        $cadenaRemp = array("SD" => 123.45
+                           ,"HT" => 6);
+        $nvaCadena = strtr($cadena,$cadenaRemp);
+        echo $nvaCadena;
     }
 
     /**

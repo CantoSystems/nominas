@@ -5,7 +5,7 @@
     Periodos
   </div>
   <div class="card-body">
-    <h5 class="card-title">Selecciona el periodo con el que trabajarás:</h5><br>
+    <h5 class="card-title">Selecciona el periodo con el que trabajarás:</h5>
     <br>
     <div class="row">
       <form action="{{route('seleccionarperiodo')}}" method="GET">
