@@ -20,8 +20,8 @@
                             @if(isset($umas))
                                 @foreach ($umas as $um)
                                     <tr>
-                                        <th scope="row"></th>
-                                        <td></td>
+                                        <th scope="row">{{$um->id}}</th>
+                                        <td>{{$um->porcentaje_uma}}</td>
                                     </tr>
                                 @endforeach
                             @endif
@@ -34,7 +34,7 @@
         <div class="col">
             <div class="card card-secondary">
                 <div class="card-header">
-                    <h3 class="card-title">Bancos</h3>
+                    <h3 class="card-title">UMAS</h3>
                 </div>
                 <div class="card-body">
                     @if(session()->has('busqueda'))
@@ -47,16 +47,16 @@
                             {{ session('msj')}}
                         </div>
                     @endif
-                    <form action="{{ route('bancos.acciones')}}" method="GET" autocomplete="off">
+                    <form action="{{ route('umas.index')}}" method="GET" autocomplete="off">
                         <div class="row">
                            
                             <div class="col-sm-12">
                                 <div class="form-group">
-                                    <label>Nombre:</label>
-                                    @if(isset($banco))
-                                        <input type="hidden" name="id" value="{{$banco->id}}" class="form-control"  onkeyup="mayus(this);">
-                                        <input type="text" name="porcentaje_umas" value="{{$uma->porcentaje_umas}}" class="form-control"  onkeyup="mayus(this);" onkeypress="return validar(event);" >
-                                        @error('nombre_banco')
+                                    <label>% UMA:</label>
+                                    
+                                        <input type="hidden" name="id" value="{{$uma->id ?? ''}}" class="form-control"  onkeyup="mayus(this);">
+                                        <input type="number" name="porcentaje_uma" value="{{$uma->porcentaje_uma ?? ''}}" class="form-control" step="0.1" onkeyup="mayus(this);">
+                                        @error('porcentaje_uma')
                                             <div class="alert alert-secondary">
                                                 {{ $message }}
                                             </div>
@@ -71,7 +71,7 @@
                                 <div class="col-md-5">
                                     <div class="margin">
                                         <div class="btn-group">
-                                            @if(isset($banco))
+                                            @if(isset($uma))
                                                 <div class="form-group">
                                                     <button type="submit"  name="acciones" value="primero" id="primero" class="botones"><i class="fas fa-backward" ></i></button>
                                                 </div>
@@ -108,7 +108,7 @@
                                     <div class="margin">
                                         <div class="btn-group">
                                         @canany(['administrador','capturista','reportes'])
-                                                    @if(isset($banco))
+                                                    @if(isset($uma))
                                                     <div class="form-group">
                                                         <button id="buscar" type="button" data-toggle="modal" data-target="#exampleModal" class="botones">
                                                             <i class="fas fa-search"></i>
@@ -127,7 +127,7 @@
                                                 <div class="form-group">
                                                     <button type="button" id="nuevo" class="botones"> <i class="fas fa-user-plus"></i></button>
                                                 </div>
-                                                @if(isset($banco))
+                                                @if(isset($uma))
                                                     <div class="form-group">
                                                         <button type="button" id="actualizar" class="botones" > <i class="fas fa-pen-square"></i></button>
                                                     </div>
@@ -145,9 +145,9 @@
                                                     </div>
                                             @endcanany
                                             @can('administrador')  
-                                                @if(isset($banco))
+                                                @if(isset($uma))
                                                     <div class="form-group">
-                                                        <a id="eliminar" data-target="#modal-deletebanco-{{$banco->id}}" data-toggle="modal">
+                                                        <a id="eliminar" data-target="#modal-deletebanco-{{$uma->id}}" data-toggle="modal">
                                                             <button type="button" class="botones">
                                                                 <i class="far fa-trash-alt"></i>
                                                             </button>
@@ -198,10 +198,10 @@
                             </div>
                         </div>                        
                     </form>
-                    @isset($banco)
-                        @include('bancos.modaldeletebanco')
+                    @isset($uma)
+                        @include('umas.modaldelete-umas')
                     @endisset
-                    @include('bancos.modalsearchbancos')
+                    @include('umas.modalsearch-umas')
                    </div>
                 </div>
             </div>

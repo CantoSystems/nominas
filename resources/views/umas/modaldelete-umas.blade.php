@@ -1,4 +1,4 @@
-<div class="modal fade bs-example-modal-sm" tabindex="-1" id="modal-deletebanco-{{$banco->id}}" role="dialog" aria-hidden="true">
+<div class="modal fade bs-example-modal-sm" tabindex="-1" id="modal-deletebanco-{{$uma->id}}" role="dialog" aria-hidden="true">
 <div class="modal-dialog modal-sm">
 <div class="modal-content">
 <div class="modal-header">
@@ -9,13 +9,13 @@
 </button>
 </div>
 <div class="modal-body">
-<form action="{{route('bancos.eliminar', $banco->id)}}" method="POST">
+<form action="{{route('umas.destroy', $uma->id)}}" method="POST">
 @method('DELETE')
 @csrf
 
 <div class="row">
-<h5 style="text-align: center;">¿Estas seguro de eliminar este banco: 
-	<strong>{{$banco->nombre_banco}}</strong>
+<h5 style="text-align: center;">¿Estas seguro de eliminar este % UMA: 
+	<strong>{{$uma->porcentaje_uma}}</strong>
 ?</h5>
 </div>
 

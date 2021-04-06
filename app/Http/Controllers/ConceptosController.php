@@ -246,6 +246,30 @@ class ConceptosController extends Controller{
             $estatal=0;
         }
 
+         if($datos->isr_uma == ""){
+            $isr_uma = 0.00;
+        }else{
+            $isr_uma = $datos->isr_uma;
+        }
+
+        if($datos->isr_porcentaje == ""){
+            $isr_porcentaje = 0.00;
+        }else{
+            $isr_porcentaje = $datos->isr_porcentaje;
+        }
+
+        if($datos->imss_uma == ""){
+            $imss_uma = 0.00;
+        }else{
+            $imss_uma = $datos->imss_uma;
+        }
+
+        if($datos->imss_porcentaje == ""){
+            $imss_porcentaje = 0.00;
+        }else{
+            $imss_porcentaje = $datos->imss_porcentaje;
+        }
+
         $clv_empresa=$this->conectar($clv);
 
         \Config::set('database.connections.DB_Serverr', $clv_empresa);
@@ -253,10 +277,11 @@ class ConceptosController extends Controller{
         $datos->validate([
               'clave_concepto' => 'required',
               'concepto' => 'required',
-              'formula' => 'required',
               'naturaleza' => 'required',
               'manejo' => 'required',
         ]);
+
+          $fecha_periodo = now()->toDateString();
         if($aux1!==""){
             DB::connection('DB_Serverr')->table('conceptos')->where('id',$datos->id)
             ->update(['concepto'=>$datos->concepto
@@ -269,7 +294,13 @@ class ConceptosController extends Controller{
                      ,'isr'=>$isr
                      ,'imss'=>$imss
                      ,'infonavit'=>$infonavit
-                     ,'estatal'=>$estatal]);
+                     ,'estatal'=>$estatal,
+                     'isr_uma'=>$isr_uma,
+                     'isr_porcentaje'=>$isr_porcentaje,
+                     'imss_uma'=>$imss_uma,
+                     'imss_porcentaje'=>$imss_porcentaje,
+                     'updated_at'=>$fecha_periodo
+                    ]);
         }
     }
 
