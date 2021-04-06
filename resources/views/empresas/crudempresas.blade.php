@@ -357,42 +357,9 @@
                     <div class="form-group">
                         <label>Tipo de Periodo:</label>
                         @if(isset($empresa))
-                            @if($empresa->tipoPeriodo == "N/A")
-                                <select id="tipoPeriodo" name="tipoPeriodo" class="form-control">
-                                    <option value="N/A" selected>Seleccione una opción:</option>
-                                    <option value="S">Semanal</option>
-                                    <option value="Q">Quincenal</option>
-                                    <option value="M">Mensual</option>
-                                </select>
-                            @elseif($empresa->tipoPeriodo == "S")
-                                <select id="tipoPeriodo" name="tipoPeriodo" class="form-control">
-                                    <option value="N/A">Seleccione una opción:</option>
-                                    <option value="S" selected>Semanal</option>
-                                    <option value="Q">Quincenal</option>
-                                    <option value="M">Mensual</option>
-                                </select>
-                            @elseif($empresa->tipoPeriodo == "Q")
-                                <select id="tipoPeriodo" name="tipoPeriodo" class="form-control">
-                                    <option value="N/A">Seleccione una opción:</option>
-                                    <option value="S">Semanal</option>
-                                    <option value="Q" selected>Quincenal</option>
-                                    <option value="M">Mensual</option>
-                                </select>
-                            @elseif($empresa->tipoPeriodo == "M")
-                                <select id="tipoPeriodo" name="tipoPeriodo" class="form-control">
-                                    <option value="N/A">Seleccione una opción:</option>
-                                    <option value="S">Semanal</option>
-                                    <option value="Q">Quincenal</option>
-                                    <option value="M" selected>Mensual</option>
-                                </select>
-                            @endif
+                            <input type="number" name="tipoPeriodo" class="form-control" value="{{ $empresa->tipoPeriodo }}">
                         @else
-                            <select id="tipoPeriodo" name="tipoPeriodo" class="form-control">
-                                <option value="N/A" selected>Seleccione una opción:</option>
-                                <option value="S">Semanal</option>
-                                <option value="Q">Quincenal</option>
-                                <option value="M">Mensual</option>
-                            </select>
+                            <input type="number" name="tipoPeriodo" class="form-control">
                         @endif
                     </div>
                 </div>

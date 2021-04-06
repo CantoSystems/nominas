@@ -131,11 +131,40 @@ class EmpresaController extends Controller{
         $emp->email= $datos->email;
         $emp->tipoPeriodo = $datos->tipoPeriodo;
         $emp ->save();*/
-        $cadena = "SD/HT";
-        $cadenaRemp = array("SD" => 123.45
-                           ,"HT" => 6);
-        $nvaCadena = strtr($cadena,$cadenaRemp);
-        echo $nvaCadena;
+
+        //Variables
+        if($datos->tipoPeriodo == 7){
+            $numero = date('W');
+            $diaInicio="Monday";
+            $diaFin="Sunday";
+            $strFecha = strtotime(date('Y-m-d'));
+            $fechaInicio = date('Y-m-d',strtotime('last '.$diaInicio,$strFecha));
+            $fechaFin = date('Y-m-d',strtotime('next '.$diaFin,$strFecha));
+    
+            if(date("l",$strFecha)==$diaInicio){
+                $fechaInicio= date("Y-m-d",$strFecha);
+            }
+            if(date("l",$strFecha)==$diaFin){
+                $fechaFin= date("Y-m-d",$strFecha);
+            }
+            $fechaPago = $fechaFin;
+        }else if($datos->tipoPeriodo == 15){
+            if(date('d')<15){
+                $numero = (date('m')*2)-1;
+                $fechaInicio = date('Y').'-'.date('m').'-01';
+                $fechaFin = date('Y').'-'.date('m').'-14';
+            }else{
+                $numero = date('m')*2;
+                $fechaInicio = date('Y').'-'.date('m').'-15';
+                $fechaFin = date('Y-m-t');
+            }
+            $fechaPago = $fechaFin;
+        }else if($datos->tipoPeriodo == 30){
+            $numero = ltrim(date('m'),"0");
+            $fechaInicio = date('Y').'-'.date('m').'-01';
+            $fechaFin = date('Y-m-t');
+            $fechaPago = $fechaFin;
+        }
     }
 
     /**
