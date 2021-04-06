@@ -168,3 +168,4 @@ Route::get('/define','SeleccionTiempoExtraController@store')->name('selecciontie
 
 //UMAS
 Route::get('/umas', 'UmasController@index')->name('umas.index');
+Route::delete('/umas/{id}','UmasController@destroy')->name('umas.destroy');
