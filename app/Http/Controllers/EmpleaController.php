@@ -762,8 +762,7 @@ class EmpleaController extends Controller
     }
 
 
-    public function update($datos)
-    {
+    public function update($datos){
         $clv=Session::get('clave_empresa');
 
 

@@ -53,7 +53,7 @@
                         @endif
                     </div>
                 </div>
-                 <div class="col-sm-5">
+                <div class="col-sm-5">
                     <div class="form-group">
                         <label>Nombre Nómina:</label>
                         @if(isset($empresa))
@@ -155,27 +155,7 @@
                 </div>
                 <div class="col-sm-2">
                     <div class="form-group">
-                        <label>Número interno:</label>
-                        @if(isset($empresa))
-                            <input type="text" name="num_interno" max="6000" min="1" class="form-control" value="{{$empresa->num_interno}}" onkeypress="return numeros(event)">
-                            @error('num_interno')
-                                <div class="alert alert-secondary">
-                                    {{ $message }}
-                                </div>
-                            @enderror
-                        @else
-                            <input type="text" name="num_interno" max="6000" min="1" class="form-control" value="" onkeypress="return numeros(event)">
-                            @error('num_interno')
-                                <div class="alert alert-secondary">
-                                    {{ $message }}
-                                </div>
-                            @enderror
-                        @endif
-                    </div>
-                </div>
-                <div class="col-sm-2">
-                    <div class="form-group">
-                        <label>Número externo:</label>
+                        <label>Número exterior:</label>
                         @if(isset($empresa))
                             <input type="text" name="num_externo" class="form-control" value="{{$empresa->num_externo}}" onkeypress="return numeros(event)">
                             @error('num_externo')
@@ -186,6 +166,26 @@
                         @else
                             <input type="text" name="num_externo" class="form-control" value="" onkeypress="return numeros(event)">
                             @error('num_externo')
+                                <div class="alert alert-secondary">
+                                    {{ $message }}
+                                </div>
+                            @enderror
+                        @endif
+                    </div>
+                </div>
+                <div class="col-sm-2">
+                    <div class="form-group">
+                        <label>Número interior:</label>
+                        @if(isset($empresa))
+                            <input type="text" name="num_interno" max="6000" min="1" class="form-control" value="{{$empresa->num_interno}}">
+                            @error('num_interno')
+                                <div class="alert alert-secondary">
+                                    {{ $message }}
+                                </div>
+                            @enderror
+                        @else
+                            <input type="text" name="num_interno" max="6000" min="1" class="form-control" value="">
+                            @error('num_interno')
                                 <div class="alert alert-secondary">
                                     {{ $message }}
                                 </div>
@@ -355,7 +355,7 @@
                 </div>
                 <div class="col-sm-4">
                     <div class="form-group">
-                        <label>Tipo de Periodo:</label>
+                        <label>Días del Periodo:</label>
                         @if(isset($empresa))
                             <input type="number" name="tipoPeriodo" class="form-control" value="{{ $empresa->tipoPeriodo }}">
                         @else
@@ -363,6 +363,66 @@
                         @endif
                     </div>
                 </div>
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <label>Inicio del Periodo:</label>
+                        @if(isset($empresa))
+                            <input type="date" name="inicioPeriodo" class="form-control" value="{{ $empresa->inicioPeriodo }}">
+                        @else
+                            <input type="date" name="inicioPeriodo" class="form-control">
+                        @endif
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <label>Área Geográfica:</label>
+                        @if(isset($empresa))
+                            <select id="regionSalario" name="regionEmpresa" class="custom-select">
+                                @if($empresa->region=="N/A")
+                                    <option selected value="N/A">Selecciona una opción</option>
+                                    <option value="Frontera">Zona Libre de la Frontera Norte</option>
+                                    <option value="Resto">Resto del país</option>
+                                @elseif($empresa->region=="Frontera")
+                                    <option value="N/A">Selecciona una opción</option>
+                                    <option selected value="Frontera">Zona Libre de la Frontera Norte</option>
+                                    <option value="Resto">Resto del país</option>
+                                @elseif($empresa->region=="Resto")
+                                    <option value="N/A">Selecciona una opción</option>
+                                    <option value="Frontera">Zona Libre de la Frontera Norte</option>
+                                    <option selected value="Resto">Resto del país</option>
+                                @endif
+                            </select>
+                        @else
+                            <select id="regionSalario" name="regionEmpresa" class="custom-select">
+                                <option value="N/A">Selecciona una opción</option>
+                                <option value="Frontera">Zona Libre de la Frontera Norte</option>
+                                <option selected value="Resto">Resto del país</option>
+                            </select>
+                        @endif
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <label>Prima de Riesgo:</label>
+                        @if(isset($empresa))
+                            <input type="number" name="primaRiesgo" class="form-control" value="{{ $empresa->primaRiesgo }}">
+                        @else
+                            <input type="number" name="primaRiesgo" class="form-control">
+                        @endif
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <label>Fondo de Ahorro:</label>
+                        @if(isset($empresa))
+                            <input type="number" name="porcentajeAhorro" class="form-control" value="{{ $empresa->porcentajeAhorro }}">
+                        @else
+                            <input type="number" name="porcentajeAhorro" class="form-control">
+                        @endif
+                    </div>
+                </div>
+            </div>
+            <div class="row">
                 @canany(['administrador','capturista','reportes'])
                     <div class="col-sm-5">
                         <div class="margin">

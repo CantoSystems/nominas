@@ -12,16 +12,14 @@ use Illuminate\Support\Facades\Schema;
 class PeriodosController extends Controller
 {
     public function index(){
+        $clv= Session::get('clave_empresa');
+        $clv_empresa=$this->conectar($clv);
 
-    $clv= Session::get('clave_empresa');
-    $clv_empresa=$this->conectar($clv);
+        \Config::set('database.connections.DB_Serverr', $clv_empresa);
 
-
-    \Config::set('database.connections.DB_Serverr', $clv_empresa);
-
-    $periodos=DB::connection('DB_Serverr')->table('periodos')->get();
-    $cant=DB::connection('DB_Serverr')->table('periodos')->count();
-    return view('periodos.periodos',compact('periodos','cant'));
+        $periodos=DB::connection('DB_Serverr')->table('periodos')->get();
+        $cant=DB::connection('DB_Serverr')->table('periodos')->count();
+        return view('periodos.periodos',compact('periodos','cant'));
     }
 
     public function agregarperiodos($datos){
