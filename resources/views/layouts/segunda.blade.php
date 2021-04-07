@@ -276,6 +276,15 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 </a>
               </li>
             </ul>
+
+             <ul class="nav nav-treeview">
+              <li class="nav-item {{!Route::is('prenomina.index') ?: 'active'}}">
+                <a href="{{ route('prenomina.index')}}" class="nav-link active">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Prenómina</p>
+                </a>
+              </li>
+            </ul>
           </li>
 
  
