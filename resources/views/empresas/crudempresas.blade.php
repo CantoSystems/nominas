@@ -357,9 +357,9 @@
                     <div class="form-group">
                         <label>Días del Periodo:</label>
                         @if(isset($empresa))
-                            <input type="number" name="tipoPeriodo" class="form-control" value="{{ $empresa->tipoPeriodo }}">
+                            <input type="number" maxlength="2" name="tipoPeriodo" class="form-control" value="{{ $empresa->tipoPeriodo }}">
                         @else
-                            <input type="number" name="tipoPeriodo" class="form-control">
+                            <input type="number" maxlength="2" name="tipoPeriodo" class="form-control">
                         @endif
                     </div>
                 </div>
