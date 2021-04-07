@@ -38,14 +38,12 @@ class EmpleadosController extends Controller{
         $indic=$request->id_emp;
         switch ($accion) {
             case '':
-            
                 $emp=DB::connection('DB_Serverr')->table('empleados')
                 ->join('departamentos','departamentos.clave_departamento','=','empleados.clave_departamento')
                 ->join('puestos','puestos.clave_puesto','=','empleados.clave_puesto')
                 ->join('areas','areas.clave_area', '=','departamentos.clave_area')
                 ->select('empleados.*','areas.*','departamentos.*','puestos.*')
                 ->get()->first();
-
             
                 $personal = DB::connection('DB_Serverr')->table('empleados')
                 ->join('departamentos','departamentos.clave_departamento','=','empleados.clave_departamento')
@@ -59,7 +57,6 @@ class EmpleadosController extends Controller{
                 $puestos=DB::connection('DB_Serverr')->table('puestos')->get();
 
                 $bancos=Banco::all();
-            
 
                 return view('empleados.empleados',compact('emp','departamentos','puestos','bancos','personal'));
             break;

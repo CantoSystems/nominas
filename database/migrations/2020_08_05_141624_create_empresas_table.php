@@ -13,10 +13,7 @@ class CreateEmpresasTable extends Migration
      * @return void
      * @author Elizabeth|Javier
     */
-
-    
-    public function up()
-    {
+    public function up(){
         Schema::create('empresas', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('nombre');
@@ -37,6 +34,10 @@ class CreateEmpresasTable extends Migration
             $table->string('telefono',15);
             $table->string('email',50);
             $table->string('tipoPeriodo',1);
+            $table->date('inicioPeriodo');
+            $table->string('region',50);
+            $table->double('primaRiesgo');
+            $table->double('porcentajeAhorro');
             $table->timestamps();
         });
     }

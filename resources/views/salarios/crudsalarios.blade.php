@@ -46,7 +46,7 @@
                                 </div>
                                 <div class="col-sm-4">
                                     <div class="form-group">
-                                        <label>Monto Vigente 2021</label>
+                                        <label>Monto Vigente</label>
                                         <input type="number" id="importeSal" name="importeSal" step="0.01" value="{{ $salMin->importe }}" class="form-control">
                                     </div>
                                 </div>
@@ -67,15 +67,15 @@
                                     <div class="form-group">
                                         <label>Área Geográfica</label>
                                         <select id="regionSalario" name="regionSalario" class="custom-select">
-                                            <option selected value="N/A">Selecciona una opción</option>
+                                            <option value="N/A">Selecciona una opción</option>
                                             <option value="Frontera">Zona Libre de la Frontera Norte</option>
-                                            <option value="Resto">Resto del país</option>
+                                            <option selected value="Resto">Resto del país</option>
                                         </select>
                                     </div>
                                 </div>
                                 <div class="col-sm-4">
                                     <div class="form-group">
-                                        <label>Monto Vigente 2021</label>
+                                        <label>Monto Vigente</label>
                                         <input type="number" id="importeSal" name="importeSal" step="0.01" class="form-control">
                                     </div>
                                 </div>
