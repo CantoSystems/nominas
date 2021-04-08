@@ -70,21 +70,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
       <li class="nav-item">
         <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
       </li>
-
-
     </ul>
-
-    <!-- SEARCH FORM -->
-
-
-    <!-- Right navbar links -->
-    <ul class="navbar-nav ml-auto">
-      <!-- Messages Dropdown Menu -->
-
-      <!-- Notifications Dropdown Menu -->
-
-
-    </ul>
+    <ul class="navbar-nav ml-auto"></ul>
   </nav>
   <!-- /.navbar -->
 
@@ -138,6 +125,14 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <a href="{{route('conceptos.index')}}" class="nav-link active">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Conceptos</p>
+                </a>
+              </li> 
+            </ul>
+            <ul class="nav nav-treeview">
+              <li class="nav-item {{!Route::is('selectConceptos.index') ?: 'active'}}">
+                <a href="{{route('selectConceptos.index')}}" class="nav-link active">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Seleccionar Conceptos</p>
                 </a>
               </li> 
             </ul>

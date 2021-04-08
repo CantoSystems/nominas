@@ -176,46 +176,46 @@ class ConceptosController extends Controller{
         ->get();
 
         if($coincidencia->count() == 0){
-        $fecha_periodo = now()->toDateString();
-        DB::connection('DB_Serverr')->insert('insert into conceptos (clave_concepto
-                                                                    ,concepto
-                                                                    ,formula
-                                                                    ,naturaleza
-                                                                    ,manejo
-                                                                    ,cantidad
-                                                                    ,importe
-                                                                    ,monto
-                                                                    ,isr
-                                                                    ,imss
-                                                                    ,infonavit,
-                                                                    estatal,
-                                                                    isr_uma,
-                                                                    isr_porcentaje,
-                                                                    imss_uma,
-                                                                    imss_porcentaje,
-                                                                    created_at,
-                                                                    updated_at)
-                                                                values (?
-                                                                       ,?
-                                                                       ,?
-                                                                       ,?
-                                                                       ,?
-                                                                       ,?
-                                                                       ,?
-                                                                       ,?
-                                                                       ,?
-                                                                       ,?
-                                                                       ,?
-                                                                       ,?,?,?,?,?,?,?)',[$clave_concepto,$datos->concepto,$datos->formula,$datos->naturaleza
-        ,$datos->manejo,$datos->cantidad,$datos->importe,$datos->monto,$isr,$imss,$infonavit,$estatal,
-        $isr_uma,
-        $isr_porcentaje,
-        $imss_uma,
-        $imss_porcentaje,
-        $fecha_periodo,$fecha_periodo]);
-    }else{
-        return back()->with('msj','Registro duplicado');
-    }
+            $fecha_periodo = now()->toDateString();
+            DB::connection('DB_Serverr')->insert('insert into conceptos (clave_concepto
+                                                                        ,concepto
+                                                                        ,formula
+                                                                        ,naturaleza
+                                                                        ,manejo
+                                                                        ,cantidad
+                                                                        ,importe
+                                                                        ,monto
+                                                                        ,isr
+                                                                        ,imss
+                                                                        ,infonavit,
+                                                                        estatal,
+                                                                        isr_uma,
+                                                                        isr_porcentaje,
+                                                                        imss_uma,
+                                                                        imss_porcentaje,
+                                                                        created_at,
+                                                                        updated_at)
+                                                                    values (?
+                                                                        ,?
+                                                                        ,?
+                                                                        ,?
+                                                                        ,?
+                                                                        ,?
+                                                                        ,?
+                                                                        ,?
+                                                                        ,?
+                                                                        ,?
+                                                                        ,?
+                                                                        ,?,?,?,?,?,?,?)',[$clave_concepto,$datos->concepto,$datos->formula,$datos->naturaleza
+            ,$datos->manejo,$datos->cantidad,$datos->importe,$datos->monto,$isr,$imss,$infonavit,$estatal,
+            $isr_uma,
+            $isr_porcentaje,
+            $imss_uma,
+            $imss_porcentaje,
+            $fecha_periodo,$fecha_periodo]);
+        }else{
+            return back()->with('msj','Registro duplicado');
+        }
     }
 
     public function actualizar($datos){
