@@ -244,6 +244,7 @@ class EmpresaController extends Controller{
             $table->float('isr_porcentaje')->nullable();
             $table->float('imss_uma')->nullable();
             $table->float('imss_porcentaje')->nullable();
+            $table->boolean('seleccionado')->nullable();
             $table->timestamps();
         });
 

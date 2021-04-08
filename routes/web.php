@@ -155,13 +155,11 @@ Route::get('/salariominimo','SalarioMinimoController@acciones')->name('salariomi
 Route::get('/salariominimo/mostrar/{idSalarioMinimo}','SalarioMinimoController@show')->name('salariomin.mostrar');
 Route::delete('/salariominimo/{idSalarioMinimo}','SalarioMinimoController@destroy')->name('salariomin.destroy');
 
-
 //PDF Reporte nómina
 Route::get('/nomina-normal', 'ReportNominaPDFController@index')->name('reportnomina.index');
 Route::get('/nomina-normal/mostrar/{id_emp}', 'ReportNominaPDFController@visualizar')->name('reportnomina.mostrar');
 
 //Pruebas cálculo tiempo
-
 Route::get('/definir-tiempo','SeleccionTiempoExtraController@index')->name('selecciontiempo.index');
 Route::get('/definir','SeleccionTiempoExtraController@create')->name('selecciontiempo.create');
 Route::get('/define','SeleccionTiempoExtraController@store')->name('selecciontiempo.store');
@@ -170,15 +168,8 @@ Route::get('/define','SeleccionTiempoExtraController@store')->name('selecciontie
 Route::get('/umas', 'UmasController@index')->name('umas.index');
 Route::delete('/umas/{id}','UmasController@destroy')->name('umas.destroy');
 
-
-
-
-
-
-
-
-
-
+//Seleccionar Conceptos
+Route::get('/selectConceptos','SelectConceptosController@index')->name('selectConceptos.index');
 
 //Prenómina
 Route::get('/prenomina', 'CalculoPrenominaController@index')->name('prenomina.index');
