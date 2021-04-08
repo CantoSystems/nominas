@@ -170,3 +170,6 @@ Route::delete('/umas/{id}','UmasController@destroy')->name('umas.destroy');
 
 //Seleccionar Conceptos
 Route::get('/selectConceptos','SelectConceptosController@index')->name('selectConceptos.index');
+
+//Prenómina
+Route::get('/prenomina', 'CalculoPrenominaController@index')->name('prenomina.index');
