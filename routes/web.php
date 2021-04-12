@@ -173,3 +173,4 @@ Route::get('/selectConceptos','SelectConceptosController@index')->name('selectCo
 
 //Prenómina
 Route::get('/prenomina', 'CalculoPrenominaController@index')->name('prenomina.index');
+Route::get('/prenomina/{id_emp}', 'CalculoPrenominaController@show')->name('prenomina.show');

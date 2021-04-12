@@ -4,17 +4,52 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Conecta\Conexionmultiple;
+use DB;
+use Session;
+use DataTables;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\Schema;
 
 class CalculoPrenominaController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+     public function conectar($clv){
+        $configDb = [
+            'driver'      => 'mysql',
+            'host'        => env('DB_HOST', 'localhost'),
+            'port'        => env('DB_PORT', '3306'),
+            'database'    => $clv,
+            'username'    => env('DB_USERNAME', 'root'),
+            'password'    => env('DB_PASSWORD', ''),
+            'unix_socket' => env('DB_SOCKET', ''),
+            'charset'     => 'utf8',
+            'collation'   => 'utf8_unicode_ci',
+            'prefix'      => '',
+            'strict'      => true,
+            'engine'      => null,
+        ];
+        return $configDb;
+    }
+
     public function index()
     {
-            return view('prenomina.prenomina');
+        $clv=Session::get('clave_empresa');
+        $clv_empresa=$this->conectar($clv);
+
+        \Config::set('database.connections.DB_Serverr', $clv_empresa);
+        $empleados = DB::connection('DB_Serverr')->table('empleados')
+                ->join('departamentos','departamentos.clave_departamento','=','empleados.clave_departamento')
+                ->join('puestos','puestos.clave_puesto','=','empleados.clave_puesto')
+                ->join('areas','areas.clave_area', '=','departamentos.clave_area')
+                ->select('empleados.*','areas.*','departamentos.*','puestos.*')
+                ->get();
+
+         $conceptos = DB::connection('DB_Serverr')->table('conceptos')
+            ->where('seleccionado','=',1)
+            ->get();
+       
+
+
+            return view('prenomina.prenomina', compact('empleados','conceptos'));
     }
 
     /**
@@ -44,9 +79,20 @@ class CalculoPrenominaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($id_emp)
     {
-        //
+        //return $id_emp;
+        $clv=Session::get('clave_empresa');
+        $clv_empresa=$this->conectar($clv);
+
+        \Config::set('database.connections.DB_Serverr', $clv_empresa);
+
+            $conceptos = DB::connection('DB_Serverr')->table('conceptos')
+            ->where('seleccionado','=',1)
+            ->get();
+        return $conceptos;
+
+        //return "hola";
     }
 
     /**

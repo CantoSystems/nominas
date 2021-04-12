@@ -33,7 +33,7 @@ class CreateEmpresasTable extends Migration
             $table->string('rfc_representante',13);
             $table->string('telefono',15);
             $table->string('email',50);
-            $table->string('tipoPeriodo',2);
+            $table->string('tipoPeriodo',10);
             $table->date('inicioPeriodo');
             $table->string('region',50);
             $table->double('primaRiesgo');
