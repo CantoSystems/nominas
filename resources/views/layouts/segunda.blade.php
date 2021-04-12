@@ -262,21 +262,19 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <i class="right fas fa-angle-left"></i>
               </p>
             </a>
-
+            <ul class="nav nav-treeview">
+              <li class="nav-item {{!Route::is('prenomina.index') ?: 'active'}}">
+                <a href="{{ route('prenomina.index')}}" class="nav-link active">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Prenómina</p>
+                </a>
+              </li>
+            </ul>
             <ul class="nav nav-treeview">
               <li class="nav-item {{!Route::is('reportnomina.index') ?: 'active'}}">
                 <a href="{{ route('reportnomina.index')}}" class="nav-link active">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Nómina normal</p>
-                </a>
-              </li>
-            </ul>
-
-             <ul class="nav nav-treeview">
-              <li class="nav-item {{!Route::is('prenomina.index') ?: 'active'}}">
-                <a href="{{ route('prenomina.index')}}" class="nav-link active">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Prenómina</p>
                 </a>
               </li>
             </ul>
