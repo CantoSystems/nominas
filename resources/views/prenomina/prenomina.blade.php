@@ -35,6 +35,7 @@
                                         <td style="width: 20px;">
                                              @can('administrador')
                         <a data-target="#calculo-prenomina{{$emplea->id_emp}}" data-toggle="modal" style='width:70px; height:40px'>
+                            <input type="text" name="empleado_prenomina" value="{{$emplea->id_emp}}">
                           <button type="button" style='width:70px; height:40px'>
                               <i class="far fa-eye"></i>
                           </button>

@@ -32,8 +32,10 @@ class CalculoPrenominaController extends Controller
 
     public function index()
     {
+        
         $clv=Session::get('clave_empresa');
         $clv_empresa=$this->conectar($clv);
+        //Session::put('id_empledo',$request->empleado_prenomina);
 
         \Config::set('database.connections.DB_Serverr', $clv_empresa);
         $empleados = DB::connection('DB_Serverr')->table('empleados')
@@ -59,7 +61,8 @@ class CalculoPrenominaController extends Controller
      */
     public function create()
     {
-        //
+        $nuevo=Session::get('id_empledo');
+        return $nuevo;
     }
 
     /**
@@ -70,7 +73,7 @@ class CalculoPrenominaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        
     }
 
     /**
@@ -79,9 +82,12 @@ class CalculoPrenominaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id_emp)
+    public function show(Request $request, $id_emp)
     {
-        //return $id_emp;
+        $data = Session::put('id_empledo',$empleado_prenomina);
+        return $data;
+        
+       
         $clv=Session::get('clave_empresa');
         $clv_empresa=$this->conectar($clv);
 
