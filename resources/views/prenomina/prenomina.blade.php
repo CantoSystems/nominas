@@ -24,7 +24,29 @@
                             </tr>
                         </thead>
                         <tbody>
-                             
+                              @if(!empty($empleados))
+                                @foreach($empleados as $emplea)
+                                    <tr>
+                                        <td scope="row">{{ $emplea->clave_empleado }}</td>
+                                        <td>{{ $emplea->nombre}} {{ $emplea->apellido_paterno }} {{ $emplea->apellido_materno }}</td>
+                                        <td>{{ $emplea->nombre_puesto }}</td>
+                                        <td>{{ $emplea->departamento }}</td>
+                                        <td>{{ $emplea->area }}</td>
+                                        <td style="width: 20px;">
+                                             @can('administrador')
+                        <a data-target="#calculo-prenomina{{$emplea->id_emp}}" data-toggle="modal" style='width:70px; height:40px'>
+                          <button type="button" style='width:70px; height:40px'>
+                              <i class="far fa-eye"></i>
+                          </button>
+                        </a>
+                        <!--Incluye los modales por cada accion de eliminar generando sean direfentes los ID -->
+                        @include('prenomina.calculo-prenomina')                
+                      </div>
+                    @endcan
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            @endif
                             
                      
                             
