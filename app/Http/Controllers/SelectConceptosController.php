@@ -24,10 +24,6 @@ class selectConceptosController extends Controller{
             break;
             case 'actualizarConcepto':
                 $datos = $request->except('example1_length','acciones');
-                $conceptosBD = DB::connection('DB_Serverr')->table('conceptos')
-                ->select('clave_concepto')
-                ->orderBy('id','asc')
-                ->get();
                 $conteoBD = DB::connection('DB_Serverr')->table('conceptos')
                 ->select('clave_concepto')
                 ->count();
