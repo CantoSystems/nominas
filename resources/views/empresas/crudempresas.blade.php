@@ -403,7 +403,7 @@
                 </div>
                 <div class="col-sm-4">
                     <div class="form-group">
-                        <label>Prima de Riesgo:</label>
+                        <label>Factor Prima de Riesgo de Trabajo:</label>
                         @if(isset($empresa))
                             <input type="number" name="primaRiesgo" class="form-control" value="{{ $empresa->primaRiesgo }}">
                         @else
@@ -413,7 +413,7 @@
                 </div>
                 <div class="col-sm-4">
                     <div class="form-group">
-                        <label>Fondo de Ahorro:</label>
+                        <label>Fondo de Ahorro (%):</label>
                         @if(isset($empresa))
                             <input type="number" name="porcentajeAhorro" class="form-control" value="{{ $empresa->porcentajeAhorro }}">
                         @else

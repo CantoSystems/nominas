@@ -9,10 +9,8 @@ use Session;
 use DataTables;
 use Illuminate\Support\Facades\Schema;
 
-class ReportNominaPDFController extends Controller
-{
-     public function conectar($clv)
-    {
+class ReportNominaPDFController extends Controller{
+     public function conectar($clv){
 
         $configDb = [
         'driver'      => 'mysql',
@@ -30,39 +28,36 @@ class ReportNominaPDFController extends Controller
         ];
 
         return $configDb;
-
     }
 
-    public function visualizar($id_emp)
-    {
+    public function visualizar($id_emp){
         $clv=Session::get('clave_empresa');
         $clv_empresa=$this->conectar($clv);
         \Config::set('database.connections.DB_Serverr', $clv_empresa);
-                $persona = DB::connection('DB_Serverr')->table('empleados')
-                ->join('departamentos','departamentos.clave_departamento','=','empleados.clave_departamento')
-                ->join('puestos','puestos.clave_puesto','=','empleados.clave_puesto')
-                ->join('areas','areas.clave_area', '=','departamentos.clave_area')
-                ->select('empleados.*','areas.*','departamentos.*','puestos.*')
-                ->where('id_emp','=',$id_emp)
-                ->first();
+        
+        $persona = DB::connection('DB_Serverr')->table('empleados')
+        ->join('departamentos','departamentos.clave_departamento','=','empleados.clave_departamento')
+        ->join('puestos','puestos.clave_puesto','=','empleados.clave_puesto')
+        ->join('areas','areas.clave_area', '=','departamentos.clave_area')
+        ->select('empleados.*','areas.*','departamentos.*','puestos.*')
+        ->where('id_emp','=',$id_emp)
+        ->first();
 
-                $deducciones =  DB::connection('DB_Serverr')->table('ausentismos')
-                ->join('empleados','empleados.clave_empleado','=','ausentismos.clave_empleado')
-                ->join('conceptos','conceptos.clave_concepto','=','ausentismos.clave_concepto')
-                ->where('id_emp','=',$id_emp)
-                ->get();
+        $deducciones = DB::connection('DB_Serverr')->table('ausentismos')
+        ->join('empleados','empleados.clave_empleado','=','ausentismos.clave_empleado')
+        ->join('conceptos','conceptos.clave_concepto','=','ausentismos.clave_concepto')
+        ->where('id_emp','=',$id_emp)
+        ->get();
 
         $nombre_empresa=Session::get('empresa');
         $num_periodo = Session::get('num_periodo');
-                $periodo_act = DB::connection('DB_Serverr')->table('periodos')
-                ->where('numero','=',$num_periodo)
-                ->first();
+        $periodo_act = DB::connection('DB_Serverr')->table('periodos')
+        ->where('numero','=',$num_periodo)
+        ->first();
 
         $pdf = PDF::loadView('NominaPDF.report-nomina',compact('persona','nombre_empresa','periodo_act','deducciones'));
 
         return $pdf->stream();
-
-
     }
 
     /**
@@ -70,12 +65,10 @@ class ReportNominaPDFController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
+    public function index(){
         $clv=Session::get('clave_empresa');
         $clv_empresa=$this->conectar($clv);
         
-
         \Config::set('database.connections.DB_Serverr', $clv_empresa);
 
                 $empleados = DB::connection('DB_Serverr')->table('empleados')
@@ -143,5 +136,4 @@ class ReportNominaPDFController extends Controller
     {
         //
     }
-
 }
