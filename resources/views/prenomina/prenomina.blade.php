@@ -2,25 +2,27 @@
 @section('content')
 <div class="container">
     <div class="col">
-                 <!-- Inicio Datatables-->
+        <!-- Inicio Datatables-->
         <div class="row">
             <div class="col">
                 <div class="card card-secondary">
-                <div class="card-header">
-                    <h3 class="card-title">
-                       Cálculo de prenomina
-                    </h3>
-                </div>
-                <div class="card-body">
-                    <table id="example1" class="table table-bordered table-striped">
-                        <thead>
-                            <tr>
-                                    <th>Clave</th>
-                                    <th>Nombre</th>
-                                    <th>Puesto 
+                    <div class="card-header">
+                        <h3 class="card-title">
+                            Cálculo de Prenómina
+                        </h3>
+                    </div>
+                    <div class="card-body">
+                        <table id="example1" class="table table-bordered table-striped">
+                            <thead>
+                                <tr>
+                                    <th style="width: 15px; text-align: center;">Clave</th>
+                                    <th>Empleado</th>
                                     <th>Departamento</th>
-                                    <th>Área</th>
+                                    <th style="text-align: center;">Total Percepciones</th>
+                                    <th style="text-align: center;">Total Deducciones</th>
+                                    <th style="text-align: center;">Pago Neto</th>
                                     <th></th>
+                        
                             </tr>
                         </thead>
                         <tbody>
@@ -54,10 +56,10 @@
 
                         </tbody>
                     </table>
+
                 </div>
             </div>
         </div>
     </div>
-</div>
 </div>
 @endsection

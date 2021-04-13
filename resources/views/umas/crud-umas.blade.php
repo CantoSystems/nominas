@@ -6,14 +6,14 @@
         <div class="col">
             <div class="card card-secondary">
                 <div class="card-header">
-                    <h3 class="card-title">Umas</h3>
+                    <h3 class="card-title">UMAS</h3>
                 </div>
                 <div class="card-body">
                     <table id="example1" class="table table-bordered table-striped">
                         <thead>
                             <tr>
                                 <th>Clave</th>
-                                <th>Umas %</th>
+                                <th>UMAS %</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -30,7 +30,6 @@
                 </div>
             </div>
         </div>
-
         <div class="col">
             <div class="card card-secondary">
                 <div class="card-header">
@@ -49,21 +48,16 @@
                     @endif
                     <form action="{{ route('umas.index')}}" method="GET" autocomplete="off">
                         <div class="row">
-                           
                             <div class="col-sm-12">
                                 <div class="form-group">
                                     <label>% UMA:</label>
-                                    
-                                        <input type="hidden" name="id" value="{{$uma->id ?? ''}}" class="form-control"  onkeyup="mayus(this);">
-                                        <input type="number" name="porcentaje_uma" value="{{$uma->porcentaje_uma ?? ''}}" class="form-control" step="0.1" onkeyup="mayus(this);">
-                                        @error('porcentaje_uma')
-                                            <div class="alert alert-secondary">
-                                                {{ $message }}
-                                            </div>
-                                        @enderror
-                                   
-                                       
-                                    
+                                    <input type="hidden" name="id" value="{{$uma->id ?? ''}}" class="form-control"  onkeyup="mayus(this);">
+                                    <input type="number" name="porcentaje_uma" value="{{$uma->porcentaje_uma ?? ''}}" class="form-control" step="0.1" onkeyup="mayus(this);">
+                                    @error('porcentaje_uma')
+                                        <div class="alert alert-secondary">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
                                 </div>
                             </div>
                             <!---Flechas-->
@@ -105,107 +99,105 @@
 
                             <!---Operaciones-->
                             <div class="col-md-5">
-                                    <div class="margin">
-                                        <div class="btn-group">
-                                        @canany(['administrador','capturista','reportes'])
-                                                    @if(isset($uma))
-                                                    <div class="form-group">
-                                                        <button id="buscar" type="button" data-toggle="modal" data-target="#exampleModal" class="botones">
-                                                            <i class="fas fa-search"></i>
-                                                        </button>
-                                                    </div>
-                                                    @else
-                                                    <div class="form-group">
-                                                        <button id="buscar_falso" type="button" class="botones" disabled>
-                                                            <i class="fas fa-search"></i>
-                                                        </button>
-                                                    </div>
-                                                    @endif
-                                                
-                                            @endcanany
-                                            @canany(['administrador','capturista'])
-                                                <div class="form-group">
-                                                    <button type="button" id="nuevo" class="botones"> <i class="fas fa-user-plus"></i></button>
-                                                </div>
-                                                @if(isset($uma))
-                                                    <div class="form-group">
-                                                        <button type="button" id="actualizar" class="botones" > <i class="fas fa-pen-square"></i></button>
-                                                    </div>
-                                                @else
-                                                    <div class="form-group">
-                                                        <button type="button" class="botones" disabled> <i class="fas fa-pen-square"></i></button>
-                                                    </div>
-                                                @endif
-                                            @elsecanany(['reportes'])
-                                                <div class="form-group">
-                                                    <button type="button" disabled class="botones"> <i class="fas fa-user-plus"></i></button>
-                                                </div>
-                                                <div class="form-group">
-                                                        <button type="button" class="botones" disabled> <i class="fas fa-pen-square"></i></button>
-                                                    </div>
-                                            @endcanany
-                                            @can('administrador')  
-                                                @if(isset($uma))
-                                                    <div class="form-group">
-                                                        <a id="eliminar" data-target="#modal-deletebanco-{{$uma->id}}" data-toggle="modal">
-                                                            <button type="button" class="botones">
-                                                                <i class="far fa-trash-alt"></i>
-                                                            </button>
-                                                        </a>
-                                                    </div>
-                                                @else
-                                                    <div class="form-group">
-                                                        <a id="eliminar_vacio">
-                                                            <button type="button" disabled class="botones">
-                                                                <i class="far fa-trash-alt"></i>
-                                                            </button>
-                                                        </a>
-                                                    </div>
-                                                @endif
-                                            @elsecanany(['capturista','reportes'])
-                                                <div class="form-group">
-                                                        <a id="eliminar_">
-                                                            <button type="button" disabled class="botones">
-                                                                <i class="far fa-trash-alt"></i>
-                                                            </button>
-                                                        </a>
-                                                    </div>
-                                            @endcanany
+                                <div class="margin">
+                                    <div class="btn-group">
+                                    @canany(['administrador','capturista','reportes'])
+                                        @if(isset($uma))
+                                            <div class="form-group">
+                                                <button id="buscar" type="button" data-toggle="modal" data-target="#exampleModal" class="botones">
+                                                    <i class="fas fa-search"></i>
+                                                </button>
+                                            </div>
+                                        @else
+                                            <div class="form-group">
+                                                <button id="buscar_falso" type="button" class="botones" disabled>
+                                                    <i class="fas fa-search"></i>
+                                                </button>
+                                            </div>
+                                        @endif
+                                    @endcanany
+                                    @canany(['administrador','capturista'])
+                                        <div class="form-group">
+                                            <button type="button" id="nuevo" class="botones"> <i class="fas fa-user-plus"></i></button>
                                         </div>
-                                    </div>
+                                        @if(isset($uma))
+                                            <div class="form-group">
+                                                <button type="button" id="actualizar" class="botones" > <i class="fas fa-pen-square"></i></button>
+                                            </div>
+                                        @else
+                                            <div class="form-group">
+                                                <button type="button" class="botones" disabled> <i class="fas fa-pen-square"></i></button>
+                                            </div>
+                                        @endif
+                                    @elsecanany(['reportes'])
+                                        <div class="form-group">
+                                            <button type="button" disabled class="botones"> <i class="fas fa-user-plus"></i></button>
+                                        </div>
+                                        <div class="form-group">
+                                            <button type="button" class="botones" disabled> <i class="fas fa-pen-square"></i></button>
+                                        </div>
+                                    @endcanany
+                                    @can('administrador')  
+                                        @if(isset($uma))
+                                            <div class="form-group">
+                                                <a id="eliminar" data-target="#modal-deletebanco-{{$uma->id}}" data-toggle="modal">
+                                                    <button type="button" class="botones">
+                                                        <i class="far fa-trash-alt"></i>
+                                                    </button>
+                                                </a>
+                                            </div>
+                                        @else
+                                            <div class="form-group">
+                                                <a id="eliminar_vacio">
+                                                    <button type="button" disabled class="botones">
+                                                        <i class="far fa-trash-alt"></i>
+                                                    </button>
+                                                </a>
+                                            </div>
+                                        @endif
+                                    @elsecanany(['capturista','reportes'])
+                                        <div class="form-group">
+                                            <a id="eliminar_">
+                                                <button type="button" disabled class="botones">
+                                                    <i class="far fa-trash-alt"></i>
+                                                </button>
+                                            </a>
+                                        </div>
+                                    @endcanany
                                 </div>
-
-                            <!---Acciones-->
-                            <div class="col-md-2">
-                                    <div class="margin">
-                                        <div class="btn-group">
-                                              <!--Su uso solo es para visualizar la existencia del los iconos -->
-                                            <div class="form-group">
-                                                <button id="guardar_falso" disabled class="botones"><i class="fas fa-save"></i></button>
-                                            </div>
-                                            <div class="form-group">
-                                                <button id="nuevo_reg" name="acciones" value="registrar" type="submit" class="botones" style="display: none;"><i class="fas fa-save"></i></button>
-                                            </div>
-                                            <div class="form-group">
-                                                <button name="acciones" value="actualizar" id="actualizar_reg" type="submit" style="display: none;" class="botones"><i class="fas fa-save"></i></button>
-                                            </div>
-                                            <div class="form-group">
-                                                <button name="acciones" value="cancelar" id="cancelar_reg" type="submit" class="botones" disabled><i class="far fa-window-close" ></i></button>
-                                            </div>
-                                        </div>
+                            </div>
+                        </div>
+                        <!---Acciones-->
+                        <div class="col-md-2">
+                            <div class="margin">
+                                <div class="btn-group">
+                                    <!--Su uso solo es para visualizar la existencia del los iconos -->
+                                    <div class="form-group">
+                                        <button id="guardar_falso" disabled class="botones"><i class="fas fa-save"></i></button>
+                                    </div>
+                                    <div class="form-group">
+                                        <button id="nuevo_reg" name="acciones" value="registrar" type="submit" class="botones" style="display: none;"><i class="fas fa-save"></i></button>
+                                    </div>
+                                    <div class="form-group">
+                                        <button name="acciones" value="actualizar" id="actualizar_reg" type="submit" style="display: none;" class="botones"><i class="fas fa-save"></i></button>
+                                    </div>
+                                    <div class="form-group">
+                                        <button name="acciones" value="cancelar" id="cancelar_reg" type="submit" class="botones" disabled><i class="far fa-window-close" ></i></button>
                                     </div>
                                 </div>
                             </div>
-                        </div>                        
-                    </form>
-                    @isset($uma)
-                        @include('umas.modaldelete-umas')
-                    @endisset
-                    @include('umas.modalsearch-umas')
-                   </div>
-                </div>
-            </div>
+                        </div>
+                    </div>
+                </div>                        
+            </form>
+            @isset($uma)
+                @include('umas.modaldelete-umas')
+            @endisset
+            @include('umas.modalsearch-umas')
         </div>
     </div>
+</div>
+</div>
+</div>
 </div>
 @endsection

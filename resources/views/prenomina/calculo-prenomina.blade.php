@@ -3,23 +3,163 @@
 		<div class="modal-content">
 			<div class="modal-header">
 				<h4 class="modal-title" id="myModalLabel">
-					Prenomina {{ $emplea->nombre}} {{ $emplea->apellido_paterno }} {{ $emplea->apellido_materno }}
+					<b>Prenómina:</b> {{ $emplea->nombre}} {{ $emplea->apellido_paterno }} {{ $emplea->apellido_materno }}
 				</h4>
 				<button type="button" class="close" data-dismiss="modal">
 					<span aria-hidden="true">×</span>
 				</button>
 			</div>
             <form method="GET">
-                <div class="modal-body">
-                  	@foreach($conceptos as $concep)
-                  		<div class="col-sm-6">
-                            <div class="form-group">
-                            	<label>{{$concep->concepto}}</label>
-                            	<input type="text" name="" value="" class="form-control"  onkeyup="mayus(this);" onkeypress="return validar(event);" >
-                            </div>
-                        </div>
-                  	@endforeach
-                </div>
+				<div class="container">
+					<div class="col">
+						<div class="row">
+							<div class="col">
+								<div class="card card-secondary">
+									<div class="card-header">
+										<h3 class="card-title">
+											Percepciones
+										</h3>
+									</div>
+									<div class="card-body">
+										<table>
+											<tbody>
+												@foreach($conceptos as $concep)
+													@if($concep->naturaleza=="P")
+														<tr>
+															<td><label>{{$concep->concepto}}</label></td>
+															<td><input type="text" name="" value="" class="form-control" onkeyup="mayus(this);" onkeypress="return validar(event);"></td>
+															<td><input type="text" name="" value="" class="form-control" onkeyup="mayus(this);" onkeypress="return validar(event);"></td>
+														</tr>
+													@endif
+												@endforeach
+											</tbody>
+										</table>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="container">
+					<div class="col">
+						<div class="row">
+							<div class="col">
+								<div class="card card-secondary">
+									<div class="card-header">
+										<h3 class="card-title">
+											Deducciones
+										</h3>
+									</div>
+									<div class="card-body">
+										<table>
+											<tbody>
+												@foreach($conceptos as $concep)
+													@if($concep->naturaleza=="D")
+														<tr>
+															<td><label>{{$concep->concepto}}</label></td>
+															<td><input type="text" name="" value="" class="form-control" onkeyup="mayus(this);" onkeypress="return validar(event);"></td>
+															<td><input type="text" name="" value="" class="form-control" onkeyup="mayus(this);" onkeypress="return validar(event);"></td>
+														</tr>
+													@endif
+												@endforeach
+											</tbody>
+										</table>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="container">
+					<div class="col">
+						<div class="row">
+							<div class="col">
+								<div class="card card-secondary">
+									<div class="card-header">
+										<h3 class="card-title">
+											Impuestos del Trabajador
+										</h3>
+									</div>
+									<div class="card-body">
+										<table>
+											<tbody>
+												@foreach($conceptos as $concep)
+													@if($concep->naturaleza=="T")
+														<tr>
+															<td><label>{{$concep->concepto}}</label></td>
+															<td><input type="text" name="" value="" class="form-control" onkeyup="mayus(this);" onkeypress="return validar(event);"></td>
+															<td><input type="text" name="" value="" class="form-control" onkeyup="mayus(this);" onkeypress="return validar(event);"></td>
+														</tr>
+													@endif
+												@endforeach
+											</tbody>
+										</table>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="container">
+					<div class="col">
+						<div class="row">
+							<div class="col">
+								<div class="card card-secondary">
+									<div class="card-header">
+										<h3 class="card-title">
+											Impuestos del Patrón
+										</h3>
+									</div>
+									<div class="card-body">
+										<table>
+											<tbody>
+												@foreach($conceptos as $concep)
+													@if($concep->naturaleza=="I")
+														<tr>
+															<td><label>{{$concep->concepto}}</label></td>
+															<td><input type="text" name="" value="" class="form-control" onkeyup="mayus(this);" onkeypress="return validar(event);"></td>
+															<td><input type="text" name="" value="" class="form-control" onkeyup="mayus(this);" onkeypress="return validar(event);"></td>
+														</tr>
+													@endif
+												@endforeach
+											</tbody>
+										</table>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="container">
+					<div class="col">
+						<div class="row">
+							<div class="col">
+								<div class="card card-secondary">
+									<div class="card-header">
+										<h3 class="card-title">
+											Pago Neto
+										</h3>
+									</div>
+									<div class="card-body">
+										<table>
+											<tbody>
+												@foreach($conceptos as $concep)
+													@if($concep->naturaleza=="I")
+														<tr>
+															<td><label>{{$concep->concepto}}</label></td>
+															<td><input type="text" name="" value="" class="form-control" onkeyup="mayus(this);" onkeypress="return validar(event);"></td>
+															<td><input type="text" name="" value="" class="form-control" onkeyup="mayus(this);" onkeypress="return validar(event);"></td>
+														</tr>
+													@endif
+												@endforeach
+											</tbody>
+										</table>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
             </form>
 		</div>
 	</div>

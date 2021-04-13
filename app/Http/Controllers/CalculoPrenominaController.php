@@ -11,8 +11,7 @@ use Carbon\Carbon;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Arr;
 
-class CalculoPrenominaController extends Controller
-{
+class CalculoPrenominaController extends Controller{
      public function conectar($clv){
         $configDb = [
             'driver'      => 'mysql',
@@ -33,17 +32,16 @@ class CalculoPrenominaController extends Controller
 
     public function index(Request $request)
     {
-        
         $clv=Session::get('clave_empresa');
         $clv_empresa=$this->conectar($clv);
 
         \Config::set('database.connections.DB_Serverr', $clv_empresa);
         $empleados = DB::connection('DB_Serverr')->table('empleados')
-                ->join('departamentos','departamentos.clave_departamento','=','empleados.clave_departamento')
-                ->join('puestos','puestos.clave_puesto','=','empleados.clave_puesto')
-                ->join('areas','areas.clave_area', '=','departamentos.clave_area')
-                ->select('empleados.*','areas.*','departamentos.*','puestos.*')
-                ->get();
+        ->join('departamentos','departamentos.clave_departamento','=','empleados.clave_departamento')
+        ->join('puestos','puestos.clave_puesto','=','empleados.clave_puesto')
+        ->join('areas','areas.clave_area', '=','departamentos.clave_area')
+        ->select('empleados.*','areas.*','departamentos.*','puestos.*')
+        ->get();
 
          $conceptos = DB::connection('DB_Serverr')->table('conceptos')
             ->select('concepto')
@@ -54,10 +52,6 @@ class CalculoPrenominaController extends Controller
         //return $conceptos;
         //$encuentraconcepto = Arr::has($conceptos, 'concepto.SUELDO');
         //dd($encuentraconcepto);
-
-
-       
-
 
             return  view('prenomina.prenomina', compact('empleados','conceptos'));
     }
@@ -90,23 +84,21 @@ class CalculoPrenominaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+
     public function show(Request $request, $id_emp)
     {
         /*$data = Session::put('id_empledo',$empleado_prenomina);
         return $data;
-        
-       
         $clv=Session::get('clave_empresa');
         $clv_empresa=$this->conectar($clv);
 
         \Config::set('database.connections.DB_Serverr', $clv_empresa);
 
-            $conceptos = DB::connection('DB_Serverr')->table('conceptos')
-            ->where('seleccionado','=',1)
-            ->get();
-        return $conceptos;
-
+        $conceptos = DB::connection('DB_Serverr')->table('conceptos')
+        ->where('seleccionado','=',1)
+        ->get();
         //return "hola*/    
+
     }
 
     /**
