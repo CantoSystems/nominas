@@ -37,8 +37,9 @@
                                             <td style="width: 15px;">
                                                 @can('administrador')
                                                     <a data-target="#calculo-prenomina{{$emplea->id_emp}}" data-toggle="modal" style='width:70px; height:40px'>
-                                                        <button type="button" style='width: 55px; height: 30px'>
+                                                        <button type="button" class="extraer_id" style='width: 55px; height: 30px'>
                                                             <i class="far fa-eye"></i>
+                                                            <input type="text" class="identificador_prenomina" value="{{ $emplea->id_emp }}" name="">
                                                         </button>
                                                     </a>
                                                     <!--Incluye los modales por cada accion de eliminar generando sean diferentes los ID -->
