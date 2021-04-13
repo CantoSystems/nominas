@@ -9,6 +9,7 @@ use Session;
 use DataTables;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Arr;
 
 class CalculoPrenominaController extends Controller
 {
@@ -30,12 +31,11 @@ class CalculoPrenominaController extends Controller
         return $configDb;
     }
 
-    public function index()
+    public function index(Request $request)
     {
         
         $clv=Session::get('clave_empresa');
         $clv_empresa=$this->conectar($clv);
-        //Session::put('id_empledo',$request->empleado_prenomina);
 
         \Config::set('database.connections.DB_Serverr', $clv_empresa);
         $empleados = DB::connection('DB_Serverr')->table('empleados')
@@ -46,12 +46,20 @@ class CalculoPrenominaController extends Controller
                 ->get();
 
          $conceptos = DB::connection('DB_Serverr')->table('conceptos')
+            ->select('concepto')
             ->where('seleccionado','=',1)
             ->get();
+
+
+        //return $conceptos;
+        //$encuentraconcepto = Arr::has($conceptos, 'concepto.SUELDO');
+        //dd($encuentraconcepto);
+
+
        
 
 
-            return view('prenomina.prenomina', compact('empleados','conceptos'));
+            return  view('prenomina.prenomina', compact('empleados','conceptos'));
     }
 
     /**
@@ -61,8 +69,8 @@ class CalculoPrenominaController extends Controller
      */
     public function create()
     {
-        $nuevo=Session::get('id_empledo');
-        return $nuevo;
+        /*$nuevo=Session::get('id_empledo');
+        echo $nuevo;*/
     }
 
     /**
@@ -84,7 +92,7 @@ class CalculoPrenominaController extends Controller
      */
     public function show(Request $request, $id_emp)
     {
-        $data = Session::put('id_empledo',$empleado_prenomina);
+        /*$data = Session::put('id_empledo',$empleado_prenomina);
         return $data;
         
        
@@ -98,7 +106,7 @@ class CalculoPrenominaController extends Controller
             ->get();
         return $conceptos;
 
-        //return "hola";
+        //return "hola*/    
     }
 
     /**
