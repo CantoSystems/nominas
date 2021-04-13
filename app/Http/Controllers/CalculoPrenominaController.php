@@ -9,6 +9,7 @@ use Session;
 use DataTables;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Arr;
 
 class CalculoPrenominaController extends Controller{
      public function conectar($clv){
@@ -29,7 +30,8 @@ class CalculoPrenominaController extends Controller{
         return $configDb;
     }
 
-    public function index(){
+    public function index(Request $request)
+    {
         $clv=Session::get('clave_empresa');
         $clv_empresa=$this->conectar($clv);
 
@@ -41,11 +43,16 @@ class CalculoPrenominaController extends Controller{
         ->select('empleados.*','areas.*','departamentos.*','puestos.*')
         ->get();
 
-         $conceptos = DB::connection('DB_Serverr')->table('conceptos')
-        ->where('seleccionado','=',1)
-        ->get();
+         $conceptos = DB::connection('DB_Serverr')->table('conceptos')   
+            ->where('seleccionado','=',1)
+            ->get();
 
-        return view('prenomina.prenomina', compact('empleados','conceptos'));
+
+        //return $conceptos;
+        //$encuentraconcepto = Arr::has($conceptos, 'concepto.SUELDO');
+        //dd($encuentraconcepto);
+
+            return  view('prenomina.prenomina', compact('empleados','conceptos'));
     }
 
     /**
@@ -55,7 +62,8 @@ class CalculoPrenominaController extends Controller{
      */
     public function create()
     {
-        //
+        /*$nuevo=Session::get('id_empledo');
+        echo $nuevo;*/
     }
 
     /**
@@ -66,7 +74,7 @@ class CalculoPrenominaController extends Controller{
      */
     public function store(Request $request)
     {
-        //
+        
     }
 
     /**
@@ -75,7 +83,11 @@ class CalculoPrenominaController extends Controller{
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id_emp){
+
+    public function show(Request $request, $id_emp)
+    {
+        /*$data = Session::put('id_empledo',$empleado_prenomina);
+        return $data;
         $clv=Session::get('clave_empresa');
         $clv_empresa=$this->conectar($clv);
 
@@ -84,8 +96,8 @@ class CalculoPrenominaController extends Controller{
         $conceptos = DB::connection('DB_Serverr')->table('conceptos')
         ->where('seleccionado','=',1)
         ->get();
+        //return "hola*/    
 
-        return $conceptos;
     }
 
     /**

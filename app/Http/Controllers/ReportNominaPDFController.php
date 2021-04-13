@@ -32,6 +32,8 @@ class ReportNominaPDFController extends Controller{
 
     public function visualizar($id_emp){
         $clv=Session::get('clave_empresa');
+        $pre=Session::get('prenomina_empleado');
+        return $pre;
         $clv_empresa=$this->conectar($clv);
         \Config::set('database.connections.DB_Serverr', $clv_empresa);
         

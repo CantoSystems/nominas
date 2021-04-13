@@ -819,5 +819,15 @@ scratch. This page gets rid of all links and provides the needed markup only.
     });
   });
 </script>
+<script>
+  $(document).ready(function(){
+    $('#extraer_id').click(function(e){
+      console.log("HOLA");
+    //let id_empleado = $('.identificador_prenomina').val();
+    //console.log(id_empleado);
+    });
+  });
+  
+</script>
 </body>
 </html>
