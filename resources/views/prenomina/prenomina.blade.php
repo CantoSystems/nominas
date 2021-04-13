@@ -13,6 +13,7 @@
                     </div>
                     <div class="card-body">
                         <table id="example1" class="table table-bordered table-striped">
+                            <meta name="csrf-token" content="{{ csrf_token() }}">
                             <thead>
                                 <tr>
                                     <th style="width: 15px; text-align: center;">Clave</th>
@@ -39,7 +40,7 @@
                                                     <a data-target="#calculo-prenomina{{$emplea->id_emp}}" data-toggle="modal" style='width:70px; height:40px'>
                                                         <button type="button" class="extraer_id" style='width: 55px; height: 30px'>
                                                             <i class="far fa-eye"></i>
-                                                            <input type="text" class="identificador_prenomina" value="{{ $emplea->id_emp }}" name="">
+                                                            <input type="hidden" class="identificador_prenomina" value="{{ $emplea->id_emp }}" name="">
                                                         </button>
                                                     </a>
                                                     <!--Incluye los modales por cada accion de eliminar generando sean diferentes los ID -->
