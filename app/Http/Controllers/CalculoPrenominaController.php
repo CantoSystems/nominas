@@ -43,8 +43,7 @@ class CalculoPrenominaController extends Controller{
         ->select('empleados.*','areas.*','departamentos.*','puestos.*')
         ->get();
 
-         $conceptos = DB::connection('DB_Serverr')->table('conceptos')
-            ->select('concepto')
+         $conceptos = DB::connection('DB_Serverr')->table('conceptos')   
             ->where('seleccionado','=',1)
             ->get();
 

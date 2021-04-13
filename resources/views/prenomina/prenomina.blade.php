@@ -22,7 +22,7 @@
                                     <th style="text-align: center;">Total Deducciones</th>
                                     <th style="text-align: center;">Pago Neto</th>
                                     <th></th>
-                        
+
                             </tr>
                         </thead>
                         <tbody>
@@ -35,11 +35,11 @@
                                         <td>{{ $emplea->departamento }}</td>
                                         <td>{{ $emplea->area }}</td>
                                         <td style="width: 20px;">
-                                             @can('administrador')
-                        <a data-target="#calculo-prenomina{{$emplea->id_emp}}" data-toggle="modal" style='width:70px; height:40px'>
-                            <input type="text" name="empleado_prenomina" value="{{$emplea->id_emp}}">
-                          <button type="button" style='width:70px; height:40px'>
+                         @can('administrador')
+                        <a data-target="#calculo-prenomina{{$emplea->id_emp}}" data-toggle="modal"  style='width:70px; height:40px'>
+                          <button type="button" class="extraer_id" style='width:70px; height:40px'>
                               <i class="far fa-eye"></i>
+                            <input type="text" class="identificador_prenomina" name="empleado_prenomina" value="{{$emplea->id_emp}}">
                           </button>
                         </a>
                         <!--Incluye los modales por cada accion de eliminar generando sean direfentes los ID -->
