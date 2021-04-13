@@ -476,8 +476,28 @@ scratch. This page gets rid of all links and provides the needed markup only.
   $(document).ready(function(){
     $('.extraer_id').click(function(e){
       var id_empleado = $(".identificador_prenomina",this).val();
-      console.log(id_empleado);
+      //console.log(id_empleado);
+
+      $.ajax({
+      url: "{{ route('prenomina.create') }}",
+      method: "GET",
+      data: {
+        _token: $("meta[name='csrf-token']").attr("content"),
+        info : id_empleado,
+      },
+      success: function(data){
+        console.log(data);
+        //console.log("Hola");
+      },
+      error: function(xhr, status, error) {
+        var err = JSON.parse(xhr.responseText);
+        console.log(err.Message);
+      }
     });
+    });
+
+    
+  
   });
 </script>
 <script>
@@ -818,16 +838,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
       }
     });
   });
-</script>
-<script>
-  $(document).ready(function(){
-    $('#extraer_id').click(function(e){
-      console.log("HOLA");
-    //let id_empleado = $('.identificador_prenomina').val();
-    //console.log(id_empleado);
-    });
-  });
-  
 </script>
 </body>
 </html>

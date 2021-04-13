@@ -60,12 +60,26 @@ class CalculoPrenominaController extends Controller{
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        /*$nuevo=Session::get('id_empledo');
-        echo $nuevo;*/
-    }
+        // $request->info;
 
+        $clv=Session::get('clave_empresa');
+        $clv_empresa=$this->conectar($clv);
+
+        \Config::set('database.connections.DB_Serverr', $clv_empresa);
+
+         $empleados = DB::connection('DB_Serverr')->table('empleados')
+        ->join('departamentos','departamentos.clave_departamento','=','empleados.clave_departamento')
+        ->join('puestos','puestos.clave_puesto','=','empleados.clave_puesto')
+        ->join('areas','areas.clave_area', '=','departamentos.clave_area')
+        ->select('empleados.*','areas.*','departamentos.*','puestos.*')
+        ->where('id_emp','=',$request->info)
+        ->first();
+
+
+        return response()->json($empleados);
+    }
     /**
      * Store a newly created resource in storage.
      *
