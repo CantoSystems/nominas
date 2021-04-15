@@ -175,11 +175,9 @@ class CalculoPrenominaController extends Controller{
         ->where('anio','=',$at)
         ->first();
 
-        if($diasAguinaldo < 1){
-            $diasAguinaldo = 0;
-        }
+        //retornamos la cantidad 
 
-        return $diasAguinaldo;
+        return  $diasAguinaldo;
    }
 
 
