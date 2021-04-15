@@ -9,10 +9,6 @@ use Session;
 use DataTables;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Schema;
-use Illuminate\Support\Arr;
-use Illuminate\Support\Collection;
-use Illuminate\Support\Str;
-
 
 class CalculoPrenominaController extends Controller{
      public function conectar($clv){
@@ -50,19 +46,9 @@ class CalculoPrenominaController extends Controller{
             ->where('seleccionado','=',1)
             ->get();
 
-
-        //return $conceptos;
-        //$encuentraconcepto = Arr::has($conceptos, 'concepto.SUELDO');
-        //dd($encuentraconcepto);
-
-            return  view('prenomina.prenomina', compact('empleados','conceptos'));
+        return  view('prenomina.prenomina', compact('empleados','conceptos'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create(Request $request)
     {
         // $request->info;
@@ -93,7 +79,7 @@ class CalculoPrenominaController extends Controller{
             }else if($concep->clave_concepto == "003P"){
                 //$resultaHoraExtraTriple = $this->horaTriple($request->info);
             }else if($concep->clave_concepto == "001D"){
-                $resultado_ausentismo= $this->ausentismo($request->info);
+                $resultado_ausentismo= $this->comprobacíon_funciones($request->info);
 
             }
         }
@@ -101,32 +87,32 @@ class CalculoPrenominaController extends Controller{
         return response()->json($resultado_ausentismo);
     }
 
-    public function ausentismo($id_emp){
-        //Formula Ausentismo= SD*DT
-        //Formula para sacar DT = JT-001D-002D
+    public function comprobacíon_funciones($id_emp){
         //Jornada de trabajo, se accede con $jt->diasPeriodo
         $jt = $this->jornadaTrabajo();
         //Sueldo diario, se accede con $sd->sueldo_diario 
         $sd = $this->sueldoDiario($id_emp);
-        $total_ausentismos = $this->acumuladoAusentismo($id_emp);
-//genera error
-        //return $total_ausentismos;
+        
+        $da = $this->dias_aguinaldo($id_emp);
+        return $da;
 
     }
 
      public function jornadaTrabajo(){
         $num_periodo = Session::get('num_periodo');
+
         $clv = Session::get('clave_empresa');
         $clv_empresa = $this->conectar($clv);
         \Config::set('database.connections.DB_Serverr', $clv_empresa);
-        
+
+
         $periodos = DB::connection('DB_Serverr')->table('periodos')
         ->select('diasPeriodo')
         ->where('numero','=',$num_periodo)
         ->first();
 
+        // se retorna los días del periodo
         return $periodos;
-        //return response()->json($periodos);
     }
 
      public function sueldoDiario($idEmp){
@@ -139,29 +125,62 @@ class CalculoPrenominaController extends Controller{
         ->where('id_emp','=',$idEmp)
         ->first();
 
+        //Se retorna el suelto en $ del empleado
         return $sueldo_diario;
     }
 
-    public function acumuladoAusentismo($idEmp){
-        $num_periodo = Session::get('num_periodo');
+   public function anios_trabajados($idEmp){
+    //Fecha Inicial del Periodo de Nómina - Fecha de Alta del Trabajador
+
+        $num_p = Session::get('num_periodo');
 
         $clv = Session::get('clave_empresa');
         $clv_empresa = $this->conectar($clv);
         \Config::set('database.connections.DB_Serverr', $clv_empresa);
 
-        $acumulado_ausen = DB::connection('DB_Serverr')->table('ausentismos')
-        ->select(DB::raw('SUM(cantidad_ausentismo) as conteoDias'))
-        ->where([
-            ['clave_empleado','=',$claveEmp],
-            ['ausentismo_periodo','=',$num_periodo]
-        ])
-        ->whereIn('clave_concepto','001D')
-        ->groupBy('cantidad_ausentismo')
-        ->get();
+        $fecha_inicial = DB::connection('DB_Serverr')->table('periodos')
+        ->select('fecha_inicio')
+        ->where('numero','=',$num_p)
+        ->first();
 
-        return $acumulado_ausen;
+        //Accedemos a la fecha $fecha_inicial->fecha_inicio
+        //Parseando la fecha
+        $inicial = now()->parse($fecha_inicial->fecha_inicio);
+    
 
-    }
+        $alta_trabajador = DB::connection('DB_Serverr')->table('empleados')
+        ->select('fecha_alta')
+        ->where('id_emp','=',$idEmp)
+        ->first();
+
+        //Accedemos a la fecha alta del trabajador $alta_trabajador->fecha_alta
+        //Parseando la fecha
+        $alta = now()->parse($alta_trabajador->fecha_alta);
+
+        $diferencia = $inicial->DiffInYears($alta); 
+
+        return $diferencia;
+   }
+
+   public function dias_aguinaldo($idEmp){
+        //Años trabajados se accede directamento con $at
+        $at = $this->anios_trabajados($idEmp);
+
+        $clv = Session::get('clave_empresa');
+        $clv_empresa = $this->conectar($clv);
+        \Config::set('database.connections.DB_Serverr', $clv_empresa);
+
+        $diasAguinaldo= DB::connection('DB_Serverr')->table('prestaciones')
+        ->select('dias')
+        ->where('anio','=',$at)
+        ->first();
+
+        if($diasAguinaldo < 1){
+            $diasAguinaldo = 0;
+        }
+
+        return $diasAguinaldo;
+   }
 
 
 }
