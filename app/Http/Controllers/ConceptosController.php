@@ -193,6 +193,7 @@ class ConceptosController extends Controller{
                                                                         isr_porcentaje,
                                                                         imss_uma,
                                                                         imss_porcentaje,
+                                                                        seleccionado,
                                                                         created_at,
                                                                         updated_at)
                                                                     values (?
@@ -206,12 +207,12 @@ class ConceptosController extends Controller{
                                                                         ,?
                                                                         ,?
                                                                         ,?
-                                                                        ,?,?,?,?,?,?,?)',[$clave_concepto,$datos->concepto,$datos->formula,$datos->naturaleza
+                                                                        ,?,?,?,?,?,?,?,?)',[$clave_concepto,$datos->concepto,$datos->formula,$datos->naturaleza
             ,$datos->manejo,$datos->cantidad,$datos->importe,$datos->monto,$isr,$imss,$infonavit,$estatal,
             $isr_uma,
             $isr_porcentaje,
             $imss_uma,
-            $imss_porcentaje,
+            $imss_porcentaje,0,
             $fecha_periodo,$fecha_periodo]);
         }else{
             return back()->with('msj','Registro duplicado');
