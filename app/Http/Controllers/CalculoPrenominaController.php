@@ -5,9 +5,11 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Conecta\Conexionmultiple;
 use DB;
+use App\Empresa;
 use Session;
 use DataTables;
 use Carbon\Carbon;
+use App\SalarioMinimo;
 use Illuminate\Support\Facades\Schema;
 
 class CalculoPrenominaController extends Controller{
@@ -92,9 +94,19 @@ class CalculoPrenominaController extends Controller{
         $jt = $this->jornadaTrabajo();
         //Sueldo diario, se accede con $sd->sueldo_diario 
         $sd = $this->sueldoDiario($id_emp);
-        
+        //Aguinaldo, se accede con $da->aguinaldo
         $da = $this->dias_aguinaldo($id_emp);
-        return $da;
+        //Dias de vacaciones, acceder $dv->dias
+        $dv = $this->dias_vacaciones($id_emp);
+        //Dias de vacaciones, acceder $pv->prima_vacacional
+        $pv = $this->prima_vacacional($id_emp);
+        //Horas trabjaadas, acceder $ht->horas_trabajadas
+        $ht = $this->horas_trabajadas($id_emp);
+        //Horas trabjaadas, acceder $ht->horas_trabajadas
+        $sm = $this->salario_minimo();
+
+        
+        return $sm;
 
     }
 
@@ -171,13 +183,93 @@ class CalculoPrenominaController extends Controller{
         \Config::set('database.connections.DB_Serverr', $clv_empresa);
 
         $diasAguinaldo= DB::connection('DB_Serverr')->table('prestaciones')
-        ->select('dias')
+        ->select('aguinaldo')
         ->where('anio','=',$at)
         ->first();
 
-        //retornamos la cantidad 
+        //retornamos la cantidad de dias otorgados acceder
+        // $diasAguinaldo->aguinaldo
 
         return  $diasAguinaldo;
+   }
+
+   public function dias_vacaciones($idEmp){
+       //Tabla de Prestaciones de acuerdo con la antigüedad del Trabajador en Años
+        $at = $this->anios_trabajados($idEmp);
+
+        $clv = Session::get('clave_empresa');
+        $clv_empresa = $this->conectar($clv);
+        \Config::set('database.connections.DB_Serverr', $clv_empresa);
+
+        $diasVacaciones= DB::connection('DB_Serverr')->table('prestaciones')
+        ->select('dias')
+        ->where('anio','=',$at)
+        ->first();
+        //acceder $diasVacaciones->dias
+        return $diasVacaciones;
+
+   }
+
+   public function prima_vacacional($idEmp){
+       //Tabla de Prestaciones de acuerdo con la antigüedad del Trabajador en Años
+        $at = $this->anios_trabajados($idEmp);
+
+        $clv = Session::get('clave_empresa');
+        $clv_empresa = $this->conectar($clv);
+        \Config::set('database.connections.DB_Serverr', $clv_empresa);
+
+        $primaVacacional= DB::connection('DB_Serverr')->table('prestaciones')
+        ->select('prima_vacacional')
+        ->where('anio','=',$at)
+        ->first();
+        //acceder $primaVacacional->prima_vacacional
+        return $primaVacacional;
+   }
+
+   public function horas_trabajadas($idEmp){
+        $clv = Session::get('clave_empresa');
+        $clv_empresa = $this->conectar($clv);
+        \Config::set('database.connections.DB_Serverr', $clv_empresa);
+
+        $horasTrabajadas = DB::connection('DB_Serverr')->table('empleados')
+        ->select('horas_diarias')
+        ->where('id_emp','=',$idEmp)
+        ->first();
+        //horas diarias trabajadas $horasTrabajadas->horas_trabajadas
+        return $horasTrabajadas;
+   }
+
+   public function salario_minimo(){
+       
+    $periodo_num = Session::get('num_periodo');
+
+    $clv = Session::get('clave_empresa');
+    $clv_empresa = $this->conectar($clv);
+
+    $zona = Empresa::select('region')
+    ->where('clave','=',$clv)
+    ->first();
+    //$zona->region
+
+    \Config::set('database.connections.DB_Serverr', $clv_empresa);
+
+    $period = DB::connection('DB_Serverr')->table('periodos')
+    ->select('fecha_inicio')
+    ->where('numero','=',$periodo_num)
+    ->first();
+
+    $salarioMinimo = SalarioMinimo::select('importe')
+    ->where([
+        ['fechaInicio','<',$period->fecha_inicio],
+        ['fechafin','>',$period->fecha_inicio]
+    ])
+    ->where('region','=',$zona->region)
+    ->first();
+
+    //$salarioMinimo->importe
+
+    return $salarioMinimo;
+
    }
 
 
