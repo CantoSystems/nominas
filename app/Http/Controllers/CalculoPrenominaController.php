@@ -94,6 +94,8 @@ class CalculoPrenominaController extends Controller{
         $jt = $this->jornadaTrabajo();
         //Sueldo diario, se accede con $sd->sueldo_diario 
         $sd = $this->sueldoDiario($id_emp);
+        //Años trabajados se accede directamento con $at
+        $at = $this->anios_trabajados($idEmp);
         //Aguinaldo, se accede con $da->aguinaldo
         $da = $this->dias_aguinaldo($id_emp);
         //Dias de vacaciones, acceder $dv->dias
@@ -102,11 +104,14 @@ class CalculoPrenominaController extends Controller{
         $pv = $this->prima_vacacional($id_emp);
         //Horas trabjaadas, acceder $ht->horas_trabajadas
         $ht = $this->horas_trabajadas($id_emp);
-        //Horas trabjaadas, acceder $ht->horas_trabajadas
+        //Horas trabjaadas, acceder $sm->importe
         $sm = $this->salario_minimo();
-
+        //PrimaRiesgo $rt->prima_riesgo
+        $rt = $this->prima_riesgo();
+        //Porcentaje ahorro $pfa->porcentajeAhorro
+        $pfa = $this->fondo_ahorro();
         
-        return $sm;
+        return $pfa;
 
     }
 
@@ -272,5 +277,26 @@ class CalculoPrenominaController extends Controller{
 
    }
 
+   public function prima_riesgo(){
+    $clv = Session::get('clave_empresa');
+    $clv_empresa = $this->conectar($clv);
+
+    $p_riesgo = Empresa::select('primaRiesgo')
+    ->where('clave','=',$clv)
+    ->first();
+
+    return $p_riesgo;
+   }
+
+   public function fondo_ahorro(){
+    $clv = Session::get('clave_empresa');
+    $clv_empresa = $this->conectar($clv);
+
+    $p_ahorro = Empresa::select('porcentajeAhorro')
+    ->where('clave','=',$clv)
+    ->first();
+
+    return $p_ahorro;
+   }
 
 }
