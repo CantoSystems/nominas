@@ -7,7 +7,6 @@ use App\Conecta\Conexionmultiple;
 use DB;
 use Session;
 use DataTables;
-use App\Empresa;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Arr;
@@ -34,7 +33,8 @@ class CalculoPrenominaController extends Controller{
         return $configDb;
     }
 
-    public function index(Request $request){
+    public function index(Request $request)
+    {
         $clv=Session::get('clave_empresa');
         $clv_empresa=$this->conectar($clv);
 
@@ -46,15 +46,16 @@ class CalculoPrenominaController extends Controller{
         ->select('empleados.*','areas.*','departamentos.*','puestos.*')
         ->get();
 
-        $conceptos = DB::connection('DB_Serverr')->table('conceptos')   
-        ->where('seleccionado','=',1)
-        ->get();
+         $conceptos = DB::connection('DB_Serverr')->table('conceptos')   
+            ->where('seleccionado','=',1)
+            ->get();
+
 
         //return $conceptos;
         //$encuentraconcepto = Arr::has($conceptos, 'concepto.SUELDO');
         //dd($encuentraconcepto);
 
-        return view('prenomina.prenomina', compact('empleados','conceptos'));
+            return  view('prenomina.prenomina', compact('empleados','conceptos'));
     }
 
     /**
@@ -62,11 +63,12 @@ class CalculoPrenominaController extends Controller{
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(Request $request){
+    public function create(Request $request)
+    {
         // $request->info;
 
-        $clv = Session::get('clave_empresa');
-        $clv_empresa = $this->conectar($clv);
+        $clv=Session::get('clave_empresa');
+        $clv_empresa=$this->conectar($clv);
 
         \Config::set('database.connections.DB_Serverr', $clv_empresa);
 
@@ -85,7 +87,7 @@ class CalculoPrenominaController extends Controller{
 
        foreach($conceptos as $concep){
             if($concep->clave_concepto == "001P"){
-                //$resultaSueldo = $this->sueldo($request->info);
+                $resultaSueldo = $this->sueldo($request->info);
             }else if($concep->clave_concepto == "002P"){
                 //$resultaHoraExtraDoble = $this->horaDoble($request->info);
             }else if($concep->clave_concepto == "003P"){
@@ -112,7 +114,7 @@ class CalculoPrenominaController extends Controller{
 
     }
 
-     public function jornadaTrabajo(){
+    public function jornadaTrabajo(){
         $num_periodo = Session::get('num_periodo');
         $clv = Session::get('clave_empresa');
         $clv_empresa = $this->conectar($clv);
@@ -124,10 +126,9 @@ class CalculoPrenominaController extends Controller{
         ->first();
 
         return $periodos;
-        //return response()->json($periodos);
     }
 
-     public function sueldoDiario($idEmp){
+    public function sueldoDiario($idEmp){
         $clv = Session::get('clave_empresa');
         $clv_empresa = $this->conectar($clv);
         \Config::set('database.connections.DB_Serverr', $clv_empresa);
@@ -159,36 +160,6 @@ class CalculoPrenominaController extends Controller{
 
         return $acumulado_ausen;
     }
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id){
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id){
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id){
-        //
-    }
 
     public function sueldo($idEmp,$claveEmp){
         //SD*DT
@@ -203,19 +174,11 @@ class CalculoPrenominaController extends Controller{
         $resultaJornadaTrabajo = $this->jornadaTrabajo();
         //echo $resultaJornadaTrabajo;
 
-        /*$ausentismo = DB::connection('DB_Serverr')->table('ausentismos')
-        ->select(DB::raw('SUM(cantidad_ausentismo) as conteoDias'))
-        ->where([
-            ['clave_empleado','=',$claveEmp],
-            ['ausentismo_periodo','=',$num_periodo]
-        ])
-        ->whereIn('clave_concepto',['001D','002D'])
-        ->groupBy('cantidad_ausentismo')
-        ->get();
+        $resultaAusentismo = $this->acumuladoAusentismo($idEmp);
 
-        $diasLaborales = $resultaJornadaTrabajo - $ausentismo->conteoDias;
+        $diasLaborales = $resultaJornadaTrabajo - $resultaAusentismo;
         $sueldo = $resultaSueldoDiario * $diasLaborales;
-        echo $sueldo;*/
+        echo $sueldo;
         //return response()->json($ausentismo);
     }
 }
