@@ -92,26 +92,25 @@ class CalculoPrenominaController extends Controller{
     public function comprobacíon_funciones($id_emp){
         //Jornada de trabajo, se accede con $jt->diasPeriodo
         $jt = $this->jornadaTrabajo();
-        //Sueldo diario, se accede con $sd->sueldo_diario 
-        $sd = $this->sueldoDiario($id_emp);
-        //Años trabajados se accede directamento con $at
-        $at = $this->anios_trabajados($idEmp);
-        //Aguinaldo, se accede con $da->aguinaldo
-        $da = $this->dias_aguinaldo($id_emp);
-        //Dias de vacaciones, acceder $dv->dias
-        $dv = $this->dias_vacaciones($id_emp);
-        //Dias de vacaciones, acceder $pv->prima_vacacional
-        $pv = $this->prima_vacacional($id_emp);
         //Horas trabjaadas, acceder $ht->horas_trabajadas
-        $ht = $this->horas_trabajadas($id_emp);
-        //Horas trabjaadas, acceder $sm->importe
+        //Sueldo diario, accede $ht->sueldo_diario
+        $ht = $this->sueldo_horas($id_emp);
+         //Años trabajados se accede directamento con $at
+        $at = $this->anios_trabajados($id_emp);
+        //Dias de vacaciones, acceder $dv->dias
+        //Aguinaldo, acceeder, $dv->aguinaldo
+        //Prima vacacional, $dv->prima_vacacional
+        $dv = $this->aguinaldo_vacaciones_prima($id_emp);
+        //Salario minimo, $sm->importe
         $sm = $this->salario_minimo();
+
         //PrimaRiesgo $rt->prima_riesgo
-        $rt = $this->prima_riesgo();
-        //Porcentaje ahorro $pfa->porcentajeAhorro
-        $pfa = $this->fondo_ahorro();
+        //Porcentaje ahorro $rt->porcentajeAhorro
+         $rt = $this->ahorro_riesgo();
         
-        return $pfa;
+       
+        
+        return $rt;
 
     }
 
@@ -132,18 +131,18 @@ class CalculoPrenominaController extends Controller{
         return $periodos;
     }
 
-     public function sueldoDiario($idEmp){
+     public function sueldo_horas($idEmp){
         $clv = Session::get('clave_empresa');
         $clv_empresa = $this->conectar($clv);
         \Config::set('database.connections.DB_Serverr', $clv_empresa);
 
-        $sueldo_diario = DB::connection('DB_Serverr')->table('empleados')
-        ->select('sueldo_diario')
+        $datos_empleado = DB::connection('DB_Serverr')->table('empleados')
+        ->select('sueldo_diario','horas_diarias')
         ->where('id_emp','=',$idEmp)
         ->first();
 
-        //Se retorna el suelto en $ del empleado
-        return $sueldo_diario;
+        //Se retorna el suelto en $ del empleado y las horas trabajadas
+        return $datos_empleado;
     }
 
    public function anios_trabajados($idEmp){
@@ -179,7 +178,7 @@ class CalculoPrenominaController extends Controller{
         return $diferencia;
    }
 
-   public function dias_aguinaldo($idEmp){
+   public function aguinaldo_vacaciones_prima($idEmp){
         //Años trabajados se accede directamento con $at
         $at = $this->anios_trabajados($idEmp);
 
@@ -187,61 +186,15 @@ class CalculoPrenominaController extends Controller{
         $clv_empresa = $this->conectar($clv);
         \Config::set('database.connections.DB_Serverr', $clv_empresa);
 
-        $diasAguinaldo= DB::connection('DB_Serverr')->table('prestaciones')
-        ->select('aguinaldo')
+        $datos_prestaciones= DB::connection('DB_Serverr')->table('prestaciones')
+        ->select('aguinaldo','dias','prima_vacacional')
         ->where('anio','=',$at)
         ->first();
 
         //retornamos la cantidad de dias otorgados acceder
         // $diasAguinaldo->aguinaldo
 
-        return  $diasAguinaldo;
-   }
-
-   public function dias_vacaciones($idEmp){
-       //Tabla de Prestaciones de acuerdo con la antigüedad del Trabajador en Años
-        $at = $this->anios_trabajados($idEmp);
-
-        $clv = Session::get('clave_empresa');
-        $clv_empresa = $this->conectar($clv);
-        \Config::set('database.connections.DB_Serverr', $clv_empresa);
-
-        $diasVacaciones= DB::connection('DB_Serverr')->table('prestaciones')
-        ->select('dias')
-        ->where('anio','=',$at)
-        ->first();
-        //acceder $diasVacaciones->dias
-        return $diasVacaciones;
-
-   }
-
-   public function prima_vacacional($idEmp){
-       //Tabla de Prestaciones de acuerdo con la antigüedad del Trabajador en Años
-        $at = $this->anios_trabajados($idEmp);
-
-        $clv = Session::get('clave_empresa');
-        $clv_empresa = $this->conectar($clv);
-        \Config::set('database.connections.DB_Serverr', $clv_empresa);
-
-        $primaVacacional= DB::connection('DB_Serverr')->table('prestaciones')
-        ->select('prima_vacacional')
-        ->where('anio','=',$at)
-        ->first();
-        //acceder $primaVacacional->prima_vacacional
-        return $primaVacacional;
-   }
-
-   public function horas_trabajadas($idEmp){
-        $clv = Session::get('clave_empresa');
-        $clv_empresa = $this->conectar($clv);
-        \Config::set('database.connections.DB_Serverr', $clv_empresa);
-
-        $horasTrabajadas = DB::connection('DB_Serverr')->table('empleados')
-        ->select('horas_diarias')
-        ->where('id_emp','=',$idEmp)
-        ->first();
-        //horas diarias trabajadas $horasTrabajadas->horas_trabajadas
-        return $horasTrabajadas;
+        return  $datos_prestaciones;
    }
 
    public function salario_minimo(){
@@ -277,26 +230,15 @@ class CalculoPrenominaController extends Controller{
 
    }
 
-   public function prima_riesgo(){
+   public function ahorro_riesgo(){
     $clv = Session::get('clave_empresa');
     $clv_empresa = $this->conectar($clv);
 
-    $p_riesgo = Empresa::select('primaRiesgo')
+    $datos_empresa = Empresa::select('primaRiesgo','porcentajeAhorro')
     ->where('clave','=',$clv)
     ->first();
 
-    return $p_riesgo;
-   }
-
-   public function fondo_ahorro(){
-    $clv = Session::get('clave_empresa');
-    $clv_empresa = $this->conectar($clv);
-
-    $p_ahorro = Empresa::select('porcentajeAhorro')
-    ->where('clave','=',$clv)
-    ->first();
-
-    return $p_ahorro;
+    return $datos_empresa;
    }
 
 }
