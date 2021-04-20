@@ -144,6 +144,8 @@ class CalculoPrenominaController extends Controller{
         return $primaDominical;
     }
 
+    
+
     public function primaVacacional($idEmp){
         $sd = $this->sueldo_horas($idEmp);
         $dv = $this->aguinaldo_vacaciones_prima($idEmp);
