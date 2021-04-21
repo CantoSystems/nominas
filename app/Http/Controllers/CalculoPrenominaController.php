@@ -69,24 +69,26 @@ class CalculoPrenominaController extends Controller{
             ->select('clave_concepto')   
             ->where('seleccionado','=',1)
             ->get();
+        
+            $comprobacion = $this->criterio_horas($request->info);
 
        foreach($conceptos as $concep){
             if($concep->clave_concepto == "001P"){
-                $resultaSueldo = $this->sueldo($request->info,$empleados->clave_empleado);
+                //$resultaSueldo = $this->sueldo($request->info,$empleados->clave_empleado);
             }else if($concep->clave_concepto == "002P"){
                 //$resultaHoraExtraDoble = $this->horaDoble($request->info);
             }else if($concep->clave_concepto == "003P"){
                 //$resultaHoraExtraTriple = $this->horaTriple($request->info);
             }else if($concep->clave_concepto == "004P"){
-                $resultaFondoAhorro = $this->fondoAhorro($request->info);
+               // $resultaFondoAhorro = $this->fondoAhorro($request->info);
             }else if($concep->clave_concepto == "005P"){
-                $resultaPremioPunt = $this->premioPunt($request->info,$empleados->clave_empleado);
+                //$resultaPremioPunt = $this->premioPunt($request->info,$empleados->clave_empleado);
             }else if($concep->clave_concepto == "006P"){
-                $resultaPremioAsis = $this->premioPunt($request->info,$empleados->clave_empleado);
+              //  $resultaPremioAsis = $this->premioPunt($request->info,$empleados->clave_empleado);
             }else if($concep->clave_concepto == "007P"){
-                $resultaPrimaVacacional = $this->primaVacacional($request->info);
+               // $resultaPrimaVacacional = $this->primaVacacional($request->info);
             }else if($concep->clave_concepto == "008P"){
-                $resultaPrimaDominical = $this->primaDominical($request->info);
+                //$resultaPrimaDominical = $this->primaDominical($request->info);
             }else if($concep->clave_concepto == "009P"){
 
             }else if($concep->clave_concepto == "010P"){
@@ -96,8 +98,8 @@ class CalculoPrenominaController extends Controller{
             }else if($concep->clave_concepto == "012P"){
             
             }else if($concep->clave_concepto == "013P"){
-                $Vacaciones = $this->sueldo_horas($request->info);
-                $resultaVacaciones = $Vacaciones->sueldo_diario;
+                //$Vacaciones = $this->sueldo_horas($request->info);
+                //$resultaVacaciones = $Vacaciones->sueldo_diario;
             }else if($concep->clave_concepto == "014P"){
 
             }else if($concep->clave_concepto == "015P"){
@@ -123,7 +125,7 @@ class CalculoPrenominaController extends Controller{
             }
         }
 
-        return response()->json($resultaFactor);
+        return response()->json($comprobacion);
     }
 
     //Funciones compuestas
@@ -143,8 +145,6 @@ class CalculoPrenominaController extends Controller{
 
         return $primaDominical;
     }
-
-    
 
     public function primaVacacional($idEmp){
         $sd = $this->sueldo_horas($idEmp);
@@ -202,6 +202,69 @@ class CalculoPrenominaController extends Controller{
         
         $sueldoFinal = $sd->sueldo_diario * $jt;
         return $sueldoFinal;
+    }
+    public function criterio_horas($idEmp){
+        //$modulo = fmod(14,9);
+        $identificador_periodo = Session::get('num_periodo');
+
+        $clv = Session::get('clave_empresa');
+        $clv_empresa = $this->conectar($clv);
+        \Config::set('database.connections.DB_Serverr', $clv_empresa);
+
+        $manipulacion_fechas = DB::connection('DB_Serverr')->table('periodos')
+        ->select('fecha_inicio','fecha_fin','diasPeriodo')
+        ->where('numero','=',$identificador_periodo)
+        ->first();
+
+        //$manipulacion_fechas->fecha_inicio
+        //$manipulacion_fechas->fecha_fin
+        //$manipulacion_fechas->diasPeriodo
+        //return //gettype($manipulacion_fechas->diasPeriodo);
+
+
+        if($manipulacion_fechas->diasPeriodo >= 28 && $manipulacion_fechas->diasPeriodo <= 31){
+            $inicio_semana1 = now()->parse($manipulacion_fechas->fecha_inicio);
+            $fin_semana1 = now()->parse($manipulacion_fechas->fecha_inicio)->addDay(6);
+            $inicio_semana2 = now()->parse($manipulacion_fechas->fecha_inicio)->addDay(7);
+            $fin_semana2 = now()->parse($manipulacion_fechas->fecha_inicio)->addDay(13);
+            $inicio_semana3= now()->parse($manipulacion_fechas->fecha_inicio)->addDay(14);
+            $fin_semana3= now()->parse($manipulacion_fechas->fecha_inicio)->addDay(20);
+            $inicio_semana4 = now()->parse($manipulacion_fechas->fecha_inicio)->addDay(21);
+            $fin_semana4= now()->parse($manipulacion_fechas->fecha_inicio)->addDay(27);
+
+            return compact('inicio_semana1','fin_semana1','inicio_semana2','fin_semana2','inicio_semana3','fin_semana3','inicio_semana4','fin_semana4');
+
+           
+        }else if ($manipulacion_fechas->diasPeriodo >= 13 && $manipulacion_fechas->diasPeriodo <= 16){
+            $inicio_semana1 = now()->parse($manipulacion_fechas->fecha_inicio);
+            $fin_semana1 = now()->parse($manipulacion_fechas->fecha_inicio)->addDay(6);
+            $inicio_semana2 = now()->parse($manipulacion_fechas->fecha_inicio)->addDay(7);
+            $fin_semana2 = now()->parse($manipulacion_fechas->fecha_inicio)->addDay(11);
+
+
+            $horas_extras = DB::connection('DB_Serverr')->table('tiempo_extra')
+            ->where([
+                ['fecha_extra','>=',$inicio_semana1],
+                ['fecha_extra','<=',$fin_semana1]
+            ])
+            ->get(); 
+
+            $horas_extras2 = DB::connection('DB_Serverr')->table('tiempo_extra')
+            ->where([
+                ['fecha_extra','>=',$inicio_semana2],
+                ['fecha_extra','<=',$fin_semana2]
+            ])
+            ->get(); 
+            return  compact('horas_extras','horas_extras2');
+            //compact('inicio_semana1','fin_semana1','fin_semana2','inicio_semana2');
+
+        }
+
+
+
+        
+
+
     }
 
     public function comprobacíon_funciones($id_emp){
