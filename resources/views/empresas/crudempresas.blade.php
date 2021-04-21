@@ -488,7 +488,7 @@
                             @canany(['administrador','capturista'])
                                 @if(isset($empresa))
                                     <div class="form-group">
-                                        <button type="button" id="actualizar" class="botonesgrandes" style="background-color: red"> <i class="fas fa-pen-square"></i></button>
+                                        <button type="button" id="actualizar" class="botonesgrandes"> <i class="fas fa-pen-square"></i></button>
                                     </div>
                                 @else
                                     <div class="form-group">
