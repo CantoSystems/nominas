@@ -70,7 +70,9 @@ class CalculoPrenominaController extends Controller{
             ->where('seleccionado','=',1)
             ->get();
         
-            $comprobacion = $this->criterio_horas($request->info);
+        //$comprobacion = $this->criterio_horas($request->info);
+        $a= $this->comprobacíon_funciones($request->info);
+
 
        foreach($conceptos as $concep){
             if($concep->clave_concepto == "001P"){
@@ -125,7 +127,7 @@ class CalculoPrenominaController extends Controller{
             }
         }
 
-        return response()->json($comprobacion);
+        return response()->json($a);
     }
 
     //Funciones compuestas
@@ -281,14 +283,15 @@ class CalculoPrenominaController extends Controller{
         $dv = $this->aguinaldo_vacaciones_prima($id_emp);
         //Salario minimo, $sm->importe
         $sm = $this->salario_minimo();
-
         //PrimaRiesgo $rt->prima_riesgo
         //Porcentaje ahorro $rt->porcentajeAhorro
         $rt = $this->ahorro_riesgo();
-
         //Ausentismo $acumulado_ausen->conteoDias
-        $ausentismo = $this->ausentismo($claveEmp);
-        return $rt;
+       // $ausentismo = $this->ausentismo($claveEmp);
+
+
+        $ausentismo =$this->ausentismo($id_emp);
+        return $ausentismo;
     }
 
     //Funciones de consulta
@@ -434,7 +437,6 @@ class CalculoPrenominaController extends Controller{
             ['ausentismo_periodo','=',$num_periodo]
         ])
         ->whereIn('clave_concepto',['001D','002D'])
-        ->groupBy('cantidad_ausentismo')
         ->first();
 
         return $acumulado_ausen;
