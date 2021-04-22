@@ -74,22 +74,21 @@ class CalculoPrenominaController extends Controller{
 
        foreach($conceptos as $concep){
             if($concep->clave_concepto == "001P"){
-                $resultaAusentismo = $this->ausentismo($empleados->clave_empleado);
-                //$resultaSueldo = $this->sueldo($request->info,$empleados->clave_empleado);
+                $resultaSueldo = $this->sueldo($request->info,$empleados->clave_empleado);
             }else if($concep->clave_concepto == "002P"){
-                //$resultaHoraExtraDoble = $this->horaDoble($request->info);
+                $resultaHoraExtraDoble = $this->horaDoble($request->info);
             }else if($concep->clave_concepto == "003P"){
-                //$resultaHoraExtraTriple = $this->horaTriple($request->info);
+                $resultaHoraExtraTriple = $this->horaTriple($request->info);
             }else if($concep->clave_concepto == "004P"){
-               // $resultaFondoAhorro = $this->fondoAhorro($request->info);
+                $resultaFondoAhorro = $this->fondoAhorro($request->info);
             }else if($concep->clave_concepto == "005P"){
-                //$resultaPremioPunt = $this->premioPunt($request->info,$empleados->clave_empleado);
+                $resultaPremioPunt = $this->premioPunt($request->info,$empleados->clave_empleado);
             }else if($concep->clave_concepto == "006P"){
-              //  $resultaPremioAsis = $this->premioPunt($request->info,$empleados->clave_empleado);
+                $resultaPremioAsis = $this->premioPunt($request->info,$empleados->clave_empleado);
             }else if($concep->clave_concepto == "007P"){
-               // $resultaPrimaVacacional = $this->primaVacacional($request->info);
+                $resultaPrimaVacacional = $this->primaVacacional($request->info);
             }else if($concep->clave_concepto == "008P"){
-                //$resultaPrimaDominical = $this->primaDominical($request->info);
+                $resultaPrimaDominical = $this->primaDominical($request->info);
             }else if($concep->clave_concepto == "009P"){
 
             }else if($concep->clave_concepto == "010P"){
@@ -99,8 +98,8 @@ class CalculoPrenominaController extends Controller{
             }else if($concep->clave_concepto == "012P"){
             
             }else if($concep->clave_concepto == "013P"){
-                //$Vacaciones = $this->sueldo_horas($request->info);
-                //$resultaVacaciones = $Vacaciones->sueldo_diario;
+                $Vacaciones = $this->sueldo_horas($request->info);
+                $resultaVacaciones = $Vacaciones->sueldo_diario;
             }else if($concep->clave_concepto == "014P"){
 
             }else if($concep->clave_concepto == "015P"){
