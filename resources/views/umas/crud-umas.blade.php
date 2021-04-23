@@ -13,6 +13,8 @@
                         <thead>
                             <tr>
                                 <th>Clave</th>
+                                <th>Periodo Inicio</th>
+                                <th>Periodo Final</th>
                                 <th>UMAS %</th>
                             </tr>
                         </thead>
@@ -21,6 +23,8 @@
                                 @foreach ($umas as $um)
                                     <tr>
                                         <th scope="row">{{$um->id}}</th>
+                                        <td>{{$um->periodoinicio_uma}}</td>
+                                        <td>{{$um->periodofin_uma}}</td>
                                         <td>{{$um->porcentaje_uma}}</td>
                                     </tr>
                                 @endforeach
@@ -48,7 +52,31 @@
                     @endif
                     <form action="{{ route('umas.index')}}" method="GET" autocomplete="off">
                         <div class="row">
-                            <div class="col-sm-12">
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label>Periodo inicial:</label>
+                                    <input type="date" name="periodoinicio_uma" value="{{$uma->periodoinicio_uma ?? ''}}" class="form-control" step="0.1" onkeyup="mayus(this);">
+                                    @error('periodoinicio_uma')
+                                        <div class="alert alert-secondary">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
+                                </div>
+                            </div>
+
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label>Periodo final:</label>
+                                    <input type="date" name="periodofin_uma" value="{{$uma->periodofin_uma ?? ''}}" class="form-control" step="0.1" onkeyup="mayus(this);">
+                                    @error('periodofin_uma')
+                                        <div class="alert alert-secondary">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
+                                </div>
+                            </div>
+
+                            <div class="col-sm-4">
                                 <div class="form-group">
                                     <label>% UMA:</label>
                                     <input type="hidden" name="id" value="{{$uma->id ?? ''}}" class="form-control"  onkeyup="mayus(this);">

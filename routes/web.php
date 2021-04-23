@@ -175,3 +175,7 @@ Route::get('/selectConceptos','SelectConceptosController@index')->name('selectCo
 Route::get('/prenomina', 'CalculoPrenominaController@index')->name('prenomina.index');
 Route::get('/prenomina-nuevo', 'CalculoPrenominaController@create')->name('prenomina.create');
 Route::get('/prenomina-prueba', 'CalculoPrenominaController@show')->name('prenomina.show');
+
+//Días Festivos
+Route::get('/descanso', 'DescansosController@index')->name('descansos.index');
+Route::delete('/descanso/{id}','DescansosController@destroy')->name('descansos.destroy');

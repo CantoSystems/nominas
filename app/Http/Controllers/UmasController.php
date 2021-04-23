@@ -103,17 +103,30 @@ class UmasController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store($datos)
-    {   
-        //dd($datos);
+    {  
+        $coincidencia = Umas::where([
+            ['periodoinicio_uma','=',$datos->periodoinicio_uma],
+            ['periodofin_uma','=',$datos->periodofin_uma]
+        ])
+        ->get();
+        if($coincidencia->count() == 0){
+            $uma = new Umas();
+            $uma->periodoinicio_uma = $datos->periodoinicio_uma;
+            $uma->periodofin_uma = $datos->periodofin_uma;
+            $uma->porcentaje_uma = $datos->porcentaje_uma;
+            $uma->save();
+        }else{
+            return back()->with('msj','Registro duplicado');
+        }
 
-        $uma = new Umas();
-        $uma->porcentaje_uma = $datos->porcentaje_uma;
-        $uma->save();
+        
     }
 
     public function update($datos)
     {
         $uma = Umas::where('id','=',$datos->id)->first();
+        $uma->periodoinicio_uma = $datos->periodoinicio_uma;
+        $uma->periodofin_uma = $datos->periodofin_uma;
         $uma->porcentaje_uma = $datos->porcentaje_uma;
         $uma->save();
     }

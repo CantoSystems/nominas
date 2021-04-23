@@ -1298,6 +1298,128 @@
                                 </div>
                           @enderror
                           </div>
+                          <div class="col-md-3 mb-2">
+                            <br>
+                            <label for="validationDefault01">Día descanso</label>
+                            <input  type="time" class="form-control" name="diadescanso_empleado" value="{{$persona->diadescanso_empleado ?? ''}}">
+                            
+                            @if(isset($persona))
+                              @if($persona->diadescanso_empleado == "")
+                              <select class="custom-select" name="diadescanso_empleado">
+                                <option selected disabled value="">Seleccione una opción:</option>
+                                <option value="LUNES">Lunes</option>
+                                <option value="MARTES">Martes</option>
+                                <option value="MIERCOLES">Miércoles</option>
+                                <option value="JUEVES">Jueves</option>
+                                <option value="VIERNES">Viernes</option>
+                                <option value="SABADO">Sábado</option>
+                                <option value="DOMINGO">Domingo</option>
+                              </select>
+                              @elseif($persona->diadescanso_empleado == "LUNES")
+                              <select class="custom-select" name="diadescanso_empleado">
+                                <option selected disabled value="">Seleccione una opción:</option>
+                                <option value="LUNES" selected>Lunes</option>
+                                <option value="MARTES">Martes</option>
+                                <option value="MIERCOLES">Miércoles</option>
+                                <option value="JUEVES">Jueves</option>
+                                <option value="VIERNES">Viernes</option>
+                                <option value="SABADO">Sábado</option>
+                                <option value="DOMINGO">Domingo</option>
+                              </select>
+                              @elseif($persona->diadescanso_empleado == "MARTES")
+                              <select class="custom-select" name="diadescanso_empleado">
+                                <option selected disabled value="">Seleccione una opción:</option>
+                                <option value="LUNES">Lunes</option>
+                                <option value="MARTES" selected>Martes</option>
+                                <option value="MIERCOLES">Miércoles</option>
+                                <option value="JUEVES">Jueves</option>
+                                <option value="VIERNES">Viernes</option>
+                                <option value="SABADO">Sábado</option>
+                                <option value="DOMINGO">Domingo</option>
+                              </select>
+                              @elseif($persona->diadescanso_empleado == "MIERCOLES")
+                              <select class="custom-select" name="diadescanso_empleado">
+                                <option selected disabled value="">Seleccione una opción:</option>
+                                <option value="LUNES">Lunes</option>
+                                <option value="MARTES" >Martes</option>
+                                <option value="MIERCOLES" selected>Miércoles</option>
+                                <option value="JUEVES">Jueves</option>
+                                <option value="VIERNES">Viernes</option>
+                                <option value="SABADO">Sábado</option>
+                                <option value="DOMINGO">Domingo</option>
+                              </select>
+                              @elseif($persona->diadescanso_empleado == "JUEVES")
+                              <select class="custom-select" name="diadescanso_empleado">
+                                <option selected disabled value="">Seleccione una opción:</option>
+                                <option value="LUNES">Lunes</option>
+                                <option value="MARTES" >Martes</option>
+                                <option value="MIERCOLES">Miércoles</option>
+                                <option value="JUEVES" selected>Jueves</option>
+                                <option value="VIERNES">Viernes</option>
+                                <option value="SABADO">Sábado</option>
+                                <option value="DOMINGO">Domingo</option>
+                              </select>
+                              @elseif($persona->diadescanso_empleado == "VIERNES")
+                              <select class="custom-select" name="diadescanso_empleado">
+                                <option selected disabled value="">Seleccione una opción:</option>
+                                <option value="LUNES">Lunes</option>
+                                <option value="MARTES" >Martes</option>
+                                <option value="MIERCOLES">Miércoles</option>
+                                <option value="JUEVES">Jueves</option>
+                                <option value="VIERNES" selected>Viernes</option>
+                                <option value="SABADO">Sábado</option>
+                                <option value="DOMINGO">Domingo</option>
+                              </select>
+                              @elseif($persona->diadescanso_empleado == "SABADO")
+                              <select class="custom-select" name="diadescanso_empleado">
+                                <option selected disabled value="">Seleccione una opción:</option>
+                                <option value="LUNES">Lunes</option>
+                                <option value="MARTES" >Martes</option>
+                                <option value="MIERCOLES">Miércoles</option>
+                                <option value="JUEVES">Jueves</option>
+                                <option value="VIERNES" >Viernes</option>
+                                <option value="SABADO" selected>Sábado</option>
+                                <option value="DOMINGO">Domingo</option>
+                              </select>
+                              @elseif($persona->diadescanso_empleado == "DOMINGO")
+                              <select class="custom-select" name="diadescanso_empleado">
+                                <option selected disabled value="">Seleccione una opción:</option>
+                                <option value="LUNES">Lunes</option>
+                                <option value="MARTES" >Martes</option>
+                                <option value="MIERCOLES">Miércoles</option>
+                                <option value="JUEVES">Jueves</option>
+                                <option value="VIERNES">Viernes</option>
+                                <option value="SABADO">Sábado</option>
+                                <option value="DOMINGO" selected>Domingo</option>
+                              </select>
+                            @endif
+
+
+                            @else
+                              <select class="custom-select" name="diadescanso_empleado">
+                                <option selected disabled value="">Seleccione una opción:</option>
+                                <option value="LUNES">Lunes</option>
+                                <option value="MARTES">Martes</option>
+                                <option value="MIERCOLES">Miércoles</option>
+                                <option value="JUEVES">Jueves</option>
+                                <option value="VIERNES">Viernes</option>
+                                <option value="SABADO">Sábado</option>
+                                <option value="DOMINGO">Domingo</option>
+                              </select>
+                              @error('sexo')
+                                <div class="alert alert-secondary">
+                                    {{ $message }}
+                                </div>
+                            @enderror
+                            @error('diadescanso_empleado')
+                                <div class="alert alert-secondary">
+                                    {{ $message }}
+                                </div>
+                          @enderror
+                          @endif
+                          </div>
+
+
                           <div class="col-md-2 mb-2">
                             <br>
                             <label for="validationDefault01">Sueldo diario</label>
@@ -1314,7 +1436,7 @@
                             <input  type="number" class="form-control" name="sueldo_integrado" value="{{$persona->sueldo_integrado ?? ''}}" maxlength="5" min="0.01" max="10000.00" step="0.01" onkeypress="return numeros(event)" readonly>
                             
                           </div>
-                          <div class="col-md-3 mb-2">
+                          <div class="col-md-2 mb-2">
                             <label for="validationDefault01">Tabulación<br>Nivel</label>
                             <input type="text" onkeyup="mayus(this);" class="form-control" name="nivel" value="{{$persona->nivel ?? ''}}">
                           </div>
@@ -1529,7 +1651,7 @@
                             @endif
 
                           </div>
-                          <div class="col-md-12 mb-3">
+                          <div class="col-md-10 mb-3">
                             <label for="validationDefault04">Observaciones</label>
                             <input type="text" class="form-control" name="observaciones" value="{{$persona->observaciones ?? ''}}" onkeyup="mayus(this);" onkeypress="return validar(event)">
                           </div>
