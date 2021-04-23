@@ -70,25 +70,25 @@ class CalculoPrenominaController extends Controller{
             ->where('seleccionado','=',1)
             ->get();
         
-            $comprobacion = $this->criterio_horas($request->info);
+            $comprobacion = $this->criterio_horas($request->info,$empleados->clave_empleado);
 
        foreach($conceptos as $concep){
             if($concep->clave_concepto == "001P"){
-                $resultaSueldo = $this->sueldo($request->info,$empleados->clave_empleado);
+                //$resultaSueldo = $this->sueldo($request->info,$empleados->clave_empleado);
             }else if($concep->clave_concepto == "002P"){
-                $resultaHoraExtraDoble = $this->horaDoble($request->info);
+                //$resultaHoraExtraDoble = $this->criterio_horas($request->info,$empleados->clave_empleado);
             }else if($concep->clave_concepto == "003P"){
-                $resultaHoraExtraTriple = $this->horaTriple($request->info);
+                //$resultaHoraExtraTriple = $this->horaTriple($request->info);
             }else if($concep->clave_concepto == "004P"){
-                $resultaFondoAhorro = $this->fondoAhorro($request->info);
+                //$resultaFondoAhorro = $this->fondoAhorro($request->info);
             }else if($concep->clave_concepto == "005P"){
-                $resultaPremioPunt = $this->premioPunt($request->info,$empleados->clave_empleado);
+                //$resultaPremioPunt = $this->premioPunt($request->info,$empleados->clave_empleado);
             }else if($concep->clave_concepto == "006P"){
-                $resultaPremioAsis = $this->premioPunt($request->info,$empleados->clave_empleado);
+                //$resultaPremioAsis = $this->premioPunt($request->info,$empleados->clave_empleado);
             }else if($concep->clave_concepto == "007P"){
-                $resultaPrimaVacacional = $this->primaVacacional($request->info);
+                //$resultaPrimaVacacional = $this->primaVacacional($request->info);
             }else if($concep->clave_concepto == "008P"){
-                $resultaPrimaDominical = $this->primaDominical($request->info);
+                //$resultaPrimaDominical = $this->primaDominical($request->info);
             }else if($concep->clave_concepto == "009P"){
 
             }else if($concep->clave_concepto == "010P"){
@@ -98,8 +98,8 @@ class CalculoPrenominaController extends Controller{
             }else if($concep->clave_concepto == "012P"){
             
             }else if($concep->clave_concepto == "013P"){
-                $Vacaciones = $this->sueldo_horas($request->info);
-                $resultaVacaciones = $Vacaciones->sueldo_diario;
+                //$Vacaciones = $this->sueldo_horas($request->info);
+                //$resultaVacaciones = $Vacaciones->sueldo_diario;
             }else if($concep->clave_concepto == "014P"){
 
             }else if($concep->clave_concepto == "015P"){
@@ -121,19 +121,19 @@ class CalculoPrenominaController extends Controller{
             }else if($concep->clave_concepto == "023P"){
                 
             }else if($concep->clave_concepto == "001D"){
-                $resultaAusentismoDed = $this->ausentismoIncapacidadDeduccion($request->info,$empleados->clave_empleado);
+                //$resultaAusentismoDed = $this->ausentismoIncapacidadDeduccion($request->info,$empleados->clave_empleado);
             }else if($concep->clave_concepto == "002D"){
-                $resultaIncapacidadDed = $this->ausentismoIncapacidadDeduccion($request->info,$empleados->clave_empleado);
+                //$resultaIncapacidadDed = $this->ausentismoIncapacidadDeduccion($request->info,$empleados->clave_empleado);
             }else if($concep->clave_concepto == "003D"){
-                $resultaFondoAhorroTrabajador = $this->fondoAhorro($request->info);
+                //$resultaFondoAhorroTrabajador = $this->fondoAhorro($request->info);
             }else if($concep->clave_concepto == "004D"){
-                $resultaDeduccionFondo = $this->deduccionAhorro($idEmp);
+                //$resultaDeduccionFondo = $this->deduccionAhorro($request->info);
             }else if($concep->clave_concepto == "005D"){
                 
             }else if($concep->clave_concepto == "006D"){
                 
             }else if($concep->clave_concepto == "007D"){
-                $resultaCreditoInfonavit = $this->creditoInfonavit($idEmp,$claveEmp);
+
             }else if($concep->clave_concepto == "008D"){
                 
             }else if($concep->clave_concepto == "009D"){
@@ -156,20 +156,10 @@ class CalculoPrenominaController extends Controller{
                 
             }
         }
-        return response()->json($resultaAusentismo->conteoDias);
+        return response()->json($resultaHoraExtraDoble);
     }
 
     //Funciones compuestas
-    public function creditoInfonavit($idEmp,$claveEmp){
-        $sd = $this->sueldo_horas($idEmp);
-        $diasTotales = $this->diasTrabajadosAguinaldo($idEmp,$claveEmp);
-        $fi = $this->factorIntegracion($idEmp);
-
-        $creditoInfonavit = ($sd->sueldo_diario*($diasTotales)*$fi+$ted+$tci)*$importe/100;
-
-        return $creditoInfonavit;
-    }
-
     public function deduccionAhorro($idEmp){
         $fondoAhorroEmpresa = $this->fondoAhorro($idEmp);
 
@@ -259,8 +249,7 @@ class CalculoPrenominaController extends Controller{
         return $sueldoFinal;
     }
 
-    public function criterio_horas($idEmp){
-        //$modulo = fmod(14,9);
+    public function criterio_horas($idEmp,$claveEmp){
         $identificador_periodo = Session::get('num_periodo');
 
         $clv = Session::get('clave_empresa');
@@ -272,46 +261,89 @@ class CalculoPrenominaController extends Controller{
         ->where('numero','=',$identificador_periodo)
         ->first();
 
-        //$manipulacion_fechas->fecha_inicio
-        //$manipulacion_fechas->fecha_fin
-        //$manipulacion_fechas->diasPeriodo
-        //return //gettype($manipulacion_fechas->diasPeriodo);
+        $conteohoras = DB::connection('DB_Serverr')->table('tiempo_extra')
+        ->select(DB::raw('CASE WHEN COUNT(`cantidad_tiempo`) = "" THEN 0 ELSE SUM(`cantidad_tiempo`) END as cantidad_tiempo'))
+        ->where('periodo_extra','=',$identificador_periodo)
+        ->where('clave_empleado','=',$claveEmp)
+        ->first();
 
-        if($manipulacion_fechas->diasPeriodo >= 28 && $manipulacion_fechas->diasPeriodo <= 31){
-            $inicio_semana1 = now()->parse($manipulacion_fechas->fecha_inicio);
-            $fin_semana1 = now()->parse($manipulacion_fechas->fecha_inicio)->addDay(6);
-            $inicio_semana2 = now()->parse($manipulacion_fechas->fecha_inicio)->addDay(7);
-            $fin_semana2 = now()->parse($manipulacion_fechas->fecha_inicio)->addDay(13);
-            $inicio_semana3= now()->parse($manipulacion_fechas->fecha_inicio)->addDay(14);
-            $fin_semana3= now()->parse($manipulacion_fechas->fecha_inicio)->addDay(20);
-            $inicio_semana4 = now()->parse($manipulacion_fechas->fecha_inicio)->addDay(21);
-            $fin_semana4= now()->parse($manipulacion_fechas->fecha_inicio)->addDay(27);
+        if($conteohoras->cantidad_tiempo!=0){
+            $horasExtras = DB::connection('DB_Serverr')->table('tiempo_extra')
+            ->select('fecha_extra',DB::raw('SUM(cantidad_tiempo) as cantidad_tiempo'))
+            ->where('periodo_extra','=',$identificador_periodo)
+            ->where('clave_empleado','=',$claveEmp)
+            ->orderBy('fecha_extra','asc')
+            ->groupBy('fecha_extra')
+            ->get();
 
-            return compact('inicio_semana1','fin_semana1','inicio_semana2','fin_semana2','inicio_semana3','fin_semana3','inicio_semana4','fin_semana4');
+            $inicio_semana1 = $manipulacion_fechas->fecha_inicio;
+            $horasTriples = 0;
+            $horasDobles = 0;
+            $horasDoblesGenerales = 0;
+            $horasTriplesGenerales = 0;
+            $k = 0;
+            $j = 0;
 
-        }else if ($manipulacion_fechas->diasPeriodo >= 13 && $manipulacion_fechas->diasPeriodo <= 16){
-            $inicio_semana1 = now()->parse($manipulacion_fechas->fecha_inicio);
-            $fin_semana1 = now()->parse($manipulacion_fechas->fecha_inicio)->addDay(6);
-            $inicio_semana2 = now()->parse($manipulacion_fechas->fecha_inicio)->addDay(7);
-            $fin_semana2 = now()->parse($manipulacion_fechas->fecha_inicio)->addDay(11);
+            if($manipulacion_fechas->diasPeriodo<7){
+                while($j<$manipulacion_fechas->diasPeriodo){
+                    if($horas->fecha_extra == date('Y-m-d',strtotime($inicio_semana1."+".$j."days"))){
+                        if($k<3){
+                            if($horas->cantidad_tiempo>3){
+                                $horasTriples = $horas->cantidad_tiempo-3;
+                                $horasDobles = 3;
+                            }else{
+                                $horasDobles = $horas->cantidad_tiempo;
+                                $horasTriples = 0;
+                            }
+                            $k++;
+                        }else{
+                            $horasDobles = 0;
+                            $horasTriples = $horas->cantidad_tiempo;
+                        }
+                    }
+                    $j++;
+                }
+                $horasDoblesGenerales = $horasDoblesGenerales + $horasDobles;
+                $horasTriplesGenerales = $horasTriplesGenerales + $horasTriples;
+            }else{
+                $numSemanas = intval($manipulacion_fechas->diasPeriodo/7);
 
-
-            $horas_extras = DB::connection('DB_Serverr')->table('tiempo_extra')
-            ->where([
-                ['fecha_extra','>=',$inicio_semana1],
-                ['fecha_extra','<=',$fin_semana1]
-            ])
-            ->get(); 
-
-            $horas_extras2 = DB::connection('DB_Serverr')->table('tiempo_extra')
-            ->where([
-                ['fecha_extra','>=',$inicio_semana2],
-                ['fecha_extra','<=',$fin_semana2]
-            ])
-            ->get(); 
-            return  compact('horas_extras','horas_extras2');
-            //compact('inicio_semana1','fin_semana1','fin_semana2','inicio_semana2');
-
+                foreach($horasExtras as $horas){
+                    echo $inicio_semana1;
+                    if($horas->fecha_extra < date('Y-m-d',strtotime($inicio_semana1."+ 7 days"))){
+                        while($j<7){
+                            if($horas->fecha_extra == date('Y-m-d',strtotime($inicio_semana1."+".$j."days"))){
+                                if($k<3){
+                                    if($horas->cantidad_tiempo>3){
+                                        $horasTriples = $horas->cantidad_tiempo-3;
+                                        $horasDobles = 3;
+                                    }else{
+                                        $horasDobles = $horas->cantidad_tiempo;
+                                        $horasTriples = 0;
+                                    }
+                                    $k++;
+                                }else{
+                                    $horasDobles = 0;
+                                    $horasTriples = $horas->cantidad_tiempo;
+                                }
+                            }
+                            $j++;
+                        }
+                        $j = 0;
+                        $horasDoblesGenerales = $horasDoblesGenerales + $horasDobles;
+                        $horasTriplesGenerales = $horasTriplesGenerales + $horasTriples;
+                    }else{
+                        $k = 0;
+                        $j = 0;
+                        $inicio_semana1 = date('Y-m-d',strtotime($inicio_semana1."+ 7 days"));
+                        
+                        if(date('Y-m-d',strtotime($inicio_semana1."+ 7 days")) > $manipulacion_fechas->fecha_fin){
+                            $inicio_semana1 = $manipulacion_fechas->fecha_fin;
+                        }
+                    }
+                    echo $horasDoblesGenerales.'|'.$horasTriplesGenerales.'|';
+                }
+            }
         }
     }
 
