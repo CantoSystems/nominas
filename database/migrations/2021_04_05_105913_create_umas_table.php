@@ -15,6 +15,8 @@ class CreateUmasTable extends Migration
     {
         Schema::create('umas', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->date('periodoinicio_uma');
+            $table->date('periodofin_uma');
             $table->double('porcentaje_uma');
             $table->timestamps();
         });

@@ -145,6 +145,14 @@ scratch. This page gets rid of all links and provides the needed markup only.
               </li>
             </ul>
             <ul class="nav nav-treeview">
+              <li class="nav-item {{!Route::is('descansos.index') ?: 'active'}}">
+              <a href="{{route('descansos.index')}}" class="nav-link active">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Días de descanso</p>
+                </a>
+              </li>
+            </ul>
+            <ul class="nav nav-treeview">
               <li class="nav-item {{!Route::is('departamentos.index') ?: 'active'}}">
                 <a href="{{ route('departamentos.index')}}" class="nav-link active">
                   <i class="far fa-circle nav-icon"></i>

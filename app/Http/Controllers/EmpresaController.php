@@ -412,6 +412,7 @@ class EmpresaController extends Controller{
             $table->date('vigencia');
             $table->time('horario_trabajoinicio');
             $table->time('horario_trabajofin');
+            $table->string('diadescanso_empleado');
             $table->double('sueldo_diario');
             $table->double('sueldo_integrado');
             $table->string('nivel',50)->nullable();
@@ -440,6 +441,14 @@ class EmpresaController extends Controller{
             $table->integer('ausentismo_periodo');
             $table->timestamps();
         });
+
+        Schema::connection('DB_Serverr')->create('dias_descanso', function($table){
+            $table->increments('id');
+            $table->date('fecha_descanso');
+            $table->string('descripcion_descanso');
+            $table->timestamps();
+        });
+
 
         Schema::connection('DB_Serverr')->create('incidencias', function($table){
             $table->increments('id_incidencia');
