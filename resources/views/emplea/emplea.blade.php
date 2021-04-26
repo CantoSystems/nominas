@@ -1301,8 +1301,6 @@
                           <div class="col-md-3 mb-2">
                             <br>
                             <label for="validationDefault01">Día descanso</label>
-                            <input  type="time" class="form-control" name="diadescanso_empleado" value="{{$persona->diadescanso_empleado ?? ''}}">
-                            
                             @if(isset($persona))
                               @if($persona->diadescanso_empleado == "")
                               <select class="custom-select" name="diadescanso_empleado">

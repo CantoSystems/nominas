@@ -367,6 +367,7 @@ class EmpleaController extends Controller
               'vigencia' => 'required',
               'horario_trabajoinicio' => 'required',
               'horario_trabajofin' => 'required',
+              'diadescanso_empleado' => 'required',
               'sueldo_diario' => 'required',
               'sueldo_integrado' => 'required',
               'tipo_salario' => 'required',
@@ -534,6 +535,7 @@ class EmpleaController extends Controller
                                                                    ,vigencia
                                                                    ,horario_trabajoinicio
                                                                    ,horario_trabajofin
+                                                                   ,diadescanso_empleado
                                                                    ,sueldo_diario
                                                                    ,nivel
                                                                    ,categoria
@@ -556,7 +558,7 @@ class EmpleaController extends Controller
                                                             ?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,
                                                             ?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,
                                                             ?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,
-                                                            ?,?,?,?,?,?,?,?,?,?,?,?,?,?)'
+                                                            ?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)'
                                                             ,[$datos->clave_empleado
                                                             ,$datos->clasificacion
                                                             ,$datos->nombre
@@ -711,6 +713,7 @@ class EmpleaController extends Controller
                                                             ,$datos->vigencia
                                                             ,$datos->horario_trabajoinicio
                                                             ,$datos->horario_trabajofin
+                                                            ,$datos->diadescanso_empleado
                                                             ,$datos->sueldo_diario
                                                             ,$datos->nivel
                                                             ,$datos->categoria
@@ -977,6 +980,7 @@ class EmpleaController extends Controller
                      ,'vigencia'=>$datos->vigencia
                      ,'horario_trabajoinicio'=>$datos->horario_trabajoinicio
                      ,'horario_trabajofin'=>$datos->horario_trabajofin
+                     ,'diadescanso_empleado'=>$datos->diadescanso_empleado
                      ,'sueldo_diario'=>$datos->sueldo_diario
                      ,'nivel'=>$datos->nivel
                      ,'categoria'=>$datos->categoria

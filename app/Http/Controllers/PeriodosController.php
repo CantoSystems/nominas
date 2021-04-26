@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use DB;
 use Session;
+use App\Empresa;
 use DataTables;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Schema;
@@ -36,6 +37,11 @@ class PeriodosController extends Controller
 
     \Config::set('database.connections.DB_Serverr', $clv_empresa);
 
+    $tipoPeriodo = Empresa::select('tipoPeriodo')
+    ->where('clave',$clv)
+    ->first();
+
+
     $datos->validate([
               'numero' => 'required',
               'fecha_inicio' => 'required',
@@ -50,8 +56,10 @@ class PeriodosController extends Controller
 
         if($coincidencia->count() == 0){
             $fecha_periodo = now()->toDateString();
-            DB::connection('DB_Serverr')->insert('insert into periodos (numero,fecha_inicio,fecha_fin,fecha_pago,created_at,updated_at)
-            values (?,?,?,?,?,?)',[$datos->numero,$datos->fecha_inicio,$datos->fecha_fin,$datos->fecha_pago,$fecha_periodo,$fecha_periodo]);
+            DB::connection('DB_Serverr')->insert('insert into periodos (numero,fecha_inicio,
+            fecha_fin,fecha_pago,diasPeriodo,created_at,updated_at)
+            values (?,?,?,?,?,?,?)',[$datos->numero,$datos->fecha_inicio,
+            $datos->fecha_fin,$datos->fecha_pago,$tipoPeriodo->tipoPeriodo,$fecha_periodo,$fecha_periodo]);
         }else{
             return back()->with('msj','Registro duplicado');
         }
