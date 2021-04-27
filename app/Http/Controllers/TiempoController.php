@@ -37,28 +37,29 @@ class TiempoController extends Controller
         $clv=Session::get('clave_empresa');
         $accion= $request->acciones;
         $clv_empresa=$this->conectar($clv);
-
+        $identificador_periodo = Session::get('num_periodo');
         
         \Config::set('database.connections.DB_Serverr', $clv_empresa);
 
         switch ($accion) {
             case '':
-                return view('tiempo_extra.crudtiempo');
-            break;
+                $periodo = DB::connection('DB_Serverr')->table('periodos')
+                ->select('fecha_inicio','fecha_fin')
+                ->where('numero','=',$identificador_periodo)
+                ->first();
 
+                return view('tiempo_extra.crudtiempo',compact('periodo'));
+            break;
             default:
             break;
         }
     }
 
   
-    public function store(Request $request)
-    {
-
+    public function store(Request $request){
         if (empty($request->all())) {
             return response()->json(["error" => "Sin data"]);
         }
-
 
         foreach ($request->only('info') as $value) {
             $data = json_decode($value);
@@ -73,18 +74,14 @@ class TiempoController extends Controller
             }
         }*/
 
-
         $clv=Session::get('clave_empresa');
         $clv_empresa=$this->conectar($clv);
         \Config::set('database.connections.DB_Serverr', $clv_empresa);
 
         foreach ($data as $value) {
-            //echo ;
-            //echo $value->
             $fecha_periodo = now()->toDateString();
             $te_periodo = Session::get('num_periodo');
              DB::connection('DB_Serverr')->insert('INSERT INTO tiempo_extra (clave_empleado,cantidad_tiempo,fecha_extra,created_at,updated_at,periodo_extra) VALUES (?,?,?,?,?,?)',[$value->empleado,$value->cantidad,$value->fecha,$fecha_periodo,$fecha_periodo,$te_periodo]);
         }
-     
     }
 }
