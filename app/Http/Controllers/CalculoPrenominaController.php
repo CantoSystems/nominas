@@ -283,6 +283,7 @@ class CalculoPrenominaController extends Controller{
             $horasTriplesGenerales = 0;
             $k = 0; // dias semana 
             $j = 0; //iteraciones
+            $diasSobrantes = 7;
 
             if($manipulacion_fechas->diasPeriodo<7){
                 while($j<$manipulacion_fechas->diasPeriodo){
@@ -310,7 +311,7 @@ class CalculoPrenominaController extends Controller{
             }else{
                 foreach($horasExtras as $horas){
                     if($horas->fecha_extra < date('Y-m-d',strtotime($inicio_semana1."+ 7 days"))){
-                        while($j<7){
+                        while($j<$diasSobrantes){
                             if($horas->fecha_extra == date('Y-m-d',strtotime($inicio_semana1."+".$j."days"))){
                                 if($k<3){
                                     if($horas->cantidad_tiempo>3){
@@ -333,6 +334,7 @@ class CalculoPrenominaController extends Controller{
                         $horasTriplesGenerales = $horasTriplesGenerales + $horasTriples;
                     }else{
                         $k = 1;
+                        $j = 0;
                         $horasDobles = 0;
                         $horasTriples = 0;
                         if($horas->cantidad_tiempo>3){
@@ -342,17 +344,23 @@ class CalculoPrenominaController extends Controller{
                             $horasDobles = $horas->cantidad_tiempo;
                             $horasTriples = 0;
                         }
+                        echo $k.'|';
                         $horasDoblesGenerales = $horasDoblesGenerales + $horasDobles;
                         $horasTriplesGenerales = $horasTriplesGenerales + $horasTriples;
                         $inicio_semana1 = date('Y-m-d',strtotime($inicio_semana1."+ 7 days"));
-                        
+
                         if(date('Y-m-d',strtotime($inicio_semana1."+ 7 days")) > $manipulacion_fechas->fecha_fin){
-                            $inicio_semana1 = $manipulacion_fechas->fecha_fin;
+                            $diasDiferencia = date_diff(date_create($inicio_semana1),date_create($manipulacion_fechas->fecha_fin))->format('%D');
+                            $horasDobles = 0;
+                            $horasTriples = 0;
+                            if($diasDiferencia != 0){
+                                $diasSobrantes = $diasDiferencia + 1;
+                            }
                         }
                     }
                     //return compact('horasDoblesGenerales','horasTriplesGenerales');
                     
-                    echo $horasDoblesGenerales.'|'.$horasTriplesGenerales.'|';
+                    //echo $horasDoblesGenerales.'|'.$horasTriplesGenerales.'|';
                 }
             }
         }else{
