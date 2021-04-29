@@ -80,7 +80,7 @@
                                 <div class="form-group">
                                     <label>% UMA:</label>
                                     <input type="hidden" name="id" value="{{$uma->id ?? ''}}" class="form-control"  onkeyup="mayus(this);">
-                                    <input type="number" name="porcentaje_uma" value="{{$uma->porcentaje_uma ?? ''}}" class="form-control" step="0.1" onkeyup="mayus(this);">
+                                    <input type="number" name="porcentaje_uma" value="{{$uma->porcentaje_uma ?? ''}}" class="form-control" step="0.01" onkeyup="mayus(this);">
                                     @error('porcentaje_uma')
                                         <div class="alert alert-secondary">
                                             {{ $message }}

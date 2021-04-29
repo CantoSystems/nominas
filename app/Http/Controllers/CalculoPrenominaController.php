@@ -85,13 +85,13 @@ class CalculoPrenominaController extends Controller{
             }else if($concep->clave_concepto == "004P"){
                 $resultaFondoAhorro = $this->fondoAhorro($request->info);
             }else if($concep->clave_concepto == "005P"){
-                //$resultaPremioPunt = $this->premioPunt($request->info,$empleados->clave_empleado);
+                $resultaPremioPunt = $this->premioPunt($request->info,$empleados->clave_empleado);
             }else if($concep->clave_concepto == "006P"){
-                //$resultaPremioAsis = $this->premioPunt($request->info,$empleados->clave_empleado);
+                $resultaPremioAsis = $this->premioPunt($request->info,$empleados->clave_empleado);
             }else if($concep->clave_concepto == "007P"){
-                //$resultaPrimaVacacional = $this->primaVacacional($request->info);
+                $resultaPrimaVacacional = $this->primaVacacional($request->info);
             }else if($concep->clave_concepto == "008P"){
-                //$resultaPrimaDominical = $this->primaDominical($request->info);
+                $resultaPrimaDominical = $this->primaDominical($request->info);
             }else if($concep->clave_concepto == "009P"){
 
             }else if($concep->clave_concepto == "010P"){
@@ -101,8 +101,8 @@ class CalculoPrenominaController extends Controller{
             }else if($concep->clave_concepto == "012P"){
             
             }else if($concep->clave_concepto == "013P"){
-                //$Vacaciones = $this->sueldo_horas($request->info);
-                //$resultaVacaciones = $Vacaciones->sueldo_diario;
+                $Vacaciones = $this->sueldo_horas($request->info);
+                $resultaVacaciones = $Vacaciones->sueldo_diario;
             }else if($concep->clave_concepto == "014P"){
                 $aguinaldos = $this->aguinaldo($request->info);
             }else if($concep->clave_concepto == "015P"){
@@ -124,11 +124,11 @@ class CalculoPrenominaController extends Controller{
             }else if($concep->clave_concepto == "023P"){
                 
             }else if($concep->clave_concepto == "001D"){
-                //$resultaAusentismoDed = $this->ausentismoIncapacidadDeduccion($request->info,$empleados->clave_empleado);
+                $resultaAusentismoDed = $this->ausentismoIncapacidadDeduccion($request->info,$empleados->clave_empleado);
             }else if($concep->clave_concepto == "002D"){
-                //$resultaIncapacidadDed = $this->ausentismoIncapacidadDeduccion($request->info,$empleados->clave_empleado);
+                $resultaIncapacidadDed = $this->ausentismoIncapacidadDeduccion($request->info,$empleados->clave_empleado);
             }else if($concep->clave_concepto == "003D"){
-                //$resultaFondoAhorroTrabajador = $this->fondoAhorro($request->info);
+                $resultaFondoAhorroTrabajador = $this->fondoAhorro($request->info);
             }else if($concep->clave_concepto == "004D"){
                 //$resultaDeduccionFondo = $this->deduccionAhorro($request->info);
             }else if($concep->clave_concepto == "005D"){
@@ -159,6 +159,7 @@ class CalculoPrenominaController extends Controller{
                 
             }
         }
+<<<<<<< HEAD
 
         print_r($arrConceptos);
 
@@ -388,41 +389,38 @@ class CalculoPrenominaController extends Controller{
         //PrimaRiesgo $rt->prima_riesgo
         //Porcentaje ahorro $rt->porcentajeAhorro
         $rt = $this->ahorro_riesgo();
+=======
+        //$resulta=  $this->ausentismo($empleados->clave_empleado);
+        // $resulta=  $this->dias_trabajados($empleados->clave_empleado);
+        //$resulta = $this->uma();
+        //$resulta= $this->diasTrabajadosAguinaldo($request->info,$empleados->clave_empleado);
+        //($resultaPremioPunt);
+        //            ['014P'=> $aguinaldos]
+        return response()->json([
+            ['001P' => $resultaSueldo],
+            ['004P' => $resultaFondoAhorro],
+            ['005P' => $resultaPremioPunt],
+            ['006P' => $resultaPremioAsis],
+            ['007P' => $resultaPrimaVacacional],
+            ['008P' => $resultaPrimaDominical],
+            ['0139' => $resultaVacaciones],
+            ['014P' => $aguinaldos],
+            ['001D' => $resultaAusentismoDed],
+            ['002D' => $resultaIncapacidadDed],
+            ['003D' => $resultaFondoAhorroTrabajador]
 
-        //Ausentismo $acumulado_ausen->conteoDias
-        $ausentismo = $this->ausentismo($claveEmp);
-        return $rt;
+        ]);
+        //[['clave'=>'valor'],['clave2'=>'valor']]
     }
 
-    //Funciones de consulta
-    public function dias_trabajados($claveEmp){
-        $jt = $this->jornadaTrabajo();
-        $ausentismo = $this->ausentismo($claveEmp);
-        
-        $diasTrabajados = $jt->diasPeriodo - $ausentismo->conteoDias;
-        return $diasTrabajados;
-    }
-
-    public function jornadaTrabajo(){
-        $num_periodo = Session::get('num_periodo');
-
+    /**
+     * Funciones variable general
+     */
+    public function sueldo_horas($idEmp){
         $clv = Session::get('clave_empresa');
         $clv_empresa = $this->conectar($clv);
         \Config::set('database.connections.DB_Serverr', $clv_empresa);
-
-        $periodos = DB::connection('DB_Serverr')->table('periodos')
-        ->select('diasPeriodo')
-        ->where('numero','=',$num_periodo)
-        ->first();
-
-        // se retorna los días del periodo
-        return $periodos;
-    }
-
-     public function sueldo_horas($idEmp){
-        $clv = Session::get('clave_empresa');
-        $clv_empresa = $this->conectar($clv);
-        \Config::set('database.connections.DB_Serverr', $clv_empresa);
+>>>>>>> 138e934a13df96d94c6cded64f0b2ea9789e3d3e
 
         $datos_empleado = DB::connection('DB_Serverr')->table('empleados')
         ->select('sueldo_diario','horas_diarias')
@@ -433,7 +431,24 @@ class CalculoPrenominaController extends Controller{
         return $datos_empleado;
     }
 
-   public function anios_trabajados($idEmp){
+  
+    public function jornadaTrabajo(){
+        $num_periodo = Session::get('num_periodo');
+
+        $clv = Session::get('clave_empresa');
+        $clv_empresa = $this->conectar($clv);
+        \Config::set('database.connections.DB_Serverr', $clv_empresa);
+
+        $periodos = DB::connection('DB_Serverr')->table('periodos')
+        ->select('diasPeriodo','fecha_inicio')
+        ->where('numero','=',$num_periodo)
+        ->first();
+
+        // se retorna los días del periodo
+        return $periodos;
+    }
+
+    public function anios_trabajados($idEmp){
         //Fecha Inicial del Periodo de Nómina - Fecha de Alta del Trabajador
         $num_p = Session::get('num_periodo');
 
@@ -463,6 +478,7 @@ class CalculoPrenominaController extends Controller{
         return $diferencia;
    }
 
+<<<<<<< HEAD
    public function cantidad_dias($idEmp){
         //Fecha Inicial del Periodo de Nómina - Fecha de Alta del Trabajador
         $num_p = Session::get('num_periodo');
@@ -492,7 +508,56 @@ class CalculoPrenominaController extends Controller{
         $diferencia = $inicial->diffInDays($alta); 
         return $diferencia;
     }
+=======
+    public function ausentismo($claveEmp){
+        $num_periodo = Session::get('num_periodo');
 
+        $clv = Session::get('clave_empresa');
+        $clv_empresa = $this->conectar($clv);
+        \Config::set('database.connections.DB_Serverr', $clv_empresa);
+
+        $acumulado_ausen = DB::connection('DB_Serverr')->table('ausentismos')
+        ->select(DB::raw('CASE WHEN COUNT(`cantidad_ausentismo`) = "" THEN 0 ELSE SUM(`cantidad_ausentismo`) END as conteoDias'))
+        ->where([
+            ['clave_empleado','=',$claveEmp],
+            ['ausentismo_periodo','=',$num_periodo]
+        ])
+        ->whereIn('clave_concepto',['001D','002D'])
+        ->first();
+
+        return $acumulado_ausen;
+    }
+
+    public function dias_trabajados($claveEmp){
+        $jt = $this->jornadaTrabajo();
+        $ausentismo = $this->ausentismo($claveEmp);
+        
+        $diasTrabajados = $jt->diasPeriodo - $ausentismo->conteoDias;
+        return $diasTrabajados;
+    }
+
+    public function uma(){
+        $jt = $this->jornadaTrabajo();
+        $uma = Umas::select('porcentaje_uma')
+                    ->where([
+                    ['periodoinicio_uma','<',$jt->fecha_inicio],
+                    ['periodofin_uma','>',$jt->fecha_inicio]
+                    ])
+                    ->first();
+
+        return $uma;
+    }
+
+    public function ahorro_riesgo(){
+        $clv = Session::get('clave_empresa');
+
+        $datos_empresa = Empresa::select('primaRiesgo','porcentajeAhorro')
+        ->where('clave','=',$clv)
+        ->first();
+>>>>>>> 138e934a13df96d94c6cded64f0b2ea9789e3d3e
+
+        return $datos_empresa;
+    }
     public function aguinaldo_vacaciones_prima($idEmp){
         //Años trabajados se accede directamento con $at
         $at = $this->anios_trabajados($idEmp);
@@ -508,7 +573,99 @@ class CalculoPrenominaController extends Controller{
                                 // $diasAguinaldo->aguinaldo
         return  $datos_prestaciones;
     }
+
+    public function diasTrabajadosAguinaldo($idEmp,$claveEmp){
+        $diasTrabajados = $this->dias_trabajados($claveEmp);
+        $diasAguinaldo = $this->aguinaldo_vacaciones_prima($idEmp);
+        //Cambiar la evaluacion si se requiere para premio de puntualidad
+        if(is_null($diasAguinaldo)){
+            $diasTotales = $diasTrabajados-0;
+            return $diasTotales;
+        }
+
+        $diasTotales = $diasTrabajados-$diasAguinaldo->aguinaldo;
+
+        return $diasTotales;
+    }
+
+
+     /**
+     * Funciones conceptos
+     */
+
+    public function sueldo($idEmp,$claveEmp){
+        //Sueldo = SD * (JT-001D-002D)
+        $sd = $this->sueldo_horas($idEmp);
+
+        $jt = $this->dias_trabajados($claveEmp);
+        
+        $sueldoFinal = $sd->sueldo_diario * $jt;
+        return $sueldoFinal;
+    }
+
+    public function fondoAhorro($idEmp){
+       /* //Formula SI(UMA*1.3>SD, UMA*1.3,SD)*PFA
+        $uma = $this->uma();
+        //$uma->porcentaje_uma
+        $sd = $this->sueldo_horas($idEmp);
+        //$sd->sueldo_diario
+        $rt = $this->ahorro_riesgo();
+        //rt->porcentajeAhorro
+
+        $umaCond = $uma->porcentaje_uma*1.3;
+
+        if($umaCond<$sd->sueldo_diario){
+            $fondo = $umaCond * $rt->porcentajeAhorro;
+            return round($fondo,2);
+        }
+        $umaFin = $sd->sueldo_diario*$rt->porcentajeAhorro;
+        return round($umaCond,2);*/
+       
+            $uma = $this->uma();
+            $sd = $this->sueldo_horas($idEmp);
+            $rt = $this->ahorro_riesgo();
+            $umaCond = $uma->porcentaje_uma*1.3;
     
+            if($umaCond<$sd->sueldo_diario){
+                $umaCond = $sd->sueldo_diario;
+            }
+    
+            $umaFin = $umaCond*$rt->porcentajeAhorro;
+            return $umaFin;
+
+
+<<<<<<< HEAD
+        return $salarioMinimo;
+=======
+>>>>>>> 138e934a13df96d94c6cded64f0b2ea9789e3d3e
+    }
+
+    public function premioPunt($idEmp,$claveEmp){
+        $sd = $this->sueldo_horas($idEmp);
+        $diasTotales = $this->diasTrabajadosAguinaldo($idEmp,$claveEmp);
+
+        $premioPuntualidad = $sd->sueldo_diario*$diasTotales*0.1;
+
+        return $premioPuntualidad;
+    }
+
+    public function primaVacacional($idEmp){
+        $sd = $this->sueldo_horas($idEmp);
+        $dv = $this->aguinaldo_vacaciones_prima($idEmp);
+
+        $primaVacacional = $sd->sueldo_diario * $dv->prima_vacacional/100;
+
+        return $primaVacacional;
+    }
+
+    public function primaDominical($idEmp){
+        $sd = $this->sueldo_horas($idEmp);
+
+        $primaDominical = $sd->sueldo_diario * 0.25 ;
+
+        return $primaDominical;
+    }
+
     public function aguinaldo($idEmp){
         $sd = $this->sueldo_horas($idEmp);
         $diasAguinaldo = $this->aguinaldo_vacaciones_prima($idEmp);
@@ -529,71 +686,6 @@ class CalculoPrenominaController extends Controller{
         return $aguinaldo;
     }
 
-    public function salario_minimo(){
-        $periodo_num = Session::get('num_periodo');
-
-        $clv = Session::get('clave_empresa');
-        $clv_empresa = $this->conectar($clv);
-
-        $zona = Empresa::select('region')
-        ->where('clave','=',$clv)
-        ->first();
-
-        \Config::set('database.connections.DB_Serverr', $clv_empresa);
-
-        $period = DB::connection('DB_Serverr')->table('periodos')
-        ->select('fecha_inicio')
-        ->where('numero','=',$periodo_num)
-        ->first();
-
-        $salarioMinimo = SalarioMinimo::select('importe')
-        ->where([
-            ['fechaInicio','<',$period->fecha_inicio],
-            ['fechafin','>',$period->fecha_inicio]
-        ])
-        ->where('region','=',$zona->region)
-        ->first();
-
-        return $salarioMinimo;
-    }
-
-    public function ahorro_riesgo(){
-        $clv = Session::get('clave_empresa');
-
-        $datos_empresa = Empresa::select('primaRiesgo','porcentajeAhorro')
-        ->where('clave','=',$clv)
-        ->first();
-
-        return $datos_empresa;
-    }
-
-    public function ausentismo($claveEmp){
-        $num_periodo = Session::get('num_periodo');
-
-        $clv = Session::get('clave_empresa');
-        $clv_empresa = $this->conectar($clv);
-        \Config::set('database.connections.DB_Serverr', $clv_empresa);
-
-        $acumulado_ausen = DB::connection('DB_Serverr')->table('ausentismos')
-        ->select(DB::raw('CASE WHEN COUNT(`cantidad_ausentismo`) = "" THEN 0 ELSE SUM(`cantidad_ausentismo`) END as conteoDias'))
-        ->where([
-            ['clave_empleado','=',$claveEmp],
-            ['ausentismo_periodo','=',$num_periodo]
-        ])
-        ->whereIn('clave_concepto',['001D','002D'])
-        ->first();
-
-        return $acumulado_ausen;
-    }
-
-    public function uma(){
-        $uma = Umas::select('porcentaje_uma')
-        ->orderBy('created_at','desc')
-        ->first();
-
-        return $uma;
-    }
-
     public function ausentismoIncapacidadDeduccion($idEmp,$claveEmp){
         $sd = $this->sueldo_horas($idEmp);
         $diasTrabajados = $this->dias_trabajados($claveEmp);
@@ -602,4 +694,16 @@ class CalculoPrenominaController extends Controller{
 
         return $ausentismoIncapacidad;
     }
+
+    public function deduccionAhorro($idEmp){
+        $fondoAhorroEmpresa = $this->fondoAhorro($idEmp);
+
+        return 1;
+    }
+
+
+
+
+
+   
 }
