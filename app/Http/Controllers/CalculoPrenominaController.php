@@ -66,16 +66,18 @@ class CalculoPrenominaController extends Controller{
         ->where('id_emp','=',$request->info)
         ->first();
         
-         $conceptos = DB::connection('DB_Serverr')->table('conceptos')
-            ->select('clave_concepto')   
-            ->where('seleccionado','=',1)
-            ->get();
+        $conceptos = DB::connection('DB_Serverr')->table('conceptos')
+        ->select('clave_concepto')   
+        ->where('seleccionado','=',1)
+        ->get();
         
-            //$comprobacion = $this->criterio_horas($request->info,$empleados->clave_empleado);
-
-       foreach($conceptos as $concep){
+        //$comprobacion = $this->criterio_horas($request->info,$empleados->clave_empleado);
+        $arrConceptos = [];
+        
+        foreach($conceptos as $concep){
             if($concep->clave_concepto == "001P"){
                 $resultaSueldo = $this->sueldo($request->info,$empleados->clave_empleado);
+                $arrConceptos = Arr::add($arrConceptos,$resultaSueldo);
             }else if($concep->clave_concepto == "002P"){
                 //$resultaHoraExtraDoble = $this->criterio_horas($request->info,$empleados->clave_empleado);
             }else if($concep->clave_concepto == "003P"){
@@ -158,22 +160,20 @@ class CalculoPrenominaController extends Controller{
             }
         }
 
+        print_r($arrConceptos);
 
-       
-       
-        return response()->json($resultaFondoAhorro);
+        //return response()->json($resultaFondoAhorro);
         //([['aguinaldo'=> $aguinaldos],
                                 //['sueldo' => $resultaSueldo]]);
         //[['clave'=>'valor'],['clave2'=>'valor']]
     }
 
     //Funciones compuestas
-    public function deduccionAhorro($idEmp){
+    /*public function deduccionAhorro($idEmp){
         $fondoAhorroEmpresa = $this->fondoAhorro($idEmp);
 
         return 1;
-    }
-
+    }*/
 
     public function primaDominical($idEmp){
         $sd = $this->sueldo_horas($idEmp);
@@ -367,7 +367,6 @@ class CalculoPrenominaController extends Controller{
             $horasDoblesGenerales = 0;
             $horasTriplesGenerales = 0;
             return compact('horasDoblesGenerales','horasTriplesGenerales');
-
         }//Conteo de horas cero, asignar a horas dobles o triples
     }
 
@@ -465,34 +464,34 @@ class CalculoPrenominaController extends Controller{
    }
 
    public function cantidad_dias($idEmp){
-    //Fecha Inicial del Periodo de Nómina - Fecha de Alta del Trabajador
-    $num_p = Session::get('num_periodo');
+        //Fecha Inicial del Periodo de Nómina - Fecha de Alta del Trabajador
+        $num_p = Session::get('num_periodo');
 
-    $clv = Session::get('clave_empresa');
-    $clv_empresa = $this->conectar($clv);
-    \Config::set('database.connections.DB_Serverr', $clv_empresa);
+        $clv = Session::get('clave_empresa');
+        $clv_empresa = $this->conectar($clv);
+        \Config::set('database.connections.DB_Serverr', $clv_empresa);
 
-    $fecha_inicial = DB::connection('DB_Serverr')->table('periodos')
-    ->select('fecha_inicio')
-    ->where('numero','=',$num_p)
-    ->first();
+        $fecha_inicial = DB::connection('DB_Serverr')->table('periodos')
+        ->select('fecha_inicio')
+        ->where('numero','=',$num_p)
+        ->first();
 
-    //Accedemos a la fecha $fecha_inicial->fecha_inicio
-    //Parseando la fecha
-    $inicial = now()->parse($fecha_inicial->fecha_inicio);
+        //Accedemos a la fecha $fecha_inicial->fecha_inicio
+        //Parseando la fecha
+        $inicial = now()->parse($fecha_inicial->fecha_inicio);
 
-    $alta_trabajador = DB::connection('DB_Serverr')->table('empleados')
-    ->select('fecha_alta')
-    ->where('id_emp','=',$idEmp)
-    ->first();
+        $alta_trabajador = DB::connection('DB_Serverr')->table('empleados')
+        ->select('fecha_alta')
+        ->where('id_emp','=',$idEmp)
+        ->first();
 
-    //Accedemos a la fecha alta del trabajador $alta_trabajador->fecha_alta
-    //Parseando la fecha
-    $alta = now()->parse($alta_trabajador->fecha_alta);
+        //Accedemos a la fecha alta del trabajador $alta_trabajador->fecha_alta
+        //Parseando la fecha
+        $alta = now()->parse($alta_trabajador->fecha_alta);
 
-    $diferencia = $inicial->diffInDays($alta); 
-    return $diferencia;
-}
+        $diferencia = $inicial->diffInDays($alta); 
+        return $diferencia;
+    }
 
     public function aguinaldo_vacaciones_prima($idEmp){
         //Años trabajados se accede directamento con $at
@@ -501,13 +500,13 @@ class CalculoPrenominaController extends Controller{
         $clv = Session::get('clave_empresa');
         $clv_empresa = $this->conectar($clv);
         \Config::set('database.connections.DB_Serverr', $clv_empresa);
-            $datos_prestaciones= DB::connection('DB_Serverr')->table('prestaciones')
-                                    ->select('aguinaldo','dias','prima_vacacional')
-                                    ->where('anio','=',$at)
-                                    ->first();
-                                    //retornamos la cantidad de dias otorgados acceder
-                                    // $diasAguinaldo->aguinaldo
-            return  $datos_prestaciones;
+        $datos_prestaciones= DB::connection('DB_Serverr')->table('prestaciones')
+                                ->select('aguinaldo','dias','prima_vacacional')
+                                ->where('anio','=',$at)
+                                ->first();
+                                //retornamos la cantidad de dias otorgados acceder
+                                // $diasAguinaldo->aguinaldo
+        return  $datos_prestaciones;
     }
     
     public function aguinaldo($idEmp){
@@ -555,7 +554,6 @@ class CalculoPrenominaController extends Controller{
         ->where('region','=',$zona->region)
         ->first();
 
-        //$salarioMinimo->importe
         return $salarioMinimo;
     }
 
@@ -599,7 +597,6 @@ class CalculoPrenominaController extends Controller{
     public function ausentismoIncapacidadDeduccion($idEmp,$claveEmp){
         $sd = $this->sueldo_horas($idEmp);
         $diasTrabajados = $this->dias_trabajados($claveEmp);
-
 
         $ausentismoIncapacidad = $sd->sueldo_diario * $diasTrabajados;
 
