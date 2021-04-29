@@ -148,7 +148,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
               <li class="nav-item {{!Route::is('descansos.index') ?: 'active'}}">
               <a href="{{route('descansos.index')}}" class="nav-link active">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Días de descanso</p>
+                  <p>Días de descanso obligatorio</p>
                 </a>
               </li>
             </ul>
