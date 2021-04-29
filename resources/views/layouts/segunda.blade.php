@@ -39,6 +39,29 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <!-- Jquery UI-->
   <link rel="stylesheet" type="text/css" href="{{ asset('/Admin/plugins/jquery-ui/jquery-ui.min.css')}}">
   <style type="text/css">
+    body{
+      font-size: 0.8em;
+    }
+    input.form-control{
+      font-size: 1em;
+    }
+    .form-control {
+    display: block;
+    width: 100%;
+    height: calc(2.25rem + 2px);
+    padding: .275rem .55rem;
+    font-size: 1rem;
+    font-weight: 400;
+    /* line-height: 1.5; */
+    color: #495057;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    border-radius: .25rem;
+    box-shadow: inset 0 0 0 transparent;
+    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+    }
+ 
     ul.nav.nav-treeview li.nav-item.active a.nav-link.active{
       background: #0AACE9;
       color: #fff; 
