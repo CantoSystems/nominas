@@ -12,7 +12,7 @@
       <br>
       <div class="row">
         <div class="col-md-8"><br>
-          <select class="custom-select" name="empresa">
+          <select class="custom-select personalizado" name="empresa">
             @foreach($empresas as $empresa)
               <option value="{{$empresa->clave}}">{{$empresa->nombre}} | {{$empresa->nombre_nomina}} </option> 
             @endforeach

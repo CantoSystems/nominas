@@ -38,50 +38,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
   <!-- Jquery UI-->
   <link rel="stylesheet" type="text/css" href="{{ asset('/Admin/plugins/jquery-ui/jquery-ui.min.css')}}">
-  <style type="text/css">
-    body{
-      font-size: 0.8em;
-    }
-    input.form-control{
-      font-size: 1em;
-    }
-    .form-control {
-    display: block;
-    width: 100%;
-    height: calc(2.25rem + 2px);
-    padding: .275rem .55rem;
-    font-size: 1rem;
-    font-weight: 400;
-    /* line-height: 1.5; */
-    color: #495057;
-    background-color: #fff;
-    background-clip: padding-box;
-    border: 1px solid #ced4da;
-    border-radius: .25rem;
-    box-shadow: inset 0 0 0 transparent;
-    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
-    }
- 
-    ul.nav.nav-treeview li.nav-item.active a.nav-link.active{
-      background: #0AACE9;
-      color: #fff; 
-    }
-    .botones{
-      width:2em;
-      height:auto;
-    }
-    .botonesgrandes{
-      width:3.5em;
-      height:auto;
-    }
-    .not-active {
-      pointer-events: none;
-    }
-    .activo{
-      background: #9B9898;
-      color: #000000;
-    }
-  </style>
+  <link rel="stylesheet" href="{{ asset('estilos-personalizados/plantillados.css')}}">
 </head>
 <body class="hold-transition sidebar-mini">
 <div class="wrapper">
@@ -668,7 +625,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                           '<td class="fecha">' + fecha_ausentismo + '</td>'+
                           '<td class="incapacidad">' + incapacidad_ausencia + '</td>'+
                           '<td class="descripcion">' + descripcion + '</td>'+
-                          '<td class="elimina" style="text-align: center; width:70px; height:40px;"><button class="borrar_ausencia" type="button" style="width:70px; height:40px"><i class="far fa-trash-alt"></i></button></td>'+
+                          '<td class="elimina" style="text-align: center; width:40px; height:25px;"><button class="borrar_ausencia" type="button" style="width:40px; height:25px"><i class="far fa-trash-alt"></i></button></td>'+
                         '</tr>'
         $('#example13 tbody').append(htmlTags);
         $('input[type="text"]').val('');
@@ -756,7 +713,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                           '<td class="empleado">' + clave_empledo + '</td>'+
                           '<td class="cantidad">' + cantidad_tiempo + '</td>'+
                           '<td class="fecha">' + fecha_extra + '</td>'+
-                          '<td style="text-align: center; width:70px; height:40px;"><button class="borrar" type="button" style="width:70px; height:40px"><i class="far fa-trash-alt"></i></button></td>'+
+                          '<td style="text-align: center; width:40px; height:25px;"><button class="borrar" type="button" style="width:40px; height:25px"><i class="far fa-trash-alt"></i></button></td>'+
                         '</tr>'
         $('#example12 tbody').append(htmlTags);
         $('input[type="text"]').val('');
@@ -828,7 +785,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                           '<td class="cantidad">' + cantidad + '</td>'+
                           '<td class="importe">' + importe + '</td>'+
                           '<td class="monto">' + monto + '</td>'+
-                          '<td style="text-align: center; width:70px; height:40px;"><button class="borrar" type="button" style="width:70px; height:40px"><i class="far fa-trash-alt"></i></button></td>'+
+                          '<td style="text-align: center; width:40px; height:25px;"><button class="borrar" type="button" style="width:30px; height:25px"><i class="far fa-trash-alt"></i></button></td>'+
                         '</tr>'
         $('#example12 tbody').append(htmlTags);
         $('input[type="text"]').val('');

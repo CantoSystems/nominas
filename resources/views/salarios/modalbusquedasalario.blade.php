@@ -2,7 +2,7 @@
 	<div class="modal-dialog modal-lg">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h4 class="modal-title" id="myModalLabel">
+				<h4 class="modal-title modalPersonalizado" id="myModalLabel">
 					Buscar Salario Mínimo
 				</h4>
 				<button type="button" class="close" data-dismiss="modal">
@@ -35,7 +35,7 @@
                                                     <div>
                                                         <center>
                                                             <a href="{{ route('salariomin.mostrar',$salMinAll->idSalarioMinimo) }}">
-                                                                <button type="button" style='width:70px; height:40px'>
+                                                                <button type="button" class="botones-modales">
                                                                     <i class="far fa-eye"></i>
                                                                 </button>
                                                             </a>

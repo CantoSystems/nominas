@@ -11,20 +11,20 @@
                     <form action="{{ route('salariomin.acciones')}}" method="GET" autocomplete="off">
                         <div class="row">
                             @if(isset($salMin))
-                                <div class="col-sm-4">
+                                <div class="col-sm-3">
                                     <div class="form-group">
                                         <label>Fecha de Inicio</label>
                                         <input type="date" id="fechaInicioSal" name="fechaInicioSal" value="{{ $salMin->fechaInicio }}" class="form-control">
                                         <input type="hidden" id="idSalMin" name="idSalMin" value="{{ $salMin->idSalarioMinimo }}" class="form-control">
                                     </div>
                                 </div>
-                                <div class="col-sm-4">
+                                <div class="col-sm-3">
                                     <div class="form-group">
                                         <label>Fecha de Término</label>
                                         <input type="date" id="fechaTerminoSal" name="fechaTerminoSal" value="{{ $salMin->fechafin }}" class="form-control">
                                     </div>
                                 </div>
-                                <div class="col-sm-4">
+                                <div class="col-sm-3">
                                     <div class="form-group">
                                         <label>Área Geográfica</label>
                                         <select id="regionSalario" name="regionSalario" class="custom-select">
@@ -44,26 +44,26 @@
                                         </select>
                                     </div>
                                 </div>
-                                <div class="col-sm-4">
+                                <div class="col-sm-3">
                                     <div class="form-group">
                                         <label>Monto Vigente</label>
                                         <input type="number" id="importeSal" name="importeSal" step="0.01" value="{{ $salMin->importe }}" class="form-control">
                                     </div>
                                 </div>
                             @else
-                                <div class="col-sm-4">
+                                <div class="col-sm-3">
                                     <div class="form-group">
                                         <label>Fecha de Inicio</label>
                                         <input type="date" id="fechaInicioSal" name="fechaInicioSal" class="form-control">
                                     </div>
                                 </div>
-                                <div class="col-sm-4">
+                                <div class="col-sm-3">
                                     <div class="form-group">
                                         <label>Fecha de Término</label>
                                         <input type="date" id="fechaTerminoSal" name="fechaTerminoSal" class="form-control">
                                     </div>
                                 </div>
-                                <div class="col-sm-4">
+                                <div class="col-sm-3">
                                     <div class="form-group">
                                         <label>Área Geográfica</label>
                                         <select id="regionSalario" name="regionSalario" class="custom-select">
@@ -73,7 +73,7 @@
                                         </select>
                                     </div>
                                 </div>
-                                <div class="col-sm-4">
+                                <div class="col-sm-3">
                                     <div class="form-group">
                                         <label>Monto Vigente</label>
                                         <input type="number" id="importeSal" name="importeSal" step="0.01" class="form-control">

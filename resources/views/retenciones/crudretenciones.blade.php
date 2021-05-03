@@ -96,19 +96,19 @@
                                     <label>Periodo:</label>
                                     @if(isset($retencion))
                                         @if($retencion->periodo_retencion == 'MENSUAL')
-                                        <select class="custom-select" name="periodo_retencion">
+                                        <select class="custom-select personalizado" name="periodo_retencion">
                                             <option value="{{$retencion->periodo_retencion}}">{{$retencion->periodo_retencion}}</option>
                                              <option value="ANUAL">ANUAL</option>
                                         </select>
                                         @else
-                                        <select class="custom-select" name="periodo_retencion">
+                                        <select class="custom-select personalizado" name="periodo_retencion">
                                         <option value="{{$retencion->periodo_retencion}}">{{$retencion->periodo_retencion}}</option>
                                              <option value="MENSUAL">MENSUAL</option>
                                         </select>
 
                                         @endif
                                     @else
-                                    <select class="custom-select" name="periodo_retencion">
+                                    <select class="custom-select personalizado" name="periodo_retencion">
                                         <option value="">Selecciona una opción</option>
                                         <option value="MENSUAL">MENSUAL</option>
                                         <option value="ANUAL">ANUAL</option>

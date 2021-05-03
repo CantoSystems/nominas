@@ -3,7 +3,7 @@
 <div class="container">
     <div class="card card-secondary">
         <div class="card-header">
-            <h3 class="card-title">Tiempos Extras </h3>
+            <h3 class="card-title modalPersonalizado">Tiempos Extras </h3>
         </div>
         <div class="card-body">
             @if(session()->has('registro'))
@@ -66,14 +66,14 @@
                     </div>
                 </div>
                 <center>
-                    <input type="button" name="agregar" id="agregar" value="Agregar Nuevo" style='width:125px; height:40px'>
+                    <input type="button" name="agregar" id="agregar" value="Agregar Nuevo" style='width:125px; height:25px'>
                 </center>
                 <br>
                 <div class="row">
                     <div class="col">
                         <div class="card card-secondary">
                             <div class="card-header">
-                                <h3 class="card-title">
+                                <h3 class="card-title modalPersonalizado">
                                     Tiempo extra
                                 </h3>
                             </div>
@@ -92,7 +92,7 @@
                                 </table>
                                 <br>
                                 <center>
-                                    <input type="button" id="finalizar" value="Finalizar" style='width:80px; height:40px'>
+                                    <input type="button" id="finalizar" value="Finalizar" style='width:125px; height:25px'>
                                 </center>
                             </div>
                         </div>

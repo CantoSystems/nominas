@@ -2,17 +2,18 @@
     body{
       font-size: 0.8em;
     }
-    input.form-control{
+   
+   input.form-control{
       font-size: 1em;
     }
     .content-header{
-	  padding: 5px .5rem;
+	  padding: 4px .5rem;
     }
     .form-control {
     display: block;
     width: 100%;
     height: calc(2.25rem + 2px);
-    padding: .275rem .55rem;
+    padding: .2rem .8rem;
     font-size: 1rem;
     font-weight: 400;
     /* line-height: 1.5; */
@@ -41,11 +42,21 @@
     .activo{
       background: #EFEFEF;
       color: #000000;
-      opacity: !important;
     }
+    select.custom-select.personalizado{
+    	font-size: 1em;
+      padding: 6px 18px 6px 6px;
+    }
+    .table td, .table th{
+      padding: .5rem;
+      }
     .modalPersonalizado {
         font-size: 1em;
     }
-    select.custom-select{
-    	font-size: 1em;
+    .botones-modales{
+      width: 70px;
+      height: 30px;
+    }
+    .select.custom-select.nuevo{
+      	font-size: 0.8em;
     }

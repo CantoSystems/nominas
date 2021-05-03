@@ -53,11 +53,12 @@
                     <form action="{{ route('subsidio.acciones')}}" method="GET" autocomplete="off">
                         <div class="row">
                            
-                                <div class="col-sm-6">
+                                <div class="col-sm-4">
+                                    <br>
                                     <div class="form-group">
                                         <label>Para ingresos de ($):</label>
                                         <input type="hidden" name="id_subsidio" value="{{ $subsidio->id_subsidio ?? ''}}" class="form-control">
-                                        <input type="text" name="paraingresos" value="{{ $subsidio->ParaIngresos ?? '' }}" class="form-control">
+                                        <input type="number" name="paraingresos" value="{{ $subsidio->ParaIngresos ?? '' }}" class="form-control">
                                         @error('paraingresos')
                                             <div class="alert alert-secondary">
                                                 {{ $message }}
@@ -65,10 +66,11 @@
                                         @enderror
                                     </div>
                                 </div>
-                                <div class="col-sm-6">
+                                <div class="col-sm-4">
+                                    <br>
                                     <div class="form-group">
                                         <label>Hasta ingresos de ($):</label>
-                                        <input type="text" name="hastaingresos" value="{{ $subsidio->IngresosDe ?? ''}}" class="form-control">
+                                        <input type="number" name="hastaingresos" value="{{ $subsidio->IngresosDe ?? ''}}" class="form-control">
                                         @error('hastaingresos')
                                             <div class="alert alert-secondary">
                                                 {{ $message }}
@@ -76,10 +78,10 @@
                                         @enderror
                                     </div>
                                 </div>
-                                <div class="col-sm-12">
+                                <div class="col-sm-4">
                                     <div class="form-group">
                                         <label>Cantidad de subsidio para el empleo mensual ($):</label>
-                                        <input type="text" name="subsidiomensual" value="{{ $subsidio->SubsidioMensual ?? '' }}" class="form-control">
+                                        <input type="number" name="subsidiomensual" value="{{ $subsidio->SubsidioMensual ?? '' }}" class="form-control">
                                         @error('subsidiomensual')
                                             <div class="alert alert-secondary">
                                                 {{ $message }}
