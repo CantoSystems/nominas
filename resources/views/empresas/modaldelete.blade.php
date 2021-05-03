@@ -1,8 +1,9 @@
-<div class="modal fade bs-example-modal-lg" tabindex="-1" id="modal-deletenom-{{$empresa->id}}" role="dialog" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
+<div class="modal fade" tabindex="-1" id="modal-deletenom-{{$empresa->id}}" role="dialog" aria-hidden="true">
+    <!--modal fade bs-example-modal-sm-->
+    <div class="modal-dialog modal-sm">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title" id="myModalLabel">Eliminar Empresa: {{$empresa->nombre}}</h4>
+                <h4 class="modal-title modalPersonalizado" id="myModalLabel">Eliminar Empresa: {{$empresa->nombre}}</h4>
                 <button type="button" class="close" data-dismiss="modal">
                     <span aria-hidden="true">×</span>
                 </button>
@@ -12,7 +13,7 @@
                     @method('DELETE')
                     @csrf
                     <div class="row">
-                        <h3>¿Estas seguro de eliminar esta empresa?</h3>
+                        <h3 class="modalPersonalizado">¿Estas seguro de eliminar esta empresa?</h3>
                     </div>
                     <div class="modal-footer">
                         <button type="button"  data-dismiss="modal" style="width:110px; height:40px">Cancelar</button>
