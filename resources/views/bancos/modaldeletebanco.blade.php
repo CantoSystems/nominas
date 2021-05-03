@@ -25,8 +25,8 @@
 
 </div>
 <div class="modal-footer">
-<button type="button" data-dismiss="modal" style="width:80px; height:40px">Cancelar</button>
-<button type="submit" style="width:90px; height:40px">Continuar</button>
+<button type="button" data-dismiss="modal" class="botones-modales">Cancelar</button>
+<button type="submit" class="botones-modales">Continuar</button>
 </form>
 </div>
 </div>

@@ -4,7 +4,7 @@
   <div class="col-md-12">
     <div class="card card-secondary">
       <div class="card-header">
-        <h3 class="card-title">Empleados</h3>
+        <h3 class="card-title modalPersonalizado">Empleados</h3>
         <center>
           {{$persona->nombre ?? ''}}
           {{$persona->apellido_paterno ?? ''}}
@@ -73,7 +73,7 @@
                                 </div>
                             @enderror
                           </div>
-                          <div class="col-md-2">
+                          <div class="col-md-3">
                             <label for="validationDefault02">Clasificación</label>
                             <input  type="text" class="form-control" name="clasificacion" value="{{$persona->clasificacion ?? ''}}" onkeyup="mayus(this);" onkeypress="return validar(event)">
                             @error('clasificacion')
@@ -82,7 +82,7 @@
                                 </div>
                             @enderror
                           </div>
-                          <div class="col-md-3 mb-3">
+                          <div class="col-md-2 mb-3">
                             <label for="validationDefault03">Nombre</label>
                             <input  type="text" class="form-control" name="nombre"  onkeyup="mayus(this);" value="{{$persona->nombre ?? ''}}" onkeypress="return validar(event)">
                             @error('nombre')
@@ -91,7 +91,7 @@
                                 </div>
                             @enderror
                           </div>
-                          <div class="col-md-3 mb-3">
+                          <div class="col-md-2 mb-3">
                             <label for="validationDefault03">Apellido Paterno</label>
                             <input  type="text" class="form-control" name="apellido_paterno" onkeyup="mayus(this);" value="{{$persona->apellido_paterno ?? ''}}" onkeypress="return validar(event)">
                             @error('apellido_paterno')
@@ -100,7 +100,7 @@
                                 </div>
                             @enderror
                           </div>
-                          <div class="col-md-3 mb-3">
+                          <div class="col-md-2 mb-3">
                             <label for="validationDefault03">Apellido Materno</label>
                             <input  type="text" class="form-control" name="apellido_materno" onkeyup="mayus(this);" value="{{$persona->apellido_materno ?? ''}}" onkeypress="return validar(event)">
                             @error('apellido_materno')
@@ -255,7 +255,7 @@
                                 </div>
                             @enderror
                           </div>
-                          <div class="col-md-3 mb-3">
+                          <div class="col-md-2 mb-3">
                             <label for="validationDefault03">INE</label>
                             <input  type="text" class="form-control" value="{{$persona->ine ?? ''}}" maxlength="18" name="ine" onkeyup="mayus(this);">
                             @error('ine')
@@ -264,24 +264,24 @@
                                 </div>
                             @enderror
                           </div>
-                          <div class="col-md-3 mb-3">
+                          <div class="col-md-2 mb-3">
                             <label for="validationDefault03">Pasaporte</label>
                             <input type="text" class="form-control" value="{{$persona->pasaporte ?? ''}}" maxlength="6" name="pasaporte" onkeyup="mayus(this);">
 
                           </div>
-                          <div class="col-md-3 mb-3">
+                          <div class="col-md-2 mb-3">
                             <label for="validationDefault03">Cartilla</label>
                             <input type="text" class="form-control" value="{{$persona->cartilla ?? ''}}" maxlength="10" name="cartilla" onkeyup="mayus(this);">
                           </div>
-                          <div class="col-md-3 mb-3">
+                          <div class="col-md-2 mb-3">
                             <label for="validationDefault03">Licencia</label>
                             <input type="text" class="form-control" value="{{$persona->licencia ?? ''}}" maxlength="5" name="licencia" onkeyup="mayus(this);">
                           </div>
-                          <div class="col-md-3 mb-3">
+                          <div class="col-md-2 mb-3">
                             <label for="validationDefault03">Documento migratorio</label>
                             <input type="text" class="form-control" value="{{$persona->documento_migratorio ?? ''}}" name="documento_migratorio"  maxlength="13" onkeyup="mayus(this);">
                           </div>
-                          <div class="col-md-3 mb-3">
+                          <div class="col-md-2 mb-3">
                             <label for="validationDefault03">Calle</label>
                             <input  type="text" class="form-control" value="{{$persona->calle ?? ''}}" name="calle" onkeyup="mayus(this);" onkeypress="return validar(event)">
                             @error('calle')
@@ -290,7 +290,7 @@
                                 </div>
                             @enderror
                           </div>
-                          <div class="col-md-2 mb-3">
+                          <div class="col-md-1 mb-3">
                             <label for="validationDefault03">Número externo</label>
                             <input  type="text" class="form-control" value="{{$persona->numero_externo ?? ''}}" name="numero_externo" maxlength="4" onkeypress="return numeros(event)">
                             @error('numero_externo')
@@ -299,11 +299,11 @@
                                 </div>
                             @enderror
                           </div>
-                          <div class="col-md-2 mb-3">
+                          <div class="col-md-1 mb-3">
                             <label for="validationDefault03">Número interno</label>
                             <input type="text" class="form-control" value="{{$persona->numero_interno ?? ''}}" name="numero_interno" maxlength="4" onkeypress="return numeros(event)">
                           </div>
-                          <div class="col-md-3 mb-3">
+                          <div class="col-md-2 mb-3">
                             <label for="validationDefault03">Colonia</label>
                             <input  type="text" class="form-control" value="{{$persona->colonia ?? ''}}" name="colonia" onkeyup="mayus(this);" onkeypress="return validar(event)">
                             @error('colonia')
@@ -312,7 +312,7 @@
                                 </div>
                             @enderror
                           </div>
-                          <div class="col-md-2 mb-3">
+                          <div class="col-md-1 mb-3">
                             <label for="validationDefault03">CP</label>
                             <input  type="text" class="form-control" value="{{$persona->cp ?? ''}}" name="cp" maxlength="6" onkeypress="return numeros(event)">
                              @error('cp')
@@ -321,7 +321,7 @@
                                 </div>
                             @enderror
                           </div>
-                          <div class="col-md-3 mb-3">
+                          <div class="col-md-2 mb-3">
                             <label for="validationDefault03">Ciudad</label>
                             <input  type="text" class="form-control" value="{{$persona->ciudad ?? ''}}" name="ciudad" onkeyup="mayus(this);" onkeypress="return validar(event)">
                             @error('ciudad')
@@ -330,7 +330,7 @@
                                 </div>
                             @enderror
                           </div>
-                          <div class="col-md-3 mb-3">
+                          <div class="col-md-2 mb-3">
                             <label for="validationDefault03">Municipio</label>
                             <input  type="text" class="form-control" value="{{$persona->municipio ?? ''}}" name="municipio" onkeyup="mayus(this);" onkeypress="return validar(event)">
                             @error('municipio')
@@ -339,7 +339,7 @@
                                 </div>
                             @enderror
                           </div>
-                          <div class="col-md-3 mb-3">
+                          <div class="col-md-2 mb-3">
                             <label for="validationDefault03">Estado</label>
                             <input  type="text" class="form-control" value="{{$persona->estado ?? ''}}" name="estado" onkeyup="mayus(this);" onkeypress="return validar(event)">
                             @error('estado')
@@ -348,7 +348,7 @@
                                 </div>
                             @enderror
                           </div>
-                          <div class="col-md-3 mb-3">
+                          <div class="col-md-2 mb-3">
                             <label for="validationDefault03">Teléfono</label>
                             <input  type="text" class="form-control telefono_empleado" value="{{$persona->telefono_empleado ?? ''}}" name="telefono_empleado" onkeypress="return numeros(event)">
                             @error('telefono_empleado')
@@ -357,7 +357,7 @@
                                 </div>
                             @enderror
                           </div>
-                          <div class="col-md-3 mb-3">
+                          <div class="col-md-2 mb-3">
                             <label for="validationDefault03">Correo</label>
                             <input  type="text" class="form-control" value="{{$persona->correo?? ''}}" name="correo">
                             @error('correo')
@@ -366,7 +366,7 @@
                                 </div>
                             @enderror
                           </div>
-                          <div class="col-md-3 mb-3">
+                          <div class="col-md-2 mb-3">
                             <label for="validationDefault04">Sexo</label>
                           @if(isset($persona))
                             <select class="custom-select" name="sexo">
@@ -402,7 +402,7 @@
                             @enderror
                           @endif
                           </div>
-                          <div class="col-md-3 mb-3">
+                          <div class="col-md-2 mb-3">
                             <label for="validationDefault04">Estado Civil</label>
                           @if(isset($persona))
                             <select class="custom-select" name="estado_civil">
@@ -438,7 +438,7 @@
                             @enderror
                           @endif
                           </div>
-                          <div class="col-md-3 mb-3">
+                          <div class="col-md-2 mb-3">
                             <label for="validationDefault04">Nacionalidad</label>
                             <input  type="text" class="form-control" value="{{$persona->nacionalidad ?? ''}}" name="nacionalidad" onkeyup="mayus(this);" onkeypress="return validar(event)">
                             @error('nacionalidad')
@@ -447,7 +447,7 @@
                                 </div>
                             @enderror
                           </div>
-                          <div class="col-md-3 mb-3">
+                          <div class="col-md-2 mb-3">
                             <label for="validationDefault04">Tipo de sangre</label> 
                             <input  type="text" class="form-control" value="{{$persona->tipo_sangre ?? ''}}" name="tipo_sangre" onkeyup="mayus(this);" onkeypress="return validasangre(event)">
                             @error('tipo_sangre')
@@ -456,7 +456,7 @@
                                 </div>
                             @enderror
                           </div>
-                          <div class="col-md-3 mb-3">
+                          <div class="col-md-2 mb-3">
                             <label for="validationDefault03">Alergias</label>
                             <input  type="text" class="form-control" value="{{$persona->alergias ?? ''}}" name="alergias" onkeyup="mayus(this);" onkeypress="return validar(event)">
                           </div>

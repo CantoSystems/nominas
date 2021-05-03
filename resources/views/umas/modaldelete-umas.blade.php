@@ -4,7 +4,7 @@
 <div class="modal-content">
 <div class="modal-header">
 	<h4 class="modal-title modalPersonalizado" id="myModalLabel">
-		Eliminar Banco
+		Eliminar UMA
 	</h4>
 <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span>
 </button>
@@ -25,8 +25,8 @@
 
 </div>
 <div class="modal-footer">
-<button type="button" data-dismiss="modal" style="width:80px; height:40px">Cancelar</button>
-<button type="submit" style="width:90px; height:40px">Continuar</button>
+<button type="button" data-dismiss="modal" class="botones-modales" >Cancelar</button>
+<button type="submit" class="botones-modales" >Continuar</button>
 </form>
 </div>
 </div>

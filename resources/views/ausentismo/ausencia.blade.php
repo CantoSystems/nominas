@@ -5,7 +5,7 @@
     <!--Inicio inputs-->
       <div class="card card-secondary">
         <div class="card-header">
-          <h3 class="card-title">
+          <h3 class="card-title modalPersonalizado">
             Captura Ausencia  
           </h3><br>
         </div>
@@ -33,9 +33,10 @@
                 </div>
               </div>
 
-              <div class="col-sm-5">
+              <div class="col-sm-2">
                 <div class="form-group">
                     <label>Nombre:</label>
+                    <br>
                       <input  type="text" 
                               name="nombre" 
                               id="nombre" 
@@ -45,9 +46,10 @@
                 </div>
               </div>
 
-              <div class="col-sm-2">
+              <div class="col-sm-1">
                 <div class="form-group">
                   <label>Cantidad:</label>
+                  <br>
                     <input  type="number" 
                             name="cantidad_ausentismo" 
                             id="cantidad_ausentismo"
@@ -57,8 +59,9 @@
                 </div>
               </div>
 
-              <div class="col-sm-3">
+              <div class="col-sm-2">
                 <label>Concepto:</label>
+                <br>
                   <div class=" input-group mb-3">
                     <input  type="text"
                             class="form-control"
@@ -76,9 +79,10 @@
                   </div>
               </div>
 
-              <div class="col-sm-4">
+              <div class="col-sm-2">
                 <div class="form-group">
                   <label>Fecha:</label>
+                  <br>
                     <input  type="date" 
                             name="fecha_ausentismo"
                             id="fecha_ausentismo" 
@@ -89,9 +93,9 @@
                 </div>
               </div>
 
-               <div class="col-sm-4">
+               <div class="col-sm-1">
                 <div class="form-group">
-                   <label>Incapacidad:</label>
+                   <label>Incapacidad:</label><br>
                     <input  type="text" 
                             name="incapacidad"
                             id="incapacidad_ausencia" 
@@ -103,9 +107,9 @@
                   
 
 
-              <div class="col-sm-4">
+              <div class="col-sm-2">
                 <div class="form-group">
-                  <label>Descripcion:</label>
+                  <label>Descripcion:</label><br>
                     <input  type="text" 
                             name="descripcion" 
                             id="descripcion" 
@@ -117,7 +121,7 @@
 
               <div class="col-sm-12">
                 <center>
-                    <input type="button" name="agregar_ausencia" id="agregar_ausencia" value="Agregar Nuevo" style='width:125px; height:40px'>
+                    <input type="button" name="agregar_ausencia" id="agregar_ausencia" value="Agregar Nuevo" style='width:125px; height:25px'>
                 </center>
               </div>
             </div>
@@ -127,7 +131,7 @@
     <div class="col">
       <div class="card card-secondary">
         <div class="card-header">
-          <h3 class="card-title">
+          <h3 class="card-title modalPersonalizado">
             Registros Ausentismos 
           </h3>
         </div>
@@ -148,7 +152,7 @@
           </table>
           <br>
           <center>
-            <input type="button" id="finalizar_ausencia" value="Finalizar" style='width:80px; height:40px'>
+            <input type="button" id="finalizar_ausencia" value="Finalizar" style='width:125px; height:25px'>
           </center>
         </div>  
       </div>
