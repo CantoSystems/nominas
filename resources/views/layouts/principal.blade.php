@@ -22,52 +22,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <!-- DataTables -->
   <link rel="stylesheet" href="{{ asset('/Admin/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css')}}">
   <link rel="stylesheet" href="{{ asset('/Admin/plugins/datatables-responsive/css/responsive.bootstrap4.min.css')}}">
-  <style type="text/css">
-    body{
-      font-size: 0.8em;
-    }
-    input.form-control{
-      font-size: 1em;
-    }
-    .content-header{
-	  padding: 5px .5rem;
-    }
-    .form-control {
-    display: block;
-    width: 100%;
-    height: calc(2.25rem + 2px);
-    padding: .275rem .55rem;
-    font-size: 1rem;
-    font-weight: 400;
-    /* line-height: 1.5; */
-    color: #495057;
-    background-color: #fff;
-    background-clip: padding-box;
-    border: 1px solid #ced4da;
-    border-radius: .25rem;
-    box-shadow: inset 0 0 0 transparent;
-    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
-    }
-    select#regionSalario.custom-select{
-      font-size: 1em;
-    }
-    .botones{
-      width:2em;
-      height:auto;
-    }
-    .botonesgrandes{
-      width:3.5em;
-      height:auto;
-    }
-    .not-active {
-      pointer-events: none;
-    }
-    .activo{
-      background: #EFEFEF;
-      color: #000000;
-      opacity: !important;
-    }
-  </style>
+  <link rel="stylesheet" href="{{ asset('estilos-personalizados/estilos.css')}}">
 </head>
 <body>
 <div class="wrapper">
