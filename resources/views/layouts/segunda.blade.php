@@ -790,12 +790,12 @@ scratch. This page gets rid of all links and provides the needed markup only.
   });
 </script>
 
-<!--Script para obtener y calcular la nómina-->
+<!--Script para obtener y calcular la nómina
 <script>
   $(document).ready(function(){
     $('.extraer_id').click(function(){
       $.ajax({
-        url: "{{ route('prenomina.create') }}",
+        url: "",
         method: "GET",
         data: {
           _token: $("meta[name='csrf-token']").attr("content"),
@@ -807,6 +807,35 @@ scratch. This page gets rid of all links and provides the needed markup only.
         alert("Error");
       });
     });
+  });
+</script>-->
+<script>
+  $(document).ready(function(){
+    $('.extraer_id').click(function(e){
+      var id_empleado = $(".identificador_prenomina",this).val();
+      //console.log(id_empleado);
+
+      $.ajax({
+      url: "{{ route('prenomina.create') }}",
+      method: "GET",
+      data: {
+        _token: $("meta[name='csrf-token']").attr("content"),
+        info : id_empleado,
+      },
+      success: function(data){
+        console.log(data);
+        $('#colocarloselementos').append('<input type="text" id="star" name="'+data.concepto+'" value="'+data.resultado+'" />');
+        //console.log("Hola");
+      },
+      error: function(xhr, status, error) {
+        var err = JSON.parse(xhr.responseText);
+        console.log(err.Message);
+      }
+    });
+    });
+
+    
+  
   });
 </script>
 </body>

@@ -22,7 +22,7 @@
 										</h3>
 									</div>
 									<div class="card-body">
-										<table>
+										<table id="colocarloselementos">
 											<tbody>
 												@foreach($conceptos as $concep)
 													@if($concep->naturaleza=="P")

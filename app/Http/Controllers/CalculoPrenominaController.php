@@ -158,21 +158,28 @@ class CalculoPrenominaController extends Controller{
             }
         }
 
-        $totales = [
-            "001P" => $resultaSueldo,
-            "004P" => $resultaFondoAhorro,
-            "005P" => $resultaPremioPunt,
-            "006P" => $resultaPremioAsis,
-            "007P" => $resultaPrimaVacacional,
-            "008P" => $resultaPrimaDominical,
-            "013P" => $resultaVacaciones,
-            "014P" => $aguinaldos,
-            "001D" => $resultaAusentismoDed,
-            "002D" => $resultaIncapacidadDed,
-            "003D" => $resultaFondoAhorroTrabajador
-        ];
+        $collection = collect([
+            ["concepto" => "001P", 'resultado' => $resultaSueldo ?? 0],
+            ["004P" => $resultaFondoAhorro ?? 0],
+            ["005P" => $resultaPremioPunt ?? 0],
+            ["006P" => $resultaPremioAsis ?? 0],
+            ["007P" => $resultaPrimaVacacional ?? 0],
+            ["008P" => $resultaPrimaDominical ?? 0],
+            ["013P" => $resultaVacaciones ?? 0],
+            ["014P" => $aguinaldos ?? 0],
+            ["001D" => $resultaAusentismoDed ?? 0],
+            ["002D" => $resultaIncapacidadDed ?? 0],
+            ["003D" => $resultaFondoAhorroTrabajador]
+        ]);
+        
+        $totales = $collection->flatMap(function ($values) {
+            return array_map('strtoupper', $values);
+        });
+        
+        $totales->all();   
 
-        return response(json_encode($totales),200)->header('Content-type','text/plain');
+        return response()->json($totales);
+        //(json_encode($totales),200)->header('Content-type','text/plain');
         //return "Hola";
     }
 
