@@ -61,7 +61,9 @@
                             <input type="date" 
                                    name="fecha_extra[]" 
                                    id="fecha_extra"
-                                   class="list-fecha form-control">
+                                   class="list-fecha form-control"
+                                   min="{{ $periodo->fecha_inicio }}"
+                                   max="{{ $periodo->fecha_fin }}">
                         </div>
                     </div>
                 </div>

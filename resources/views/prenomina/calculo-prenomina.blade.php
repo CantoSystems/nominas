@@ -10,6 +10,7 @@
 				</button>
 			</div>
             <form method="GET">
+				<meta name="csrf-token" content="{{ csrf_token() }}">
 				<div class="container">
 					<div class="col">
 						<div class="row">
@@ -17,7 +18,7 @@
 								<div class="card card-secondary">
 									<div class="card-header">
 										<h3 class="card-title">
-											Percepciones
+											{{ $datosNomina->{'001P'} ?? '' }}
 										</h3>
 									</div>
 									<div class="card-body">
@@ -27,8 +28,8 @@
 													@if($concep->naturaleza=="P")
 														<tr>
 															<td><label>{{$concep->concepto}}</label></td>
-															<td><input type="text" name="" value="" class="form-control" onkeyup="mayus(this);" onkeypress="return validar(event);"></td>
-															<td><input type="text" name="" value="" class="form-control" onkeyup="mayus(this);" onkeypress="return validar(event);"></td>
+															<td><input type="number" name="" value="{{ $concep->concepto }}" class="form-control" onkeyup="mayus(this);" onkeypress="return validar(event);"></td>
+															<td><input type="number" name="" value="" class="form-control" onkeyup="mayus(this);" onkeypress="return validar(event);"></td>
 														</tr>
 													@endif
 												@endforeach
