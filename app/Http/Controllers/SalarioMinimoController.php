@@ -53,7 +53,7 @@ class SalarioMinimoController extends Controller{
                 return redirect()->route('salariomin.acciones');
             break;
             case 'actualizar':
-                $this->actualizar($request);
+                $this->update($request);
                 return redirect()->route('salariomin.acciones');
             break;
             case 'cancelar':
@@ -74,7 +74,7 @@ class SalarioMinimoController extends Controller{
         $SalMin->save();
     }
 
-    public function actualizar($datos){
+    public function update($datos){
         $SalMin = SalarioMinimo::where('idSalarioMinimo',$datos->idSalMin)->first();
         $SalMin->fechaInicio = $datos->fechaInicioSal;
         $SalMin->fechafin = $datos->fechaTerminoSal;

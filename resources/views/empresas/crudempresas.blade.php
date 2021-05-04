@@ -12,7 +12,7 @@
         @endif
         <form action="{{ route('nominas.empresas')}}" method="GET" autocomplete="off">
     		<div class="row">
-    			<div class="col-sm-6">
+    			<div class="col-sm-4">
                     <div class="form-group">
                         <label>Nombre:</label>
                         @if(isset($empresa))
@@ -53,7 +53,7 @@
                         @endif
                     </div>
                 </div>
-                <div class="col-sm-5">
+                <div class="col-sm-4">
                     <div class="form-group">
                         <label>Nombre Nómina:</label>
                         @if(isset($empresa))
@@ -133,7 +133,7 @@
                         @endif
                     </div>
                 </div>
-                <div class="col-sm-4">
+                <div class="col-sm-3">
                     <div class="form-group">
                         <label>Calle:</label>
                         @if(isset($empresa))
@@ -193,7 +193,7 @@
                         @endif
                     </div>
                 </div>
-                <div class="col-sm-4">
+                <div class="col-sm-3">
                     <div class="form-group">
                         <label>Colonia:</label>
                         @if(isset($empresa))
@@ -213,7 +213,7 @@
                         @endif
                     </div>
                 </div>
-                <div class="col-sm-4">
+                <div class="col-sm-3">
                     <div class="form-group">
                         <label>Municipio:</label>
                         @if(isset($empresa))
@@ -313,7 +313,7 @@
                         @endif
                     </div>
                 </div>
-                <div class="col-sm-4">
+                <div class="col-sm-3">
                     <div class="form-group">
                         <label>Teléfono:</label>
                         @if(isset($empresa))
@@ -333,7 +333,7 @@
                         @endif
                     </div>
                 </div>
-                <div class="col-sm-4">
+                <div class="col-sm-3">
                     <div class="form-group">
                         <label>Correo electrónico:</label>
                         @if(isset($empresa))
@@ -353,7 +353,7 @@
                         @endif
                     </div>
                 </div>
-                <div class="col-sm-4">
+                <div class="col-sm-2">
                     <div class="form-group">
                         <label>Días del Periodo:</label>
                         @if(isset($empresa))
@@ -363,7 +363,7 @@
                         @endif
                     </div>
                 </div>
-                <div class="col-sm-4">
+                <div class="col-sm-2">
                     <div class="form-group">
                         <label>Inicio del Periodo:</label>
                         @if(isset($empresa))
@@ -373,7 +373,7 @@
                         @endif
                     </div>
                 </div>
-                <div class="col-sm-4">
+                <div class="col-sm-3">
                     <div class="form-group">
                         <label>Área Geográfica:</label>
                         @if(isset($empresa))
@@ -401,7 +401,7 @@
                         @endif
                     </div>
                 </div>
-                <div class="col-sm-4">
+                <div class="col-sm-3">
                     <div class="form-group">
                         <label>Factor Prima de Riesgo de Trabajo:</label>
                         @if(isset($empresa))
@@ -411,7 +411,7 @@
                         @endif
                     </div>
                 </div>
-                <div class="col-sm-4">
+                <div class="col-sm-2">
                     <div class="form-group">
                         <label>Fondo de Ahorro (%):</label>
                         @if(isset($empresa))

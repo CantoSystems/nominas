@@ -15,7 +15,7 @@
                                 <th>Clave</th>
                                 <th>Periodo Inicio</th>
                                 <th>Periodo Final</th>
-                                <th>UMAS %</th>
+                                <th>UMAS </th>
                             </tr>
                         </thead>
                         <tbody>
@@ -78,7 +78,7 @@
 
                             <div class="col-sm-4">
                                 <div class="form-group">
-                                    <label>% UMA:</label>
+                                    <label> UMA:</label>
                                     <input type="hidden" name="id" value="{{$uma->id ?? ''}}" class="form-control"  onkeyup="mayus(this);">
                                     <input type="number" name="porcentaje_uma" value="{{$uma->porcentaje_uma ?? ''}}" class="form-control" step="0.01" onkeyup="mayus(this);">
                                     @error('porcentaje_uma')

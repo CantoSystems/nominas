@@ -22,24 +22,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <!-- DataTables -->
   <link rel="stylesheet" href="{{ asset('/Admin/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css')}}">
   <link rel="stylesheet" href="{{ asset('/Admin/plugins/datatables-responsive/css/responsive.bootstrap4.min.css')}}">
-  <style type="text/css">
-    .botones{
-      width:2em;
-      height:auto;
-    }
-    .botonesgrandes{
-      width:3.5em;
-      height:auto;
-    }
-    .not-active {
-      pointer-events: none;
-    }
-    .activo{
-      background: #EFEFEF;
-      color: #000000;
-      opacity: !important;
-    }
-  </style>
+  <link rel="stylesheet" href="{{ asset('estilos-personalizados/estilos.css')}}">
 </head>
 <body>
 <div class="wrapper">
@@ -135,7 +118,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
             <a href="{{ route('umas.index')}}" class="nav-link">
               <i class="nav-icon fas fa-th"></i>
               <p>
-                UMAS
+                UMA
               </p>
             </a>
           </li>
@@ -144,7 +127,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
             <a href="{{ route('retenciones.index')}}" class="nav-link">
               <i class="nav-icon fas fa-th"></i>
               <p>
-                Tablas ISR
+                Tabla ISR
               </p>
             </a>
           </li>
@@ -152,7 +135,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
             <a href="{{ route('subsidio.acciones')}}" class="nav-link">
               <i class="nav-icon fas fa-th"></i>
               <p>
-                Subsidio
+                Tabla Subsidio
               </p>
             </a>
           </li>
@@ -160,7 +143,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
             <a href="{{ route('imss.acciones')}}" class="nav-link">
               <i class="nav-icon fas fa-th"></i>
               <p>
-                Tablas I.M.S.S
+                Tabla I.M.S.S
               </p>
             </a>
           </li>

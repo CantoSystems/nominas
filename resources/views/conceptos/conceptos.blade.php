@@ -413,7 +413,7 @@
                                     @can('administrador')
                                         @if(isset($aux))
                                             <div class="form-group">
-                                                <a id="eliminar" data-target="modal-deleteconcepto-{{$aux->id ?? ''}}" data-toggle="modal">
+                                                <a id="eliminar" data-target="modal-deleteconcepto-{{$aux->id}}" data-toggle="modal">
                                                     <button type="button" class="botonesgrandes">
                                                         <i class="far fa-trash-alt"></i>
                                                     </button>

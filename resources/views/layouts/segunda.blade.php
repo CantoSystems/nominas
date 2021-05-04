@@ -38,27 +38,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
   <!-- Jquery UI-->
   <link rel="stylesheet" type="text/css" href="{{ asset('/Admin/plugins/jquery-ui/jquery-ui.min.css')}}">
-  <style type="text/css">
-    ul.nav.nav-treeview li.nav-item.active a.nav-link.active{
-      background: #0AACE9;
-      color: #fff; 
-    }
-    .botones{
-      width:2em;
-      height:auto;
-    }
-    .botonesgrandes{
-      width:3.5em;
-      height:auto;
-    }
-    .not-active {
-      pointer-events: none;
-    }
-    .activo{
-      background: #9B9898;
-      color: #000000;
-    }
-  </style>
+  <link rel="stylesheet" href="{{ asset('estilos-personalizados/plantillados.css')}}">
 </head>
 <body class="hold-transition sidebar-mini">
 <div class="wrapper">
@@ -148,7 +128,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
               <li class="nav-item {{!Route::is('descansos.index') ?: 'active'}}">
               <a href="{{route('descansos.index')}}" class="nav-link active">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Días de descanso</p>
+                  <p>Días de descanso obligatorio</p>
                 </a>
               </li>
             </ul>
@@ -608,7 +588,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                           '<td class="fecha">' + fecha_ausentismo + '</td>'+
                           '<td class="incapacidad">' + incapacidad_ausencia + '</td>'+
                           '<td class="descripcion">' + descripcion + '</td>'+
-                          '<td class="elimina" style="text-align: center; width:70px; height:40px;"><button class="borrar_ausencia" type="button" style="width:70px; height:40px"><i class="far fa-trash-alt"></i></button></td>'+
+                          '<td class="elimina" style="text-align: center; width:40px; height:25px;"><button class="borrar_ausencia" type="button" style="width:40px; height:25px"><i class="far fa-trash-alt"></i></button></td>'+
                         '</tr>'
         $('#example13 tbody').append(htmlTags);
         $('input[type="text"]').val('');
@@ -696,7 +676,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                           '<td class="empleado">' + clave_empledo + '</td>'+
                           '<td class="cantidad">' + cantidad_tiempo + '</td>'+
                           '<td class="fecha">' + fecha_extra + '</td>'+
-                          '<td style="text-align: center; width:70px; height:40px;"><button class="borrar" type="button" style="width:70px; height:40px"><i class="far fa-trash-alt"></i></button></td>'+
+                          '<td style="text-align: center; width:40px; height:25px;"><button class="borrar" type="button" style="width:40px; height:25px"><i class="far fa-trash-alt"></i></button></td>'+
                         '</tr>'
         $('#example12 tbody').append(htmlTags);
         $('input[type="text"]').val('');
@@ -767,7 +747,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                           '<td class="cantidad">' + cantidad + '</td>'+
                           '<td class="importe">' + importe + '</td>'+
                           '<td class="monto">' + monto + '</td>'+
-                          '<td style="text-align: center; width:70px; height:40px;"><button class="borrar" type="button" style="width:70px; height:40px"><i class="far fa-trash-alt"></i></button></td>'+
+                          '<td style="text-align: center; width:40px; height:25px;"><button class="borrar" type="button" style="width:30px; height:25px"><i class="far fa-trash-alt"></i></button></td>'+
                         '</tr>'
         $('#example12 tbody').append(htmlTags);
         $('input[type="text"]').val('');

@@ -2,7 +2,7 @@
 <div class="modal-dialog modal-sm">
 <div class="modal-content">
 <div class="modal-header">
-	<h4 class="modal-title" id="myModalLabel">
+	<h4 class="modal-title modalPersonalizado" id="myModalLabel">
 		Eliminar Retención
 	</h4>
 <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span>
@@ -14,7 +14,7 @@
 @csrf
 
 <div class="row">
-<h5 style="text-align: center;">¿Estas seguro de eliminar esta Retención: 
+<h5 style="text-align: center;" class="modalPersonalizado">¿Estas seguro de eliminar esta Retención: 
 	<strong>{{$retencion->limite_inferior}}</strong>
 ?</h5>
 </div>
@@ -24,8 +24,8 @@
 
 </div>
 <div class="modal-footer">
-<button type="button" data-dismiss="modal" style="width:80px; height:40px">Cancelar</button>
-<button type="submit" style="width:90px; height:40px">Continuar</button>
+<button type="button" data-dismiss="modal" class="botones-modales">Cancelar</button>
+<button type="submit" class="botones-modales">Continuar</button>
 </form>
 </div>
 </div>
