@@ -158,21 +158,22 @@ class CalculoPrenominaController extends Controller{
             }
         }
 
-        return response()->json([
-            ['001P' => $resultaSueldo],
-            ['004P' => $resultaFondoAhorro],
-            ['005P' => $resultaPremioPunt],
-            ['006P' => $resultaPremioAsis],
-            ['007P' => $resultaPrimaVacacional],
-            ['008P' => $resultaPrimaDominical],
-            ['0139' => $resultaVacaciones],
-            ['014P' => $aguinaldos],
-            ['001D' => $resultaAusentismoDed],
-            ['002D' => $resultaIncapacidadDed],
-            ['003D' => $resultaFondoAhorroTrabajador]
+        $totales = [
+            "001P" => $resultaSueldo,
+            "004P" => $resultaFondoAhorro,
+            "005P" => $resultaPremioPunt,
+            "006P" => $resultaPremioAsis,
+            "007P" => $resultaPrimaVacacional,
+            "008P" => $resultaPrimaDominical,
+            "013P" => $resultaVacaciones,
+            "014P" => $aguinaldos,
+            "001D" => $resultaAusentismoDed,
+            "002D" => $resultaIncapacidadDed,
+            "003D" => $resultaFondoAhorroTrabajador
+        ];
 
-        ]);
-        //[['clave'=>'valor'],['clave2'=>'valor']]
+        return response(json_encode($totales),200)->header('Content-type','text/plain');
+        //return "Hola";
     }
 
     /**
@@ -237,9 +238,7 @@ class CalculoPrenominaController extends Controller{
 
         $diferencia = $inicial->DiffInYears($alta); 
         return $diferencia;
-   }
-
-   
+    }
 
     public function ausentismo($claveEmp){
         $num_periodo = Session::get('num_periodo');
@@ -326,6 +325,7 @@ class CalculoPrenominaController extends Controller{
 
         return $datos_empresa;
     }
+
     public function aguinaldo_vacaciones_prima($idEmp){
         //Años trabajados se accede directamento con $at
         $at = $this->anios_trabajados($idEmp);
@@ -389,22 +389,20 @@ class CalculoPrenominaController extends Controller{
         $umaFin = $sd->sueldo_diario*$rt->porcentajeAhorro;
         return round($umaCond,2);*/
        
-            $uma = $this->uma();
-            $sd = $this->sueldo_horas($idEmp);
-            $rt = $this->ahorro_riesgo();
-            $porcentaje_ahorro = $rt->porcentajeAhorro/100;
-            $umaCond = $uma->porcentaje_uma*1.3;
-            
-
-    
-            if($umaCond<$sd->sueldo_diario){
-                $umaCond = $sd->sueldo_diario;
-            }
-    
-            $umaFin = $umaCond*$porcentaje_ahorro;
-            return $umaFin;
+        $uma = $this->uma();
+        $sd = $this->sueldo_horas($idEmp);
+        $rt = $this->ahorro_riesgo();
+        $porcentaje_ahorro = $rt->porcentajeAhorro/100;
+        $umaCond = $uma->porcentaje_uma*1.3;
+        
 
 
+        if($umaCond<$sd->sueldo_diario){
+            $umaCond = $sd->sueldo_diario;
+        }
+
+        $umaFin = $umaCond*$porcentaje_ahorro;
+        return $umaFin;
     }
 
     public function premioPunt($idEmp,$claveEmp){
@@ -471,11 +469,5 @@ class CalculoPrenominaController extends Controller{
         $fondoAhorroEmpresa = $this->fondoAhorro($idEmp);
 
         return 1;
-    }
-
-
-
-
-
-   
+    } 
 }
