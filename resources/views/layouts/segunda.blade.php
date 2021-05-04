@@ -272,7 +272,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item {{!Route::is('prenomina.index') ?: 'active'}}">
-                <a href="{{ route('prenomina.index')}}" class="nav-link active">
+                <a name="botonNominas" id="botonNominas" href="{{ route('prenomina.index')}}" class="nav-link active">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Prenómina</p>
                 </a>
@@ -311,8 +311,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
 </div>
 
 </body>
-
-
   <!-- Main Footer -->
   <footer class="main-footer">
     <!-- Default to the left -->
@@ -353,14 +351,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.10/jquery.mask.js"></script>
 <script src="{{ asset('/Admin/plugins/jquery-ui/jquery-ui.min.js')}}"></script>
 <script>
-  
   $(document).on('click', 'ul li', function(){
     //e.preventDefault();
-  $(this).addClass('activo').siblings().removeClass('activo')
-  
+    $(this).addClass('activo').siblings().removeClass('activo')
   });
-
-
 </script>
 
 <script>
@@ -481,39 +475,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
     $('.telefono3').mask('(00) 0000-0000');
 </script>
 <script>
-  $(document).ready(function(){
-    $('.extraer_id').click(function(e){
-      var id_empleado = $(".identificador_prenomina",this).val();
-      //console.log(id_empleado);
-
-      $.ajax({
-      url: "{{ route('prenomina.create') }}",
-      method: "GET",
-      data: {
-        _token: $("meta[name='csrf-token']").attr("content"),
-        info : id_empleado,
-      },
-      success: function(data){
-        console.log(data);
-        //console.log("Hola");
-      },
-      error: function(xhr, status, error) {
-        var err = JSON.parse(xhr.responseText);
-        console.log(err.Message);
-      }
-    });
-    });
-
-    
-  
-  });
-</script>
-<script>
   //Funcionamiento convertir texto en mayusculas
   function mayus(e) {
     e.value = e.value.toUpperCase();
-}
-
+  }
 </script>
 <script type="text/javascript">
   //Validar solo ingresen texto
@@ -586,8 +551,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
             url:"{{ route('ausentismo.mostrarconcepto') }}",
             method: "POST",
             data:{consulta:consulta,_token:_token},
-            success:function(data)
-            {
+            success:function(data){
               $('#listaconcepto_clave').fadeIn();
               $('#listaconcepto_clave').html(data);
             }
@@ -603,7 +567,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
       $('#listaconcepto_clave').fadeOut();
       $('#nomConcepto').val(nombreConcepto);
     });
-
   });
 </script>
 
@@ -617,7 +580,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
     let dia = fecha.getDate()-1; //obteniendo dia
     let ano = fecha.getFullYear(); //obteniendo año
     if(dia<10)
-     dia='0'+dia; //agrega cero si el menor de 10
+      dia='0'+dia; //agrega cero si el menor de 10
     if(mes<10)
       mes='0'+mes //agrega cero si el menor de 10
     document.getElementById('fecha_ausentismo').value=ano+"-"+mes+"-"+dia;
@@ -656,7 +619,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
         let dia = fecha.getDate()-1; //obteniendo dia
         let ano = fecha.getFullYear(); //obteniendo año
         if(dia<10)
-        dia='0'+dia; //agrega cero si el menor de 10
+          dia='0'+dia; //agrega cero si el menor de 10
         if(mes<10)
           mes='0'+mes //agrega cero si el menor de 10
         document.getElementById('fecha_ausentismo').value=ano+"-"+mes+"-"+dia;
@@ -711,7 +674,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
     var dia = fecha.getDate()-1; //obteniendo dia
     var ano = fecha.getFullYear(); //obteniendo año
     if(dia<10)
-     dia='0'+dia; //agrega cero si el menor de 10
+      dia='0'+dia; //agrega cero si el menor de 10
     if(mes<10)
       mes='0'+mes //agrega cero si el menor de 10
     document.getElementById('fecha_extra').value=ano+"-"+mes+"-"+dia;
@@ -763,7 +726,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
         fecha: e.querySelector('.fecha').innerText.split("/").reverse().join("-")
       };
       myTableArray.push(fila);
-
     });
    let jsonString = JSON.stringify(myTableArray);
    $.ajax({
@@ -828,8 +790,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
       };
       myTableArray.push(fila);
     });
-   let jsonString = JSON.stringify(myTableArray);
-   $.ajax({
+    let jsonString = JSON.stringify(myTableArray);
+    $.ajax({
       url: "{{ route('incidencias.store') }}",
       method: "POST",
       data: {
@@ -844,6 +806,26 @@ scratch. This page gets rid of all links and provides the needed markup only.
         var err = JSON.parse(xhr.responseText);
         console.log(err.Message);
       }
+    });
+  });
+</script>
+
+<!--Script para obtener y calcular la nómina-->
+<script>
+  $(document).ready(function(){
+    $('.extraer_id').click(function(){
+      $.ajax({
+        url: "{{ route('prenomina.create') }}",
+        method: "GET",
+        data: {
+          _token: $("meta[name='csrf-token']").attr("content"),
+          info: $(".identificador_prenomina").val(),
+        }
+      }).done(function(res){
+        alert(res.001P);
+      }).fail(function(res){
+        alert("Error");
+      });
     });
   });
 </script>
