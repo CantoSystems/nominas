@@ -58,8 +58,8 @@
 													@if($concep->naturaleza=="D")
 														<tr>
 															<td><label>{{$concep->concepto}}</label></td>
-															<td><input type="text" name="" value="" class="form-control" onkeyup="mayus(this);" onkeypress="return validar(event);"></td>
-															<td><input type="text" name="" value="" class="form-control" onkeyup="mayus(this);" onkeypress="return validar(event);"></td>
+															<td><input type="text" name="{{ $concep->clave_concepto }}" value="" class="form-control" onkeyup="mayus(this);" onkeypress="return validar(event);"></td>
+															<td><input type="text" name="{{ $concep->clave_concepto }}" value="" class="form-control" onkeyup="mayus(this);" onkeypress="return validar(event);"></td>
 														</tr>
 													@endif
 												@endforeach
