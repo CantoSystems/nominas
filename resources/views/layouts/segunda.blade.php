@@ -789,52 +789,53 @@ scratch. This page gets rid of all links and provides the needed markup only.
     });
   });
 </script>
-
-<!--Script para obtener y calcular la nómina
-<script>
-  $(document).ready(function(){
-    $('.extraer_id').click(function(){
-      $.ajax({
-        url: "",
-        method: "GET",
-        data: {
-          _token: $("meta[name='csrf-token']").attr("content"),
-          info: $(".identificador_prenomina").val(),
-        }
-      }).done(function(res){
-        alert(res.001P);
-      }).fail(function(res){
-        alert("Error");
-      });
-    });
-  });
-</script>-->
 <script>
   $(document).ready(function(){
     $('.extraer_id').click(function(e){
       var id_empleado = $(".identificador_prenomina",this).val();
-      //console.log(id_empleado);
+      
+      var percepciones = 0, deducciones = 0, total = 0, impuestosTrabajador = 0, impuestosPatron = 0, total2 = 0;
 
       $.ajax({
-      url: "{{ route('prenomina.create') }}",
-      method: "GET",
-      data: {
-        _token: $("meta[name='csrf-token']").attr("content"),
-        info : id_empleado,
-      },
-      success: function(data){
-        //console.log(data);
-        $.each(data, function(index, row){
-          console.log(row);
-          $('.contenido').append('<input type="text" class="form-control" name="'+row.concepto+'" value="'+row.resultado+'" />');
-        });
-        //
-      },
-      error: function(xhr, status, error) {
-        var err = JSON.parse(xhr.responseText);
-        console.log(err.Message);
-      }
+        url: "{{ route('prenomina.create') }}",
+        method: "GET",
+        data: {
+          _token: $("meta[name='csrf-token']").attr("content"),
+          info : id_empleado,
+        },
+        success: function(data){
+          $.each(data, function(index, row){
+            if(row.clave.includes('P')){
+              percepciones = percepciones + row.resultado;
+              $('.percepciones').append('<tr><td style="vertical-align: middle;">'+row.clave+'</td><td style="vertical-align: middle;">'+row.concepto+'</td><td><input type="text" class="form-control" name="'+row.clave+'" value="'+row.resultado+'" /></td></tr>');
+            }else if(row.clave.includes('D')){
+              deducciones = deducciones + row.resultado;
+              $('.deducciones').append('<tr><td style="vertical-align: middle;">'+row.clave+'</td><td style="vertical-align: middle;">'+row.concepto+'</td><td><input type="text" class="form-control" name="'+row.clave+'" value="'+row.resultado+'" /></td></tr>');
+            }else if(row.clave.includes('I')){
+              impuestosTrabajador = impuestosTrabajador + row.resultado;
+              $('.impuestosTrabajador').append('<tr><td style="vertical-align: middle;">'+row.clave+'</td><td style="vertical-align: middle;">'+row.concepto+'</td><td><input type="text" class="form-control" name="'+row.clave+'" value="'+row.resultado+'" /></td></tr>');
+            }else if(row.clave.includes('P')){
+              impuestosPatron = impuestosPatron + row.resultado;
+              $('.impuestosPatron').append('<tr><td style="vertical-align: middle;">'+row.clave+'</td><td style="vertical-align: middle;">'+row.concepto+'</td><td><input type="text" class="form-control" name="'+row.clave+'" value="'+row.resultado+'" /></td></tr>');
+            }
+          });
+
+          total = percepciones - deducciones - impuestosTrabajador;
+          total2 = total - impuestosPatron;
+          $('.totalPercepcion').append('<tr><td colspan="2" style="vertical-align: middle;">Total:</td><td style="vertical-align: middle;">'+percepciones+'</td></tr>');
+          $('.totalDeduccion').append('<tr><td colspan="2" style="vertical-align: middle;">Total:</td><td style="vertical-align: middle;">'+deducciones+'</td></tr>');
+          $('.totalTrabajador').append('<tr><td colspan="2" style="vertical-align: middle;">Total:</td><td style="vertical-align: middle;">'+total+'</td></tr>');
+          $('.totalPatron').append('<tr><td colspan="2" style="vertical-align: middle;">Total:</td><td style="vertical-align: middle;">'+total2+'</td></tr>');
+        },
+        error: function(xhr, status, error) {
+          var err = JSON.parse(xhr.responseText);
+          console.log(err.Message);
+        }
+      });
     });
+
+    $('.modal').on('hidden.bs.modal',function(){
+      var id_empleado = null;
     });
   });
 </script>
