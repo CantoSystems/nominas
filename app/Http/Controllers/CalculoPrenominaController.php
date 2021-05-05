@@ -178,8 +178,6 @@ class CalculoPrenominaController extends Controller{
         
         $totales->all();*/
 
- 
-
         return response()->json($collection);
         //(json_encode($totales),200)->header('Content-type','text/plain');
         //return "Hola";
