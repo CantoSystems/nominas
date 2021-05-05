@@ -159,17 +159,17 @@ class CalculoPrenominaController extends Controller{
         }
 
         $collection = collect([
-            ["concepto" => "001P", 'resultado' => $resultaSueldo ?? 0],
-            ["concepto" =>"004P", 'resultado' => $resultaFondoAhorro ?? 0],
-            ["concepto" => "005P", 'resultado' => $resultaPremioPunt ?? 0],
-            ["concepto" => "006P",'resultado' => $resultaPremioAsis ?? 0],
-            ["concepto" =>"007P",'resultado' => $resultaPrimaVacacional ?? 0],
-            ["concepto" =>"008P",'resultado' => $resultaPrimaDominical ?? 0],
-            ["concepto" => "013P",'resultado' => $resultaVacaciones ?? 0],
-            ["concepto" => "014P" , 'resultado' => $aguinaldos ?? 0],
-            ["concepto" => "001D" , 'resultado' => $resultaAusentismoDed ?? 0],
-            ["concepto" => "002D", 'resultado' => $resultaIncapacidadDed ?? 0],
-            ["concepto" =>"003D",'resultado' => $resultaFondoAhorroTrabajador ?? 0]
+            ['clave' => "001P", 'concepto' => 'Sueldo', 'resultado' => $resultaSueldo ?? 0],
+            ['clave' => "004P", 'concepto' => 'Sueldo', 'resultado' => $resultaFondoAhorro ?? 0],
+            ['clave' => "005P", 'concepto' => 'Sueldo', 'resultado' => $resultaPremioPunt ?? 0],
+            ['clave' => "006P", 'concepto' => 'Sueldo', 'resultado' => $resultaPremioAsis ?? 0],
+            ['clave' => "007P", 'concepto' => 'Sueldo', 'resultado' => $resultaPrimaVacacional ?? 0],
+            ['clave' => "008P", 'concepto' => 'Sueldo', 'resultado' => $resultaPrimaDominical ?? 0],
+            ['clave' => "013P", 'concepto' => 'Sueldo', 'resultado' => $resultaVacaciones ?? 0],
+            ['clave' => "014P", 'concepto' => 'Sueldo', 'resultado' => $aguinaldos ?? 0],
+            ['clave' => "001D", 'concepto' => 'Sueldo', 'resultado' => $resultaAusentismoDed ?? 0],
+            ['clave' => "002D", 'concepto' => 'Sueldo', 'resultado' => $resultaIncapacidadDed ?? 0],
+            ['clave' => "003D", 'concepto' => 'Sueldo', 'resultado' => $resultaFondoAhorroTrabajador ?? 0]
         ]);
         
         /*$totales = $collection->flatMap(function ($values) {
