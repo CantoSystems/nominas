@@ -77,7 +77,7 @@ class CalculoPrenominaController extends Controller{
             if($concep->clave_concepto == "001P"){
                 $resultaSueldo = $this->sueldo($request->info,$empleados->clave_empleado);
             }else if($concep->clave_concepto == "002P"){
-                //$resultaHoraExtraDoble = $this->criterio_horas($request->info,$empleados->clave_empleado);
+                $resultaHoraExtraDoble = $this->criterio_horas($request->info,$empleados->clave_empleado);
             }else if($concep->clave_concepto == "003P"){
                 //$resultaHoraExtraTriple = $this->horaTriple($request->info);
             }else if($concep->clave_concepto == "004P"){
@@ -128,7 +128,7 @@ class CalculoPrenominaController extends Controller{
             }else if($concep->clave_concepto == "003D"){
                  $resultaFondoAhorroTrabajador = $this->fondoAhorro($request->info);
             }else if($concep->clave_concepto == "004D"){
-                //$resultaDeduccionFondo = $this->deduccionAhorro($request->info);
+                $resultaDeduccionFondo = $this->deduccionAhorro($request->info);
             }else if($concep->clave_concepto == "005D"){
                 
             }else if($concep->clave_concepto == "006D"){
@@ -177,8 +177,6 @@ class CalculoPrenominaController extends Controller{
         });
         
         $totales->all();*/
-
- 
 
         return response()->json($collection);
         //(json_encode($totales),200)->header('Content-type','text/plain');
@@ -277,7 +275,6 @@ class CalculoPrenominaController extends Controller{
     }
 
     public function uma(){
-        
         $jt = $this->jornadaTrabajo();
         $uma = Umas::select('porcentaje_uma')
                     ->where([
@@ -404,8 +401,6 @@ class CalculoPrenominaController extends Controller{
         $porcentaje_ahorro = $rt->porcentajeAhorro/100;
         $umaCond = $uma->porcentaje_uma*1.3;
         
-
-
         if($umaCond<$sd->sueldo_diario){
             $umaCond = $sd->sueldo_diario;
         }
