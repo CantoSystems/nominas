@@ -160,27 +160,25 @@ class CalculoPrenominaController extends Controller{
 
         $collection = collect([
             ["concepto" => "001P", 'resultado' => $resultaSueldo ?? 0],
-            ["concepto" => "004P", 'resultado' => $resultaFondoAhorro ?? 0],
+            ["concepto" =>"004P", 'resultado' => $resultaFondoAhorro ?? 0],
             ["concepto" => "005P", 'resultado' => $resultaPremioPunt ?? 0],
-            ["concepto" => "006P", 'resultado' => $resultaPremioAsis ?? 0],
-            ["concepto" => "007P", 'resultado' => $resultaPrimaVacacional ?? 0],
-            ["concepto" => "008P", 'resultado' => $resultaPrimaDominical ?? 0],
-            ["concepto" => "013P", 'resultado' => $resultaVacaciones ?? 0],
-            ["concepto" => "014P", 'resultado' => $aguinaldos ?? 0],
-            ["concepto" => "001D", 'resultado' => $resultaAusentismoDed ?? 0],
+            ["concepto" => "006P",'resultado' => $resultaPremioAsis ?? 0],
+            ["concepto" =>"007P",'resultado' => $resultaPrimaVacacional ?? 0],
+            ["concepto" =>"008P",'resultado' => $resultaPrimaDominical ?? 0],
+            ["concepto" => "013P",'resultado' => $resultaVacaciones ?? 0],
+            ["concepto" => "014P" , 'resultado' => $aguinaldos ?? 0],
+            ["concepto" => "001D" , 'resultado' => $resultaAusentismoDed ?? 0],
             ["concepto" => "002D", 'resultado' => $resultaIncapacidadDed ?? 0],
-            ["concepto" => "003D", 'resultado' => $resultaFondoAhorroTrabajador ?? 0]
+            ["concepto" =>"003D",'resultado' => $resultaFondoAhorroTrabajador ?? 0]
         ]);
         
-        $totales = $collection->flatMap(function ($values) {
+        /*$totales = $collection->flatMap(function ($values) {
             return array_map('strtoupper', $values);
         });
         
-        $totales->all();   
+        $totales->all();*/
 
-        dd($totales);
-
-        //return response()->json($totales);
+        return response()->json($collection);
         //(json_encode($totales),200)->header('Content-type','text/plain');
         //return "Hola";
     }
