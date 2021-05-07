@@ -16,8 +16,8 @@
                         <h3 class="modalPersonalizado">¿Estas seguro de eliminar esta empresa?</h3>
                     </div>
                     <div class="modal-footer">
-                        <button type="button"  data-dismiss="modal" style="width:110px; height:40px">Cancelar</button>
-                        <button  type="submit" style="width:110px; height:40px">Continuar</button>
+                        <button type="button"  data-dismiss="modal" class="botones-modales">Cancelar</button>
+                        <button  type="submit" class="botones-modales">Continuar</button>
                     </div>
                 </form>
             </div>
