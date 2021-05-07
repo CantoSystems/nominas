@@ -13,7 +13,7 @@
   
                 <div class="input-group col-md-12">
                   <div class="input-group-prepend">
-                    <select class="custom-select" name="opcion">
+                    <select class="custom-select nuevo" name="opcion">
                         <option value="clave">Clave Nómina</option>
                       </select>
                   </div>
@@ -21,8 +21,8 @@
                 </div>
         </div>
         <div class="modal-footer">
-          <button type="button"  style="width:80px; height:40px" data-dismiss="modal">Cerrar</button>
-          <button type="submit"  style="width:80px; height:40px" name="acciones" value="buscar">Buscar</button>
+          <button type="button"  class="botones-modales" data-dismiss="modal">Cerrar</button>
+          <button type="submit"  class="botones-modales" name="acciones" value="buscar">Buscar</button>
         </div>
             </form>
       </div>
