@@ -826,6 +826,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
           $('.totalDeduccion').append('<tr><td colspan="2" style="vertical-align: middle;">Total:</td><td style="vertical-align: middle;">'+deducciones+'</td></tr>');
           $('.totalTrabajador').append('<tr><td colspan="2" style="vertical-align: middle;">Total:</td><td style="vertical-align: middle;">'+total+'</td></tr>');
           $('.totalPatron').append('<tr><td colspan="2" style="vertical-align: middle;">Total:</td><td style="vertical-align: middle;">'+total2+'</td></tr>');
+          $(".table table-hover tbody tr").closest('tr').remove();
         },
         error: function(xhr, status, error) {
           var err = JSON.parse(xhr.responseText);
