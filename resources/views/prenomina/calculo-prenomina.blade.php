@@ -6,15 +6,15 @@
 					<b>Prenómina:</b> {{ $emplea->nombre}} {{ $emplea->apellido_paterno }} {{ $emplea->apellido_materno }}
 				</h4>
 				<button type="button" class="close" data-dismiss="modal">
-					<span aria-hidden="true">×</span>
+					<span aria-hidden="true" class="cerrar-calculoprenomina">×</span>
 				</button>
 			</div>
             <form method="GET">
 				<meta name="csrf-token" content="{{ csrf_token() }}">
 				<div class="row">
 					<div class = "col-sm-6">
-						<table class="table">
-							<thead class="thead-dark">
+						<table class="table table-hover">
+							<thead class="thead-light">
 								<tr>
 									<th scope="col" colspan="3" style="text-align: center;">Percepciones</th>
 								</tr>
@@ -29,8 +29,8 @@
 						</table>
 					</div>
 					<div class = "col-sm-6">
-						<table class="table">
-							<thead class="thead-dark">
+						<table class="table table-hover">
+							<thead class="thead-light">
 								<tr>
 									<th scope="col" colspan="3" style="text-align: center;">Deducciones</th>
 								</tr>
@@ -47,13 +47,13 @@
 				</div>
 				<div class="row">
 					<div class="col-sm-6">
-						<table class="table">
+						<table class="table table-hover">
 							<tbody class="totalPercepcion">
 							</tbody>
 						</table>
 					</div>
 					<div class="col-sm-6">
-						<table class="table">
+						<table class="table table-hover">
 							<tbody class="totalDeduccion">
 							</tbody>
 						</table>
@@ -63,8 +63,8 @@
 					<div class = "col-sm-6">
 					</div>
 					<div class = "col-sm-6">
-						<table class="table">
-							<thead class="thead-dark">
+						<table class="table table-hover">
+							<thead class="thead-light">
 								<tr>
 									<th scope="col" colspan="3" style="text-align: center;">Impuestos del Trabajador</th>
 								</tr>
@@ -77,7 +77,7 @@
 							<tbody class="impuestosTrabajador">
 							</tbody>
 						</table>
-						<table class="table">
+						<table class="table table-hover">
 							<tbody class="totalTrabajador">
 							</tbody>
 						</table>
@@ -88,7 +88,7 @@
 					</div>
 					<div class = "col-sm-6">
 						<table class="table">
-							<thead class="thead-dark">
+							<thead class="thead-light">
 								<tr>
 									<th scope="col" colspan="3" style="text-align: center;">Impuestos del Patrón</th>
 								</tr>
@@ -101,7 +101,7 @@
 							<tbody class="impuestosPatron">
 							</tbody>
 						</table>
-						<table class="table">
+						<table class="table table-hover">
 							<tbody class="totalPatron">
 							</tbody>
 						</table>
