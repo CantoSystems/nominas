@@ -49,7 +49,7 @@ class CalculoPrenominaController extends Controller{
             ->where('seleccionado','=',1)
             ->get();
 
-        return  view('prenomina.prenomina', compact('empleados','conceptos'));
+        return view('prenomina.prenomina', compact('empleados','conceptos'));
     }
 
     public function create(Request $request){
@@ -67,11 +67,9 @@ class CalculoPrenominaController extends Controller{
         ->first();
         
          $conceptos = DB::connection('DB_Serverr')->table('conceptos')
-            ->select('clave_concepto')   
-            ->where('seleccionado','=',1)
-            ->get();
-        
-            //$comprobacion = $this->criterio_horas($request->info,$empleados->clave_empleado);
+        ->select('clave_concepto')   
+        ->where('seleccionado','=',1)
+        ->get();
 
        foreach($conceptos as $concep){
             if($concep->clave_concepto == "001P"){
@@ -160,27 +158,19 @@ class CalculoPrenominaController extends Controller{
 
         $collection = collect([
             ['clave' => "001P", 'concepto' => 'Sueldo', 'resultado' => $resultaSueldo ?? 0],
-            ['clave' => "004P", 'concepto' => 'Sueldo', 'resultado' => $resultaFondoAhorro ?? 0],
-            ['clave' => "005P", 'concepto' => 'Sueldo', 'resultado' => $resultaPremioPunt ?? 0],
-            ['clave' => "006P", 'concepto' => 'Sueldo', 'resultado' => $resultaPremioAsis ?? 0],
-            ['clave' => "007P", 'concepto' => 'Sueldo', 'resultado' => $resultaPrimaVacacional ?? 0],
-            ['clave' => "008P", 'concepto' => 'Sueldo', 'resultado' => $resultaPrimaDominical ?? 0],
-            ['clave' => "013P", 'concepto' => 'Sueldo', 'resultado' => $resultaVacaciones ?? 0],
-            ['clave' => "014P", 'concepto' => 'Sueldo', 'resultado' => $aguinaldos ?? 0],
-            ['clave' => "001D", 'concepto' => 'Sueldo', 'resultado' => $resultaAusentismoDed ?? 0],
-            ['clave' => "002D", 'concepto' => 'Sueldo', 'resultado' => $resultaIncapacidadDed ?? 0],
-            ['clave' => "003D", 'concepto' => 'Sueldo', 'resultado' => $resultaFondoAhorroTrabajador ?? 0]
+            ['clave' => "004P", 'concepto' => 'Fondo Ahorro', 'resultado' => $resultaFondoAhorro ?? 0],
+            ['clave' => "005P", 'concepto' => 'Premio Puntualidad', 'resultado' => $resultaPremioPunt ?? 0],
+            ['clave' => "006P", 'concepto' => 'Premio Asistencia', 'resultado' => $resultaPremioAsis ?? 0],
+            ['clave' => "007P", 'concepto' => 'Prima Vacacional', 'resultado' => $resultaPrimaVacacional ?? 0],
+            ['clave' => "008P", 'concepto' => 'Prima Dominical', 'resultado' => $resultaPrimaDominical ?? 0],
+            ['clave' => "013P", 'concepto' => 'Vacaciones', 'resultado' => $resultaVacaciones ?? 0],
+            ['clave' => "014P", 'concepto' => 'Aguinaldo', 'resultado' => $aguinaldos ?? 0],
+            ['clave' => "001D", 'concepto' => 'Ausentismo', 'resultado' => $resultaAusentismoDed ?? 0],
+            ['clave' => "002D", 'concepto' => 'Incapacidad', 'resultado' => $resultaIncapacidadDed ?? 0],
+            ['clave' => "003D", 'concepto' => 'Fondo Ahorro Trabajador', 'resultado' => $resultaFondoAhorroTrabajador ?? 0]
         ]);
         
-        /*$totales = $collection->flatMap(function ($values) {
-            return array_map('strtoupper', $values);
-        });
-        
-        $totales->all();*/
-
         return response()->json($collection);
-        //(json_encode($totales),200)->header('Content-type','text/plain');
-        //return "Hola";
     }
 
     /**

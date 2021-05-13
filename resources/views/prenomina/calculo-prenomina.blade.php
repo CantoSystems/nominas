@@ -1,4 +1,4 @@
-<div class="modal fade bs-example-modal-lg" tabindex="-1" id="calculo-prenomina{{$emplea->id_emp}}" role="dialog" aria-hidden="true">
+<div name="PruebaModal" class="modal fade bs-example-modal-lg" tabindex="-1" id="calculo-prenomina{{$emplea->id_emp}}" role="dialog" aria-hidden="true">
 	<div class="modal-dialog modal-lg">
 		<div class="modal-content">
 			<div class="modal-header">
@@ -13,7 +13,7 @@
 				<meta name="csrf-token" content="{{ csrf_token() }}">
 				<div class="row">
 					<div class = "col-sm-6">
-						<table class="table table-hover">
+						<table class="table table-hover percepciones2">
 							<thead class="thead-light">
 								<tr>
 									<th scope="col" colspan="3" style="text-align: center;">Percepciones</th>
@@ -29,7 +29,7 @@
 						</table>
 					</div>
 					<div class = "col-sm-6">
-						<table class="table table-hover">
+						<table class="table table-hover deducciones2">
 							<thead class="thead-light">
 								<tr>
 									<th scope="col" colspan="3" style="text-align: center;">Deducciones</th>
@@ -47,13 +47,13 @@
 				</div>
 				<div class="row">
 					<div class="col-sm-6">
-						<table class="table table-hover">
+						<table class="table table-hover totalPercepcion2">
 							<tbody class="totalPercepcion">
 							</tbody>
 						</table>
 					</div>
 					<div class="col-sm-6">
-						<table class="table table-hover">
+						<table class="table table-hover totalDeduccion2">
 							<tbody class="totalDeduccion">
 							</tbody>
 						</table>
@@ -63,7 +63,7 @@
 					<div class = "col-sm-6">
 					</div>
 					<div class = "col-sm-6">
-						<table class="table table-hover">
+						<table class="table table-hover impuestosTrabajador2">
 							<thead class="thead-light">
 								<tr>
 									<th scope="col" colspan="3" style="text-align: center;">Impuestos del Trabajador</th>
@@ -77,7 +77,7 @@
 							<tbody class="impuestosTrabajador">
 							</tbody>
 						</table>
-						<table class="table table-hover">
+						<table class="table table-hover totalTrabajador2">
 							<tbody class="totalTrabajador">
 							</tbody>
 						</table>
@@ -87,7 +87,7 @@
 					<div class = "col-sm-6">
 					</div>
 					<div class = "col-sm-6">
-						<table class="table">
+						<table class="table table-hover impuestosPatron2">
 							<thead class="thead-light">
 								<tr>
 									<th scope="col" colspan="3" style="text-align: center;">Impuestos del Patrón</th>
@@ -101,7 +101,7 @@
 							<tbody class="impuestosPatron">
 							</tbody>
 						</table>
-						<table class="table table-hover">
+						<table class="table table-hover totalPatron2">
 							<tbody class="totalPatron">
 							</tbody>
 						</table>

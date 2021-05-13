@@ -793,7 +793,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
   $(document).ready(function(){
     $('.extraer_id').click(function(e){
       var id_empleado = $(".identificador_prenomina",this).val();
-      
       var percepciones = 0, deducciones = 0, total = 0, impuestosTrabajador = 0, impuestosPatron = 0, total2 = 0;
 
       $.ajax({
@@ -826,7 +825,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
           $('.totalDeduccion').append('<tr><td colspan="2" style="vertical-align: middle;">Total:</td><td style="vertical-align: middle;">'+deducciones+'</td></tr>');
           $('.totalTrabajador').append('<tr><td colspan="2" style="vertical-align: middle;">Total:</td><td style="vertical-align: middle;">'+total+'</td></tr>');
           $('.totalPatron').append('<tr><td colspan="2" style="vertical-align: middle;">Total:</td><td style="vertical-align: middle;">'+total2+'</td></tr>');
-          $(".table table-hover tbody tr").closest('tr').remove();
         },
         error: function(xhr, status, error) {
           var err = JSON.parse(xhr.responseText);
@@ -835,8 +833,15 @@ scratch. This page gets rid of all links and provides the needed markup only.
       });
     });
 
-    $('.modal').on('hidden.bs.modal',function(){
-      var id_empleado = null;
+    $('.modal').on('hidden.bs.modal', function(){
+      $('.percepciones2 tbody tr').closest('tr').remove();
+      $('.deducciones2 tbody tr').closest('tr').remove();
+      $('.impuestosTrabajador2 tbody tr').closest('tr').remove();
+      $('.impuestosPatron2 tbody tr').closest('tr').remove();
+      $('.totalPercepcion2 tbody tr').closest('tr').remove();
+      $('.totalDeduccion2 tbody tr').closest('tr').remove();
+      $('.totalTrabajador2 tbody tr').closest('tr').remove();
+      $('.totalPatron2 tbody tr').closest('tr').remove();
     });
   });
 </script>
