@@ -38,6 +38,7 @@ class CalculoPrenominaController extends Controller{
         $clv_empresa=$this->conectar($clv);
 
         \Config::set('database.connections.DB_Serverr', $clv_empresa);
+
         $empleados = DB::connection('DB_Serverr')->table('empleados')
         ->join('departamentos','departamentos.clave_departamento','=','empleados.clave_departamento')
         ->join('puestos','puestos.clave_puesto','=','empleados.clave_puesto')
@@ -45,11 +46,13 @@ class CalculoPrenominaController extends Controller{
         ->select('empleados.*','areas.*','departamentos.*','puestos.*')
         ->get();
 
-         $conceptos = DB::connection('DB_Serverr')->table('conceptos')   
-            ->where('seleccionado','=',1)
-            ->get();
+        $numEmp = DB::connection('DB_Serverr')->table('empleados')->count();
 
-        return view('prenomina.prenomina', compact('empleados','conceptos'));
+        $conceptos = DB::connection('DB_Serverr')->table('conceptos')   
+        ->where('seleccionado','=',1)
+        ->get();
+
+        return view('prenomina.prenomina', compact('empleados','conceptos','numEmp'));
     }
 
     public function create(Request $request){

@@ -806,17 +806,34 @@ scratch. This page gets rid of all links and provides the needed markup only.
           $.each(data, function(index, row){
             if(row.clave.includes('P')){
               percepciones = percepciones + row.resultado;
-              $('.percepciones').append('<tr><td style="vertical-align: middle;">'+row.clave+'</td><td style="vertical-align: middle;">'+row.concepto+'</td><td><input type="text" class="form-control" name="'+row.clave+'" value="'+row.resultado+'" /></td></tr>');
+              $('.percepciones').append('<tr><td style="vertical-align: middle;">'+row.clave+'</td><td style="vertical-align: middle;">'+row.concepto+'</td><td><input type="number" class="form-control mod2 percep" name="'+row.clave+'" value="'+row.resultado+'" /></td></tr>');
             }else if(row.clave.includes('D')){
               deducciones = deducciones + row.resultado;
-              $('.deducciones').append('<tr><td style="vertical-align: middle;">'+row.clave+'</td><td style="vertical-align: middle;">'+row.concepto+'</td><td><input type="text" class="form-control" name="'+row.clave+'" value="'+row.resultado+'" /></td></tr>');
+              $('.deducciones').append('<tr><td style="vertical-align: middle;">'+row.clave+'</td><td style="vertical-align: middle;">'+row.concepto+'</td><td><input type="number" class="form-control mod" name="'+row.clave+'" value="'+row.resultado+'" /></td></tr>');
             }else if(row.clave.includes('I')){
               impuestosTrabajador = impuestosTrabajador + row.resultado;
-              $('.impuestosTrabajador').append('<tr><td style="vertical-align: middle;">'+row.clave+'</td><td style="vertical-align: middle;">'+row.concepto+'</td><td><input type="text" class="form-control" name="'+row.clave+'" value="'+row.resultado+'" /></td></tr>');
+              $('.impuestosTrabajador').append('<tr><td style="vertical-align: middle;">'+row.clave+'</td><td style="vertical-align: middle;">'+row.concepto+'</td><td><input type="number" class="form-control mod" name="'+row.clave+'" value="'+row.resultado+'" /></td></tr>');
             }else if(row.clave.includes('P')){
               impuestosPatron = impuestosPatron + row.resultado;
-              $('.impuestosPatron').append('<tr><td style="vertical-align: middle;">'+row.clave+'</td><td style="vertical-align: middle;">'+row.concepto+'</td><td><input type="text" class="form-control" name="'+row.clave+'" value="'+row.resultado+'" /></td></tr>');
+              $('.impuestosPatron').append('<tr><td style="vertical-align: middle;">'+row.clave+'</td><td style="vertical-align: middle;">'+row.concepto+'</td><td><input type="number" class="form-control mod" name="'+row.clave+'" value="'+row.resultado+'" /></td></tr>');
             }
+          });
+
+          $('.mod2').keyup(function(e){
+            var nFilas = $(".percepciones tr").length;
+            var numEmp = $('#numEmp').val();
+            var totalFilas = nFilas/numEmp;
+            var suma = 0;
+            var contador = 0;
+            $('.percep').each(function(){
+              if(contador<totalFilas){
+                suma = suma + parseFloat($(this).val());
+                console.log(suma);
+                contador++;
+              }else{
+                e.preventDefault();
+              }
+            });
           });
 
           total = percepciones - deducciones - impuestosTrabajador;

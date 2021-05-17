@@ -13,20 +13,22 @@
 				<meta name="csrf-token" content="{{ csrf_token() }}">
 				<div class="row">
 					<div class = "col-sm-6">
-						<table class="table table-hover percepciones2">
-							<thead class="thead-light">
-								<tr>
-									<th scope="col" colspan="3" style="text-align: center;">Percepciones</th>
-								</tr>
-								<tr>
-									<th scope="col" style="text-align: center;">Clave</th>
-									<th scope="col" style="text-align: center;">Concepto</th>
-									<th scope="col" style="text-align: center;">Total</th>
-								</tr>
-							</thead>
-							<tbody class="percepciones">
-							</tbody>
-						</table>
+						<form id="myForm" name="myForm" method="GET">
+							<table class="table table-hover percepciones2">
+								<thead class="thead-light">
+									<tr>
+										<th scope="col" colspan="3" style="text-align: center;">Percepciones</th>
+									</tr>
+									<tr>
+										<th scope="col" style="text-align: center;">Clave</th>
+										<th scope="col" style="text-align: center;">Concepto</th>
+										<th scope="col" style="text-align: center;">Total</th>
+									</tr>
+								</thead>
+								<tbody class="percepciones">
+								</tbody>
+							</table>
+						</form>
 					</div>
 					<div class = "col-sm-6">
 						<table class="table table-hover deducciones2">
