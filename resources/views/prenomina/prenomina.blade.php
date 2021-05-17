@@ -13,6 +13,7 @@
                     </div>
                     <div class="card-body">
                         <table id="example1" class="table table-bordered table-striped">
+                        <input type="hidden" id="numEmp" name="numEmp" value="{{ $numEmp }}" >
                             <meta name="csrf-token" content="{{ csrf_token() }}">
                             <thead>
                                 <tr>
