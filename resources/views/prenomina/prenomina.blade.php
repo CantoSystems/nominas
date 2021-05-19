@@ -29,16 +29,15 @@
                                     @if(!empty($empleados))
                                         @foreach($empleados as $emplea)
                                             <tr>
-                                                <td style="width: 15px; text-align: center;" scope="row">{{ $emplea->clave_empleado }}</td>
+                                                <td style="width: 15px; text-align: center;" scope="row">
+                                                    {{ $emplea->clave_empleado }}</td>
                                                 <td>{{ $emplea->nombre}} {{ $emplea->apellido_paterno }} {{ $emplea->apellido_materno }}</td>
                                                 <td>{{ $emplea->departamento }}</td>
-                                                <td style="text-align: center;">${{ $emplea->total_percepciones }}</td>
-                                                <td style="text-align: center;">${{ $emplea->total_deducciones }}</td>
-                                                <td style="text-align: center;">${{ $emplea->total_percepciones - $emplea->total_deducciones - $emplea->total_impuestosTrabajador - $emplea->total_impuestosPatron }}</td>
+                                               
                                                 <td style="width: 15px;">
                                                     @can('administrador')
                                                         <a data-target="#calculo-prenomina{{$emplea->id_emp}}" data-toggle="modal" style='width:70px; height:40px'>
-                                                            <button type="button" class="extraer_id" style='width: 38px; height: 25px'>
+                                                            <button type="button"  style='width: 38px; height: 25px'>
                                                                 <i class="far fa-eye"></i>
                                                                 <input type="hidden" class="identificador_prenomina" value="{{ $emplea->id_emp }}" name="">
                                                             </button>
@@ -51,9 +50,17 @@
                                     @endif
                                 </tbody>
                             </table>
+                            @if(empty($empleados))
+                            <center>
+                                <button type="button"  disabled style='width:125px; height:25px; background-color:red;'>Calcular Nómina</button>
+                            </center>
+                            @elseif(!empty($empleados))
                             <center>
                                 <button type="submit" name="acciones" value="calcular" id="calcular" style='width:125px; height:25px;'>Calcular Nómina</button>
                             </center>
+                            @endif
+                          
+                            
                         </form>
                     </div>
                 </div>

@@ -34,6 +34,7 @@ class CalculoPrenominaController extends Controller{
     }
 
     public function index(Request $request){
+        //return $request;
         $clv = Session::get('clave_empresa');
         $num_periodo = Session::get('num_periodo');
 
@@ -43,7 +44,7 @@ class CalculoPrenominaController extends Controller{
 
         switch($accion){
             case '':
-                $empleados = DB::connection('DB_Serverr')->table('empleados')
+               /* $empleados = DB::connection('DB_Serverr')->table('empleados')
                 ->join('departamentos','departamentos.clave_departamento','=','empleados.clave_departamento')
                 ->join('puestos','puestos.clave_puesto','=','empleados.clave_puesto')
                 ->join('areas','areas.clave_area', '=','departamentos.clave_area')
@@ -60,9 +61,22 @@ class CalculoPrenominaController extends Controller{
 
                 $conceptos = DB::connection('DB_Serverr')->table('conceptos')
                 ->where('seleccionado','=',1)
-                ->get();
+                ->get();*/
 
-                return view('prenomina.prenomina', compact('empleados','conceptos','calculos'));
+                $empleados = DB::connection('DB_Serverr')->table('prenomina')
+                                ->join('empleados','empleados.clave_empleado','=','prenomina.clave_empleado')
+                                ->join('conceptos','conceptos.clave_concepto','=','prenomina.clave_concepto')
+                                ->join('departamentos','departamentos.clave_departamento','=','empleados.clave_departamento')
+                                ->join('areas','areas.clave_area', '=','departamentos.clave_area')
+                                ->select('empleados.id_emp','empleados.clave_empleado','empleados.nombre','empleados.apellido_paterno','empleados.apellido_materno','departamentos.departamento','areas.area')
+                                ->where([
+                                    ['prenomina_periodo','=',$num_periodo],
+                                    ['status_prenomina','=','0']
+                                ])
+                                ->groupBy('empleados.id_emp','empleados.clave_empleado','empleados.nombre','empleados.apellido_paterno','empleados.apellido_materno','departamentos.departamento','areas.area')
+                                ->get();
+
+                return view('prenomina.prenomina', compact('empleados'));
                 break;
             case 'calcular':
                 $this->create();
@@ -96,47 +110,47 @@ class CalculoPrenominaController extends Controller{
                 if($concep->clave_concepto == "001P"){
                     $resultaSueldo = $this->sueldo($emp->id_emp,$emp->clave_empleado);
 
-                    DB::connection('DB_Serverr')->insert('insert into prenomina (clave_empleado,prenomina_periodo,monto,tipo,status_prenomina)
+                    DB::connection('DB_Serverr')->insert('insert into prenomina (clave_empleado,prenomina_periodo,clave_concepto,monto,status_prenomina)
                                                                          values (?,?,?,?,?)'
-                                                                                ,[$emp->clave_empleado,$num_periodo,$resultaSueldo,'P','0']);
+                                                                                ,[$emp->clave_empleado,$num_periodo,'001P',$resultaSueldo,0]);
                 }else if($concep->clave_concepto == "002P"){
                     $resultaHoraExtraDoble = $this->criterio_horas($emp->id_emp,$emp->clave_empleado);
 
-                    DB::connection('DB_Serverr')->insert('insert into prenomina (clave_empleado,prenomina_periodo,monto,tipo,status_prenomina)
+                    DB::connection('DB_Serverr')->insert('insert into prenomina (clave_empleado,prenomina_periodo,clave_concepto,monto,status_prenomina)
                                                                          values (?,?,?,?,?)'
-                                                                                ,[$emp->clave_empleado,$num_periodo,$resultaHoraExtraDoble,'P','0']);
+                                                                                ,[$emp->clave_empleado,$num_periodo,'002P',$resultaHoraExtraDoble,0]);
                 }else if($concep->clave_concepto == "003P"){
                     //$resultaHoraExtraTriple = $this->horaTriple($emp->id_emp);
                 }else if($concep->clave_concepto == "004P"){
                     $resultaFondoAhorro = $this->fondoAhorro($emp->id_emp);
 
-                    DB::connection('DB_Serverr')->insert('insert into prenomina (clave_empleado,prenomina_periodo,monto,tipo,status_prenomina)
+                    DB::connection('DB_Serverr')->insert('insert into prenomina (clave_empleado,prenomina_periodo,clave_concepto,monto,status_prenomina)
                                                                          values (?,?,?,?,?)'
-                                                                                ,[$emp->clave_empleado,$num_periodo,$resultaFondoAhorro,'P','0']);
+                                                                                ,[$emp->clave_empleado,$num_periodo,'004P',$resultaFondoAhorro,0]);
                 }else if($concep->clave_concepto == "005P"){
                     $resultaPremioPunt = $this->premioPunt($emp->id_emp,$emp->clave_empleado);
 
-                    DB::connection('DB_Serverr')->insert('insert into prenomina (clave_empleado,prenomina_periodo,monto,tipo,status_prenomina)
+                    DB::connection('DB_Serverr')->insert('insert into prenomina (clave_empleado,prenomina_periodo,clave_concepto,monto,status_prenomina)
                                                                          values (?,?,?,?,?)'
-                                                                                ,[$emp->clave_empleado,$num_periodo,$resultaPremioPunt,'P','0']);
+                                                                                ,[$emp->clave_empleado,$num_periodo,'005P',$resultaPremioPunt,0]);
                 }else if($concep->clave_concepto == "006P"){
                     $resultaPremioAsis = $this->premioPunt($emp->id_emp,$emp->clave_empleado);
 
-                    DB::connection('DB_Serverr')->insert('insert into prenomina (clave_empleado,prenomina_periodo,monto,tipo,status_prenomina)
+                    DB::connection('DB_Serverr')->insert('insert into prenomina (clave_empleado,prenomina_periodo,clave_concepto,monto,status_prenomina)
                                                                          values (?,?,?,?,?)'
-                                                                                ,[$emp->clave_empleado,$num_periodo,$resultaPremioAsis,'P','0']);
+                                                                                ,[$emp->clave_empleado,$num_periodo,'006P',$resultaPremioAsis,0]);
                 }else if($concep->clave_concepto == "007P"){
                     $resultaPrimaVacacional = $this->primaVacacional($emp->id_emp);
 
-                    DB::connection('DB_Serverr')->insert('insert into prenomina (clave_empleado,prenomina_periodo,monto,tipo,status_prenomina)
+                    DB::connection('DB_Serverr')->insert('insert into prenomina (clave_empleado,prenomina_periodo,clave_concepto,monto,status_prenomina)
                                                                          values (?,?,?,?,?)'
-                                                                                ,[$emp->clave_empleado,$num_periodo,$resultaPrimaVacacional,'P','0']);
+                                                                                ,[$emp->clave_empleado,$num_periodo,'007P',$resultaPrimaVacacional,0]);
                 }else if($concep->clave_concepto == "008P"){
                     $resultaPrimaDominical = $this->primaDominical($emp->id_emp);
 
-                    DB::connection('DB_Serverr')->insert('insert into prenomina (clave_empleado,prenomina_periodo,monto,tipo,status_prenomina)
+                    DB::connection('DB_Serverr')->insert('insert into prenomina (clave_empleado,prenomina_periodo,clave_concepto,monto,status_prenomina)
                                                                          values (?,?,?,?,?)'
-                                                                                ,[$emp->clave_empleado,$num_periodo,$resultaPrimaDominical,'P','0']);
+                                                                                ,[$emp->clave_empleado,$num_periodo,'008P',$resultaPrimaDominical,0]);
                 }else if($concep->clave_concepto == "009P"){
     
                 }else if($concep->clave_concepto == "010P"){
@@ -149,15 +163,15 @@ class CalculoPrenominaController extends Controller{
                     $Vacaciones = $this->sueldo_horas($emp->id_emp);
                     $resultaVacaciones = $Vacaciones->sueldo_diario;
 
-                    DB::connection('DB_Serverr')->insert('insert into prenomina (clave_empleado,prenomina_periodo,monto,tipo,status_prenomina)
+                    DB::connection('DB_Serverr')->insert('insert into prenomina (clave_empleado,prenomina_periodo,clave_concepto,monto,status_prenomina)
                                                                          values (?,?,?,?,?)'
-                                                                                ,[$emp->clave_empleado,$num_periodo,$resultaVacaciones,'P','0']);
+                                                                                ,[$emp->clave_empleado,$num_periodo,$resultaVacaciones,'013P',0]);
                 }else if($concep->clave_concepto == "014P"){
                     $aguinaldos = $this->aguinaldo($emp->id_emp);
 
-                    DB::connection('DB_Serverr')->insert('insert into prenomina (clave_empleado,prenomina_periodo,monto,tipo,status_prenomina)
+                    DB::connection('DB_Serverr')->insert('insert into prenomina (clave_empleado,prenomina_periodo,clave_concepto,monto,status_prenomina)
                                                                          values (?,?,?,?,?)'
-                                                                                ,[$emp->clave_empleado,$num_periodo,$aguinaldos,'P','0']);
+                                                                                ,[$emp->clave_empleado,$num_periodo,$aguinaldos,'014P',0]);
                 }else if($concep->clave_concepto == "015P"){
     
                 }else if($concep->clave_concepto == "016P"){
@@ -179,27 +193,27 @@ class CalculoPrenominaController extends Controller{
                 }else if($concep->clave_concepto == "001D"){
                     $resultaAusentismoDed = $this->ausentismoIncapacidadDeduccion($emp->id_emp,$emp->clave_empleado);
 
-                    DB::connection('DB_Serverr')->insert('insert into prenomina (clave_empleado,prenomina_periodo,monto,tipo,status_prenomina)
+                    DB::connection('DB_Serverr')->insert('insert into prenomina (clave_empleado,prenomina_periodo,clave_concepto,monto,status_prenomina)
                                                                          values (?,?,?,?,?)'
-                                                                                ,[$emp->clave_empleado,$num_periodo,$resultaAusentismoDed,'D','0']);
+                                                                                ,[$emp->clave_empleado,$num_periodo,'001D',$resultaAusentismoDed,0]);
                 }else if($concep->clave_concepto == "002D"){
                     $resultaIncapacidadDed = $this->ausentismoIncapacidadDeduccion($emp->id_emp,$emp->clave_empleado);
 
-                    DB::connection('DB_Serverr')->insert('insert into prenomina (clave_empleado,prenomina_periodo,monto,tipo,status_prenomina)
+                    DB::connection('DB_Serverr')->insert('insert into prenomina (clave_empleado,prenomina_periodo,clave_concepto,monto,status_prenomina)
                                                                          values (?,?,?,?,?)'
-                                                                                ,[$emp->clave_empleado,$num_periodo,$resultaIncapacidadDed,'D','0']);
+                                                                                ,[$emp->clave_empleado,$num_periodo,'002D',$resultaIncapacidadDed,0]);
                 }else if($concep->clave_concepto == "003D"){
                      $resultaFondoAhorroTrabajador = $this->fondoAhorro($emp->id_emp);
 
-                    DB::connection('DB_Serverr')->insert('insert into prenomina (clave_empleado,prenomina_periodo,monto,tipo,status_prenomina)
+                    DB::connection('DB_Serverr')->insert('insert into prenomina (clave_empleado,prenomina_periodo,clave_concepto,monto,status_prenomina)
                                                                          values (?,?,?,?,?)'
-                                                                                ,[$emp->clave_empleado,$num_periodo,$resultaFondoAhorroTrabajador,'D','0']);
+                                                                                ,[$emp->clave_empleado,$num_periodo,'003D',$resultaFondoAhorroTrabajador,0]);
                 }else if($concep->clave_concepto == "004D"){
                     $resultaDeduccionFondo = $this->deduccionAhorro($emp->id_emp);
 
-                    DB::connection('DB_Serverr')->insert('insert into prenomina (clave_empleado,prenomina_periodo,monto,tipo,status_prenomina)
+                    DB::connection('DB_Serverr')->insert('insert into prenomina (clave_empleado,prenomina_periodo,clave_concepto,monto,status_prenomina)
                                                                          values (?,?,?,?,?)'
-                                                                                ,[$emp->clave_empleado,$num_periodo,$resultaDeduccionFondo,'D','0']);
+                                                                                ,[$emp->clave_empleado,$num_periodo,'004D',$resultaDeduccionFondo,0]);
                 }else if($concep->clave_concepto == "005D"){
                     
                 }else if($concep->clave_concepto == "006D"){
