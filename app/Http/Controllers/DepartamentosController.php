@@ -191,9 +191,9 @@ class DepartamentosController extends Controller
 		\Config::set('database.connections.DB_Serverr', $clv_empresa);
 
 		$datos->validate([
-              'clave_departamento' => 'required',
-              'departamento' => 'required',
-              'clave_area' => 'required',
+			'clave_departamento' => 'required',
+			'departamento' => 'required',
+			'clave_area' => 'required',
 
       	]);
 
@@ -203,9 +203,9 @@ class DepartamentosController extends Controller
         ->get();
 
         if($coincidencia->count() == 0){
-        $fecha_periodo = now()->toDateString();
-		DB::connection('DB_Serverr')->insert('insert into departamentos (clave_departamento, departamento,clave_area,created_at,updated_at)
-		values (?,?,?,?,?)',[$datos->clave_departamento,$datos->departamento,$datos->clave_area,$fecha_periodo,$fecha_periodo]);
+			$fecha_periodo = now()->toDateString();
+			DB::connection('DB_Serverr')->insert('insert into departamentos (clave_departamento, departamento,clave_area,created_at,updated_at)
+			values (?,?,?,?,?)',[$datos->clave_departamento,$datos->departamento,$datos->clave_area,$fecha_periodo,$fecha_periodo]);
 		}else{
 			return back()->with('msj','Registro duplicado');
 		}

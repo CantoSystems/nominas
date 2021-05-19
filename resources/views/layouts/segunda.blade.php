@@ -791,66 +791,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 </script>
 <script>
   $(document).ready(function(){
-    $('.extraer_id').click(function(e){
-      var id_empleado = $(".identificador_prenomina",this).val();
-      var percepciones = 0, deducciones = 0, total = 0, impuestosTrabajador = 0, impuestosPatron = 0, total2 = 0;
-
-      $.ajax({
-        url: "{{ route('prenomina.create') }}",
-        method: "GET",
-        data: {
-          _token: $("meta[name='csrf-token']").attr("content"),
-          info : id_empleado,
-        },
-        success: function(data){
-          $.each(data, function(index, row){
-            if(row.clave.includes('P')){
-              percepciones = percepciones + row.resultado;
-              $('.percepciones').append('<tr><td style="vertical-align: middle;">'+row.clave+'</td><td style="vertical-align: middle;">'+row.concepto+'</td><td><input type="number" class="form-control mod2 percep" name="'+row.clave+'" value="'+row.resultado+'" /></td></tr>');
-            }else if(row.clave.includes('D')){
-              deducciones = deducciones + row.resultado;
-              $('.deducciones').append('<tr><td style="vertical-align: middle;">'+row.clave+'</td><td style="vertical-align: middle;">'+row.concepto+'</td><td><input type="number" class="form-control mod" name="'+row.clave+'" value="'+row.resultado+'" /></td></tr>');
-            }else if(row.clave.includes('I')){
-              impuestosTrabajador = impuestosTrabajador + row.resultado;
-              $('.impuestosTrabajador').append('<tr><td style="vertical-align: middle;">'+row.clave+'</td><td style="vertical-align: middle;">'+row.concepto+'</td><td><input type="number" class="form-control mod" name="'+row.clave+'" value="'+row.resultado+'" /></td></tr>');
-            }else if(row.clave.includes('P')){
-              impuestosPatron = impuestosPatron + row.resultado;
-              $('.impuestosPatron').append('<tr><td style="vertical-align: middle;">'+row.clave+'</td><td style="vertical-align: middle;">'+row.concepto+'</td><td><input type="number" class="form-control mod" name="'+row.clave+'" value="'+row.resultado+'" /></td></tr>');
-            }
-          });
-
-          $('.mod2').keyup(function(e){
-            var nFilas = $(".percepciones tr").length;
-            var numEmp = $('#numEmp').val();
-            var totalFilas = nFilas/numEmp;
-            var suma = 0;
-            var contador = 0;
-            $('.percep').each(function(){
-              if(contador<totalFilas){
-                suma = suma + parseFloat($(this).val());
-                console.log(suma);
-                contador++;
-              }else{
-                e.preventDefault();
-              }
-            });
-          });
-
-          total = percepciones - deducciones - impuestosTrabajador;
-          total2 = total - impuestosPatron;
-          $('.totalPercepcion').append('<tr><td colspan="2" style="vertical-align: middle;">Total:</td><td style="vertical-align: middle;">'+percepciones+'</td></tr>');
-          $('.totalDeduccion').append('<tr><td colspan="2" style="vertical-align: middle;">Total:</td><td style="vertical-align: middle;">'+deducciones+'</td></tr>');
-          $('.totalTrabajador').append('<tr><td colspan="2" style="vertical-align: middle;">Total:</td><td style="vertical-align: middle;">'+total+'</td></tr>');
-          $('.totalPatron').append('<tr><td colspan="2" style="vertical-align: middle;">Total:</td><td style="vertical-align: middle;">'+total2+'</td></tr>');
-        },
-        error: function(xhr, status, error) {
-          var err = JSON.parse(xhr.responseText);
-          console.log(err.Message);
-        }
-      });
-    });
-
-    $('.modal').on('hidden.bs.modal', function(){
+    /*$('.modal').on('hidden.bs.modal', function(){
       $('.percepciones2 tbody tr').closest('tr').remove();
       $('.deducciones2 tbody tr').closest('tr').remove();
       $('.impuestosTrabajador2 tbody tr').closest('tr').remove();
@@ -859,7 +800,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
       $('.totalDeduccion2 tbody tr').closest('tr').remove();
       $('.totalTrabajador2 tbody tr').closest('tr').remove();
       $('.totalPatron2 tbody tr').closest('tr').remove();
-    });
+    });*/
   });
 </script>
 </body>
