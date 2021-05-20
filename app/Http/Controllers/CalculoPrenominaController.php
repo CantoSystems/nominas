@@ -44,15 +44,14 @@ class CalculoPrenominaController extends Controller{
 
         switch($accion){
             case '':
-               /* $empleados = DB::connection('DB_Serverr')->table('empleados')
+               $empleados = DB::connection('DB_Serverr')->table('empleados')
                 ->join('departamentos','departamentos.clave_departamento','=','empleados.clave_departamento')
                 ->join('puestos','puestos.clave_puesto','=','empleados.clave_puesto')
                 ->join('areas','areas.clave_area', '=','departamentos.clave_area')
-                ->join('prenomina','prenomina.clave_empleado','=','empleados.clave_empleado')
-                ->select('empleados.*','areas.*','departamentos.*','puestos.*','prenomina.*')
+                ->select('empleados.*','departamentos.*','areas.*','puestos.*')
                 ->get();
 
-                $calculos = DB::connection('DB_Serverr')->table('prenomina')
+                /*$calculos = DB::connection('DB_Serverr')->table('prenomina')
                 ->where([
                     ['prenomina_periodo','=',$num_periodo],
                     ['status_prenomina','=','0']
@@ -63,26 +62,91 @@ class CalculoPrenominaController extends Controller{
                 ->where('seleccionado','=',1)
                 ->get();*/
 
-                $empleados = DB::connection('DB_Serverr')->table('prenomina')
-                                ->join('empleados','empleados.clave_empleado','=','prenomina.clave_empleado')
-                                ->join('conceptos','conceptos.clave_concepto','=','prenomina.clave_concepto')
-                                ->join('departamentos','departamentos.clave_departamento','=','empleados.clave_departamento')
-                                ->join('areas','areas.clave_area', '=','departamentos.clave_area')
-                                ->select('empleados.id_emp','empleados.clave_empleado','empleados.nombre','empleados.apellido_paterno','empleados.apellido_materno','departamentos.departamento','areas.area')
-                                ->where([
-                                    ['prenomina_periodo','=',$num_periodo],
-                                    ['status_prenomina','=','0']
-                                ])
-                                ->groupBy('empleados.id_emp','empleados.clave_empleado','empleados.nombre','empleados.apellido_paterno','empleados.apellido_materno','departamentos.departamento','areas.area')
-                                ->get();
+                $prenominaPercepciones = null;
 
-                return view('prenomina.prenomina', compact('empleados'));
+                return view('prenomina.prenomina', compact('empleados','prenominaPercepciones'));
                 break;
             case 'calcular':
                 $this->create();
                 return redirect()->route('prenomina.index');
                 break;
         }
+        
+    }
+
+    public function show($id_emp){
+        $clv = Session::get('clave_empresa');
+        $num_periodo = Session::get('num_periodo');
+
+        $clv_empresa = $this->conectar($clv);
+        \Config::set('database.connections.DB_Serverr', $clv_empresa);
+
+        $clave = DB::connection('DB_Serverr')->table('empleados')
+                ->select('clave_empleado','nombre','apellido_paterno','apellido_materno')
+                ->where('id_emp','=',$id_emp)
+                ->first();
+        // $clave->clave_empleado;
+
+        $empleados = DB::connection('DB_Serverr')->table('empleados')
+                ->join('departamentos','departamentos.clave_departamento','=','empleados.clave_departamento')
+                ->join('puestos','puestos.clave_puesto','=','empleados.clave_puesto')
+                ->join('areas','areas.clave_area', '=','departamentos.clave_area')
+                ->select('empleados.*','departamentos.*','areas.*','puestos.*')
+                ->get();
+
+        $prenominaPercepciones = DB::connection('DB_Serverr')->table('prenomina')
+                                ->join('empleados','empleados.clave_empleado','=','prenomina.clave_empleado')
+                                ->join('conceptos','conceptos.clave_concepto','=','prenomina.clave_concepto')
+                                ->select('prenomina.id_prenomina', 'empleados.clave_empleado','prenomina.clave_concepto','conceptos.concepto','prenomina.monto')
+                                ->where([
+                                    ['prenomina_periodo','=',$num_periodo],
+                                    ['status_prenomina','=','0'],
+                                    ['prenomina.clave_empleado','=',$clave->clave_empleado],
+                                    ['conceptos.naturaleza','=','P']
+                                ])
+                                ->get();
+        $prenominaDeducciones = DB::connection('DB_Serverr')->table('prenomina')
+                                ->join('empleados','empleados.clave_empleado','=','prenomina.clave_empleado')
+                                ->join('conceptos','conceptos.clave_concepto','=','prenomina.clave_concepto')
+                                ->select('prenomina.id_prenomina', 'empleados.clave_empleado','prenomina.clave_concepto','conceptos.concepto','prenomina.monto')
+                                ->where([
+                                    ['prenomina_periodo','=',$num_periodo],
+                                    ['status_prenomina','=','0'],
+                                    ['prenomina.clave_empleado','=',$clave->clave_empleado],
+                                    ['conceptos.naturaleza','=','D']
+                                ])
+                                ->get();
+        
+        $prenominaTrabajador = DB::connection('DB_Serverr')->table('prenomina')
+                                ->join('empleados','empleados.clave_empleado','=','prenomina.clave_empleado')
+                                ->join('conceptos','conceptos.clave_concepto','=','prenomina.clave_concepto')
+                                ->select('prenomina.id_prenomina', 'empleados.clave_empleado','prenomina.clave_concepto','conceptos.concepto','prenomina.monto')
+                                ->where([
+                                    ['prenomina_periodo','=',$num_periodo],
+                                    ['status_prenomina','=','0'],
+                                    ['prenomina.clave_empleado','=',$clave->clave_empleado],
+                                    ['conceptos.naturaleza','=','T']
+                                ])
+                                ->get();
+        
+        $prenominaPatron = DB::connection('DB_Serverr')->table('prenomina')
+                                ->join('empleados','empleados.clave_empleado','=','prenomina.clave_empleado')
+                                ->join('conceptos','conceptos.clave_concepto','=','prenomina.clave_concepto')
+                                ->select('prenomina.id_prenomina', 'empleados.clave_empleado','prenomina.clave_concepto','conceptos.concepto','prenomina.monto')
+                                ->where([
+                                    ['prenomina_periodo','=',$num_periodo],
+                                    ['status_prenomina','=','0'],
+                                    ['prenomina.clave_empleado','=',$clave->clave_empleado],
+                                    ['conceptos.naturaleza','=','I']
+                                ])
+                                ->get();
+        
+        
+        
+
+        return view('prenomina.prenomina', compact('empleados','prenominaPercepciones','clave','prenominaDeducciones','prenominaTrabajador','prenominaPatron'));
+
+
         
     }
 
