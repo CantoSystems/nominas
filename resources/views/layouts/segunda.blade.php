@@ -789,18 +789,36 @@ scratch. This page gets rid of all links and provides the needed markup only.
     });
   });
 </script>
+
 <script>
   $(document).ready(function(){
-    /*$('.modal').on('hidden.bs.modal', function(){
-      $('.percepciones2 tbody tr').closest('tr').remove();
-      $('.deducciones2 tbody tr').closest('tr').remove();
-      $('.impuestosTrabajador2 tbody tr').closest('tr').remove();
-      $('.impuestosPatron2 tbody tr').closest('tr').remove();
-      $('.totalPercepcion2 tbody tr').closest('tr').remove();
-      $('.totalDeduccion2 tbody tr').closest('tr').remove();
-      $('.totalTrabajador2 tbody tr').closest('tr').remove();
-      $('.totalPatron2 tbody tr').closest('tr').remove();
-    });*/
+    $('#recalcular').click(function(e){
+      e.preventDefault();
+      let myTableArray = [];
+      document.querySelectorAll('.prueba tbody tr').forEach(function(e){
+        let fila = {
+          idPre: e.querySelector('.idPrenomina').value,
+          concepto: e.querySelector('.clvCncpt').value,
+          monto: e.querySelector('.monto').value
+        };
+        myTableArray.push(fila);
+      });
+      let jsonString = JSON.stringify(myTableArray);
+      $.ajax({
+        url: "{{ route('prenomina.store') }}",
+        method: "POST",
+        data: {
+          _token: $("meta[name='csrf-token']").attr("content"),
+          info : jsonString,
+        },
+        success: function(data){
+        },
+        error: function(xhr, status, error) {
+          var err = JSON.parse(xhr.responseText);
+          console.log(err.Message);
+        }
+      });
+    });
   });
 </script>
 </body>

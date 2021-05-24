@@ -34,7 +34,6 @@ class CalculoPrenominaController extends Controller{
     }
 
     public function index(Request $request){
-        //return $request;
         $clv = Session::get('clave_empresa');
         $num_periodo = Session::get('num_periodo');
 
@@ -51,17 +50,6 @@ class CalculoPrenominaController extends Controller{
                 ->select('empleados.*','departamentos.*','areas.*','puestos.*')
                 ->get();
 
-                /*$calculos = DB::connection('DB_Serverr')->table('prenomina')
-                ->where([
-                    ['prenomina_periodo','=',$num_periodo],
-                    ['status_prenomina','=','0']
-                ])
-                ->get();
-
-                $conceptos = DB::connection('DB_Serverr')->table('conceptos')
-                ->where('seleccionado','=',1)
-                ->get();*/
-
                 $prenominaPercepciones = null;
 
                 return view('prenomina.prenomina', compact('empleados','prenominaPercepciones'));
@@ -71,7 +59,30 @@ class CalculoPrenominaController extends Controller{
                 return redirect()->route('prenomina.index');
                 break;
         }
-        
+    }
+
+    public function store(Request $request){
+        if (empty($request->all())) {
+            return response()->json(["error" => "Sin data"]);
+        }
+
+        foreach ($request->only('info') as $value) {
+            $data = json_decode($value);
+        }
+
+        $clv = Session::get('clave_empresa');
+        $clv_empresa = $this->conectar($clv);
+        \Config::set('database.connections.DB_Serverr', $clv_empresa);
+
+        foreach ($data as $value) {
+            echo $value->monto.'|'.$value->idPre.'|'.$value->concepto;
+            DB::connection('DB_Serverr')->table('prenomina')
+            ->where([
+                ['id_prenomina','=',$value->idPre],
+                ['clave_concepto','=',$value->concepto]
+            ])
+            ->update(['monto' => $value->monto]);
+        }
     }
 
     public function show($id_emp){
@@ -85,7 +96,6 @@ class CalculoPrenominaController extends Controller{
                 ->select('clave_empleado','nombre','apellido_paterno','apellido_materno')
                 ->where('id_emp','=',$id_emp)
                 ->first();
-        // $clave->clave_empleado;
 
         $empleados = DB::connection('DB_Serverr')->table('empleados')
                 ->join('departamentos','departamentos.clave_departamento','=','empleados.clave_departamento')
@@ -141,13 +151,7 @@ class CalculoPrenominaController extends Controller{
                                 ])
                                 ->get();
         
-        
-        
-
         return view('prenomina.prenomina', compact('empleados','prenominaPercepciones','clave','prenominaDeducciones','prenominaTrabajador','prenominaPatron'));
-
-
-        
     }
 
     public function create(){
@@ -182,9 +186,14 @@ class CalculoPrenominaController extends Controller{
 
                     DB::connection('DB_Serverr')->insert('insert into prenomina (clave_empleado,prenomina_periodo,clave_concepto,monto,status_prenomina)
                                                                          values (?,?,?,?,?)'
-                                                                                ,[$emp->clave_empleado,$num_periodo,'002P',$resultaHoraExtraDoble,0]);
+                                                                                ,[$emp->clave_empleado,$num_periodo,'002P',$resultaHoraExtraDoble["horasDoblesGenerales"],0]);
+                    
                 }else if($concep->clave_concepto == "003P"){
-                    //$resultaHoraExtraTriple = $this->horaTriple($emp->id_emp);
+                    $resultaHoraExtraTriple = $this->criterio_horas($emp->id_emp,$emp->clave_empleado);
+
+                    DB::connection('DB_Serverr')->insert('insert into prenomina (clave_empleado,prenomina_periodo,clave_concepto,monto,status_prenomina)
+                                                                         values (?,?,?,?,?)'
+                                                                                ,[$emp->clave_empleado,$num_periodo,'003P',$resultaHoraExtraTriple["horasTriplesGenerales"],0]);
                 }else if($concep->clave_concepto == "004P"){
                     $resultaFondoAhorro = $this->fondoAhorro($emp->id_emp);
 
@@ -229,13 +238,13 @@ class CalculoPrenominaController extends Controller{
 
                     DB::connection('DB_Serverr')->insert('insert into prenomina (clave_empleado,prenomina_periodo,clave_concepto,monto,status_prenomina)
                                                                          values (?,?,?,?,?)'
-                                                                                ,[$emp->clave_empleado,$num_periodo,$resultaVacaciones,'013P',0]);
+                                                                                ,[$emp->clave_empleado,$num_periodo,'013P',$resultaVacaciones,0]);
                 }else if($concep->clave_concepto == "014P"){
                     $aguinaldos = $this->aguinaldo($emp->id_emp);
 
                     DB::connection('DB_Serverr')->insert('insert into prenomina (clave_empleado,prenomina_periodo,clave_concepto,monto,status_prenomina)
                                                                          values (?,?,?,?,?)'
-                                                                                ,[$emp->clave_empleado,$num_periodo,$aguinaldos,'014P',0]);
+                                                                                ,[$emp->clave_empleado,$num_periodo,'014P',$aguinaldos,0]);
                 }else if($concep->clave_concepto == "015P"){
     
                 }else if($concep->clave_concepto == "016P"){
@@ -406,8 +415,8 @@ class CalculoPrenominaController extends Controller{
         $jt = $this->jornadaTrabajo();
         $uma = Umas::select('porcentaje_uma')
                     ->where([
-                    ['periodoinicio_uma','<',$jt->fecha_inicio],
-                    ['periodofin_uma','>',$jt->fecha_inicio]
+                        ['periodoinicio_uma','<',$jt->fecha_inicio],
+                        ['periodofin_uma','>',$jt->fecha_inicio]
                     ])
                     ->first();
 
@@ -625,8 +634,6 @@ class CalculoPrenominaController extends Controller{
             ->where('periodo_extra','=',$identificador_periodo)
             ->groupBy('fecha_extra')
             ->get();
-
-            //return $horasExtras;
 
             $inicio_semana1 = $manipulacion_fechas->fecha_inicio;
             $horasTriples = 0;
