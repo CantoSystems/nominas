@@ -12,7 +12,7 @@
                         </h3>
                     </div>
                     <div class="card-body">
-                        <form action="{{ route('prenomina.index') }}" method="POST" autocomplete="off">
+                        <form action="{{ route('prenomina.index') }}" method="GET" autocomplete="off">
                             <meta name="csrf-token" content="{{ csrf_token() }}">
                             <div class="row">
                                 <div class="col">
@@ -52,11 +52,11 @@
                                         <table class="table table-hover prueba">
                                             <thead class="thead-light">
                                                 <tr>
-                                                    <th scope="col" colspan="3" style="text-align: center;">Percepciones</th>
+                                                    <th scope="col" colspan="4" style="text-align: center;">Percepciones</th>
                                                 </tr>
                                                 <tr>
                                                     <th scope="col" style="text-align: center;">Clave</th>
-                                                    <th scope="col" style="text-align: center;">Concepto</th>
+                                                    <th scope="col"  colspan="2" style="text-align: center;">Concepto</th>
                                                     <th scope="col" style="text-align: center;">Total</th>
                                                 </tr>
                                             </thead>
@@ -66,7 +66,6 @@
                                                         <tr>
                                                             <td>
                                                                 <input type="hidden" class="idPrenomina" value="{{ $percepciones->id_prenomina }}">
-                                                                <input type="hidden" value="{{ $percepciones->clave_empleado }}">
                                                                 <input type="hidden" class="clvCncpt" value="{{ $percepciones->clave_concepto }}">
                                                                 {{$percepciones->clave_concepto}}
                                                             <td>
@@ -84,14 +83,14 @@
                                         </table>
                                     </div>
                                     <div class = "col-sm-6">
-                                        <table class="table table-hover">
+                                        <table class="table table-hover prueba">
                                             <thead class="thead-light">
                                                 <tr>
-                                                    <th scope="col" colspan="3" style="text-align: center;">Deducciones</th>
+                                                    <th scope="col" colspan="4" style="text-align: center;">Deducciones</th>
                                                 </tr>
                                                 <tr>
                                                     <th scope="col" style="text-align: center;">Clave</th>
-                                                    <th scope="col" style="text-align: center;">Concepto</th>
+                                                    <th scope="col" colspan="2" style="text-align: center;">Concepto</th>
                                                     <th scope="col" style="text-align: center;">Total</th>
                                                 </tr>
                                             </thead>
@@ -101,7 +100,6 @@
                                                         <tr>
                                                             <td>
                                                                 <input type="hidden" class="idPrenomina" value="{{ $deducciones->id_prenomina }}">
-                                                                <input type="hidden" value="{{ $deducciones->clave_empleado }}">
                                                                 <input type="hidden" class="clvCncpt" value="{{ $deducciones->clave_concepto }}">
                                                                 {{ $deducciones->clave_concepto }}
                                                             <td>
@@ -148,7 +146,7 @@
                                 <div class="row">
                                     <div class = "col-sm-6"></div>
                                     <div class = "col-sm-6">
-                                        <table class="table table-hover">
+                                        <table class="table table-hover prueba">
                                             <thead class="thead-light">
                                                 <tr>
                                                     <th scope="col" colspan="3" style="text-align: center;">Impuestos del Trabajador</th>
