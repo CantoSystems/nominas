@@ -792,6 +792,47 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
 <script>
   $(document).ready(function(){
+    /* Scripts para generar los resultados de las operaciones al cargar la página */
+    var importe_total = 0
+    $(".totales").each(function(index, value) {
+      if($.isNumeric($(this).val())){
+        importe_total = importe_total + eval($(this).val());
+      }
+    });
+    $(".totalPercepciones").val(importe_total);
+
+    var importe_total = 0
+    $(".totales2").each(function(index, value) {
+      if($.isNumeric($(this).val())){
+        importe_total = importe_total + eval($(this).val());
+      }
+    });
+    $(".totalDeducciones").val(importe_total);
+
+    /* Scripts en caso de que algún input se modifique */
+    $(".totales").change(function(e){
+      e.preventDefault();
+      var importe_total = 0
+      $(".totales").each(function(index, value) {
+        if($.isNumeric($(this).val())){
+          importe_total = importe_total + eval($(this).val());
+        }
+      });
+      $(".totalPercepciones").val(importe_total);
+    });
+
+    $(".totales2").change(function(e){
+      e.preventDefault();
+      var importe_total = 0
+      $(".totales2").each(function(index, value) {
+        if($.isNumeric($(this).val())){
+          importe_total = importe_total + eval($(this).val());
+        }
+      });
+      $(".totalDeducciones").val(importe_total);
+    });
+
+    /* Script para guardar los cambios hechos en los inputs */
     $('#recalcular').click(function(e){
       e.preventDefault();
       let myTableArray = [];
@@ -823,3 +864,4 @@ scratch. This page gets rid of all links and provides the needed markup only.
 </script>
 </body>
 </html>
+59655
