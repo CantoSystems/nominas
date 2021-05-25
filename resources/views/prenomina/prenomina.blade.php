@@ -16,11 +16,7 @@
                             <meta name="csrf-token" content="{{ csrf_token() }}">
                             <div class="row">
                                 <div class="col">
-                                    @if($prenominaPercepciones=="")
-                                        <button type="submit" name="acciones" value="calcular" id="calcular" style='width:125px; height:38px;'>Calcular Nómina</button>
-                                    @else
-                                        <button type="submit" name="acciones" value="recalcular" id="recalcular" style='width:125px; height:38px;'>Re-Calcular Nómina</button>
-                                    @endif
+                                    <button type="submit" name="acciones" value="calcular" id="calcular" style='width:125px; height:38px;'>Calcular Nómina</button>
                                 </div>
                                 <div class="col">
                                     @can('administrador')
@@ -31,6 +27,9 @@
                                         </a>
                                         @include('prenomina.modalEmpleado')
                                     @endcan
+                                </div>
+                                <div class="col">
+                                    <button type="submit" name="acciones" value="recalcular" id="recalcular" style='width:125px; height:38px;'>Re-Calcular Nómina</button>
                                 </div>
                             </div>
                             <!--Cuerpo de la prenomina-->
@@ -75,7 +74,7 @@
                                                                 {{$percepciones->concepto}}
                                                             </td>
                                                             <td>
-                                                                <input type="text" class="form-control monto" value="{{$percepciones->monto}}">
+                                                                <input type="number" step=".01" class="form-control monto totales" value="{{ $percepciones->monto }}">
                                                             </td>
                                                         </tr>
                                                     @endforeach 
@@ -98,19 +97,19 @@
                                             </thead>
                                             <tbody>
                                                 @if(isset($prenominaPercepciones))
-                                                    @foreach ($prenominaDeducciones as $deducciones)
+                                                    @foreach($prenominaDeducciones as $deducciones)
                                                         <tr>
                                                             <td>
                                                                 <input type="hidden" class="idPrenomina" value="{{ $deducciones->id_prenomina }}">
                                                                 <input type="hidden" value="{{ $deducciones->clave_empleado }}">
                                                                 <input type="hidden" class="clvCncpt" value="{{ $deducciones->clave_concepto }}">
-                                                                {{$deducciones->clave_concepto}}
+                                                                {{ $deducciones->clave_concepto }}
                                                             <td>
                                                             <td>
-                                                                {{$deducciones->concepto}}
+                                                                {{ $deducciones->concepto }}
                                                             </td>
                                                             <td>
-                                                                <input type="text" class="form-control monto" value="{{ $deducciones->monto }}">
+                                                                <input type="number" step=".01" class="form-control monto totales2" value="{{ $deducciones->monto }}">
                                                             </td>
                                                         </tr>
                                                     @endforeach 
@@ -124,12 +123,24 @@
                                     <div class="col-sm-6">
                                         <table class="table table-hover">
                                             <tbody>
+                                                <tr>
+                                                    <td colspan="2" style="text-align: right; valign: middle;">Total: </td>
+                                                    <td style="width: 42%;">
+                                                        <input type="number" step=".01" disabled class="form-control totalPercepciones">
+                                                    </td>
+                                                </tr>
                                             </tbody>
                                         </table>
                                     </div>
                                     <div class="col-sm-6">
                                         <table class="table table-hover">
                                             <tbody>
+                                                <tr>
+                                                    <td colspan="2" style="text-align: right; valign: middle;">Total: </td>
+                                                    <td style="width: 42%;">
+                                                        <input type="number" step=".01" disabled class="form-control totalDeducciones">
+                                                    </td>
+                                                </tr>
                                             </tbody>
                                         </table>
                                     </div>
@@ -154,7 +165,7 @@
                                                         <tr>
                                                             <td>
                                                                 <input type="hidden" class="idPrenomina" value="{{ $trabajador->id_prenomina }}">
-                                                                <input type="hidden" value="{{ $trabajador->clave_empleado }}">
+                                                                <input type="hidden" class="totales" value="{{ $trabajador->clave_empleado }}">
                                                                 <input type="hidden" class="clvCncpt" value="{{ $trabajador->clave_concepto }}">
                                                                 {{ $trabajador->clave_concepto }}
                                                             <td>
@@ -162,7 +173,7 @@
                                                                 {{ $trabajador->concepto }}
                                                             </td>
                                                             <td>
-                                                                <input type="text" class="form-control monto" value="{{ $trabajador->monto }}">
+                                                                <input type="number" class="form-control monto" value="{{ $trabajador->monto }}">
                                                             </td>
                                                         </tr>
                                                     @endforeach 
@@ -208,7 +219,7 @@
                                                                 {{ $patron->concepto }}
                                                             </td>
                                                             <td>
-                                                                <input type="text" class="form-control monto" value="{{ $patron->monto }}">
+                                                                <input type="number" class="form-control monto" value="{{ $patron->monto }}">
                                                             </td>
                                                         </tr>
                                                     @endforeach 
