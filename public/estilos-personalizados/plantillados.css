@@ -73,3 +73,19 @@
     td.sorting_1,td{
         font-size:  0.8em;
     }
+    div.card.card-secondary{
+    padding: 0px 0px 0px 0px;
+
+    }
+    div.card-body{
+    padding: 6px 6px 6px 6px;
+    margin-top: 0px;
+    }
+    div.alert.alert-success{
+      margin: 0px 0px 5px;
+      padding:6px 6px 6px 6px;
+    }
+    div.alert.alert-light{
+      margin: 0px 0px 5px;
+      padding:6px 6px 6px 6px;
+    }

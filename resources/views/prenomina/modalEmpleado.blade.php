@@ -22,6 +22,7 @@
                                     <th>Departamento</th>
                                     <th>Área</th>
                                     <th></th>
+
                                 </tr>
                             </thead>
                             <tbody>
@@ -46,6 +47,7 @@
                                                     </div>
                                                 @endcan
                                             </td>
+
                                         </tr>
                                     @endforeach
                                 @endif

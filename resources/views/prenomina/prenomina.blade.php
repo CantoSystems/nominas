@@ -1,12 +1,9 @@
 @extends('layouts.segunda')
 @section('content')
 <div class="container">
-    <div class="col">
-        <!-- Inicio Datatables-->
-        <div class="row">
-            <div class="col">
+    <div class="col" style="padding:0px 0px 0px 0px;">
                 <div class="card card-secondary">
-                    <div class="card-header">
+                    <div class="card-header" style="padding:6px 6px 6px 6px;">
                         <h3 class="card-title">
                             Cálculo de Prenómina
                         </h3>
@@ -34,8 +31,7 @@
                             </div>
                             <!--Cuerpo de la prenomina-->
                             <br>
-                            <div class="card card-secondary">
-                                <div class="card-header">
+                                <div class="card-header" style="background-color:darkgrey;padding:6px 6px 6px 6px; color:white">
                                     <h6 class="card-title">
                                         Empleado: 
                                         @if(isset($prenominaPercepciones))
@@ -45,10 +41,21 @@
                                         @endif
                                     </h6>
                                 </div>
-                            </div>
                             <div class="card-body">
-                                <div class="row">
-                                    <div class = "col-sm-6">
+                                @if(isset($prenominaPercepciones))
+                                @if($status_prenomina->status_prenomina == 0)
+                                <div class="alert alert-light" role="alert">
+                                  Nómina sin verificar
+                                </div>
+                                @else
+                                <div class="alert alert-success" role="alert">
+                                  Nómina Verificada
+                                </div>
+                                @endif
+                              @else
+                              @endif
+                                <div class="row" >
+                                    <div class="col-sm-6">
                                         <table class="table table-hover prueba">
                                             <thead class="thead-light">
                                                 <tr>
@@ -231,8 +238,6 @@
                         </form>
                     </div>
                 </div>
-            </div>
-        </div>
     </div>
 </div>
 @endsection
