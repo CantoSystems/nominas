@@ -81,7 +81,8 @@ class CalculoPrenominaController extends Controller{
                 ['id_prenomina','=',$value->idPre],
                 ['clave_concepto','=',$value->concepto]
             ])
-            ->update(['monto' => $value->monto]);
+            ->update(['monto' => $value->monto,
+                        'status_prenomina' => 1]);
         }
     }
 
@@ -103,6 +104,13 @@ class CalculoPrenominaController extends Controller{
                 ->join('areas','areas.clave_area', '=','departamentos.clave_area')
                 ->select('empleados.*','departamentos.*','areas.*','puestos.*')
                 ->get();
+        
+        $status_prenomina =  DB::connection('DB_Serverr')->table('prenomina')
+                                ->select('status_prenomina')
+                                ->where('prenomina.clave_empleado','=',$clave->clave_empleado)
+                                ->groupBy('status_prenomina')
+                                ->first();
+
 
         $prenominaPercepciones = DB::connection('DB_Serverr')->table('prenomina')
                                 ->join('empleados','empleados.clave_empleado','=','prenomina.clave_empleado')
@@ -110,18 +118,17 @@ class CalculoPrenominaController extends Controller{
                                 ->select('prenomina.id_prenomina', 'empleados.clave_empleado','prenomina.clave_concepto','conceptos.concepto','prenomina.monto')
                                 ->where([
                                     ['prenomina_periodo','=',$num_periodo],
-                                    ['status_prenomina','=','0'],
                                     ['prenomina.clave_empleado','=',$clave->clave_empleado],
                                     ['conceptos.naturaleza','=','P']
                                 ])
                                 ->get();
+        
         $prenominaDeducciones = DB::connection('DB_Serverr')->table('prenomina')
                                 ->join('empleados','empleados.clave_empleado','=','prenomina.clave_empleado')
                                 ->join('conceptos','conceptos.clave_concepto','=','prenomina.clave_concepto')
                                 ->select('prenomina.id_prenomina', 'empleados.clave_empleado','prenomina.clave_concepto','conceptos.concepto','prenomina.monto')
                                 ->where([
                                     ['prenomina_periodo','=',$num_periodo],
-                                    ['status_prenomina','=','0'],
                                     ['prenomina.clave_empleado','=',$clave->clave_empleado],
                                     ['conceptos.naturaleza','=','D']
                                 ])
@@ -133,7 +140,6 @@ class CalculoPrenominaController extends Controller{
                                 ->select('prenomina.id_prenomina', 'empleados.clave_empleado','prenomina.clave_concepto','conceptos.concepto','prenomina.monto')
                                 ->where([
                                     ['prenomina_periodo','=',$num_periodo],
-                                    ['status_prenomina','=','0'],
                                     ['prenomina.clave_empleado','=',$clave->clave_empleado],
                                     ['conceptos.naturaleza','=','T']
                                 ])
@@ -145,13 +151,12 @@ class CalculoPrenominaController extends Controller{
                                 ->select('prenomina.id_prenomina', 'empleados.clave_empleado','prenomina.clave_concepto','conceptos.concepto','prenomina.monto')
                                 ->where([
                                     ['prenomina_periodo','=',$num_periodo],
-                                    ['status_prenomina','=','0'],
                                     ['prenomina.clave_empleado','=',$clave->clave_empleado],
                                     ['conceptos.naturaleza','=','I']
                                 ])
                                 ->get();
         
-        return view('prenomina.prenomina', compact('empleados','prenominaPercepciones','clave','prenominaDeducciones','prenominaTrabajador','prenominaPatron'));
+        return view('prenomina.prenomina', compact('empleados','prenominaPercepciones','clave','prenominaDeducciones','prenominaTrabajador','prenominaPatron','status_prenomina'));
     }
 
     public function create(){
