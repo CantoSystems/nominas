@@ -844,6 +844,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
           monto: e.querySelector('.monto').value
         };
         myTableArray.push(fila);
+        console.log(myTableArray);
       });
       let jsonString = JSON.stringify(myTableArray);
       $.ajax({
@@ -865,4 +866,3 @@ scratch. This page gets rid of all links and provides the needed markup only.
 </script>
 </body>
 </html>
-59655

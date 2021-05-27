@@ -7,6 +7,7 @@ use Barryvdh\DomPDF\Facade as PDF;
 use DB;
 use Session;
 use DataTables;
+use App\Empresa;
 use Illuminate\Support\Facades\Schema;
 
 class ReportNominaPDFController extends Controller{
@@ -32,8 +33,8 @@ class ReportNominaPDFController extends Controller{
 
     public function visualizar($id_emp){
         $clv=Session::get('clave_empresa');
-        $pre=Session::get('prenomina_empleado');
-        return $pre;
+        $num_periodo = Session::get('num_periodo');
+        //$pre=Session::get('prenomina_empleado');
         $clv_empresa=$this->conectar($clv);
         \Config::set('database.connections.DB_Serverr', $clv_empresa);
         
@@ -45,28 +46,40 @@ class ReportNominaPDFController extends Controller{
         ->where('id_emp','=',$id_emp)
         ->first();
 
-        $deducciones = DB::connection('DB_Serverr')->table('ausentismos')
-        ->join('empleados','empleados.clave_empleado','=','ausentismos.clave_empleado')
-        ->join('conceptos','conceptos.clave_concepto','=','ausentismos.clave_concepto')
-        ->where('id_emp','=',$id_emp)
-        ->get();
-
-        $nombre_empresa=Session::get('empresa');
-        $num_periodo = Session::get('num_periodo');
+        $empresa = Empresa::where('clave','=',$clv)->first();
         $periodo_act = DB::connection('DB_Serverr')->table('periodos')
         ->where('numero','=',$num_periodo)
         ->first();
 
-        $pdf = PDF::loadView('NominaPDF.report-nomina',compact('persona','nombre_empresa','periodo_act','deducciones'));
+        $prenominaPercepciones = DB::connection('DB_Serverr')->table('prenomina')
+                                ->join('empleados','empleados.clave_empleado','=','prenomina.clave_empleado')
+                                ->join('conceptos','conceptos.clave_concepto','=','prenomina.clave_concepto')
+                                ->select('prenomina.id_prenomina', 'empleados.clave_empleado','prenomina.clave_concepto','conceptos.concepto','prenomina.monto')
+                                ->where([
+                                    ['prenomina_periodo','=',$num_periodo],
+                                    ['status_prenomina','=','1'],
+                                    ['prenomina.clave_empleado','=',$persona->clave_empleado],
+                                    ['conceptos.naturaleza','=','P']
+                                ])
+                                ->get();
+        
+        $prenominaDeducciones =  DB::connection('DB_Serverr')->table('prenomina')
+                            ->join('empleados','empleados.clave_empleado','=','prenomina.clave_empleado')
+                            ->join('conceptos','conceptos.clave_concepto','=','prenomina.clave_concepto')
+                            ->select('prenomina.id_prenomina', 'empleados.clave_empleado','prenomina.clave_concepto','conceptos.concepto','prenomina.monto')
+                            ->where([
+                                    ['prenomina_periodo','=',$num_periodo],
+                                    ['status_prenomina','=','1'],
+                                    ['prenomina.clave_empleado','=',$persona->clave_empleado],
+                                    ['conceptos.naturaleza','=','D']
+                                    ])
+                            ->get();
+
+        $pdf = PDF::loadView('NominaPDF.report-nomina',compact('persona','empresa','periodo_act','prenominaPercepciones','prenominaDeducciones'));
 
         return $pdf->stream();
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index(){
         $clv=Session::get('clave_empresa');
         $clv_empresa=$this->conectar($clv);
@@ -83,59 +96,4 @@ class ReportNominaPDFController extends Controller{
         return view('NominaPDF.nominanormal',compact('empleados'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
 }
