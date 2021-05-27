@@ -75,7 +75,30 @@ class ReportNominaPDFController extends Controller{
                                     ])
                             ->get();
 
-        $pdf = PDF::loadView('NominaPDF.report-nomina',compact('persona','empresa','periodo_act','prenominaPercepciones','prenominaDeducciones'));
+        $totalpercepciones = DB::connection('DB_Serverr')->table('prenomina')
+                                ->join('conceptos','conceptos.clave_concepto','=','prenomina.clave_concepto')
+                                ->select( DB::raw('SUM(prenomina.monto) as total_percepciones'))
+                                ->where([
+                                    ['prenomina_periodo','=',$num_periodo],
+                                    ['status_prenomina','=','1'],
+                                    ['prenomina.clave_empleado','=',$persona->clave_empleado],
+                                    ['conceptos.naturaleza','=','P']
+                                    ])
+                            ->first();
+
+        $totaldeducciones = DB::connection('DB_Serverr')->table('prenomina')
+                            ->join('conceptos','conceptos.clave_concepto','=','prenomina.clave_concepto')
+                            ->select( DB::raw('SUM(prenomina.monto) as total_deducciones'))
+                            ->where([
+                                ['prenomina_periodo','=',$num_periodo],
+                                ['status_prenomina','=','1'],
+                                ['prenomina.clave_empleado','=',$persona->clave_empleado],
+                                ['conceptos.naturaleza','=','D']
+                                ])
+                        ->first();
+
+
+        $pdf = PDF::loadView('NominaPDF.report-nomina',compact('persona','empresa','periodo_act','prenominaPercepciones','prenominaDeducciones','totalpercepciones','totaldeducciones'));
 
         return $pdf->stream();
     }
