@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Schema;
 class ExtrasController extends Controller{
     public function index(Request $request){
         $clv=Session::get('clave_empresa');
+        $identificador_periodo = Session::get('num_periodo');
         $clv_empresa=$this->conectar($clv);
         $indic=$request->id_tiempo;
          

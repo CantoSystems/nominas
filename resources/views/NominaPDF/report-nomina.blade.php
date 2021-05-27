@@ -20,6 +20,7 @@
 		border: 0.8px solid;
 		padding: 15px 8px 5px;
 		background-color: #CACFD2;
+		font-size: 0.9em;
 		border-radius: 2px;
 	}
 	.empleados{
@@ -30,14 +31,13 @@
 		padding: 12px;
 	}
 	.item{
-		width: 320px;
-		padding: 13px 13px 13px 15px;
+		width: 335px;
+		padding: 6px 6px 6px 6px;
 		font-size: 0.8em;
 		border: 0.6px solid;
 	}
-	section.deducciones{
-		position: relative;
-		display: inline;
+	.titulos{
+		background-color: #CACFD2;
 	}
 
 
@@ -97,66 +97,97 @@
 	</section>
 
 	<section>
-		<table border="1" style="font-size: 0.8em">
+		<table style="font-size: 0.8em">
 			<thead>
 				<tr>
-					<th colspan="3"> &nbsp;&nbsp;Percepciones</th>
+					<th class="titulos"> 	&nbsp;&nbsp;Percepciones</th>
+					<th class="titulos">	&nbsp;&nbsp;Deducciones</th>
 				</tr>
 			</thead>
-			
 			<tbody>
 				<tr>
-					<td>
-						@foreach ($prenominaPercepciones as $percepciones)
-                                                        <tr>
-                                                            <td>
-                                                                {{$percepciones->clave_concepto}}
-                                                            <td>
-                                                            <td>
-                                                                {{$percepciones->concepto}}
-                                                            </td>
-                                                            <td>
-                                                               {{ $percepciones->monto }}
-                                                            </td>
-                                                        </tr>
-                        @endforeach 
-						
+					<td class="item">
+						<table>
+							<tr>
+								<th>Clave</th>
+								<th colspan="2">Concepto</th>
+								<th>Total</th>
+							</tr>
+							@foreach ($prenominaPercepciones as $percepciones)
+                                    <tr>
+                                        <td>
+                                            {{$percepciones->clave_concepto}}
+                                        <td>
+                                        <td>
+                                            {{$percepciones->concepto}}
+                                        </td>
+                                        <td>
+                                           {{ $percepciones->monto }}
+                                        </td>
+                                    </tr>
+							@endforeach 
+						</table>
+					</td>
+					<td class="item">
+						<table>
+							<tr>
+								<th>Clave</th>
+								<th colspan="2">Concepto</th>
+								<th>Total</th>
+							</tr>
+							@foreach($prenominaDeducciones as $deducciones)
+            <tr>
+                <td>
+                    
+                    {{ $deducciones->clave_concepto }}
+                <td>
+                <td>
+                    {{ $deducciones->concepto }}
+                </td>
+                <td>
+                    {{ $deducciones->monto }}
+                </td>
+            </tr>
+        @endforeach 
+            
+						</table>
 					</td>
 				</tr>
 			</tbody>
-		</table>
-	</section>
-	<section class="deducciones">
-		<table border="1" style="font-size: 0.8em">
-			<thead>
-				<tr>
-					<th colspan="3"> &nbsp;&nbsp;Deducciones</th>
-				</tr>
-			</thead>
-			<hr>
-			<tbody>
+			<tfoot>
 				<tr>
 					<td>
-						@foreach($prenominaDeducciones as $deducciones)
-						<tr>
-							<td>
-								
-								{{ $deducciones->clave_concepto }}
-							<td>
-							<td>
-								{{ $deducciones->concepto }}
-							</td>
-							<td>
-								{{ $deducciones->monto }}
-							</td>
-						</tr>
-					@endforeach 
-						
+						<strong>
+							<table>
+								<tr>
+									<td>Total Percepc. más otros pagos $</td>
+									<td>{{ $totalpercepciones->total_percepciones}}</td>
+								</tr>
+							</table>	
+						</strong>
+					</td>
+					<td>
+						<strong>
+							<table>
+								<tr>
+									<td>
+										<br><br>
+										Subtotal $ {{ $totalpercepciones->total_percepciones}}
+										<br>Descuentos $ {{ $totaldeducciones->total_deducciones}}
+										<br>Retenciones $ 0
+										<br>Total $  {{ $totalpercepciones->total_percepciones - $totaldeducciones->total_deducciones}}
+										<br>Neto del recibo $  {{ $totalpercepciones->total_percepciones - $totaldeducciones->total_deducciones}}
+									</td>
+								</tr>
+							</table>
+						</strong>
 					</td>
 				</tr>
-			</tbody>
+			</tfoot>
 		</table>
 	</section>
+
+	
 	
 
 </body>
