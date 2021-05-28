@@ -790,6 +790,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
   });
 </script>
 
+<!-- Scripts para Prenómina-->
 <script>
   $(document).ready(function(){
     /* Scripts para generar los resultados de las operaciones al cargar la página */
