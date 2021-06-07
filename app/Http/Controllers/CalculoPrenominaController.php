@@ -178,6 +178,7 @@ class CalculoPrenominaController extends Controller{
         ->where('seleccionado','=',1)
         ->get();
 
+        //$resultaHoraExtraDoble = $this->criterio_horas(3,'OOMJ');
         foreach($empleados as $emp){
             foreach($conceptos as $concep){
                 if($concep->clave_concepto == "001P"){
@@ -189,6 +190,7 @@ class CalculoPrenominaController extends Controller{
                 }else if($concep->clave_concepto == "002P"){
                     $resultaHoraExtraDoble = $this->criterio_horas($emp->id_emp,$emp->clave_empleado);
 
+                    //echo $resultaHoraExtraDoble["horasDoblesGenerales"];
                     DB::connection('DB_Serverr')->insert('insert into prenomina (clave_empleado,prenomina_periodo,clave_concepto,monto,status_prenomina)
                                                                          values (?,?,?,?,?)'
                                                                                 ,[$emp->clave_empleado,$num_periodo,'002P',$resultaHoraExtraDoble["horasDoblesGenerales"],0]);
@@ -622,82 +624,87 @@ class CalculoPrenominaController extends Controller{
         $clv = Session::get('clave_empresa');
         $clv_empresa = $this->conectar($clv);
         \Config::set('database.connections.DB_Serverr', $clv_empresa);
+
         $manipulacion_fechas = DB::connection('DB_Serverr')->table('periodos')
         ->select('fecha_inicio','fecha_fin','diasPeriodo')
-        ->where('numero','=',$identificador_periodo)
+        ->where('numero','=',8)
         ->first();
 
         $conteohoras = DB::connection('DB_Serverr')->table('tiempo_extra')
         ->select(DB::raw('CASE WHEN COUNT(`cantidad_tiempo`) = "" THEN 0 ELSE SUM(`cantidad_tiempo`) END as cantidad_tiempo'))
-        ->where('periodo_extra','=',$identificador_periodo)
+        ->where('periodo_extra','=',8)
         ->where('clave_empleado','=',$claveEmp)
         ->first();
 
         if($conteohoras->cantidad_tiempo!=0){
             $horasExtras = DB::connection('DB_Serverr')->table('tiempo_extra')
             ->select('fecha_extra',DB::raw('SUM(cantidad_tiempo) as cantidad_tiempo'))
-            ->where('periodo_extra','=',$identificador_periodo)
+            ->where('periodo_extra','=',8)
+            ->where('clave_empleado','=',$claveEmp)
+            ->whereBetween('fecha_extra',array($manipulacion_fechas->fecha_inicio,$manipulacion_fechas->fecha_fin))
             ->groupBy('fecha_extra')
             ->get();
 
             $inicio_semana1 = $manipulacion_fechas->fecha_inicio;
             $horasTriples = 0;
+            $horasTriplesGenerales = 0;
             $horasDobles = 0;
-            $k = 0; // dias semana 
-            $j = 0; //iteraciones
+            $horasDoblesGenerales = 0;
+            $k = 0; // dias semana
 
-            if($manipulacion_fechas->diasPeriodo<7){
-                while($j<$manipulacion_fechas->diasPeriodo){
-                    if($horasExtras->fecha_extra == date('Y-m-d',strtotime($inicio_semana1."+".$j."days"))){
+            if($manipulacion_fechas->diasPeriodo<8){
+                foreach($horasExtras as $horas){
+                    if($horas->fecha_extra < date('Y-m-d',strtotime($inicio_semana1."+ 7 days"))){
                         if($k<3){
-                            if($horasExtras->cantidad_tiempo>3){
-                                $horasTriples = $horasExtras->cantidad_tiempo-3;
+                            if($horas->cantidad_tiempo>3){
+                                $horasTriples = $horas->cantidad_tiempo-3;
                                 $horasDobles = 3;
                             }else{
-                                $horasDobles = $horasExtras->cantidad_tiempo;
+                                $horasDobles = $horas->cantidad_tiempo;
                                 $horasTriples = 0;
                             }
                             $k++;
                         }else{
                             $horasDobles = 0;
-                            $horasTriples = $horasExtras->cantidad_tiempo;
+                            $horasTriples = $horas->cantidad_tiempo;
                         }
+                        $horasDoblesGenerales = $horasDoblesGenerales + $horasDobles;
+                        $horasTriplesGenerales = $horasTriplesGenerales + $horasTriples;
+                        //echo $horasDobles.'|'.$horasTriples.'|'.$horasDoblesGenerales.'|'.$horasTriplesGenerales.'<br>';
                     }
-                    $j++;
                 }
-
-                $horasDoblesGenerales = $horasDobles;
-                $horasTriplesGenerales = $horasTriples;
+                
+                //echo $horasDoblesGenerales.'|'.$horasTriplesGenerales.'<br>';
+                $sd = $this->sueldo_horas($idEmp);
+                $precioHoraExtra = $sd->sueldo_diario/$sd->horas_diarias;
+                $horasDoblesGenerales = $horasDoblesGenerales*($precioHoraExtra*2);
+                $horasTriplesGenerales = $horasTriplesGenerales*($precioHoraExtra*3);
+                //echo $horasDoblesGenerales.'|'.$horasTriplesGenerales.'<br>';
                 return compact('horasDoblesGenerales','horasTriplesGenerales');
             }else{
                 foreach($horasExtras as $horas){
                     if($horas->fecha_extra < date('Y-m-d',strtotime($inicio_semana1."+ 7 days"))){
-                        while($j<$diasSobrantes){
-                            if($horas->fecha_extra == date('Y-m-d',strtotime($inicio_semana1."+".$j."days"))){
-                                if($k<3){
-                                    if($horas->cantidad_tiempo>3){
-                                        $horasTriples = $horas->cantidad_tiempo-3;
-                                        $horasDobles = 3;
-                                    }else{
-                                        $horasDobles = $horas->cantidad_tiempo;
-                                        $horasTriples = 0;
-                                    }
-                                    $k++;
-                                }else{
-                                    $horasDobles = 0;
-                                    $horasTriples = $horas->cantidad_tiempo;
-                                }
+                        if($k<3){
+                            if($horas->cantidad_tiempo>3){
+                                $horasTriples = $horas->cantidad_tiempo-3;
+                                $horasDobles = 3;
+                            }else{
+                                $horasDobles = $horas->cantidad_tiempo;
+                                $horasTriples = 0;
                             }
-                            $j++;
+                            $k++;
+                        }else{
+                            $horasDobles = 0;
+                            $horasTriples = $horas->cantidad_tiempo;
                         }
-                        $j = 0;
                         $horasDoblesGenerales = $horasDoblesGenerales + $horasDobles;
                         $horasTriplesGenerales = $horasTriplesGenerales + $horasTriples;
+                        //echo $horasDobles.'|'.$horasTriples.'|'.$horasDoblesGenerales.'|'.$horasTriplesGenerales.'<br>';
                     }else{
                         $k = 1;
-                        $j = 0;
                         $horasDobles = 0;
                         $horasTriples = 0;
+
                         if($horas->cantidad_tiempo>3){
                             $horasTriples = $horas->cantidad_tiempo-3;
                             $horasDobles = 3;
@@ -705,22 +712,22 @@ class CalculoPrenominaController extends Controller{
                             $horasDobles = $horas->cantidad_tiempo;
                             $horasTriples = 0;
                         }
-                        echo $k.'|';
                         $horasDoblesGenerales = $horasDoblesGenerales + $horasDobles;
                         $horasTriplesGenerales = $horasTriplesGenerales + $horasTriples;
-                        $inicio_semana1 = date('Y-m-d',strtotime($inicio_semana1."+ 7 days"));
 
-                        if(date('Y-m-d',strtotime($inicio_semana1."+ 7 days")) > $manipulacion_fechas->fecha_fin){
-                            $diasDiferencia = date_diff(date_create($inicio_semana1),date_create($manipulacion_fechas->fecha_fin))->format('%D');
-                            $horasDobles = 0;
-                            $horasTriples = 0;
-                            if($diasDiferencia != 0){
-                                $diasSobrantes = $diasDiferencia + 1;
-                            }
+                        if(date('Y-m-d',strtotime($inicio_semana1."+ 7 days")) < $manipulacion_fechas->fecha_fin){
+                            $inicio_semana1 = date('Y-m-d',strtotime($inicio_semana1."+ 7 days"));
                         }
+                        //echo $horasDobles.'|'.$horasTriples.'|'.$horasDoblesGenerales.'|'.$horasTriplesGenerales.'<br>';
                     }
-                    return compact('horasDoblesGenerales','horasTriplesGenerales');
                 }
+                //echo $horasDoblesGenerales.'|'.$horasTriplesGenerales.'<br>';
+                $sd = $this->sueldo_horas($idEmp);
+                $precioHoraExtra = $sd->sueldo_diario/$sd->horas_diarias;
+                $horasDoblesGenerales = $horasDoblesGenerales*($precioHoraExtra*2);
+                $horasTriplesGenerales = $horasTriplesGenerales*($precioHoraExtra*3);
+                //echo "1.".$horasDoblesGenerales.'|'.$horasTriplesGenerales.'<br>';
+                return compact('horasDoblesGenerales','horasTriplesGenerales');
             }
         }else{
             $horasDoblesGenerales = 0;
