@@ -185,3 +185,6 @@ Route::post('/prenomina-act/enviodata', 'CalculoPrenominaController@store')->nam
 //Días Festivos
 Route::get('/descanso', 'DescansosController@index')->name('descansos.index');
 Route::delete('/descanso/{id}','DescansosController@destroy')->name('descansos.destroy');
+
+//nuevo
+Route::get('/prenomina-normal', 'ControlPrenominaController@index')->name('control.index');
