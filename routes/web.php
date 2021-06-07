@@ -186,5 +186,6 @@ Route::post('/prenomina-act/enviodata', 'CalculoPrenominaController@store')->nam
 Route::get('/descanso', 'DescansosController@index')->name('descansos.index');
 Route::delete('/descanso/{id}','DescansosController@destroy')->name('descansos.destroy');
 
-//nuevo
+//nuevo control Prenomina
 Route::get('/prenomina-normal', 'ControlPrenominaController@index')->name('control.index');
+Route::get('/prenomina-normal/{id_emp}', 'ControlPrenominaController@create')->name('control.create');

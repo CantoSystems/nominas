@@ -19,7 +19,7 @@
                                                 <i class="far fa-eye"></i>
                                             </button>
                                         </a>
-                                        @include('prenomina.modalEmpleado')
+                                        @include('prenomina.modaldespliegue-empleados')
                                     @endcan
                                 </div>
                                 <div class="col">

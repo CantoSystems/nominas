@@ -151,7 +151,7 @@ public function show($id_emp){
     return view('prenomina.prenomina', compact('empleados','prenominaPercepciones','clave','prenominaDeducciones','prenominaTrabajador','prenominaPatron','status_prenomina'));
 }
 
-public function create(){
+public function create($id_emp){
     $clv = Session::get('clave_empresa');
     $num_periodo = Session::get('num_periodo');
 
@@ -273,11 +273,16 @@ public function create(){
             }
         }
     }
+
+    $clave = DB::connection('DB_Serverr')->table('empleados')
+            ->select('clave_empleado','nombre','apellido_paterno','apellido_materno')
+            ->where('id_emp','=',$id_emp)
+            ->first();
     
-    $calculos = $ControlPrenomina->where('clave_empleado', 'OOMJ');
+    $calculos = $ControlPrenomina->where('clave_empleado', $clave->clave_empleado);
     $portipo = $calculos->where('tipo','P');
                                        
-    return $portipo->all();
+    return ;
     
 
 }
