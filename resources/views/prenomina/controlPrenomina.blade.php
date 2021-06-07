@@ -9,12 +9,9 @@
                         </h3>
                     </div>
                     <div class="card-body">
-                        <form action="{{ route('prenomina.index') }}" method="GET" autocomplete="off">
+                        <form action="" method="GET" autocomplete="off">
                             <meta name="csrf-token" content="{{ csrf_token() }}">
                             <div class="row">
-                                <div class="col">
-                                    <button type="submit" name="acciones" value="calcular" id="calcular" style='width:125px; height:38px;'>Calcular Nómina</button>
-                                </div>
                                 <div class="col">
                                     @can('administrador')
                                         <a data-target="#modalbusquedaemp" data-toggle="modal">
@@ -22,11 +19,11 @@
                                                 <i class="far fa-eye"></i>
                                             </button>
                                         </a>
-                                        @include('prenomina.modalEmpleado')
+                                        @include('prenomina.modaldespliegue-empleados')
                                     @endcan
                                 </div>
                                 <div class="col">
-                                    <button type="submit" name="acciones" value="recalcular" id="recalcular" style='width:125px; height:38px;'>Re-Calcular Nómina</button>
+                                    <button type="submit" id="autorizar" style='width:125px; height:38px;'>Autorizar Nómina</button>
                                 </div>
                             </div>
                             <!--Cuerpo de la prenomina-->
