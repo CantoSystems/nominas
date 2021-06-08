@@ -175,28 +175,28 @@ public function create($id_emp){
         foreach($conceptos as $concep){
             if($concep->clave_concepto == "001P"){
                 $resultaSueldo = $this->sueldo($emp->id_emp,$emp->clave_empleado);
-                $ControlPrenomina->push(["clave_empleado"=>$emp->clave_empleado,"clave_concepto"=>"001P","monto"=>$resultaSueldo,"tipo"=> "P"]);                                           
+                $ControlPrenomina->push(["clave_empleado"=>$emp->clave_empleado,"clave_concepto"=>"001P","concepto"=>"SUELDO","monto"=>$resultaSueldo,"tipo"=> "P"]);                                           
             }else if($concep->clave_concepto == "002P"){
                 $resultaHoraExtraDoble = $this->criterio_horas($emp->id_emp,$emp->clave_empleado);
-                $ControlPrenomina->push(["clave_empleado"=>$emp->clave_empleado,"clave_concepto"=>"002P","monto"=>$resultaHoraExtraDoble["horasDoblesGenerales"],"tipo"=>"P"]);  
+                $ControlPrenomina->push(["clave_empleado"=>$emp->clave_empleado,"clave_concepto"=>"002P","concepto"=>"HORAS EXTRAS DOBLES","monto"=>$resultaHoraExtraDoble["horasDoblesGenerales"],"tipo"=>"P"]);  
             }else if($concep->clave_concepto == "003P"){
                 $resultaHoraExtraTriple = $this->criterio_horas($emp->id_emp,$emp->clave_empleado);
-                $ControlPrenomina->push(["clave_empleado"=>$emp->clave_empleado,"clave_concepto"=>"003P","monto"=>$resultaHoraExtraTriple["horasTriplesGenerales"],"tipo"=> "P"]);  
+                $ControlPrenomina->push(["clave_empleado"=>$emp->clave_empleado,"clave_concepto"=>"003P","concepto"=>"HORAS EXTRAS TRIPLES","monto"=>$resultaHoraExtraTriple["horasTriplesGenerales"],"tipo"=> "P"]);  
             }else if($concep->clave_concepto == "004P"){
                 $resultaFondoAhorro = $this->fondoAhorro($emp->id_emp);
-                $ControlPrenomina->push(["clave_empleado"=>$emp->clave_empleado,"clave_concepto"=>"004P","monto"=>$resultaFondoAhorro,"tipo"=> "P"]);  
+                $ControlPrenomina->push(["clave_empleado"=>$emp->clave_empleado,"clave_concepto"=>"004P","concepto"=>"FONDO DE AHORRO EMPRESA","monto"=>$resultaFondoAhorro,"tipo"=> "P"]);  
             }else if($concep->clave_concepto == "005P"){
                 $resultaPremioPunt = $this->premioPunt($emp->id_emp,$emp->clave_empleado);
-                $ControlPrenomina->push(["clave_empleado"=>$emp->clave_empleado,"clave_concepto"=>"005P","monto"=>$resultaPremioPunt,"tipo"=> "P"]);  
+                $ControlPrenomina->push(["clave_empleado"=>$emp->clave_empleado,"clave_concepto"=>"005P","concepto"=>"PREMIO DE PUNTUALIDAD","monto"=>$resultaPremioPunt,"tipo"=> "P"]);  
             }else if($concep->clave_concepto == "006P"){
                 $resultaPremioAsis = $this->premioPunt($emp->id_emp,$emp->clave_empleado);
-                $ControlPrenomina->push(["clave_empleado"=>$emp->clave_empleado,"clave_concepto"=>"006P","monto"=>$resultaPremioAsis,"tipo"=> "P"]);
+                $ControlPrenomina->push(["clave_empleado"=>$emp->clave_empleado,"clave_concepto"=>"006P","concepto"=>"PREMIO DE ASISTENCIA","monto"=>$resultaPremioAsis,"tipo"=> "P"]);
             }else if($concep->clave_concepto == "007P"){
                 $resultaPrimaVacacional = $this->primaVacacional($emp->id_emp);
-                $ControlPrenomina->push(["clave_empleado"=>$emp->clave_empleado,"clave_concepto"=>"007P","monto"=>$resultaPrimaVacacional,"tipo"=> "P"]);
+                $ControlPrenomina->push(["clave_empleado"=>$emp->clave_empleado,"clave_concepto"=>"007P","concepto"=>"PRIMA VACACIONAL","monto"=>$resultaPrimaVacacional,"tipo"=> "P"]);
             }else if($concep->clave_concepto == "008P"){
                 $resultaPrimaDominical = $this->primaDominical($emp->id_emp);
-                $ControlPrenomina->push(["clave_empleado"=>$emp->clave_empleado,"clave_concepto"=>"008P","monto"=>$resultaPrimaDominical,"tipo"=> "P"]);
+                $ControlPrenomina->push(["clave_empleado"=>$emp->clave_empleado,"clave_concepto"=>"008P","concepto"=>"PRIMA DOMINICAL","monto"=>$resultaPrimaDominical,"tipo"=> "P"]);
             }else if($concep->clave_concepto == "009P"){
 
             }else if($concep->clave_concepto == "010P"){
@@ -208,12 +208,10 @@ public function create($id_emp){
             }else if($concep->clave_concepto == "013P"){
                 $Vacaciones = $this->sueldo_horas($emp->id_emp);
                 $resultaVacaciones = $Vacaciones->sueldo_diario;
-                $ControlPrenomina->push(["clave_empleado"=>$emp->clave_empleado,"clave_concepto"=>"013P","monto"=>$resultaVacaciones,"tipo"=> "P"]);
-
-                                                                            
+                $ControlPrenomina->push(["clave_empleado"=>$emp->clave_empleado,"clave_concepto"=>"013P","concepto"=>"VACACIONES","monto"=>$resultaVacaciones,"tipo"=> "P"]);                                                        
             }else if($concep->clave_concepto == "014P"){
                 $aguinaldos = $this->aguinaldo($emp->id_emp);
-                $ControlPrenomina->push(["clave_empleado"=>$emp->clave_empleado,"clave_concepto"=>"013P","monto"=>$resultaVacaciones,"tipo"=> "P"]);
+                $ControlPrenomina->push(["clave_empleado"=>$emp->clave_empleado,"clave_concepto"=>"013P","concepto"=>"AGUINALDO","monto"=>$resultaVacaciones,"tipo"=> "P"]);
             }else if($concep->clave_concepto == "015P"){
 
             }else if($concep->clave_concepto == "016P"){
@@ -234,16 +232,16 @@ public function create($id_emp){
                 
             }else if($concep->clave_concepto == "001D"){
                 $resultaAusentismoDed = $this->ausentismoIncapacidadDeduccion($emp->id_emp,$emp->clave_empleado);
-                $ControlPrenomina->push(["clave_empleado"=>$emp->clave_empleado,"clave_concepto"=>"013P","monto"=>$resultaAusentismoDed,"tipo"=> "D"]);
+                $ControlPrenomina->push(["clave_empleado"=>$emp->clave_empleado,"clave_concepto"=>"013P","concepto"=>"AUSENTISMO","monto"=>$resultaAusentismoDed,"tipo"=> "D"]);
             }else if($concep->clave_concepto == "002D"){
                 $resultaIncapacidadDed = $this->ausentismoIncapacidadDeduccion($emp->id_emp,$emp->clave_empleado);
-                $ControlPrenomina->push(["clave_empleado"=>$emp->clave_empleado,"clave_concepto"=>"002D","monto"=>$resultaIncapacidadDed,"tipo"=> "D"]);
+                $ControlPrenomina->push(["clave_empleado"=>$emp->clave_empleado,"clave_concepto"=>"002D","concepto"=>"INCAPACIDAD","monto"=>$resultaIncapacidadDed,"tipo"=> "D"]);
             }else if($concep->clave_concepto == "003D"){
                 $resultaFondoAhorroTrabajador = $this->fondoAhorro($emp->id_emp);
-                $ControlPrenomina->push(["clave_empleado"=>$emp->clave_empleado,"clave_concepto"=>"003D","monto"=>$resultaFondoAhorroTrabajador,"tipo"=> "D"]);
+                $ControlPrenomina->push(["clave_empleado"=>$emp->clave_empleado,"clave_concepto"=>"003D","concepto"=>"FONDO DE AHORRO TRABAJADOR","monto"=>$resultaFondoAhorroTrabajador,"tipo"=> "D"]);
             }else if($concep->clave_concepto == "004D"){
                 $resultaDeduccionFondo = $this->deduccionAhorro($emp->id_emp);
-                $ControlPrenomina->push(["clave_empleado"=>$emp->clave_empleado,"clave_concepto"=>"004D","monto"=>$resultaDeduccionFondo,"tipo"=> "D"]);
+                $ControlPrenomina->push(["clave_empleado"=>$emp->clave_empleado,"clave_concepto"=>"004D","concepto"=>"DEDUCCION FONDO DE AHORRO EMPRESA","monto"=>$resultaDeduccionFondo,"tipo"=> "D"]);
             }else if($concep->clave_concepto == "005D"){
                 
             }else if($concep->clave_concepto == "006D"){
@@ -279,12 +277,18 @@ public function create($id_emp){
             ->where('id_emp','=',$id_emp)
             ->first();
     
-    $calculos = $ControlPrenomina->where('clave_empleado', $clave->clave_empleado);
-    $portipo = $calculos->where('tipo','P');
-                                       
-    return ;
-    
+    $calculospercepciones = $ControlPrenomina->where('clave_empleado', $clave->clave_empleado);
+    $portipopercepciones = $calculospercepciones->where('tipo','P');
+    $filtropercepciones = $portipopercepciones->pluck("clave_empleado");
+ 
 
+    $calculosdeducciones = $ControlPrenomina->where('clave_empleado',$clave->clave_empleado);
+    $portipodeducciones = $calculosdeducciones->where('tipo','D');
+    $filtrodeducciones = $portipodeducciones->get('clave_empleado');
+
+   // return compact('portipopercepciones','portipodeducciones');
+
+    return view('prenomina.controlPrenomina', compact('empleados','portipopercepciones','portipodeducciones','clave'));
 }
 
 /**
