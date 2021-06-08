@@ -627,19 +627,19 @@ class CalculoPrenominaController extends Controller{
 
         $manipulacion_fechas = DB::connection('DB_Serverr')->table('periodos')
         ->select('fecha_inicio','fecha_fin','diasPeriodo')
-        ->where('numero','=',8)
+        ->where('numero','=',$identificador_periodo)
         ->first();
 
         $conteohoras = DB::connection('DB_Serverr')->table('tiempo_extra')
         ->select(DB::raw('CASE WHEN COUNT(`cantidad_tiempo`) = "" THEN 0 ELSE SUM(`cantidad_tiempo`) END as cantidad_tiempo'))
-        ->where('periodo_extra','=',8)
+        ->where('periodo_extra','=',$identificador_periodo)
         ->where('clave_empleado','=',$claveEmp)
         ->first();
 
         if($conteohoras->cantidad_tiempo!=0){
             $horasExtras = DB::connection('DB_Serverr')->table('tiempo_extra')
             ->select('fecha_extra',DB::raw('SUM(cantidad_tiempo) as cantidad_tiempo'))
-            ->where('periodo_extra','=',8)
+            ->where('periodo_extra','=',$identificador_periodo)
             ->where('clave_empleado','=',$claveEmp)
             ->whereBetween('fecha_extra',array($manipulacion_fechas->fecha_inicio,$manipulacion_fechas->fecha_fin))
             ->groupBy('fecha_extra')

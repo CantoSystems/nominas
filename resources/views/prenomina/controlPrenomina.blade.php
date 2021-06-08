@@ -31,7 +31,7 @@
                                 <div class="card-header" style="background-color:darkgrey;padding:6px 6px 6px 6px; color:white">
                                     <h6 class="card-title">
                                         Empleado: 
-                                        @if(isset($prenominaPercepciones))
+                                        @if(isset($clave))
                                             {{$clave->nombre ?? ''}} {{$clave->apellido_paterno ?? ''}} {{$clave->apellido_materno ?? ''}}
                                         @else
                                             No ha seleccionado ningun empleado
@@ -39,20 +39,6 @@
                                     </h6>
                                 </div>
                             <div class="card-body">
-                            @if(isset($prenominaPercepciones))
-                                @if(isset($status_prenomina->status_prenomina) == 0)
-                                <div class="alert alert-light" role="alert">
-                                  Nómina sin verificar
-                                </div>
-                                @else
-                                <div class="alert alert-success" role="alert">
-                                  Nómina Verificada
-                                </div>
-                                @endif
-                            @else
-
-                                
-                            @endif
                                 <div class="row" >
                                     <div class="col-sm-6">
                                         <table class="table table-hover prueba">
@@ -67,19 +53,20 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                @if(isset($prenominaPercepciones))
-                                                    @foreach ($prenominaPercepciones as $percepciones)
+                                                @if(isset($portipopercepciones))
+                                                    @foreach ($portipopercepciones as $percepciones)
                                                         <tr>
                                                             <td>
-                                                                <input type="hidden" class="idPrenomina" value="{{ $percepciones->id_prenomina }}">
-                                                                <input type="hidden" class="clvCncpt" value="{{ $percepciones->clave_concepto }}">
-                                                                {{$percepciones->clave_concepto}}
+                                                                <input type="hidden" value="{{$percepciones['clave_empleado']}}">
+                                                                {{ $percepciones['clave_concepto'] }}
+                                                                
                                                             <td>
                                                             <td>
-                                                                {{$percepciones->concepto}}
+                                                                {{$percepciones['concepto']}}
                                                             </td>
                                                             <td>
-                                                                <input type="number" step=".01" class="form-control monto totales" value="{{ $percepciones->monto }}">
+                                                                <input type="text" class="totales" value="{{$percepciones['monto']}}" disabled>
+                                                                
                                                             </td>
                                                         </tr>
                                                     @endforeach 
@@ -101,19 +88,18 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                @if(isset($prenominaPercepciones))
-                                                    @foreach($prenominaDeducciones as $deducciones)
+                                                @if(isset($portipodeducciones))
+                                                    @foreach($portipodeducciones as $deducciones)
                                                         <tr>
                                                             <td>
-                                                                <input type="hidden" class="idPrenomina" value="{{ $deducciones->id_prenomina }}">
-                                                                <input type="hidden" class="clvCncpt" value="{{ $deducciones->clave_concepto }}">
-                                                                {{ $deducciones->clave_concepto }}
+                                                                <input type="hidden" class="clvCncpt" value="{{ $deducciones['clave_empleado'] }}">
+                                                                {{ $deducciones['clave_concepto'] }}
                                                             <td>
                                                             <td>
-                                                                {{ $deducciones->concepto }}
+                                                                {{ $deducciones['concepto'] }}
                                                             </td>
                                                             <td>
-                                                                <input type="number" step=".01" class="form-control monto totales2" value="{{ $deducciones->monto }}">
+                                                                <input type="number" step=".01" class="form-control monto totales2" value="{{ $deducciones['monto'] }}">
                                                             </td>
                                                         </tr>
                                                     @endforeach 
