@@ -57,16 +57,17 @@
                                                     @foreach ($portipopercepciones as $percepciones)
                                                         <tr>
                                                             <td>
-                                                                <input type="hidden" value="{{$percepciones['clave_empleado']}}">
+                                                                <input type="hidden" class="clvEmpleado" value="{{$percepciones['clave_empleado']}}">
                                                                 {{ $percepciones['clave_concepto'] }}
                                                                 
                                                             <td>
                                                             <td>
+                                                                <input type="hidden" class="clvCncpt" value="{{$percepciones['concepto']}}">
                                                                 {{$percepciones['concepto']}}
                                                             </td>
                                                             <td>
-                                                                <input type="text" class="totales" value="{{$percepciones['monto']}}" disabled>
-                                                                
+                                                                <input type="hidden" class="monto" value="{{$percepciones['monto']}}" disabled>
+                                                                {{$percepciones['monto']}}
                                                             </td>
                                                         </tr>
                                                     @endforeach 
@@ -99,7 +100,8 @@
                                                                 {{ $deducciones['concepto'] }}
                                                             </td>
                                                             <td>
-                                                                <input type="number" step=".01" class="form-control monto totales2" value="{{ $deducciones['monto'] }}">
+                                                                <input type="hidden" step=".01" class="form-control monto totales2" value="{{ $deducciones['monto'] }}">
+                                                                {{ $deducciones['monto'] }}
                                                             </td>
                                                         </tr>
                                                     @endforeach 

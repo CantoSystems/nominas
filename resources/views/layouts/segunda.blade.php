@@ -1012,5 +1012,38 @@ scratch. This page gets rid of all links and provides the needed markup only.
     });
   });
 </script>
+<!--Script para el control de prenomina-->
+<script>
+  $(document).ready(function(){
+     $('#autorizar').click(function(e){
+      e.preventDefault();
+      let myTableArray = [];
+      document.querySelectorAll('.prueba tbody tr').forEach(function(e){
+        let fila = {
+          empleado_clave: e.querySelector('.clvEmpleado').value,
+          concepto: e.querySelector('.clvCncpt').value,
+          monto: e.querySelector('.monto').value
+        };
+        myTableArray.push(fila);
+        console.log(myTableArray);
+      });
+      let jsonString = JSON.stringify(myTableArray);
+      /*$.ajax({
+        url: "{{ route('prenomina.store') }}",
+        method: "POST",
+        data: {
+          _token: $("meta[name='csrf-token']").attr("content"),
+          info : jsonString,
+        },
+        success: function(data){
+        },
+        error: function(xhr, status, error) {
+          var err = JSON.parse(xhr.responseText);
+          console.log(err.Message);
+        }
+      });*/
+    });
+  });
+</script>
 </body>
 </html>
