@@ -794,6 +794,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <script>
   $(document).ready(function(){
     /* Scripts para generar los resultados de las operaciones al cargar la página */
+    /* Total Percepciones */
     var importe_total = 0
     $(".totales").each(function(index, value) {
       if($.isNumeric($(this).val())){
@@ -802,6 +803,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
     });
     $(".totalPercepciones").val(importe_total);
 
+    /* Total Deducciones */
     var importe_total = 0
     $(".totales2").each(function(index, value) {
       if($.isNumeric($(this).val())){
@@ -810,27 +812,50 @@ scratch. This page gets rid of all links and provides the needed markup only.
     });
     $(".totalDeducciones").val(importe_total);
 
-    /* Scripts en caso de que algún input se modifique */
-    $(".totales").change(function(e){
-      e.preventDefault();
-      var importe_total = 0
-      $(".totales").each(function(index, value) {
-        if($.isNumeric($(this).val())){
-          importe_total = importe_total + eval($(this).val());
-        }
-      });
-      $(".totalPercepciones").val(importe_total);
+    /* Suma Percepciones Gravadas */
+    var importe_totalGrav = 0
+    $(".percepGrav").each(function(index, value) {
+      if($.isNumeric($(this).val())){
+        importe_totalGrav = importe_totalGrav + eval($(this).val());
+      }
     });
+    $(".totalPercepcionesGravadas").val(importe_totalGrav);
 
-    $(".totales2").change(function(e){
-      e.preventDefault();
-      var importe_total = 0
-      $(".totales2").each(function(index, value) {
-        if($.isNumeric($(this).val())){
-          importe_total = importe_total + eval($(this).val());
-        }
-      });
-      $(".totalDeducciones").val(importe_total);
+    /* Suma Percepciones NO Gravadas */
+    var importe_totalNoGrav = 0
+    $(".percepExcentas").each(function(index, value) {
+      if($.isNumeric($(this).val())){
+        importe_totalNoGrav = importe_totalNoGrav + eval($(this).val());
+      }
+    });
+    $(".totalPercepcionesExcentas").val(importe_totalNoGrav);
+
+    $.ajax({
+      url: "{{ route('prenomina.Impuestos') }}",
+      method: "POST",
+      data: {
+        _token: $("meta[name='csrf-token']").attr("content"),
+        totalPercepcionesGrav: $('.totalPercepcionesGravadas').val(),
+        totalPercepcionesNoGrav: $('.totalPercepcionesExcentas').val(),
+      },
+      success: function(data){
+        //console.log(data);
+        let htmlTags = '<tr>'+
+                          '<td>' + data[0] + '</td>'+
+                          '<td>' + data[1] + '</td>'+
+                          '<td>' + data[2].toFixed(2) + '</td>'+
+                        '</tr>'
+        $('#filasImpuestos tbody').append(htmlTags);
+        let htmlTags2 = '<tr>'+
+                          '<td colspan="2" style="text-align: right; valign: middle;">Total:</td>'+
+                          '<td style="width: 42%; text-align: right; valign: middle;">' + data[2].toFixed(2) + '</td>'+
+                        '</tr>'
+        $('#totalesImpuestos tbody').append(htmlTags2);
+      },
+      error: function(xhr, status, error) {
+        var err = JSON.parse(xhr.responseText);
+        console.log(err.Message);
+      }
     });
 
     /* Script para guardar los cambios hechos en los inputs */

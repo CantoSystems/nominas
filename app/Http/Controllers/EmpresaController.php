@@ -472,6 +472,7 @@ class EmpresaController extends Controller{
 
         Schema::connection('DB_Serverr')->create('prenomina', function($table){
             $table->increments('id_prenomina');
+            $table->int('noPrenomina');
             $table->char('clave_empleado',5);
             $table->integer('prenomina_periodo');
             $table->char('clave_concepto',5);
