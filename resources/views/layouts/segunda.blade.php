@@ -476,27 +476,30 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.10/jquery.mask.js"></script>
 <script src="{{ asset('/Admin/plugins/jquery-ui/jquery-ui.min.js')}}"></script>
 <script>
-  $(document).on('click', 'ul li', function(){
-    //e.preventDefault();
-    $(this).addClass('activo').siblings().removeClass('activo')
+ //funcionaiento del datarange de los input tipo fecha
+  //se encuentran en modal empleados
+  $(document).ready(function(){
+    $('#duracion').daterangepicker();
+    $('#duracion2').daterangepicker();
+    $('#duracion3').daterangepicker();
+    $('#duracion4').daterangepicker();
+    $('#duracion5').daterangepicker();
+    $('#duracion6').daterangepicker();
+    $('#duracion7').daterangepicker();
+    $('#duracion8').daterangepicker();
+    $('#duracion9').daterangepicker();
+    //Máscara de Telefonos para empleados
+    $('.telefono_referencia').mask('(00) 0000-0000');
+    $('.telefono_referencia1').mask('(00) 0000-0000');
+    $('.telefono_referencia2').mask('(00) 0000-0000');
+    $('.telefono_empleado').mask('(00) 0000-0000');
+    $('.telefono_compania').mask('(00) 0000-0000');
+    $('.telefono1').mask('(00) 0000-0000');
+    $('.telefono2').mask('(00) 0000-0000');
+    $('.telefono3').mask('(00) 0000-0000');
   });
 </script>
 
-<script>
-  //funcionaiento del datarange de los input tipo fecha
-  //se encuentran en modal empleados
-  $(function(){
-    $('#duracion').daterangepicker()
-    $('#duracion2').daterangepicker()
-    $('#duracion3').daterangepicker()
-    $('#duracion4').daterangepicker()
-    $('#duracion5').daterangepicker()
-    $('#duracion6').daterangepicker()
-    $('#duracion7').daterangepicker()
-    $('#duracion8').daterangepicker()
-    $('#duracion9').daterangepicker()
-  });
-</script>
 <script>
   //Funcionamiento de los botones de los catalogos Actualizar y registrar
   $(function(){
@@ -565,46 +568,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
     });
   });
 </script>
-
-  <!--CDN para el funcionamiento de la mascara de los telefonos del catalogo de empleado-->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.10/jquery.mask.js"></script>
-<script>
-    $('.telefono_referencia').mask('(00) 0000-0000');
-</script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.10/jquery.mask.js"></script>
-<script>
-    $('.telefono_referencia1').mask('(00) 0000-0000');
-</script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.10/jquery.mask.js"></script>
-<script>
-    $('.telefono_referencia2').mask('(00) 0000-0000');
-</script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.10/jquery.mask.js"></script>
-<script>
-    $('.telefono_empleado').mask('(00) 0000-0000');
-</script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.10/jquery.mask.js"></script>
-<script>
-    $('.telefono_compania').mask('(00) 0000-0000');
-</script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.10/jquery.mask.js"></script>
-<script>
-    $('.telefono1').mask('(00) 0000-0000');
-</script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.10/jquery.mask.js"></script>
-<script>
-    $('.telefono2').mask('(00) 0000-0000');
-</script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.10/jquery.mask.js"></script>
-<script>
-    $('.telefono3').mask('(00) 0000-0000');
-</script>
-<script>
-  //Funcionamiento convertir texto en mayusculas
-  function mayus(e) {
-    e.value = e.value.toUpperCase();
-  }
-</script>
 <script type="text/javascript">
   //Validar solo ingresen texto
   function validar(e) {
@@ -614,20 +577,18 @@ scratch. This page gets rid of all links and provides the needed markup only.
     te = String.fromCharCode(tecla);
     return patron.test(te);
   }
-</script>
-
-<script type="text/javascript">
-  //validar tipo de sangre
-  function validasangre(e) {
+  //Funcionamiento convertir texto en mayusculas
+   function mayus(e) {
+    e.value = e.value.toUpperCase();
+  }
+   //validar tipo de sangre
+   function validasangre(e) {
   tecla = (document.all) ? e.keyCode : e.which;
   if (tecla==8) return true;
     patron =/[A-Za-z-+\s]/;
     te = String.fromCharCode(tecla);
     return patron.test(te);
   }
-</script>
-
-<script type="text/javascript">
   //validar solo números
   function numeros(event) {
     if(event.charCode >=48 && event.charCode <=57 ){
@@ -636,6 +597,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
     return false;
   }
 </script>
+
+
+
 
 <!-- Scripts para Autocomplete empleados y conceptos -->
 <script>
@@ -865,7 +829,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
         $(".example12 tbody tr").closest('tr').remove();
       },
       error: function(xhr, status, error) {
-        var err = JSON.parse(xhr.responseText);
+        let err = JSON.parse(xhr.responseText);
         console.log(err.Message);
       }
     });
@@ -928,7 +892,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
         $(".example12 tbody tr").closest('tr').remove();
       },
       error: function(xhr, status, error) {
-        var err = JSON.parse(xhr.responseText);
+        let err = JSON.parse(xhr.responseText);
         console.log(err.Message);
       }
     });
@@ -939,7 +903,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <script>
   $(document).ready(function(){
     /* Scripts para generar los resultados de las operaciones al cargar la página */
-    var importe_total = 0
+    let importe_total = 0
     $(".totales").each(function(index, value) {
       if($.isNumeric($(this).val())){
         importe_total = importe_total + eval($(this).val());
@@ -947,7 +911,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
     });
     $(".totalPercepciones").val(importe_total);
 
-    var importe_total = 0
+    let importe_total = 0
     $(".totales2").each(function(index, value) {
       if($.isNumeric($(this).val())){
         importe_total = importe_total + eval($(this).val());
@@ -958,7 +922,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
     /* Scripts en caso de que algún input se modifique */
     $(".totales").change(function(e){
       e.preventDefault();
-      var importe_total = 0
+      let importe_total = 0
       $(".totales").each(function(index, value) {
         if($.isNumeric($(this).val())){
           importe_total = importe_total + eval($(this).val());
@@ -969,7 +933,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
     $(".totales2").change(function(e){
       e.preventDefault();
-      var importe_total = 0
+      let importe_total = 0
       $(".totales2").each(function(index, value) {
         if($.isNumeric($(this).val())){
           importe_total = importe_total + eval($(this).val());
