@@ -189,3 +189,4 @@ Route::delete('/descanso/{id}','DescansosController@destroy')->name('descansos.d
 //nuevo control Prenomina
 Route::get('/prenomina-normal', 'ControlPrenominaController@index')->name('control.index');
 Route::get('/prenomina-normal/{id_emp}', 'ControlPrenominaController@create')->name('control.create');
+Route::post('/prenomina-normal/enviocontrolprenomina', 'ControlPrenominaController@store')->name('control.store');

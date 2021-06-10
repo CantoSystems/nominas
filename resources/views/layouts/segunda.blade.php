@@ -438,14 +438,11 @@ scratch. This page gets rid of all links and provides the needed markup only.
     @yield('content')
 </div>
 
-</body>
-  <!-- Main Footer -->
   <footer class="main-footer">
     <!-- Default to the left -->
     <strong>Canto Contadores &copy; 1989-2020</strong>
   </footer>
-<!-- ./wrapper -->
-</html>
+
 <!-- REQUIRED SCRIPTS -->
 
 <!-- jQuery -->
@@ -997,6 +994,39 @@ scratch. This page gets rid of all links and provides the needed markup only.
       let jsonString = JSON.stringify(myTableArray);
       $.ajax({
         url: "{{ route('prenomina.store') }}",
+        method: "POST",
+        data: {
+          _token: $("meta[name='csrf-token']").attr("content"),
+          info : jsonString,
+        },
+        success: function(data){
+        },
+        error: function(xhr, status, error) {
+          var err = JSON.parse(xhr.responseText);
+          console.log(err.Message);
+        }
+      });
+    });
+  });
+</script>
+<!--Script para el control de prenomina-->
+<script>
+  $(document).ready(function(){
+     $('#autorizar').click(function(e){
+      e.preventDefault();
+      let myTableControl = [];
+      document.querySelectorAll('.control tbody tr').forEach(function(e){
+        let fila = {
+          concepto:   e.querySelector('.clvCncpt').value,
+          monto:      e.querySelector('.monto').value,
+          clvEmp:     e.querySelector('.clvEmp').value,
+        };
+        myTableControl.push(fila);
+        console.log(myTableControl);
+      });
+      let jsonString = JSON.stringify(myTableControl);
+      $.ajax({
+        url: "{{ route('control.store') }}",
         method: "POST",
         data: {
           _token: $("meta[name='csrf-token']").attr("content"),
