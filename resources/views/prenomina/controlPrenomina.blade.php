@@ -41,7 +41,7 @@
                             <div class="card-body">
                                 <div class="row" >
                                     <div class="col-sm-6">
-                                        <table class="table table-hover prueba">
+                                        <table class="table table-hover control">
                                             <thead class="thead-light">
                                                 <tr>
                                                     <th scope="col" colspan="4" style="text-align: center;">Percepciones</th>
@@ -57,16 +57,16 @@
                                                     @foreach ($portipopercepciones as $percepciones)
                                                         <tr>
                                                             <td>
-                                                                <input type="hidden" class="clvEmpleado" value="{{$percepciones['clave_empleado']}}">
+                                                                <input type="hidden" class="clvEmp" value="{{ $percepciones['clave_empleado'] }}">
                                                                 {{ $percepciones['clave_concepto'] }}
                                                                 
                                                             <td>
                                                             <td>
-                                                                <input type="hidden" class="clvCncpt" value="{{$percepciones['concepto']}}">
+                                                                <input type="hidden" class="clvCncpt" value="{{ $percepciones['clave_concepto'] }}">
                                                                 {{$percepciones['concepto']}}
                                                             </td>
                                                             <td>
-                                                                <input type="hidden" class="monto" value="{{$percepciones['monto']}}" disabled>
+                                                                <input type="hidden" class="monto totales" value="{{$percepciones['monto']}}" disabled>
                                                                 {{$percepciones['monto']}}
                                                             </td>
                                                         </tr>
@@ -77,7 +77,7 @@
                                         </table>
                                     </div>
                                     <div class = "col-sm-6">
-                                        <table class="table table-hover prueba">
+                                        <table class="table table-hover control">
                                             <thead class="thead-light">
                                                 <tr>
                                                     <th scope="col" colspan="4" style="text-align: center;">Deducciones</th>
@@ -93,10 +93,11 @@
                                                     @foreach($portipodeducciones as $deducciones)
                                                         <tr>
                                                             <td>
-                                                                <input type="hidden" class="clvCncpt" value="{{ $deducciones['clave_empleado'] }}">
+                                                                <input type="hidden" class="clvEmp" value="{{ $deducciones['clave_empleado'] }}">
                                                                 {{ $deducciones['clave_concepto'] }}
                                                             <td>
                                                             <td>
+                                                                <input type="hidden" class="clvCncpt" value="{{ $deducciones['clave_concepto'] }}">
                                                                 {{ $deducciones['concepto'] }}
                                                             </td>
                                                             <td>

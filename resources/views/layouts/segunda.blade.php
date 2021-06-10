@@ -438,14 +438,11 @@ scratch. This page gets rid of all links and provides the needed markup only.
     @yield('content')
 </div>
 
-</body>
-  <!-- Main Footer -->
   <footer class="main-footer">
     <!-- Default to the left -->
     <strong>Canto Contadores &copy; 1989-2020</strong>
   </footer>
-<!-- ./wrapper -->
-</html>
+
 <!-- REQUIRED SCRIPTS -->
 
 <!-- jQuery -->
@@ -1017,19 +1014,19 @@ scratch. This page gets rid of all links and provides the needed markup only.
   $(document).ready(function(){
      $('#autorizar').click(function(e){
       e.preventDefault();
-      let myTableArray = [];
-      document.querySelectorAll('.prueba tbody tr').forEach(function(e){
+      let myTableControl = [];
+      document.querySelectorAll('.control tbody tr').forEach(function(e){
         let fila = {
-          empleado_clave: e.querySelector('.clvEmpleado').value,
-          concepto: e.querySelector('.clvCncpt').value,
-          monto: e.querySelector('.monto').value
+          concepto:   e.querySelector('.clvCncpt').value,
+          monto:      e.querySelector('.monto').value,
+          clvEmp:     e.querySelector('.clvEmp').value,
         };
-        myTableArray.push(fila);
-        console.log(myTableArray);
+        myTableControl.push(fila);
+        console.log(myTableControl);
       });
-      let jsonString = JSON.stringify(myTableArray);
-      /*$.ajax({
-        url: "{{ route('prenomina.store') }}",
+      let jsonString = JSON.stringify(myTableControl);
+      $.ajax({
+        url: "{{ route('control.store') }}",
         method: "POST",
         data: {
           _token: $("meta[name='csrf-token']").attr("content"),
@@ -1041,7 +1038,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
           var err = JSON.parse(xhr.responseText);
           console.log(err.Message);
         }
-      });*/
+      });
     });
   });
 </script>
