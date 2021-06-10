@@ -29,21 +29,42 @@
                             <button type="submit" name="acciones" value="recalcular" id="recalcular" style='width:125px; height:38px;'>Re-Calcular Nómina</button>
                         </div>
                     </div>
-                    <!--Cuerpo de la prenomina-->
-                    <br>
-                        <div class="card-header" style="background-color:darkgrey;padding:6px 6px 6px 6px; color:white">
-                            <h6 class="card-title">
-                                Empleado: 
-                                @if(isset($prenominaPercepciones))
-                                    {{$clave->nombre ?? ''}} {{$clave->apellido_paterno ?? ''}} {{$clave->apellido_materno ?? ''}}
-                                @else
-                                    No ha seleccionado ningun empleado
-                                @endif
-                            </h6>
-                        </div>
                     <div class="card-body">
-                        @if(isset($prenominaPercepciones))
-                            @if($status_prenomina->status_prenomina == 0)
+                        <form action="{{ route('prenomina.index') }}" method="GET" autocomplete="off">
+                            <meta name="csrf-token" content="{{ csrf_token() }}">
+                            <div class="row">
+                                <div class="col">
+                                    <button type="submit" name="acciones" value="calcular" id="calcular" style='width:125px; height:38px;'>Calcular Nómina</button>
+                                </div>
+                                <div class="col">
+                                    @can('administrador')
+                                        <a data-target="#modalbusquedaemp" data-toggle="modal">
+                                            <button type="submit" name="acciones" value="mostrar"  style='width: 65px; height: 38px'>
+                                                <i class="far fa-eye"></i>
+                                            </button>
+                                        </a>
+                                        @include('prenomina.modalEmpleado')
+                                    @endcan
+                                </div>
+                                <div class="col">
+                                    <button type="submit" name="acciones" value="recalcular" id="recalcular" style='width:125px; height:38px;'>Re-Calcular Nómina</button>
+                                </div>
+                            </div>
+                            <!--Cuerpo de la prenomina-->
+                            <br>
+                                <div class="card-header" style="background-color:darkgrey;padding:6px 6px 6px 6px; color:white">
+                                    <h6 class="card-title">
+                                        Empleado: 
+                                        @if(isset($prenominaPercepciones))
+                                            {{$clave->nombre ?? ''}} {{$clave->apellido_paterno ?? ''}} {{$clave->apellido_materno ?? ''}}
+                                        @else
+                                            No ha seleccionado ningun empleado
+                                        @endif
+                                    </h6>
+                                </div>
+                            <div class="card-body">
+                            @if(isset($prenominaPercepciones))
+                                @if(isset($status_prenomina->status_prenomina) == 0)
                                 <div class="alert alert-light" role="alert">
                                     Nómina sin verificar
                                 </div>
@@ -51,25 +72,85 @@
                                 <div class="alert alert-success" role="alert">
                                     Nómina Verificada
                                 </div>
+                                @endif
+                            @else
+
+                                
                             @endif
-                        @else
-                        @endif
-                        <div class="row" >
-                            <div class="col-sm-6">
-                                <table class="table table-hover prueba">
-                                    <thead class="thead-light">
-                                        <tr>
-                                            <th scope="col" colspan="4" style="text-align: center;">Percepciones</th>
-                                        </tr>
-                                        <tr>
-                                            <th scope="col" style="text-align: center;">Clave</th>
-                                            <th scope="col"  colspan="2" style="text-align: center;">Concepto</th>
-                                            <th scope="col" style="text-align: center;">Total</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @if(isset($prenominaPercepciones))
-                                            @foreach ($prenominaPercepciones as $percepciones)
+                                <div class="row" >
+                                    <div class="col-sm-6">
+                                        <table class="table table-hover prueba">
+                                            <thead class="thead-light">
+                                                <tr>
+                                                    <th scope="col" colspan="4" style="text-align: center;">Percepciones</th>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="col" style="text-align: center;">Clave</th>
+                                                    <th scope="col"  colspan="2" style="text-align: center;">Concepto</th>
+                                                    <th scope="col" style="text-align: center;">Total</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @if(isset($prenominaPercepciones))
+                                                    @foreach ($prenominaPercepciones as $percepciones)
+                                                        <tr>
+                                                            <td>
+                                                                <input type="hidden" class="idPrenomina" value="{{ $percepciones->id_prenomina }}">
+                                                                <input type="hidden" class="clvCncpt" value="{{ $percepciones->clave_concepto }}">
+                                                                {{$percepciones->clave_concepto}}
+                                                            <td>
+                                                            <td>
+                                                                {{$percepciones->concepto}}
+                                                            </td>
+                                                            <td>
+                                                                <input type="number" step=".01" class="form-control monto totales" value="{{ $percepciones->monto }}">
+                                                            </td>
+                                                        </tr>
+                                                    @endforeach 
+                                                @else
+                                                @endif
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div class = "col-sm-6">
+                                        <table class="table table-hover prueba">
+                                            <thead class="thead-light">
+                                                <tr>
+                                                    <th scope="col" colspan="4" style="text-align: center;">Deducciones</th>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="col" style="text-align: center;">Clave</th>
+                                                    <th scope="col" colspan="2" style="text-align: center;">Concepto</th>
+                                                    <th scope="col" style="text-align: center;">Total</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @if(isset($prenominaPercepciones))
+                                                    @foreach($prenominaDeducciones as $deducciones)
+                                                        <tr>
+                                                            <td>
+                                                                <input type="hidden" class="idPrenomina" value="{{ $deducciones->id_prenomina }}">
+                                                                <input type="hidden" class="clvCncpt" value="{{ $deducciones->clave_concepto }}">
+                                                                {{ $deducciones->clave_concepto }}
+                                                            <td>
+                                                            <td>
+                                                                {{ $deducciones->concepto }}
+                                                            </td>
+                                                            <td>
+                                                                <input type="number" step=".01" class="form-control monto totales2" value="{{ $deducciones->monto }}">
+                                                            </td>
+                                                        </tr>
+                                                    @endforeach 
+                                                @else
+                                                @endif
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <table class="table table-hover">
+                                            <tbody>
                                                 <tr>
                                                     <td>
                                                         <input type="hidden" class="idPrenomina" value="{{ $percepciones->id_prenomina }}">

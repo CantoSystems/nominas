@@ -188,14 +188,14 @@
 
                         <div class="col-sm-2">
                             <div class="form-group">
-                                <label>UMA IMMS:</label>
+                                <label>UMA IMSS:</label>
                                 <input type="number" name="imss_uma" class="form-control" value="{{$aux->imss_uma}}" onkeyup="mayus(this);" onkeypress="return numeros(event)">
                             </div>
                         </div>
 
                         <div class="col-sm-2">
                             <div class="form-group">
-                                <label>% IMMS:</label>
+                                <label>% IMSS:</label>
                                 <input type="number" name="imss_porcentaje" class="form-control" value="{{$aux->imss_porcentaje}}" onkeyup="mayus(this);" onkeypress="return numeros(event)">
                             </div>
                         </div>

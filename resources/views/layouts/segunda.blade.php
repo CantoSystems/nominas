@@ -58,7 +58,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <!-- Main Sidebar Container -->
   <aside class="main-sidebar sidebar-dark-primary bg-gray elevation-4">
     <!-- Brand Logo -->
-    <a href="#" class="brand-link">
+    <a href="#" class="brand-link" style="font-size: 1.5em">
       <img src="{{ asset('/Admin/dist/img/logo.png')}}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
            style="opacity: .8">
       <span class="brand-text font-weight-light">{{ Session::get('empresa') }} <br>
@@ -240,6 +240,146 @@ scratch. This page gets rid of all links and provides the needed markup only.
               </li>
             </ul>
           </li>
+          <li class="nav-item has-treeview menu-open">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-tachometer-alt"></i>
+              <p>
+               Nómina aguinaldo
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a name="botonNominas" id="botonNominas" href="{{ route('prenomina.index')}}" class="nav-link active">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Prenómina</p>
+                </a>
+              </li>
+            </ul>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{ route('reportnomina.index')}}" class="nav-link active">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Nómina normal</p>
+                </a>
+              </li>
+            </ul>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{ route('reportnomina.index')}}" class="nav-link active">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Recibo</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-item has-treeview menu-open">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-tachometer-alt"></i>
+              <p>
+               Nómina  PTU
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a name="botonNominas" id="botonNominas" href="{{ route('prenomina.index')}}" class="nav-link active">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Prenómina</p>
+                </a>
+              </li>
+            </ul>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{ route('reportnomina.index')}}" class="nav-link active">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Nómina normal</p>
+                </a>
+              </li>
+            </ul>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{ route('reportnomina.index')}}" class="nav-link active">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Recibo</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-item has-treeview menu-open">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-tachometer-alt"></i>
+              <p>
+               Nómina especial
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a name="botonNominas" id="botonNominas" href="{{ route('prenomina.index')}}" class="nav-link active">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Prenómina</p>
+                </a>
+              </li>
+            </ul>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a name="botonNominas" id="botonNominas" href="{{ route('control.index')}}" class="nav-link active">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Nuevo</p>
+                </a>
+              </li>
+            </ul>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{ route('reportnomina.index')}}" class="nav-link active">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Nómina normal</p>
+                </a>
+              </li>
+            </ul>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{ route('reportnomina.index')}}" class="nav-link active">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Recibo</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-item has-treeview menu-open">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-tachometer-alt"></i>
+              <p>
+               Fondo de Ahorro
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a name="botonNominas" id="botonNominas" href="{{ route('prenomina.index')}}" class="nav-link active">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Prenómina</p>
+                </a>
+              </li>
+            </ul>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{ route('reportnomina.index')}}" class="nav-link active">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Nómina normal</p>
+                </a>
+              </li>
+            </ul>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{ route('reportnomina.index')}}" class="nav-link active">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Recibo</p>
+                </a>
+              </li>
+            </ul>
+          </li>
         
         <!---->
         <li class="nav-item has-treeview menu-open">
@@ -263,6 +403,14 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <a href="{{ route('reportnomina.index')}}" class="nav-link active">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Nómina normal</p>
+                </a>
+              </li>
+            </ul>
+            <ul class="nav nav-treeview">
+              <li class="nav-item {{!Route::is('reportnomina.index') ?: 'active'}}">
+                <a href="{{ route('reportnomina.index')}}" class="nav-link active">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Recibo</p>
                 </a>
               </li>
             </ul>
@@ -290,14 +438,11 @@ scratch. This page gets rid of all links and provides the needed markup only.
     @yield('content')
 </div>
 
-</body>
-  <!-- Main Footer -->
   <footer class="main-footer">
     <!-- Default to the left -->
     <strong>Canto Contadores &copy; 1989-2020</strong>
   </footer>
-<!-- ./wrapper -->
-</html>
+
 <!-- REQUIRED SCRIPTS -->
 
 <!-- jQuery -->
@@ -331,27 +476,30 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.10/jquery.mask.js"></script>
 <script src="{{ asset('/Admin/plugins/jquery-ui/jquery-ui.min.js')}}"></script>
 <script>
-  $(document).on('click', 'ul li', function(){
-    //e.preventDefault();
-    $(this).addClass('activo').siblings().removeClass('activo')
+ //funcionaiento del datarange de los input tipo fecha
+  //se encuentran en modal empleados
+  $(document).ready(function(){
+    $('#duracion').daterangepicker();
+    $('#duracion2').daterangepicker();
+    $('#duracion3').daterangepicker();
+    $('#duracion4').daterangepicker();
+    $('#duracion5').daterangepicker();
+    $('#duracion6').daterangepicker();
+    $('#duracion7').daterangepicker();
+    $('#duracion8').daterangepicker();
+    $('#duracion9').daterangepicker();
+    //Máscara de Telefonos para empleados
+    $('.telefono_referencia').mask('(00) 0000-0000');
+    $('.telefono_referencia1').mask('(00) 0000-0000');
+    $('.telefono_referencia2').mask('(00) 0000-0000');
+    $('.telefono_empleado').mask('(00) 0000-0000');
+    $('.telefono_compania').mask('(00) 0000-0000');
+    $('.telefono1').mask('(00) 0000-0000');
+    $('.telefono2').mask('(00) 0000-0000');
+    $('.telefono3').mask('(00) 0000-0000');
   });
 </script>
 
-<script>
-  //funcionaiento del datarange de los input tipo fecha
-  //se encuentran en modal empleados
-  $(function(){
-    $('#duracion').daterangepicker()
-    $('#duracion2').daterangepicker()
-    $('#duracion3').daterangepicker()
-    $('#duracion4').daterangepicker()
-    $('#duracion5').daterangepicker()
-    $('#duracion6').daterangepicker()
-    $('#duracion7').daterangepicker()
-    $('#duracion8').daterangepicker()
-    $('#duracion9').daterangepicker()
-  });
-</script>
 <script>
   //Funcionamiento de los botones de los catalogos Actualizar y registrar
   $(function(){
@@ -420,46 +568,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
     });
   });
 </script>
-
-  <!--CDN para el funcionamiento de la mascara de los telefonos del catalogo de empleado-->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.10/jquery.mask.js"></script>
-<script>
-    $('.telefono_referencia').mask('(00) 0000-0000');
-</script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.10/jquery.mask.js"></script>
-<script>
-    $('.telefono_referencia1').mask('(00) 0000-0000');
-</script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.10/jquery.mask.js"></script>
-<script>
-    $('.telefono_referencia2').mask('(00) 0000-0000');
-</script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.10/jquery.mask.js"></script>
-<script>
-    $('.telefono_empleado').mask('(00) 0000-0000');
-</script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.10/jquery.mask.js"></script>
-<script>
-    $('.telefono_compania').mask('(00) 0000-0000');
-</script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.10/jquery.mask.js"></script>
-<script>
-    $('.telefono1').mask('(00) 0000-0000');
-</script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.10/jquery.mask.js"></script>
-<script>
-    $('.telefono2').mask('(00) 0000-0000');
-</script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.10/jquery.mask.js"></script>
-<script>
-    $('.telefono3').mask('(00) 0000-0000');
-</script>
-<script>
-  //Funcionamiento convertir texto en mayusculas
-  function mayus(e) {
-    e.value = e.value.toUpperCase();
-  }
-</script>
 <script type="text/javascript">
   //Validar solo ingresen texto
   function validar(e) {
@@ -469,20 +577,18 @@ scratch. This page gets rid of all links and provides the needed markup only.
     te = String.fromCharCode(tecla);
     return patron.test(te);
   }
-</script>
-
-<script type="text/javascript">
-  //validar tipo de sangre
-  function validasangre(e) {
+  //Funcionamiento convertir texto en mayusculas
+   function mayus(e) {
+    e.value = e.value.toUpperCase();
+  }
+   //validar tipo de sangre
+   function validasangre(e) {
   tecla = (document.all) ? e.keyCode : e.which;
   if (tecla==8) return true;
     patron =/[A-Za-z-+\s]/;
     te = String.fromCharCode(tecla);
     return patron.test(te);
   }
-</script>
-
-<script type="text/javascript">
   //validar solo números
   function numeros(event) {
     if(event.charCode >=48 && event.charCode <=57 ){
@@ -491,6 +597,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
     return false;
   }
 </script>
+
+
+
 
 <!-- Scripts para Autocomplete empleados y conceptos -->
 <script>
@@ -720,7 +829,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
         $(".example12 tbody tr").closest('tr').remove();
       },
       error: function(xhr, status, error) {
-        var err = JSON.parse(xhr.responseText);
+        let err = JSON.parse(xhr.responseText);
         console.log(err.Message);
       }
     });
@@ -783,7 +892,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
         $(".example12 tbody tr").closest('tr').remove();
       },
       error: function(xhr, status, error) {
-        var err = JSON.parse(xhr.responseText);
+        let err = JSON.parse(xhr.responseText);
         console.log(err.Message);
       }
     });
@@ -794,8 +903,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <script>
   $(document).ready(function(){
     /* Scripts para generar los resultados de las operaciones al cargar la página */
-    /* Total Percepciones */
-    var importe_total = 0
+    let importe_total = 0
     $(".totales").each(function(index, value) {
       if($.isNumeric($(this).val())){
         importe_total = importe_total + eval($(this).val());
@@ -803,8 +911,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
     });
     $(".totalPercepciones").val(importe_total);
 
-    /* Total Deducciones */
-    var importe_total = 0
+    let importe_total = 0
     $(".totales2").each(function(index, value) {
       if($.isNumeric($(this).val())){
         importe_total = importe_total + eval($(this).val());
@@ -813,7 +920,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
     $(".totalDeducciones").val(importe_total);
 
     /* Suma Percepciones Gravadas */
-    var importe_totalGrav = 0
+    let importe_totalGrav = 0
     $(".percepGrav").each(function(index, value) {
       if($.isNumeric($(this).val())){
         importe_totalGrav = importe_totalGrav + eval($(this).val());
@@ -822,7 +929,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
     $(".totalPercepcionesGravadas").val(importe_totalGrav);
 
     /* Suma Percepciones NO Gravadas */
-    var importe_totalNoGrav = 0
+    let importe_totalNoGrav = 0
     $(".percepExcentas").each(function(index, value) {
       if($.isNumeric($(this).val())){
         importe_totalNoGrav = importe_totalNoGrav + eval($(this).val());
@@ -874,6 +981,39 @@ scratch. This page gets rid of all links and provides the needed markup only.
       let jsonString = JSON.stringify(myTableArray);
       $.ajax({
         url: "{{ route('prenomina.store') }}",
+        method: "POST",
+        data: {
+          _token: $("meta[name='csrf-token']").attr("content"),
+          info : jsonString,
+        },
+        success: function(data){
+        },
+        error: function(xhr, status, error) {
+          var err = JSON.parse(xhr.responseText);
+          console.log(err.Message);
+        }
+      });
+    });
+  });
+</script>
+<!--Script para el control de prenomina-->
+<script>
+  $(document).ready(function(){
+     $('#autorizar').click(function(e){
+      e.preventDefault();
+      let myTableControl = [];
+      document.querySelectorAll('.control tbody tr').forEach(function(e){
+        let fila = {
+          concepto:   e.querySelector('.clvCncpt').value,
+          monto:      e.querySelector('.monto').value,
+          clvEmp:     e.querySelector('.clvEmp').value,
+        };
+        myTableControl.push(fila);
+        console.log(myTableControl);
+      });
+      let jsonString = JSON.stringify(myTableControl);
+      $.ajax({
+        url: "{{ route('control.store') }}",
         method: "POST",
         data: {
           _token: $("meta[name='csrf-token']").attr("content"),
