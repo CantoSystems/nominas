@@ -497,6 +497,23 @@ scratch. This page gets rid of all links and provides the needed markup only.
     $('.telefono1').mask('(00) 0000-0000');
     $('.telefono2').mask('(00) 0000-0000');
     $('.telefono3').mask('(00) 0000-0000');
+
+    /* Scripts para generar los resultados de las operaciones al cargar la página */
+    var importe_total = 0
+    $(".totales").each(function(index, value) {
+      if($.isNumeric($(this).val())){
+        importe_total = importe_total + eval($(this).val());
+      }
+    });
+    $(".totalPercepciones").val(importe_total);
+
+    var importe_total = 0
+    $(".totales2").each(function(index, value) {
+      if($.isNumeric($(this).val())){
+        importe_total = importe_total + eval($(this).val());
+      }
+    });
+    $(".totalDeducciones").val(importe_total);
   });
 </script>
 
