@@ -911,13 +911,13 @@ scratch. This page gets rid of all links and provides the needed markup only.
     });
     $(".totalPercepciones").val(importe_total);
 
-    let importe_total = 0
+    let importe_total2 = 0
     $(".totales2").each(function(index, value) {
       if($.isNumeric($(this).val())){
-        importe_total = importe_total + eval($(this).val());
+        importe_total2 = importe_total2 + eval($(this).val());
       }
     });
-    $(".totalDeducciones").val(importe_total);
+    $(".totalDeducciones").val(importe_total2);
 
     /* Suma Percepciones Gravadas */
     let importe_totalGrav = 0

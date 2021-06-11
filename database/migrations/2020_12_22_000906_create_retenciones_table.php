@@ -16,8 +16,8 @@ class CreateRetencionesTable extends Migration
         Schema::create('retenciones', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->double('limite_inferior');
-            $table->double('cuota_fija');
             $table->double('limite_superior');
+            $table->double('cuota_fija');
             $table->double('porcentaje_excedente');
             $table->string('periodo_retencion');
             $table->timestamps();

@@ -1,7 +1,5 @@
 <?php
-
 namespace App\Http\Controllers;
-
 use App\Empresa;
 use Illuminate\Http\Request;
 use DB;
@@ -103,7 +101,6 @@ class EmpresaController extends Controller{
             default:
             break;
         }
-
     }
 
     /**
@@ -171,9 +168,9 @@ class EmpresaController extends Controller{
               'tipoPeriodo' => 'required',
         ]);
 
-        $empresa= new Empresa;
-        $empresa->rfc= $datos->rfc;
-        $empresa->clave= $datos->clave;
+        $empresa = new Empresa;
+        $empresa->rfc = $datos->rfc;
+        $empresa->clave = $datos->clave;
         
         DB::statement('create database '.$empresa->clave);
             $clv= $empresa->clave;
@@ -449,7 +446,6 @@ class EmpresaController extends Controller{
             $table->timestamps();
         });
 
-
         Schema::connection('DB_Serverr')->create('incidencias', function($table){
             $table->increments('id_incidencia');
             $table->char('clave_empleado',5);
@@ -472,31 +468,33 @@ class EmpresaController extends Controller{
 
         Schema::connection('DB_Serverr')->create('prenomina', function($table){
             $table->increments('id_prenomina');
-            $table->int('noPrenomina');
+            $table->integer('noPrenomina');
             $table->char('clave_empleado',5);
             $table->integer('prenomina_periodo');
             $table->char('clave_concepto',5);
             $table->double('monto');
+            $table->double('gravable');
+            $table->double('excento');
             $table->boolean('status_prenomina');
             $table->timestamps();
         });
 
-        $empresa->nombre= $datos->nombre;
-        $empresa->nombre_nomina= $datos->nombre_nomina;
-        $empresa->rfc= $datos->rfc;
-        $empresa->segurosocial= $datos->segurosocial;
-        $empresa->registro_estatal= $datos->registro_estatal;
-        $empresa->calle=$datos->calle;
-        $empresa->num_interno=$datos->num_interno;
-        $empresa->num_externo=$datos->num_externo;
-        $empresa->colonia=$datos->colonia;
-        $empresa->municipio=$datos->municipio;
-        $empresa->ciudad=$datos->ciudad;
-        $empresa->pais=$datos->pais;
-        $empresa->representante_legal=$datos->representante_legal;
-        $empresa->rfc_representante= $datos->rfc_representante;
-        $empresa->telefono= $datos->telefono;
-        $empresa->email= $datos->email;
+        $empresa->nombre = $datos->nombre;
+        $empresa->nombre_nomina = $datos->nombre_nomina;
+        $empresa->rfc = $datos->rfc;
+        $empresa->segurosocial = $datos->segurosocial;
+        $empresa->registro_estatal = $datos->registro_estatal;
+        $empresa->calle = $datos->calle;
+        $empresa->num_interno = $datos->num_interno;
+        $empresa->num_externo = $datos->num_externo;
+        $empresa->colonia = $datos->colonia;
+        $empresa->municipio = $datos->municipio;
+        $empresa->ciudad = $datos->ciudad;
+        $empresa->pais = $datos->pais;
+        $empresa->representante_legal = $datos->representante_legal;
+        $empresa->rfc_representante = $datos->rfc_representante;
+        $empresa->telefono = $datos->telefono;
+        $empresa->email = $datos->email;
         $empresa->inicioPeriodo = $datos->inicioPeriodo;
         $empresa->tipoPeriodo = $datos->tipoPeriodo;
         $empresa->region = $datos->regionEmpresa;
@@ -549,7 +547,7 @@ class EmpresaController extends Controller{
                                                                 ,$fechaFin
                                                                 ,$fechaPago
                                                                 ,$datos->tipoPeriodo]);
-     }
+    }
 
 
     /**

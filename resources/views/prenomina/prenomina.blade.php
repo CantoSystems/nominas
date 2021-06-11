@@ -71,6 +71,8 @@
                                                         </td>
                                                         <td>
                                                             <input type="number" step=".01" class="form-control monto totales" value="{{ $percepciones->monto }}">
+                                                            <input type="hidden" step=".01" class="form-control monto percepGrav" value="{{ $percepciones->gravable }}">
+                                                            <input type="hidden" step=".01" class="form-control monto percepExcentas" value="{{ $percepciones->excento }}">
                                                         </td>
                                                     </tr>
                                                 @endforeach 

@@ -15,9 +15,9 @@ class CreateSubsidiosTable extends Migration
     {
         Schema::create('subsidios', function (Blueprint $table) {
             $table->bigIncrements('id_subsidio');
-            $table->string('IngresosDe');
             $table->string('ParaIngresos');
-            $table->string('SubsidioMensual');
+            $table->string('hastaIngresos');
+            $table->string('cantidadSubsidio');
             $table->timestamps();
         });
     }
