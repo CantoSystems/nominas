@@ -294,7 +294,7 @@
                                 <th>Limite Inferior</th>
                                 <th>Limite Superior</th>
                                 <th>Cuota fija</th>
-                                <th>Porcentaje sobre excedente</th>
+                                <th>Porcentaje Excedente</th>
                                 <th>Periodo</th>
                             </tr>
                         </thead>
@@ -307,7 +307,7 @@
                                 </th>
                                 <td> {{ $rtn->limite_superior }}</td>
                                 <td>{{ $rtn->cuota_fija }}</td>
-                                <td>{{ $rtn->periodo_retencion }}</td>
+                                <td>{{ $rtn->porcentaje_excedente }}</td>
                                 <td>{{ $rtn->periodo_retencion }}</td>
                             </tr>
                                 @endforeach
