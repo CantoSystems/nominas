@@ -17,22 +17,23 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Http\JsonResponse;
 
 class ControlPrenominaController extends Controller
-{public function conectar($clv){
-    $configDb = [
-        'driver'      => 'mysql',
-        'host'        => env('DB_HOST', 'localhost'),
-        'port'        => env('DB_PORT', '3306'),
-        'database'    => $clv,
-        'username'    => env('DB_USERNAME', 'root'),
-        'password'    => env('DB_PASSWORD', ''),
-        'unix_socket' => env('DB_SOCKET', ''),
-        'charset'     => 'utf8',
-        'collation'   => 'utf8_unicode_ci',
-        'prefix'      => '',
-        'strict'      => true,
-        'engine'      => null,
-    ];
-    return $configDb;
+{
+    public function conectar($clv){
+        $configDb = [
+            'driver'      => 'mysql',
+            'host'        => env('DB_HOST', 'localhost'),
+            'port'        => env('DB_PORT', '3306'),
+            'database'    => $clv,
+            'username'    => env('DB_USERNAME', 'root'),
+            'password'    => env('DB_PASSWORD', ''),
+            'unix_socket' => env('DB_SOCKET', ''),
+            'charset'     => 'utf8',
+            'collation'   => 'utf8_unicode_ci',
+            'prefix'      => '',
+            'strict'      => true,
+            'engine'      => null,
+        ];
+        return $configDb;
 }
 
 public function index(Request $request){
@@ -51,9 +52,6 @@ public function index(Request $request){
     ->get();
 
     return view('prenomina.controlPrenomina', compact('empleados'));
-    
-
-
 }
 
 public function store(Request $request){

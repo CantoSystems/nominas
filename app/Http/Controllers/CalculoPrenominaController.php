@@ -4,6 +4,8 @@ use Illuminate\Http\Request;
 use App\Conecta\Conexionmultiple;
 use DB;
 use App\Empresa;
+use App\Subsidio;
+use App\Retenciones;
 use App\Umas;
 use App\SalarioMinimo;
 use Session;
@@ -90,22 +92,18 @@ class CalculoPrenominaController extends Controller{
         $percGrav = $request->totalPercepcionesGrav;
         $percNoGrav = $request->totalPercepcionesNoGrav;
 
-        $clv = Session::get('clave_empresa');
-        $clv_empresa = $this->conectar($clv);
-        \Config::set('database.connections.DB_Serverr', $clv_empresa);
-
-        $limites = DB::connection('DB_Serverr')->table('tarifa_isr')
-                   ->where('limiteInferior','<',$percGrav)
-                   ->orderBy('idLimite','desc')
+        $limites = Retenciones::select('limite_inferior','limite_superior','cuota_fija','porcentaje_excedente')
+                   ->where('limite_inferior','<',$percGrav)
+                   ->orderBy('id','desc')
                    ->first();
 
-        $diferencia = $percGrav - $limites->limiteInferior;
-        $impuestoMarginal = ($diferencia*$limites->porcentajeExcedente)/100;
-        $isrCalculado = $impuestoMarginal+$limites->cuotaFija;
+        $diferencia = $percGrav - $limites->limite_inferior;
+        $impuestoMarginal = ($diferencia*$limites->porcentaje_excedente)/100;
+        $isrCalculado = $impuestoMarginal+$limites->cuota_fija;
 
-        $subsidio = DB::connection('DB_Serverr')->table('tarifa_subsidio')
-                    ->where('paraIngresos','<',$percGrav)
-                    ->orderBy('idSubsidio','desc')
+        $subsidio = Subsidio::select('ParaIngresos','hastaIngresos','cantidadSubsidio')
+                    ->where('ParaIngresos','<',$percGrav)
+                    ->orderBy('id_subsidio','desc')
                     ->first();
 
         $isrDeterminado = $isrCalculado - $subsidio->cantidadSubsidio;

@@ -946,7 +946,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
         totalPercepcionesNoGrav: $('.totalPercepcionesExcentas').val(),
       },
       success: function(data){
-        //console.log(data);
+        console.log(data);
         let htmlTags = '<tr>'+
                           '<td>' + data[0] + '</td>'+
                           '<td>' + data[1] + '</td>'+
