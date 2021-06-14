@@ -2,10 +2,7 @@
 
 namespace App\Http\Controllers;
 
-namespace App\Http\Controllers;
-
 use Illuminate\Http\Request;
-use App\Conecta\Conexionmultiple;
 use DB;
 use App\Empresa;
 use App\Umas;
@@ -14,6 +11,7 @@ use Session;
 use DataTables;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Schema;
+
 use Illuminate\Http\JsonResponse;
 
 class ControlPrenominaController extends Controller
@@ -216,14 +214,9 @@ public function create($id_emp){
     
     $calculospercepciones = $ControlPrenomina->where('clave_empleado', $clave->clave_empleado);
     $portipopercepciones = $calculospercepciones->where('tipo','P');
-    $filtropercepciones = $portipopercepciones->pluck("clave_empleado");
  
-
     $calculosdeducciones = $ControlPrenomina->where('clave_empleado',$clave->clave_empleado);
     $portipodeducciones = $calculosdeducciones->where('tipo','D');
-    $filtrodeducciones = $portipodeducciones->get('clave_empleado');
-
-   // return compact('portipopercepciones','portipodeducciones');
 
     return view('prenomina.controlPrenomina', compact('empleados','portipopercepciones','portipodeducciones','clave'));
 }
