@@ -54,8 +54,8 @@
                                 <div class="form-group">
                                     <label>Para ingresos de ($):</label>
                                     <input type="hidden" name="id_subsidio" value="{{ $subsidio->id_subsidio ?? ''}}" class="form-control">
-                                    <input type="number" name="paraingresos" value="{{ $subsidio->ParaIngresos ?? '' }}" class="form-control">
-                                    @error('paraingresos')
+                                    <input type="number" name="ParaIngresos" value="{{ $subsidio->ParaIngresos ?? '' }}" class="form-control">
+                                    @error('ParaIngresos')
                                         <div class="alert alert-secondary">
                                             {{ $message }}
                                         </div>
@@ -66,8 +66,8 @@
                                 <br>
                                 <div class="form-group">
                                     <label>Hasta ingresos de ($):</label>
-                                    <input type="number" name="hastaingresos" value="{{ $subsidio->hastaIngresos ?? ''}}" class="form-control">
-                                    @error('hastaingresos')
+                                    <input type="number" name="hastaIngresos" value="{{ $subsidio->hastaIngresos ?? ''}}" class="form-control">
+                                    @error('hastaIngresos')
                                         <div class="alert alert-secondary">
                                             {{ $message }}
                                         </div>
@@ -77,7 +77,7 @@
                             <div class="col-sm-4">
                                 <div class="form-group">
                                     <label>Cantidad de subsidio para el empleo mensual ($):</label>
-                                    <input type="number" name="subsidiomensual" value="{{ $subsidio->cantidadSubsidio ?? '' }}" class="form-control">
+                                    <input type="number" name="cantidadSubsidio" value="{{ $subsidio->cantidadSubsidio ?? '' }}" class="form-control">
                                     @error('cantidadSubsidio')
                                         <div class="alert alert-secondary">
                                             {{ $message }}
