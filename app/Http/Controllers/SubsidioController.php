@@ -60,8 +60,6 @@ class SubsidioController extends Controller{
                 return redirect()->route('subsidio.acciones');
                 break;
             case 'buscar':
-                //dd($request->opcion);
-
                 $criterio = $request->opcion;
 
                 
@@ -94,22 +92,23 @@ class SubsidioController extends Controller{
     }
 
     public function registrar($datos){
+        return $datos;
        $datos->validate([
-            'hastaingresos' => 'required',
-            'paraingresos' => 'required',
-            'subsidiomensual' => 'required'
+            'hastaIngresos' => 'required',
+            'ParaIngresos' => 'required',
+            'cantidadSubsidio' => 'required'
         ]);
 
         $coincidencia = Subsidio::where([
-            ['IngresosDe','=',$datos->hastaingresos],
-            ['ParaIngresos','=',$datos->paraingresos],
+            ['ParaIngresos','=',$datos->ParaIngresos],
+            ['hastaIngresos','=',$datos->hastaIngresos],
         ])->get();
 
         if($coincidencia->count() === 0){
             $sub = new Subsidio;
-            $sub->IngresosDe = $datos->hastaingresos;
-            $sub->ParaIngresos = $datos->paraingresos;
-            $sub->SubsidioMensual = $datos->subsidiomensual;
+            $sub->hastaIngresos = $datos->hastaIngresos;
+            $sub->ParaIngresos = $datos->ParaIngresos;
+            $sub->cantidadSubsidio = $datos->cantidadSubsidio;
             $sub->save();
         }else{
             return back()->with('msj','Registro duplicado');
