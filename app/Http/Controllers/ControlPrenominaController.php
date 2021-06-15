@@ -74,11 +74,20 @@
                 prenomina_periodo,
                 clave_concepto,
                 monto,
+                gravable,
+                excento,
                 status_prenomina,
                 created_at,
                 updated_at
-            )values(?,?,?,?,?,?,?)',[$value->clvEmp,$periodo,$value->concepto,$value->monto,
-            1,$fecha_periodo,$fecha_periodo]);
+            )values(?,?,?,?,?,?,?,?,?)',[$value->clvEmp
+                                       ,$periodo
+                                       ,$value->concepto
+                                       ,$value->monto
+                                       ,$value->gravable
+                                       ,$value->excento
+                                       ,1
+                                       ,$fecha_periodo
+                                       ,$fecha_periodo]);
         }
     }
 

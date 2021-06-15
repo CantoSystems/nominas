@@ -890,7 +890,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
       }
     });
     $(".totalPercepcionesGravadas").val(importe_totalGrav);
-    console.log(importe_totalGrav);
+    //console.log(importe_totalGrav);
 
     /* Suma Percepciones NO Gravadas */
     let importe_totalNoGrav = 0
@@ -900,7 +900,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
       }
     });
     $(".totalPercepcionesExcentas").val(importe_totalNoGrav);
-    console.log(importe_totalNoGrav);
+    //console.log(importe_totalNoGrav);
 
     $.ajax({
       url: "{{ route('control.Impuestos') }}",
@@ -911,7 +911,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
         totalPercepcionesNoGrav: $('.totalPercepcionesExcentas').val(),
       },
       success: function(data){
-        console.log(data);
+        //console.log(data);
         let htmlTags = '<tr>'+
                           '<td style="text-align: center;">' + data[0] + '</td>'+
                           '<td>' + data[1] + '</td>'+
@@ -971,6 +971,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
         let fila = {
           concepto:   e.querySelector('.clvCncpt').value,
           monto:      e.querySelector('.monto').value,
+          gravable:   e.querySelector('.gravable').value,
+          excento:    e.querySelector('.excento').value,
           clvEmp:     e.querySelector('.clvEmp').value,
         };
         myTableControl.push(fila);

@@ -65,8 +65,8 @@
                                                     </td>
                                                     <td style="text-align: center;">
                                                         <input type="hidden" step=".01" class="monto totales" value="{{ $percepciones['monto'] }}">
-                                                        <input type="hidden" step=".01" class="monto percepGrav" value="{{ $percepciones['gravable'] }}">
-                                                        <input type="hidden" step=".01" class="monto percepExcentas" value="{{ $percepciones['excento'] }}">
+                                                        <input type="hidden" step=".01" class="gravable percepGrav" value="{{ $percepciones['gravable'] }}">
+                                                        <input type="hidden" step=".01" class="excento percepExcentas" value="{{ $percepciones['excento'] }}">
                                                         $ {{ number_format($percepciones['monto'],2) }}
                                                     </td>
                                                 </tr>
@@ -102,6 +102,8 @@
                                                     </td>
                                                     <td style="text-align: center;">
                                                         <input type="hidden" step=".01" class="form-control monto totales2" value="{{ $deducciones['monto'] }}">
+                                                        <input type="hidden" step=".01" class="gravable" value="0">
+                                                        <input type="hidden" step=".01" class="excento" value="0">
                                                         $ {{ number_format($deducciones['monto'],2) }}
                                                     </td>
                                                 </tr>
