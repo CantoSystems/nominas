@@ -321,6 +321,8 @@
                 }
             }
         }
+        Session::put('control_prenomina',$ControlPrenomina);
+        //return $ControlPrenomina; 
 
         $clave = DB::connection('DB_Serverr')->table('empleados')
                  ->select('clave_empleado','nombre','apellido_paterno','apellido_materno')
@@ -336,7 +338,14 @@
         $filtrodeducciones = $portipodeducciones->get('clave_empleado');
 
         // return compact('portipopercepciones','portipodeducciones');
-        return view('prenomina.controlPrenomina', compact('empleados','portipopercepciones','portipodeducciones','clave'));
+        return view('prenomina.controlPrenomina', compact('empleados','portipopercepciones','portipodeducciones','clave','ControlPrenomina'));
+    }
+
+    public function excelPrenomina(Request $request)
+    {
+        $nominaControl =  $request['datosPrenomina'];
+        $control = explode("¬",$nominaControl);
+        return view('prenomina.export-excel', compact('control'));
     }
 
     /* Funciones variable general */
