@@ -12,7 +12,7 @@ class UsersExport implements FromCollection
     */
     public function collection()
     {
-        
+
         return User::all();
     }
 }
