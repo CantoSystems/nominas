@@ -1,7 +1,7 @@
 @php
-    header("Content-type: application/vnd.ms-excel");
-    $hoy = date("Y-m-d");
-    header('Content-Disposition: attachment; filename=prenomina$hoy.xls"');
+    header("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
+    header('Content-Disposition: attachment; filename="prenomina.xls"');
+
 @endphp
 <meta charset="utf-8">
 <style type="text/css">
