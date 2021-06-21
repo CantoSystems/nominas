@@ -13,8 +13,9 @@
     use DataTables;
     use Carbon\Carbon;
     use Illuminate\Support\Facades\Schema;
-    use Illuminate\Http\JsonResponse;
+    use Illuminate\Http\JsonResponse; 
     use Maatwebsites\Excel\Facades\Excel;
+    
 
     class ControlPrenominaController extends Controller
     {
@@ -350,8 +351,7 @@
     }
 
     public function exportExcel(){
-        $excel = Excel::download(new PrenominaExport, 'prenomina.xlsx');
-        return $excel;
+        return (new PrenominaExport)->download('prenomina.xlsx');
     }
 
     /* Funciones variable general */
