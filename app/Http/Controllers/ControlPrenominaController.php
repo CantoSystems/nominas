@@ -35,7 +35,7 @@
                 'engine'      => null,
             ];
             return $configDb;
-    }
+        }
 
     public function index(Request $request){
         $clv = Session::get('clave_empresa');
@@ -252,7 +252,7 @@
                     $ControlPrenomina->push(["clave_empleado"=>$emp->clave_empleado,"clave_concepto"=>"013P","concepto"=>"VACACIONES","monto"=>$resultaVacaciones,"gravable"=>$Gravado,"excento"=>$Excento,"tipo"=> "P"]);                                                        
                 }else if($concep->clave_concepto == "014P"){
                     $aguinaldos = $this->aguinaldo($emp->id_emp);
-                    $ControlPrenomina->push(["clave_empleado"=>$emp->clave_empleado,"clave_concepto"=>"013P","concepto"=>"AGUINALDO","monto"=>$resultaVacaciones,"gravable"=>$Gravado,"excento"=>$Excento,"tipo"=> "P"]);
+                    $ControlPrenomina->push(["clave_empleado"=>$emp->clave_empleado,"clave_concepto"=>"014P","concepto"=>"AGUINALDO","monto"=>$resultaVacaciones,"gravable"=>$Gravado,"excento"=>$Excento,"tipo"=> "P"]);
                 }else if($concep->clave_concepto == "015P"){
 
                 }else if($concep->clave_concepto == "016P"){
@@ -276,7 +276,7 @@
                     $Gravado = 0;
                     $Excento = 0;
 
-                    $ControlPrenomina->push(["clave_empleado"=>$emp->clave_empleado,"clave_concepto"=>"013P","concepto"=>"AUSENTISMO","monto"=>$resultaAusentismoDed,"gravable"=>$Gravado,"excento"=>$Excento,"tipo"=> "D"]);
+                    $ControlPrenomina->push(["clave_empleado"=>$emp->clave_empleado,"clave_concepto"=>"001D","concepto"=>"AUSENTISMO","monto"=>$resultaAusentismoDed,"gravable"=>$Gravado,"excento"=>$Excento,"tipo"=> "D"]);
                 }else if($concep->clave_concepto == "002D"){
                     $resultaIncapacidadDed = $this->ausentismoIncapacidadDeduccion($emp->id_emp,$emp->clave_empleado);
                     $Gravado = 0;
