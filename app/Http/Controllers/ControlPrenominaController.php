@@ -8,11 +8,13 @@
     use App\Subsidio;
     use App\Retenciones;
     use App\SalarioMinimo;
+    use App\Exports\PrenominaExport;
     use Session;
     use DataTables;
     use Carbon\Carbon;
     use Illuminate\Support\Facades\Schema;
     use Illuminate\Http\JsonResponse;
+    use Maatwebsites\Excel\Facades\Excel;
 
     class ControlPrenominaController extends Controller
     {
@@ -341,11 +343,15 @@
         return view('prenomina.controlPrenomina', compact('empleados','portipopercepciones','portipodeducciones','clave','ControlPrenomina'));
     }
 
-    public function excelPrenomina(Request $request)
-    {
+    public function excelPrenomina(Request $request){
         $nominaControl =  $request['datosPrenomina'];
         $control = explode("¬",$nominaControl);
         return view('prenomina.export-excel', compact('control'));
+    }
+
+    public function exportExcel(){
+        $excel = Excel::download(new PrenominaExport, 'prenomina.xlsx');
+        return $excel;
     }
 
     /* Funciones variable general */

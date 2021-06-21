@@ -1,7 +1,6 @@
 @php
     header("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
     header('Content-Disposition: attachment; filename="prenomina.xls"');
-
 @endphp
 <meta charset="utf-8">
 <style type="text/css">
