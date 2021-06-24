@@ -260,9 +260,11 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <script src="/Admin/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
 
 <script>
-  //función de los botones de los catalogos globales
+  $(document).ready(function(){
+     //función de los botones de los catalogos globales
   //Acción nuevo registro
-      $(function(){ 
+  $(function(){ 
+        
         $('#nuevo').click(function(){
           $('#actualizar_reg').hide();
           $('#buscar').attr("disabled", true);
@@ -278,6 +280,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
           $('#siguiente').attr("disabled", true);
           $('#ultimo').attr("disabled", true);
           $('#actualizar').attr("disabled", true);
+          $('.porcentajeAhorro').val("0");
           //$('#eliminar').attr("disabled","disabled");
           //$('#eliminar_falso').show();
           $('#eliminar').addClass("not-active");
@@ -308,6 +311,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
           $('#buscar').attr("disabled", true);
         });
       })
+
+  });
+ 
 </script>
 <script>
   //Función para convertir en texto en mayusculas
