@@ -121,6 +121,7 @@ class EmpresaController extends Controller{
         $emp->num_interno=$datos->num_interno;
         $emp->num_externo=$datos->num_externo;
         $emp->colonia=$datos->colonia;
+        $emp->codigopostal=$datos->codigopostal;
         $emp->municipio=$datos->municipio;
         $emp->ciudad=$datos->ciudad;
         $emp->pais=$datos->pais;
@@ -155,9 +156,9 @@ class EmpresaController extends Controller{
               'segurosocial' => 'required',
               'registro_estatal' => 'required',
               'calle' => 'required',
-              'num_interno' => 'required',
               'num_externo' => 'required',
               'colonia' => 'required',
+              'codigopostal' => 'required',
               'municipio' => 'required',
               'ciudad' => 'required',
               'pais' => 'required',
@@ -171,6 +172,29 @@ class EmpresaController extends Controller{
         $empresa = new Empresa;
         $empresa->rfc = $datos->rfc;
         $empresa->clave = $datos->clave;
+        $empresa->nombre = $datos->nombre;
+        $empresa->nombre_nomina = $datos->nombre_nomina;
+        $empresa->rfc = $datos->rfc;
+        $empresa->segurosocial = $datos->segurosocial;
+        $empresa->registro_estatal = $datos->registro_estatal;
+        $empresa->calle = $datos->calle;
+        $empresa->num_interno = $datos->num_interno;
+        $empresa->num_externo = $datos->num_externo;
+        $empresa->colonia = $datos->colonia;
+        $empresa->codigopostal = $datos->codigopostal;
+        $empresa->municipio = $datos->municipio;
+        $empresa->ciudad = $datos->ciudad;
+        $empresa->pais = $datos->pais;
+        $empresa->representante_legal = $datos->representante_legal;
+        $empresa->rfc_representante = $datos->rfc_representante;
+        $empresa->telefono = $datos->telefono;
+        $empresa->email = $datos->email;
+        $empresa->inicioPeriodo = $datos->inicioPeriodo;
+        $empresa->tipoPeriodo = $datos->tipoPeriodo;
+        $empresa->region = $datos->regionEmpresa;
+        $empresa->primaRiesgo = $datos->primaRiesgo;
+        $empresa->porcentajeAhorro = $datos->porcentajeAhorro;
+        $empresa->save();
         
         DB::statement('create database '.$empresa->clave);
             $clv= $empresa->clave;
@@ -479,28 +503,7 @@ class EmpresaController extends Controller{
             $table->timestamps();
         });
 
-        $empresa->nombre = $datos->nombre;
-        $empresa->nombre_nomina = $datos->nombre_nomina;
-        $empresa->rfc = $datos->rfc;
-        $empresa->segurosocial = $datos->segurosocial;
-        $empresa->registro_estatal = $datos->registro_estatal;
-        $empresa->calle = $datos->calle;
-        $empresa->num_interno = $datos->num_interno;
-        $empresa->num_externo = $datos->num_externo;
-        $empresa->colonia = $datos->colonia;
-        $empresa->municipio = $datos->municipio;
-        $empresa->ciudad = $datos->ciudad;
-        $empresa->pais = $datos->pais;
-        $empresa->representante_legal = $datos->representante_legal;
-        $empresa->rfc_representante = $datos->rfc_representante;
-        $empresa->telefono = $datos->telefono;
-        $empresa->email = $datos->email;
-        $empresa->inicioPeriodo = $datos->inicioPeriodo;
-        $empresa->tipoPeriodo = $datos->tipoPeriodo;
-        $empresa->region = $datos->regionEmpresa;
-        $empresa->primaRiesgo = $datos->primaRiesgo;
-        $empresa->porcentajeAhorro = $datos->porcentajeAhorro;
-        $empresa->save();
+       
 
         $clv_empresa=$this->conectar($clv);
         \Config::set('database.connections.DB_Serverr', $clv_empresa);
