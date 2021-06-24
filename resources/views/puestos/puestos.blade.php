@@ -102,14 +102,14 @@
 
                             @canany(['administrador','capturista','reportes'])
                                 <div class="col-md-5">
-                                        <div class="margin">
-                                        @if(@isset($aux))
-                                            <div class="btn-group">
+                                    <div class="margin">
+                                        <div class="btn-group">
+                                            @if(@isset($aux))
                                                 <div class="form-group">
                                                     <button type="submit"  name="acciones" value="primero" id="primero" class="botones"><i class="fas fa-backward" ></i></button>
                                                 </div>
                                                 <div class="form-group">
-                                                <button type="submit" name="acciones" value="atras" id="atras" class="botones"><i class="fas fa-arrow-circle-left"></i></button>
+                                                    <button type="submit" name="acciones" value="atras" id="atras" class="botones"><i class="fas fa-arrow-circle-left"></i></button>
                                                 </div>
                                                 <div class="form-group">
                                                     <button type="submit" name="acciones" value="siguiente" id="siguiente" class="botones"><i class="fas fa-arrow-circle-right"></i></button>
@@ -117,9 +117,8 @@
                                                 <div class="form-group">
                                                     <button type="submit" name="acciones" value="ultimo" id="ultimo" class="botones"><i class="fas fa-forward"></i></button>
                                                 </div>
-                                            </div>
-                                        @else
-                                        <div class="form-group">
+                                            @else
+                                                <div class="form-group">
                                                     <button type="submit" class="botones" disabled><i class="fas fa-backward" ></i></button>
                                                 </div>
                                                 <div class="form-group">
@@ -131,8 +130,9 @@
                                                 <div class="form-group">
                                                     <button type="submit" class="botones" disabled><i class="fas fa-forward"></i></button>
                                                 </div>
-                                        @endif
+                                            @endif
                                         </div>
+                                    </div>
                                 </div>
                             @endcanany
                             <div class="col-md-5">

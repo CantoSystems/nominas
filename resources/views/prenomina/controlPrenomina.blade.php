@@ -43,15 +43,15 @@
                         <div class="col">
                             <button type="submit" id="autorizar"style='width:125px; height:38px;'>Autorizar Nómina</button>
                         </div>
-                        <div class="col">
+                        <!--<div class="col">
                             <form action="{{ route('control.excel') }}">
                                 <input type="hidden" name="datosPrenomina" value="<?php echo $cadena; ?>">
                                 <button type="submit" style='width:125px; height:38px;'>Descargar excel</button>
                             </form>
-                        </div>
+                        </div>-->
                         <div class="col">
                             <form action="{{ route('control.excel3') }}">
-                                <button type="submit" style='width:125px; height:38px;'>Descargar excel2</button>
+                                <button type="submit" style='width:125px; height:38px;'>Descargar Excel</button>
                             </form>
                         </div>
                     </div>

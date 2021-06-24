@@ -527,9 +527,9 @@
     <script type="text/javascript">
       //Validar solo ingresen texto
       function validar(e) {
-      tecla = (document.all) ? e.keyCode : e.which;
-      if (tecla==8) return true;
-        patron =/[A-Za-z\s]/;
+        tecla = (document.all) ? e.keyCode : e.which;
+        if (tecla==8) return true;
+        patron =/^[a-zA-z\s\ñ\Ñ]+$/;
         te = String.fromCharCode(tecla);
         return patron.test(te);
       }

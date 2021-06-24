@@ -12,7 +12,7 @@
                     </div>
                     <form action="{{ route('selectConceptos.index')}}" method="GET" autocomplete="off">
                         <div class="card-body">
-                            <table id="example1" class="table table-bordered table-striped">
+                            <table id="example1" class="table table-bordered table-striped" data-page-length='100'>
                                 <thead>
                                     <tr>
                                         <th>Clave Concepto</th>
