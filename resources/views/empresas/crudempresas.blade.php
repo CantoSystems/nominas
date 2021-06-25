@@ -95,7 +95,7 @@
                 </div>
                 <div class="col-sm-2">
                     <div class="form-group">
-                        <label>Seguro social:</label>
+                        <label>Registro patronal:</label>
                         @if(isset($empresa))
                             <input type="text" name="segurosocial" maxlength="11" class="form-control" value="{{$empresa->segurosocial}}" onkeyup="mayus(this)"; onkeypress="return numeros(event)">
                             @error('segurosocial')
@@ -157,14 +157,14 @@
                     <div class="form-group">
                         <label>Número exterior:</label>
                         @if(isset($empresa))
-                            <input type="text" name="num_externo" class="form-control" value="{{$empresa->num_externo}}" onkeypress="return numeros(event)">
+                            <input type="text" name="num_externo" maxlength="20" class="form-control" value="{{$empresa->num_externo}}" onkeypress="return numeros(event)">
                             @error('num_externo')
                                 <div class="alert alert-secondary">
                                     {{ $message }}
                                 </div>
                             @enderror
                         @else
-                            <input type="text" name="num_externo" class="form-control" value="" onkeypress="return numeros(event)">
+                            <input type="text" name="num_externo" maxlength="20" class="form-control" value="" onkeypress="return numeros(event)">
                             @error('num_externo')
                                 <div class="alert alert-secondary">
                                     {{ $message }}
@@ -177,14 +177,14 @@
                     <div class="form-group">
                         <label>Número interior:</label>
                         @if(isset($empresa))
-                            <input type="text" name="num_interno" max="6000" min="1" class="form-control" value="{{$empresa->num_interno}}">
+                            <input type="text" name="num_interno" maxlength="20" class="form-control" value="{{$empresa->num_interno}}">
                             @error('num_interno')
                                 <div class="alert alert-secondary">
                                     {{ $message }}
                                 </div>
                             @enderror
                         @else
-                            <input type="text" name="num_interno" max="6000" min="1" class="form-control" value="">
+                            <input type="text" name="num_interno" maxlength="20" class="form-control" >
                             @error('num_interno')
                                 <div class="alert alert-secondary">
                                     {{ $message }}
@@ -193,7 +193,7 @@
                         @endif
                     </div>
                 </div>
-                <div class="col-sm-3">
+                <div class="col-sm-2">
                     <div class="form-group">
                         <label>Colonia:</label>
                         @if(isset($empresa))
@@ -213,7 +213,27 @@
                         @endif
                     </div>
                 </div>
-                <div class="col-sm-3">
+                <div class="col-sm-2">
+                    <div class="form-group">
+                        <label>Código postal:</label>
+                        @if(isset($empresa))
+                            <input type="text" name="codigopostal" class="form-control" value="{{$empresa->codigopostal}}" onkeyup="mayus(this);" onkeypress="return validar(event)" maxlength="5">
+                            @error('codigopostal')
+                                <div class="alert alert-secondary">
+                                    {{ $message }}
+                                </div>
+                            @enderror
+                        @else
+                            <input type="text" name="codigopostal" class="form-control" onkeyup="mayus(this);" maxlength="5">
+                            @error('codigopostal')
+                                <div class="alert alert-secondary">
+                                    {{ $message }}
+                                </div>
+                            @enderror
+                        @endif
+                    </div>
+                </div>
+                <div class="col-sm-2">
                     <div class="form-group">
                         <label>Municipio:</label>
                         @if(isset($empresa))
@@ -403,7 +423,7 @@
                 </div>
                 <div class="col-sm-3">
                     <div class="form-group">
-                        <label>Factor Prima de Riesgo de Trabajo:</label>
+                        <label>Factor Prima de Riesgo de Trabajo:x</label>
                         @if(isset($empresa))
                             <input type="number" min="-1" max="10" step="any" name="primaRiesgo" class="form-control" value="{{ $empresa->primaRiesgo }}">
                         @else
@@ -415,12 +435,43 @@
                     <div class="form-group">
                         <label>Fondo de Ahorro (%):</label>
                         @if(isset($empresa))
-                            <input type="number" name="porcentajeAhorro" class="form-control" value="{{ $empresa->porcentajeAhorro }}">
+                            <input type="number" name="porcentajeAhorro" class="form-control porcentajeAhorro" value="{{ $empresa->porcentajeAhorro }}">
                         @else
-                            <input type="number" name="porcentajeAhorro" class="form-control">
+                            <input type="number" name="porcentajeAhorro" class="form-control porcentajeAhorro">
                         @endif
                     </div>
                 </div>
+                <div class="col-sm-3">
+                    <div class="form-group">
+                        <label>Clave del SAT:</label>
+                        @if(isset($empresa))
+                            <input type="number" name="claveSat" class="form-control" value="">
+                        @else
+                            <input type="number" name="claveSat" class="form-control">
+                        @endif
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="form-group">
+                        <label>Regimen Fiscal:</label>
+                        @if(isset($empresa))
+                            <input type="number" name="regimenFiscal" class="form-control" value="">
+                        @else
+                            <input type="number" name="regimenFiscal" class="form-control">
+                        @endif
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="form-group">
+                        <label>CURP Representante Legal:</label>
+                        @if(isset($empresa))
+                            <input type="number" name="curpRepresente" class="form-control" value="">
+                        @else
+                            <input type="number" name="curpRepresente" class="form-control">
+                        @endif
+                    </div>
+                </div>
+                
             </div>
             <div class="row">
                 @canany(['administrador','capturista','reportes'])

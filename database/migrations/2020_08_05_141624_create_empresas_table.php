@@ -24,10 +24,11 @@ class CreateEmpresasTable extends Migration
             $table->string('registro_estatal',50);
             $table->string('calle',50);
             $table->string('num_interno',20);
-            $table->string('num_externo',20);
+            $table->string('num_externo',20)->nullable();
             $table->string('colonia',50);
             $table->string('municipio',50);
             $table->string('ciudad',50);
+            $table->string('codigopostal',5);
             $table->string('pais',50);
             $table->string('representante_legal',50);
             $table->string('rfc_representante',13);

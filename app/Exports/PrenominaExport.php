@@ -58,7 +58,7 @@ class PrenominaExport implements FromView{
                      ->join('empleados','empleados.clave_empleado','=','prenomina.clave_empleado')
                      ->where([
                          ['prenomina.prenomina_periodo','=',$num_periodo],
-                         ['prenomina.status_prenomian','=',1],
+                         ['prenomina.status_prenomina','=',1],
                         ])
                      ->groupBy('empleados.clave_empleado','empleados.nombre','empleados.apellido_paterno','empleados.apellido_materno')
                      ->get();
