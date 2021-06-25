@@ -158,7 +158,7 @@
 
                           <div class="col-md-2 mb-3">
                             <label for="validationDefault03">IMSS</label>
-                            <input  type="text" class="form-control" value="{{$emp->imss ?? ''}}" minlength="11" maxlength="11" name="imss" onkeypress="return numeros(event)">
+                            <input  type="text" class="form-control" value="{{$emp->imss ?? ''}}" maxlength="12" name="imss" onkeypress="return numeros(event)">
                           </div>
                           <div class="col-md-2 mb-3">
                             <label for="validationDefault03">Afore</label>

@@ -425,9 +425,9 @@
                     <div class="form-group">
                         <label>Factor Prima de Riesgo de Trabajo:x</label>
                         @if(isset($empresa))
-                            <input type="number" name="primaRiesgo" min="00.00000"  max="10.00000" step="00.00001"  class="form-control" value="{{ $empresa->primaRiesgo }}">
+                            <input type="number" min="-1" max="10" step="any" name="primaRiesgo" class="form-control" value="{{ $empresa->primaRiesgo }}">
                         @else
-                            <input type="number" name="primaRiesgo"   min="00.00000"  max="10.00000" step="00.00001" class="form-control">
+                            <input type="number" min="-1" max="10" step="any" name="primaRiesgo" class="form-control">
                         @endif
                     </div>
                 </div>
