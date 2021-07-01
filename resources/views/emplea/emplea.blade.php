@@ -1078,8 +1078,8 @@
                     <input type="text" value="{{$persona->telefono_referencia2 ?? ''}}" name="telefono_referencia2" class="form-control telefono_referencia2">
                   </div>
                   <div class="col-sm-3">
-                    <label for="" style="text-align: left;">Ocupación</label>
-                    <input  type="text" value="{{$persona->ocupacion ?? ''}}" name="ocupacion" class="form-control" onkeyup="mayus(this);" onkeypress="return validar(event)">
+                  <label for="" style="text-align: left;">Ocupación</label>
+                    <input  type="text" value="" name="ocupacion" class="form-control" onkeyup="mayus(this);" onkeypress="return validar(event)">
                     @error('ocupacion')
                       <div class="alert alert-secondary">
                         {{ $message }}
