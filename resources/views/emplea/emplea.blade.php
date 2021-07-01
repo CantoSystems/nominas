@@ -43,10 +43,10 @@
           </div><!--Final Cabeceras-->
                
           <!--Inicio contenido-->
-          <div class="card-body">
-            <!--General TABCONTENT-->
-            <div class="tab-content" id="custom-tabs-one-tabContent">
-              <form method="GET" action="{{ route('emplea.index')}}" >
+          <form method="GET" action="{{ route('emplea.index')}}" >
+            <div class="card-body">
+              <!--General TABCONTENT-->
+              <div class="tab-content" id="custom-tabs-one-tabContent">
                 <!--Inicio Personal-->
                 <div class="tab-pane fade show active" id="custom-tabs-one-personal" role="tabpanel" aria-labelledby="custom-tabs-one-personal-tab">   
                   <!--Inicio FORM-->
@@ -626,13 +626,11 @@
                 <div class="tab-pane fade" id="custom-tabs-tres-personal3" role="tabpanel" aria-labelledby="custom-tabs-tres-personal3-tab">
                   <div class="form-row">
                     <div class="col-sm-12">
-                      <label for="" style="text-align: left;">
-                        <div class="col-md-12 mb-3">
-                          <h4>
-                            <strong>Beneficiarios</strong>
-                          </h4>
-                        </div>
-                      </label>
+                      <div class="col-md-12 mb-3">
+                        <h4>
+                          <strong>Beneficiarios</strong>
+                        </h4>
+                      </div>
                       <div class="col-md-11 mb-3" style="text-align: right;">
                         <h6 id="mensaje"></h6>
                       </div>
@@ -684,13 +682,13 @@
                     <!--Inicio titulos-->
                     <label for="" class="col-form-label col-sm-2">&nbsp &nbsp &nbsp </label>
                     <div class="col-sm-3">
-                      <p><label for="pensamiento_id" style="text-align: justify;">Nombre de la Institución</label></p>
+                      <label for="pensamiento_id" style="text-align: justify;">Nombre de la Institución</label>
                     </div>
                     <div class="col-sm-4">
-                      <p><label for="pensamiento_id" style="text-align: justify;">Inicio &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp  Finalizó</label></p>
+                      <label for="pensamiento_id" style="text-align: justify;">Inicio &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp  Finalizó</label>
                     </div>
                     <div class="col-sm-3">
-                      <p><label for="pensamiento_id" style="text-align: justify;">Título obtenido</label></p>
+                      <label for="pensamiento_id" style="text-align: justify;">Título obtenido</label>
                     </div>
                     <!--Fin titulos-->
                     <!--Inicio Primaria-->
@@ -1080,17 +1078,17 @@
                     <input type="text" value="{{$persona->telefono_referencia2 ?? ''}}" name="telefono_referencia2" class="form-control telefono_referencia2">
                   </div>
                   <div class="col-sm-3">
-                    <label for="" style="text-align: left;">Ocupación</label>
-                    <input  type="text" value="{{$persona->ocupacion ?? ''}}" name="ocupacion" class="form-control" onkeyup="mayus(this);" onkeypress="return validar(event)">
-                      @error('ocupacion')
-                        <div class="alert alert-secondary">
-                          {{ $message }}
-                        </div>
+                  <label for="" style="text-align: left;">Ocupación</label>
+                    <input  type="text" value="" name="ocupacion" class="form-control" onkeyup="mayus(this);" onkeypress="return validar(event)">
+                    @error('ocupacion')
+                      <div class="alert alert-secondary">
+                        {{ $message }}
+                      </div>
                     @enderror
                     <input type="text" value="{{$persona->ocupacion1 ?? ''}}" name="ocupacion1" class="form-control" onkeyup="mayus(this);" onkeypress="return validar(event)">
                     <input type="text" value="{{$persona->ocupacion2 ?? ''}}" name="ocupacion2" class="form-control" onkeyup="mayus(this);" onkeypress="return validar(event)">
                   </div>
-                  <div class="col-sm-1">
+                  <div class="col-sm-2">
                     <label for="" style="text-align: left;">Tiempo (Años)</label>
                     <input  type="number" value="{{$persona->tiempo ?? ''}}" name="tiempo" min="1" max="99" step="1" class="form-control" maxlength="2" onkeypress="return numeros(event)">
                     @error('tiempo')
@@ -1103,672 +1101,646 @@
                   </div>
                 </div><!--Final Row Referencias-->
               </div>
-                    <!--Inicio Contratación-->
-                    <div class="tab-pane fade" id="custom-tabs-cuatro-contratacion" role="tabpanel" aria-labelledby="custom-tabs-cuatro-contratacion-tab">
-                      <!--Inicio Row contratación-->
-                      <div class="form-row">
-                        <div class="col-md-3 mb-3">
-                          <label for="validationDefault04">Tipo de trabajador</label>
-                        @if(isset($persona))
-                            <select class="custom-select" name="tipo_trabajador">
-                            @if($persona->tipo_trabajador=="")
-                              <option selected disabled value="">Seleccione una opción:</option>
-                              <option value="EMPLEADO">Administrativo</option>
-                              <option value="PATRON">Sindicalizado</option>
-                            @elseif($persona->tipo_trabajador=="EMPLEADO")
-                              <option disabled value="">Seleccione una opción:</option>
-                              <option selected value="EMPLEADO">Administrativo</option>
-                              <option value="PATRON">Sindicalizado</option>
-                            @elseif($persona->tipo_trabajador=="PATRON")
-                              <option disabled value="">Seleccione una opción:</option>
-                              <option value="EMPLEADO">Administrativo</option>
-                              <option selected value="PATRON">Sindicalizado</option>
-                            @endif
-                            </select>
-                             @error('tipo_trabajador')
-                                <div class="alert alert-secondary">
-                                    {{ $message }}
-                                </div>
-                          @enderror
-                        @else
-                          <select class="custom-select" name="tipo_trabajador">
-                              <option selected disabled value="">Seleccione una opción:</option>
-                              <option value="EMPLEADO">Administrativo</option>
-                              <option value="PATRON">Sindicalizado</option>
-                            </select>
-                            @error('tipo_trabajador')
-                                <div class="alert alert-secondary">
-                                    {{ $message }}
-                                </div>
-                          @enderror
+              <!--Inicio Contratación-->
+              <div class="tab-pane fade" id="custom-tabs-cuatro-contratacion" role="tabpanel" aria-labelledby="custom-tabs-cuatro-contratacion-tab">
+                <!--Inicio Row contratación-->
+                <div class="form-row">
+                  <div class="col-md-3 mb-3">
+                    <label for="validationDefault04">Tipo de trabajador</label>
+                    @if(isset($persona))
+                      <select class="custom-select" name="tipo_trabajador">
+                      @if($persona->tipo_trabajador=="")
+                        <option selected disabled value="">Seleccione una opción:</option>
+                        <option value="EMPLEADO">Administrativo</option>
+                        <option value="PATRON">Sindicalizado</option>
+                      @elseif($persona->tipo_trabajador=="EMPLEADO")
+                        <option disabled value="">Seleccione una opción:</option>
+                        <option selected value="EMPLEADO">Administrativo</option>
+                        <option value="PATRON">Sindicalizado</option>
+                      @elseif($persona->tipo_trabajador=="PATRON")
+                        <option disabled value="">Seleccione una opción:</option>
+                        <option value="EMPLEADO">Administrativo</option>
+                        <option selected value="PATRON">Sindicalizado</option>
+                      @endif
+                      </select>
+                      @error('tipo_trabajador')
+                        <div class="alert alert-secondary">
+                          {{ $message }}
+                        </div>
+                      @enderror
+                    @else
+                      <select class="custom-select" name="tipo_trabajador">
+                        <option selected disabled value="">Seleccione una opción:</option>
+                        <option value="EMPLEADO">Administrativo</option>
+                        <option value="PATRON">Sindicalizado</option>
+                      </select>
+                      @error('tipo_trabajador')
+                        <div class="alert alert-secondary">
+                          {{ $message }}
+                        </div>
+                      @enderror
+                    @endif
+                  </div>
+                  <div class="col-md-3 mb-3">
+                    <label for="validationDefault04">Turno</label>
+                    @if(isset($persona))
+                      <select class="custom-select" name="turno">
+                        @if($persona->turno=="")
+                          <option selected disabled value="">Seleccione una opción:</option>
+                          <option value="DIURNO">Diurno</option>
+                          <option value="NOCTURNO">Nocturno</option>
+                          <option value="MIXTO">Mixto</option>
+                        @elseif($persona->turno=="DIURNO")
+                          <option disabled value="">Seleccione una opción:</option>
+                          <option selected value="DIURNO">Diurno</option>
+                          <option value="NOCTURNO">Nocturno</option>
+                          <option value="MIXTO">Mixto</option>
+                        @elseif($persona->turno=="")
+                          <option disabled value="">Seleccione una opción:</option>
+                          <option value="DIURNO">Diurno</option>
+                          <option selected value="NOCTURNO">Nocturno</option>
+                          <option value="MIXTO">Mixto</option>
+                        @elseif($persona->turno=="MIXTO")
+                          <option disabled value="">Seleccione una opción:</option>
+                          <option value="DIURNO">Diurno</option>
+                          <option value="NOCTURNO">Nocturno</option>
+                          <option selected value="MIXTO">Mixto</option>
                         @endif
+                      </select>
+                      @error('turno')
+                        <div class="alert alert-secondary">
+                          {{ $message }}
                         </div>
-
-                        <div class="col-md-3 mb-3">
-                          <label for="validationDefault04">Turno</label>
-                        @if(isset($persona))
-                            <select class="custom-select" name="turno">
-                              @if($persona->turno=="")
-                                <option selected disabled value="">Seleccione una opción:</option>
-                                <option value="DIURNO">Diurno</option>
-                                <option value="NOCTURNO">Nocturno</option>
-                                <option value="MIXTO">Mixto</option>
-                              @elseif($persona->turno=="DIURNO")
-                                <option disabled value="">Seleccione una opción:</option>
-                                <option selected value="DIURNO">Diurno</option>
-                                <option value="NOCTURNO">Nocturno</option>
-                                <option value="MIXTO">Mixto</option>
-                              @elseif($persona->turno=="")
-                                <option disabled value="">Seleccione una opción:</option>
-                                <option value="DIURNO">Diurno</option>
-                                <option selected value="NOCTURNO">Nocturno</option>
-                                <option value="MIXTO">Mixto</option>
-                              @elseif($persona->turno=="MIXTO")
-                                <option disabled value="">Seleccione una opción:</option>
-                                <option value="DIURNO">Diurno</option>
-                                <option value="NOCTURNO">Nocturno</option>
-                                <option selected value="MIXTO">Mixto</option>
-                              @endif
-                            </select>
-                             @error('turno')
-                                <div class="alert alert-secondary">
-                                    {{ $message }}
-                                </div>
-                          @enderror
-                          @else
-                            <select class="custom-select" name="turno">
-                              <option selected disabled value="">Seleccione una opción:</option>
-                              <option value="DIURNO">Diurno</option>
-                              <option value="NOCTURNO">Nocturno</option>
-                              <option value="MIXTO">Mixto</option>
-                            </select>
-                             @error('turno')
-                                <div class="alert alert-secondary">
-                                    {{ $message }}
-                                </div>
-                          @enderror
-                          @endif
-
+                      @enderror
+                    @else
+                      <select class="custom-select" name="turno">
+                        <option selected disabled value="">Seleccione una opción:</option>
+                        <option value="DIURNO">Diurno</option>
+                        <option value="NOCTURNO">Nocturno</option>
+                        <option value="MIXTO">Mixto</option>
+                      </select>
+                      @error('turno')
+                        <div class="alert alert-secondary">
+                          {{ $message }}
                         </div>
-                        <div class="col-md-3 mb-3">
-                          <label for="validationDefault04">Contrato</label>
-                        @if(isset($persona))
-                            <select class="custom-select" name="contrato">
-                              @if($persona->contrato=="")
-                                <option selected disabled value="">Seleccione una opción:</option>
-                                <option value="PRUEBA">Prueba</option>
-                                <option value="DETERMINDO">Tiempo determinado</option>
-                                <option value="INDETERMINADO">Tiempo indeterminado</option>
-                              @elseif($persona->contrato=="PRUEBA")
-                                <option disabled value="">Seleccione una opción:</option>
-                                <option selected value="PRUEBA">Prueba</option>
-                                <option value="DETERMINDO">Tiempo determinado</option>
-                                <option value="INDETERMINADO">Tiempo indeterminado</option>
-                              @elseif($persona->contrato=="DETERMINADO")
-                                <option disabled value="">Seleccione una opción:</option>
-                                <option value="PRUEBA">Prueba</option>
-                                <option selected value="DETERMINDO">Tiempo determinado</option>
-                                <option value="INDETERMINADO">Tiempo indeterminado</option>
-                              @elseif($persona->contrato=="INDETERMINADO")
-                                <option disabled value="">Seleccione una opción:</option>
-                                <option value="PRUEBA">Prueba</option>
-                                <option value="DETERMINDO">Tiempo determinado</option>
-                                <option selected value="INDETERMINADO">Tiempo indeterminado</option>
-                              @endif
-                            </select>
-                            @error('contrato')
-                                <div class="alert alert-secondary">
-                                    {{ $message }}
-                                </div>
-                          @enderror
-                        @else
-                          <select class="custom-select" name="contrato">
-                              <option selected disabled value="">Seleccione una opción:</option>
-                              <option value="PRUEBA">Prueba</option>
-                              <option value="DETERMINDO">Tiempo determinado</option>
-                              <option value="INDETERMINADO">Tiempo indeterminado</option>
-                            </select>
-                            @error('contrato')
-                                <div class="alert alert-secondary">
-                                    {{ $message }}
-                                </div>
-                          @enderror
+                      @enderror
+                    @endif
+                  </div>
+                  <div class="col-md-3 mb-3">
+                    <label for="validationDefault04">Contrato</label>
+                    @if(isset($persona))
+                      <select class="custom-select" name="contrato">
+                        @if($persona->contrato=="")
+                          <option selected disabled value="">Seleccione una opción:</option>
+                          <option value="PRUEBA">Prueba</option>
+                          <option value="DETERMINDO">Tiempo determinado</option>
+                          <option value="INDETERMINADO">Tiempo indeterminado</option>
+                        @elseif($persona->contrato=="PRUEBA")
+                          <option disabled value="">Seleccione una opción:</option>
+                          <option selected value="PRUEBA">Prueba</option>
+                          <option value="DETERMINDO">Tiempo determinado</option>
+                          <option value="INDETERMINADO">Tiempo indeterminado</option>
+                        @elseif($persona->contrato=="DETERMINADO")
+                          <option disabled value="">Seleccione una opción:</option>
+                          <option value="PRUEBA">Prueba</option>
+                          <option selected value="DETERMINDO">Tiempo determinado</option>
+                          <option value="INDETERMINADO">Tiempo indeterminado</option>
+                        @elseif($persona->contrato=="INDETERMINADO")
+                          <option disabled value="">Seleccione una opción:</option>
+                          <option value="PRUEBA">Prueba</option>
+                          <option value="DETERMINDO">Tiempo determinado</option>
+                          <option selected value="INDETERMINADO">Tiempo indeterminado</option>
                         @endif
+                      </select>
+                      @error('contrato')
+                        <div class="alert alert-secondary">
+                          {{ $message }}
                         </div>
-
-                        <div class="col-md-3 mb-2">
-                          <label for="validationDefault01">Vigencia</label>
-                          <input  type="date" class="form-control" name="vigencia" value="{{$persona->vigencia ?? ''}}">
-                          @error('vigencia')
-                                <div class="alert alert-secondary">
-                                    {{ $message }}
-                                </div>
-                          @enderror
+                      @enderror
+                    @else
+                      <select class="custom-select" name="contrato">
+                        <option selected disabled value="">Seleccione una opción:</option>
+                        <option value="PRUEBA">Prueba</option>
+                        <option value="DETERMINDO">Tiempo determinado</option>
+                        <option value="INDETERMINADO">Tiempo indeterminado</option>
+                      </select>
+                      @error('contrato')
+                        <div class="alert alert-secondary">
+                          {{ $message }}
                         </div>
-                        <div class="col-md-2 mb-2">
-                            <br>
-                            <label for="validationDefault01">Horario inicio</label>
-                            <input  type="time" class="form-control" name="horario_trabajoinicio" value="{{$persona->horario_trabajoinicio ?? ''}}">
-                            @error('horario_trabajoinicio')
-                                <div class="alert alert-secondary">
-                                    {{ $message }}
-                                </div>
-                          @enderror
-                          </div>
-                          <div class="col-md-2 mb-2">
-                            <br>
-                            <label for="validationDefault01">Horario fin</label>
-                            <input  type="time" class="form-control" name="horario_trabajofin" value="{{$persona->horario_trabajofin ?? ''}}">
-                            @error('horario_trabajofin')
-                                <div class="alert alert-secondary">
-                                    {{ $message }}
-                                </div>
-                          @enderror
-                          </div>
-                          <div class="col-md-3 mb-2">
-                            <br>
-                            <label for="validationDefault01">Día descanso</label>
-                            @if(isset($persona))
-                              @if($persona->diadescanso_empleado == "")
-                              <select class="custom-select" name="diadescanso_empleado">
-                                <option selected disabled value="">Seleccione una opción:</option>
-                                <option value="LUNES">Lunes</option>
-                                <option value="MARTES">Martes</option>
-                                <option value="MIERCOLES">Miércoles</option>
-                                <option value="JUEVES">Jueves</option>
-                                <option value="VIERNES">Viernes</option>
-                                <option value="SABADO">Sábado</option>
-                                <option value="DOMINGO">Domingo</option>
-                              </select>
-                              @elseif($persona->diadescanso_empleado == "LUNES")
-                              <select class="custom-select" name="diadescanso_empleado">
-                                <option selected disabled value="">Seleccione una opción:</option>
-                                <option value="LUNES" selected>Lunes</option>
-                                <option value="MARTES">Martes</option>
-                                <option value="MIERCOLES">Miércoles</option>
-                                <option value="JUEVES">Jueves</option>
-                                <option value="VIERNES">Viernes</option>
-                                <option value="SABADO">Sábado</option>
-                                <option value="DOMINGO">Domingo</option>
-                              </select>
-                              @elseif($persona->diadescanso_empleado == "MARTES")
-                              <select class="custom-select" name="diadescanso_empleado">
-                                <option selected disabled value="">Seleccione una opción:</option>
-                                <option value="LUNES">Lunes</option>
-                                <option value="MARTES" selected>Martes</option>
-                                <option value="MIERCOLES">Miércoles</option>
-                                <option value="JUEVES">Jueves</option>
-                                <option value="VIERNES">Viernes</option>
-                                <option value="SABADO">Sábado</option>
-                                <option value="DOMINGO">Domingo</option>
-                              </select>
-                              @elseif($persona->diadescanso_empleado == "MIERCOLES")
-                              <select class="custom-select" name="diadescanso_empleado">
-                                <option selected disabled value="">Seleccione una opción:</option>
-                                <option value="LUNES">Lunes</option>
-                                <option value="MARTES" >Martes</option>
-                                <option value="MIERCOLES" selected>Miércoles</option>
-                                <option value="JUEVES">Jueves</option>
-                                <option value="VIERNES">Viernes</option>
-                                <option value="SABADO">Sábado</option>
-                                <option value="DOMINGO">Domingo</option>
-                              </select>
-                              @elseif($persona->diadescanso_empleado == "JUEVES")
-                              <select class="custom-select" name="diadescanso_empleado">
-                                <option selected disabled value="">Seleccione una opción:</option>
-                                <option value="LUNES">Lunes</option>
-                                <option value="MARTES" >Martes</option>
-                                <option value="MIERCOLES">Miércoles</option>
-                                <option value="JUEVES" selected>Jueves</option>
-                                <option value="VIERNES">Viernes</option>
-                                <option value="SABADO">Sábado</option>
-                                <option value="DOMINGO">Domingo</option>
-                              </select>
-                              @elseif($persona->diadescanso_empleado == "VIERNES")
-                              <select class="custom-select" name="diadescanso_empleado">
-                                <option selected disabled value="">Seleccione una opción:</option>
-                                <option value="LUNES">Lunes</option>
-                                <option value="MARTES" >Martes</option>
-                                <option value="MIERCOLES">Miércoles</option>
-                                <option value="JUEVES">Jueves</option>
-                                <option value="VIERNES" selected>Viernes</option>
-                                <option value="SABADO">Sábado</option>
-                                <option value="DOMINGO">Domingo</option>
-                              </select>
-                              @elseif($persona->diadescanso_empleado == "SABADO")
-                              <select class="custom-select" name="diadescanso_empleado">
-                                <option selected disabled value="">Seleccione una opción:</option>
-                                <option value="LUNES">Lunes</option>
-                                <option value="MARTES" >Martes</option>
-                                <option value="MIERCOLES">Miércoles</option>
-                                <option value="JUEVES">Jueves</option>
-                                <option value="VIERNES" >Viernes</option>
-                                <option value="SABADO" selected>Sábado</option>
-                                <option value="DOMINGO">Domingo</option>
-                              </select>
-                              @elseif($persona->diadescanso_empleado == "DOMINGO")
-                              <select class="custom-select" name="diadescanso_empleado">
-                                <option selected disabled value="">Seleccione una opción:</option>
-                                <option value="LUNES">Lunes</option>
-                                <option value="MARTES" >Martes</option>
-                                <option value="MIERCOLES">Miércoles</option>
-                                <option value="JUEVES">Jueves</option>
-                                <option value="VIERNES">Viernes</option>
-                                <option value="SABADO">Sábado</option>
-                                <option value="DOMINGO" selected>Domingo</option>
-                              </select>
-                            @endif
-
-
+                      @enderror
+                    @endif
+                  </div>
+                  <div class="col-md-3 mb-2">
+                    <label for="validationDefault01">Vigencia</label>
+                    <input type="date" class="form-control" name="vigencia" value="{{$persona->vigencia ?? ''}}">
+                    @error('vigencia')
+                      <div class="alert alert-secondary">
+                        {{ $message }}
+                      </div>
+                    @enderror
+                  </div>
+                  <div class="col-md-2 mb-2">
+                    <br>
+                    <label for="validationDefault01">Horario inicio</label>
+                    <input type="time" class="form-control" name="horario_trabajoinicio" value="{{$persona->horario_trabajoinicio ?? ''}}">
+                    @error('horario_trabajoinicio')
+                      <div class="alert alert-secondary">
+                        {{ $message }}
+                      </div>
+                    @enderror
+                  </div>
+                  <div class="col-md-2 mb-2">
+                    <br>
+                    <label for="validationDefault01">Horario fin</label>
+                    <input type="time" class="form-control" name="horario_trabajofin" value="{{$persona->horario_trabajofin ?? ''}}">
+                    @error('horario_trabajofin')
+                      <div class="alert alert-secondary">
+                        {{ $message }}
+                      </div>
+                    @enderror
+                  </div>
+                  <div class="col-md-3 mb-2">
+                    <br>
+                    <label for="validationDefault01">Día descanso</label>
+                    @if(isset($persona))
+                      @if($persona->diadescanso_empleado == "")
+                        <select class="custom-select" name="diadescanso_empleado">
+                          <option selected disabled value="">Seleccione una opción:</option>
+                          <option value="LUNES">Lunes</option>
+                          <option value="MARTES">Martes</option>
+                          <option value="MIERCOLES">Miércoles</option>
+                          <option value="JUEVES">Jueves</option>
+                          <option value="VIERNES">Viernes</option>
+                          <option value="SABADO">Sábado</option>
+                          <option value="DOMINGO">Domingo</option>
+                        </select>
+                      @elseif($persona->diadescanso_empleado == "LUNES")
+                        <select class="custom-select" name="diadescanso_empleado">
+                          <option selected disabled value="">Seleccione una opción:</option>
+                          <option value="LUNES" selected>Lunes</option>
+                          <option value="MARTES">Martes</option>
+                          <option value="MIERCOLES">Miércoles</option>
+                          <option value="JUEVES">Jueves</option>
+                          <option value="VIERNES">Viernes</option>
+                          <option value="SABADO">Sábado</option>
+                          <option value="DOMINGO">Domingo</option>
+                        </select>
+                      @elseif($persona->diadescanso_empleado == "MARTES")
+                        <select class="custom-select" name="diadescanso_empleado">
+                          <option selected disabled value="">Seleccione una opción:</option>
+                          <option value="LUNES">Lunes</option>
+                          <option value="MARTES" selected>Martes</option>
+                          <option value="MIERCOLES">Miércoles</option>
+                          <option value="JUEVES">Jueves</option>
+                          <option value="VIERNES">Viernes</option>
+                          <option value="SABADO">Sábado</option>
+                          <option value="DOMINGO">Domingo</option>
+                        </select>
+                      @elseif($persona->diadescanso_empleado == "MIERCOLES")
+                        <select class="custom-select" name="diadescanso_empleado">
+                          <option selected disabled value="">Seleccione una opción:</option>
+                          <option value="LUNES">Lunes</option>
+                          <option value="MARTES" >Martes</option>
+                          <option value="MIERCOLES" selected>Miércoles</option>
+                          <option value="JUEVES">Jueves</option>
+                          <option value="VIERNES">Viernes</option>
+                          <option value="SABADO">Sábado</option>
+                          <option value="DOMINGO">Domingo</option>
+                        </select>
+                      @elseif($persona->diadescanso_empleado == "JUEVES")
+                        <select class="custom-select" name="diadescanso_empleado">
+                          <option selected disabled value="">Seleccione una opción:</option>
+                          <option value="LUNES">Lunes</option>
+                          <option value="MARTES" >Martes</option>
+                          <option value="MIERCOLES">Miércoles</option>
+                          <option value="JUEVES" selected>Jueves</option>
+                          <option value="VIERNES">Viernes</option>
+                          <option value="SABADO">Sábado</option>
+                          <option value="DOMINGO">Domingo</option>
+                        </select>
+                      @elseif($persona->diadescanso_empleado == "VIERNES")
+                        <select class="custom-select" name="diadescanso_empleado">
+                          <option selected disabled value="">Seleccione una opción:</option>
+                          <option value="LUNES">Lunes</option>
+                          <option value="MARTES" >Martes</option>
+                          <option value="MIERCOLES">Miércoles</option>
+                          <option value="JUEVES">Jueves</option>
+                          <option value="VIERNES" selected>Viernes</option>
+                          <option value="SABADO">Sábado</option>
+                          <option value="DOMINGO">Domingo</option>
+                        </select>
+                      @elseif($persona->diadescanso_empleado == "SABADO")
+                        <select class="custom-select" name="diadescanso_empleado">
+                          <option selected disabled value="">Seleccione una opción:</option>
+                          <option value="LUNES">Lunes</option>
+                          <option value="MARTES" >Martes</option>
+                          <option value="MIERCOLES">Miércoles</option>
+                          <option value="JUEVES">Jueves</option>
+                          <option value="VIERNES" >Viernes</option>
+                          <option value="SABADO" selected>Sábado</option>
+                          <option value="DOMINGO">Domingo</option>
+                        </select>
+                      @elseif($persona->diadescanso_empleado == "DOMINGO")
+                        <select class="custom-select" name="diadescanso_empleado">
+                          <option selected disabled value="">Seleccione una opción:</option>
+                          <option value="LUNES">Lunes</option>
+                          <option value="MARTES" >Martes</option>
+                          <option value="MIERCOLES">Miércoles</option>
+                          <option value="JUEVES">Jueves</option>
+                          <option value="VIERNES">Viernes</option>
+                          <option value="SABADO">Sábado</option>
+                          <option value="DOMINGO" selected>Domingo</option>
+                        </select>
+                      @endif
+                    @else
+                      <select class="custom-select" name="diadescanso_empleado">
+                        <option selected disabled value="">Seleccione una opción:</option>
+                        <option value="LUNES">Lunes</option>
+                        <option value="MARTES">Martes</option>
+                        <option value="MIERCOLES">Miércoles</option>
+                        <option value="JUEVES">Jueves</option>
+                        <option value="VIERNES">Viernes</option>
+                        <option value="SABADO">Sábado</option>
+                        <option value="DOMINGO">Domingo</option>
+                      </select>
+                      @error('sexo')
+                        <div class="alert alert-secondary">
+                            {{ $message }}
+                        </div>
+                      @enderror
+                      @error('diadescanso_empleado')
+                        <div class="alert alert-secondary">
+                          {{ $message }}
+                        </div>
+                      @enderror
+                    @endif
+                  </div>
+                  <div class="col-md-2 mb-2">
+                    <br>
+                    <label for="validationDefault01">Sueldo diario</label>
+                    <input type="number" class="form-control" name="sueldo_diario" value="{{$persona->sueldo_diario ?? ''}}" maxlength="5" min="0.01" max="10000.00" step="0.01" onkeypress="return numeros(event)">
+                    @error('sueldo_diario')
+                      <div class="alert alert-secondary">
+                        {{ $message }}
+                      </div>
+                    @enderror
+                  </div>
+                  <div class="col-md-3 mb-2">
+                    <br>
+                    <label for="validationDefault01">Sueldo diario integrado</label>
+                    <input type="number" class="form-control" name="sueldo_integrado" value="{{$persona->sueldo_integrado ?? ''}}" maxlength="5" min="0.01" max="10000.00" step="0.01" onkeypress="return numeros(event)" readonly>
+                  </div>
+                  <div class="col-md-2 mb-2">
+                    <label for="validationDefault01">Tabulación<br>Nivel</label>
+                    <input type="text" onkeyup="mayus(this);" class="form-control" name="nivel" value="{{$persona->nivel ?? ''}}">
+                  </div>
+                  <div class="col-md-2 mb-2">
+                    <br>
+                    <label for="validationDefault01">Categoria</label>
+                    <input type="text" onkeyup="mayus(this);" class="form-control" name="categoria" value="{{$persona->categoria ?? ''}}">
+                  </div>
+                  <div class="col-md-3 mb-3">
+                    <br>
+                    <label for="validationDefault04">Tipo salario</label>     
+                    @if(isset($persona))
+                      <select class="custom-select" name="tipo_salario">
+                        @if($persona->tipo_salario=="")
+                          <option selected disabled value="">Seleccione una opción:</option>
+                          <option value="FIJO">Fijo</option>
+                          <option value="VARIABLE">Variable</option>
+                        @elseif($persona->tipo_salario=="FIJO")
+                          <option disabled value="">Seleccione una opción:</option>
+                          <option selected value="FIJO">Fijo</option>
+                          <option value="VARIABLE">Variable</option>
+                        @elseif($persona->tipo_salario=="VARIABLE")
+                          <option disabled value="">Seleccione una opción:</option>
+                          <option value="FIJO">Fijo</option>
+                          <option selected value="VARIABLE">Variable</option>
+                        @endif
+                      </select>
+                        @error('tipo_salario')
+                        <div class="alert alert-secondary">
+                          {{ $message }}
+                        </div>
+                      @enderror
+                    @else
+                      <select class="custom-select" name="tipo_salario">
+                        <option selected disabled value="">Seleccione una opción:</option>
+                        <option value="FIJO">Fijo</option>
+                        <option value="VARIABLE">Variable</option>
+                      </select>
+                      @error('tipo_salario')
+                        <div class="alert alert-secondary">
+                          {{ $message }}
+                        </div>
+                      @enderror
+                    @endif
+                  </div>
+                  <div class="col-md-3 mb-3">
+                    <br>
+                    <label for="validationDefault04">Tipo de jornada</label>
+                    @if(isset($persona))
+                      <select class="custom-select" name="tipo_jornada">
+                        @if($persona->tipo_jornada=="")
+                          <option selected disabled value="">Seleccione una opción:</option>
+                          <option value="COMPLETA">Completa</option>
+                          <option value="REDUCIDA">Reducida</option>
+                        @elseif($persona->tipo_jornada=="COMPLETA")
+                          <option disabled value="">Seleccione una opción:</option>
+                          <option selected value="COMPLETA">Completa</option>
+                          <option value="REDUCIDA">Reducida</option>
+                        @elseif($persona->tipo_jornada=="REDUCIDA")
+                          <option selected disabled value="">Seleccione una opción:</option>
+                          <option value="COMPLETA">Completa</option>
+                          <option selected value="REDUCIDA">Reducida</option>
+                        @endif
+                      </select>
+                      @error('tipo_jornada')
+                        <div class="alert alert-secondary">
+                          {{ $message }}
+                        </div>
+                      @enderror
+                    @else
+                      <select class="custom-select" name="tipo_jornada">
+                        <option selected disabled value="">Seleccione una opción:</option>
+                        <option value="COMPLETA">Completa</option>
+                        <option value="REDUCIDA">Reducida</option>
+                      </select>
+                      @error('tipo_jornada')
+                        <div class="alert alert-secondary">
+                          {{ $message }}
+                        </div>
+                      @enderror
+                    @endif
+                  </div>
+                  <div class="col-md-1 mb-3">
+                    <label for="validationDefault04">Jornada <br> Días</label>
+                    <input type="number" value="{{$persona->dias ?? ''}}" class="form-control" name="dias" min="1" max="30" step="1" >
+                    @error('dias')
+                      <div class="alert alert-secondary">
+                        {{ $message }}
+                      </div>
+                    @enderror
+                  </div>
+                  <div class="col-md-1 mb-3">
+                    <br>
+                    <label for="validationDefault04">Horas</label>
+                    <input type="number" value="{{$persona->horas_diarias ?? ''}}" class="form-control" name="horas_diarias" min="1" max="24" step="any" value="">
+                    @error('horas_diarias')
+                      <div class="alert alert-secondary">
+                        {{ $message }}
+                      </div>
+                    @enderror
+                  </div>
+                  <div class="col-md-2 mb-3"> 
+                    <br>
+                    <label for="validationDefault04">Forma de Pago</label>
+                    @if(isset($persona))
+                      <select class="custom-select" name="forma_pago">
+                        @if($persona->forma_pago=="")
+                          <option selected disabled value="">Seleccione una opción:</option>
+                          <option value="EFECTIVO">Efectivo</option>
+                          <option value="CHEQUE">Cheque</option>
+                        @elseif($persona->forma_pago=="EFECTIVO")
+                          <option disabled value="">Seleccione una opción:</option>
+                          <option selected value="EFECTIVO">Efectivo</option>
+                          <option value="CHEQUE">Cheque</option>
+                        @elseif($persona->forma_pago=="CHEQUE")
+                          <option disabled value="">Seleccione una opción:</option>
+                          <option value="EFECTIVO">Efectivo</option>
+                          <option selected value="CHEQUE">Cheque</option>
+                        @endif
+                      </select>
+                      @error('forma_pago')
+                        <div class="alert alert-secondary">
+                          {{ $message }}
+                        </div>
+                      @enderror
+                    @else
+                      <select class="custom-select" name="forma_pago">
+                        <option selected disabled value="">Seleccione una opción:</option>
+                        <option value="EFECTIVO">Efectivo</option>
+                        <option value="CHEQUE">Cheque</option>
+                      </select>
+                      @error('forma_pago')
+                        <div class="alert alert-secondary">
+                          {{ $message }}
+                        </div>
+                      @enderror
+                    @endif
+                  </div>
+                  <div class="col-md-2 mb-3">
+                    <br>
+                    <label for="validationDefault04">Banco</label>
+                    @if(isset($persona))
+                      <select class="custom-select" name="clave_banco">
+                        <option selected disabled value="">Seleccione una opción:</option>
+                          @foreach ($bancos as $banco)
+                            @if($persona->clave_banco==$banco->clave_banco)
+                              <option selected value="{{$banco->clave_banco}}">{{$banco->nombre_banco}}</option>
                             @else
-                              <select class="custom-select" name="diadescanso_empleado">
-                                <option selected disabled value="">Seleccione una opción:</option>
-                                <option value="LUNES">Lunes</option>
-                                <option value="MARTES">Martes</option>
-                                <option value="MIERCOLES">Miércoles</option>
-                                <option value="JUEVES">Jueves</option>
-                                <option value="VIERNES">Viernes</option>
-                                <option value="SABADO">Sábado</option>
-                                <option value="DOMINGO">Domingo</option>
-                              </select>
-                              @error('sexo')
-                                <div class="alert alert-secondary">
-                                    {{ $message }}
-                                </div>
-                            @enderror
-                            @error('diadescanso_empleado')
-                                <div class="alert alert-secondary">
-                                    {{ $message }}
-                                </div>
-                          @enderror
-                          @endif
-                          </div>
-
-
-                          <div class="col-md-2 mb-2">
-                            <br>
-                            <label for="validationDefault01">Sueldo diario</label>
-                            <input  type="number" class="form-control" name="sueldo_diario" value="{{$persona->sueldo_diario ?? ''}}" maxlength="5" min="0.01" max="10000.00" step="0.01" onkeypress="return numeros(event)">
-                            @error('sueldo_diario')
-                                <div class="alert alert-secondary">
-                                    {{ $message }}
-                                </div>
-                          @enderror
-                          </div>
-                          <div class="col-md-3 mb-2">
-                            <br>
-                            <label for="validationDefault01">Sueldo diario integrado</label>
-                            <input  type="number" class="form-control" name="sueldo_integrado" value="{{$persona->sueldo_integrado ?? ''}}" maxlength="5" min="0.01" max="10000.00" step="0.01" onkeypress="return numeros(event)" readonly>
-                            
-                          </div>
-                          <div class="col-md-2 mb-2">
-                            <label for="validationDefault01">Tabulación<br>Nivel</label>
-                            <input type="text" onkeyup="mayus(this);" class="form-control" name="nivel" value="{{$persona->nivel ?? ''}}">
-                          </div>
-                          <div class="col-md-2 mb-2">
-                            <br>
-                            <label for="validationDefault01">Categoria</label>
-                            <input type="text" onkeyup="mayus(this);" class="form-control" name="categoria" value="{{$persona->categoria ?? ''}}">
-                          </div>
-                          <div class="col-md-3 mb-3">
-                            <br>
-                            <label for="validationDefault04">Tipo salario</label>
-                            
-                          @if(isset($persona))
-                            <select class="custom-select" name="tipo_salario">
-                              @if($persona->tipo_salario=="")
-                                <option selected disabled value="">Seleccione una opción:</option>
-                                <option value="FIJO">Fijo</option>
-                                <option value="VARIABLE">Variable</option>
-                              @elseif($persona->tipo_salario=="FIJO")
-                                <option disabled value="">Seleccione una opción:</option>
-                                <option selected value="FIJO">Fijo</option>
-                                <option value="VARIABLE">Variable</option>
-                              @elseif($persona->tipo_salario=="VARIABLE")
-                                <option disabled value="">Seleccione una opción:</option>
-                                <option value="FIJO">Fijo</option>
-                                <option selected value="VARIABLE">Variable</option>
-                              @endif
-                            </select>
-                             @error('tipo_salario')
-                                <div class="alert alert-secondary">
-                                    {{ $message }}
-                                </div>
-                          @enderror
-                          @else
-                            <select class="custom-select" name="tipo_salario">
-                              <option selected disabled value="">Seleccione una opción:</option>
-                              <option value="FIJO">Fijo</option>
-                              <option value="VARIABLE">Variable</option>
-                            </select>
-                             @error('tipo_salario')
-                                <div class="alert alert-secondary">
-                                    {{ $message }}
-                                </div>
-                          @enderror
-                          @endif
-                          </div>
-                          <div class="col-md-3 mb-3">
-                            <br>
-                            <label for="validationDefault04">Tipo de jornada</label>
-                          @if(isset($persona))
-                            <select class="custom-select" name="tipo_jornada">
-                              @if($persona->tipo_jornada=="")
-                                <option selected disabled value="">Seleccione una opción:</option>
-                                <option value="COMPLETA">Completa</option>
-                                <option value="REDUCIDA">Reducida</option>
-                              @elseif($persona->tipo_jornada=="COMPLETA")
-                                <option disabled value="">Seleccione una opción:</option>
-                                <option selected value="COMPLETA">Completa</option>
-                                <option value="REDUCIDA">Reducida</option>
-                              @elseif($persona->tipo_jornada=="REDUCIDA")
-                                <option selected disabled value="">Seleccione una opción:</option>
-                                <option value="COMPLETA">Completa</option>
-                                <option selected value="REDUCIDA">Reducida</option>
-                              @endif
-                            </select>
-                             @error('tipo_jornada')
-                                <div class="alert alert-secondary">
-                                    {{ $message }}
-                                </div>
-                          @enderror
-                          @else
-                            <select class="custom-select" name="tipo_jornada">
-                              <option selected disabled value="">Seleccione una opción:</option>
-                              <option value="COMPLETA">Completa</option>
-                              <option value="REDUCIDA">Reducida</option>
-                            </select>
-                            @error('tipo_jornada')
-                                <div class="alert alert-secondary">
-                                    {{ $message }}
-                                </div>
-                          @enderror
-                          @endif
-                          </div>
-
-                          <div class="col-md-1 mb-3">
-                            <label for="validationDefault04">Jornada <br> Días</label>
-                            <input  type="number" value="{{$persona->dias ?? ''}}" class="form-control" name="dias" min="1" max="30" step="1" >
-                            @error('dias')
-                                <div class="alert alert-secondary">
-                                    {{ $message }}
-                                </div>
-                          @enderror
-                          </div>
-                          <div class="col-md-1 mb-3">
-                            <br>
-                            <label for="validationDefault04">Horas</label>
-                            <input  type="number" value="{{$persona->horas_diarias ?? ''}}" class="form-control" name="horas_diarias" min="1" max="24" step="any" value="">
-                            @error('horas_diarias')
-                                <div class="alert alert-secondary">
-                                    {{ $message }}
-                                </div>
-                          @enderror
-                          </div>
-                          <div class="col-md-2 mb-3"> 
-                            <br>
-                            <label for="validationDefault04">Forma de Pago</label>
-                            @if(isset($persona))
-                              <select class="custom-select" name="forma_pago">
-                                @if($persona->forma_pago=="")
-                                <option selected disabled value="">Seleccione una opción:</option>
-                                <option value="EFECTIVO">Efectivo</option>
-                                <option value="CHEQUE">Cheque</option>
-                              @elseif($persona->forma_pago=="EFECTIVO")
-                                <option disabled value="">Seleccione una opción:</option>
-                                <option selected value="EFECTIVO">Efectivo</option>
-                                <option value="CHEQUE">Cheque</option>
-                              @elseif($persona->forma_pago=="CHEQUE")
-                                <option disabled value="">Seleccione una opción:</option>
-                                <option value="EFECTIVO">Efectivo</option>
-                                <option selected value="CHEQUE">Cheque</option>
-                              
-                              @endif
-                              </select>
-                              @error('forma_pago')
-                                <div class="alert alert-secondary">
-                                    {{ $message }}
-                                </div>
-                          @enderror
-                            @else
-                            <select class="custom-select" name="forma_pago">
-                              <option selected disabled value="">Seleccione una opción:</option>
-                              <option value="EFECTIVO">Efectivo</option>
-                              <option value="CHEQUE">Cheque</option>
-                            </select>
-                            @error('forma_pago')
-                                <div class="alert alert-secondary">
-                                    {{ $message }}
-                                </div>
-                          @enderror
+                              <option value="{{$banco->clave_banco}}">{{$banco->nombre_banco}}</option>
                             @endif
+                          @endforeach
+                      </select>
+                      @error('clave_banco')
+                        <div class="alert alert-secondary">
+                          {{ $message }}
+                        </div>
+                      @enderror
+                    @else 
+                      <select class="custom-select" name="clave_banco">
+                        <option selected disabled value="">Seleccione una opción:</option>
+                          @foreach ($bancos as $banco)
+                            <option value="{{$banco->clave_banco}}">{{$banco->nombre_banco}}</option>
+                          @endforeach
+                      </select>
+                      @error('clave_banco')
+                        <div class="alert alert-secondary">
+                          {{ $message }}
+                        </div>
+                      @enderror
+                    @endif
+                  </div>
+                  <div class="col-md-4 mb-4">
+                    <br>
+                    <label for="validationDefault04">Cuenta Bancaria</label>
+                    <input type="text" value="{{$persona->cuenta_bancaria ?? ''}}" class="form-control" maxlength="20" name="cuenta_bancaria" value="" onkeypress="return numeros(event)">
+                    @error('cuenta_bancaria')
+                      <div class="alert alert-secondary">
+                        {{ $message }}
+                      </div>
+                    @enderror
+                  </div>
+                  <div class="col-md-4 mb-4">
+                    <br>
+                    <label for="validationDefault04">Clabe Interbancaria</label>
+                    <input type="text" value="{{$persona->clabe_interbancaria ?? ''}}" class="form-control" maxlength="18" name="clabe_interbancaria" value="" onkeypress="return numeros(event)">
+                    @error('clabe_interbancaria')
+                      <div class="alert alert-secondary">
+                        {{ $message }}
+                      </div>
+                    @enderror
+                  </div>
+                  <div class="col-md-2 mb-3">
+                    <br>
+                    <br>
+                    @if(isset($persona))
+                      <div class="form-check">
+                        @if($persona->ptu==0)
+                          <input checked class="form-check-input" type="checkbox" name="ptu" value="option1" aria-label="">
+                        @else
+                          <input class="form-check-input" type="checkbox" name="ptu" value="option1" aria-label="">
+                        @endif
+                        <label for="">Excluir para PTU</label>
+                      </div>
+                    @else
+                      <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="ptu" value="option1" aria-label="">
+                        <label for="">Excluir para PTU</label>
+                      </div>
+                    @endif
+                  </div>
+                  <div class="col-md-10 mb-3">
+                    <label for="validationDefault04">Observaciones</label>
+                    <input type="text" class="form-control" name="observaciones" value="{{$persona->observaciones ?? ''}}" onkeyup="mayus(this);" onkeypress="return validar(event)">
+                  </div>
+                </div><!--FIN Row contratación-->
+              </div><!--FIN ROW Contratación-->
+            </div>   
+            <div class="col-md-12">
+              <br>
+              <div class="card-body">
+                <div class="margin">
+                  <div class="btn-group">
+                    @canany(['administrador','capturista','reportes'])
+                      @if(isset($persona))
+                        <div class="form-group">
+                          <button type="submit" name="acciones" value="primero" id="primero" class="botonesgrandes"><i class="fas fa-backward" ></i></button>
+                        </div>
+                        <div class="form-group">
+                          <button type="submit" name="acciones" value="atras" id="atras" class="botonesgrandes"><i class="fas fa-arrow-circle-left"></i></button>
+                        </div>
+                        <div class="form-group">
+                          <button type="submit" name="acciones" value="siguiente" id="siguiente" class="botonesgrandes"><i class="fas fa-arrow-circle-right"></i></button>
+                        </div>
+                        <div class="form-group">
+                          <button type="submit" name="acciones" value="ultimo" id="ultimo" class="botonesgrandes"><i class="fas fa-forward"></i></button>
+                        </div>
+                      @else
+                        <div class="form-group">
+                          <button type="submit" class="botonesgrandes" disabled><i class="fas fa-backward" ></i></button>
+                        </div>
+                        <div class="form-group">
+                          <button type="submit" class="botonesgrandes" disabled><i class="fas fa-arrow-circle-left"></i></button>
+                        </div>
+                        <div class="form-group">
+                          <button type="submit" class="botonesgrandes" disabled><i class="fas fa-arrow-circle-right"></i></button>
+                        </div>
+                        <div class="form-group">
+                          <button type="submit" class="botonesgrandes" disabled><i class="fas fa-forward"></i></button>
+                        </div>
+                      @endif
+                    @endcanany
+                    <!--eSPACIO ENTRE BOTONES-->
+                    &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                    &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                    &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                    &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                    @canany(['administrador','capturista','reportes'])
+                      @if(isset($persona))
+                        <div class="form-group">
+                          <button id="buscar" type="button" data-toggle="modal" data-target="#modalbusquedaemp" class="botonesgrandes">
+                            <i class="fas fa-search"></i>
+                          </button>
+                        </div>
+                      @else 
+                        <div class="form-group">
+                          <button id="buscar_falso" type="button" class="botonesgrandes" disabled>
+                            <i class="fas fa-search"></i>
+                          </button>
+                        </div>
+                      @endif
+                    @endcanany
+                    @canany(['administrador','capturista'])
+                      <div class="form-group">
+                        <button type="button" id="nuevo" class="botonesgrandes"> <i class="fas fa-user-plus"></i></button>
+                      </div>
+                    @elsecanany(['reportes'])
+                      <div class="form-group">
+                        <button type="button" disabled class="botonesgrandes"> <i class="fas fa-user-plus"></i></button>
+                      </div>
+                    @endcanany
+                    @canany(['administrador','capturista'])
+                      @if(isset($persona))
+                        <div class="form-group">
+                          <button type="button" id="actualizar" class="botonesgrandes"> <i class="fas fa-pen-square"></i></button>
+                        </div>
+                      @else
+                        <div class="form-group">
+                          <button type="button" disabled class="botonesgrandes"> <i class="fas fa-pen-square"></i></button>
+                        </div>
+                      @endif
+                    @elsecanany(['reportes'])
+                      <div class="form-group">
+                        <button type="button" disabled class="botonesgrandes"> <i class="fas fa-pen-square"></i></button>
+                      </div>
+                    @endcanany
+                    @can('administrador')
+                      <div class="form-group">
+                        @if(isset($persona))
+                          <a href="#" id="eliminar" data-target="#modaldeleteempleado{{$persona->id_emp}}" data-toggle="modal">
+                            <button type="button" class="botonesgrandes">
+                              <i class="far fa-trash-alt"></i>
+                            </button>
+                          </a>
+                        @else
+                          <div class="form-group">
+                            <a id="eliminar_vacio">
+                              <button type="button" disabled class="botonesgrandes">
+                                <i class="far fa-trash-alt"></i>
+                              </button>
+                            </a>
                           </div>
-
-                          <div class="col-md-2 mb-3">
-                            <br>
-                            <label for="validationDefault04">Banco</label>
-                          @if(isset($persona))
-                              <select class="custom-select" name="clave_banco">
-                                <option selected disabled value="">Seleccione una opción:</option>
-                                  @foreach ($bancos as $banco)
-                                    @if($persona->clave_banco==$banco->clave_banco)
-                                      <option selected value="{{$banco->clave_banco}}">{{$banco->nombre_banco}}</option>
-                                     @else
-                                      <option value="{{$banco->clave_banco}}">{{$banco->nombre_banco}}</option>
-                                    @endif
-                                  @endforeach
-                              </select>
-                              @error('clave_banco')
-                                <div class="alert alert-secondary">
-                                    {{ $message }}
-                                </div>
-                          @enderror
-                          @else 
-                            <select class="custom-select" name="clave_banco">
-                              <option selected disabled value="">Seleccione una opción:</option>
-                                @foreach ($bancos as $banco)
-                                  <option value="{{$banco->clave_banco}}">{{$banco->nombre_banco}}</option>
-                                @endforeach
-                            </select>
-                            @error('clave_banco')
-                                <div class="alert alert-secondary">
-                                    {{ $message }}
-                                </div>
-                          @enderror
-                          @endif
-                          </div>
-                          <div class="col-md-4 mb-4">
-                            <br>
-                            <label for="validationDefault04">Cuenta Bancaria</label>
-                            <input  type="text" value="{{$persona->cuenta_bancaria ?? ''}}" class="form-control" maxlength="20" name="cuenta_bancaria" value="" onkeypress="return numeros(event)">
-                             @error('cuenta_bancaria')
-                                <div class="alert alert-secondary">
-                                    {{ $message }}
-                                </div>
-                          @enderror
-                          </div>
-                          <div class="col-md-4 mb-4">
-                            <br>
-                            <label for="validationDefault04">Clabe Interbancaria</label>
-                            <input  type="text" value="{{$persona->clabe_interbancaria ?? ''}}" class="form-control" maxlength="18" name="clabe_interbancaria" value="" onkeypress="return numeros(event)">
-                            @error('clabe_interbancaria')
-                                <div class="alert alert-secondary">
-                                    {{ $message }}
-                                </div>
-                          @enderror
-                          </div>
-                          <div class="col-md-2 mb-3">
-                            <br><br>
-                            @if(isset($persona))
-                              <div class="form-check">
-                                @if($persona->ptu==0)
-                                  <input checked class="form-check-input" type="checkbox" name="ptu" value="option1" aria-label="">
-                                @else
-                                  <input class="form-check-input" type="checkbox" name="ptu" value="option1" aria-label="">
-                                @endif
-                                <label for="">Excluir para PTU</label>
-                              </div>
-                            @else
-                            <div class="form-check">
-                              <input class="form-check-input" type="checkbox" name="ptu" value="option1" aria-label="">
-                              <label for="">Excluir para PTU</label>
-                              </div>
-                            @endif
-
-                          </div>
-                          <div class="col-md-10 mb-3">
-                            <label for="validationDefault04">Observaciones</label>
-                            <input type="text" class="form-control" name="observaciones" value="{{$persona->observaciones ?? ''}}" onkeyup="mayus(this);" onkeypress="return validar(event)">
-                          </div>
-                        </div><!--FIN Row contratación-->
-                      </div><!--FIN ROW Contratación-->
+                        @endif
+                      </div>
+                    @elsecanany(['capturista','reportes'])
+                      <div class="form-group">
+                        <a id="eliminar_">
+                          <button type="button" disabled class="botonesgrandes">
+                            <i class="far fa-trash-alt"></i>
+                          </button>
+                        </a>
+                      </div>
+                    @endcan
+                    <!--eSPACIO ENTRE BOTONES-->
+                    &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                    &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                    &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                    &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                    <!--Su uso solo es para visualizar la existencia del los iconos -->
+                    <div class="form-group">
+                      <button id="guardar_falso" disabled class="botonesgrandes"><i class="fas fa-save"></i></button>
                     </div>
-                    
-              <div class="col-md-12">
-                <br>
-                <div class="card-body">
-                  <div class="margin">
-                    <div class="btn-group">
-                      @canany(['administrador','capturista','reportes'])
-                        @if(isset($persona))
-                          <div class="form-group">
-                            <button type="submit" name="acciones" value="primero" id="primero" class="botonesgrandes"><i class="fas fa-backward" ></i></button>
-                          </div>
-                          <div class="form-group">
-                            <button type="submit" name="acciones" value="atras" id="atras" class="botonesgrandes"><i class="fas fa-arrow-circle-left"></i></button>
-                          </div>
-                          <div class="form-group">
-                            <button type="submit" name="acciones" value="siguiente" id="siguiente" class="botonesgrandes"><i class="fas fa-arrow-circle-right"></i></button>
-                          </div>
-                          <div class="form-group">
-                            <button type="submit" name="acciones" value="ultimo" id="ultimo" class="botonesgrandes"><i class="fas fa-forward"></i></button>
-                          </div>
-                        @else
-                          <div class="form-group">
-                            <button type="submit" class="botonesgrandes" disabled><i class="fas fa-backward" ></i></button>
-                          </div>
-                          <div class="form-group">
-                            <button type="submit" class="botonesgrandes" disabled><i class="fas fa-arrow-circle-left"></i></button>
-                          </div>
-                          <div class="form-group">
-                            <button type="submit" class="botonesgrandes" disabled><i class="fas fa-arrow-circle-right"></i></button>
-                          </div>
-                          <div class="form-group">
-                            <button type="submit" class="botonesgrandes" disabled><i class="fas fa-forward"></i></button>
-                          </div>
-                        @endif
-                      @endcanany
-
-                      <!--eSPACIO ENTRE BOTONES-->
-                       &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
-                       &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
-                       &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
-                       &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
-
-
-                                @canany(['administrador','capturista','reportes'])
-                                  @if(isset($persona))
-                                    <div class="form-group">
-                                      <button id="buscar" type="button" data-toggle="modal" data-target="#modalbusquedaemp" class="botonesgrandes">
-                                        <i class="fas fa-search"></i>
-                                      </button>
-                                    </div>
-                                  @else 
-                                    <div class="form-group">
-                                      <button id="buscar_falso" type="button" class="botonesgrandes" disabled>
-                                        <i class="fas fa-search"></i>
-                                      </button>
-                                    </div>
-                                  @endif
-                                @endcanany
-                                @canany(['administrador','capturista'])
-                                  <div class="form-group">
-                                    <button type="button" id="nuevo" class="botonesgrandes"> <i class="fas fa-user-plus"></i></button>
-                                  </div>
-                                @elsecanany(['reportes'])
-                                  <div class="form-group">
-                                    <button type="button" disabled class="botonesgrandes"> <i class="fas fa-user-plus"></i></button>
-                                  </div>
-                                @endcanany
-
-
-                                @canany(['administrador','capturista'])
-                                    @if(isset($persona))
-                                        <div class="form-group">
-                                            <button type="button" id="actualizar" class="botonesgrandes"> <i class="fas fa-pen-square"></i></button>
-                                        </div>
-                                    @else
-                                        <div class="form-group">
-                                            <button type="button" disabled class="botonesgrandes"> <i class="fas fa-pen-square"></i></button>
-                                        </div>
-                                    @endif
-                                @elsecanany(['reportes'])
-                                    <div class="form-group">
-                                            <button type="button" disabled class="botonesgrandes"> <i class="fas fa-pen-square"></i></button>
-                                        </div>
-                                @endcanany
-                                @can('administrador')
-                                <div class="form-group">
-                                    @if(isset($persona))
-                                    <a href="#" id="eliminar" data-target="#modaldeleteempleado{{$persona->id_emp}}" data-toggle="modal">
-                                        <button type="button" class="botonesgrandes">
-                                            <i class="far fa-trash-alt"></i>
-                                        </button>
-                                    </a>
-                                    @else
-                                    <div class="form-group">
-                                        <a id="eliminar_vacio">
-                                            <button type="button" disabled class="botonesgrandes">
-                                                <i class="far fa-trash-alt"></i>
-                                            </button>
-                                        </a>
-                                    </div>
-                                    @endif
-                                </div>
-                                @elsecanany(['capturista','reportes'])
-                                                <div class="form-group">
-                                                        <a id="eliminar_">
-                                                            <button type="button" disabled class="botonesgrandes">
-                                                                <i class="far fa-trash-alt"></i>
-                                                            </button>
-                                                        </a>
-                                                    </div>
-                                @endcan
-
-                                <!--eSPACIO ENTRE BOTONES-->
-                       &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
-                       &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
-                       &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
-                       &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
-
-
-
-
-                                <!--Su uso solo es para visualizar la existencia del los iconos -->
-                                            <div class="form-group">
-                                                <button id="guardar_falso" disabled class="botonesgrandes"><i class="fas fa-save"></i></button>
-                                            </div>
-
-
-                                <div class="form-group">
-                                    <button id="nuevo_reg" name="acciones" value="registrar" type="submit" style="display: none;" class="botonesgrandes"><i class="fas fa-save"></i></button>
-                                </div>
-                                <div class="form-group">
-                                    <button name="acciones" value="actualizar" id="actualizar_reg" type="submit" style="display: none;" class="botonesgrandes"><i class="fas fa-save"></i></button>
-                                </div>
-                                <div class="form-group">
-                                    <button name="acciones" value="cancelar" id="cancelar_reg" type="submit" disabled class="botonesgrandes"><i class="far fa-window-close"></i></button>
-                                </div>
-
+                    <div class="form-group">
+                      <button id="nuevo_reg" name="acciones" value="registrar" type="submit" style="display: none;" class="botonesgrandes"><i class="fas fa-save"></i></button>
+                    </div>
+                    <div class="form-group">
+                      <button name="acciones" value="actualizar" id="actualizar_reg" type="submit" style="display: none;" class="botonesgrandes"><i class="fas fa-save"></i></button>
+                    </div>
+                    <div class="form-group">
+                      <button name="acciones" value="cancelar" id="cancelar_reg" type="submit" disabled class="botonesgrandes"><i class="far fa-window-close"></i></button>
                     </div>
                   </div>
                 </div>
               </div>
-            </form>
+            </div>
+          </form>
           <!--Fin-->
-          </div>
         </div>
       </div>
+    </div>
     @include('emplea.modalbusqid')
     @isset($persona)
       @include('emplea.modalelimina')
