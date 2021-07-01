@@ -1,10 +1,14 @@
 <?php
 namespace App\Http\Controllers;
+
+use DB;
+use Session;
 use App\Empresa;
 use Illuminate\Http\Request;
-use DB;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Schema;
-use Session;
+
+
 
 class EmpresaController extends Controller{
     public function conectar($clv){
@@ -121,6 +125,7 @@ class EmpresaController extends Controller{
         $emp->num_interno=$datos->num_interno;
         $emp->num_externo=$datos->num_externo;
         $emp->colonia=$datos->colonia;
+        $emp->codigopostal=$datos->codigopostal;
         $emp->municipio=$datos->municipio;
         $emp->ciudad=$datos->ciudad;
         $emp->pais=$datos->pais;
@@ -155,9 +160,9 @@ class EmpresaController extends Controller{
               'segurosocial' => 'required',
               'registro_estatal' => 'required',
               'calle' => 'required',
-              'num_interno' => 'required',
               'num_externo' => 'required',
               'colonia' => 'required',
+              'codigopostal' => 'required',
               'municipio' => 'required',
               'ciudad' => 'required',
               'pais' => 'required',
@@ -171,6 +176,29 @@ class EmpresaController extends Controller{
         $empresa = new Empresa;
         $empresa->rfc = $datos->rfc;
         $empresa->clave = $datos->clave;
+        $empresa->nombre = $datos->nombre;
+        $empresa->nombre_nomina = $datos->nombre_nomina;
+        $empresa->rfc = $datos->rfc;
+        $empresa->segurosocial = $datos->segurosocial;
+        $empresa->registro_estatal = $datos->registro_estatal;
+        $empresa->calle = $datos->calle;
+        $empresa->num_interno = $datos->num_interno;
+        $empresa->num_externo = $datos->num_externo;
+        $empresa->colonia = $datos->colonia;
+        $empresa->codigopostal = $datos->codigopostal;
+        $empresa->municipio = $datos->municipio;
+        $empresa->ciudad = $datos->ciudad;
+        $empresa->pais = $datos->pais;
+        $empresa->representante_legal = $datos->representante_legal;
+        $empresa->rfc_representante = $datos->rfc_representante;
+        $empresa->telefono = $datos->telefono;
+        $empresa->email = $datos->email;
+        $empresa->inicioPeriodo = $datos->inicioPeriodo;
+        $empresa->tipoPeriodo = $datos->tipoPeriodo;
+        $empresa->region = $datos->regionEmpresa;
+        $empresa->primaRiesgo = $datos->primaRiesgo;
+        $empresa->porcentajeAhorro = $datos->porcentajeAhorro;
+        $empresa->save();
         
         DB::statement('create database '.$empresa->clave);
             $clv= $empresa->clave;
@@ -244,6 +272,70 @@ class EmpresaController extends Controller{
             $table->boolean('seleccionado')->nullable();
             $table->timestamps();
         });
+
+        $conceptos = Collect([
+            ["clave_concepto" => "001P", "concepto" => "SUELDO", "formula" => "SD*DT","tipo" => "P","manejo" => "fijo", "cantidad" => NULL, "importe" => NULL,"monto" => NULL, "isr" => 1,"imss" => 1, "infonavit" => 0, "estatal" => 1, "isr_uma" => 0.00, "isr_porcentaje" => 0.00,"imss_uma" => 0.00, "imss_porcentaje" => 100.00],
+            ["clave_concepto" => "002P", "concepto" => "HORAS EXTRAS DOBLES", "formula" => "(SD/HT)2","tipo" => "P", "manejo" => "fijo","cantidad" => NULL,"importe" => NULL, "monto" => NULL,"isr" => 1,"imss" => 0,"infonavit" => 0, "estatal" => 1,"isr_uma" => 5.00,"isr_porcentaje" => 50.00, "imss_uma" => 0.00, "imss_porcentaje" =>100.00],
+            ["clave_concepto" => "003P", "concepto" => "HORAS EXTRAS TRIPLES", "formula" => "(SD/HT)*3","tipo" => "P","manejo" => "fijo","cantidad" => NULL,"importe" => NULL,"monto" => NULL, "isr" =>1,"imss" => 1,"infonavit" => 0,"estatal" =>1, "isr_uma" => 0.00, "isr_porcentaje" => 0.00,"imss_uma" => 0.00, "imss_porcentaje" => 0.00],
+            ["clave_concepto" => "004P", "concepto" => "FONDO DE AHORRO EMPRESA", "formula" => "SI(UMA*1.3>SD, UMA*1.3,SD)*PFA","tipo" => "P","manejo" => "fijo","cantidad" => NULL,"importe" => NULL,"monto" => NULL, "isr" => 0,"imss" => 0,"infonavit" =>  0, "estatal" => 1,"isr_uma" => 0.00,"isr_porcentaje" => 0.00,"imss_uma" => 0.00,"imss_porcentaje" => 100.00],
+            ["clave_concepto" => "005P", "concepto" => "PREMIO DE PUNTUALIDAD", "formula" => "SD*(DT-DA)*.1", "tipo" => "P", "manejo" => "variable", "cantidad" => NULL, "importe" => NULL,"monto" => NULL,"isr" => 1, "imss" => 0,"infonavit" => 0, "estatal" => 1,"isr_uma" => 0.00,"isr_porcentaje" => 0.00,"imss_uma" => 0.00,"imss_porcentaje" => 100.00],
+            ["clave_concepto" => "006P", "concepto" => "PREMIO DE ASISTENCIA","formula" => "SD*(DT-DA)*.1", "tipo" =>"P", "manejo" =>"variable", "cantidad" =>NULL,"importe" =>NULL, "monto" => NULL,"isr" => 1,"imss" => 0, "infonavit" => 0,"estatal" => 1, "isr_uma" => 0.00,"isr_porcentaje" => 0.00, "imss_uma" =>0.00,"imss_porcentaje" => 100.00],
+            ["clave_concepto" => "007P", "concepto" => "PRIMA VACACIONAL", "formula" => "SD*P_V/100", "tipo" =>"P", "manejo" => "variable","cantidad" => NULL, "importe" => NULL,"monto" => NULL,"isr" => 1,"imss" => 0,"infonavit" => 0,"estatal" => 1,"isr_uma" => 15.00,"isr_porcentaje" => 100.00, "imss_uma" =>0.00, "imss_porcentaje"=>100.00],
+            ["clave_concepto" => "008P", "concepto" => "PRIMA DOMINICAL", "formula" =>  "SD*.25","tipo" => "P", "manejo" => "variable", "cantidad" => NULL, "importe" => NULL, "monto" => NULL,"isr" => 1, "imss" => 1, "infonavit" =>0, "estatal" => 1,"isr_uma" => 1.00,"isr_porcentaje" => 50.00, "imss_uma" =>0.00, "imss_porcentaje" =>0.00],
+            ["clave_concepto" => "009P", "concepto" => "COMPENSACION", "formula" => NULL,"tipo" => "P", "manejo" => "variable", "cantidad" => NULL, "importe" => NULL, "monto" => NULL,"isr" => 1, "imss" =>  1,"infonavit" => 0,"estatal" => 1, "isr_uma" => 0.00, "isr_porcentaje" => 0.00,"imss_uma" => 0.00,"imss_porcentaje" => 0.00],
+            ["clave_concepto" => "010P", "concepto" => "DIFERENCIA DE SUELDO", "formula" =>  NULL,"tipo" => "P", "manejo" => "variable", "cantidad" => NULL, "importe" => NULL, "monto" => NULL, "isr" => 1, "imss" => 1, "infonavit" => 0, "estatal" =>1,"isr_uma" => 0.00, "isr_porcentaje" => 0.00,"imss_uma" => 0.00, "imss_porcentaje" => 0.00],
+            ["clave_concepto" => "011P", "concepto" => "INDEMINIZACIONES", "formula" => NULL,"tipo" =>  "P", "manejo" => "fijo","cantidad" => NULL, "importe" => NULL, "monto" => NULL,"isr" =>  1, "imss" => 1, "infonavit" => 0, "estatal" => 1, "isr_uma" => 90.00, "isr_porcentaje" => 100.00, "imss_uma" => 0.00, "imss_porcentaje" => 100.00],
+            ["clave_concepto" => "012P", "concepto" => "VALES DESPENSA", "formula" => NULL, "tipo" => "P", "manejo" => "variable", "cantidad" => NULL,"importe" => NULL, "monto" => NULL, "isr" => 0, "imss" => 0,"infonavit" => 0, "estatal" => 1, "isr_uma" => 0.00, "isr_porcentaje" => 0.00, "imss_uma" => 0.00,"imss_porcentaje" => 0.00],
+            ["clave_concepto" => "013P", "concepto" => "VACACIONES", "formula" => "SD", "tipo" => "P", "manejo" => "fijo", "cantidad" => NULL, "importe" => NULL,  "monto" => NULL, "isr" => 1, "imss" => 1, "infonavit" => 0, "estatal" => 1,"isr_uma" =>  0.00,"isr_porcentaje" => 0.00, "imss_uma" => 0.00, "imss_porcentaje" => 0.00],
+            ["clave_concepto" => "014P", "concepto" => "AGUINALDO", "formula" => "SD*DA", "tipo" => "P","manejo" => "fijo","cantidad" => NULL, "importe" => NULL, "monto" => NULL,"isr" => 1,"imss" => 0, "infonavit" => 0,"estatal" => 1,"isr_uma" => 30.00, "isr_porcentaje" => 100.00, "imss_uma" => 0.00, "imss_porcentaje"  => 100.00],
+            ["clave_concepto" => "015P", "concepto" => "COMISIONES", "formula" => NULL,"tipo" => "P","manejo" => "variable","cantidad" => NULL,"importe" => NULL, "monto" => NULL,"isr" => 1,"imss" => 1, "infonavit" => 0,"estatal" =>1, "isr_uma" =>0.00,"isr_porcentaje" => 0.00, 0.00,"imss_uma" => 0.00,"imss_porcentaje" => 1],
+            ["clave_concepto" => "016P", "concepto" => "P.T.U.", "formula" => NULL,"tipo" => "P", "manejo" => "fijo", "cantidad" => NULL, "importe" => NULL, "monto" => NULL,"isr" => 1,"imss" => 0,"infonavit" => 0,"estatal" =>  1,"isr_uma" => 15.00,"isr_porcentaje"=> 100.00,"imss_uma" => 0.00,"imss_porcentaje" => 100.00],
+            ["clave_concepto" => "017P", "concepto" => "BONO DE PRODUCTIVIDAD","formula" => NULL,"tipo" => "P", "manejo" => "variable","cantidad" => NULL,"importe" => NULL,"monto" => NULL,"isr" => 1, "imss" => 1, "infonavit" => 0,"estatal" => 1,"isr_uma" => 0.00,"isr_porcentaje" => 0.00,"imss_uma" => 0.00,"imss_porcentaje" => 0.00],
+            ["clave_concepto" => "018P", "concepto" => "PERCEPCIONES NO GRAVADAS", "formula" => NULL,"tipo"  => "P", "manejo" => "fijo","cantidad" =>  NULL,"importe" => NULL,"monto" => NULL,"isr" => 0,"imss" => 0,"infonavit" =>  0,"estatal" => 0, "isr_uma" => 0.00,"isr_porcentaje" => 100.00, "imss_uma" => 0.00,"imss_porcentaje" =>  100.00],
+            ["clave_concepto" => "019P", "concepto" => "SUELDO RETROACTIVO", "formula" => NULL, "tipo" => "P", "manejo" => "fijo", "cantidad" => NULL,"importe" => NULL,"monto" => NULL,"isr" => 1, "imss" => 1,"infonavit" => 0,"estatal" => 1,"isr_uma" => 0.00, "isr_porcentaje" => 0.00, "imss_uma" => 0.00,"imss_porcentaje" => 0.00],
+            ["clave_concepto"  => "020P", "concepto" => "FONDO DE AHORRO RETROACTIVO","formula" => NULL,"tipo" => "P","manejo" => "fijo","cantidad" => NULL,"importe" => NULL,"monto" => NULL, "isr" => 0, "imss" => 0,"infonavit" => 0,"estatal" => 1, "isr_uma" => 0.00,"isr_porcentaje" => 100.00,"imss_uma" => 0.00,"imss_porcentaje" => 100.00],
+            ["clave_concepto" => "021P", "concepto" => "PREMIO DE PUNTUALIDAD RETROACTIVO","formula" => NULL,"tipo" => "P", "manejo" => "fijo", "cantidad" => NULL, "importe" => NULL,"monto" => NULL,"isr" => 1,"imss" => 0, "infonavit" => 0,"estatal"  => 1,"isr_uma" => 0.00,"isr_porcentaje" =>  0.00, "imss_uma" => 0.00,"imss_porcentaje" => 100.00],
+            ["clave_concepto" => "022P", "concepto" => "PREMIO DE ASISTENCIA RETROACTIVO","formula" => NULL,"tipo" => "P","manejo" => "fijo", "cantidad" => NULL, "importe" =>  NULL,"monto" => NULL, "isr" => 1,"imss" => 0,"infonavit" =>  0, "estatal" => 1,"isr_uma" => 0.00,"isr_porcentaje" => 0.00, "imss_uma" => 0.00,"imss_porcentaje" => 100.00],
+            ["clave_concepto" => "023P", "concepto" => "HORAS EXTRAS SEMANAS ANTERIORES","formula" =>  NULL,"tipo" => "P","manejo" => "variable", "cantidad" => NULL,"importe" => NULL, "monto" => NULL,"isr" => 1, "imss" =>0,"infonavit" => 0, "estatal" => 1,"isr_uma" => 5.00,"isr_porcentaje" =>50.00, "imss_uma" => 0.00, "imss_porcentaje" => 0.00],
+            ["clave_concepto" => "001D", "concepto" =>  "AUSENTISMO","formula" => "SD*DT","tipo" => "D","manejo" => "variable","cantidad" =>  NULL,"importe" => NULL,"monto" => NULL, "isr" => 1, "imss" => 1, "infonavit" => 0, "estatal" => 1,"isr_uma" => 0.00,"isr_porcentaje" => 0.00, "imss_uma" => 0.00, "imss_porcentaje" => 0.00],
+            ["clave_concepto" => "002D", "concepto" => "INCAPACIDAD","formula" => "SD*DT","tipo" => "D","manejo" => "variable", "cantidad" => NULL, "importe" => NULL,"monto" =>  NULL,"isr" =>  1, "imss" => 1,"infonavit" => 0, "estatal" => 1,"isr_uma" => 0.00,"isr_porcentaje" => 0.00,"imss_uma" => 0.00,"imss_porcentaje" => 0.00],
+            ["clave_concepto" => "003D", "concepto" => "FONDO DE AHORRO TRABAJADOR","formula" => "SI(UMA*1.3>SD, UMA*1.3,SD)*PFA", "tipo" => "D",  "manejo" => "fijo", "cantidad" => NULL, "importe" => NULL,"monto" => NULL,"isr" =>  0, "imss" => 0,  "infonavit" =>  0,"estatal" => 0, "isr_uma" => 0.00,"isr_porcentaje" => 0.00,"imss_uma" =>  0.00,"imss_porcentaje" => 0.00],
+            ["clave_concepto" => "004D", "concepto" => "DEDUCCION FONDO DE AHORRO EMPRESA","formula" => "004P+020P", "tipo" => "D", "manejo" => "fijo","cantidad" => NULL, "importe" => NULL, "monto" => NULL,"isr" => 0,"imss" => 0,  "infonavit" =>  0,"estatal" => 0,"isr_uma" => 0.00, "isr_porcentaje" => 0.00,"imss_uma" => 0.00,"imss_porcentaje" => 0.00],
+            ["clave_concepto" => "005D", "concepto" => "CREDITO FONDO DE AHORRO","formula" => NULL,"tipo" => "D","manejo" => "fijo", "cantidad" => NULL,"importe" => NULL, "monto" => NULL,"isr" => 0, "imss" => 0,"infonavit" => 0,"estatal" => 0, "isr_uma" => 0.00,"isr_porcentaje" => 0.00, "imss_uma" => 0.00, "imss_porcentaje" => 0.00],
+            ["clave_concepto" => "006D", "concepto" => "CREDITO FONACOT", "formula" => NULL,"tipo" => "D","manejo" => "variable", "cantidad" => NULL,"importe" => NULL, "monto" => NULL,"isr" => 0, "imss" => 0,"infonavit" => 0,"estatal" => 0, "isr_uma" => 0.00,"isr_porcentaje" => 0.00, "imss_uma" => 0.00, "imss_porcentaje" => 0.00],
+            ["clave_concepto" => "007D", "concepto" => "CREDITO INFONAVIT", "formula" => NULL,"tipo" => "D", "manejo" => "variable", "cantidad" => NULL,"importe" => NULL, "monto" => NULL, "isr" => 0, "imss" => 0,"infonavit" => 0,"estatal" => 0,"isr_uma" => 0.00,"isr_porcentaje" => 0.00,"imss_uma" =>  0.00, "imss_porcentaje" => 0.00],
+            ["clave_concepto" => "008D", "concepto" => "COMEDOR","formula" => NULL,"tipo" => "D", "manejo" => "fijo","cantidad" => NULL, "importe" => NULL, "monto" => NULL, "isr" => 0, "imss" => 0,"infonavit" =>  0,"estatal" => 0,"isr_uma" => 0.00,"isr_porcentaje" =>  0.00, "imss_uma" => 0.00,"imss_porcentaje" => 0.00],
+            ["clave_concepto" => "009D", "concepto" => "DESPENSA", "formula" => NULL, "tipo" => "D","manejo" => "variable", "cantidad" => NULL, "importe" =>  NULL,"monto" =>  NULL,"isr" =>  0,"imss" => 0,"infonavit" => 0,"estatal" => 0,"isr_uma" => 0.00,"isr_porcentaje" => 0.00, "imss_uma" => 0.00, "imss_porcentaje" => 0.00],
+            ["clave_concepto" => "010D", "concepto" => "SEGURO DE VIDA","formula" => NULL, "tipo" => "D","manejo" => "variable", "cantidad" => NULL, "importe" => NULL,"monto" =>  NULL, "isr" => 0,"imss" => 0, "infonavit" => 0,"estatal" => 0, "isr_uma" => 0.00,"isr_porcentaje" =>  0.00, "imss_uma" => 0.00, "imss_porcentaje" => 0.00],
+            ["clave_concepto" => "011D", "concepto" => "UNIFORMES", "formula" => NULL,"tipo" => "D", "manejo" => "variable", "cantidad" => NULL,"importe" => NULL,"monto" => NULL, "isr" => 0, "imss" => 0, "infonavit" => 0,"estatal" => 0,"isr_uma" => 0.00,"isr_porcentaje" => 0.00,  "imss_uma" => 0.00, "imss_porcentaje" => 0.00],
+            ["clave_concepto" => "012D", "concepto" => "PRESTAMO", "formula" => NULL, "tipo" => "D", "manejo" => "variable", "cantidad" => NULL,"importe" => NULL,  "monto" => NULL, "isr" => 0,"imss" => 0, "infonavit" => 0,"estatal" => 0,"isr_uma" => 0.00, "isr_porcentaje" => 0.00,  "imss_uma" => 0.00, "imss_porcentaje" => 0.00],
+            ["clave_concepto" => "013D", "concepto" => "DESCUENTO COMPRA DE LENTES","formula" => NULL, "tipo" => "D", "manejo" => "fijo","cantidad" => NULL,"importe" => NULL, "monto" => NULL,"isr" => 0,"imss" => 0, "infonavit" => 0, "estatal" => 0,"isr_uma" => 0.00,"isr_porcentaje" => 0.00, "imss_uma" => 0.00,"imss_porcentaje" =>  0.00],
+            ["clave_concepto" => "014D", "concepto" => "OTRAS DEDUCCIONES", "formula" =>  NULL,"tipo" => "D","manejo" => "variable", "cantidad" => NULL, "importe" => NULL, "monto" => NULL,"isr" => 0,"imss" => 0, "infonavit" => 0, "estatal" => 0,"isr_uma" =>  0.00,"isr_porcentaje" => 0.00,"imss_uma" =>  0.00, "imss_porcentaje" => 0.00],
+            ["clave_concepto" => "015D", "concepto" => "PAGO VALES DESPENSA EN ESPECIE","formula" => NULL,"tipo" => "D", "manejo" => "fijo","cantidad" => NULL,"importe" => NULL,"monto" => NULL, "isr" => 0,"imss" => 0, "infonavit" => 0,"estatal" => 0,"isr_uma" => 0.00, "isr_porcentaje" => 0.00,"imss_uma" => 0.00,"imss_porcentaje" => 0.00],
+            ["clave_concepto" => "016D", "concepto" => "SUELDOS PAGADOS NO DEVENGADOS","formula" => NULL,"tipo" => "D", "manejo" => "variable","cantidad" =>  NULL, "importe" =>  NULL,"monto" => NULL, "isr" => 0,"imss" => 0, "infonavit" => 0,"estatal" => 1, "isr_uma" => 0.00,"isr_porcentaje" => 0.00, "imss_uma" => 0.00,"imss_porcentaje" => 0.00],
+            ["clave_concepto" => "017D", "concepto" => "CAJA DE AHORROS", "formula" => NULL,"tipo" => "D", "manejo" => "fijo","cantidad" => NULL, "importe" =>  NULL, "monto" => NULL,"isr" => 0, "imss" => 0,"infonavit" => 0,"estatal" => 0, "isr_uma" => 0.00, "isr_porcentaje" => 0.00,"imss_uma" => 0.00,"imss_porcentaje" => 0.00],
+            ["clave_concepto" => "001T", "concepto" => "ISPT","formula" => NULL,"tipo" => "T", "manejo" => "variable","cantidad" => NULL, "importe" => NULL,"monto" => NULL,"isr" => 0, "imss" => 0,"infonavit" => 0,"estatal" => 0, "isr_uma" => 0.00,"isr_porcentaje" => 0.00,"imss_uma" => 0.00, "imss_porcentaje" => 0.00],
+            ["clave_concepto" => "002I", "concepto" => "CREDITO AL SALARIO","formula" => NULL, "tipo" => "I", "manejo" => "variable","cantidad" => NULL, "importe" => NULL,"monto" => NULL,"isr" => 0, "imss" => 0, "infonavit" => 0,"estatal" => 0, "isr_uma" => 0.00, "isr_porcentaje" => 0.00, "imss_uma" =>  0.00, "imss_porcentaje" => 0.00],
+            ["clave_concepto" => "003T", "concepto" => "IMSS TRABAJADOR","formula" => NULL, "tipo" =>  "T","manejo" => "variable","cantidad" => NULL, "importe" => NULL,"monto" => NULL,"isr" => 0, "imss" => 0,"infonavit" => 0,"estatal" => 0, "isr_uma" => 0.00, "isr_porcentaje" => 0.00, "imss_uma" => 0.00, "imss_porcentaje" => 0.00],
+            ["clave_concepto" => "004I", "concepto" => "IMSS PATRONAL","formula" => NULL,"tipo" => "I","manejo" => "variable","cantidad" =>  NULL,"importe" =>  NULL, "monto" => NULL,"isr" => 0,"imss" => 0, "infonavit" =>  0, "estatal" => 0, "isr_uma" => 0.00,  "isr_porcentaje" => 0.00,"imss_uma" => 0.00, "imss_porcentaje" => 0.00],
+            ["clave_concepto" => "005I", "concepto" => "INFONAVIT", "formula" => NULL, "tipo" => "I","manejo" => "fijo", "cantidad" =>  NULL, "importe" =>  NULL,"monto" => NULL,"isr" => 0, "imss" => 0, "infonavit" => 0,"estatal" => 0,"isr_uma" => 0.00,"isr_porcentaje" => 0.00, "imss_uma" => 0.00,"imss_porcentaje" => 0.00]        
+        ]);
+        
+        foreach($conceptos as $con){
+            DB::connection('DB_Serverr')->insert('insert into conceptos 
+                                                (clave_concepto,concepto,formula,naturaleza,manejo
+                                                ,cantidad,importe,monto,isr,imss,infonavit,estatal,
+                                                isr_uma,isr_porcentaje,imss_uma,imss_porcentaje,
+                                                seleccionado,created_at,updated_at)
+                                                values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)',
+                                                [$con['clave_concepto'],$con['concepto'],$con['formula'],$con['tipo'],
+                                                $con['manejo'],$con['cantidad'],$con['importe'],$con['monto'],$con['isr'],$con['imss'],
+                                                $con['infonavit'],$con['estatal'],$con['isr_uma'],$con['isr_porcentaje'], $con['imss_uma'],
+                                                $con['imss_porcentaje'],0,"2021-05-04 07:06:32","2021-05-04 07:06:32"]);
+
+
+
+        }
 
         Schema::connection('DB_Serverr')->create('prestaciones', function($table){
             $table->bigIncrements('id');
@@ -479,28 +571,7 @@ class EmpresaController extends Controller{
             $table->timestamps();
         });
 
-        $empresa->nombre = $datos->nombre;
-        $empresa->nombre_nomina = $datos->nombre_nomina;
-        $empresa->rfc = $datos->rfc;
-        $empresa->segurosocial = $datos->segurosocial;
-        $empresa->registro_estatal = $datos->registro_estatal;
-        $empresa->calle = $datos->calle;
-        $empresa->num_interno = $datos->num_interno;
-        $empresa->num_externo = $datos->num_externo;
-        $empresa->colonia = $datos->colonia;
-        $empresa->municipio = $datos->municipio;
-        $empresa->ciudad = $datos->ciudad;
-        $empresa->pais = $datos->pais;
-        $empresa->representante_legal = $datos->representante_legal;
-        $empresa->rfc_representante = $datos->rfc_representante;
-        $empresa->telefono = $datos->telefono;
-        $empresa->email = $datos->email;
-        $empresa->inicioPeriodo = $datos->inicioPeriodo;
-        $empresa->tipoPeriodo = $datos->tipoPeriodo;
-        $empresa->region = $datos->regionEmpresa;
-        $empresa->primaRiesgo = $datos->primaRiesgo;
-        $empresa->porcentajeAhorro = $datos->porcentajeAhorro;
-        $empresa->save();
+       
 
         $clv_empresa=$this->conectar($clv);
         \Config::set('database.connections.DB_Serverr', $clv_empresa);
