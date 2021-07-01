@@ -37,7 +37,7 @@ class CreateEmpresasTable extends Migration
             $table->string('tipoPeriodo',10);
             $table->date('inicioPeriodo');
             $table->string('region',50);
-            $table->double('primaRiesgo');
+            $table->float('primaRiesgo');
             $table->double('porcentajeAhorro');
             $table->timestamps();
         });
