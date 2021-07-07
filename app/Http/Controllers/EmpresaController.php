@@ -346,6 +346,58 @@ class EmpresaController extends Controller{
             $table->timestamps();
         });
 
+        $primavacacional = Collect([
+            ["anio" => 1, "dias" => 6],
+            ["anio" => 2, "dias" => 8],
+            ["anio" => 3, "dias" => 10],
+            ["anio" => 4, "dias" => 12],
+            ["anio" => 5, "dias" => 14],
+            ["anio" => 6, "dias" => 14],
+            ["anio" => 7, "dias" => 14],
+            ["anio" => 8, "dias" => 14],
+            ["anio" => 9, "dias" => 14],
+            ["anio" => 10, "dias" => 16],
+            ["anio" => 11, "dias" => 16],
+            ["anio" => 12, "dias" => 14], 
+            ["anio" => 13, "dias" => 14],
+            ["anio" => 14, "dias" => 14],
+            ["anio" => 15, "dias" => 16],
+            ["anio" => 16, "dias" => 16],
+            ["anio" => 17, "dias" => 16],
+            ["anio" => 18, "dias" => 16],
+            ["anio" => 19, "dias" => 16],
+            ["anio" => 20, "dias" => 20],
+            ["anio" => 21, "dias" => 20],
+            ["anio" => 22, "dias" => 20],
+            ["anio" => 23, "dias" => 20],
+            ["anio" => 24, "dias" => 20],
+            ["anio" => 25, "dias" => 22],
+            ["anio" => 26, "dias" => 22],
+            ["anio" => 27, "dias" => 22],
+            ["anio" => 28, "dias" => 22],
+            ["anio" => 29, "dias" => 22],
+            ["anio" => 30, "dias" => 24],
+            ["anio" => 31, "dias" => 24],
+            ["anio" => 32, "dias" => 24],
+            ["anio" => 33, "dias" => 24],
+            ["anio" => 34, "dias" => 24],
+            ["anio" => 35, "dias" => 26],
+            ["anio" => 36, "dias" => 26],
+            ["anio" => 37, "dias" => 26],
+            ["anio" => 38, "dias" => 26],
+            ["anio" => 39, "dias" => 26],
+             ]);
+
+             foreach($primavacacional as $prima){
+                DB::connection('DB_Serverr')->insert('insert into prestaciones 
+                                                    (anio,dias,prima_vacacional,aguinaldo,created_at,updated_at)
+                                                    values (?,?,?,?,?,?)',
+                                                    [$prima['anio'],$prima['dias'],25,15,"2021-05-04 07:06:32","2021-05-04 07:06:32"]);
+    
+    
+    
+            }
+
         Schema::connection('DB_Serverr')->create('empleados', function($table){
             $table->increments('id_emp');
             $table->char('clave_empleado',5);
