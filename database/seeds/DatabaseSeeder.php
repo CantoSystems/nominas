@@ -19,6 +19,7 @@ class DatabaseSeeder extends Seeder
             SalarioMinimoSeeder::class,
             UmaSeeder::class,
             BancoSeeder::class,
+            PrestacionesImssSeeder::class,
         ]);
        
     }
