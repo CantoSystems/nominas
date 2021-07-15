@@ -178,18 +178,8 @@
                         <label>Número interior:</label>
                         @if(isset($empresa))
                             <input type="text" name="num_interno" maxlength="20" class="form-control" value="{{$empresa->num_interno}}">
-                            @error('num_interno')
-                                <div class="alert alert-secondary">
-                                    {{ $message }}
-                                </div>
-                            @enderror
                         @else
                             <input type="text" name="num_interno" maxlength="20" class="form-control" >
-                            @error('num_interno')
-                                <div class="alert alert-secondary">
-                                    {{ $message }}
-                                </div>
-                            @enderror
                         @endif
                     </div>
                 </div>

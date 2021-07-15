@@ -176,11 +176,14 @@
     }
 
     public function create($id_emp){
+
+        
         $clv = Session::get('clave_empresa');
         $num_periodo = Session::get('num_periodo');
 
         $clv_empresa = $this->conectar($clv);
         \Config::set('database.connections.DB_Serverr', $clv_empresa);
+
 
         $empleados = DB::connection('DB_Serverr')->table('empleados')
         ->join('departamentos','departamentos.clave_departamento','=','empleados.clave_departamento')
@@ -195,6 +198,7 @@
         ->get();
 
         $ControlPrenomina = collect();
+        $percepcionesImss = Collect();
         foreach($empleados as $emp){
             foreach($conceptos as $concep){
                 if($concep->clave_concepto == "001P"){
@@ -229,8 +233,8 @@
                         $Gravado = 0;
                         $Excento = 0;
                     }
-
-                    $ControlPrenomina->push(["clave_empleado"=>$emp->clave_empleado,"clave_concepto"=>"003P","concepto"=>"HORAS EXTRAS TRIPLES","monto"=>$resultaHoraExtraTriple["horasTriplesGenerales"],"gravable"=>$Gravado,"excento"=>$Excento,"tipo"=> "P"]);  
+                    $ControlPrenomina->push(["clave_empleado"=>$emp->clave_empleado,"clave_concepto"=>"003P","concepto"=>"HORAS EXTRAS TRIPLES","monto"=>$resultaHoraExtraTriple["horasTriplesGenerales"],"gravable"=>$Gravado,"excento"=>$Excento,"tipo"=> "P"]);
+                    $percepcionesImss->push(["concepto"=>"HORAS EXTRAS TRIPLES", "total" => $resultaHoraExtraTriple["horasTriplesGenerales"] ]);
                 }else if($concep->clave_concepto == "004P"){
                     $resultaFondoAhorro = $this->fondoAhorro($emp->id_emp);
                     $Gravado = 0;
@@ -283,9 +287,22 @@
                     }
 
                     $ControlPrenomina->push(["clave_empleado"=>$emp->clave_empleado,"clave_concepto"=>"008P","concepto"=>"PRIMA DOMINICAL","monto"=>$resultaPrimaDominical,"gravable"=>$Gravado,"excento"=>$Excento,"tipo"=> "P"]);
+                    $percepcionesImss->push(["concepto"=>"PRIMA DOMINICAL", "total" => $resultaPrimaDominical ]);
                 }else if($concep->clave_concepto == "009P"){
+                    $montoCompensacion = DB::connection('DB_Serverr')->table('conceptos')
+                        ->select('monto')
+                        ->where('clave_concepto','009P')
+                        ->first();
+
+                   $percepcionesImss->push(["concepto"=>"COMPENSACION", "total" => $montoCompensacion->monto]);
 
                 }else if($concep->clave_concepto == "010P"){
+                    $montoDiferencia = DB::connection('DB_Serverr')->table('conceptos')
+                        ->select('monto')
+                        ->where('clave_concepto','010P')
+                        ->first();
+
+                   $percepcionesImss->push(["concepto"=>"DIFERENCIA DE SUELDO", "total" => $montoDiferencia->monto]);
 
                 }else if($concep->clave_concepto == "011P"){
 
@@ -302,19 +319,39 @@
                         $Excento = 0;
                     }
 
-                    $ControlPrenomina->push(["clave_empleado"=>$emp->clave_empleado,"clave_concepto"=>"013P","concepto"=>"VACACIONES","monto"=>$resultaVacaciones,"gravable"=>$Gravado,"excento"=>$Excento,"tipo"=> "P"]);                                                        
+                    $ControlPrenomina->push(["clave_empleado"=>$emp->clave_empleado,"clave_concepto"=>"013P","concepto"=>"VACACIONES","monto"=>$resultaVacaciones,"gravable"=>$Gravado,"excento"=>$Excento,"tipo"=> "P"]);  
+                    $percepcionesImss->push(["concepto"=>"VACACIONES", "total" => $resultaVacaciones ]);                                                      
                 }else if($concep->clave_concepto == "014P"){
                     $aguinaldos = $this->aguinaldo($emp->id_emp);
                     $ControlPrenomina->push(["clave_empleado"=>$emp->clave_empleado,"clave_concepto"=>"014P","concepto"=>"AGUINALDO","monto"=>$resultaVacaciones,"gravable"=>$Gravado,"excento"=>$Excento,"tipo"=> "P"]);
                 }else if($concep->clave_concepto == "015P"){
+                    $montoComisiones = DB::connection('DB_Serverr')->table('conceptos')
+                    ->select('monto')
+                    ->where('clave_concepto','015P')
+                    ->first();
+
+                    $percepcionesImss->push(["concepto"=>"COMISIONES", "total" => $montoComisiones->monto]);
+
 
                 }else if($concep->clave_concepto == "016P"){
 
                 }else if($concep->clave_concepto == "017P"){
+                    $montoBono = DB::connection('DB_Serverr')->table('conceptos')
+                    ->select('monto')
+                    ->where('clave_concepto','017P')
+                    ->first();
+
+                    $percepcionesImss->push(["concepto"=>"BONO DE PRODUCTIVIDAD", "total" => $montoBono->monto]);
 
                 }else if($concep->clave_concepto == "018P"){
 
                 }else if($concep->clave_concepto == "019P"){
+                    $montoRetroactivo = DB::connection('DB_Serverr')->table('conceptos')
+                    ->select('monto')
+                    ->where('clave_concepto','019P')
+                    ->first();
+
+                    $percepcionesImss->push(["concepto"=>"SUELDO RETROACTIVO", "total" => $montoRetroactivo->monto]);
 
                 }else if($concep->clave_concepto == "020P"){
 
@@ -323,6 +360,11 @@
                 }else if($concep->clave_concepto == "022P"){
 
                 }else if($concep->clave_concepto == "023P"){
+                    
+                }else if($concep->clave_concepto == "024P"){
+                    $resultaSueldo = $this->sueldo($emp->id_emp,$emp->clave_empleado);
+                    $montoDescanso = $resultaSueldo * 2;
+                    $percepcionesImss->push(["concepto"=>"TRABAJO EN DIAS DE DESCANSO", "total" => $montoDescanso]);
                     
                 }else if($concep->clave_concepto == "001D"){
                     $resultaAusentismoDed = $this->ausentismoIncapacidadDeduccion($emp->id_emp,$emp->clave_empleado);
@@ -377,8 +419,7 @@
                 }
             }
         }
-        Session::put('control_prenomina',$ControlPrenomina);
-        //return $ControlPrenomina; 
+      
 
         $clave = DB::connection('DB_Serverr')->table('empleados')
                  ->select('clave_empleado','nombre','apellido_paterno','apellido_materno')
@@ -387,13 +428,15 @@
         
         $calculospercepciones = $ControlPrenomina->where('clave_empleado', $clave->clave_empleado);
         $portipopercepciones = $calculospercepciones->where('tipo','P');
-        $filtropercepciones = $portipopercepciones->pluck("clave_empleado");
+
     
         $calculosdeducciones = $ControlPrenomina->where('clave_empleado',$clave->clave_empleado);
         $portipodeducciones = $calculosdeducciones->where('tipo','D');
-        $filtrodeducciones = $portipodeducciones->get('clave_empleado');
 
-        // return compact('portipopercepciones','portipodeducciones');
+        //$percepcionesImss->all();
+        $sumaImss = $percepcionesImss->sum('total');
+        
+
         return view('prenomina.controlPrenomina', compact('empleados','portipopercepciones','portipodeducciones','clave','ControlPrenomina'));
     }
 
