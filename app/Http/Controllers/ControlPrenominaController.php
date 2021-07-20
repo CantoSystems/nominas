@@ -131,7 +131,7 @@
         \Config::set('database.connections.DB_Serverr', $clv_empresa);
 
         $empleados = DB::connection('DB_Serverr')->table('empleados')
-        ->select('id_emp','sueldo_diario','dias','sueldo_integrado')   
+        ->select('id_emp','sueldo_diario','dias')   
         ->where('clave_empleado','=',$request->clvEmp)
         ->first();
 
@@ -144,10 +144,14 @@
         ])
         ->get();
 
-        $diasVacaciones = $this->diasVacaciones($empleados->id_emp);
+        $at = $this->anios_trabajados($empleados->id_emp);
 
-        $SBC = $this->SBC($diasVacaciones);
+        $prestaciones = DB::connection('DB_Serverr')->table('prestaciones')
+                        ->select('dias')
+                        ->where('anio','=',$at)
+                        ->first();
 
+        $SBC = $this->SBC($prestaciones->dias,$empleados->sueldo_diario,$request->totalImss);
         $uma = $this->uma();
 
         $ims = IMSS::select('cuotatrabajador','id_imss','base')
@@ -155,35 +159,35 @@
                      ->get();
 
         $totalIMSS = 0;
-
-        /*foreach($ims as $cuotasIMSS){
-            if($cuotasIMSS->id_imss == 1){
-                $diferenciaSueldo = $empleados->sueldo_integrado - ($uma->porcentaje_uma*3);
-                $sumaIMSS = $cuotasIMSS->cuotatrabajador*$empleados->dias*$diferenciaSueldo;
+        foreach($ims as $cuotasIMSS){
+            if($cuotasIMSS->id_imss == 3){
+                $diferenciaSueldo = $SBC - ($uma->porcentaje_uma*3);
+                $sumaIMSS = ($cuotasIMSS->cuotatrabajador*$empleados->dias*$diferenciaSueldo)/100;
+                $totalIMSS = $totalIMSS + $sumaIMSS;
+            }else{
+                $sumaIMSS = ($cuotasIMSS->cuotatrabajador*$empleados->dias*$SBC)/100;
+                $totalIMSS = $totalIMSS + $sumaIMSS;
             }
-            $totalIMSS = $totalIMSS + $sumaIMSS;
-        }*/
+        }
 
-        return "Prueba IMSS";
+        return $collection = collect(['003T','IMSS TRABAJADOR',$totalIMSS]);
     }
 
-    public function SBC($diasVacaciones){
+    public function SBC($diasVacaciones,$sueldoDiario,$totalIMSS){
         $primaAguinaldo = 15/365;
         $primaVacaciones = ($diasVacaciones*0.25)/365;
         $FactorIntegracion = $primaAguinaldo + $primaVacaciones + 1;
+        $SBC = ($sueldoDiario * $FactorIntegracion) + $totalIMSS; 
 
-        return $FactorIntegracion;
+        return $SBC;
     }
 
     public function create($id_emp){
-
-        
         $clv = Session::get('clave_empresa');
         $num_periodo = Session::get('num_periodo');
 
         $clv_empresa = $this->conectar($clv);
         \Config::set('database.connections.DB_Serverr', $clv_empresa);
-
 
         $empleados = DB::connection('DB_Serverr')->table('empleados')
         ->join('departamentos','departamentos.clave_departamento','=','empleados.clave_departamento')
@@ -419,7 +423,6 @@
                 }
             }
         }
-      
 
         $clave = DB::connection('DB_Serverr')->table('empleados')
                  ->select('clave_empleado','nombre','apellido_paterno','apellido_materno')
@@ -429,15 +432,12 @@
         $calculospercepciones = $ControlPrenomina->where('clave_empleado', $clave->clave_empleado);
         $portipopercepciones = $calculospercepciones->where('tipo','P');
 
-    
         $calculosdeducciones = $ControlPrenomina->where('clave_empleado',$clave->clave_empleado);
         $portipodeducciones = $calculosdeducciones->where('tipo','D');
 
-        //$percepcionesImss->all();
         $sumaImss = $percepcionesImss->sum('total');
         
-
-        return view('prenomina.controlPrenomina', compact('empleados','portipopercepciones','portipodeducciones','clave','ControlPrenomina'));
+        return view('prenomina.controlPrenomina', compact('empleados','portipopercepciones','portipodeducciones','clave','ControlPrenomina','sumaImss'));
     }
 
     public function excelPrenomina(Request $request){
@@ -481,40 +481,6 @@
         return $periodos;
     }
 
-    public function diasVacaciones($idEmp){
-        $at = $this->anios_trabajados($idEmp);
-        
-        if($at <= 1){
-            $diasVacaciones = 6;
-        }else if($at == 2){
-            $diasVacaciones = 8;
-        }else if($at == 3){
-            $diasVacaciones = 10;
-        }else if($at == 4){
-            $diasVacaciones = 12;
-        }else if($at >= 5 && $at <= 9){
-            $diasVacaciones = 14;
-        }else if($at >= 10 && $at <= 14){
-            $diasVacaciones = 16;
-        }else if($at >= 15 && $at <= 19){
-            $diasVacaciones = 18;
-        }else if($at >= 20 && $at <= 24){
-            $diasVacaciones = 20;
-        }else if($at >= 25 && $at <= 29){
-            $diasVacaciones = 22;
-        }else if($at >= 30 && $at <= 34){
-            $diasVacaciones = 24;
-        }else if($at >= 35 && $at <= 39){
-            $diasVacaciones = 26;
-        }else if($at >= 40 && $at <= 44){
-            $diasVacaciones = 28;
-        }else if($at >= 45 && $at <= 49){
-            $diasVacaciones = 30;
-        }
-
-        return $diasVacaciones;
-    }
-
     public function anios_trabajados($idEmp){
         //Fecha Inicial del Periodo de Nómina - Fecha de Alta del Trabajador
         $num_p = Session::get('num_periodo');
@@ -541,7 +507,7 @@
         //Parseando la fecha
         $alta = now()->parse($alta_trabajador->fecha_alta);
 
-        $diferencia = $inicial->DiffInYears($alta); 
+        $diferencia = $inicial->DiffInYears($alta);
         return $diferencia;
     }
 
@@ -551,7 +517,7 @@
         $clv = Session::get('clave_empresa');
         $clv_empresa = $this->conectar($clv);
         \Config::set('database.connections.DB_Serverr', $clv_empresa);
-
+        
         $acumulado_ausen = DB::connection('DB_Serverr')->table('ausentismos')
         ->select(DB::raw('CASE WHEN COUNT(`cantidad_ausentismo`) = "" THEN 0 ELSE SUM(`cantidad_ausentismo`) END as conteoDias'))
         ->where([
@@ -567,7 +533,8 @@
     public function dias_trabajados($claveEmp){
         $jt = $this->jornadaTrabajo();
         $ausentismo = $this->ausentismo($claveEmp);
-        
+        //dd($ausentismo);
+
         $diasTrabajados = $jt->diasPeriodo - $ausentismo->conteoDias;
         return $diasTrabajados;
     }
