@@ -671,7 +671,7 @@
         });
       }); 
 
-    $('#finalizar_ausencia').click(function (e){
+      $('#finalizar_ausencia').click(function (e){
         let myTableArrayAusencia = [];
         document.querySelectorAll('.example13 tbody tr').forEach(function(e){
           let filas = {
@@ -862,7 +862,7 @@
             importe_total = importe_total + eval($(this).val());
           }
         });
-        $(".totalPercepciones").val(importe_total);
+        $(".totalPercepciones").val(importe_total.toFixed(2));
 
         let importe_total2 = 0
         $(".totales2").each(function(index, value) {
@@ -870,7 +870,7 @@
             importe_total2 = importe_total2 + eval($(this).val());
           }
         });
-        $(".totalDeducciones").val(importe_total2);
+        $(".totalDeducciones").val(importe_total2.toFixed(2));
 
         /* Suma Percepciones Gravadas */
         let importe_totalGrav = 0
@@ -904,15 +904,10 @@
             //console.log(data);
             let htmlTags = '<tr>'+
                               '<td style="text-align: center;">' + data[0] + '</td>'+
-                              '<td>' + data[1] + '</td>'+
+                              '<td style="text-align: center;">' + data[1] + '</td>'+
                               '<td style="text-align: center;">$ ' + data[2].toFixed(2) + '</td>'+
                             '</tr>'
             $('#filasImpuestos tbody').append(htmlTags);
-            let htmlTags2 = '<tr>'+
-                              '<td colspan="2" style="text-align: right; valign: middle;">Total:</td>'+
-                              '<td style="width: 42%;"><input type="number" step=".01" disabled class="form-control" value="' + data[2].toFixed(2) + '"></td>'+
-                            '</tr>'
-            $('#totalesImpuestos tbody').append(htmlTags2);
           },
           error: function(xhr, status, error) {
             var err = JSON.parse(xhr.responseText);
@@ -926,26 +921,23 @@
           data: {
             _token: $("meta[name='csrf-token']").attr("content"),
             clvEmp: $('.clvEmp').val(),
+            totalImss: $('.totalPercepcionesIMSS').val(),
           },
           success: function(data){
             //console.log(data);
             let htmlTags = '<tr>'+
                               '<td style="text-align: center;">' + data[0] + '</td>'+
-                              '<td>' + data[1] + '</td>'+
+                              '<td style="text-align: center;">' + data[1] + '</td>'+
                               '<td style="text-align: center;">$ ' + data[2].toFixed(2) + '</td>'+
                             '</tr>'
             $('#filasImpuestos tbody').append(htmlTags);
-            let htmlTags2 = '<tr>'+
-                              '<td colspan="2" style="text-align: right; valign: middle;">Total:</td>'+
-                              '<td style="width: 42%;"><input type="number" step=".01" disabled class="form-control" value="' + data[2].toFixed(2) + '"></td>'+
-                            '</tr>'
-            $('#totalesImpuestos tbody').append(htmlTags2);
           },
           error: function(xhr, status, error) {
             var err = JSON.parse(xhr.responseText);
             console.log(err.Message);
           }
         });
+
 
         /* Script para guardar los cambios hechos en los inputs */
         $('#recalcular').click(function(e){

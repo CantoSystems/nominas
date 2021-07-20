@@ -153,6 +153,7 @@
                                                 <input type="number" step=".01" disabled class="form-control totalPercepciones">
                                                 <input type="hidden" step=".01" class="totalPercepcionesGravadas">
                                                 <input type="hidden" step=".01" class="totalPercepcionesExcentas">
+                                                <input type="hidden" step=".01" class="totalPercepcionesIMSS" value="{{ $sumaImss ?? '' }}">
                                             </td>
                                         </tr>
                                     </tbody>
@@ -185,10 +186,6 @@
                                             <th scope="col" style="text-align: center;">Total</th>
                                         </tr>
                                     </thead>
-                                    <tbody>
-                                    </tbody>
-                                </table>
-                                <table id="totalesImpuestos" name="totalesImpuestos" class="table table-hover">
                                     <tbody>
                                     </tbody>
                                 </table>
