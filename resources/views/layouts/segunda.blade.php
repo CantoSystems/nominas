@@ -872,6 +872,8 @@
         });
         $(".totalDeducciones").val(importe_total2.toFixed(2));
 
+
+
         /* Suma Percepciones Gravadas */
         let importe_totalGrav = 0
         $(".percepGrav").each(function(index, value) {
@@ -905,7 +907,9 @@
             let htmlTags = '<tr>'+
                               '<td style="text-align: center;">' + data[0] + '</td>'+
                               '<td style="text-align: center;">' + data[1] + '</td>'+
-                              '<td style="text-align: center;">$ ' + data[2].toFixed(2) + '</td>'+
+                              '<td style="text-align: center;">$ ' + data[2].toFixed(2) + 
+                              '<input class="totales3" id="trabajadorIsr" type="hidden" value=" ' + data[2].toFixed(2) + ' ">'+
+                              '</td>'+
                             '</tr>'
             $('#filasImpuestos tbody').append(htmlTags);
           },
@@ -915,6 +919,8 @@
           }
         });
 
+      
+      
         $.ajax({
           url: "{{ route('control.IMSS') }}",
           method: "POST",
@@ -928,15 +934,30 @@
             let htmlTags = '<tr>'+
                               '<td style="text-align: center;">' + data[0] + '</td>'+
                               '<td style="text-align: center;">' + data[1] + '</td>'+
-                              '<td style="text-align: center;">$ ' + data[2].toFixed(2) + '</td>'+
+                              '<td  style="text-align: center;">$ ' + data[2].toFixed(2) + 
+                              '<input  class="totales3" id="trabajadorImss" type="hidden" value=" ' + data[2].toFixed(2) + ' ">'+
+                              '</td>'+
                             '</tr>'
             $('#filasImpuestos tbody').append(htmlTags);
+            //let tota = $("#trabajadorImss").val();
+            //let tot = $("#trabajador").val();
+            //console.log(tot);
+            
+           let importe_total3 = 0;
+           $(".totales3").each(function(index, value){
+            if($.isNumeric($(this).val())){
+              importe_total3 = importe_total3 + eval($(this).val());
+           }
+        });
+        $(".totalImpuestosTrabajador").val(importe_total3.toFixed(2));
           },
           error: function(xhr, status, error) {
             var err = JSON.parse(xhr.responseText);
             console.log(err.Message);
           }
         });
+
+      
 
         /* Script para guardar los cambios hechos en los inputs */
         $('#recalcular').click(function(e){

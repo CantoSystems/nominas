@@ -145,11 +145,16 @@
         ->get();
 
         $at = $this->anios_trabajados($empleados->id_emp);
+        if($at == 0){
+            $at = 1;
+        }
 
         $prestaciones = DB::connection('DB_Serverr')->table('prestaciones')
                         ->select('dias')
                         ->where('anio','=',$at)
                         ->first();
+        
+    
 
         $SBC = $this->SBC($prestaciones->dias,$empleados->sueldo_diario,$request->totalImss);
         $uma = $this->uma();
@@ -425,9 +430,10 @@
         }
 
         $clave = DB::connection('DB_Serverr')->table('empleados')
-                 ->select('clave_empleado','nombre','apellido_paterno','apellido_materno')
+                 ->select('clave_empleado','nombre','apellido_paterno','apellido_materno','id_emp')
                  ->where('id_emp','=',$id_emp)
                  ->first();
+    
         
         $calculospercepciones = $ControlPrenomina->where('clave_empleado', $clave->clave_empleado);
         $portipopercepciones = $calculospercepciones->where('tipo','P');
