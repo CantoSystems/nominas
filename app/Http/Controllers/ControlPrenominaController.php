@@ -834,7 +834,6 @@
         }else{
             $horasDoblesGenerales = 0;
             $horasTriplesGenerales = 0;
-            
             return compact('horasDoblesGenerales','horasTriplesGenerales');
         }
     }

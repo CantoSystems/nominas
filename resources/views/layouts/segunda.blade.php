@@ -938,7 +938,6 @@
           }
         });
 
-
         /* Script para guardar los cambios hechos en los inputs */
         $('#recalcular').click(function(e){
           e.preventDefault();
