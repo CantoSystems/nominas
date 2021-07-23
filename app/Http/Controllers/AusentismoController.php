@@ -259,7 +259,6 @@ class AusentismoController extends Controller
 
     public function mostrarempleado(Request $request)
     {
-
         $clv=Session::get('clave_empresa');
         $clv_empresa=$this->conectar($clv);
 
@@ -281,7 +280,7 @@ class AusentismoController extends Controller
                             position:relative;">';
                         foreach($data as $row)
                             {
-                                $output .= '<li id="empleado" style="list-style:none"><a class="dropdown-item" href="#">'.$row->clave_empleado.'&nbsp;'.$row->nombre.'&nbsp;'.$row->apellido_paterno.'&nbsp;'.$row->apellido_materno.'</a></li>';
+                                $output .= '<li id="empleado" style="list-style:none"><a class="dropdown-item" href="#">'.$row->clave_empleado.'&nbsp;'.$row->nombre.'&nbsp;'.$row->apellido_paterno.'&nbsp;'.$row->apellido_materno.'</a>'.'<input id="sueldoDiario" type="hidden" value="'.$row->sueldo_diario.'">'.'</li>';
                             }
             $output .= '</ul>';
         }

@@ -80,13 +80,13 @@
                     <div class="col-sm-1">
                         <div class="form-group">
                             <label>Cantidad:</label>
-                            <input type="number" name="cantidad"  onkeypress="return numeros(event)" id="cantidad" required class="form-control" step="0.1">
+                            <input type="number" name="cantidad"  onkeypress="return numeros(event)" id="can_incidencia" required class="form-control" step="0.1">
                         </div>
                     </div>
                     <div class="col-sm-1">
                         <div class="form-group">
                             <label>Importe:</label>
-                            <input type="number" name="importe"  onkeypress="return numeros(event)" id="importe" required class="form-control" step="0.1">
+                            <input type="number" name="importe"  onkeypress="return numeros(event)" id="importe_incidencias" required class="form-control" step="0.1">
                         </div>
                     </div>
                     <div class="col-sm-2">
