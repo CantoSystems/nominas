@@ -557,34 +557,6 @@
     <!-- Scripts para Autocomplete empleados y conceptos -->
     <script>
       $(document).ready(function(){ 
-        $('.clave_empledo').keyup(function(){
-          let query = $(this).val();  
-            if(query != ''){
-              let _token = $('input[name="_token"]').val();
-              $.ajax({
-                url:"{{ route('ausentismo.mostrarempleado') }}",
-                method: "POST",
-                data:{query:query,_token:_token},
-                success:function(data){
-                  $('.listaclave_empleado').fadeIn();
-                  $('.listaclave_empleado').html(data);
-                }
-              });
-            }
-        });
-
-        $(document).on('click','#empleado',function(){
-          let infoempleado = $(this).text();
-          let empleado_nombre = infoempleado.substring(4);
-          let empleado_clave = infoempleado.substring(0,4);
-          $('.clave_empledo').val(empleado_clave);
-          $('.listaclave_empleado').fadeOut();
-          $('.nombre_empleado').val(empleado_nombre);
-        });
-      });
-    </script>
-    <script>
-      $(document).ready(function(){ 
         $('#concepto_clave').keyup(function(){
           let consulta = $(this).val();  
             if(consulta != ''){
@@ -608,6 +580,43 @@
           $('#concepto_clave').val(concep);
           $('#listaconcepto_clave').fadeOut();
           $('#nomConcepto').val(nombreConcepto);
+        });
+        $('.clave_empledo').keyup(function(){
+          let query = $(this).val();  
+            if(query != ''){
+              let _token = $('input[name="_token"]').val();
+              $.ajax({
+                url:"{{ route('ausentismo.mostrarempleado') }}",
+                method: "POST",
+                data:{query:query,_token:_token},
+                success:function(data){
+                  $('.listaclave_empleado').fadeIn();
+                  $('.listaclave_empleado').html(data);
+                  let sueldo = $("#sueldoDiario").val();
+                  
+                  $(document).on('click','#concepto',function(){
+                    let info_concepto = $(this).text();
+                    let concep_clave = info_concepto.substring(0,4);
+                    if(concep_clave == "013P"){
+                      $("#importe_incidencias").val(sueldo);
+                    }else{
+                      $("#importe_incidencias").val(0);
+                    }
+                  });
+                }
+              });
+            }
+            
+        });
+
+        $(document).on('click','#empleado',function(){
+          let infoempleado = $(this).text();
+         
+          let empleado_nombre = infoempleado.substring(4);
+          let empleado_clave = infoempleado.substring(0,4);
+          $('.clave_empledo').val(empleado_clave);
+          $('.listaclave_empleado').fadeOut();
+          $('.nombre_empleado').val(empleado_nombre);
         });
       });
     </script>
