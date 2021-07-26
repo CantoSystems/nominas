@@ -6,7 +6,7 @@
         <div class="col">
             <div class="card card-secondary">
                 <div class="card-header">
-                    <h3 class="card-title">Tabla IMSS</h3>
+                    <h3 class="card-title">Tabla IMSS estoy editando</h3>
                 </div>
                 <div class="card-body">
                     <form action="{{ route('imss.acciones')}}" method="GET" autocomplete="off">
@@ -15,7 +15,7 @@
                                 <div class="col-sm-4">
                                     <div class="form-group">
                                         <label>Seguro y concepto:</label>
-                                        <select id="seguroIMSS" name="seguroIMSS" class="custom-select">
+                                        <select name="seguroIMSS" class="custom-select">
                                             @if($imss->concepto=="N/A" || $imss->concepto==null)
                                                 <option selected value="N/A">Selecciona una opción...</option>
                                                 <option value="Riesgos de Trabajo">Riesgos de Trabajo</option>
@@ -79,7 +79,7 @@
                                 <div class="col-sm-4">
                                     <div class="form-group">
                                         <label>Prestaciones:</label>
-                                        <select id="prestacionIMSS" name="prestacionIMSS" class="custom-select">
+                                        <select name="prestacionIMSS" class="custom-select">
                                             @if($imss->prestaciones=="N/A" || $imss->prestaciones==null)
                                                 <option selected value="N/A">Selecciona una opción...</option>
                                                 <option value="En especie y dinero">En especie y dinero</option>
@@ -160,23 +160,13 @@
                                     <div class="form-group">
                                         <label>Cuota (Patrón):</label>
                                         <input type="hidden" name="id_imss" value="{{ $imss->id_imss }}">
-                                        <input type="number" name="cuotapatron" value="{{ $imss->cuotapatron1 }}" class="form-control" step="0.01" >
-                                    </div>
-                                </div>
-                                <div class="col-sm-4">
-                                    <div class="form-group">
-                                        <label>2da Cuota (Patrón):</label>
-                                        @if($imss->cuotapatron2!=null)
-                                            <input type="number" name="cuotapatron2" id="cuotapatron2" value="{{ $imss->cuotapatron2 }}" class="form-control" step="0.01" >
-                                        @else
-                                            <input type="number" name="cuotapatron2" id="cuotapatron2" disabled class="form-control" step="0.01" >
-                                        @endif
+                                        <input type="number" name="cuotapatron" value="{{ $imss->cuotapatron }}" class="form-control" step="0.01" >
                                     </div>
                                 </div>
                                 <div class="col-sm-4">
                                     <div class="form-group">
                                         <label>Cuota (Trabajador):</label>
-                                        <input type="number" name="cuotatrabajador" value="{{ $imss->cuotatrabajador }}" class="form-control" step="0.01">
+                                        <input type="number" name="cuotatrabajador" value="{{ $imss->cuotatrabajador }}" class="form-control" step="0.001">
                                     </div>
                                 </div>
                                 <div class="col-sm-4">
@@ -239,16 +229,12 @@
                                         <input type="number" name="cuotapatron" class="form-control" step="0.01" >
                                     </div>
                                 </div>
-                                <div class="col-sm-4">
-                                    <div class="form-group">
-                                        <label>2da Cuota (Patrón):</label>
-                                        <input type="number" name="cuotapatron2" id="cuotapatron2" disabled class="form-control" step="0.01" >    
-                                    </div>
-                                </div>
+                               
+                                
                                 <div class="col-sm-4">
                                     <div class="form-group">
                                         <label>Cuota (Trabajador):</label>
-                                        <input type="number" name="cuotatrabajador" class="form-control" step="0.01">
+                                        <input type="number" name="cuotatrabajador" class="form-control" step="0.001">
                                     </div>
                                 </div>
                                 <div class="col-sm-4">

@@ -125,7 +125,7 @@
                           </div>
                           <div class="col-md-2 mb-3">
                             <label for="validationDefault03">IMSS</label>
-                            <input required type="text" class="form-control" value="{{$emp->imss}}" minlength="11" maxlength="11" name="imss" onkeypress="return numeros(event)">
+                            <input required type="text" class="form-control" value="{{$emp->imss}}" maxlength="12" name="imss" onkeypress="return numeros(event)">
                           </div>
                           <div class="col-md-2 mb-3">
                             <label for="validationDefault03">Afore</label>
@@ -1025,7 +1025,7 @@
                             </div>
                             <div class="col-md-2 mb-3">
                               <label for="validationDefault03">IMSS</label>
-                              <input required type="text" class="form-control" minlength="11" maxlength="11" name="imss" onkeypress="return numeros(event)">
+                              <input required type="text" class="form-control" maxlength="12" name="imss" onkeypress="return numeros(event)">
                             </div>
                             <div class="col-md-2 mb-3">
                               <label for="validationDefault03">Afore</label>

@@ -79,14 +79,13 @@ class IMSSController extends Controller{
             'nombre_banco' => 'required|unique:bancos',
         ]);*/
 
+        $totalcuotas =  $datos->cuotapatron + $datos->cuotatrabajador;
         $imss= new IMSS;
         $imss->concepto = $datos->seguroIMSS;
         $imss->prestaciones = $datos->prestacionIMSS;
-        $imss->cuotapatron1 = $datos->cuotapatron;
-        if($datos->cuotapatron2!=""){
-            $imss->cuotapatron2 = $datos->cuotapatron2;
-        }
+        $imss->cuotapatron = $datos->cuotapatron;
         $imss->cuotatrabajador = $datos->cuotatrabajador;
+        $imss->cuotatotal = $totalcuotas;
         $imss->base = $datos->basesalarial;
         $imss->save();
     }

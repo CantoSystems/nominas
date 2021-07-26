@@ -1,5 +1,23 @@
 @extends('layouts.segunda')
 @section('content')
+@php
+    $cadena = '';
+@endphp
+@if(isset($ControlPrenomina))
+@foreach ($ControlPrenomina as $control)
+    @php
+        $cadena = $cadena.$control['clave_empleado'].'~';
+        $cadena = $cadena.$control['clave_concepto'].'~';
+        $cadena = $cadena.$control['concepto'].'~';
+        $cadena = $cadena.$control['monto'].'~';
+        $cadena = $cadena.$control['gravable'].'~';
+        $cadena = $cadena.$control['excento'].'~';
+        $cadena = $cadena.$control['tipo'];
+        $cadena = $cadena.'¬';
+    @endphp
+@endforeach
+@else
+@endif
 <div class="container">
     <div class="col" style="padding:0px 0px 0px 0px;">
         <div class="card card-secondary">
@@ -23,7 +41,18 @@
                             @endcan
                         </div>
                         <div class="col">
-                            <button type="submit" id="autorizar" style='width:125px; height:38px;'>Autorizar Nómina</button>
+                            <button type="submit" id="autorizar"style='width:125px; height:38px;'>Autorizar Nómina</button>
+                        </div>
+                        <!--<div class="col">
+                            <form action="{{ route('control.excel') }}">
+                                <input type="hidden" name="datosPrenomina" value="<?php echo $cadena; ?>">
+                                <button type="submit" style='width:125px; height:38px;'>Descargar excel</button>
+                            </form>
+                        </div>-->
+                        <div class="col">
+                            <form action="{{ route('control.excel3') }}">
+                                <button type="submit" style='width:125px; height:38px;'>Descargar Excel</button>
+                            </form>
                         </div>
                     </div>
                     <br>
@@ -124,6 +153,7 @@
                                                 <input type="number" step=".01" disabled class="form-control totalPercepciones">
                                                 <input type="hidden" step=".01" class="totalPercepcionesGravadas">
                                                 <input type="hidden" step=".01" class="totalPercepcionesExcentas">
+                                                <input type="hidden" step=".01" class="totalPercepcionesIMSS" value="{{ $sumaImss ?? '' }}">
                                             </td>
                                         </tr>
                                     </tbody>
@@ -153,14 +183,25 @@
                                         <tr>
                                             <th scope="col" style="text-align: center;">Clave</th>
                                             <th scope="col" style="text-align: center;">Concepto</th>
-                                            <th scope="col" style="text-align: center;">Total</th>
+                                            <th scope="col" style="text-align: center;">Total 2</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                     </tbody>
                                 </table>
-                                <table id="totalesImpuestos" name="totalesImpuestos" class="table table-hover">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6"></div>
+                            <div class="col-sm-6">
+                                <table class="table table-hover">
                                     <tbody>
+                                        <tr>
+                                            <td colspan="2" style="text-align: right; valign: middle;">Total: </td>
+                                            <td style="width: 42%;">
+                                                <input type="number" step=".01" disabled class="form-control totalImpuestosTrabajador">
+                                            </td>
+                                        </tr>
                                     </tbody>
                                 </table>
                             </div>
