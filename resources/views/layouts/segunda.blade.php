@@ -606,17 +606,21 @@
                 }
               });
             }
-            
         });
 
         $(document).on('click','#empleado',function(){
           let infoempleado = $(this).text();
-         
           let empleado_nombre = infoempleado.substring(4);
           let empleado_clave = infoempleado.substring(0,4);
           $('.clave_empledo').val(empleado_clave);
           $('.listaclave_empleado').fadeOut();
           $('.nombre_empleado').val(empleado_nombre);
+        });
+
+        $('#can_incidencia').keyup(function(){
+          Cantidad = $('#can_incidencia').val();
+          Importe = $('#importe_incidencias').val();
+          $('#monto_incidencias').val(Cantidad*Importe);
         });
       });
     </script>
@@ -692,7 +696,6 @@
             descripcion: e.querySelector('.descripcion').innerText
           };
           myTableArrayAusencia.push(filas);
-
         });
         let jsonStringa = JSON.stringify(myTableArrayAusencia);
       $.ajax({
@@ -807,9 +810,9 @@
           e.preventDefault();
           let clave_empledo = $('#clave_empledo').val();
           let concepto_clave = $('#concepto_clave').val();
-          let cantidad = $('#cantidad').val();
-          let importe = $('#importe').val();
-          let monto = $('#monto').val();
+          let cantidad = $('#can_incidencia').val();
+          let importe = $('#importe_incidencias').val();
+          let monto = $('#monto_incidencias').val();
 
           if(clave_empledo!="" && concepto_clave!="" && cantidad!="" && importe!="" && monto!=""){
             let htmlTags = '<tr>'+
@@ -881,8 +884,6 @@
         });
         $(".totalDeducciones").val(importe_total2.toFixed(2));
 
-
-
         /* Suma Percepciones Gravadas */
         let importe_totalGrav = 0
         $(".percepGrav").each(function(index, value) {
@@ -928,8 +929,6 @@
           }
         });
 
-      
-      
         $.ajax({
           url: "{{ route('control.IMSS') }}",
           method: "POST",
@@ -965,9 +964,7 @@
             console.log(err.Message);
           }
         });
-
       
-
         /* Script para guardar los cambios hechos en los inputs */
         $('#recalcular').click(function(e){
           e.preventDefault();
@@ -999,6 +996,7 @@
         });
       });
     </script>
+    
     <!--Script para el control de prenomina-->
     <script>
       $(document).ready(function(){

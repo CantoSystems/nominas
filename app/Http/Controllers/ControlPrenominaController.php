@@ -341,7 +341,6 @@
 
                     $percepcionesImss->push(["concepto"=>"COMISIONES", "total" => $montoComisiones->monto]);
 
-
                 }else if($concep->clave_concepto == "016P"){
 
                 }else if($concep->clave_concepto == "017P"){
