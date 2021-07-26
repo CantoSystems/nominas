@@ -562,7 +562,6 @@
     /* $uma = Umas::select('porcentaje_uma')
         ->orderBy('created_at','desc')
         ->first();
-
         return $uma;*/
     }
 
@@ -648,9 +647,7 @@
         //$sd->sueldo_diario
         $rt = $this->ahorro_riesgo();
         //rt->porcentajeAhorro
-
         $umaCond = $uma->porcentaje_uma*1.3;
-
         if($umaCond<$sd->sueldo_diario){
             $fondo = $umaCond * $rt->porcentajeAhorro;
             return round($fondo,2);
