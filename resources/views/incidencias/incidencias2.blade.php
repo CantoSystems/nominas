@@ -155,42 +155,40 @@
                     </div>
                     <div class="col-md-12">
                         <br>
-                        
                     </div>
                     @canany(['administrador','capturista','reportes'])
                         <div class="col-md-5">
-                                <div class="margin">
-                                    <div class="btn-group">
-                                        @if(isset($incidencias))
-                                            <div class="form-group">
-                                                <button type="submit" name="acciones" value="primero" id="primero" class="botonesgrandes"><i class="fas fa-backward"></i></button>
-                                            </div>
-                                            <div class="form-group">
-                                                <button type="submit" name="acciones" value="atras" id="atras" class="botonesgrandes"><i class="fas fa-arrow-circle-left"></i></button>
-                                            </div>
-                                            <div class="form-group">
-                                                <button type="submit" name="acciones" value="siguiente" id="siguiente" class="botonesgrandes"><i class="fas fa-arrow-circle-right"></i></button>
-                                            </div>
-                                            <div class="form-group">
-                                                <button type="submit" name="acciones" value="ultimo" id="ultimo" class="botonesgrandes"><i class="fas fa-forward"></i></button>
-                                            </div>
-                                        @else
-                                                <div class="form-group">
-                                                    <button type="submit" class="botones" disabled><i class="fas fa-backward" ></i></button>
-                                                </div>
-                                                <div class="form-group">
-                                                    <button type="submit" class="botones" disabled><i class="fas fa-arrow-circle-left"></i></button>
-                                                </div>
-                                                <div class="form-group">
-                                                    <button type="submit" class="botones" disabled><i class="fas fa-arrow-circle-right"></i></button>
-                                                </div>
-                                                <div class="form-group">
-                                                    <button type="submit" class="botones" disabled><i class="fas fa-forward"></i></button>
-                                                </div>
+                            <div class="margin">
+                                <div class="btn-group">
+                                    @if(isset($incidencias))
+                                        <div class="form-group">
+                                            <button type="submit" name="acciones" value="primero" id="primero" class="botonesgrandes"><i class="fas fa-backward"></i></button>
+                                        </div>
+                                        <div class="form-group">
+                                            <button type="submit" name="acciones" value="atras" id="atras" class="botonesgrandes"><i class="fas fa-arrow-circle-left"></i></button>
+                                        </div>
+                                        <div class="form-group">
+                                            <button type="submit" name="acciones" value="siguiente" id="siguiente" class="botonesgrandes"><i class="fas fa-arrow-circle-right"></i></button>
+                                        </div>
+                                        <div class="form-group">
+                                            <button type="submit" name="acciones" value="ultimo" id="ultimo" class="botonesgrandes"><i class="fas fa-forward"></i></button>
+                                        </div>
+                                    @else
+                                        <div class="form-group">
+                                            <button type="submit" class="botones" disabled><i class="fas fa-backward" ></i></button>
+                                        </div>
+                                        <div class="form-group">
+                                            <button type="submit" class="botones" disabled><i class="fas fa-arrow-circle-left"></i></button>
+                                        </div>
+                                        <div class="form-group">
+                                            <button type="submit" class="botones" disabled><i class="fas fa-arrow-circle-right"></i></button>
+                                        </div>
+                                        <div class="form-group">
+                                            <button type="submit" class="botones" disabled><i class="fas fa-forward"></i></button>
+                                        </div>
                                     @endif
-                                        
-                                    </div>
                                 </div>
+                            </div>
                         </div>
                     @endcanany
                     <div class="col-md-5">
