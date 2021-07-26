@@ -1,4 +1,4 @@
-@extends('layouts.segunda')
+@extends('layouts.plantillaAusentismo')
 @section('content')
 <div class="container">
   <div class="col">

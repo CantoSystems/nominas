@@ -1,4 +1,4 @@
-@extends('layouts.segunda')
+@extends('layouts.plantillaEmpleados')
 @section('content')
 <div class="container">
   <div class="col-md-12">
