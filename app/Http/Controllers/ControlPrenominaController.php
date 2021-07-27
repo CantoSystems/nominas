@@ -206,7 +206,7 @@
 
         $ControlPrenomina = collect();
         $percepcionesImss = Collect();
-        foreach($empleados as $emp){
+       /* foreach($empleados as $emp){
             foreach($conceptos as $concep){
                 if($concep->clave_concepto == "001P"){
                     $resultaSueldo = $this->sueldo($emp->id_emp,$emp->clave_empleado);
@@ -314,7 +314,7 @@
                 }else if($concep->clave_concepto == "012P"){
                 
                 }else if($concep->clave_concepto == "013P"){
-                    $diasVacacionesTom = $this->vacacionesEmpleado($emp->clave_empleado);
+                  /*  $diasVacacionesTom = $this->vacacionesEmpleado($emp->clave_empleado);
                     $sd = $this->sueldo_horas($emp->id_emp);
 
                     $diasVacaciones = $diasVacacionesTom->cantidad * $sd->sueldo_diario;
@@ -418,13 +418,18 @@
                     
                 }
             }
-        }
+        }*/
+
 
         $clave = DB::connection('DB_Serverr')->table('empleados')
                  ->select('clave_empleado','nombre','apellido_paterno','apellido_materno','id_emp')
                  ->where('id_emp','=',$id_emp)
                  ->first();
-    
+                 
+             $tiempo = $this->vacacionesEmpleado($clave->id_emp,$clave->clave_empleado);
+             return $tiempo;
+            
+        
         
         $calculospercepciones = $ControlPrenomina->where('clave_empleado', $clave->clave_empleado);
         $portipopercepciones = $calculospercepciones->where('tipo','P');
@@ -447,39 +452,37 @@
         return (new PrenominaExport)->download('prenomina.xlsx');
     }
 
-    public function vacacionesEmpleado($idEmp,$clvEmp){
-        $at = $this->anios_trabajados('3');
+
+        public function vacacionesEmpleado($idEmp,$claveEmp){
+        $at = $this->anios_trabajados($idEmp);
+        
         $alta_trabajador = DB::connection('DB_Serverr')->table('empleados')
                            ->select('fecha_alta')
-                           ->where('id_emp','=','3')
+                           ->where('id_emp','=',$idEmp)
                            ->first();
 
-        if($at == 0){
-            $fechaInicio = date('Y-m-d', strtotime($alta_trabajador->fecha_alta));
-        }else{
-            $fechaInicio = date('Y-m-d', strtotime($alta_trabajador->fecha_alta."+".$at." year"));
-        }
+        $fecha_actual = now()->toDateString();
 
         $periodos = DB::connection('DB_Serverr')->table('periodos')
                     ->select('numero')
                     ->where([
-                        ['fecha_inicio','>',$fechaInicio],
-                        ['fecha_fin','<',date('Y-m-d', strtotime(now()))]
+                        ['fecha_inicio','>',$alta_trabajador->fecha_alta],
+                        ['fecha_fin','<',$fecha_actual]
                     ])
                     ->get();
-
-        /*$diasVacacionesTom = DB::connection('DB_Serverr')->table('incidencias')
+      
+        $arrayPeriodos= $periodos->pluck('numero')->toArray();
+        $diasVacacionesTom = DB::connection('DB_Serverr')->table('incidencias')
                              ->select(DB::raw('CASE WHEN COUNT(`cantidad`) = " " THEN 0 ELSE SUM(`cantidad`) END as cantidad'))
                              ->where([
                                  ['clave_concepto','=','013P'],
-                                 ['clave_empleado','=','OOMJ']
+                                 ['clave_empleado','=',$claveEmp]
                              ])
-                             ->whereIn('periodo_incidencia', $collectionPer)
-                             ->first();
+                             ->whereIn('periodo_incidencia', $arrayPeriodos)
+                             ->get();
+        
+        return $diasVacacionesTom;
 
-        echo $diasVacacionesTom->cantidad;
-        //$diasTotalesVacaciones = $this->aguinaldo_vacaciones_prima($idEmp);*/
-        return 0;
     }
 
     /* Funciones variable general */
@@ -619,7 +622,7 @@
         //Sueldo = SD * (JT-001D-002D)
         $sd = $this->sueldo_horas($idEmp);
         $jt = $this->dias_trabajados($claveEmp);
-        $diasVacacionesTom = $this->vacacionesEmpleado($idEmp,$claveEmp);
+       /* $diasVacacionesTom = $this->vacacionesEmpleado($idEmp,$claveEmp);
 
         $diasTotalesTrabajados = 0;
         if($diasTotalesVacaciones->dias >= $diasVacacionesTom->cantidad){
@@ -629,7 +632,7 @@
             $diasTotalesTrabajados = $sd->sueldo_diario * $jt;
         }
 
-        return $diasTotalesTrabajados;
+        return $diasTotalesTrabajados;*/
     }
 
     public function fondoAhorro($idEmp){
