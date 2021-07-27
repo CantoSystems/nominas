@@ -447,16 +447,39 @@
         return (new PrenominaExport)->download('prenomina.xlsx');
     }
 
-    public function vacacionesEmpleado($clvEmp){
-        $diasVacacionesTom = DB::connection('DB_Serverr')->table('incidencias')
+    public function vacacionesEmpleado($idEmp,$clvEmp){
+        $at = $this->anios_trabajados('3');
+        $alta_trabajador = DB::connection('DB_Serverr')->table('empleados')
+                           ->select('fecha_alta')
+                           ->where('id_emp','=','3')
+                           ->first();
+
+        if($at == 0){
+            $fechaInicio = date('Y-m-d', strtotime($alta_trabajador->fecha_alta));
+        }else{
+            $fechaInicio = date('Y-m-d', strtotime($alta_trabajador->fecha_alta."+".$at." year"));
+        }
+
+        $periodos = DB::connection('DB_Serverr')->table('periodos')
+                    ->select('numero')
+                    ->where([
+                        ['fecha_inicio','>',$fechaInicio],
+                        ['fecha_fin','<',date('Y-m-d', strtotime(now()))]
+                    ])
+                    ->get();
+
+        /*$diasVacacionesTom = DB::connection('DB_Serverr')->table('incidencias')
                              ->select(DB::raw('CASE WHEN COUNT(`cantidad`) = " " THEN 0 ELSE SUM(`cantidad`) END as cantidad'))
                              ->where([
                                  ['clave_concepto','=','013P'],
-                                 ['clave_empleado','=',$clvEmp]
+                                 ['clave_empleado','=','OOMJ']
                              ])
+                             ->whereIn('periodo_incidencia', $collectionPer)
                              ->first();
 
-        return $diasVacacionesTom;
+        echo $diasVacacionesTom->cantidad;
+        //$diasTotalesVacaciones = $this->aguinaldo_vacaciones_prima($idEmp);*/
+        return 0;
     }
 
     /* Funciones variable general */
@@ -566,36 +589,6 @@
         return $uma;*/
     }
 
-    public function cantidad_dias($idEmp){
-        //Fecha Inicial del Periodo de Nómina - Fecha de Alta del Trabajador
-        $num_p = Session::get('num_periodo');
-
-        $clv = Session::get('clave_empresa');
-        $clv_empresa = $this->conectar($clv);
-        \Config::set('database.connections.DB_Serverr', $clv_empresa);
-
-        $fecha_inicial = DB::connection('DB_Serverr')->table('periodos')
-        ->select('fecha_inicio')
-        ->where('numero','=',$num_p)
-        ->first();
-
-        //Accedemos a la fecha $fecha_inicial->fecha_inicio
-        //Parseando la fecha
-        $inicial = now()->parse($fecha_inicial->fecha_inicio);
-
-        $alta_trabajador = DB::connection('DB_Serverr')->table('empleados')
-        ->select('fecha_alta')
-        ->where('id_emp','=',$idEmp)
-        ->first();
-
-        //Accedemos a la fecha alta del trabajador $alta_trabajador->fecha_alta
-        //Parseando la fecha
-        $alta = now()->parse($alta_trabajador->fecha_alta);
-
-        $diferencia = $inicial->diffInDays($alta); 
-        return $diferencia;
-    }
-
     public function ahorro_riesgo(){
         $clv = Session::get('clave_empresa');
 
@@ -627,11 +620,11 @@
         //Sueldo = SD * (JT-001D-002D)
         $sd = $this->sueldo_horas($idEmp);
         $jt = $this->dias_trabajados($claveEmp);
-        $diasVacacionesTom = $this->vacacionesEmpleado($claveEmp);
-        $diasTotalesVacaciones = $this->aguinaldo_vacaciones_prima($idEmp);
+        $diasVacacionesTom = $this->vacacionesEmpleado($idEmp,$claveEmp);
 
         $diasTotalesTrabajados = 0;
         if($diasTotalesVacaciones->dias >= $diasVacacionesTom->cantidad){
+            
             $diasTotalesTrabajados = ($jt - $diasVacacionesTom->cantidad)*$sd->sueldo_diario;
         }else{
             $diasTotalesTrabajados = $sd->sueldo_diario * $jt;
@@ -708,7 +701,7 @@
 
         if(is_null($diasAguinaldo)){
             //Retorna la cantidad de días 
-            $dias =$this->cantidad_dias($idEmp);
+            $dias =$this->anios_trabajados($idEmp);
             $total_aguinaldo = ($sd->sueldo_diario * 15)/365;
             $aguinaldo_proporcional = $total_aguinaldo * $dias;
             return round($aguinaldo_proporcional,2);
