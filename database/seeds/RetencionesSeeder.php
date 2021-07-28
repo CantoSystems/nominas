@@ -1,12 +1,18 @@
 <?php
 
+
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 
 class RetencionesSeeder extends Seeder
 {
-        public function run()
+    /**
+     * Run the database seeds.
+     *
+     * @return void
+     */
+    public function run()
     {
         $retenciones = Collect([
             ["limite_inferior" => 0.01, "limite_superior" => 644.58, "cuota" => 0, "porcentaje_excedente"=>1.92,"created_at" => "2021-05-04 07:06:32", "updated_at" => "2021-05-04 07:06:32"],

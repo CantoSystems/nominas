@@ -206,7 +206,7 @@
 
         $ControlPrenomina = collect();
         $percepcionesImss = Collect();
-        foreach($empleados as $emp){
+       /* foreach($empleados as $emp){
             foreach($conceptos as $concep){
                 if($concep->clave_concepto == "001P"){
                     $resultaSueldo = $this->sueldo($emp->id_emp,$emp->clave_empleado);
@@ -415,15 +415,18 @@
                     
                 }
             }
-        }
+        }*/
 
-        /*$clave = DB::connection('DB_Serverr')->table('empleados')
+
+        $clave = DB::connection('DB_Serverr')->table('empleados')
                  ->select('clave_empleado','nombre','apellido_paterno','apellido_materno','id_emp')
-                 ->where('id_emp','=','3')
+                 ->where('id_emp','=',$id_emp)
                  ->first();
                  
-             $tiempo = $this->vacacionesEmpleado($clave->id_emp,$clave->clave_empleado);
+            /* $tiempo = $this->vacacionesEmpleado($clave->id_emp,$clave->clave_empleado);
              return $tiempo;*/
+        $pruebaSueldo = $this->sueldo($id_emp,$clave->clave_empleado);
+        return $pruebaSueldo;
             
         $calculospercepciones = $ControlPrenomina->where('clave_empleado',$emp->clave_empleado);
         $portipopercepciones = $calculospercepciones->where('tipo','P');
@@ -642,9 +645,13 @@
         //Sueldo = SD * (JT-001D-002D)
         $sd = $this->sueldo_horas($idEmp);
         $jt = $this->dias_trabajados($claveEmp);
-        $tiempo = $this->vacacionesEmpleado($idEmp,$claveEmp); //Cantidad de vacaciones totales en el último año
-        $diasTotalesVacaciones = $this->aguinaldo_vacaciones_prima($idEmp); //Días totales de vacaciones que puede tomar
-        $diasTomadosPeriodo = $this->vacacionesEmpleadoPeriodo($claveEmp); //Dias de vacaciones tomados en el periodo
+        $tiempo = $this->vacacionesEmpleado($idEmp,$claveEmp); 
+        //Cantidad de vacaciones totales en el último año
+        $diasTotalesVacaciones = $this->aguinaldo_vacaciones_prima($idEmp); 
+        return $diasTotalesVacaciones->dias;
+        //Días totales de vacaciones que puede tomar
+        $diasTomadosPeriodo = $this->vacacionesEmpleadoPeriodo($claveEmp); 
+        //Dias de vacaciones tomados en el periodo
 
         $diasTotalesTrabajados = 0;
         if($diasTotalesVacaciones->dias >= $tiempo->cantidad){

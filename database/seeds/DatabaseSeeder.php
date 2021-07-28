@@ -2,24 +2,24 @@
 
 use Illuminate\Database\Seeder;
 
-la clase DatabaseSeeder extiende Seeder
+class DatabaseSeeder extends Seeder
 {
     /**
- * Sembrar la base de datos de la aplicación.
+     * Seed the application's database.
      *
- * @return vacío
+     * @return void
      */
-    ejecución de función pública()
+    public function run()
     {
        
-        $estallamada ->([
+       $this->call([
             RetencionesSeeder::class,
-            SubsidioSeeder::clase,
+            SubsidioSeeder::class,
             RolesSeeder::class,
-            SalarioMinimoSeeder::clase,
-            UmaSeeder::clase,
-            BancoSeeder::clase,
-            PrestacionesImssSeeder::clase,
+            SalarioMinimoSeeder::class,
+            UmaSeeder::class,
+            BancoSeeder::class,
+            PrestacionesImssSeeder::class,
         ]);
        
     }
