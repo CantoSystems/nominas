@@ -431,10 +431,6 @@
       });
     </script>
 
-    
-
-   
-
     <!-- Scripts para Autocomplete empleados y conceptos -->
     <script>
       $(document).ready(function(){ 
