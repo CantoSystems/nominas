@@ -193,5 +193,6 @@ Route::get('/prenomina-normal', 'ControlPrenominaController@index')->name('contr
 Route::get('/prenomina-normal/{id_emp}', 'ControlPrenominaController@create')->name('control.create');
 Route::post('/prenomina-normal/enviocontrolprenomina', 'ControlPrenominaController@store')->name('control.store');
 Route::post('/prenominaImpuestos', 'ControlPrenominaController@calcularImpuestos')->name('control.Impuestos');
+Route::post('/prenominaIMSS', 'ControlPrenominaController@calcularIMSS')->name('control.IMSS');
 Route::get('/prenomina-excel','ControlPrenominaController@excelPrenomina')->name('control.excel');
 Route::get('/prenomina-excel3','ControlPrenominaController@exportExcel')->name('control.excel3');
