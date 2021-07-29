@@ -17,9 +17,7 @@
     use Illuminate\Http\JsonResponse; 
     use Maatwebsites\Excel\Facades\Excel;
     
-
-    class ControlPrenominaController extends Controller
-    {
+    class ControlPrenominaController extends Controller{
         public function conectar($clv){
             $configDb = [
                 'driver'      => 'mysql',
@@ -72,7 +70,6 @@
         \Config::set('database.connections.DB_Serverr', $clv_empresa);
 
         foreach ($data as $value) {
-            //echo $value->monto.'|'.$value->idPre.'|'.$value->concepto;
             DB::connection('DB_Serverr')->insert('INSERT INTO prenomina (
                 clave_empleado,
                 prenomina_periodo,
@@ -417,18 +414,15 @@
             }
         }
 
-        /*$clave = DB::connection('DB_Serverr')->table('empleados')
+        $clave = DB::connection('DB_Serverr')->table('empleados')
                  ->select('clave_empleado','nombre','apellido_paterno','apellido_materno','id_emp')
-                 ->where('id_emp','=','3')
+                 ->where('id_emp','=',$id_emp)
                  ->first();
-                 
-             $tiempo = $this->vacacionesEmpleado($clave->id_emp,$clave->clave_empleado);
-             return $tiempo;*/
             
-        $calculospercepciones = $ControlPrenomina->where('clave_empleado',$emp->clave_empleado);
+        $calculospercepciones = $ControlPrenomina->where('clave_empleado',$clave->clave_empleado);
         $portipopercepciones = $calculospercepciones->where('tipo','P');
 
-        $calculosdeducciones = $ControlPrenomina->where('clave_empleado',$emp->clave_empleado);
+        $calculosdeducciones = $ControlPrenomina->where('clave_empleado',$clave->clave_empleado);
         $portipodeducciones = $calculosdeducciones->where('tipo','D');
 
         $sumaImss = $percepcionesImss->sum('total');
@@ -712,26 +706,6 @@
         $primaDominical = $sd->sueldo_diario * 0.25 ;
 
         return $primaDominical;
-    }
-
-    public function aguinaldo($idEmp){
-        $sd = $this->sueldo_horas($idEmp);
-        $diasAguinaldo = $this->aguinaldo_vacaciones_prima($idEmp);
-
-        if(is_null($diasAguinaldo)){
-            //Retorna la cantidad de días 
-            $dias =$this->anios_trabajados($idEmp);
-            $total_aguinaldo = ($sd->sueldo_diario * 15)/365;
-            $aguinaldo_proporcional = $total_aguinaldo * $dias;
-            return round($aguinaldo_proporcional,2);
-
-            //$resultad = collect(['aguinaldo'=> $dias]);
-            //$sd->sueldo_diario * $resultad['aguinaldo'];
-        }
-
-        $aguinaldo = $sd->sueldo_diario * $diasAguinaldo->aguinaldo;
-
-        return $aguinaldo;
     }
 
     public function ausentismoIncapacidadDeduccion($idEmp,$claveEmp){

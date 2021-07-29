@@ -1,29 +1,11 @@
 @extends('layouts.segunda')
 @section('content')
-@php
-    $cadena = '';
-@endphp
-@if(isset($ControlPrenomina))
-@foreach ($ControlPrenomina as $control)
-    @php
-        $cadena = $cadena.$control['clave_empleado'].'~';
-        $cadena = $cadena.$control['clave_concepto'].'~';
-        $cadena = $cadena.$control['concepto'].'~';
-        $cadena = $cadena.$control['monto'].'~';
-        $cadena = $cadena.$control['gravable'].'~';
-        $cadena = $cadena.$control['excento'].'~';
-        $cadena = $cadena.$control['tipo'];
-        $cadena = $cadena.'¬';
-    @endphp
-@endforeach
-@else
-@endif
 <div class="container">
     <div class="col" style="padding:0px 0px 0px 0px;">
         <div class="card card-secondary">
             <div class="card-header" style="padding:6px 6px 6px 6px;">
                 <h3 class="card-title">
-                    Cálculo de Prenómina
+                    Cálculo de Aguinaldos
                 </h3>
             </div>
             <div class="card-body">
@@ -32,12 +14,12 @@
                     <div class="row">
                         <div class="col">
                             @can('administrador')
-                                <a data-target="#modalbusquedaemp" data-toggle="modal">
-                                    <button type="submit" name="acciones" value="mostrar"  style='width: 65px; height: 38px'>
+                                <a data-target="#modalbusquedaempaguinaldo" data-toggle="modal">
+                                    <button type="submit" name="acciones" value="mostrar" style='width: 65px; height: 38px'>
                                         <i class="far fa-eye"></i>
                                     </button>
                                 </a>
-                                @include('prenomina.modaldespliegue-empleados')
+                                @include('aguinaldosNomina.modaldespliegue-empleadosAguinaldo')
                             @endcan
                         </div>
                         <div class="col">
@@ -45,7 +27,7 @@
                         </div>
                         <!--<div class="col">
                             <form action="{{ route('control.excel') }}">
-                                <input type="hidden" name="datosPrenomina" value="<?php echo $cadena; ?>">
+                                <input type="hidden" name="datosPrenomina" value="<?php //echo $cadena; ?>">
                                 <button type="submit" style='width:125px; height:38px;'>Descargar excel</button>
                             </form>
                         </div>-->
