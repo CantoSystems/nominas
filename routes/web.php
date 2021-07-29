@@ -60,7 +60,6 @@ Route::delete('puestos/{id}','PuestosController@eliminarpuestos')->name('puestos
 Route::get('/departamentos','DepartamentosController@index')->name('departamentos.index');
 Route::delete('departamentos/{id}', 'DepartamentosController@eliminardepartamento')->name('departamentos.eliminadepartamento');
 
-
 /**
     *Peticiones http Delete | Get
     *Eliminación de la bancos @eliminarbanco
@@ -196,3 +195,7 @@ Route::post('/prenominaImpuestos', 'ControlPrenominaController@calcularImpuestos
 Route::post('/prenominaIMSS', 'ControlPrenominaController@calcularIMSS')->name('control.IMSS');
 Route::get('/prenomina-excel','ControlPrenominaController@excelPrenomina')->name('control.excel');
 Route::get('/prenomina-excel3','ControlPrenominaController@exportExcel')->name('control.excel3');
+
+//Aguinaldos
+Route::get('/aguinaldos', 'AguinaldosController@index')->name('aguinaldos.index');
+Route::get('/aguinaldosl/{id_emp}', 'AguinaldosController@create')->name('aguinaldos.show');

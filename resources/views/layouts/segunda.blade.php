@@ -245,7 +245,7 @@
               </a>
               <ul class="nav nav-treeview">
                 <li class="nav-item">
-                  <a name="botonNominas" id="botonNominas" href="{{ route('prenomina.index')}}" class="nav-link active">
+                  <a name="botonNominas" id="botonNominas" href="{{ route('aguinaldos.index')}}" class="nav-link active">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Prenómina</p>
                   </a>
@@ -503,8 +503,6 @@
     </script>
 
     <!--Funcionamiento de Ausentismo-->
-    
-
     <!--Funcionamiento de Tiempo Extra-->
     <script>
       $(document).on('click', '.borrar', function (event) {
