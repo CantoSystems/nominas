@@ -1,4 +1,4 @@
-@extends('layouts.segunda')
+@extends('layouts.plantillaIncidencias')
 @section('content')
 <div class="container">
     <div class="card card-secondary">
@@ -86,7 +86,7 @@
                     <div class="col-sm-1">
                         <div class="form-group">
                             <label>Importe:</label>
-                            <input type="number" name="importe" onkeypress="return numeros(event)" id="importe_incidencias" required class="form-control" step="0.1">
+                            <input type="number" name="importe" step="0.1" id="importe_incidencias" required class="form-control" step="0.1">
                         </div>
                     </div>
                     <div class="col-sm-2">

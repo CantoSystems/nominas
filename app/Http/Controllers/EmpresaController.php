@@ -315,6 +315,7 @@ class EmpresaController extends Controller{
             ["clave_concepto" => "015D", "concepto" => "PAGO VALES DESPENSA EN ESPECIE","formula" => NULL,"tipo" => "D", "manejo" => "fijo","cantidad" => NULL,"importe" => NULL,"monto" => NULL, "isr" => 0,"imss" => 0, "infonavit" => 0,"estatal" => 0,"isr_uma" => 0.00, "isr_porcentaje" => 0.00,"imss_uma" => 0.00,"imss_porcentaje" => 0.00],
             ["clave_concepto" => "016D", "concepto" => "SUELDOS PAGADOS NO DEVENGADOS","formula" => NULL,"tipo" => "D", "manejo" => "variable","cantidad" =>  NULL, "importe" =>  NULL,"monto" => NULL, "isr" => 0,"imss" => 0, "infonavit" => 0,"estatal" => 1, "isr_uma" => 0.00,"isr_porcentaje" => 0.00, "imss_uma" => 0.00,"imss_porcentaje" => 0.00],
             ["clave_concepto" => "017D", "concepto" => "CAJA DE AHORROS", "formula" => NULL,"tipo" => "D", "manejo" => "fijo","cantidad" => NULL, "importe" =>  NULL, "monto" => NULL,"isr" => 0, "imss" => 0,"infonavit" => 0,"estatal" => 0, "isr_uma" => 0.00, "isr_porcentaje" => 0.00,"imss_uma" => 0.00,"imss_porcentaje" => 0.00],
+            ["clave_concepto" => "018D", "concepto" => "PENSION ALIMENTICIA", "formula" => NULL,"tipo" => "D", "manejo" => "fijo","cantidad" => NULL, "importe" =>  NULL, "monto" => NULL,"isr" => 0, "imss" => 0,"infonavit" => 0,"estatal" => 0, "isr_uma" => 0.00, "isr_porcentaje" => 0.00,"imss_uma" => 0.00,"imss_porcentaje" => 0.00],
             ["clave_concepto" => "001T", "concepto" => "ISPT","formula" => NULL,"tipo" => "T", "manejo" => "variable","cantidad" => NULL, "importe" => NULL,"monto" => NULL,"isr" => 0, "imss" => 0,"infonavit" => 0,"estatal" => 0, "isr_uma" => 0.00,"isr_porcentaje" => 0.00,"imss_uma" => 0.00, "imss_porcentaje" => 0.00],
             ["clave_concepto" => "002I", "concepto" => "CREDITO AL SALARIO","formula" => NULL, "tipo" => "I", "manejo" => "variable","cantidad" => NULL, "importe" => NULL,"monto" => NULL,"isr" => 0, "imss" => 0, "infonavit" => 0,"estatal" => 0, "isr_uma" => 0.00, "isr_porcentaje" => 0.00, "imss_uma" =>  0.00, "imss_porcentaje" => 0.00],
             ["clave_concepto" => "003T", "concepto" => "IMSS TRABAJADOR","formula" => NULL, "tipo" =>  "T","manejo" => "variable","cantidad" => NULL, "importe" => NULL,"monto" => NULL,"isr" => 0, "imss" => 0,"infonavit" => 0,"estatal" => 0, "isr_uma" => 0.00, "isr_porcentaje" => 0.00, "imss_uma" => 0.00, "imss_porcentaje" => 0.00],
@@ -596,8 +597,8 @@ class EmpresaController extends Controller{
             $table->char('clave_empleado',5);
             $table->char('clave_concepto',5);
             $table->double('cantidad');
-            $table->double('importe');
-            $table->double('monto',50);
+            $table->float('importe');
+            $table->float('monto');
             $table->integer('periodo_incidencia');
             $table->timestamps();
         });
