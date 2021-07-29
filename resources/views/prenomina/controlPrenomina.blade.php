@@ -1,4 +1,4 @@
-@extends('layouts.segunda')
+@extends('layouts.plantillaPrenomina')
 @section('content')
 @php
     $cadena = '';
