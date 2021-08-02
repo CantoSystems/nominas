@@ -80,19 +80,19 @@
                     <div class="col-sm-1">
                         <div class="form-group">
                             <label>Cantidad:</label>
-                            <input type="number" name="cantidad"  onkeypress="return numeros(event)" id="can_incidencia" required class="form-control" step="0.1">
+                            <input type="number" name="cantidad"  onkeypress="return numeros(event)" id="can_incidencia" required class="form-control" step="0.1" data-toggle="tooltip" data-placement="center">
                         </div>
                     </div>
                     <div class="col-sm-1">
                         <div class="form-group">
                             <label>Importe:</label>
-                            <input type="number" name="importe" step="0.1" id="importe_incidencias" required class="form-control" step="0.1">
+                            <input type="number" name="importe" step="0.1" id="importe_incidencias" required class="form-control" step="0.1" data-toggle="tooltip" data-placement="center">
                         </div>
                     </div>
                     <div class="col-sm-2">
                         <div class="form-group">
                             <label>Monto:</label>
-                            <input type="number" name="monto" onkeypress="return numeros(event)" id="monto_incidencias" required class="form-control" step="0.1">
+                            <input type="number" name="monto" onkeypress="return numeros(event)" id="monto_incidencias" required class="form-control" step="0.1" data-toggle="tooltip" data-placement="center">
                         </div>
                     </div>
                 </div>
