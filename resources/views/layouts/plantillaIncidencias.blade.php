@@ -396,6 +396,7 @@
 
     <!-- REQUIRED SCRIPTS Generales-->
     <script src="{{ asset('/Admin/plugins/jquery/jquery.min.js')}}"></script>
+
     <script src="{{ asset('/Admin/plugins/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
     <script src="{{ asset('/Admin/dist/js/adminlte.min.js')}}"></script>
     <script src="{{ asset('/Admin/plugins/datatables/jquery.dataTables.min.js')}}"></script>
@@ -413,6 +414,8 @@
     <!-- Scripts para Autocomplete empleados y conceptos -->
     <script>
         $(document).ready(function(){ 
+
+         
           $('#concepto_clave').keyup(function(){
             let consulta = $(this).val();  
               if(consulta != ''){
@@ -488,6 +491,38 @@
             $('#monto_incidencias').val(cantidad_incidencia*importe_incidencia);
             $('#monto_incidencias').attr("disabled", true);
           });
+
+          $('#can_incidencia').focus(function(){
+            getConcepto = $('#concepto_clave').val();
+            console.log(getConcepto);
+            switch (getConcepto) { 
+	            case '013P': 
+                $('#can_incidencia').attr("title", "Captura los días a tomar");
+		            break;
+	            case '018D': 
+              $('#can_incidencia').attr("title", "Captura el % de descuento");
+		            break;
+	            default:
+                $('#can_incidencia').attr("title", "");
+            }
+          });
+
+          $('#importe_incidencias').focus(function(){
+            getConcepto = $('#concepto_clave').val();
+            console.log(getConcepto);
+            switch (getConcepto) { 
+	            case '013P': 
+                $('#importe_incidencias').attr("title", "Sueldo Diario");
+		            break;
+	            case '018D': 
+                $('#importe_incidencias').attr("title", "Cantidad a descontar");
+		            break;
+	            default:
+                $('#importe_incidencias').attr("title", "");
+            }
+          });
+
+
         });
       </script>
      
