@@ -385,7 +385,7 @@
                     
                     $ControlPrenomina->push(["clave_empleado"=>$emp->clave_empleado,"clave_concepto"=>"003D","concepto"=>"FONDO DE AHORRO TRABAJADOR","monto"=>$resultaFondoAhorroTrabajador,"gravable"=>$Gravado,"excento"=>$Excento,"tipo"=> "D"]);
                 }else if($concep->clave_concepto == "004D"){
-                    $resultaDeduccionFondo = $this->deduccionAhorro($emp->id_emp);
+                    $resultaDeduccionFondo = $this->fondoAhorro($emp->id_emp);
                     $Gravado = 0;
                     $Excento = 0;
 
@@ -608,22 +608,19 @@
                     ->first();
 
         return $uma;
-
-    /* $uma = Umas::select('porcentaje_uma')
-        ->orderBy('created_at','desc')
-        ->first();
-        return $uma;*/
     }
 
     public function ahorro_riesgo(){
+       
         $clv = Session::get('clave_empresa');
 
-        $datos_empresa = Empresa::select('primaRiesgo','porcentajeAhorro')
+        $datos_empresa = Empresa::select('primaRiesgo','porcentajeAhorro','region')
         ->where('clave','=',$clv)
         ->first();
 
         return $datos_empresa;
     }
+
 
     public function aguinaldo_vacaciones_prima($idEmp){
         //Años trabajados se accede directamento con $at
@@ -671,33 +668,24 @@
     }
 
     public function fondoAhorro($idEmp){
-    /* //Formula SI(UMA*1.3>SD, UMA*1.3,SD)*PFA
-        $uma = $this->uma();
-        //$uma->porcentaje_uma
+    /* //Formula SI(UMA*1.3>SD, UMA*1.3,SD)*PFA*/
         $sd = $this->sueldo_horas($idEmp);
-        //$sd->sueldo_diario
-        $rt = $this->ahorro_riesgo();
-        //rt->porcentajeAhorro
-        $umaCond = $uma->porcentaje_uma*1.3;
-        if($umaCond<$sd->sueldo_diario){
-            $fondo = $umaCond * $rt->porcentajeAhorro;
-            return round($fondo,2);
-        }
-        $umaFin = $sd->sueldo_diario*$rt->porcentajeAhorro;
-        return round($umaCond,2);*/
-    
-        $uma = $this->uma();
-        $sd = $this->sueldo_horas($idEmp);
-        $rt = $this->ahorro_riesgo();
-        $porcentaje_ahorro = $rt->porcentajeAhorro/100;
-        $umaCond = $uma->porcentaje_uma*1.3;
-        
-        if($umaCond<$sd->sueldo_diario){
-            $umaCond = $sd->sueldo_diario;
+        //$sd->sueldo_diario;
+        return $sd->sueldo_diario;
+        $region = $this->ahorro_riesgo();
+        //$region->porcentajeAhorro;
+        $importeRegion = SalarioMinimo::select('importe')
+                            ->where('region',$region->region)
+                            ->first();
+        $importeCondicion = $importeRegion->importe * 1.3;
+        //$importeCondicion;        
+        if($importeCondicion<$sd->sueldo_diario){
+            $totalFondo = ($importeRegion->importe * 1.3)*$region->porcentajeAhorro;
+             return $totalFondo;
         }
 
-        $umaFin = $umaCond*$porcentaje_ahorro;
-        return $umaFin;
+        $totalFondo = $sd->sueldo_diario*$region->porcentajeAhorro;
+        return $totalFondo;
     }
 
     public function premioPunt($idEmp,$claveEmp){
@@ -736,12 +724,6 @@
 
         return $ausentismoIncapacidad;
     }
-
-    public function deduccionAhorro($idEmp){
-        $fondoAhorroEmpresa = $this->fondoAhorro($idEmp);
-
-        return 1;
-    } 
 
     public function criterio_horas($idEmp,$claveEmp){
         $identificador_periodo = Session::get('num_periodo');
