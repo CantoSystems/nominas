@@ -437,31 +437,6 @@
     <!--Funcionamiento de Ausentismo Autocompletado -->
     <!-- Scripts para Autocomplete empleados y conceptos -->
     <script>
-      $(document).ready(function(){ 
-        $('#concepto_clave').keyup(function(){
-          let consulta = $(this).val();  
-            if(consulta != ''){
-              let _token = $('input[name="_token"]').val();
-              $.ajax({
-                url:"{{ route('ausentismo.mostrarconcepto') }}",
-                method: "POST",
-                data:{consulta:consulta,_token:_token},
-                success:function(data){
-                  $('#listaconcepto_clave').fadeIn();
-                  $('#listaconcepto_clave').html(data);
-                }
-              });
-            }
-        });
-
-        $(document).on('click','#concepto',function(){
-          let infoconcepto = $(this).text();
-          let concep = infoconcepto.substring(0,4);
-          let nombreConcepto = infoconcepto.substring(4);
-          $('#concepto_clave').val(concep);
-          $('#listaconcepto_clave').fadeOut();
-          $('#nomConcepto').val(nombreConcepto);
-        });
         $('.clave_empledo').keyup(function(){
           let query = $(this).val();  
             if(query != ''){
@@ -473,100 +448,51 @@
                 success:function(data){
                   $('.listaclave_empleado').fadeIn();
                   $('.listaclave_empleado').html(data);
-                  let sueldo = $("#sueldoDiario").val();
-                  
-                  $(document).on('click','#concepto',function(){
-                    let info_concepto = $(this).text();
-                    let concep_clave = info_concepto.substring(0,4);
-                    if(concep_clave == "013P"){
-                      $("#importe_incidencias").val(sueldo);
-                      $("#importe_incidencias").attr("disabled", true);
-                    }else{
-                      $("#importe_incidencias").val('');
-                      $("#importe_incidencias").attr("disabled", false);
-                    }
-                  });
                 }
               });
             }
         });
 
         $(document).on('click','#empleado',function(){
-          let infoempleado = $(this).text();
-          let empleado_nombre = infoempleado.substring(4);
-          let empleado_clave = infoempleado.substring(0,4);
-          $('.clave_empledo').val(empleado_clave);
-          $('.listaclave_empleado').fadeOut();
-          $('.nombre_empleado').val(empleado_nombre);
+            let infoempleado = $(this).text();
+            let empleado_nombre = infoempleado.substring(4);
+            let empleado_clave = infoempleado.substring(0,4);
+            $('.clave_empledo').val(empleado_clave);
+            $('.listaclave_empleado').fadeOut();
+            $('.nombre_empleado').val(empleado_nombre);
         });
 
-        $('#can_incidencia').keyup(function(){
-          Cantidad = $('#can_incidencia').val();
-          Importe = $('#importe_incidencias').val();
-          $('#monto_incidencias').val(Cantidad*Importe);
-          $('#monto_incidencias').attr("disabled", true);
+        $('#importePrestamo').change(function(){
+            let importe = $(this).val();
+            let monto = $('#montoPrestamo').val();
+            $('#cantidadPrestamo').val((monto/importe).toFixed(2));
         });
 
-        $('#importe_incidencias').keyup(function(){
-          cantidad_incidencia = $('#can_incidencia').val();
-          importe_incidencia = $('#importe_incidencias').val();
-          $('#monto_incidencias').val(cantidad_incidencia*importe_incidencia);
-          $('#monto_incidencias').attr("disabled", true);
+        $('#montoPrestamo').change(function(){
+            let monto = $(this).val();
+            let importe = $('#importePrestamo').val();
+            $('#cantidadPrestamo').val((monto/importe).toFixed(2));
         });
 
-        $('#can_incidencia').focus(function(){
-          getConcepto = $('#concepto_clave').val();
-          console.log(getConcepto);
-          switch (getConcepto) { 
-            case '013P': 
-              $('#can_incidencia').attr("title", "Captura los días a tomar");
-              break;
-            case '018D': 
-            $('#can_incidencia').attr("title", "Captura el % de descuento");
-              break;
-            default:
-              $('#can_incidencia').attr("title", "");
-          }
-        });
-
-        $('#importe_incidencias').focus(function(){
-          getConcepto = $('#concepto_clave').val();
-          console.log(getConcepto);
-          switch (getConcepto) { 
-            case '013P': 
-              $('#importe_incidencias').attr("title", "Sueldo Diario");
-              break;
-            case '018D': 
-              $('#importe_incidencias').attr("title", "Cantidad a descontar");
-              break;
-            default:
-              $('#importe_incidencias').attr("title", "");
-          }
-        });
-      });
-    </script>
-     
-    <!--Script para incidencias-->
-    <script>
-      $(document).ready(function(){
+        $(document).ready(function(){
         let i = 1;
-        $('#agregarIncidencia').click(function(e){
+        $('#agregarPrestamo').click(function(e){
           i++;
           e.preventDefault();
           let clave_empledo = $('#clave_empledo').val();
-          let concepto_clave = $('#concepto_clave').val();
-          let cantidad = $('#can_incidencia').val();
-          let importe = $('#importe_incidencias').val();
-          let monto = $('#monto_incidencias').val();
+          let empleado = $('#nombre_empleado').val();
+          let cantidad = $('#cantidadPrestamo').val();
+          let importe = $('#importePrestamo').val();
+          let monto = $('#montoPrestamo').val();
 
-          if(clave_empledo!="" && concepto_clave!="" && cantidad!="" && importe!="" && monto!=""){
+          if(clave_empledo!="" && cantidad!="" && importe!="" && monto!=""){
             let htmlTags = '<tr>'+
-                              '<td class="empleado">' + clave_empledo + '</td>'+
-                              '<td class="concepto">' + concepto_clave + '</td>'+
-                              '<td class="cantidad">' + cantidad + '</td>'+
-                              '<td class="importe">' + importe + '</td>'+
-                              '<td class="monto">' + monto + '</td>'+
-                              '<td style="text-align: center; width:40px; height:25px;"><button class="borrar" type="button" style="width:30px; height:25px"><i class="far fa-trash-alt"></i></button></td>'+
+                              '<td style="width: 60px;" class="empleado">' + clave_empledo + '</td>'+
+                              '<td>' + empleado + '</td>'+
+                              '<td style="width: 40px;" class="monto">' + monto + '</td>'+
+                              '<td style="width: 40px;" class="importe">' + importe + '</td>'+
+                              '<td style="width: 40px;" class="cantidad">' + cantidad + '</td>'+
+                              '<td style="text-align: center; width: 40px; height: 25px;"><button class="borrar" type="button" style="width:30px; height:25px"><i class="far fa-trash-alt"></i></button></td>'+
                             '</tr>'
             $('#example12 tbody').append(htmlTags);
             $('input[type="text"]').val('');
@@ -577,12 +503,11 @@
         });
       });
 
-      $('#finalizarIncidencia').click(function (e){
+      $('#finalizarPrestamo').click(function (e){
         let myTableArray = [];
         document.querySelectorAll('.example12 tbody tr').forEach(function(e){
           let fila = {
             empleado: e.querySelector('.empleado').innerText,
-            concepto: e.querySelector('.concepto').innerText,
             cantidad: e.querySelector('.cantidad').innerText,
             importe: e.querySelector('.importe').innerText,
             monto: e.querySelector('.monto').innerText
@@ -591,7 +516,7 @@
         });
         let jsonString = JSON.stringify(myTableArray);
         $.ajax({
-          url: "{{ route('incidencias.store') }}",
+          url: "{{ route('prestamos.store') }}",
           method: "POST",
           data: {
             _token: $("meta[name='csrf-token']").attr("content"),

@@ -625,7 +625,16 @@ class EmpresaController extends Controller{
             $table->timestamps();
         });
 
-       
+        Schema::connection('DB_Serverr')->create('prestamos', function($table){
+            $table->increments('idPrestamo');
+            $table->char('claveEmpleado',5);
+            $table->double('monto');
+            $table->double('importe');
+            $table->double('cantidad');
+            $table->integer('periodoPrestamo');
+            $table->integer('statusPrestamo');
+            $table->timestamps();
+        });
 
         $clv_empresa=$this->conectar($clv);
         \Config::set('database.connections.DB_Serverr', $clv_empresa);

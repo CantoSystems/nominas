@@ -199,3 +199,8 @@ Route::get('/prenomina-excel3','ControlPrenominaController@exportExcel')->name('
 //Aguinaldos
 Route::get('/aguinaldos', 'AguinaldosController@index')->name('aguinaldos.index');
 Route::get('/aguinaldosl/{id_emp}', 'AguinaldosController@create')->name('aguinaldos.show');
+
+//Préstamos
+Route::get('/prestamos', 'PrestamosController@index')->name('prestamos.index');
+Route::get('/verPrestamos', 'PrestamosController@show')->name('prestamos.show');
+Route::post('/prestamos/enviodata', 'PrestamosController@store')->name('prestamos.store');
