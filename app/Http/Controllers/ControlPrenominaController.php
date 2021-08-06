@@ -416,12 +416,19 @@
                     
                 }else if($concep->clave_concepto == "017D"){
                     
+                }elseif($concep->clave_concepto == "018D"){
+                    
+                    
+                    
+                }else if($concep->clave_concepto == "019D"){
+                    $resultRetardo = $this->calculoRetardo($emp->clave_empleado);
+                    $Gravado = 0;
+                    $Excento = 0;
+                    $ControlPrenomina->push(["clave_empleado"=>$emp->clave_empleado,"clave_concepto"=>"019D","concepto"=>"RETARDO","monto"=>$resultRetardo,"gravable"=>$Gravado,"excento"=>$Excento,"tipo"=> "D"]);
                 }
             }
         }
 
-
-        
 
         $clave = DB::connection('DB_Serverr')->table('empleados')
                  ->select('clave_empleado','nombre','apellido_paterno','apellido_materno','id_emp')
@@ -611,16 +618,30 @@
     }
 
     public function ahorro_riesgo(){
-       
         $clv = Session::get('clave_empresa');
-
         $datos_empresa = Empresa::select('primaRiesgo','porcentajeAhorro','region')
-        ->where('clave','=',$clv)
-        ->first();
+            ->where('clave','=',$clv)
+            ->first();
 
         return $datos_empresa;
     }
 
+    public function calculoRetardo($claveEmp){
+        $periodoNum = Session::get('num_periodo');
+        $clv = Session::get('clave_empresa');
+        $clv_empresa = $this->conectar($clv);
+        \Config::set('database.connections.DB_Serverr', $clv_empresa);
+        
+        $acumuladoRetardo = DB::connection('DB_Serverr')->table('incidencias')
+        ->select(DB::raw('CASE WHEN COUNT(`monto`) = "" THEN 0 ELSE SUM(`monto`) END as monto'))
+        ->where([
+            ['clave_empleado','=',$claveEmp],
+            ['periodo_incidencia','=',$periodoNum],
+            ['clave_concepto','019D']
+        ])
+        ->first();
+        return $acumuladoRetardo->monto;
+    }
 
     public function aguinaldo_vacaciones_prima($idEmp){
         //Años trabajados se accede directamento con $at
