@@ -156,7 +156,7 @@
                 <div class="col-md-5">
                     <div class="margin">
                         <div class="btn-group">
-                            <div class="form-group">
+                            <!--<div class="form-group">
                                 @if(isset($prestamos2))
                                     <button id="buscar" type="button" data-toggle="modal"
                                         data-target="#modal-searchIncidencia" class="botonesgrandes">
@@ -169,7 +169,7 @@
                                         </button>
                                     </div>
                                 @endif
-                            </div>
+                            </div>-->
                             @if(isset($prestamos2))
                                 <div class="form-group">
                                     <button type="button" id="actualizar" class="botonesgrandes">
