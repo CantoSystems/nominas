@@ -45,6 +45,81 @@ class PrestamosController extends Controller{
                              ->first();
 
                 return view('prestamos.prestamos',compact('prestamos','prestamos2'));
+            /*case 'atras':
+                $incidencias = DB::connection('DB_Serverr')->table('incidencias')
+                ->join('empleados','empleados.clave_empleado','=','incidencias.clave_empleado')
+                ->join('conceptos','conceptos.clave_concepto','=','incidencias.clave_concepto')
+                ->select('incidencias.*','empleados.*','conceptos.concepto')
+                ->where('id_incidencia','<',$request->idIncidencia)
+                ->first();
+
+                $incidencias2 = DB::connection('DB_Serverr')->table('incidencias')
+                ->join('empleados','empleados.clave_empleado','=','incidencias.clave_empleado')
+                ->join('conceptos','conceptos.clave_concepto','=','incidencias.clave_concepto')
+                ->select('incidencias.*','empleados.*','conceptos.concepto')
+                ->get();
+
+                $emp = DB::connection('DB_Serverr')->table('empleados')->get();
+                $conceptos = DB::connection('DB_Serverr')->table('conceptos')->get();
+
+                return view('incidencias.incidencias2',compact('incidencias2','incidencias','emp','conceptos'));
+            break;
+            case 'siguiente':
+                $incidencias = DB::connection('DB_Serverr')->table('incidencias')
+                ->join('empleados','empleados.clave_empleado','=','incidencias.clave_empleado')
+                ->join('conceptos','conceptos.clave_concepto','=','incidencias.clave_concepto')
+                ->select('incidencias.*','empleados.*','conceptos.concepto')
+                ->where('id_incidencia','>',$request->idIncidencia)
+                ->first();
+
+                $incidencias2 = DB::connection('DB_Serverr')->table('incidencias')
+                ->join('empleados','empleados.clave_empleado','=','incidencias.clave_empleado')
+                ->join('conceptos','conceptos.clave_concepto','=','incidencias.clave_concepto')
+                ->select('incidencias.*','empleados.*','conceptos.concepto')
+                ->get();
+
+                $emp = DB::connection('DB_Serverr')->table('empleados')->get();
+                $conceptos = DB::connection('DB_Serverr')->table('conceptos')->get();
+
+                return view('incidencias.incidencias2',compact('incidencias2','incidencias','emp','conceptos'));
+            break;
+            case 'primero':
+                $incidencias = DB::connection('DB_Serverr')->table('incidencias')
+                ->join('empleados','empleados.clave_empleado','=','incidencias.clave_empleado')
+                ->join('conceptos','conceptos.clave_concepto','=','incidencias.clave_concepto')
+                ->select('incidencias.*','empleados.*','conceptos.concepto')
+                ->first();
+
+                $incidencias2 = DB::connection('DB_Serverr')->table('incidencias')
+                ->join('empleados','empleados.clave_empleado','=','incidencias.clave_empleado')
+                ->join('conceptos','conceptos.clave_concepto','=','incidencias.clave_concepto')
+                ->select('incidencias.*','empleados.*','conceptos.concepto')
+                ->get();
+
+                $emp = DB::connection('DB_Serverr')->table('empleados')->get();
+                $conceptos = DB::connection('DB_Serverr')->table('conceptos')->get();
+
+                return view('incidencias.incidencias2',compact('incidencias2','incidencias','emp','conceptos'));
+            break;
+            case 'ultimo':
+                $prestamos = DB::connection('DB_Serverr')->table('prestamos')
+                             ->join('empleados','empleados.clave_empleado','=','prestamos.claveEmpleado')
+                             ->select('empleados.*','prestamos.*')
+                             ->get();
+
+                $prestamos2 = DB::connection('DB_Serverr')->table('prestamos')
+                             ->join('empleados','empleados.clave_empleado','=','prestamos.claveEmpleado')
+                             ->select('empleados.*','prestamos.*')
+                             ->get()->last();
+
+                return view('prestamos.mostrarprestamos',compact('prestamos','prestamos2'));
+            break;*/
+            case 'actualizar':
+                $this->actualizar($request);
+                return redirect()->route('prestamos.index');
+            break;
+            case 'cancelar':
+                return redirect()->route('prestamos.index');
             break;
             default:
             break;
@@ -61,7 +136,32 @@ class PrestamosController extends Controller{
                         ->select('empleados.*','prestamos.*')
                         ->get();
 
-        return view('prestamos.mostrarPrestamos',compact('prestamos'));
+        $prestamos2 = DB::connection('DB_Serverr')->table('prestamos')
+                     ->join('empleados','empleados.clave_empleado','=','prestamos.claveEmpleado')
+                     ->select('empleados.*','prestamos.*')
+                     ->first();
+
+        return view('prestamos.mostrarPrestamos',compact('prestamos','prestamos2'));
+    }
+
+    public function actualizar($datos){
+        $clv = Session::get('clave_empresa');
+        $clv_empresa = $this->conectar($clv);
+        \Config::set('database.connections.DB_Serverr', $clv_empresa);
+
+        $datos->validate([
+                'clave_empledo' => 'required',
+                'cantidad' => 'required',
+                'importe' => 'required',
+                'monto' => 'required',
+        ]);
+
+        DB::connection('DB_Serverr')->table('prestamos')
+        ->where('idPrestamo',$datos->idPrestamo)
+        ->update(['claveEmpleado'=>$datos->clave_empledo
+                 ,'cantidad'=>$datos->cantidad
+                 ,'importe'=>$datos->importe
+                 ,'monto'=>$datos->monto]);
     }
     
     public function store(Request $request){
@@ -82,6 +182,7 @@ class PrestamosController extends Controller{
             $periodoPrestamo = Session::get('num_periodo');
 
             DB::connection('DB_Serverr')->insert('INSERT INTO prestamos (claveEmpleado
+                                                                        ,claveConcepto
                                                                         ,cantidad
                                                                         ,importe
                                                                         ,monto
@@ -96,7 +197,9 @@ class PrestamosController extends Controller{
                                                                          ,?
                                                                          ,?
                                                                          ,?
+                                                                         ,?
                                                                          ,?)',[$value->empleado
+                                                                             ,'O12D'
                                                                              ,$value->cantidad
                                                                              ,$value->importe
                                                                              ,$value->monto
@@ -105,5 +208,17 @@ class PrestamosController extends Controller{
                                                                              ,$fecha_periodo
                                                                              ,$fecha_periodo]);
         }
+    }
+
+    public function eliminar($id){
+        $clv = Session::get('clave_empresa');
+        $clv_empresa = $this->conectar($clv);
+        \Config::set('database.connections.DB_Serverr', $clv_empresa);
+        
+        $aux1 = DB::connection('DB_Serverr')->table('prestamos')
+                ->where('idPrestamo',$id)
+                ->delete();
+        
+        return redirect()->route('prestamos.show');
     }
 }
