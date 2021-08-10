@@ -40,19 +40,111 @@ class PrestamosController extends Controller{
         $clv_empresa = $this->conectar($clv);
         \Config::set('database.connections.DB_Serverr', $clv_empresa);
 
-        $prestamos = DB::connection('DB_Serverr')->table('prestamos')
+        switch ( $accion ){
+            case '':
+                $prestamos = DB::connection('DB_Serverr')->table('prestamos')
                         ->join('empleados','empleados.clave_empleado','=','prestamos.claveEmpleado')
                         ->join('conceptos','conceptos.clave_concepto','=','prestamos.claveConcepto')
-                        ->select('empleados.*','prestamos.*','conceptos.*')
+                        ->select('empleados.*','prestamos.idPrestamo','conceptos.*','prestamos.importe as importePrestamo','prestamos.cantidad as cantidadPrestamo','prestamos.monto as montoPrestamo')
                         ->get();
 
-        $prestamos2 = DB::connection('DB_Serverr')->table('prestamos')
-                     ->join('empleados','empleados.clave_empleado','=','prestamos.claveEmpleado')
-                     ->join('conceptos','conceptos.clave_concepto','=','prestamos.claveConcepto')
-                     ->select('empleados.*','prestamos.idPrestamo','conceptos.*','prestamos.importe as importePrestamo','prestamos.cantidad as cantidadPrestamo','prestamos.monto as montoPrestamo')
-                     ->first();
+                $prestamos2 = DB::connection('DB_Serverr')->table('prestamos')
+                        ->join('empleados','empleados.clave_empleado','=','prestamos.claveEmpleado')
+                        ->join('conceptos','conceptos.clave_concepto','=','prestamos.claveConcepto')
+                        ->select('empleados.*','prestamos.idPrestamo','conceptos.*','conceptos.clave_concepto as claveConceptoPrestamo','prestamos.importe as importePrestamo','prestamos.cantidad as cantidadPrestamo','prestamos.monto as montoPrestamo')
+                        ->orderBy('idPrestamo')->first();
 
-        return view('prestamos.mostrarPrestamos',compact('prestamos','prestamos2'));
+                return view('prestamos.mostrarPrestamos',compact('prestamos','prestamos2'));
+                break;
+            case 'primero':
+                $prestamos = DB::connection('DB_Serverr')->table('prestamos')
+                        ->join('empleados','empleados.clave_empleado','=','prestamos.claveEmpleado')
+                        ->join('conceptos','conceptos.clave_concepto','=','prestamos.claveConcepto')
+                        ->select('empleados.*','prestamos.idPrestamo','conceptos.*','prestamos.importe as importePrestamo','prestamos.cantidad as cantidadPrestamo','prestamos.monto as montoPrestamo')
+                        ->get();
+                
+                $prestamos2 = DB::connection('DB_Serverr')->table('prestamos')
+                        ->join('empleados','empleados.clave_empleado','=','prestamos.claveEmpleado')
+                        ->join('conceptos','conceptos.clave_concepto','=','prestamos.claveConcepto')
+                        ->select('empleados.*','prestamos.idPrestamo','conceptos.*','conceptos.clave_concepto as claveConceptoPrestamo','prestamos.importe as importePrestamo','prestamos.cantidad as cantidadPrestamo','prestamos.monto as montoPrestamo')
+                        ->orderBy('idPrestamo', 'DESC')->first();
+                
+                return view('prestamos.mostrarPrestamos',compact('prestamos','prestamos2'));
+                break;
+            case 'ultimo':
+                $prestamos = DB::connection('DB_Serverr')->table('prestamos')
+                        ->join('empleados','empleados.clave_empleado','=','prestamos.claveEmpleado')
+                        ->join('conceptos','conceptos.clave_concepto','=','prestamos.claveConcepto')
+                        ->select('empleados.*','prestamos.idPrestamo','conceptos.*','prestamos.importe as importePrestamo','prestamos.cantidad as cantidadPrestamo','prestamos.monto as montoPrestamo')
+                        ->get();
+
+                $prestamos2 = DB::connection('DB_Serverr')->table('prestamos')
+                        ->join('empleados','empleados.clave_empleado','=','prestamos.claveEmpleado')
+                        ->join('conceptos','conceptos.clave_concepto','=','prestamos.claveConcepto')
+                        ->select('empleados.*','prestamos.idPrestamo','conceptos.*','conceptos.clave_concepto as claveConceptoPrestamo','prestamos.importe as importePrestamo','prestamos.cantidad as cantidadPrestamo','prestamos.monto as montoPrestamo')
+                        ->get()->last();
+                
+                return view('prestamos.mostrarPrestamos',compact('prestamos','prestamos2'));
+                
+                break;
+            case 'siguiente': 
+                $prestamos = DB::connection('DB_Serverr')->table('prestamos')
+                        ->join('empleados','empleados.clave_empleado','=','prestamos.claveEmpleado')
+                        ->join('conceptos','conceptos.clave_concepto','=','prestamos.claveConcepto')
+                        ->select('empleados.*','prestamos.idPrestamo','conceptos.*','prestamos.importe as importePrestamo','prestamos.cantidad as cantidadPrestamo','prestamos.monto as montoPrestamo')
+                        ->get();
+
+                $prestamos2 = DB::connection('DB_Serverr')->table('prestamos')
+                        ->join('empleados','empleados.clave_empleado','=','prestamos.claveEmpleado')
+                        ->join('conceptos','conceptos.clave_concepto','=','prestamos.claveConcepto')
+                        ->select('empleados.*','prestamos.idPrestamo','conceptos.*','conceptos.clave_concepto as claveConceptoPrestamo','prestamos.importe as importePrestamo','prestamos.cantidad as cantidadPrestamo','prestamos.monto as montoPrestamo')
+                        ->where('idPrestamo','>',$request->idPrestamo)
+                        ->orderBy('idPrestamo')->first();
+
+                        if(is_null($prestamos2)){
+                            $prestamos2 = DB::connection('DB_Serverr')->table('prestamos')
+                                ->join('empleados','empleados.clave_empleado','=','prestamos.claveEmpleado')
+                                ->join('conceptos','conceptos.clave_concepto','=','prestamos.claveConcepto')
+                                ->select('empleados.*','prestamos.idPrestamo','conceptos.*','conceptos.clave_concepto as claveConceptoPrestamo','prestamos.importe as importePrestamo','prestamos.cantidad as cantidadPrestamo','prestamos.monto as montoPrestamo')
+                                ->orderBy('idPrestamo')->first();
+                        }
+                        return view('prestamos.mostrarPrestamos',compact('prestamos','prestamos2'));
+                break;
+
+            case 'atras':
+                $prestamos = DB::connection('DB_Serverr')->table('prestamos')
+                        ->join('empleados','empleados.clave_empleado','=','prestamos.claveEmpleado')
+                        ->join('conceptos','conceptos.clave_concepto','=','prestamos.claveConcepto')
+                        ->select('empleados.*','prestamos.idPrestamo','conceptos.*','prestamos.importe as importePrestamo','prestamos.cantidad as cantidadPrestamo','prestamos.monto as montoPrestamo')
+                        ->get();
+
+                $prestamos2 = DB::connection('DB_Serverr')->table('prestamos')
+                        ->join('empleados','empleados.clave_empleado','=','prestamos.claveEmpleado')
+                        ->join('conceptos','conceptos.clave_concepto','=','prestamos.claveConcepto')
+                        ->select('empleados.*','prestamos.idPrestamo','conceptos.*','conceptos.clave_concepto as claveConceptoPrestamo','prestamos.importe as importePrestamo','prestamos.cantidad as cantidadPrestamo','prestamos.monto as montoPrestamo')
+                        ->where('idPrestamo', '<', $request->idPrestamo)
+                        ->orderBy('idPrestamo', 'DESC')->first();
+                
+                        if(is_null($prestamos2)){
+                            $prestamos2 = DB::connection('DB_Serverr')->table('prestamos')
+                            ->join('empleados','empleados.clave_empleado','=','prestamos.claveEmpleado')
+                            ->join('conceptos','conceptos.clave_concepto','=','prestamos.claveConcepto')
+                            ->select('empleados.*','prestamos.idPrestamo','conceptos.*','conceptos.clave_concepto as claveConceptoPrestamo','prestamos.importe as importePrestamo','prestamos.cantidad as cantidadPrestamo','prestamos.monto as montoPrestamo')
+                            ->get()->last();
+                        }
+                        return view('prestamos.mostrarPrestamos',compact('prestamos','prestamos2'));
+                break;
+            case 'cancelar':
+                    return redirect()->route('prestamos.show');
+                break;
+            case 'actualizar':
+                    $this->actualizar($request);
+                    return redirect()->route('prestamos.show');
+                break;
+            
+        }
+
+        
     }
 
     public function actualizar($datos){
@@ -70,6 +162,7 @@ class PrestamosController extends Controller{
         DB::connection('DB_Serverr')->table('prestamos')
         ->where('idPrestamo',$datos->idPrestamo)
         ->update(['claveEmpleado'=>$datos->clave_empledo
+                ,'claveConcepto'=>$datos->concepto_clave
                  ,'cantidad'=>$datos->cantidad
                  ,'importe'=>$datos->importe
                  ,'monto'=>$datos->monto]);
