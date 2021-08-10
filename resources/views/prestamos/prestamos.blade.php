@@ -34,7 +34,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-sm-4">
+                    <div class="col-sm-3">
                         <div class="form-group">
                             <label>Nombre:</label>
                             <input type="text" 
@@ -43,6 +43,38 @@
                                    value="" 
                                    id="nombre_empleado" 
                                    disabled>
+                        </div>
+                    </div>
+                    <div class="col-sm-2">
+                        <label for="exampleInputFile">Clave del Concepto</label>
+                        <div class="input-group mb-3">
+                            <input type="text" 
+                                    name="concepto_clave"
+                                    id="concepto_clave"
+                                    maxlength="3" 
+                                    class="form-control"
+                                    value="" 
+                                    onkeyup="mayus(this);"
+                                    required>
+                            <div class="input-group-append">
+                                <span class="input-group-text" data-toggle="modal" 
+                                    data-target="#modal-buscarempleado">
+                                    <i class="fas fa-search"></i>
+                                </span>
+                                <div id="listaconcepto_clave"></div>
+                                {{ csrf_field() }}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-2">
+                        <div class="form-group">
+                            <label>Concepto</label>
+                            <input type="text" 
+                                    name="concepto" 
+                                    class="form-control"
+                                    id="nomConcepto"
+                                    value="" 
+                                    disabled>
                         </div>
                     </div>
                     <div class="col-sm-1">
@@ -82,6 +114,8 @@
                                     <tr>
                                         <th>Clave Empleado</th>
                                         <th>Empleado</th>
+                                        <th>Clave Concepto</th>
+                                        <th>Nombre del Concepto</th>
                                         <th>Monto</th>
                                         <th>Importe</th>
                                         <th>Cantidad</th>

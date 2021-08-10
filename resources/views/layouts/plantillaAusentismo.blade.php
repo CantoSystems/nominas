@@ -168,6 +168,14 @@
                   </a>
                 </li>
               </ul>
+              <ul class="nav nav-treeview">
+                <li class="nav-item {{!Route::is('prestamos.index') ?: 'active'}}">
+                  <a href="{{ route('prestamos.index')}}" class="nav-link active">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Capturar Préstamo</p>
+                  </a>
+                </li>
+              </ul>
             </li>
             <li class="nav-item has-treeview menu-open">
               <a href="#" class="nav-link">
@@ -198,6 +206,14 @@
                   <a href="{{ route('incid2.index')}}" class="nav-link active">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Incidencias</p>
+                  </a>
+                </li>
+              </ul>
+              <ul class="nav nav-treeview">
+                <li class="nav-item {{!Route::is('prestamos.show') ?: 'active'}}">
+                  <a href="{{ route('prestamos.show')}}" class="nav-link active">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Consultar Préstamos</p>
                   </a>
                 </li>
               </ul>
@@ -338,31 +354,6 @@
                   <a href="{{ route('reportnomina.index')}}" class="nav-link active">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Recibo</p>
-                  </a>
-                </li>
-              </ul>
-            </li>
-            <li class="nav-item has-treeview menu-open">
-              <a href="#" class="nav-link">
-                <i class="fas fa-book"></i>
-                <p>
-                  Préstamos
-                  <i class="right fas fa-angle-left"></i>
-                </p>
-              </a>
-              <ul class="nav nav-treeview">
-                <li class="nav-item {{!Route::is('prestamos.index') ?: 'active'}}">
-                  <a href="{{ route('prestamos.index')}}" class="nav-link active">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>Capturar Préstamo</p>
-                  </a>
-                </li>
-              </ul>
-              <ul class="nav nav-treeview">
-                <li class="nav-item {{!Route::is('prestamos.show') ?: 'active'}}">
-                  <a href="{{ route('prestamos.show')}}" class="nav-link active">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>Consultar Préstamos</p>
                   </a>
                 </li>
               </ul>
