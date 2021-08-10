@@ -127,6 +127,7 @@ Route::delete('subsidios/{id_subsidio}','SubsidioController@eliminarsubsidio')->
 //Ajax-Insert-Multiple Incidencias
 Route::get('/incidencias','IncidenciaController@index')->name('incidencias.index');
 Route::post('/incidencias/enviodata', 'IncidenciaController@store')->name('incidencias.store');
+Route::post('/incidencias/check', 'IncidenciaController@check')->name('incidencias.check');
 
 //Incidencias
 Route::get('/incid','IncidenController@index')->name('incid2.index');
