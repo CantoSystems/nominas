@@ -32,9 +32,9 @@
                                             {{ $datos->apellido_paterno }} 
                                             {{ $datos->apellido_materno }}</th>
                                         <th>{{ $datos->concepto}}</th>
-                                        <th style="text-align: center;">{{ $datos->cantidad }}</th>
-                                        <th style="text-align: center;">$ {{ number_format($datos->importe,2) }}</th>
-                                        <th style="text-align: center;">$ {{ number_format($datos->monto,2) }}</th>
+                                        <th style="text-align: center;">{{ $datos->cantidadPrestamo }}</th>
+                                        <th style="text-align: center;">$ {{ number_format($datos->importePrestamo,2) }}</th>
+                                        <th style="text-align: center;">$ {{ number_format($datos->montoPrestamo,2) }}</th>
                                         <th style="text-align: center;">{{ substr($datos->created_at,0,10) }}</th>
                                     </tr>
                                 @endforeach
@@ -59,7 +59,7 @@
                 {{ session('busqueda')}}
             </div>
         @endif
-        <form action="{{ route('prestamos.index')}}" method="GET" autocomplete="off">
+        <form action="{{ route('prestamos.show')}}" method="GET" autocomplete="off">
             <div class="row justify-content-center">
                 <div class="col-sm-2">
                     <label>Clave del Empleado</label>
@@ -110,7 +110,7 @@
                                 id="concepto_clave"
                                 maxlength="3" 
                                 class="form-control"
-                                value="" 
+                                value="{{ $prestamos2->claveConceptoPrestamo ?? '' }}" 
                                 onkeyup="mayus(this);"
                                 required>
                         <div class="input-group-append">
@@ -130,26 +130,26 @@
                                 name="concepto" 
                                 class="form-control"
                                 id="nomConcepto"
-                                value="" 
+                                value="{{ $prestamos2->concepto ?? ''}}" 
                                 disabled>
                     </div>
                 </div>
                 <div class="col-sm-1">
                     <div class="form-group">
                         <label>Cantidad:</label>
-                        <input type="number" name="cantidad" onkeypress="return numeros(event)" value="{{ $prestamos2->cantidadPrestamo ?? '' }}" class="form-control" step="0.1">
+                        <input type="number" name="cantidad" id="cantidadPrestamo" onkeypress="return numeros(event)" value="{{ $prestamos2->cantidadPrestamo ?? '' }}" class="form-control" step="0.1" disabled>
                     </div>
                 </div>
                 <div class="col-sm-1">
                     <div class="form-group">
                         <label>Importe:</label>
-                        <input type="number" name="importe" onkeypress="return numeros(event)" value="{{ $prestamos2->importePrestamo ?? '' }}" class="form-control" step="0.1">
+                        <input type="number" name="importe" id="importePrestamo" onkeypress="return numeros(event)" value="{{ $prestamos2->importePrestamo ?? '' }}" class="form-control" step="0.1">
                     </div>
                 </div>
                 <div class="col-sm-1">
                     <div class="form-group">
                         <label>Monto:</label>
-                        <input type="number" name="monto" onkeypress="return numeros(event)"  value="{{ $prestamos2->montoPrestamo ?? '' }}"class="form-control" step="0.1">
+                        <input type="number" name="monto" id="montoPrestamo" onkeypress="return numeros(event)"  value="{{ $prestamos2->montoPrestamo ?? '' }}"class="form-control" step="0.1">
                     </div>
                 </div>
                 <div class="col-md-12">
@@ -192,23 +192,9 @@
                 @endcanany
                 <div class="col-md-5">
                         <div class="margin">
-                            @canany(['administrador','capturista','reportes'])
+        
                             <div class="btn-group">
-                                <div class="form-group">
-                                    @if(isset($prestamos2))
-                                        <button id="buscar" type="button" data-toggle="modal"
-                                            data-target="#modal-searchIncidencia" class="botonesgrandes">
-                                            <i class="fas fa-search"></i>
-                                        </button>
-                                    @else
-                                        <div class="form-group">
-                                            <button id="buscar_falso" type="button" class="botonesgrandes" disabled>
-                                                <i class="fas fa-search"></i>
-                                            </button>
-                                        </div>
-                                    @endif
-                                </div>
-                                @endcanany
+                            
                                 @canany(['administrador'])
                                     @if(isset($prestamos2))
                                         <div class="form-group">
