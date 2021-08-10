@@ -16,6 +16,7 @@
                             <tr>
                                 <th style="width: 15px; text-align: center;">No. Préstamo</th>
                                 <th>Empleado</th>
+                                <th>Concepto</th>
                                 <th style="width: 30px; text-align: center;">No. Pagos</th>
                                 <th style="width: 20px; text-align: center;">Importe</th>
                                 <th style="width: 35px; text-align: center;">Monto</th>
@@ -27,7 +28,10 @@
                                 @foreach($prestamos as $datos)
                                     <tr>
                                         <th style="text-align: center;">{{ $datos->idPrestamo }}</th>
-                                        <th>{{ $datos->nombre }} {{ $datos->apellido_paterno }} {{ $datos->apellido_materno }}</th>
+                                        <th>{{ $datos->nombre }}
+                                            {{ $datos->apellido_paterno }} 
+                                            {{ $datos->apellido_materno }}</th>
+                                        <th>{{ $datos->concepto}}</th>
                                         <th style="text-align: center;">{{ $datos->cantidad }}</th>
                                         <th style="text-align: center;">$ {{ number_format($datos->importe,2) }}</th>
                                         <th style="text-align: center;">$ {{ number_format($datos->monto,2) }}</th>
@@ -41,7 +45,6 @@
             </div>
         </div>
     </div>
-    @canany(['administrador'])
         <div class="card-header">
             <h3 class="card-title">Préstamos</h3>
         </div>
@@ -87,7 +90,7 @@
                         @enderror
                     </div>
                 </div>
-                <div class="col-sm-4">
+                <div class="col-sm-2">
                     <div class="form-group">
                         <label>Nombre:</label>
                         <input type="text" 
@@ -99,140 +102,182 @@
                                 onkeyup="mayus(this);">
                     </div>
                 </div>
+                <div class="col-sm-2">
+                    <label for="exampleInputFile">Clave del Concepto</label>
+                    <div class="input-group mb-3">
+                        <input type="text" 
+                                name="concepto_clave"
+                                id="concepto_clave"
+                                maxlength="3" 
+                                class="form-control"
+                                value="" 
+                                onkeyup="mayus(this);"
+                                required>
+                        <div class="input-group-append">
+                            <span class="input-group-text" data-toggle="modal" 
+                                data-target="#modal-buscarempleado">
+                                <i class="fas fa-search"></i>
+                            </span>
+                            <div id="listaconcepto_clave"></div>
+                            {{ csrf_field() }}
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="form-group">
+                        <label>Concepto</label>
+                        <input type="text" 
+                                name="concepto" 
+                                class="form-control"
+                                id="nomConcepto"
+                                value="" 
+                                disabled>
+                    </div>
+                </div>
                 <div class="col-sm-1">
                     <div class="form-group">
                         <label>Cantidad:</label>
-                        <input type="number" name="cantidad" onkeypress="return numeros(event)" value="{{ $prestamos2->cantidad ?? '' }}" class="form-control" step="0.1">
+                        <input type="number" name="cantidad" onkeypress="return numeros(event)" value="{{ $prestamos2->cantidadPrestamo ?? '' }}" class="form-control" step="0.1">
                     </div>
                 </div>
                 <div class="col-sm-1">
                     <div class="form-group">
                         <label>Importe:</label>
-                        <input type="number" name="importe" onkeypress="return numeros(event)" value="{{ $prestamos2->importe ?? '' }}" class="form-control" step="0.1">
+                        <input type="number" name="importe" onkeypress="return numeros(event)" value="{{ $prestamos2->importePrestamo ?? '' }}" class="form-control" step="0.1">
                     </div>
                 </div>
                 <div class="col-sm-1">
                     <div class="form-group">
                         <label>Monto:</label>
-                        <input type="number" name="monto" onkeypress="return numeros(event)"  value="{{ $prestamos2->monto ?? '' }}"class="form-control" step="0.1">
+                        <input type="number" name="monto" onkeypress="return numeros(event)"  value="{{ $prestamos2->montoPrestamo ?? '' }}"class="form-control" step="0.1">
                     </div>
                 </div>
                 <div class="col-md-12">
                     <br>
                 </div>
-                <div class="col-md-5">
-                    <div class="margin">
-                        <div class="btn-group">
-                            @if(isset($prestamos2))
-                                <div class="form-group">
-                                    <button type="submit" name="acciones" value="primero" id="primero" class="botonesgrandes"><i class="fas fa-backward"></i></button>
-                                </div>
-                                <div class="form-group">
-                                    <button type="submit" name="acciones" value="atras" id="atras" class="botonesgrandes"><i class="fas fa-arrow-circle-left"></i></button>
-                                </div>
-                                <div class="form-group">
-                                    <button type="submit" name="acciones" value="siguiente" id="siguiente" class="botonesgrandes"><i class="fas fa-arrow-circle-right"></i></button>
-                                </div>
-                                <div class="form-group">
-                                    <button type="submit" name="acciones" value="ultimo" id="ultimo" class="botonesgrandes"><i class="fas fa-forward"></i></button>
-                                </div>
-                            @else
-                                <div class="form-group">
-                                    <button type="submit" class="botones" disabled><i class="fas fa-backward" ></i></button>
-                                </div>
-                                <div class="form-group">
-                                    <button type="submit" class="botones" disabled><i class="fas fa-arrow-circle-left"></i></button>
-                                </div>
-                                <div class="form-group">
-                                    <button type="submit" class="botones" disabled><i class="fas fa-arrow-circle-right"></i></button>
-                                </div>
-                                <div class="form-group">
-                                    <button type="submit" class="botones" disabled><i class="fas fa-forward"></i></button>
-                                </div>
-                            @endif
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-5">
-                    <div class="margin">
-                        <div class="btn-group">
-                            <!--<div class="form-group">
+                @canany(['administrador','capturista','reportes'])
+                    <div class="col-md-5">
+                        <div class="margin">
+                            <div class="btn-group">
                                 @if(isset($prestamos2))
-                                    <button id="buscar" type="button" data-toggle="modal"
-                                        data-target="#modal-searchIncidencia" class="botonesgrandes">
-                                        <i class="fas fa-search"></i>
-                                    </button>
+                                    <div class="form-group">
+                                        <button type="submit" name="acciones" value="primero" id="primero" class="botonesgrandes"><i class="fas fa-backward"></i></button>
+                                    </div>
+                                    <div class="form-group">
+                                        <button type="submit" name="acciones" value="atras" id="atras" class="botonesgrandes"><i class="fas fa-arrow-circle-left"></i></button>
+                                    </div>
+                                    <div class="form-group">
+                                        <button type="submit" name="acciones" value="siguiente" id="siguiente" class="botonesgrandes"><i class="fas fa-arrow-circle-right"></i></button>
+                                    </div>
+                                    <div class="form-group">
+                                        <button type="submit" name="acciones" value="ultimo" id="ultimo" class="botonesgrandes"><i class="fas fa-forward"></i></button>
+                                    </div>
                                 @else
                                     <div class="form-group">
-                                        <button id="buscar_falso" type="button" class="botonesgrandes" disabled>
-                                            <i class="fas fa-search"></i>
-                                        </button>
+                                        <button type="submit" class="botones" disabled><i class="fas fa-backward" ></i></button>
+                                    </div>
+                                    <div class="form-group">
+                                        <button type="submit" class="botones" disabled><i class="fas fa-arrow-circle-left"></i></button>
+                                    </div>
+                                    <div class="form-group">
+                                        <button type="submit" class="botones" disabled><i class="fas fa-arrow-circle-right"></i></button>
+                                    </div>
+                                    <div class="form-group">
+                                        <button type="submit" class="botones" disabled><i class="fas fa-forward"></i></button>
                                     </div>
                                 @endif
-                            </div>-->
-                            @if(isset($prestamos2))
-                                <div class="form-group">
-                                    <button type="button" id="actualizar" class="botonesgrandes">
-                                        <i class="fas fa-pen-square"></i>
-                                    </button>
-                                </div>
-                            @else
-                                <div class="form-group">
-                                    <button type="button" class="botonesgrandes" disabled> <i class="fas fa-pen-square"></i></button>
-                                </div>
-                            @endif
-                            <div class="form-group">
-                                <button type="button" class="botonesgrandes" disabled> <i class="fas fa-pen-square"></i></button>
-                            </div>
-                            @if(isset($prestamos2))
-                                <div class="form-group">
-                                    <a id="eliminar" data-target="#modal-deletePr-{{ $prestamos2->idPrestamo }}"
-                                        data-toggle="modal">
-                                        <button type="button" class="botonesgrandes">
-                                            <i class="far fa-trash-alt"></i>
-                                        </button>
-                                    </a>
-                                </div>
-                            @else
-                                <div class="form-group">
-                                    <a id="eliminar_vacio">
-                                        <button type="button" disabled class="botonesgrandes">
-                                            <i class="far fa-trash-alt"></i>
-                                        </button>
-                                    </a>
-                                </div>
-                            @endif
-                            <div class="form-group">
-                                <a id="eliminar_">
-                                    <button type="button" disabled class="botonesgrandes">
-                                        <i class="far fa-trash-alt"></i>
-                                    </button>
-                                </a>
                             </div>
                         </div>
                     </div>
+                @endcanany
+                <div class="col-md-5">
+                        <div class="margin">
+                            @canany(['administrador','capturista','reportes'])
+                            <div class="btn-group">
+                                <div class="form-group">
+                                    @if(isset($prestamos2))
+                                        <button id="buscar" type="button" data-toggle="modal"
+                                            data-target="#modal-searchIncidencia" class="botonesgrandes">
+                                            <i class="fas fa-search"></i>
+                                        </button>
+                                    @else
+                                        <div class="form-group">
+                                            <button id="buscar_falso" type="button" class="botonesgrandes" disabled>
+                                                <i class="fas fa-search"></i>
+                                            </button>
+                                        </div>
+                                    @endif
+                                </div>
+                                @endcanany
+                                @canany(['administrador'])
+                                    @if(isset($prestamos2))
+                                        <div class="form-group">
+                                            <button type="button" id="actualizar" class="botonesgrandes">
+                                                <i class="fas fa-pen-square"></i>
+                                            </button>
+                                        </div>
+                                    @else
+                                    <div class="form-group">
+                                        <button type="button" class="botonesgrandes" disabled> <i class="fas fa-pen-square"></i></button>
+                                    </div>
+                                    @endif
+                                @elsecanany(['capturista','reportes'])
+                                            <div class="form-group">
+                                                    <button type="button" class="botonesgrandes" disabled> <i class="fas fa-pen-square"></i></button>
+                                                </div>
+                                @endcanany
+                                @can('administrador')
+                                    @if(isset($prestamos2))
+                                        <div class="form-group">
+                                            <a id="eliminar" data-target="#modal-deletePr-{{ $prestamos2->idPrestamo }}"
+                                                data-toggle="modal">
+                                                <button type="button" class="botonesgrandes">
+                                                    <i class="far fa-trash-alt"></i>
+                                                </button>
+                                            </a>
+                                        </div>
+                                    @else
+                                    <div class="form-group">
+                                                    <a id="eliminar_vacio">
+                                                        <button type="button" disabled class="botonesgrandes">
+                                                            <i class="far fa-trash-alt"></i>
+                                                        </button>
+                                                    </a>
+                                                </div>
+                                    @endif
+                                 @elsecanany(['capturista','reportes'])
+                                            <div class="form-group">
+                                                    <a id="eliminar_">
+                                                        <button type="button" disabled class="botonesgrandes">
+                                                            <i class="far fa-trash-alt"></i>
+                                                        </button>
+                                                    </a>
+                                                </div>
+                                    @endcanany
+                            </div>
+                        </div>
                 </div>
                 <div class="col-md-2">
-                    <div class="margin">
-                        <div class="btn-group">
-                            <div class="form-group">
-                                <button id="guardar_falso" disabled class="botonesgrandes"><i class="fas fa-save"></i></button>
-                            </div>
-                            <div class="form-group">
-                                <button id="nuevo_reg" name="acciones" value="registrar" type="submit" class="botonesgrandes" style="display: none;"><i class="fas fa-save"></i></button>
-                            </div>
-                            <div class="form-group">
-                                <button name="acciones" value="actualizar" id="actualizar_reg" type="submit" class="botonesgrandes" style="display: none;"><i class="fas fa-save"></i></button>
-                            </div>
-                            <div class="form-group">
-                                <button name="acciones" value="cancelar" id="cancelar_reg" type="submit" class="botonesgrandes" disabled><i class="far fa-window-close"></i></button>
+                        <div class="margin">
+                            <div class="btn-group">
+                                <div class="form-group">
+                                            <button id="guardar_falso" disabled class="botonesgrandes"><i class="fas fa-save"></i></button>
+                                        </div>
+                             
+                                <div class="form-group">
+                                    <button id="nuevo_reg" name="acciones" value="registrar" type="submit" class="botonesgrandes" style="display: none;"><i class="fas fa-save"></i></button>
+                                </div>
+                                <div class="form-group">
+                                    <button name="acciones" value="actualizar" id="actualizar_reg" type="submit" class="botonesgrandes" style="display: none;"><i class="fas fa-save"></i></button>
+                                </div>
+                                <div class="form-group">
+                                    <button name="acciones" value="cancelar" id="cancelar_reg" type="submit" class="botonesgrandes" disabled><i class="far fa-window-close"></i></button>
+                                </div>
                             </div>
                         </div>
-                    </div>
                 </div>
             </div>
         </form>
-    @endcanany
     @isset($prestamos2)
         @include('prestamos.modaldeleteprestamos')
     @endisset
