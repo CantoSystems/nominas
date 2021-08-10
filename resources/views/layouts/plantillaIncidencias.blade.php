@@ -425,9 +425,43 @@
     <script src="{{asset('/script-personalizados/funcionamientoBotones.js')}}"></script>
     <!--Validaciones inputs mayusculas, números y letras-->
     <script src="{{asset('/script-personalizados/validacionesInput.js')}}"></script>
-    <!--Funcionamiento de Ausentismo Autocompletado -->
     <!-- Scripts para Autocomplete empleados y conceptos -->
     <script>
+      $('.clave_empledo').keyup(function(){
+        let query = $(this).val();  
+          if(query != ''){
+            let _token = $('input[name="_token"]').val();
+            $.ajax({
+              url:"{{ route('ausentismo.mostrarempleado') }}",
+              method: "POST",
+              data:{query:query,_token:_token},
+              success:function(data){
+                $('.listaclave_empleado').fadeIn();
+                $('.listaclave_empleado').html(data);
+                let sueldo = $("#sueldoDiario").val();
+                
+                $(document).on('click','#concepto',function(){
+                  let info_concepto = $(this).text();
+                  let concep_clave = info_concepto.substring(0,4);
+                  if(concep_clave == "013P"){
+                    $("#importe_incidencias").val(sueldo);
+                    $("#importe_incidencias").attr("disabled", true);
+                  }
+                });
+              }
+            });
+          }
+      });
+
+      $(document).on('click','#empleado',function(){
+        let infoempleado = $(this).text();
+        let empleado_nombre = infoempleado.substring(4);
+        let empleado_clave = infoempleado.substring(0,4);
+        $('.clave_empledo').val(empleado_clave);
+        $('.listaclave_empleado').fadeOut();
+        $('.nombre_empleado').val(empleado_nombre);
+      });
+      
       $(document).ready(function(){ 
         $('#concepto_clave').keyup(function(){
           let consulta = $(this).val();  
@@ -452,57 +486,44 @@
           $('#concepto_clave').val(concep);
           $('#listaconcepto_clave').fadeOut();
           $('#nomConcepto').val(nombreConcepto);
-        });
-        $('.clave_empledo').keyup(function(){
-          let query = $(this).val();  
-            if(query != ''){
-              let _token = $('input[name="_token"]').val();
-              $.ajax({
-                url:"{{ route('ausentismo.mostrarempleado') }}",
-                method: "POST",
-                data:{query:query,_token:_token},
-                success:function(data){
-                  $('.listaclave_empleado').fadeIn();
-                  $('.listaclave_empleado').html(data);
-                  let sueldo = $("#sueldoDiario").val();
-                  
-                  $(document).on('click','#concepto',function(){
-                    let info_concepto = $(this).text();
-                    let concep_clave = info_concepto.substring(0,4);
-                    if(concep_clave == "013P"){
-                      $("#importe_incidencias").val(sueldo);
-                      $("#importe_incidencias").attr("disabled", true);
-                    }else{
-                      $("#importe_incidencias").val('');
-                      $("#importe_incidencias").attr("disabled", false);
-                    }
-                  });
-                }
-              });
-            }
-        });
+          if(concep == '012D'){
+            $.ajax({
+              url: "{{ route('incidencias.check') }}",
+              method: "POST",
+              data: {
+                _token: $("meta[name='csrf-token']").attr("content"),
+                concepto: concep,
+                claveEmpleado: $('#clave_empledo').val(),
+              },
+              success: function(data){
+                $('#monto_incidencias').val(data);
+                $('#monto_incidencias').prop("disabled", true);
+              },
+              error: function(xhr, status, error) {
+                let err = JSON.parse(xhr.responseText);
+                console.log(err.Message);
+              }
+            });
+          }else{
+            $('#monto_incidencias').val("");
+            $('#importe_incidencias').val("");
+            $('#can_incidencia').val("");
+            $('#monto_incidencias').prop("disabled", false);
 
-        $(document).on('click','#empleado',function(){
-          let infoempleado = $(this).text();
-          let empleado_nombre = infoempleado.substring(4);
-          let empleado_clave = infoempleado.substring(0,4);
-          $('.clave_empledo').val(empleado_clave);
-          $('.listaclave_empleado').fadeOut();
-          $('.nombre_empleado').val(empleado_nombre);
-        });
+            $('#can_incidencia').keyup(function(){
+              Cantidad = $('#can_incidencia').val();
+              Importe = $('#importe_incidencias').val();
+              $('#monto_incidencias').val(Cantidad*Importe);
+              $('#monto_incidencias').attr("disabled", true);
+            });
 
-        $('#can_incidencia').keyup(function(){
-          Cantidad = $('#can_incidencia').val();
-          Importe = $('#importe_incidencias').val();
-          $('#monto_incidencias').val(Cantidad*Importe);
-          $('#monto_incidencias').attr("disabled", true);
-        });
-
-        $('#importe_incidencias').keyup(function(){
-          cantidad_incidencia = $('#can_incidencia').val();
-          importe_incidencia = $('#importe_incidencias').val();
-          $('#monto_incidencias').val(cantidad_incidencia*importe_incidencia);
-          $('#monto_incidencias').attr("disabled", true);
+            $('#importe_incidencias').keyup(function(){
+              cantidad_incidencia = $('#can_incidencia').val();
+              importe_incidencia = $('#importe_incidencias').val();
+              $('#monto_incidencias').val(cantidad_incidencia*importe_incidencia);
+              $('#monto_incidencias').attr("disabled", true);
+            });
+          }
         });
 
         $('#can_incidencia').focus(function(){
