@@ -106,29 +106,39 @@
             $clv_empresa = $this->conectar($clv);
             \Config::set('database.connections.DB_Serverr', $clv_empresa);
 
-            $incidencias = DB::connection('DB_Serverr')->table('incidencias')
-                           ->select(DB::raw('CASE WHEN COUNT(*) = " " THEN 0 ELSE SUM(`cantidad`*`importe`) END as monto'))
-                           ->where([
-                                ['clave_concepto','=',$request->concepto],
-                                ['clave_empleado','=',$request->claveEmpleado]
-                            ])
-                            ->first();
+            $Prestamos = DB::connection('DB_Serverr')->table('prestamos')
+                         ->where([
+                                ['claveConcepto','=',$request->concepto],
+                                ['claveEmpleado','=',$request->claveEmpleado],
+                                ['statusPrestamo','=','0']
+                         ])
+                         ->count();
 
-            $totalPrestamo = DB::connection('DB_Serverr')->table('prestamos')
-                             ->select(DB::raw('CASE WHEN COUNT(*) = " " THEN 0 ELSE SUM(`monto`) END as total'))
-                             ->where([
-                                  ['claveConcepto','=',$request->concepto],
-                                  ['claveEmpleado','=',$request->claveEmpleado],
-                                  ['statusPrestamo','=','0']
-                              ])
-                              ->first();
+            if($Prestamos > 0){
+                $incidencias = DB::connection('DB_Serverr')->table('incidencias')
+                               ->select(DB::raw('CASE WHEN COUNT(*) = " " THEN 0 ELSE SUM(`monto`) END as monto'))
+                               ->where([
+                                   ['clave_concepto','=',$request->concepto],
+                                   ['clave_empleado','=',$request->claveEmpleado]
+                               ])
+                               ->first();
 
-            if($totalPrestamo->total <= 0){
-                $restante = 0;
+                $totalPrestamo = DB::connection('DB_Serverr')->table('prestamos')
+                                 ->select('monto','importe')
+                                 ->where([
+                                     ['claveConcepto','=',$request->concepto],
+                                     ['claveEmpleado','=',$request->claveEmpleado],
+                                    ['statusPrestamo','=','0']
+                                 ])
+                                 ->orderBy('created_at', 'asc')
+                                 ->first();
+
+                $restante = $totalPrestamo->monto - $incidencias->monto;
+                $collection = collect([$restante,$totalPrestamo->importe]);
             }else{
-                $restante = $totalPrestamo->total - $incidencias->monto;
+                $collection = collect(['0','0']);
             }
 
-            return $restante;
+            return $collection;
         }
     }

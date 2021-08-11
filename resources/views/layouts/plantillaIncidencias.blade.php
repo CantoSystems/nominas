@@ -496,8 +496,14 @@
                 claveEmpleado: $('#clave_empledo').val(),
               },
               success: function(data){
-                $('#monto_incidencias').val(data);
-                $('#monto_incidencias').prop("disabled", true);
+                if(data[0] != "0"){
+                  $('#monto_incidencias').val(data[0]);
+                  $('#importe_incidencias').val(data[1]);
+                  $('#monto_incidencias').prop("disabled", true);
+                }else{
+                  $('.divPrestamos').css('display', 'block');
+                }
+                
               },
               error: function(xhr, status, error) {
                 let err = JSON.parse(xhr.responseText);
