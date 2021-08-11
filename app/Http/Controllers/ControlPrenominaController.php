@@ -418,8 +418,6 @@
                     
                 }elseif($concep->clave_concepto == "018D"){
                     
-                    
-                    
                 }else if($concep->clave_concepto == "019D"){
                     $resultRetardo = $this->calculoRetardo($emp->clave_empleado);
                     $Gravado = 0;

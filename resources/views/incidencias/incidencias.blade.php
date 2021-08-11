@@ -11,6 +11,9 @@
                     {{ session('registro')}}
                 </div>
             @endif
+            <div class="alert alert-light divPrestamos" style="display: none;" role="alert">
+                El empleado no cuenta con préstamos
+            </div>
             <form id="formIncidencias" autocomplete="off">
                 <meta name="csrf-token" content="{{ csrf_token() }}">
                 <div class="row">
@@ -49,13 +52,13 @@
                         <label for="exampleInputFile">Clave del Concepto</label>
                         <div class="input-group mb-3">
                             <input type="text" 
-                                    name="concepto_clave"
-                                    id="concepto_clave"
-                                    maxlength="3" 
-                                    class="form-control"
-                                    value="" 
-                                    onkeyup="mayus(this);"
-                                    required>
+                                   name="concepto_clave"
+                                   id="concepto_clave"
+                                   maxlength="3" 
+                                   class="form-control"
+                                   value="" 
+                                   onkeyup="mayus(this);"
+                                   required>
                             <div class="input-group-append">
                                 <span class="input-group-text" data-toggle="modal" 
                                     data-target="#modal-buscarempleado">
@@ -70,11 +73,11 @@
                         <div class="form-group">
                             <label>Concepto</label>
                             <input type="text" 
-                                    name="concepto" 
-                                    class="form-control"
-                                    id="nomConcepto"
-                                    value="" 
-                                    disabled>
+                                   name="concepto" 
+                                   class="form-control"
+                                   id="nomConcepto"
+                                   value="" 
+                                   disabled>
                         </div>
                     </div>
                     <div class="col-sm-1">
@@ -100,7 +103,6 @@
                     <input type="button" name="agregarIncidencia" id="agregarIncidencia" value="Agregar Nuevo" style='width:125px; height:25px'>
                 </center>
                 <br>
-
                 <div class="row">
                     <div class="col">
                         <div class="card card-secondary">
