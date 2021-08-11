@@ -511,6 +511,7 @@
               }
             });
           }else{
+            $('.divPrestamos').css('display', 'none');
             $('#monto_incidencias').val("");
             $('#importe_incidencias').val("");
             $('#can_incidencia').val("");
