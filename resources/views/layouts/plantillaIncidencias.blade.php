@@ -172,7 +172,7 @@
                 <li class="nav-item {{!Route::is('prestamos.index') ?: 'active'}}">
                   <a href="{{ route('prestamos.index')}}" class="nav-link active">
                     <i class="far fa-circle nav-icon"></i>
-                    <p>Capturar Préstamo</p>
+                    <p>Capturar Adicionales</p>
                   </a>
                 </li>
               </ul>
@@ -213,7 +213,7 @@
                 <li class="nav-item {{!Route::is('prestamos.show') ?: 'active'}}">
                   <a href="{{ route('prestamos.show')}}" class="nav-link active">
                     <i class="far fa-circle nav-icon"></i>
-                    <p>Consultar Préstamos</p>
+                    <p>Consultar Adicionales</p>
                   </a>
                 </li>
               </ul>
@@ -325,14 +325,6 @@
                   <i class="right fas fa-angle-left"></i>
                 </p>
               </a>
-              <!--<ul class="nav nav-treeview">
-                <li class="nav-item">
-                  <a name="botonNominas" id="botonNominas" href="{{ route('prenomina.index')}}" class="nav-link active">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>Prenómina</p>
-                  </a>
-                </li>
-              </ul>-->
               <ul class="nav nav-treeview">
                 <li class="nav-item">
                   <a name="botonNominas" id="botonNominas" href="{{ route('prenomina.index')}}" class="nav-link active">
@@ -482,54 +474,64 @@
         $(document).on('click','#concepto',function(){
           let infoconcepto = $(this).text();
           let concep = infoconcepto.substring(0,4);
-          let nombreConcepto = infoconcepto.substring(4);
+          let nombreConcepto = infoconcepto.substring(5);
           $('#concepto_clave').val(concep);
           $('#listaconcepto_clave').fadeOut();
           $('#nomConcepto').val(nombreConcepto);
-          if(concep == '012D'){
-            $.ajax({
-              url: "{{ route('incidencias.check') }}",
-              method: "POST",
-              data: {
-                _token: $("meta[name='csrf-token']").attr("content"),
-                concepto: concep,
-                claveEmpleado: $('#clave_empledo').val(),
-              },
-              success: function(data){
-                if(data[0] != "0"){
-                  $('#monto_incidencias').val(data[0]);
-                  $('#importe_incidencias').val(data[1]);
-                  $('#monto_incidencias').prop("disabled", true);
-                }else{
-                  $('.divPrestamos').css('display', 'block');
+          switch (concep){
+            case '011D':
+            case '012D':
+            case '013D':
+            case '009D':
+            case '010P':
+            case '015P':
+            case '017P':
+              $.ajax({
+                url: "{{ route('incidencias.check') }}",
+                method: "POST",
+                data: {
+                  _token: $("meta[name='csrf-token']").attr("content"),
+                  concepto: concep,
+                  nomConcepto: nombreConcepto,
+                  claveEmpleado: $('#clave_empledo').val(),
+                },
+                success: function(data){
+                  if(data[0] != "0"){
+                    $('#monto_incidencias').val(data[0]);
+                    $('#importe_incidencias').val(data[1]);
+                    $('#monto_incidencias').prop("disabled", true);
+                  }else{
+                    $('#nomConceptob').text(data[2]);
+                    $('.divPrestamos').css('display', 'block');
+                  }
+                },
+                error: function(xhr, status, error) {
+                  let err = JSON.parse(xhr.responseText);
+                  console.log(err.Message);
                 }
-                
-              },
-              error: function(xhr, status, error) {
-                let err = JSON.parse(xhr.responseText);
-                console.log(err.Message);
-              }
-            });
-          }else{
-            $('.divPrestamos').css('display', 'none');
-            $('#monto_incidencias').val("");
-            $('#importe_incidencias').val("");
-            $('#can_incidencia').val("");
-            $('#monto_incidencias').prop("disabled", false);
+              });
+            break;
+            default:
+              $('.divPrestamos').css('display', 'none');
+              $('#monto_incidencias').val("");
+              $('#importe_incidencias').val("");
+              $('#can_incidencia').val("");
+              $('#monto_incidencias').prop("disabled", false);
 
-            $('#can_incidencia').keyup(function(){
-              Cantidad = $('#can_incidencia').val();
-              Importe = $('#importe_incidencias').val();
-              $('#monto_incidencias').val(Cantidad*Importe);
-              $('#monto_incidencias').attr("disabled", true);
-            });
+              $('#can_incidencia').keyup(function(){
+                Cantidad = $('#can_incidencia').val();
+                Importe = $('#importe_incidencias').val();
+                $('#monto_incidencias').val(Cantidad*Importe);
+                $('#monto_incidencias').attr("disabled", true);
+              });
 
-            $('#importe_incidencias').keyup(function(){
-              cantidad_incidencia = $('#can_incidencia').val();
-              importe_incidencia = $('#importe_incidencias').val();
-              $('#monto_incidencias').val(cantidad_incidencia*importe_incidencia);
-              $('#monto_incidencias').attr("disabled", true);
-            });
+              $('#importe_incidencias').keyup(function(){
+                cantidad_incidencia = $('#can_incidencia').val();
+                importe_incidencia = $('#importe_incidencias').val();
+                $('#monto_incidencias').val(cantidad_incidencia*importe_incidencia);
+                $('#monto_incidencias').attr("disabled", true);
+              });
+            break;
           }
         });
 
@@ -541,7 +543,7 @@
               $('#can_incidencia').attr("title", "Captura los días a tomar");
               break;
             case '018D': 
-            $('#can_incidencia').attr("title", "Captura el % de descuento");
+              $('#can_incidencia').attr("title", "Captura el % de descuento");
               break;
             default:
               $('#can_incidencia').attr("title", "");

@@ -1,9 +1,9 @@
-@extends('layouts.plantillaPrestamos')
+@extends('layouts.plantillaIncidencias')
 @section('content')
 <div class="container">
     <div class="card card-secondary">
         <div class="card-header">
-            <h3 class="card-title">Préstamos</h3>
+            <h3 class="card-title">Deducciones Adicionales</h3>
         </div>
         <div class="card-body">
             @if(session()->has('registro'))
@@ -11,6 +11,9 @@
                     {{ session('registro')}}
                 </div>
             @endif
+            <div class="alert alert-danger divPrestamos" role="alert" style="display: none;">
+                El empleado no cuenta con <b id="nomConceptob"></b> registrados.
+            </div>
             <form id="formIncidencias" autocomplete="off">
                 <meta name="csrf-token" content="{{ csrf_token() }}">
                 <div class="row justify-content-center">
@@ -105,7 +108,7 @@
                         <div class="card card-secondary">
                         <div class="card-header">
                             <h3 class="card-title">
-                                Préstamo
+                                Deducciones Adicionales
                             </h3>
                         </div>
                         <div class="card-body">
