@@ -237,48 +237,52 @@
                         $Gravado = 0;
                         $Excento = 0;
                     }
+
                     $ControlPrenomina->push(["clave_empleado"=>$emp->clave_empleado,"clave_concepto"=>"003P","concepto"=>"HORAS EXTRAS TRIPLES","monto"=>$resultaHoraExtraTriple["horasTriplesGenerales"],"gravable"=>$Gravado,"excento"=>$Excento,"tipo"=> "P"]);
                     $percepcionesImss->push(["concepto"=>"HORAS EXTRAS TRIPLES", "total" => $resultaHoraExtraTriple["horasTriplesGenerales"] ]);
                 }else if($concep->clave_concepto == "004P"){
                     $resultaFondoAhorro = $this->fondoAhorro($emp->id_emp);
-                    $Gravado = 0;
-                    $Excento = $resultaFondoAhorro;
-
-                    $ControlPrenomina->push(["clave_empleado"=>$emp->clave_empleado,"clave_concepto"=>"004P","concepto"=>"FONDO DE AHORRO EMPRESA","monto"=>$resultaFondoAhorro,"gravable"=>$Gravado,"excento"=>$Excento,"tipo"=> "P"]);  
+                    if($resultaFondoAhorro != 0){
+                        $Gravado = 0;
+                        $Excento = $resultaFondoAhorro;
+    
+                        $ControlPrenomina->push(["clave_empleado"=>$emp->clave_empleado,"clave_concepto"=>"004P","concepto"=>"FONDO DE AHORRO EMPRESA","monto"=>$resultaFondoAhorro,"gravable"=>$Gravado,"excento"=>$Excento,"tipo"=> "P"]);  
+                    }
+                    
                 }else if($concep->clave_concepto == "005P"){
                     $resultaPremioPunt = $this->premioPunt($emp->id_emp,$emp->clave_empleado);
                     if($resultaPremioPunt != 0){
                         $Gravado = $resultaPremioPunt;
                         $Excento = 0;
+
+                        $ControlPrenomina->push(["clave_empleado"=>$emp->clave_empleado,"clave_concepto"=>"005P","concepto"=>"PREMIO DE PUNTUALIDAD","monto"=>$resultaPremioPunt,"gravable"=>$Gravado,"excento"=>$Excento,"tipo"=> "P"]);  
                     }else{
                         $Gravado = 0;
                         $Excento = 0;
                     }
-
-                    $ControlPrenomina->push(["clave_empleado"=>$emp->clave_empleado,"clave_concepto"=>"005P","concepto"=>"PREMIO DE PUNTUALIDAD","monto"=>$resultaPremioPunt,"gravable"=>$Gravado,"excento"=>$Excento,"tipo"=> "P"]);  
                 }else if($concep->clave_concepto == "006P"){
                     $resultaPremioAsis = $this->premioPunt($emp->id_emp,$emp->clave_empleado);
                     if($resultaPremioAsis != 0){
                         $Gravado = $resultaPremioAsis;
                         $Excento = 0;
+
+                        $ControlPrenomina->push(["clave_empleado"=>$emp->clave_empleado,"clave_concepto"=>"006P","concepto"=>"PREMIO DE ASISTENCIA","monto"=>$resultaPremioAsis,"gravable"=>$Gravado,"excento"=>$Excento,"tipo"=> "P"]);
                     }else{
                         $Gravado = 0;
                         $Excento = 0;
                     }
-
-                    $ControlPrenomina->push(["clave_empleado"=>$emp->clave_empleado,"clave_concepto"=>"006P","concepto"=>"PREMIO DE ASISTENCIA","monto"=>$resultaPremioAsis,"gravable"=>$Gravado,"excento"=>$Excento,"tipo"=> "P"]);
                 }else if($concep->clave_concepto == "007P"){
                     $resultaPrimaVacacional = $this->primaVacacional($emp->id_emp,$emp->clave_empleado);
                     if($resultaPrimaVacacional != 0){
                         $calculosISR = $this->calcularGravado($concep,$resultaPrimaVacacional);
                         $Gravado = $calculosISR['percepcionGravable'];
                         $Excento = $calculosISR['percepcionExcenta'];
+
+                        $ControlPrenomina->push(["clave_empleado"=>$emp->clave_empleado,"clave_concepto"=>"007P","concepto"=>"PRIMA VACACIONAL","monto"=>$resultaPrimaVacacional,"gravable"=>$Gravado,"excento"=>$Excento,"tipo"=> "P"]);
                     }else{
                         $Gravado = 0;
                         $Excento = 0;
                     }
-
-                    $ControlPrenomina->push(["clave_empleado"=>$emp->clave_empleado,"clave_concepto"=>"007P","concepto"=>"PRIMA VACACIONAL","monto"=>$resultaPrimaVacacional,"gravable"=>$Gravado,"excento"=>$Excento,"tipo"=> "P"]);
                 }else if($concep->clave_concepto == "008P"){
                     $resultaPrimaDominical = $this->primaDominical($emp->id_emp);
                     if($resultaPrimaDominical != 0){
@@ -293,31 +297,31 @@
                     $ControlPrenomina->push(["clave_empleado"=>$emp->clave_empleado,"clave_concepto"=>"008P","concepto"=>"PRIMA DOMINICAL","monto"=>$resultaPrimaDominical,"gravable"=>$Gravado,"excento"=>$Excento,"tipo"=> "P"]);
                     $percepcionesImss->push(["concepto"=>"PRIMA DOMINICAL", "total" => $resultaPrimaDominical ]);
                 }else if($concep->clave_concepto == "009P"){
-                    $montoCompensacion = $this->compensacion($emp->clave_empleado);
+                    $montoCompensacion = $this->adicionales($emp->clave_empleado,'009P');
                     if($montoCompensacion != 0){
                         $calculosISR = $this->calcularGravado($concep,$montoCompensacion);
                         $Gravado = $calculosISR['percepcionGravable'];
                         $Excento = $calculosISR['percepcionExcenta'];
+
+                        $ControlPrenomina->push(["clave_empleado"=>$emp->clave_empleado,"clave_concepto"=>"009P","concepto"=>"COMPENSACION","monto"=>$montoCompensacion,"gravable"=>$Gravado,"excento"=>$Excento,"tipo"=> "P"]);
+                        $percepcionesImss->push(["concepto"=>"COMPENSACION", "total" => $montoCompensacion]);
                     }else{
                         $Gravado = 0;
                         $Excento = 0;
                     }
-
-                    $ControlPrenomina->push(["clave_empleado"=>$emp->clave_empleado,"clave_concepto"=>"009P","concepto"=>"COMPENSACION","monto"=>$montoCompensacion,"gravable"=>$Gravado,"excento"=>$Excento,"tipo"=> "P"]);
-                    $percepcionesImss->push(["concepto"=>"COMPENSACION", "total" => $montoCompensacion]);
                 }else if($concep->clave_concepto == "010P"){
-                    $montoDiferencia = $this->diferenciaSueldo($emp->clave_empleado);
+                    $montoDiferencia = $this->adicionales($emp->clave_empleado,'010P');
                     if($montoDiferencia != 0){
                         $calculosISR = $this->calcularGravado($concep,$montoDiferencia);
                         $Gravado = $calculosISR['percepcionGravable'];
                         $Excento = $calculosISR['percepcionExcenta'];
+
+                        $ControlPrenomina->push(["clave_empleado"=>$emp->clave_empleado,"clave_concepto"=>"009P","concepto"=>"DIFERENCIA DE SUELDO","monto"=>$montoDiferencia,"gravable"=>$Gravado,"excento"=>$Excento,"tipo"=> "P"]);
+                        $percepcionesImss->push(["concepto"=>"DIFERENCIA DE SUELDO", "total" => $montoDiferencia->monto]);
                     }else{
                         $Gravado = 0;
                         $Excento = 0;
                     }
-
-                    $ControlPrenomina->push(["clave_empleado"=>$emp->clave_empleado,"clave_concepto"=>"009P","concepto"=>"DIFERENCIA DE SUELDO","monto"=>$montoDiferencia,"gravable"=>$Gravado,"excento"=>$Excento,"tipo"=> "P"]);
-                    $percepcionesImss->push(["concepto"=>"DIFERENCIA DE SUELDO", "total" => $montoDiferencia->monto]);
                 }else if($concep->clave_concepto == "011P"){
 
                 }else if($concep->clave_concepto == "012P"){
@@ -327,42 +331,48 @@
                     if($Vacaciones != 0){
                         $Gravado = $Vacaciones;
                         $Excento = 0;
+
+                        $ControlPrenomina->push(["clave_empleado"=>$emp->clave_empleado,"clave_concepto"=>"013P","concepto"=>"VACACIONES","monto"=>$Vacaciones,"gravable"=>$Gravado,"excento"=>$Excento,"tipo"=> "P"]);
+                        $percepcionesImss->push(["concepto"=>"VACACIONES", "total" => $Vacaciones ]);
                     }else{
                         $Gravado = 0;
                         $Excento = 0;
                     }
-
-                    $ControlPrenomina->push(["clave_empleado"=>$emp->clave_empleado,"clave_concepto"=>"013P","concepto"=>"VACACIONES","monto"=>$Vacaciones,"gravable"=>$Gravado,"excento"=>$Excento,"tipo"=> "P"]);
-                    $percepcionesImss->push(["concepto"=>"VACACIONES", "total" => $Vacaciones ]);
                 }else if($concep->clave_concepto == "015P"){
-                    $montoComisiones = $this->comisiones($emp->clave_empleado);
+                    $montoComisiones = $this->adicionales($emp->clave_empleado,'015P');
                     if($montoComisiones != 0){
                         $calculosISR = $this->calcularGravado($concep,$montoComisiones);
                         $Gravado = $calculosISR['percepcionGravable'];
                         $Excento = $calculosISR['percepcionExcenta'];
+
+                        $ControlPrenomina->push(["clave_empleado"=>$emp->clave_empleado,"clave_concepto"=>"015P","concepto"=>"COMISIONES","monto"=>$montoComisiones,"gravable"=>$Gravado,"excento"=>$Excento,"tipo"=> "P"]);
+                        $percepcionesImss->push(["concepto"=>"COMISIONES", "total" => $montoComisiones->monto]);
                     }else{
                         $Gravado = 0;
                         $Excento = 0;
                     }
-
-                    $ControlPrenomina->push(["clave_empleado"=>$emp->clave_empleado,"clave_concepto"=>"015P","concepto"=>"COMISIONES","monto"=>$montoComisiones,"gravable"=>$Gravado,"excento"=>$Excento,"tipo"=> "P"]);
-                    $percepcionesImss->push(["concepto"=>"DIFERENCIA DE SUELDO", "total" => $montoComisiones->monto]);
                 }else if($concep->clave_concepto == "016P"){
 
                 }else if($concep->clave_concepto == "017P"){
-                    $montoBono = DB::connection('DB_Serverr')->table('conceptos')
-                    ->select('monto')
-                    ->where('clave_concepto','017P')
-                    ->first();
+                    $montoComisiones = $this->adicionales($emp->clave_empleado,'017P');
+                    if($montoComisiones != 0){
+                        $calculosISR = $this->calcularGravado($concep,$montoComisiones);
+                        $Gravado = $calculosISR['percepcionGravable'];
+                        $Excento = $calculosISR['percepcionExcenta'];
 
-                    $percepcionesImss->push(["concepto"=>"BONO DE PRODUCTIVIDAD", "total" => $montoBono->monto]);
+                        $ControlPrenomina->push(["clave_empleado"=>$emp->clave_empleado,"clave_concepto"=>"017P","concepto"=>"BONO DE PRODUCTIVIDAD","monto"=>$montoComisiones,"gravable"=>$Gravado,"excento"=>$Excento,"tipo"=> "P"]);
+                        $percepcionesImss->push(["concepto"=>"BONO DE PRODUCTIVIDAD", "total" => $montoComisiones->monto]);
+                    }else{
+                        $Gravado = 0;
+                        $Excento = 0;
+                    }
                 }else if($concep->clave_concepto == "018P"){
 
                 }else if($concep->clave_concepto == "019P"){
                     $montoRetroactivo = DB::connection('DB_Serverr')->table('conceptos')
-                    ->select('monto')
-                    ->where('clave_concepto','019P')
-                    ->first();
+                                        ->select('monto')
+                                        ->where('clave_concepto','019P')
+                                        ->first();
 
                     $percepcionesImss->push(["concepto"=>"SUELDO RETROACTIVO", "total" => $montoRetroactivo->monto]);
                 }else if($concep->clave_concepto == "020P"){
@@ -376,8 +386,8 @@
                 }else if($concep->clave_concepto == "024P"){
                     $resultaSueldo = $this->sueldo($emp->id_emp,$emp->clave_empleado);
                     $montoDescanso = $resultaSueldo * 2;
+
                     $percepcionesImss->push(["concepto"=>"TRABAJO EN DIAS DE DESCANSO", "total" => $montoDescanso]);
-                    
                 }else if($concep->clave_concepto == "001D"){
                     $resultaAusentismoDed = $this->ausentismoIncapacidadDeduccion($emp->id_emp,$emp->clave_empleado);
                     $Gravado = 0;
@@ -415,11 +425,44 @@
                 }else if($concep->clave_concepto == "010D"){
                     
                 }else if($concep->clave_concepto == "011D"){
-                    
+                    $montoUniformes = $this->adicionales($emp->clave_empleado,'011D');
+                    if($montoUniformes != 0){
+                        $calculosISR = $this->calcularGravado($concep,$montoUniformes);
+                        $Gravado = $calculosISR['percepcionGravable'];
+                        $Excento = $calculosISR['percepcionExcenta'];
+
+                        $ControlPrenomina->push(["clave_empleado"=>$emp->clave_empleado,"clave_concepto"=>"012D","concepto"=>"UNIFORMES","monto"=>$montoUniformes,"gravable"=>$Gravado,"excento"=>$Excento,"tipo"=> "D"]);
+                        $percepcionesImss->push(["concepto"=>"UNIFORMES", "total" => $montoUniformes]);
+                    }else{
+                        $Gravado = 0;
+                        $Excento = 0;
+                    }
                 }else if($concep->clave_concepto == "012D"){
-                
+                    $montoPrestamos = $this->adicionales($emp->clave_empleado,'012D');
+                    if($montoPrestamos != 0){
+                        $calculosISR = $this->calcularGravado($concep,$montoPrestamos);
+                        $Gravado = $calculosISR['percepcionGravable'];
+                        $Excento = $calculosISR['percepcionExcenta'];
+
+                        $ControlPrenomina->push(["clave_empleado"=>$emp->clave_empleado,"clave_concepto"=>"012D","concepto"=>"PRESTAMOS","monto"=>$montoPrestamos,"gravable"=>$Gravado,"excento"=>$Excento,"tipo"=> "D"]);
+                        $percepcionesImss->push(["concepto"=>"PRESTAMOS", "total" => $montoPrestamos]);
+                    }else{
+                        $Gravado = 0;
+                        $Excento = 0;
+                    }
                 }else if($concep->clave_concepto == "013D"){
-                    
+                    $montoLentes = $this->adicionales($emp->clave_empleado,'013D');
+                    if($montoLentes != 0){
+                        $calculosISR = $this->calcularGravado($concep,$montoLentes);
+                        $Gravado = $calculosISR['percepcionGravable'];
+                        $Excento = $calculosISR['percepcionExcenta'];
+
+                        $ControlPrenomina->push(["clave_empleado"=>$emp->clave_empleado,"clave_concepto"=>"013D","concepto"=>"DESCUENTO DE LENTES","monto"=>$montoLentes,"gravable"=>$Gravado,"excento"=>$Excento,"tipo"=> "D"]);
+                        $percepcionesImss->push(["concepto"=>"DESCUENTO DE LENTES", "total" => $montoLentes]);
+                    }else{
+                        $Gravado = 0;
+                        $Excento = 0;
+                    }
                 }else if($concep->clave_concepto == "014D"){
 
                 }else if($concep->clave_concepto == "015D"){
@@ -428,13 +471,17 @@
                     
                 }else if($concep->clave_concepto == "017D"){
                     
-                }elseif($concep->clave_concepto == "018D"){
+                }else if($concep->clave_concepto == "018D"){
                     
                 }else if($concep->clave_concepto == "019D"){
-                    $resultRetardo = $this->calculoRetardo($emp->clave_empleado);
-                    $Gravado = 0;
-                    $Excento = 0;
-                    $ControlPrenomina->push(["clave_empleado"=>$emp->clave_empleado,"clave_concepto"=>"019D","concepto"=>"RETARDO","monto"=>$resultRetardo,"gravable"=>$Gravado,"excento"=>$Excento,"tipo"=> "D"]);
+                    $montoRetardo = $this->adicionales($emp->clave_empleado,'019D');
+                    if($montoRetardo != 0){
+                        $ControlPrenomina->push(["clave_empleado"=>$emp->clave_empleado,"clave_concepto"=>"013D","concepto"=>"RETARDO","monto"=>$montoRetardo,"gravable"=>$Gravado,"excento"=>$Excento,"tipo"=> "D"]);
+                        $percepcionesImss->push(["concepto"=>"DESCUENTO DE LENTES", "total" => $montoRetardo]);
+                    }else{
+                        $Gravado = 0;
+                        $Excento = 0;
+                    }
                 }
             }
         }
@@ -632,23 +679,6 @@
             ->first();
 
         return $datos_empresa;
-    }
-
-    public function calculoRetardo($claveEmp){
-        $periodoNum = Session::get('num_periodo');
-        $clv = Session::get('clave_empresa');
-        $clv_empresa = $this->conectar($clv);
-        \Config::set('database.connections.DB_Serverr', $clv_empresa);
-        
-        $acumuladoRetardo = DB::connection('DB_Serverr')->table('incidencias')
-        ->select(DB::raw('CASE WHEN COUNT(`monto`) = "" THEN 0 ELSE SUM(`monto`) END as monto'))
-        ->where([
-            ['clave_empleado','=',$claveEmp],
-            ['periodo_incidencia','=',$periodoNum],
-            ['clave_concepto','019D']
-        ])
-        ->first();
-        return $acumuladoRetardo->monto;
     }
 
     public function aguinaldo_vacaciones_prima($idEmp){
@@ -880,57 +910,21 @@
         return compact('percepcionGravable','percepcionExcenta');
     }
 
-    public function compensacion($claveEmp){
+    public function adicionales($claveEmp,$claveConcepto){
         $nperiodo = Session::get('num_periodo');
         $clv = Session::get('clave_empresa');
         $clv_empresa = $this->conectar($clv);
         \Config::set('database.connections.DB_Serverr', $clv_empresa);
 
-        $totalCompensacion = DB::connection('DB_Serverr')->table('incidencias')
-                             ->select(DB::raw('CASE WHEN COUNT(`monto`) = " " THEN 0 ELSE SUM(`monto`) END as monto'))
-                             ->where([
-                                 ['clave_concepto','=','009P'],
-                                 ['clave_empleado','=',$claveEmp],
-                                 ['periodo_incidencia','=',$nperiodo]
-                             ])
-                             ->first();
+        $totalAdicional = DB::connection('DB_Serverr')->table('incidencias')
+                          ->select(DB::raw('CASE WHEN COUNT(`monto`) = " " THEN 0 ELSE SUM(`monto`) END as monto'))
+                          ->where([
+                              ['clave_concepto','=',$claveConcepto],
+                              ['clave_empleado','=',$claveEmp],
+                              ['periodo_incidencia','=',$nperiodo]
+                          ])
+                          ->first();
 
-        return $totalCompensacion->monto;
-    }
-
-    public function diferenciaSueldo($claveEmp){
-        $nperiodo = Session::get('num_periodo');
-        $clv = Session::get('clave_empresa');
-        $clv_empresa = $this->conectar($clv);
-        \Config::set('database.connections.DB_Serverr', $clv_empresa);
-
-        $totalDiferencia = DB::connection('DB_Serverr')->table('incidencias')
-                           ->select(DB::raw('CASE WHEN COUNT(`monto`) = " " THEN 0 ELSE SUM(`monto`) END as monto'))
-                           ->where([
-                               ['clave_concepto','=','010P'],
-                               ['clave_empleado','=',$claveEmp],
-                               ['periodo_incidencia','=',$nperiodo]
-                           ])
-                           ->first();
-
-        return $totalCompensacion->monto;
-    }
-
-    public function comisiones($claveEmp){
-        $nperiodo = Session::get('num_periodo');
-        $clv = Session::get('clave_empresa');
-        $clv_empresa = $this->conectar($clv);
-        \Config::set('database.connections.DB_Serverr', $clv_empresa);
-
-        $totalDiferencia = DB::connection('DB_Serverr')->table('incidencias')
-                           ->select(DB::raw('CASE WHEN COUNT(`monto`) = " " THEN 0 ELSE SUM(`monto`) END as monto'))
-                           ->where([
-                               ['clave_concepto','=','015P'],
-                               ['clave_empleado','=',$claveEmp],
-                               ['periodo_incidencia','=',$nperiodo]
-                           ])
-                           ->first();
-
-        return $totalCompensacion->monto;
+        return $totalAdicional->monto;
     }
 }
