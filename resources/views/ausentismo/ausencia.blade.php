@@ -92,7 +92,7 @@
                             onkeypress="return numeros(event)">
                 </div>
               </div>
-
+              
                <div class="col-sm-1">
                 <div class="form-group">
                    <label>Incapacidad:</label><br>
@@ -104,9 +104,6 @@
                             onkeyup="mayus(this);">
                 </div>
               </div>
-                  
-
-
               <div class="col-sm-2">
                 <div class="form-group">
                   <label>Descripcion:</label><br>

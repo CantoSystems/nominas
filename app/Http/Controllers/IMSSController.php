@@ -91,10 +91,6 @@ class IMSSController extends Controller{
     }
 
     public function actualizar($datos){
-        /*$datos->validate([
-            'clave_banco' => 'required',
-            'nombre_banco' => 'required',
-        ]);*/
         $imss = IMSS::where('id_imss',$datos->id_imss)->first();
         $imss->concepto = $datos->seguroIMSS;
         $imss->prestaciones = $datos->prestacionIMSS;

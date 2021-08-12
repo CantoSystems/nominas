@@ -122,20 +122,6 @@ class DepartamentosController extends Controller{
 				$this->registrar($request);
 				return redirect()->route('departamentos.index');
 			break;
-			case 'eliminar':
-				//DB::connection('DB_Serverr')->table('departamentos')->where('clave_departamento',$request->clave_departamento)->delete();
-				$aux = DB::connection('DB_Serverr')->table('departamentos')
-				->join('areas','departamentos.clave_area','=','areas.clave_area')
-				->select('departamentos.*','areas.area')->get()->last();
-				
-				$departamentos = DB::connection('DB_Serverr')->table('departamentos')
-				->join('areas','departamentos.clave_area','=','areas.clave_area')
-				->select('departamentos.*','areas.area')->get();
-				
-				$areas=DB::connection('DB_Serverr')->table('areas')->get();
-				
-				return view('departamentos.departamentos',compact('aux','departamentos','areas'));
-			break;
 			case 'actualizar':
 				$this->actualizar($request);
 				return redirect()->route('departamentos.index');
@@ -213,16 +199,6 @@ class DepartamentosController extends Controller{
 		}else{
 			return back()->with('msj','Registro duplicado');
 		}
-	}
-
-	public function generador(){
-		$raiz= '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
-		$codigo='';
-		for ($i=0; $i < 3; $i++) {
-			$letra= $raiz[mt_rand(0, 4 - 1)];
-			$codigo .=$letra;
-		}
-		return $codigo;
 	}
 
 	public function actualizar($datos){

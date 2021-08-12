@@ -187,10 +187,7 @@ public function conectar($clv)
 
   public function eliminararea($id){
     $clv=Session::get('clave_empresa');
-    $clave_area= $this->generador();
     $clv_empresa=$this->conectar($clv);
-
-
     \Config::set('database.connections.DB_Serverr', $clv_empresa);
 
     $aux1 = DB::connection('DB_Serverr')->table('areas')->where('id',$id)->delete();

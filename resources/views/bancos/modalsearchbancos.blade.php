@@ -19,7 +19,6 @@
                     </select>
                   </div>
                   <input type="text" class="form-control" aria-label="Username" name="busca" aria-describedby="basic-addon1" align='right' required>
-                   
                 </div>
         </div>
         <div class="modal-footer">
