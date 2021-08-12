@@ -10,7 +10,6 @@
         <div class="modal-body">
             <form action="{{ route('descansos.index')}}" method="GET" autocomplete="off">
             <div class="row">
-  
                 <div class="input-group col-md-12">
                   <div class="input-group-prepend">
                     <select class="custom-select" name="opcion">

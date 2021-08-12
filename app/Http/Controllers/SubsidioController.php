@@ -61,8 +61,6 @@ class SubsidioController extends Controller{
                 break;
             case 'buscar':
                 $criterio = $request->opcion;
-
-                
                 if($criterio == 'de')
                 {
                     $subsidio = Subsidio::where('IngresosDe','=',$request->busca)->first();

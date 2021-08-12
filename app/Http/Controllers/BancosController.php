@@ -127,26 +127,6 @@ class BancosController extends Controller
         $banc->save();
       }
 
-      /**
-      *Genera un numero random de digitos
-      *Para la clave indicadora del banco
-      * @version V1
-      * @author Gustavo
-      * @param void
-      * @return $codigo | int
-      */
-
-
-    public function generador(){
-        $raiz= '0123456789';
-        $codigo='';
-        for ($i=0; $i < 3; $i++) {
-            $letra= $raiz[mt_rand(0, 4 - 1)];
-            $codigo .=$letra;
-        }
-        return $codigo;
-        }
-
         /**
           *
           * Recibe el $request del metodo accciones

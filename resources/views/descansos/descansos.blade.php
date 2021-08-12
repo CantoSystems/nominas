@@ -72,15 +72,12 @@
                                                 {{ $message }}
                                             </div>
                                         @enderror
-        
                                 </div>
                             </div>
 
                             <div class="col-md-12">
                                 <br>
                             </div>
-
-
                         @canany(['administrador','capturista','reportes'])
                             <div class="col-md-5">
                                     <div class="margin">
@@ -223,5 +220,4 @@
 </div>
 </div>
 </div>
-
 @endsection

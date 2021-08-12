@@ -103,11 +103,6 @@ Route::delete('clasificacion/{id}','ClasificacionController@destroy')->name('cla
 Route::get('/conceptos','ConceptosController@index')->name('conceptos.index');
 Route::delete('/conceptos/{id}','ConceptosController@eliminaconcepto')->name('conceptos.eliminaconcepto');
 
-//Empleados
-Route::get('/empleados', 'EmpleadosController@index')->name('empleados.index');
-Route::delete('/empleados/{id_emp}','EmpleadosController@eliminaempleado')->name('empleados.eliminaempleado');
-Route::patch('/empleados/{id_emp}','EmpleadosController@actualizar_empleado')->name('empleados.actualizarempleado');
-
 //Usuarios
 Route::get('/usuarios','UsersController@index')->name('usuarios.index');
 Route::delete('/usuarios/{id}','UsersController@destroy')->name('usuarios.destroy');
@@ -178,8 +173,6 @@ Route::delete('/umas/{id}','UmasController@destroy')->name('umas.destroy');
 Route::get('/selectConceptos','SelectConceptosController@index')->name('selectConceptos.index');
 
 //Prenómina
-Route::get('/prenomina', 'CalculoPrenominaController@index')->name('prenomina.index');
-Route::get('/prenomina-nuevo', 'CalculoPrenominaController@create')->name('prenomina.create');
 Route::get('/prenomina-prueba/{id_emp}', 'CalculoPrenominaController@show')->name('prenomina.show');
 Route::post('/prenomina-act/enviodata', 'CalculoPrenominaController@store')->name('prenomina.store');
 Route::post('/prenominaISR', 'CalculoPrenominaController@calcularImpuestos')->name('prenomina.Impuestos');

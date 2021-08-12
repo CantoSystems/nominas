@@ -25,11 +25,6 @@ class ExtrasController extends Controller{
                 ->select('tiempo_extra.*','empleados.*')
                 ->orderBy('id_tiempo')->first();
 
-                $manipulacion_fechas = DB::connection('DB_Serverr')->table('periodos')
-                ->select('fecha_inicio','fecha_fin','diasPeriodo')
-                ->where('numero','=',$identificador_periodo)
-                ->first();
-
                 $aux= DB::connection('DB_Serverr')->table('tiempo_extra')
                 ->join('empleados','empleados.clave_empleado','=','tiempo_extra.clave_empleado')
                 ->select('tiempo_extra.*','empleados.*')

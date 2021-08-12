@@ -141,10 +141,7 @@ class PrestamosController extends Controller{
                     $this->actualizar($request);
                     return redirect()->route('prestamos.show');
                 break;
-            
         }
-
-        
     }
 
     public function actualizar($datos){

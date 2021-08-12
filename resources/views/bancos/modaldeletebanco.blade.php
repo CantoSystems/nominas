@@ -19,10 +19,6 @@
 	<strong>{{$banco->nombre_banco}}</strong>
 ?</h5>
 </div>
-
-
-
-
 </div>
 <div class="modal-footer">
 <button type="button" data-dismiss="modal" class="botones-modales">Cancelar</button>

@@ -24,17 +24,8 @@ class PeriodosController extends Controller
     }
 
     public function agregarperiodos($datos){
-
-
-    /*
-    if ($datos->fecha_inicio === null || $datos->fecha_fin === null || $datos->fecha_pago === null){
-        return redirect()->route('periodos.index');
-    }*/
-
     $clv= Session::get('clave_empresa');
     $clv_empresa=$this->conectar($clv);
-
-
     \Config::set('database.connections.DB_Serverr', $clv_empresa);
 
     $tipoPeriodo = Empresa::select('tipoPeriodo')
@@ -73,10 +64,7 @@ class PeriodosController extends Controller
     public function acciones(Request $request){
         $clv=Session::get('clave_empresa');
         $clv_empresa=$this->conectar($clv);
-
-
         \Config::set('database.connections.DB_Serverr', $clv_empresa);
-
 
         $accion= $request->acciones;
         $indic=$request->identificador;
@@ -183,7 +171,6 @@ class PeriodosController extends Controller
 
                 }
 
-
                 break;
 
             default:
@@ -220,10 +207,7 @@ class PeriodosController extends Controller
 
     $clv= Session::get('clave_empresa');
     $clv_empresa=$this->conectar($clv);
-
-
     \Config::set('database.connections.DB_Serverr', $clv_empresa);
-    //dd($datos);
 
     $datos->validate([
               'numero' => 'required',
@@ -243,18 +227,12 @@ class PeriodosController extends Controller
             'fecha_fin'=>$datos->fecha_fin,
             'fecha_pago'=>$datos->fecha_pago,
         ]);
-
-
     }
 
     public function eliminarperiodo($id){
     $clv= Session::get('clave_empresa');
     $clv_empresa=$this->conectar($clv);
-
-
     \Config::set('database.connections.DB_Serverr', $clv_empresa);
-
-
     $aux1 = DB::connection('DB_Serverr')->table('periodos')->where('id',$id)->delete();
 
     return redirect()->route('periodos.acciones');
