@@ -261,7 +261,7 @@
               </a>
               <ul class="nav nav-treeview">
                 <li class="nav-item">
-                  <a name="botonNominas" id="botonNominas" href="{{ route('prenomina.index')}}" class="nav-link active">
+                  <a name="botonNominas" id="botonNominas" href="#" class="nav-link active">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Prenómina</p>
                   </a>
@@ -294,7 +294,7 @@
               </a>
               <ul class="nav nav-treeview">
                 <li class="nav-item">
-                  <a name="botonNominas" id="botonNominas" href="{{ route('prenomina.index')}}" class="nav-link active">
+                  <a name="botonNominas" id="botonNominas" href="#" class="nav-link active">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Prenómina</p>
                   </a>
@@ -482,7 +482,7 @@
             case '011D':
             case '012D':
             case '013D':
-            case '009D':
+            case '009P':
             case '010P':
             case '015P':
             case '017P':
