@@ -172,7 +172,7 @@
                 <li class="nav-item {{!Route::is('prestamos.index') ?: 'active'}}">
                   <a href="{{ route('prestamos.index')}}" class="nav-link active">
                     <i class="far fa-circle nav-icon"></i>
-                    <p>Capturar Préstamo</p>
+                    <p>Capturar Adicionales</p>
                   </a>
                 </li>
               </ul>
@@ -213,11 +213,10 @@
                 <li class="nav-item {{!Route::is('prestamos.show') ?: 'active'}}">
                   <a href="{{ route('prestamos.show')}}" class="nav-link active">
                     <i class="far fa-circle nav-icon"></i>
-                    <p>Consultar Préstamos</p>
+                    <p>Consultar Adicionales</p>
                   </a>
                 </li>
               </ul>
-
             </li>
             <li class="nav-item has-treeview menu-open">
               <a href="#" class="nav-link">

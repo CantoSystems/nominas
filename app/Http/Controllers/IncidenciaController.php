@@ -86,11 +86,8 @@
                                                                             ,cantidad
                                                                             ,importe
                                                                             ,monto,periodo_incidencia,created_at,updated_at)
-                                                                    VALUES (?
-                                                                            ,?
-                                                                            ,?
-                                                                            ,?
-                                                                            ,?,?,?,?)',[$value->concepto
+                                                                    VALUES (?,?,?,?,?,?,?,?)'
+                                                                                ,[$value->concepto
                                                                                 ,$value->empleado
                                                                                 ,$value->cantidad
                                                                                 ,$value->importe
@@ -124,19 +121,20 @@
                                ->first();
 
                 $totalPrestamo = DB::connection('DB_Serverr')->table('prestamos')
-                                 ->select('monto','importe')
+                                 ->select('prestamos.monto','prestamos.importe','conceptos.concepto')
+                                 ->join('conceptos','conceptos.clave_concepto','=','prestamos.claveConcepto')
                                  ->where([
-                                     ['claveConcepto','=',$request->concepto],
-                                     ['claveEmpleado','=',$request->claveEmpleado],
-                                    ['statusPrestamo','=','0']
+                                    ['prestamos.claveConcepto','=',$request->concepto],
+                                    ['prestamos.claveEmpleado','=',$request->claveEmpleado],
+                                    ['prestamos.statusPrestamo','=','0']
                                  ])
-                                 ->orderBy('created_at', 'asc')
+                                 ->orderBy('prestamos.created_at', 'asc')
                                  ->first();
 
                 $restante = $totalPrestamo->monto - $incidencias->monto;
-                $collection = collect([$restante,$totalPrestamo->importe]);
+                $collection = collect([$restante,$totalPrestamo->importe,$totalPrestamo->concepto]);
             }else{
-                $collection = collect(['0','0']);
+                $collection = collect(['0','0',$request->nomConcepto]);
             }
 
             return $collection;

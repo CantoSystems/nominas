@@ -172,7 +172,7 @@
                 <li class="nav-item {{!Route::is('prestamos.index') ?: 'active'}}">
                   <a href="{{ route('prestamos.index')}}" class="nav-link active">
                     <i class="far fa-circle nav-icon"></i>
-                    <p>Capturar Préstamo</p>
+                    <p>Capturar Adicionales</p>
                   </a>
                 </li>
               </ul>
@@ -213,7 +213,7 @@
                 <li class="nav-item {{!Route::is('prestamos.show') ?: 'active'}}">
                   <a href="{{ route('prestamos.show')}}" class="nav-link active">
                     <i class="far fa-circle nav-icon"></i>
-                    <p>Consultar Préstamos</p>
+                    <p>Consultar Adicionales</p>
                   </a>
                 </li>
               </ul>
@@ -512,12 +512,12 @@
               //let tot = $("#trabajador").val();
               //console.log(tot);
               
-             let importe_total3 = 0;
-             $(".totales3").each(function(index, value){
-              if($.isNumeric($(this).val())){
-                importe_total3 = importe_total3 + eval($(this).val());
-             }
-          });
+              let importe_total3 = 0;
+              $(".totales3").each(function(index, value){
+                if($.isNumeric($(this).val())){
+                  importe_total3 = importe_total3 + eval($(this).val());
+                }
+              });
           $(".totalImpuestosTrabajador").val(importe_total3.toFixed(2));
             },
             error: function(xhr, status, error) {

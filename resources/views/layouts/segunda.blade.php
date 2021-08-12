@@ -172,7 +172,7 @@
                 <li class="nav-item {{!Route::is('prestamos.index') ?: 'active'}}">
                   <a href="{{ route('prestamos.index')}}" class="nav-link active">
                     <i class="far fa-circle nav-icon"></i>
-                    <p>Capturar Préstamo</p>
+                    <p>Capturar Adicionales</p>
                   </a>
                 </li>
               </ul>
@@ -213,7 +213,7 @@
                 <li class="nav-item {{!Route::is('prestamos.show') ?: 'active'}}">
                   <a href="{{ route('prestamos.show')}}" class="nav-link active">
                     <i class="far fa-circle nav-icon"></i>
-                    <p>Consultar Préstamos</p>
+                    <p>Consultar Adicionales</p>
                   </a>
                 </li>
               </ul>
@@ -325,14 +325,6 @@
                   <i class="right fas fa-angle-left"></i>
                 </p>
               </a>
-              <!--<ul class="nav nav-treeview">
-                <li class="nav-item">
-                  <a name="botonNominas" id="botonNominas" href="{{ route('prenomina.index')}}" class="nav-link active">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>Prenómina</p>
-                  </a>
-                </li>
-              </ul>-->
               <ul class="nav nav-treeview">
                 <li class="nav-item">
                   <a name="botonNominas" id="botonNominas" href="{{ route('prenomina.index')}}" class="nav-link active">
