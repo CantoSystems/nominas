@@ -664,10 +664,10 @@
                           {{ $message }}
                         </div>
                       @enderror
-                      <input type="number" class="form-control" value="{{$persona->porcentaje1 ?? ''}}" name="porcentaje1" min="0.1" max="100" step="0.01" id="porcentaje1">
-                      <input type="number" class="form-control" value="{{$persona->porcentaje2 ?? ''}}" name="porcentaje2" min="0.1" max="100" step="0.01" id="porcentaje2">
-                      <input type="number" class="form-control" value="{{$persona->porcentaje3 ?? ''}}" name="porcentaje3" min="0.1" max="100" step="0.01" id="porcentaje3">
-                      <input type="number" class="form-control" value="{{$persona->porcentaje4 ?? ''}}" name="porcentaje4" min="0.1" max="100" step="0.01" id="porcentaje4">
+                      <input type="number" class="form-control" value="{{$persona->porcentaje1 ?? ''}}" name="porcentaje1"  id="porcentaje1">
+                      <input type="number" class="form-control" value="{{$persona->porcentaje2 ?? ''}}" name="porcentaje2"  id="porcentaje2">
+                      <input type="number" class="form-control" value="{{$persona->porcentaje3 ?? ''}}" name="porcentaje3"  id="porcentaje3">
+                      <input type="number" class="form-control" value="{{$persona->porcentaje4 ?? ''}}" name="porcentaje4"  id="porcentaje4">
                     </div>
                     <div class="col-sm-12">
                       <label for="" style="text-align: left;">
@@ -1074,7 +1074,7 @@
                   </div>
                   <div class="col-sm-3">
                   <label for="" style="text-align: left;">Ocupación</label>
-                    <input  type="text" value="" name="ocupacion" class="form-control" onkeyup="mayus(this);" onkeypress="return validar(event)">
+                    <input  type="text" value="{{ $persona->ocupacion ?? ''}}" name="ocupacion" class="form-control" onkeyup="mayus(this);" onkeypress="return validar(event)">
                     @error('ocupacion')
                       <div class="alert alert-secondary">
                         {{ $message }}
@@ -1150,7 +1150,7 @@
                           <option selected value="DIURNO">Diurno</option>
                           <option value="NOCTURNO">Nocturno</option>
                           <option value="MIXTO">Mixto</option>
-                        @elseif($persona->turno=="")
+                        @elseif($persona->turno=="NOCTURNO")
                           <option disabled value="">Seleccione una opción:</option>
                           <option value="DIURNO">Diurno</option>
                           <option selected value="NOCTURNO">Nocturno</option>
@@ -1605,34 +1605,40 @@
                 <div class="margin">
                   <div class="btn-group">
                     @canany(['administrador','capturista','reportes'])
-                      @if(isset($persona))
-                        <div class="form-group">
-                          <button type="submit" name="acciones" value="primero" id="primero" class="botonesgrandes"><i class="fas fa-backward" ></i></button>
+                    <div class="col-md-5">
+                        <div class="margin">
+                            <div class="btn-group">
+                                @if(isset($persona))
+                                    <div class="form-group">
+                                        <button type="submit" name="acciones" value="primero" id="primero" class="botonesgrandes"><i class="fas fa-backward"></i></button>
+                                    </div>
+                                    <div class="form-group">
+                                        <button type="submit" name="acciones" value="atras" id="atras" class="botonesgrandes"><i class="fas fa-arrow-circle-left"></i></button>
+                                    </div>
+                                    <div class="form-group">
+                                        <button type="submit" name="acciones" value="siguiente" id="siguiente" class="botonesgrandes"><i class="fas fa-arrow-circle-right"></i></button>
+                                    </div>
+                                    <div class="form-group">
+                                        <button type="submit" name="acciones" value="ultimo" id="ultimo" class="botonesgrandes"><i class="fas fa-forward"></i></button>
+                                    </div>
+                                @else
+                                    <div class="form-group">
+                                        <button type="submit" class="botones" disabled><i class="fas fa-backward" ></i></button>
+                                    </div>
+                                    <div class="form-group">
+                                        <button type="submit" class="botones" disabled><i class="fas fa-arrow-circle-left"></i></button>
+                                    </div>
+                                    <div class="form-group">
+                                        <button type="submit" class="botones" disabled><i class="fas fa-arrow-circle-right"></i></button>
+                                    </div>
+                                    <div class="form-group">
+                                        <button type="submit" class="botones" disabled><i class="fas fa-forward"></i></button>
+                                    </div>
+                                @endif
+                            </div>
                         </div>
-                        <div class="form-group">
-                          <button type="submit" name="acciones" value="atras" id="atras" class="botonesgrandes"><i class="fas fa-arrow-circle-left"></i></button>
-                        </div>
-                        <div class="form-group">
-                          <button type="submit" name="acciones" value="siguiente" id="siguiente" class="botonesgrandes"><i class="fas fa-arrow-circle-right"></i></button>
-                        </div>
-                        <div class="form-group">
-                          <button type="submit" name="acciones" value="ultimo" id="ultimo" class="botonesgrandes"><i class="fas fa-forward"></i></button>
-                        </div>
-                      @else
-                        <div class="form-group">
-                          <button type="submit" class="botonesgrandes" disabled><i class="fas fa-backward" ></i></button>
-                        </div>
-                        <div class="form-group">
-                          <button type="submit" class="botonesgrandes" disabled><i class="fas fa-arrow-circle-left"></i></button>
-                        </div>
-                        <div class="form-group">
-                          <button type="submit" class="botonesgrandes" disabled><i class="fas fa-arrow-circle-right"></i></button>
-                        </div>
-                        <div class="form-group">
-                          <button type="submit" class="botonesgrandes" disabled><i class="fas fa-forward"></i></button>
-                        </div>
-                      @endif
-                    @endcanany
+                    </div>
+                @endcanany
                     <!--eSPACIO ENTRE BOTONES-->
                     &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
                     &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
