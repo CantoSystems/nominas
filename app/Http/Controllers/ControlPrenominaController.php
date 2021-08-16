@@ -499,13 +499,7 @@
 
         $sumaImss = $percepcionesImss->sum('total');
         
-        return view('prenomina.controlPrenomina', compact('empleados','portipopercepciones','portipodeducciones','ControlPrenomina','sumaImss'));
-    }
-
-    public function excelPrenomina(Request $request){
-        $nominaControl =  $request['datosPrenomina'];
-        $control = explode("¬",$nominaControl);
-        return view('prenomina.export-excel', compact('control'));
+        return view('prenomina.controlPrenomina', compact('empleados','portipopercepciones','portipodeducciones','ControlPrenomina','sumaImss','clave'));
     }
 
     public function exportExcel(){
@@ -516,9 +510,7 @@
         $sd = $this->sueldo_horas($idEmp);
         $diasTomadosPeriodo = $this->vacacionesEmpleadoPeriodo($claveEmp); 
         //Dias de vacaciones tomados en el periodo
-
         $diasVacaciones = $diasTomadosPeriodo->cantidad * $sd->sueldo_diario;
-
         return $diasVacaciones;
     }
 
@@ -648,14 +640,12 @@
         ])
         ->whereIn('clave_concepto',['001D','002D'])
         ->first();
-
         return $acumulado_ausen;
     }
 
     public function dias_trabajados($claveEmp){
         $jt = $this->jornadaTrabajo();
         $ausentismo = $this->ausentismo($claveEmp);
-
         $diasTrabajados = $jt->diasPeriodo - $ausentismo->conteoDias;
         return $diasTrabajados;
     }
@@ -677,7 +667,6 @@
         $datos_empresa = Empresa::select('primaRiesgo','porcentajeAhorro','region')
             ->where('clave','=',$clv)
             ->first();
-
         return $datos_empresa;
     }
 
@@ -749,11 +738,9 @@
 
     public function premioPunt($idEmp,$claveEmp){
         //SD*(DT)*.1
-        
         $sd = $this->sueldo_horas($idEmp);
         $diasTrabajados = $this->dias_trabajados($claveEmp);
         $premioPuntualidad = $sd->sueldo_diario*($diasTrabajados)*0.1;
-
         return $premioPuntualidad;
     }
 
@@ -761,26 +748,20 @@
         $sd = $this->sueldo_horas($idEmp);
         $dv = $this->aguinaldo_vacaciones_prima($idEmp);
         $diasTomadosPeriodo = $this->vacacionesEmpleadoPeriodo($claveEmp);
-
         $primaVacacional = (($sd->sueldo_diario*$diasTomadosPeriodo->cantidad) * $dv->prima_vacacional)/100;
-
         return $primaVacacional;
     }
 
     public function primaDominical($idEmp){
         $sd = $this->sueldo_horas($idEmp);
-
         $primaDominical = $sd->sueldo_diario * 0.25 ;
-
         return $primaDominical;
     }
 
     public function ausentismoIncapacidadDeduccion($idEmp,$claveEmp){
         $sd = $this->sueldo_horas($idEmp);
         $diasTrabajados = $this->dias_trabajados($claveEmp);
-
         $ausentismoIncapacidad = $sd->sueldo_diario * $diasTrabajados;
-
         return $ausentismoIncapacidad;
     }
 

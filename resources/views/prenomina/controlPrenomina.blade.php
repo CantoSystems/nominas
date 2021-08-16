@@ -1,23 +1,5 @@
 @extends('layouts.plantillaPrenomina')
 @section('content')
-@php
-    $cadena = '';
-@endphp
-@if(isset($ControlPrenomina))
-@foreach ($ControlPrenomina as $control)
-    @php
-        $cadena = $cadena.$control['clave_empleado'].'~';
-        $cadena = $cadena.$control['clave_concepto'].'~';
-        $cadena = $cadena.$control['concepto'].'~';
-        $cadena = $cadena.$control['monto'].'~';
-        $cadena = $cadena.$control['gravable'].'~';
-        $cadena = $cadena.$control['excento'].'~';
-        $cadena = $cadena.$control['tipo'];
-        $cadena = $cadena.'¬';
-    @endphp
-@endforeach
-@else
-@endif
 <div class="container">
     <div class="col" style="padding:0px 0px 0px 0px;">
         <div class="card card-secondary">
@@ -43,12 +25,6 @@
                         <div class="col">
                             <button type="submit" id="autorizar"style='width:125px; height:38px;'>Autorizar Nómina</button>
                         </div>
-                        <!--<div class="col">
-                            <form action="{{ route('control.excel') }}">
-                                <input type="hidden" name="datosPrenomina" value="<?php echo $cadena; ?>">
-                                <button type="submit" style='width:125px; height:38px;'>Descargar excel</button>
-                            </form>
-                        </div>-->
                         <div class="col">
                             <form action="{{ route('control.excel3') }}">
                                 <button type="submit" style='width:125px; height:38px;'>Descargar Excel</button>
@@ -59,7 +35,7 @@
                     <div class="card-header" style="background-color:darkgrey;padding:6px 6px 6px 6px; color:white">
                         <h6 class="card-title">
                             Empleado: 
-                            @if(isset($clave))
+                            @if(isset($portipopercepciones))
                                 {{$clave->nombre ?? ''}} {{$clave->apellido_paterno ?? ''}} {{$clave->apellido_materno ?? ''}}
                             @else
                                 No ha seleccionado ningun empleado
