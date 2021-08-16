@@ -319,14 +319,6 @@
               </a>
               <ul class="nav nav-treeview">
                 <li class="nav-item">
-                  <a name="botonNominas" id="botonNominas" href="{{ route('prenomina.index')}}" class="nav-link active">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>Prenómina</p>
-                  </a>
-                </li>
-              </ul>
-              <ul class="nav nav-treeview">
-                <li class="nav-item">
                   <a href="{{ route('reportnomina.index')}}" class="nav-link active">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Nómina normal</p>

@@ -55,14 +55,7 @@
                   <i class="right fas fa-angle-left"></i>
                 </p>
               </a>
-              <!--<ul class="nav nav-treeview">
-                <li class="nav-item {{!Route::is('empleados.index') ?: 'active'}}">
-                  <a href="{{ route('empleados.index')}}" class="nav-link active">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>Empleados</p>
-                  </a>
-                </li>
-              </ul>-->
+              
               <ul class="nav nav-treeview">
                 <li class="nav-item {{!Route::is('emplea.index') ?: 'active'}}">
                   <a href="{{ route('emplea.index')}}" class="nav-link active">

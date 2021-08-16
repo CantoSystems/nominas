@@ -26,7 +26,7 @@ class IncidenController extends Controller{
                 ->join('empleados','empleados.clave_empleado','=','incidencias.clave_empleado')
                 ->join('conceptos','conceptos.clave_concepto','=','incidencias.clave_concepto')
                 ->select('incidencias.*','empleados.*','conceptos.concepto')
-                >orderBy('id_incidencia')->get();
+                ->orderBy('id_incidencia')->get();
 
                 return view('incidencias.incidencias2',compact('incidencias2','incidencias'));
             break;
