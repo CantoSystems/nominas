@@ -11,9 +11,6 @@
                     {{ session('registro')}}
                 </div>
             @endif
-            <div class="alert alert-danger divPrestamos" role="alert" style="display: none;">
-                El empleado no cuenta con <b id="nomConceptob"></b> registrados.
-            </div>
             <form id="formIncidencias" autocomplete="off">
                 <meta name="csrf-token" content="{{ csrf_token() }}">
                 <div class="row justify-content-center">
