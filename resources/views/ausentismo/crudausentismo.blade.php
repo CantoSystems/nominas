@@ -20,13 +20,14 @@
                                 <th>Fecha ausentismo</th>
                                 <th>Incapacidad </th>
                                 <th>Descripción</th>
+                                <th>Visualizar</th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach($aux as $ausent)
                                 <tr>
                                     <td>
-                                        {{$ausent->id ?? ''}}  
+                                        {{$ausent->identificador ?? ''}}  
                                     </td>
                                     <td>
                                         {{$ausent->clave_empleado ?? ''}}
@@ -49,6 +50,13 @@
                                     </td>
                                     <td>
                                         {{$ausent->descripcion ?? ''}}
+                                    </td>
+                                    <td>
+                                        <a href="{{ route('ausentismo.visualizar', $ausent->identificador ) }}">
+                                            <button type="submit" class="botones-modales">
+                                                <i class="far fa-eye"></i>
+                                            </button>
+                                        </a>
                                     </td>
                                 </tr>
                             @endforeach

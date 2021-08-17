@@ -140,8 +140,9 @@ Route::delete('horas-extras/delete/{id_tiempo}', 'ExtrasController@elimina')->na
 Route::get('/ausencia','AusenciaController@index')->name('ausencia.index');
 Route::post('/ausencia/enviamultiple','AusenciaController@store')->name('ausencia.store');
 
-//ausentismo
+//ausentismo - Crud
 Route::get('/ausentismo','AusentismoController@index')->name('ausentismo.index');
+Route::get('/ausentismo/visualizar/{id}','AusentismoController@show')->name('ausentismo.visualizar');
 Route::post('/ausentismo/busqueda','AusentismoController@mostrarempleado')->name('ausentismo.mostrarempleado');
 Route::post('/ausentismo/busquedaconcepto','AusentismoController@mostrarconcepto')->name('ausentismo.mostrarconcepto');
 Route::delete('ausentismo/delete/{id}', 'AusentismoController@eliminar')->name('ausentismo.destroy');
