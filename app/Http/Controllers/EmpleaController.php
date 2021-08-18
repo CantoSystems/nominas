@@ -220,7 +220,6 @@ class EmpleaController extends Controller
                 # code...
                 break;
         }
-        
     }
 
     /**
