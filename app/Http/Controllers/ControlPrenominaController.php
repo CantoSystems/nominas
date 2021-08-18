@@ -45,11 +45,11 @@
         $accion = $request->acciones;
 
         $empleados = DB::connection('DB_Serverr')->table('empleados')
-        ->join('departamentos','departamentos.clave_departamento','=','empleados.clave_departamento')
-        ->join('puestos','puestos.clave_puesto','=','empleados.clave_puesto')
-        ->join('areas','areas.clave_area', '=','departamentos.clave_area')
-        ->select('empleados.*','departamentos.*','areas.*','puestos.*')
-        ->get();
+                     ->join('departamentos','departamentos.clave_departamento','=','empleados.clave_departamento')
+                     ->join('puestos','puestos.clave_puesto','=','empleados.clave_puesto')
+                     ->join('areas','areas.clave_area', '=','departamentos.clave_area')
+                     ->select('empleados.*','departamentos.*','areas.*','puestos.*')
+                     ->get();
 
         return view('prenomina.controlPrenomina', compact('empleados'));
     }
@@ -63,32 +63,32 @@
             $data = json_decode($value);
         }
 
-        $clv = Session::get('clave_empresa');
-        $clv_empresa = $this->conectar($clv);
         $periodo = Session::get('num_periodo');
         $fecha_periodo = now()->toDateString();
+        
+        $clv = Session::get('clave_empresa');
+        $clv_empresa = $this->conectar($clv);
         \Config::set('database.connections.DB_Serverr', $clv_empresa);
 
         foreach ($data as $value) {
-            DB::connection('DB_Serverr')->insert('INSERT INTO prenomina (
-                clave_empleado,
-                prenomina_periodo,
-                clave_concepto,
-                monto,
-                gravable,
-                excento,
-                status_prenomina,
-                created_at,
-                updated_at
-            )values(?,?,?,?,?,?,?,?,?)',[$value->clvEmp
-                                       ,$periodo
-                                       ,$value->concepto
-                                       ,$value->monto
-                                       ,$value->gravable
-                                       ,$value->excento
-                                       ,1
-                                       ,$fecha_periodo
-                                       ,$fecha_periodo]);
+            DB::connection('DB_Serverr')->insert('INSERT INTO prenomina (clave_empleado,
+                                                                         prenomina_periodo,
+                                                                         clave_concepto,
+                                                                         monto,
+                                                                         gravable,
+                                                                         excento,
+                                                                         status_prenomina,
+                                                                         created_at,
+                                                                         updated_at
+                                                                )values(?,?,?,?,?,?,?,?,?)',[$value->clvEmp
+                                                                                            ,$periodo
+                                                                                            ,$value->concepto
+                                                                                            ,$value->monto
+                                                                                            ,$value->gravable
+                                                                                            ,$value->excento
+                                                                                            ,1
+                                                                                            ,$fecha_periodo
+                                                                                            ,$fecha_periodo]);
         }
     }
 
@@ -120,6 +120,47 @@
         return $collection = collect(['002I','ISR',$isr]);
     }
 
+    public function pensionAlimenticia(Request $request){
+        $periodo = Session::get('num_periodo');
+        $clv = Session::get('clave_empresa');
+        $clv_empresa = $this->conectar($clv);
+        \Config::set('database.connections.DB_Serverr', $clv_empresa);
+
+        $pension = DB::connection('DB_Serverr')->table('incidencias')
+                   ->where([
+                       ['clave_empleado','=',$request->clvEmp],
+                       ['periodo_incidencia','=',$periodo]
+                   ])
+                   ->whereIn('clave_concepto',['018D','020D'])
+                   ->count();
+
+        if($pension!=0){
+            $pension = DB::connection('DB_Serverr')->table('incidencias')
+                       ->join('conceptos','conceptos.clave_concepto','=','incidencias.clave_concepto')
+                       ->select('incidencias.monto','conceptos.concepto','conceptos.clave_concepto')
+                       ->where([
+                           ['clave_empleado','=',$request->clvEmp],
+                           ['periodo_incidencia','=',$periodo]
+                       ])
+                       ->whereIn('incidencias.clave_concepto',['018D','020D'])
+                       ->first();
+
+            if($pension->clave_concepto == '018D'){
+                $descuentoPension = ($pension->monto * $request->totalSueldo)/100;
+                $sueldoTotal = $request->totalSueldo - $descuentoPension;
+            }else{
+                $descuentoPension = $pension->monto;
+                $sueldoTotal = $request->totalSueldo - $descuentoPension;
+            }
+
+            return $collection = collect([$pension->clave_concepto,$pension->concepto,$sueldoTotal,$descuentoPension]);
+        }else{
+            $sueldoTotal = $request->totalSueldo;
+
+            return $collection = collect(['','',$sueldoTotal,'']);
+        }
+    }
+
     public function calcularIMSS(Request $request){
         $clv = Session::get('clave_empresa');
         $num_periodo = Session::get('num_periodo');
@@ -128,18 +169,18 @@
         \Config::set('database.connections.DB_Serverr', $clv_empresa);
 
         $empleados = DB::connection('DB_Serverr')->table('empleados')
-        ->select('id_emp','sueldo_diario','dias')   
-        ->where('clave_empleado','=',$request->clvEmp)
-        ->first();
+                     ->select('id_emp','sueldo_diario','dias')   
+                     ->where('clave_empleado','=',$request->clvEmp)
+                     ->first();
 
         $conceptos = DB::connection('DB_Serverr')->table('conceptos')
-        ->select('imss_porcentaje','concepto')
-        ->where([
-            ['seleccionado','=',1],
-            ['imss','=',1],
-            ['imss_porcentaje','!=',0.00]
-        ])
-        ->get();
+                     ->select('imss_porcentaje','concepto')
+                     ->where([
+                         ['seleccionado','=',1],
+                         ['imss','=',1],
+                         ['imss_porcentaje','!=',0.00]
+                     ])
+                     ->get();
 
         $at = $this->anios_trabajados($empleados->id_emp);
         if($at == 0){
@@ -190,16 +231,16 @@
         \Config::set('database.connections.DB_Serverr', $clv_empresa);
 
         $empleados = DB::connection('DB_Serverr')->table('empleados')
-        ->join('departamentos','departamentos.clave_departamento','=','empleados.clave_departamento')
-        ->join('puestos','puestos.clave_puesto','=','empleados.clave_puesto')
-        ->join('areas','areas.clave_area', '=','departamentos.clave_area')
-        ->select('empleados.*','areas.*','departamentos.*','puestos.*')
-        ->get();
+                     ->join('departamentos','departamentos.clave_departamento','=','empleados.clave_departamento')
+                     ->join('puestos','puestos.clave_puesto','=','empleados.clave_puesto')
+                     ->join('areas','areas.clave_area', '=','departamentos.clave_area')
+                     ->select('empleados.*','areas.*','departamentos.*','puestos.*')
+                     ->get();
         
         $conceptos = DB::connection('DB_Serverr')->table('conceptos')
-        ->select('clave_concepto','isr','isr_uma','isr_porcentaje')   
-        ->where('seleccionado','=',1)
-        ->get();
+                     ->select('clave_concepto','isr','isr_uma','isr_porcentaje')   
+                     ->where('seleccionado','=',1)
+                     ->get();
 
         $ControlPrenomina = collect();
         $percepcionesImss = Collect();
@@ -898,7 +939,7 @@
         \Config::set('database.connections.DB_Serverr', $clv_empresa);
 
         $totalAdicional = DB::connection('DB_Serverr')->table('incidencias')
-                          ->select(DB::raw('CASE WHEN COUNT(`monto`) = " " THEN 0 ELSE SUM(`monto`) END as monto'))
+                          ->select(DB::raw('CASE WHEN COUNT(importe) = " " THEN 0 ELSE SUM(importe) END as monto'))
                           ->where([
                               ['clave_concepto','=',$claveConcepto],
                               ['clave_empleado','=',$claveEmp],

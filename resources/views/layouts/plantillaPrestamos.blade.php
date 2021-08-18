@@ -372,97 +372,97 @@
     <!--Funcionamiento de Ausentismo Autocompletado -->
     <!-- Scripts para Autocomplete empleados y conceptos -->
     <script>
-       $('#concepto_clave').keyup(function(){
-          let consulta = $(this).val();  
-            if(consulta != ''){
-              let _token = $('input[name="_token"]').val();
-              $.ajax({
-                url:"{{ route('ausentismo.mostrarconcepto') }}",
-                method: "POST",
-                data:{consulta:consulta,_token:_token},
-                success:function(data){
-                  $('#listaconcepto_clave').fadeIn();
-                  $('#listaconcepto_clave').html(data);
-                }
-              });
-            }
-        });
+      $('#concepto_clave').keyup(function(){
+        let consulta = $(this).val();  
+          if(consulta != ''){
+            let _token = $('input[name="_token"]').val();
+            $.ajax({
+              url:"{{ route('ausentismo.mostrarconcepto') }}",
+              method: "POST",
+              data:{consulta:consulta,_token:_token},
+              success:function(data){
+                $('#listaconcepto_clave').fadeIn();
+                $('#listaconcepto_clave').html(data);
+              }
+            });
+          }
+      });
 
-        $(document).on('click','#concepto',function(){
-          let infoconcepto = $(this).text();
-          let concep = infoconcepto.substring(0,4);
-          let nombreConcepto = infoconcepto.substring(4);
-          $('#concepto_clave').val(concep);
-          $('#listaconcepto_clave').fadeOut();
-          $('#nomConcepto').val(nombreConcepto);
-        });
-        $('.clave_empledo').keyup(function(){
-          let query = $(this).val();  
-            if(query != ''){
-              let _token = $('input[name="_token"]').val();
-              $.ajax({
-                url:"{{ route('ausentismo.mostrarempleado') }}",
-                method: "POST",
-                data:{query:query,_token:_token},
-                success:function(data){
-                  $('.listaclave_empleado').fadeIn();
-                  $('.listaclave_empleado').html(data);
-                  let sueldo = $("#sueldoDiario").val();
-                  
-                  $(document).on('click','#concepto',function(){
-                    let info_concepto = $(this).text();
-                    let concep_clave = info_concepto.substring(0,4);
-                    if(concep_clave == "013P"){
-                      $("#importe_incidencias").val(sueldo);
-                      $("#importe_incidencias").attr("disabled", true);
-                    }else{
-                      $("#importe_incidencias").val('');
-                      $("#importe_incidencias").attr("disabled", false);
-                    }
-                  });
-                }
-              });
-            }
-        });
-        
-        $('.clave_empledo').keyup(function(){
-          let query = $(this).val();  
-            if(query != ''){
-              let _token = $('input[name="_token"]').val();
-              $.ajax({
-                url:"{{ route('ausentismo.mostrarempleado') }}",
-                method: "POST",
-                data:{query:query,_token:_token},
-                success:function(data){
-                  $('.listaclave_empleado').fadeIn();
-                  $('.listaclave_empleado').html(data);
-                }
-              });
-            }
-        });
+      $(document).on('click','#concepto',function(){
+        let infoconcepto = $(this).text();
+        let concep = infoconcepto.substring(0,4);
+        let nombreConcepto = infoconcepto.substring(4);
+        $('#concepto_clave').val(concep);
+        $('#listaconcepto_clave').fadeOut();
+        $('#nomConcepto').val(nombreConcepto);
+      });
+      $('.clave_empledo').keyup(function(){
+        let query = $(this).val();  
+          if(query != ''){
+            let _token = $('input[name="_token"]').val();
+            $.ajax({
+              url:"{{ route('ausentismo.mostrarempleado') }}",
+              method: "POST",
+              data:{query:query,_token:_token},
+              success:function(data){
+                $('.listaclave_empleado').fadeIn();
+                $('.listaclave_empleado').html(data);
+                let sueldo = $("#sueldoDiario").val();
+                
+                $(document).on('click','#concepto',function(){
+                  let info_concepto = $(this).text();
+                  let concep_clave = info_concepto.substring(0,4);
+                  if(concep_clave == "013P"){
+                    $("#importe_incidencias").val(sueldo);
+                    $("#importe_incidencias").attr("disabled", true);
+                  }else{
+                    $("#importe_incidencias").val('');
+                    $("#importe_incidencias").attr("disabled", false);
+                  }
+                });
+              }
+            });
+          }
+      });
+      
+      $('.clave_empledo').keyup(function(){
+        let query = $(this).val();  
+          if(query != ''){
+            let _token = $('input[name="_token"]').val();
+            $.ajax({
+              url:"{{ route('ausentismo.mostrarempleado') }}",
+              method: "POST",
+              data:{query:query,_token:_token},
+              success:function(data){
+                $('.listaclave_empleado').fadeIn();
+                $('.listaclave_empleado').html(data);
+              }
+            });
+          }
+      });
 
-        $(document).on('click','#empleado',function(){
-            let infoempleado = $(this).text();
-            let empleado_nombre = infoempleado.substring(4);
-            let empleado_clave = infoempleado.substring(0,4);
-            $('.clave_empledo').val(empleado_clave);
-            $('.listaclave_empleado').fadeOut();
-            $('.nombre_empleado').val(empleado_nombre);
-        });
+      $(document).on('click','#empleado',function(){
+        let infoempleado = $(this).text();
+        let empleado_nombre = infoempleado.substring(4);
+        let empleado_clave = infoempleado.substring(0,4);
+        $('.clave_empledo').val(empleado_clave);
+        $('.listaclave_empleado').fadeOut();
+        $('.nombre_empleado').val(empleado_nombre);
+      });
 
-        $('#importePrestamo').change(function(){
-            let importe = $(this).val();
-            let monto = $('#montoPrestamo').val();
-            $('#cantidadPrestamo').val((monto/importe).toFixed(2));
-        });
+      $('#importePrestamo').change(function(){
+        let importe = $(this).val();
+        let monto = $('#montoPrestamo').val();
+        $('#cantidadPrestamo').val((monto/importe).toFixed(2));
+      });
 
-        $('#montoPrestamo').change(function(){
-            let monto = $(this).val();
-            let importe = $('#importePrestamo').val();
-            $('#cantidadPrestamo').val((monto/importe).toFixed(2));
-        });
+      $('#montoPrestamo').change(function(){
+        let monto = $(this).val();
+        let importe = $('#importePrestamo').val();
+        $('#cantidadPrestamo').val((monto/importe).toFixed(2));
+      });
 
-        $(document).ready(function(){
+      $(document).ready(function(){
         let i = 1;
         $('#agregarPrestamo').click(function(e){
           i++;

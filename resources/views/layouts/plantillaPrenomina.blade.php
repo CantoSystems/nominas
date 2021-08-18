@@ -376,171 +376,223 @@
     <script src="{{asset('/script-personalizados/funcionamientoBotones.js')}}"></script>
     <!--Validaciones inputs mayusculas, números y letras-->
     <script src="{{asset('/script-personalizados/validacionesInput.js')}}"></script>
-     <!-- Scripts para Prenómina-->
-     <script>
-        $(document).ready(function(){
-          /* Scripts para generar los resultados de las operaciones al cargar la página */
-          let importe_total = 0
-          $(".totales").each(function(index, value) {
-            if($.isNumeric($(this).val())){
-              importe_total = importe_total + eval($(this).val());
-            }
-          });
-          $(".totalPercepciones").val(importe_total.toFixed(2));
-  
-          let importe_total2 = 0
-          $(".totales2").each(function(index, value) {
-            if($.isNumeric($(this).val())){
-              importe_total2 = importe_total2 + eval($(this).val());
-            }
-          });
-          $(".totalDeducciones").val(importe_total2.toFixed(2));
-  
-          /* Suma Percepciones Gravadas */
-          let importe_totalGrav = 0
-          $(".percepGrav").each(function(index, value) {
-            if($.isNumeric($(this).val())){
-              importe_totalGrav = importe_totalGrav + eval($(this).val());
-            }
-          });
-          $(".totalPercepcionesGravadas").val(importe_totalGrav);
-          //console.log(importe_totalGrav);
-  
-          /* Suma Percepciones NO Gravadas */
-          let importe_totalNoGrav = 0
-          $(".percepExcentas").each(function(index, value) {
-            if($.isNumeric($(this).val())){
-              importe_totalNoGrav = importe_totalNoGrav + eval($(this).val());
-            }
-          });
-          $(".totalPercepcionesExcentas").val(importe_totalNoGrav);
-          //console.log(importe_totalNoGrav);
-  
-          $.ajax({
-            url: "{{ route('control.Impuestos') }}",
-            method: "POST",
-            data: {
-              _token: $("meta[name='csrf-token']").attr("content"),
-              totalPercepcionesGrav: $('.totalPercepcionesGravadas').val(),
-              totalPercepcionesNoGrav: $('.totalPercepcionesExcentas').val(),
-            },
-            success: function(data){
-              //console.log(data);
-              let htmlTags = '<tr>'+
-                                '<td style="text-align: center;">' + data[0] + '</td>'+
-                                '<td style="text-align: center;">' + data[1] + '</td>'+
-                                '<td style="text-align: center;">$ ' + data[2].toFixed(2) + 
-                                '<input class="totales3" id="trabajadorIsr" type="hidden" value=" ' + data[2].toFixed(2) + ' ">'+
-                                '</td>'+
-                              '</tr>'
-              $('#filasImpuestos tbody').append(htmlTags);
-            },
-            error: function(xhr, status, error) {
-              var err = JSON.parse(xhr.responseText);
-              console.log(err.Message);
-            }
-          });
-  
-          $.ajax({
-            url: "{{ route('control.IMSS') }}",
-            method: "POST",
-            data: {
-              _token: $("meta[name='csrf-token']").attr("content"),
-              clvEmp: $('.clvEmp').val(),
-              totalImss: $('.totalPercepcionesIMSS').val(),
-            },
-            success: function(data){
-              //console.log(data);
-              let htmlTags = '<tr>'+
-                                '<td style="text-align: center;">' + data[0] + '</td>'+
-                                '<td style="text-align: center;">' + data[1] + '</td>'+
-                                '<td  style="text-align: center;">$ ' + data[2].toFixed(2) + 
-                                '<input  class="totales3" id="trabajadorImss" type="hidden" value=" ' + data[2].toFixed(2) + ' ">'+
-                                '</td>'+
-                              '</tr>'
-              $('#filasImpuestos tbody').append(htmlTags);
-              //let tota = $("#trabajadorImss").val();
-              //let tot = $("#trabajador").val();
-              //console.log(tot);
-              
-              let importe_total3 = 0;
-              $(".totales3").each(function(index, value){
-                if($.isNumeric($(this).val())){
-                  importe_total3 = importe_total3 + eval($(this).val());
+    <!-- Scripts para Prenómina-->
+    <script>
+      $(document).ready(function(){
+        /* Scripts para generar los resultados de las operaciones al cargar la página */
+        let importe_total = 0
+        $(".totales").each(function(index, value) {
+          if($.isNumeric($(this).val())){
+            importe_total = importe_total + eval($(this).val());
+          }
+        });
+        $(".totalPercepciones").val(importe_total.toFixed(2));
+
+        let importe_total2 = 0
+        $(".totales2").each(function(index, value) {
+          if($.isNumeric($(this).val())){
+            importe_total2 = importe_total2 + eval($(this).val());
+          }
+        });
+        $(".totalDeducciones").val(importe_total2.toFixed(2));
+
+        /* Suma Percepciones Gravadas */
+        let importe_totalGrav = 0
+        $(".percepGrav").each(function(index, value) {
+          if($.isNumeric($(this).val())){
+            importe_totalGrav = importe_totalGrav + eval($(this).val());
+          }
+        });
+        $(".totalPercepcionesGravadas").val(importe_totalGrav);
+
+        /* Suma Percepciones NO Gravadas */
+        let importe_totalNoGrav = 0
+        $(".percepExcentas").each(function(index, value) {
+          if($.isNumeric($(this).val())){
+            importe_totalNoGrav = importe_totalNoGrav + eval($(this).val());
+          }
+        });
+        $(".totalPercepcionesExcentas").val(importe_totalNoGrav);
+
+        /* Script para calcular los impuestos */
+        $.ajax({
+          url: "{{ route('control.Impuestos') }}",
+          method: "POST",
+          data: {
+            _token: $("meta[name='csrf-token']").attr("content"),
+            totalPercepcionesGrav: $('.totalPercepcionesGravadas').val(),
+            totalPercepcionesNoGrav: $('.totalPercepcionesExcentas').val(),
+          },
+          success: function(data){
+            let htmlTags = '<tr>'+
+                              '<td style="text-align: center;">' + data[0] + '</td>'+
+                              '<td style="text-align: center;">' + data[1] + '</td>'+
+                              '<td style="text-align: center;">$ ' + data[2].toFixed(2) + 
+                              '<input class="totales3" id="trabajadorIsr" type="hidden" value=" ' + data[2].toFixed(2) + ' ">'+
+                              '</td>'+
+                            '</tr>'
+            $('#filasImpuestos tbody').append(htmlTags);
+          },
+          error: function(xhr, status, error) {
+            var err = JSON.parse(xhr.responseText);
+            console.log(err.Message);
+          }
+        });
+
+        /* Script para calcular el IMSS */
+        $.ajax({
+          url: "{{ route('control.IMSS') }}",
+          method: "POST",
+          data: {
+            _token: $("meta[name='csrf-token']").attr("content"),
+            clvEmp: $('.clvEmp').val(),
+            totalImss: $('.totalPercepcionesIMSS').val(),
+          },
+          success: function(data){
+            let htmlTags = '<tr>'+
+                              '<td style="text-align: center;">' + data[0] + '</td>'+
+                              '<td style="text-align: center;">' + data[1] + '</td>'+
+                              '<td  style="text-align: center;">$ ' + data[2].toFixed(2) + 
+                              '<input  class="totales3" id="trabajadorImss" type="hidden" value=" ' + data[2].toFixed(2) + ' ">'+
+                              '</td>'+
+                            '</tr>'
+            $('#filasImpuestos tbody').append(htmlTags);
+
+            let importe_total3 = 0;
+            $(".totales3").each(function(index, value){
+              if($.isNumeric($(this).val())){
+                importe_total3 = importe_total3 + eval($(this).val());
+              }
+            });
+            $(".totalImpuestosTrabajador").val(importe_total3.toFixed(2));
+            totalImpuestos = $(".totalImpuestosTrabajador").val();
+            totalDeducciones = $(".totalDeducciones").val();
+            totalPercepciones = $(".totalPercepciones").val();
+            totalSueldoIn = totalPercepciones - totalDeducciones - totalImpuestos;
+            $.ajax({
+              url: "{{ route('control.pension') }}",
+              method: "POST",
+              data: {
+                _token: $("meta[name='csrf-token']").attr("content"),
+                clvEmp: $('.clvEmp').val(),
+                totalSueldo: totalSueldoIn
+              },
+              success: function(data){
+                if(data[0] != ''){
+                  $('.otrasDeducciones').css('display', 'block');
+                  let htmlTags = '<tr>'+
+                                  '<td style="text-align: center;">' + data[0] + '</td>'+
+                                  '<td style="text-align: center;">' + data[1] + '</td>'+
+                                  '<td style="text-align: center;">$ ' + data[3].toFixed(2) + '</td>'+
+                                '</tr>'
+
+                  $('.inputTotalOD').val(data[3].toFixed(2));
+                  $('#filasODeducciones tbody').append(htmlTags);
+                  console.log(data[2]);
                 }
-              });
-          $(".totalImpuestosTrabajador").val(importe_total3.toFixed(2));
+              },
+              error: function(xhr, status, error) {
+                var err = JSON.parse(xhr.responseText);
+                console.log(err.Message);
+              }
+            });
+          },
+          error: function(xhr, status, error) {
+            var err = JSON.parse(xhr.responseText);
+            console.log(err.Message);
+          }
+        });
+
+        /* Script para guardar los cambios hechos en los inputs */
+        $('#recalcular').click(function(e){
+          e.preventDefault();
+          let myTableArray = [];
+          document.querySelectorAll('.prueba tbody tr').forEach(function(e){
+            let fila = {
+              idPre: e.querySelector('.idPrenomina').value,
+              concepto: e.querySelector('.clvCncpt').value,
+              monto: e.querySelector('.monto').value
+            };
+            myTableArray.push(fila);
+            console.log(myTableArray);
+          });
+          let jsonString = JSON.stringify(myTableArray);
+          $.ajax({
+            url: "{{ route('prenomina.store') }}",
+            method: "POST",
+            data: {
+              _token: $("meta[name='csrf-token']").attr("content"),
+              info : jsonString,
+            },
+            success: function(data){
             },
             error: function(xhr, status, error) {
               var err = JSON.parse(xhr.responseText);
               console.log(err.Message);
             }
           });
-        
-          /* Script para guardar los cambios hechos en los inputs */
-          $('#recalcular').click(function(e){
-            e.preventDefault();
-            let myTableArray = [];
-            document.querySelectorAll('.prueba tbody tr').forEach(function(e){
-              let fila = {
-                idPre: e.querySelector('.idPrenomina').value,
-                concepto: e.querySelector('.clvCncpt').value,
-                monto: e.querySelector('.monto').value
-              };
-              myTableArray.push(fila);
-              console.log(myTableArray);
-            });
-            let jsonString = JSON.stringify(myTableArray);
-            $.ajax({
-              url: "{{ route('prenomina.store') }}",
-              method: "POST",
-              data: {
-                _token: $("meta[name='csrf-token']").attr("content"),
-                info : jsonString,
-              },
-              success: function(data){
-              },
-              error: function(xhr, status, error) {
-                var err = JSON.parse(xhr.responseText);
-                console.log(err.Message);
-              }
-            });
+        });
+
+        /* Script para calcular la pensión */
+        /*$.ajax({
+          url: "{{ route('control.pension') }}",
+          method: "POST",
+          data: {
+            _token: $("meta[name='csrf-token']").attr("content"),
+            clvEmp: $('.clvEmp').val(),
+            totalSueldo: $('').val(),
+          },
+          success: function(data){
+            let htmlTags = '<tr>'+
+                              '<td style="text-align: center;">' + data[0] + '</td>'+
+                              '<td style="text-align: center;">' + data[1] + '</td>'+
+                              '<td style="text-align: center;">$ ' + data[2].toFixed(2) + 
+                              '<input class="totales3" id="trabajadorImss" type="hidden" value=" ' + data[2].toFixed(2) + ' ">'+
+                              '</td>'+
+                            '</tr>'
+
+            $('#filasImpuestos tbody').append(htmlTags);
+          },
+          error: function(xhr, status, error) {
+            var err = JSON.parse(xhr.responseText);
+            console.log(err.Message);
+          }
+        });*/
+      });
+    </script>
+    
+    <!--Script para el control de prenomina-->
+    <script>
+      $(document).ready(function(){
+        $('#autorizar').click(function(e){
+          e.preventDefault();
+          let myTableControl = [];
+          document.querySelectorAll('.control tbody tr').forEach(function(e){
+            let fila = {
+              concepto:   e.querySelector('.clvCncpt').value,
+              monto:      e.querySelector('.monto').value,
+              gravable:   e.querySelector('.gravable').value,
+              excento:    e.querySelector('.excento').value,
+              clvEmp:     e.querySelector('.clvEmp').value,
+            };
+            myTableControl.push(fila);
+            console.log(myTableControl);
+          });
+          let jsonString = JSON.stringify(myTableControl);
+          $.ajax({
+            url: "{{ route('control.store') }}",
+            method: "POST",
+            data: {
+              _token: $("meta[name='csrf-token']").attr("content"),
+              info : jsonString,
+            },
+            success: function(data){
+            },
+            error: function(xhr, status, error) {
+              var err = JSON.parse(xhr.responseText);
+              console.log(err.Message);
+            }
           });
         });
-      </script>
-      
-      <!--Script para el control de prenomina-->
-      <script>
-        $(document).ready(function(){
-          $('#autorizar').click(function(e){
-            e.preventDefault();
-            let myTableControl = [];
-            document.querySelectorAll('.control tbody tr').forEach(function(e){
-              let fila = {
-                concepto:   e.querySelector('.clvCncpt').value,
-                monto:      e.querySelector('.monto').value,
-                gravable:   e.querySelector('.gravable').value,
-                excento:    e.querySelector('.excento').value,
-                clvEmp:     e.querySelector('.clvEmp').value,
-              };
-              myTableControl.push(fila);
-              console.log(myTableControl);
-            });
-            let jsonString = JSON.stringify(myTableControl);
-            $.ajax({
-              url: "{{ route('control.store') }}",
-              method: "POST",
-              data: {
-                _token: $("meta[name='csrf-token']").attr("content"),
-                info : jsonString,
-              },
-              success: function(data){
-              },
-              error: function(xhr, status, error) {
-                var err = JSON.parse(xhr.responseText);
-                console.log(err.Message);
-              }
-            });
-          });
-        });
-      </script>
+      });
+    </script>
