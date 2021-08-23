@@ -531,7 +531,7 @@
                  ->select('clave_empleado','nombre','apellido_paterno','apellido_materno','id_emp')
                  ->where('id_emp','=',$id_emp)
                  ->first();
-
+    
         $calculospercepciones = $ControlPrenomina->where('clave_empleado',$clave->clave_empleado);
         $portipopercepciones = $calculospercepciones->where('tipo','P');
 

@@ -595,7 +595,7 @@
                     </div>
                     <div class="col-md-4 mb-3">
                       <label for="validationDefault03">Máquinas de Oficina o Taller que Maneje <strong style="color:red">*</strong></label>
-                      <input type="text" class="form-control" minlength="20" name="maquinas_oficina" value="{{$persona->maquinas_oficina ?? ''}}" onkeyup="mayus(this);" onkeypress="return validar(event)">
+                      <input type="text" class="form-control" maxlength="20" name="maquinas_oficina" value="{{$persona->maquinas_oficina ?? ''}}" onkeyup="mayus(this);" onkeypress="return validar(event)">
                       @error('maquinas_oficina')
                         <div class="alert alert-secondary">
                           {{ $message }}
@@ -1369,7 +1369,7 @@
                   <div class="col-md-2 mb-2">
                     <br>
                     <label for="validationDefault01">Sueldo diario <strong style="color:red">*</strong></label>
-                    <input type="number" class="form-control" name="sueldo_diario" value="{{$persona->sueldo_diario ?? ''}}" maxlength="5" min="0.01" max="10000.00" step="0.01" onkeypress="return numeros(event)">
+                    <input type="number" class="form-control" name="sueldo_diario" value="{{$persona->sueldo_diario ?? ''}}" maxlength="5" min="0.01" max="10000.00" step="0.01">
                     @error('sueldo_diario')
                       <div class="alert alert-secondary">
                         {{ $message }}

@@ -89,7 +89,13 @@
                     <div class="col-sm-1">
                         <div class="form-group">
                             <label>Importe:</label>
-                            <input type="number" name="importe" onkeypress="return numeros(event)" id="importe_incidencias" required class="form-control" step="0.1" data-toggle="tooltip" data-placement="center">
+                            <input type="number"    name="importe" 
+                                                    id="importe_incidencias" 
+                                                    required 
+                                                    class="form-control" 
+                                                    step="0.1" 
+                                                    data-toggle="tooltip" 
+                                                    data-placement="center">
                         </div>
                     </div>
                     <div class="col-sm-2">
