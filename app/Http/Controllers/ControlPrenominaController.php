@@ -192,7 +192,7 @@
                         ->where('anio','=',$at)
                         ->first();
         
-        $SBC = $this->SBC($prestaciones->dias,$empleados->sueldo_diario,$request->totalImss);
+        $SBC = $this->SBC($prestaciones->dias,$empleados->sueldo_diario,6000);
         $uma = $this->uma();
 
         $ims = IMSS::select('cuotatrabajador','id_imss','base')
@@ -218,7 +218,7 @@
         $primaAguinaldo = 15/365;
         $primaVacaciones = ($diasVacaciones*0.25)/365;
         $FactorIntegracion = $primaAguinaldo + $primaVacaciones + 1;
-        $SBC = ($sueldoDiario * $FactorIntegracion) + $totalIMSS; 
+        $SBC = (($sueldoDiario * $FactorIntegracion) + $totalIMSS)/15; 
 
         return $SBC;
     }
@@ -639,24 +639,23 @@
     public function anios_trabajados($idEmp){
         //Fecha Inicial del Periodo de Nómina - Fecha de Alta del Trabajador
         $num_p = Session::get('num_periodo');
-
         $clv = Session::get('clave_empresa');
         $clv_empresa = $this->conectar($clv);
         \Config::set('database.connections.DB_Serverr', $clv_empresa);
 
         $fecha_inicial = DB::connection('DB_Serverr')->table('periodos')
-        ->select('fecha_inicio')
-        ->where('numero','=',$num_p)
-        ->first();
+                         ->select('fecha_inicio')
+                         ->where('numero','=',$num_p)
+                         ->first();
 
         //Accedemos a la fecha $fecha_inicial->fecha_inicio
         //Parseando la fecha
         $inicial = now()->parse($fecha_inicial->fecha_inicio);
 
         $alta_trabajador = DB::connection('DB_Serverr')->table('empleados')
-        ->select('fecha_alta')
-        ->where('id_emp','=',$idEmp)
-        ->first();
+                           ->select('fecha_alta')
+                           ->where('id_emp','=',$idEmp)
+                           ->first();
 
         //Accedemos a la fecha alta del trabajador $alta_trabajador->fecha_alta
         //Parseando la fecha
