@@ -96,24 +96,34 @@
                                     <label>Periodo:</label>
                                     @if(isset($retencion))
                                         @if($retencion->periodo_retencion == 'MENSUAL')
-                                        <select class="custom-select personalizado" name="periodo_retencion">
-                                            <option value="{{$retencion->periodo_retencion}}">{{$retencion->periodo_retencion}}</option>
-                                             <option value="ANUAL">ANUAL</option>
-                                        </select>
-                                        @else
-                                        <select class="custom-select personalizado" name="periodo_retencion">
-                                        <option value="{{$retencion->periodo_retencion}}">{{$retencion->periodo_retencion}}</option>
-                                             <option value="MENSUAL">MENSUAL</option>
-                                        </select>
-
+                                             <select class="custom-select personalizado" name="periodo_retencion">
+                                                <option selected value="MENSUAL">MENSUAL</option>
+                                                <option value="ANUAL">ANUAL</option>
+                                                <option value="QUINCENAL"> QUINCENAL</option>
+                                            </select>
+                                        @elseif($retencion->periodo_retencion == 'QUINCENAL')
+                                            <select class="custom-select personalizado" name="periodo_retencion">
+                                                <option selected value="QUINCENAL">QUINCENAL</option>
+                                                <option value="MENSUAL">MENSUAL</option>
+                                                <option value="ANUAL">ANUAL</option>
+                                            </select>
+                                        @elseif($retencion->periodo_retencion == 'SEMANAL')
+                                            <select class="custom-select personalizado" name="periodo_retencion">
+                                                <option selected value="SEMANAL">SEMANAL</option>
+                                                <option value="MENSUAL">MENSUAL</option>
+                                                <option value="QUINCENAL">QUINCENAL</option>
+                                            </select>
                                         @endif
                                     @else
-                                    <select class="custom-select personalizado" name="periodo_retencion">
-                                        <option value="">Selecciona una opción</option>
-                                        <option value="MENSUAL">MENSUAL</option>
-                                        <option value="ANUAL">ANUAL</option>
-                                    </select>
+                                        <select class="custom-select personalizado" name="periodo_retencion">
+                                            <option value="">Selecciona una opción</option>
+                                            <option value="QUINCENAL">QUINCENAL</opotion>
+                                            <option value="MENSUAL">MENSUAL</option>
+                                            <option value="ANUAL">ANUAL</option>
+                                        </select>
                                     @endif
+
+
                                     @error('periodo_retencion')
                                         <div class="alert alert-secondary">
                                             {{ $message }}
