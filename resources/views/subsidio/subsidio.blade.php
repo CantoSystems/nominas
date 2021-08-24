@@ -49,7 +49,7 @@
                     @endif
                     <form action="{{ route('subsidio.acciones')}}" method="GET" autocomplete="off">
                         <div class="row">
-                            <div class="col-sm-4">
+                            <div class="col-sm-6">
                                 <br>
                                 <div class="form-group">
                                     <label>Para ingresos de ($):</label>
@@ -62,7 +62,7 @@
                                     @enderror
                                 </div>
                             </div>
-                            <div class="col-sm-4">
+                            <div class="col-sm-6">
                                 <br>
                                 <div class="form-group">
                                     <label>Hasta ingresos de ($):</label>
@@ -74,7 +74,7 @@
                                     @enderror
                                 </div>
                             </div>
-                            <div class="col-sm-4">
+                            <div class="col-sm-6">
                                 <div class="form-group">
                                     <label>Cantidad de subsidio para el empleo mensual ($):</label>
                                     <input type="number" name="cantidadSubsidio" value="{{ $subsidio->cantidadSubsidio ?? '' }}" class="form-control">
@@ -85,6 +85,40 @@
                                     @enderror
                                 </div>
                             </div>
+                            <div class="col-sm-6">
+                                <label>Seleccione el periodo:</label>
+                                @if(isset($subsidio))
+                                    @if($subsidio->periodo_subsidio = 'MENSUAL')
+                                    <select class="custom-select personalizado" name="periodo_subsidio">
+                                        <option selected value="MENSUAL">MENSUAL</option>
+                                        <option value="ANUAL">ANUAL</option>
+                                        <option value="QUINCENAL"> QUINCENAL</option>
+                                    </select>
+                                    @elseif($subsidio->periodo_subsidio = 'QUINCENAL')
+                                    <select class="custom-select personalizado" name="periodo_subsidio">
+                                        <option selected value="QUINCENAL">QUINCENAL</option>
+                                        <option value="MENSUAL">MENSUAL</option>
+                                        <option value="ANUAL">ANUAL</option>
+                                    </select>
+                                    @elseif($subsidio->periodo_subsidio = 'SEMANAL')
+                                    <select class="custom-select personalizado" name="periodo_subsidio">
+                                        <option selected value="SEMANAL">SEMANAL</option>
+                                        <option value="MENSUAL">MENSUAL</option>
+                                        <option value="QUINCENAL">QUINCENAL</option>
+                                    </select>
+                                    @endif
+
+                                    
+                                @else
+                                    <select class="custom-select personalizado" name="periodo_subsidio">
+                                        <option value="">Selecciona una opción</option>
+                                        <option value="QUINCENAL">QUINCENAL</opotion>
+                                        <option value="MENSUAL">MENSUAL</option>
+                                        <option value="ANUAL">ANUAL</option>
+                                    </select>
+                                @endif
+                            </div>
+
                             @canany(['administrador','capturista','reportes'])
                                 <div class="col-md-5">
                                     <div class="margin">

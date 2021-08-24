@@ -18,6 +18,7 @@ class CreateSubsidiosTable extends Migration
             $table->string('ParaIngresos');
             $table->string('hastaIngresos');
             $table->string('cantidadSubsidio');
+            $table->string('periodo_subsidio');
             $table->timestamps();
         });
     }
