@@ -96,8 +96,25 @@
         $percGrav = $request->totalPercepcionesGrav;
         $percNoGrav = $request->totalPercepcionesNoGrav;
 
+        $jt = $this->jornadaTrabajo();
+
+        switch($jt->diasPeriodo){
+            case 7: 
+                $cadenaPeriodo = 'SEMANAL';
+                break;
+            case 15:
+                $cadenaPeriodo = 'QUINCENAL';
+                break;
+            case 30:
+                $cadenaPeriodo = 'MENSUAL';
+                break;
+        }
+
         $limites = Retenciones::select('limite_inferior','limite_superior','cuota_fija','porcentaje_excedente')
-                   ->where('limite_inferior','<',$percGrav)
+                   ->where([
+                      ['limite_inferior','<',$percGrav],
+                      ['periodo_retencion','=',$cadenaPeriodo]
+                   ])
                    ->orderBy('id','desc')
                    ->first();
 
@@ -106,6 +123,10 @@
         $isrCalculado = $impuestoMarginal+$limites->cuota_fija;
 
         $subsidio = Subsidio::select('ParaIngresos','hastaIngresos','cantidadSubsidio')
+                    ->where([
+                      ['ParaIngresos','<',$percGrav],
+                      ['periodo_subsidio','=',$cadenaPeriodo]
+                    ])
                     ->where('ParaIngresos','<',$percGrav)
                     ->orderBy('id_subsidio','desc')
                     ->first();
@@ -192,7 +213,7 @@
                         ->where('anio','=',$at)
                         ->first();
         
-        $SBC = $this->SBC($prestaciones->dias,$empleados->sueldo_diario,$request->totalImss);
+        $SBC = $this->SBC($prestaciones->dias,$empleados->sueldo_diario,$request->totalImss,$request->clvEmp);
         $uma = $this->uma();
 
         $ims = IMSS::select('cuotatrabajador','id_imss','base')
@@ -214,11 +235,13 @@
         return $collection = collect(['003T','IMSS TRABAJADOR',$totalIMSS]);
     }
 
-    public function SBC($diasVacaciones,$sueldoDiario,$totalIMSS){
+    public function SBC($diasVacaciones,$sueldoDiario,$totalIMSS,$clvEmp){
+        $diasTrabajados = $this->dias_trabajados($clvEmp);
+        
         $primaAguinaldo = 15/365;
         $primaVacaciones = ($diasVacaciones*0.25)/365;
         $FactorIntegracion = $primaAguinaldo + $primaVacaciones + 1;
-        $SBC = ($sueldoDiario * $FactorIntegracion) + $totalIMSS; 
+        $SBC = (($sueldoDiario * $FactorIntegracion) + $totalIMSS)/$diasTrabajados; 
 
         return $SBC;
     }
@@ -242,9 +265,9 @@
                      ->where('seleccionado','=',1)
                      ->get();
 
-        $ControlPrenomina = collect();
         $percepcionesImss = Collect();
-        foreach($empleados as $emp){
+        $ControlPrenomina = collect();
+        foreach($empleados as $emp){    
             foreach($conceptos as $concep){
                 if($concep->clave_concepto == "001P"){
                     $resultaSueldo = $this->sueldo($emp->id_emp,$emp->clave_empleado);
@@ -257,30 +280,31 @@
                     }
 
                     $ControlPrenomina->push(["clave_empleado"=>$emp->clave_empleado,"clave_concepto"=>"001P","concepto"=>"SUELDO","monto"=>$resultaSueldo,"gravable"=>$Gravado,"excento"=>$Excento,"tipo"=> "P"]);                           
+                    $percepcionesImss->push(["idEmp"=>$id_emp,"concepto"=>"SUELDO", "total" => $Gravado]);
                 }else if($concep->clave_concepto == "002P"){
                     $resultaHoraExtraDoble = $this->criterio_horas($emp->id_emp,$emp->clave_empleado);
                     if($resultaHoraExtraDoble != 0){
                         $calculosISR = $this->calcularGravado($concep,$resultaHoraExtraDoble['horasDoblesGenerales']);
                         $Gravado = $calculosISR['percepcionGravable'];
                         $Excento = $calculosISR['percepcionExcenta'];
+
+                        $ControlPrenomina->push(["clave_empleado"=>$emp->clave_empleado,"clave_concepto"=>"002P","concepto"=>"HORAS EXTRAS DOBLES","monto"=>$resultaHoraExtraDoble["horasDoblesGenerales"],"gravable"=>$Gravado,"excento"=>$Excento,"tipo"=>"P"]);  
                     }else{
                         $Gravado = 0;
                         $Excento = 0;
                     }
-
-                    $ControlPrenomina->push(["clave_empleado"=>$emp->clave_empleado,"clave_concepto"=>"002P","concepto"=>"HORAS EXTRAS DOBLES","monto"=>$resultaHoraExtraDoble["horasDoblesGenerales"],"gravable"=>$Gravado,"excento"=>$Excento,"tipo"=>"P"]);  
                 }else if($concep->clave_concepto == "003P"){
                     $resultaHoraExtraTriple = $this->criterio_horas($emp->id_emp,$emp->clave_empleado);
                     if($resultaHoraExtraTriple != 0){
                         $Gravado = $resultaHoraExtraTriple['horasTriplesGenerales'];
                         $Excento = 0;
+
+                        $ControlPrenomina->push(["clave_empleado"=>$emp->clave_empleado,"clave_concepto"=>"003P","concepto"=>"HORAS EXTRAS TRIPLES","monto"=>$resultaHoraExtraTriple["horasTriplesGenerales"],"gravable"=>$Gravado,"excento"=>$Excento,"tipo"=> "P"]);
+                        $percepcionesImss->push(["concepto"=>"HORAS EXTRAS TRIPLES", "total" => $resultaHoraExtraTriple["horasTriplesGenerales"] ]);
                     }else{
                         $Gravado = 0;
                         $Excento = 0;
                     }
-
-                    $ControlPrenomina->push(["clave_empleado"=>$emp->clave_empleado,"clave_concepto"=>"003P","concepto"=>"HORAS EXTRAS TRIPLES","monto"=>$resultaHoraExtraTriple["horasTriplesGenerales"],"gravable"=>$Gravado,"excento"=>$Excento,"tipo"=> "P"]);
-                    $percepcionesImss->push(["concepto"=>"HORAS EXTRAS TRIPLES", "total" => $resultaHoraExtraTriple["horasTriplesGenerales"] ]);
                 }else if($concep->clave_concepto == "004P"){
                     $resultaFondoAhorro = $this->fondoAhorro($emp->id_emp);
                     if($resultaFondoAhorro != 0){
@@ -330,13 +354,13 @@
                         $calculosISR = $this->calcularGravado($concep,$resultaPrimaDominical);
                         $Gravado = $calculosISR['percepcionGravable'];
                         $Excento = $calculosISR['percepcionExcenta'];
+
+                        $ControlPrenomina->push(["clave_empleado"=>$emp->clave_empleado,"clave_concepto"=>"008P","concepto"=>"PRIMA DOMINICAL","monto"=>$resultaPrimaDominical,"gravable"=>$Gravado,"excento"=>$Excento,"tipo"=> "P"]);
+                        $percepcionesImss->push(["concepto"=>"PRIMA DOMINICAL", "total" => $resultaPrimaDominical ]);
                     }else{
                         $Gravado = 0;
                         $Excento = 0;
                     }
-
-                    $ControlPrenomina->push(["clave_empleado"=>$emp->clave_empleado,"clave_concepto"=>"008P","concepto"=>"PRIMA DOMINICAL","monto"=>$resultaPrimaDominical,"gravable"=>$Gravado,"excento"=>$Excento,"tipo"=> "P"]);
-                    $percepcionesImss->push(["concepto"=>"PRIMA DOMINICAL", "total" => $resultaPrimaDominical ]);
                 }else if($concep->clave_concepto == "009P"){
                     $montoCompensacion = $this->adicionales($emp->clave_empleado,'009P');
                     if($montoCompensacion != 0){
@@ -532,13 +556,13 @@
                  ->where('id_emp','=',$id_emp)
                  ->first();
 
+        $sumaImss = $percepcionesImss->where('idEmp',$clave->id_emp)->sum('total');
+    
         $calculospercepciones = $ControlPrenomina->where('clave_empleado',$clave->clave_empleado);
         $portipopercepciones = $calculospercepciones->where('tipo','P');
 
         $calculosdeducciones = $ControlPrenomina->where('clave_empleado',$clave->clave_empleado);
         $portipodeducciones = $calculosdeducciones->where('tipo','D');
-
-        $sumaImss = $percepcionesImss->sum('total');
         
         return view('prenomina.controlPrenomina', compact('empleados','portipopercepciones','portipodeducciones','ControlPrenomina','sumaImss','clave'));
     }
@@ -628,9 +652,9 @@
         \Config::set('database.connections.DB_Serverr', $clv_empresa);
 
         $periodos = DB::connection('DB_Serverr')->table('periodos')
-        ->select('diasPeriodo','fecha_inicio')
-        ->where('numero','=',$num_periodo)
-        ->first();
+                    ->select('diasPeriodo','fecha_inicio')
+                    ->where('numero','=',$num_periodo)
+                    ->first();
 
         // se retorna los días del periodo
         return $periodos;
@@ -639,24 +663,23 @@
     public function anios_trabajados($idEmp){
         //Fecha Inicial del Periodo de Nómina - Fecha de Alta del Trabajador
         $num_p = Session::get('num_periodo');
-
         $clv = Session::get('clave_empresa');
         $clv_empresa = $this->conectar($clv);
         \Config::set('database.connections.DB_Serverr', $clv_empresa);
 
         $fecha_inicial = DB::connection('DB_Serverr')->table('periodos')
-        ->select('fecha_inicio')
-        ->where('numero','=',$num_p)
-        ->first();
+                         ->select('fecha_inicio')
+                         ->where('numero','=',$num_p)
+                         ->first();
 
         //Accedemos a la fecha $fecha_inicial->fecha_inicio
         //Parseando la fecha
         $inicial = now()->parse($fecha_inicial->fecha_inicio);
 
         $alta_trabajador = DB::connection('DB_Serverr')->table('empleados')
-        ->select('fecha_alta')
-        ->where('id_emp','=',$idEmp)
-        ->first();
+                           ->select('fecha_alta')
+                           ->where('id_emp','=',$idEmp)
+                           ->first();
 
         //Accedemos a la fecha alta del trabajador $alta_trabajador->fecha_alta
         //Parseando la fecha
@@ -674,13 +697,14 @@
         \Config::set('database.connections.DB_Serverr', $clv_empresa);
         
         $acumulado_ausen = DB::connection('DB_Serverr')->table('ausentismos')
-        ->select(DB::raw('CASE WHEN COUNT(`cantidad_ausentismo`) = "" THEN 0 ELSE SUM(`cantidad_ausentismo`) END as conteoDias'))
-        ->where([
-            ['clave_empleado','=',$claveEmp],
-            ['ausentismo_periodo','=',$num_periodo]
-        ])
-        ->whereIn('clave_concepto',['001D','002D'])
-        ->first();
+                           ->select(DB::raw('CASE WHEN COUNT(`cantidad_ausentismo`) = "" THEN 0 ELSE SUM(`cantidad_ausentismo`) END as conteoDias'))
+                           ->where([
+                               ['clave_empleado','=',$claveEmp],
+                               ['ausentismo_periodo','=',$num_periodo]
+                           ])
+                           ->whereIn('clave_concepto',['001D','002D'])
+                           ->first();
+
         return $acumulado_ausen;
     }
 
@@ -688,6 +712,7 @@
         $jt = $this->jornadaTrabajo();
         $ausentismo = $this->ausentismo($claveEmp);
         $diasTrabajados = $jt->diasPeriodo - $ausentismo->conteoDias;
+
         return $diasTrabajados;
     }
 
