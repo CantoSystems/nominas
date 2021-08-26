@@ -280,7 +280,7 @@
                     }
 
                     $ControlPrenomina->push(["clave_empleado"=>$emp->clave_empleado,"clave_concepto"=>"001P","concepto"=>"SUELDO","monto"=>$resultaSueldo,"gravable"=>$Gravado,"excento"=>$Excento,"tipo"=> "P"]);                           
-                    $percepcionesImss->push(["idEmp"=>$id_emp,"concepto"=>"SUELDO", "total" => $Gravado]);
+                    $percepcionesImss->push(["clave_empleado"=>$emp->clave_empleado,"concepto"=>"SUELDO", "total" => $Gravado]);
                 }else if($concep->clave_concepto == "002P"){
                     $resultaHoraExtraDoble = $this->criterio_horas($emp->id_emp,$emp->clave_empleado);
                     if($resultaHoraExtraDoble != 0){
@@ -300,7 +300,7 @@
                         $Excento = 0;
 
                         $ControlPrenomina->push(["clave_empleado"=>$emp->clave_empleado,"clave_concepto"=>"003P","concepto"=>"HORAS EXTRAS TRIPLES","monto"=>$resultaHoraExtraTriple["horasTriplesGenerales"],"gravable"=>$Gravado,"excento"=>$Excento,"tipo"=> "P"]);
-                        $percepcionesImss->push(["concepto"=>"HORAS EXTRAS TRIPLES", "total" => $resultaHoraExtraTriple["horasTriplesGenerales"] ]);
+                        $percepcionesImss->push(["clave_empleado"=>$emp->clave_empleado,"concepto"=>"HORAS EXTRAS TRIPLES", "total" => $resultaHoraExtraTriple["horasTriplesGenerales"] ]);
                     }else{
                         $Gravado = 0;
                         $Excento = 0;
@@ -356,7 +356,7 @@
                         $Excento = $calculosISR['percepcionExcenta'];
 
                         $ControlPrenomina->push(["clave_empleado"=>$emp->clave_empleado,"clave_concepto"=>"008P","concepto"=>"PRIMA DOMINICAL","monto"=>$resultaPrimaDominical,"gravable"=>$Gravado,"excento"=>$Excento,"tipo"=> "P"]);
-                        $percepcionesImss->push(["concepto"=>"PRIMA DOMINICAL", "total" => $resultaPrimaDominical ]);
+                        $percepcionesImss->push(["clave_empleado"=>$emp->clave_empleado,"concepto"=>"PRIMA DOMINICAL", "total" => $resultaPrimaDominical ]);
                     }else{
                         $Gravado = 0;
                         $Excento = 0;
@@ -369,7 +369,7 @@
                         $Excento = $calculosISR['percepcionExcenta'];
 
                         $ControlPrenomina->push(["clave_empleado"=>$emp->clave_empleado,"clave_concepto"=>"009P","concepto"=>"COMPENSACION","monto"=>$montoCompensacion,"gravable"=>$Gravado,"excento"=>$Excento,"tipo"=> "P"]);
-                        $percepcionesImss->push(["concepto"=>"COMPENSACION", "total" => $montoCompensacion]);
+                        $percepcionesImss->push(["clave_empleado"=>$emp->clave_empleado,"concepto"=>"COMPENSACION", "total" => $montoCompensacion]);
                     }else{
                         $Gravado = 0;
                         $Excento = 0;
@@ -382,7 +382,7 @@
                         $Excento = $calculosISR['percepcionExcenta'];
 
                         $ControlPrenomina->push(["clave_empleado"=>$emp->clave_empleado,"clave_concepto"=>"009P","concepto"=>"DIFERENCIA DE SUELDO","monto"=>$montoDiferencia,"gravable"=>$Gravado,"excento"=>$Excento,"tipo"=> "P"]);
-                        $percepcionesImss->push(["concepto"=>"DIFERENCIA DE SUELDO", "total" => $montoDiferencia->monto]);
+                        $percepcionesImss->push(["clave_empleado"=>$emp->clave_empleado,"concepto"=>"DIFERENCIA DE SUELDO", "total" => $montoDiferencia->monto]);
                     }else{
                         $Gravado = 0;
                         $Excento = 0;
@@ -398,7 +398,7 @@
                         $Excento = 0;
 
                         $ControlPrenomina->push(["clave_empleado"=>$emp->clave_empleado,"clave_concepto"=>"013P","concepto"=>"VACACIONES","monto"=>$Vacaciones,"gravable"=>$Gravado,"excento"=>$Excento,"tipo"=> "P"]);
-                        $percepcionesImss->push(["concepto"=>"VACACIONES", "total" => $Vacaciones ]);
+                        $percepcionesImss->push(["clave_empleado"=>$emp->clave_empleado,"concepto"=>"VACACIONES", "total" => $Vacaciones ]);
                     }else{
                         $Gravado = 0;
                         $Excento = 0;
@@ -411,7 +411,7 @@
                         $Excento = $calculosISR['percepcionExcenta'];
 
                         $ControlPrenomina->push(["clave_empleado"=>$emp->clave_empleado,"clave_concepto"=>"015P","concepto"=>"COMISIONES","monto"=>$montoComisiones,"gravable"=>$Gravado,"excento"=>$Excento,"tipo"=> "P"]);
-                        $percepcionesImss->push(["concepto"=>"COMISIONES", "total" => $montoComisiones->monto]);
+                        $percepcionesImss->push(["clave_empleado"=>$emp->clave_empleado,"concepto"=>"COMISIONES", "total" => $montoComisiones->monto]);
                     }else{
                         $Gravado = 0;
                         $Excento = 0;
@@ -439,7 +439,7 @@
                                         ->where('clave_concepto','019P')
                                         ->first();
 
-                    $percepcionesImss->push(["concepto"=>"SUELDO RETROACTIVO", "total" => $montoRetroactivo->monto]);
+                    $percepcionesImss->push(["clave_empleado"=>$emp->clave_empleado,"concepto"=>"SUELDO RETROACTIVO", "total" => $montoRetroactivo->monto]);
                 }else if($concep->clave_concepto == "020P"){
 
                 }else if($concep->clave_concepto == "021P"){
@@ -452,7 +452,7 @@
                     $resultaSueldo = $this->sueldo($emp->id_emp,$emp->clave_empleado);
                     $montoDescanso = $resultaSueldo * 2;
 
-                    $percepcionesImss->push(["concepto"=>"TRABAJO EN DIAS DE DESCANSO", "total" => $montoDescanso]);
+                    $percepcionesImss->push(["clave_empleado"=>$emp->clave_empleado,"concepto"=>"TRABAJO EN DIAS DE DESCANSO", "total" => $montoDescanso]);
                 }else if($concep->clave_concepto == "001D"){
                     $resultaAusentismoDed = $this->ausentismoIncapacidadDeduccion($emp->id_emp,$emp->clave_empleado);
                     $Gravado = 0;
@@ -497,7 +497,7 @@
                         $Excento = $calculosISR['percepcionExcenta'];
 
                         $ControlPrenomina->push(["clave_empleado"=>$emp->clave_empleado,"clave_concepto"=>"012D","concepto"=>"UNIFORMES","monto"=>$montoUniformes,"gravable"=>$Gravado,"excento"=>$Excento,"tipo"=> "D"]);
-                        $percepcionesImss->push(["concepto"=>"UNIFORMES", "total" => $montoUniformes]);
+                        $percepcionesImss->push(["clave_empleado"=>$emp->clave_empleado,"concepto"=>"UNIFORMES", "total" => $montoUniformes]);
                     }else{
                         $Gravado = 0;
                         $Excento = 0;
@@ -510,7 +510,7 @@
                         $Excento = $calculosISR['percepcionExcenta'];
 
                         $ControlPrenomina->push(["clave_empleado"=>$emp->clave_empleado,"clave_concepto"=>"012D","concepto"=>"PRESTAMOS","monto"=>$montoPrestamos,"gravable"=>$Gravado,"excento"=>$Excento,"tipo"=> "D"]);
-                        $percepcionesImss->push(["concepto"=>"PRESTAMOS", "total" => $montoPrestamos]);
+                        $percepcionesImss->push(["clave_empleado"=>$emp->clave_empleado,"concepto"=>"PRESTAMOS", "total" => $montoPrestamos]);
                     }else{
                         $Gravado = 0;
                         $Excento = 0;
@@ -523,7 +523,7 @@
                         $Excento = $calculosISR['percepcionExcenta'];
 
                         $ControlPrenomina->push(["clave_empleado"=>$emp->clave_empleado,"clave_concepto"=>"013D","concepto"=>"DESCUENTO DE LENTES","monto"=>$montoLentes,"gravable"=>$Gravado,"excento"=>$Excento,"tipo"=> "D"]);
-                        $percepcionesImss->push(["concepto"=>"DESCUENTO DE LENTES", "total" => $montoLentes]);
+                        $percepcionesImss->push(["clave_empleado"=>$emp->clave_empleado,"concepto"=>"DESCUENTO DE LENTES", "total" => $montoLentes]);
                     }else{
                         $Gravado = 0;
                         $Excento = 0;
@@ -542,7 +542,7 @@
                     $montoRetardo = $this->adicionales($emp->clave_empleado,'019D');
                     if($montoRetardo != 0){
                         $ControlPrenomina->push(["clave_empleado"=>$emp->clave_empleado,"clave_concepto"=>"013D","concepto"=>"RETARDO","monto"=>$montoRetardo,"gravable"=>$Gravado,"excento"=>$Excento,"tipo"=> "D"]);
-                        $percepcionesImss->push(["concepto"=>"DESCUENTO DE LENTES", "total" => $montoRetardo]);
+                        $percepcionesImss->push(["clave_empleado"=>$emp->clave_empleado,"concepto"=>"DESCUENTO DE LENTES", "total" => $montoRetardo]);
                     }else{
                         $Gravado = 0;
                         $Excento = 0;
@@ -556,7 +556,8 @@
                  ->where('id_emp','=',$id_emp)
                  ->first();
 
-        $sumaImss = $percepcionesImss->where('idEmp',$clave->id_emp)->sum('total');
+        $sumaImss = $percepcionesImss->where('clave_empleado',$clave->clave_empleado)->sum('total');
+        //$percepcionesImss->all();
     
         $calculospercepciones = $ControlPrenomina->where('clave_empleado',$clave->clave_empleado);
         $portipopercepciones = $calculospercepciones->where('tipo','P');
