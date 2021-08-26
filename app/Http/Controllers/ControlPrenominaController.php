@@ -557,7 +557,6 @@
                  ->first();
 
         $sumaImss = $percepcionesImss->where('clave_empleado',$clave->clave_empleado)->sum('total');
-        //$percepcionesImss->all();
     
         $calculospercepciones = $ControlPrenomina->where('clave_empleado',$clave->clave_empleado);
         $portipopercepciones = $calculospercepciones->where('tipo','P');
