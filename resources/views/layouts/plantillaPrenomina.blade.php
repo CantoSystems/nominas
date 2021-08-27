@@ -489,6 +489,8 @@
                   $('.inputTotalOD').val(data[3].toFixed(2));
                   $('#filasODeducciones tbody').append(htmlTags);
                   console.log(data[2]);
+                }else{
+                  console.log(data[2]);
                 }
               },
               error: function(xhr, status, error) {

@@ -80,13 +80,13 @@
                     <div class="col-sm-1">
                         <div class="form-group">
                             <label>Monto:</label>
-                            <input type="number" name="monto" step="0.1" id="montoPrestamo" required onkeypress="return numeros(event)" class="form-control" data-toggle="tooltip" data-placement="center">
+                            <input type="number" name="monto" step="0.1" id="montoPrestamo" required class="form-control" data-toggle="tooltip" data-placement="center">
                         </div>
                     </div>
                     <div class="col-sm-1">
                         <div class="form-group">
                             <label>Importe:</label>
-                            <input type="number" name="importe" step="0.1" id="importePrestamo" required onkeypress="return numeros(event)" class="form-control" data-toggle="tooltip" data-placement="center">
+                            <input type="number" name="importe" step="0.1" id="importePrestamo" required class="form-control" data-toggle="tooltip" data-placement="center">
                         </div>
                     </div>
                     <div class="col-sm-1">
