@@ -236,11 +236,11 @@
         /*$region = $this->ahorro_riesgo();
         $importeRegion = SalarioMinimo::select('importe')
                          ->where('region',$region->region)
-                         ->first();
+                         ->first();*/
 
-        if($totalIMSS < 100){
+        if($totalIMSS < 50){
             $totalIMSS = 0;
-        }*/
+        }
 
         return $collection = collect(['003T','IMSS TRABAJADOR',$totalIMSS]);
     }
