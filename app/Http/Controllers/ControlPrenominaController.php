@@ -183,6 +183,7 @@
     }
 
     public function calcularIMSS(Request $request){
+        //dd($request);
         $clv = Session::get('clave_empresa');
         $num_periodo = Session::get('num_periodo');
 
@@ -231,6 +232,15 @@
                 $totalIMSS = $totalIMSS + $sumaIMSS;
             }
         }
+
+        /*$region = $this->ahorro_riesgo();
+        $importeRegion = SalarioMinimo::select('importe')
+                         ->where('region',$region->region)
+                         ->first();
+
+        if($totalIMSS < 100){
+            $totalIMSS = 0;
+        }*/
 
         return $collection = collect(['003T','IMSS TRABAJADOR',$totalIMSS]);
     }
@@ -339,9 +349,11 @@
                 }else if($concep->clave_concepto == "007P"){
                     $resultaPrimaVacacional = $this->primaVacacional($emp->id_emp,$emp->clave_empleado);
                     if($resultaPrimaVacacional != 0){
-                        $calculosISR = $this->calcularGravado($concep,$resultaPrimaVacacional);
+                        $Gravado = 0;
+                        $Excento = $resultaPrimaVacacional;
+                        /*$calculosISR = $this->calcularGravado($concep,$resultaPrimaVacacional);
                         $Gravado = $calculosISR['percepcionGravable'];
-                        $Excento = $calculosISR['percepcionExcenta'];
+                        $Excento = $calculosISR['percepcionExcenta'];*/
 
                         $ControlPrenomina->push(["clave_empleado"=>$emp->clave_empleado,"clave_concepto"=>"007P","concepto"=>"PRIMA VACACIONAL","monto"=>$resultaPrimaVacacional,"gravable"=>$Gravado,"excento"=>$Excento,"tipo"=> "P"]);
                     }else{
@@ -542,7 +554,6 @@
                     $montoRetardo = $this->adicionales($emp->clave_empleado,'019D');
                     if($montoRetardo != 0){
                         $ControlPrenomina->push(["clave_empleado"=>$emp->clave_empleado,"clave_concepto"=>"013D","concepto"=>"RETARDO","monto"=>$montoRetardo,"gravable"=>$Gravado,"excento"=>$Excento,"tipo"=> "D"]);
-                        $percepcionesImss->push(["clave_empleado"=>$emp->clave_empleado,"concepto"=>"DESCUENTO DE LENTES", "total" => $montoRetardo]);
                     }else{
                         $Gravado = 0;
                         $Excento = 0;
@@ -731,8 +742,9 @@
     public function ahorro_riesgo(){
         $clv = Session::get('clave_empresa');
         $datos_empresa = Empresa::select('primaRiesgo','porcentajeAhorro','region')
-            ->where('clave','=',$clv)
-            ->first();
+                         ->where('clave','=',$clv)
+                         ->first();
+
         return $datos_empresa;
     }
 
@@ -751,8 +763,7 @@
                                 //retornamos la cantidad de dias otorgados acceder
                                 // $diasAguinaldo->aguinaldo
         if(is_null($datos_prestaciones)){
-            
-            $datos_prestaciones=  DB::connection('DB_Serverr')->table('prestaciones')
+            $datos_prestaciones = DB::connection('DB_Serverr')->table('prestaciones')
                                     ->select('aguinaldo','dias','prima_vacacional')
                                     ->where('anio','=',1)
                                     ->first();
