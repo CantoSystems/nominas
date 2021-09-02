@@ -25,7 +25,7 @@ class RetencionesSeeder extends Seeder
             ["limite_inferior" => 9794.83,"limite_superior" =>18699.94,"cuota" =>1837.64,"porcentaje_excedente" =>	30.00,"periodo" => "SEMANAL"],
             ["limite_inferior" => 18699.95,	"limite_superior" =>24933.30,"cuota" =>	4509.19,"porcentaje_excedente" =>32.00,"periodo" => "SEMANAL"],
             ["limite_inferior" =>24933.31,"limite_superior" =>	74799.83,"cuota" =>6503.84,"porcentaje_excedente" =>34.00,"periodo" => "SEMANAL"],
-            ["limite_inferior" =>74799.84,"limite_superior" =>	0.00,"cuota" =>23458.47,"porcentaje_excedente" =>35.00,"periodo" => "SEMANAL"],
+            ["limite_inferior" =>74799.84,"limite_superior" =>	74800.84,"cuota" =>23458.47,"porcentaje_excedente" =>35.00,"periodo" => "SEMANAL"],
             ["limite_inferior" => 0.01,	"limite_superior" => 318,"cuota" =>	0.00,"porcentaje_excedente"=>	1.92,"periodo" => "QUINCENAL"],
             ["limite_inferior" => 318.01,"limite_superior" =>	2699.40,"cuota" =>	6.15,"porcentaje_excedente"=>	6.40,"periodo" => "QUINCENAL"],
             ["limite_inferior" => 2699.41,"limite_superior" =>	4744.05,"cuota" =>	158.55,"porcentaje_excedente"=>	10.88,"periodo" => "QUINCENAL"],
@@ -36,7 +36,7 @@ class RetencionesSeeder extends Seeder
             ["limite_inferior" => 20988.91,	"limite_superior" => 40071.30,"cuota" =>3937.80,"porcentaje_excedente" =>30.00,"periodo" => "QUINCENAL"],
             ["limite_inferior" => 40071.31, "limite_superior" => 53428.50,"cuota" =>9662.55,"porcentaje_excedente" =>32.00,"periodo" => "QUINCENAL"],
             ["limite_inferior" => 53428.51,"limite_superior" =>	160285.35,"cuota" =>13936.80,"porcentaje_excedente" =>	34.00,"periodo" => "QUINCENAL"],
-            ["limite_inferior" => 160285.36,"limite_superior" =>0.00,"cuota" =>50268.15,"porcentaje_excedente" =>	35.00,"periodo" => "QUINCENAL"],
+            ["limite_inferior" => 160285.36,"limite_superior" =>160286.36,"cuota" =>50268.15,"porcentaje_excedente" =>	35.00,"periodo" => "QUINCENAL"],
             ["limite_inferior" => 0.01, "limite_superior" => 644.58, "cuota" => 0.00, "porcentaje_excedente"=>1.92,"periodo" => "MENSUAL"],
             ["limite_inferior" => 644.59, "limite_superior" => 5470.92, "cuota" =>  12.38, "porcentaje_excedente"=>6.40,"periodo" => "MENSUAL"],
             ["limite_inferior" => 5470.93, "limite_superior" => 9614.66, "cuota" => 321.26, "porcentaje_excedente"=>10.88,"periodo" => "MENSUAL"],
@@ -47,7 +47,7 @@ class RetencionesSeeder extends Seeder
             ["limite_inferior" => 42537.59, "limite_superior" =>  81211.25, "cuota" => 7980.73, "porcentaje_excedente"=>30.00,"periodo" => "MENSUAL"],
             ["limite_inferior" => 81211.26, "limite_superior" => 108281.67, "cuota" => 19582.83, "porcentaje_excedente"=>32.00,"periodo" => "MENSUAL"],
             ["limite_inferior" => 108281.68, "limite_superior" => 324845.01, "cuota" => 28245.36, "porcentaje_excedente"=>34.00,"periodo" => "MENSUAL"],
-            ["limite_inferior" => 324845.02, "limite_superior" => 0.00, "cuota" => 101876.90, "porcentaje_excedente"=>35.00,"periodo" => "MENSUAL"],
+            ["limite_inferior" => 324845.02, "limite_superior" => 324846.02, "cuota" => 101876.90, "porcentaje_excedente"=>35.00,"periodo" => "MENSUAL"],
            
             ]);
         $fecha = now()->toDateString();
