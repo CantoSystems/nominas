@@ -24,7 +24,7 @@ class SubsidioSeeder extends Seeder
             ["para" => 1228.58,	"hasta" =>1433.32,"cantidad" =>	67.83,"periodo" => "SEMANAL"],
             ["para" => 1433.33,	"hasta" => 1638.07,	"cantidad" =>58.38,"periodo" => "SEMANAL"],
             ["para" => 1638.08,	"hasta" => 1699.88,"cantidad" =>50.12,"periodo" => "SEMANAL"],
-            ["para" => 1699.89, "hasta" => 0.00,"cantidad" =>0.00	,"periodo" => "SEMANAL"],
+            ["para" => 1699.89, "hasta" => 1700.00,"cantidad" =>0.00	,"periodo" => "SEMANAL"],
             ["para" => 0.01, "hasta" => 872.85, "cantidad" =>200.85,"periodo" => "QUINCENAL"],
             ["para" => 872.86,"hasta" => 1309.20, "cantidad" =>	200.70,"periodo" => "QUINCENAL"],
             ["para" => 1309.21,	"hasta" =>  1713.60 , "cantidad" =>200.70,"periodo" => "QUINCENAL"],
@@ -35,7 +35,7 @@ class SubsidioSeeder extends Seeder
             ["para" =>2632.66,"hasta" => 3071.40, "cantidad" =>	145.35,"periodo" => "QUINCENAL"],
             ["para" =>3071.41,"hasta" =>  3510.15, "cantidad" =>125.10,"periodo" => "QUINCENAL"],
             ["para" =>3510.16,"hasta" =>3642.60,"cantidad" =>107.4,"periodo" => "QUINCENAL"],
-            ["para" =>3642.61,	"hasta" =>0.00,"cantidad" =>0.00,"periodo" => "QUINCENAL"],
+            ["para" =>3642.61,	"hasta" =>3643.61,"cantidad" =>0.00,"periodo" => "QUINCENAL"],
             ["para" => 0.01, "hasta" => 1768.96,"cantidad" => 407.02,"periodo" => "MENSUAL"],
             ["para" => 1768.97,"hasta" => 2653.38,"cantidad" => 406.83,"periodo" => "MENSUAL"],
             ["para" => 2653.39,"hasta" => 3472.84,"cantidad" => 406.62,"periodo" => "MENSUAL"],
@@ -46,7 +46,7 @@ class SubsidioSeeder extends Seeder
             ["para" => 5335.43,"hasta" => 6224.67,"cantidad" => 294.63,"periodo" => "MENSUAL"],
             ["para" => 6224.68,"hasta" => 7113.90,"cantidad" => 253.54,"periodo" => "MENSUAL"],
             ["para" => 7113.91,"hasta" => 7382.33,"cantidad" => 217.61,"periodo" => "MENSUAL"],
-            ["para" => 7382.34,"hasta" => 10000.00,"cantidad" => 0.00,"periodo" => "MENSUAL"],         
+            ["para" => 7382.34,"hasta" => 7383.35,"cantidad" => 0.00,"periodo" => "MENSUAL"],         
          ]);
 
         foreach($subsidios as $sub){
