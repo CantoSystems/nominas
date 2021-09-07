@@ -148,6 +148,7 @@ Route::post('/prenomina-normal/enviocontrolprenomina', 'ControlPrenominaControll
 Route::post('/prenominaImpuestos', 'ControlPrenominaController@calcularImpuestos')->name('control.Impuestos');
 Route::post('/prenominaIMSS', 'ControlPrenominaController@calcularIMSS')->name('control.IMSS');
 Route::post('/prenominaPension', 'ControlPrenominaController@pensionAlimenticia')->name('control.pension');
+Route::post('/prenominaPatron', 'ControlPrenominaController@impuestosPatron')->name('control.impPatron');
 
 //Aguinaldos
 Route::get('/aguinaldos', 'AguinaldosController@index')->name('aguinaldos.index');

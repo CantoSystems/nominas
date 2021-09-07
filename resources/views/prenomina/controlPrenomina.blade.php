@@ -32,11 +32,19 @@
                         </div>
                     </div>
                     <br>
-                    <div class="card-header" style="background-color:darkgrey;padding:6px 6px 6px 6px; color:white">
+                    <div class="card-header" style="background-color:darkgrey; padding:6px 6px 6px 6px; color: white;">
                         <h6 class="card-title">
-                            Empleado: 
+                            <b>Empleado: </b>
                             @if(isset($portipopercepciones))
                                 {{$clave->nombre ?? ''}} {{$clave->apellido_paterno ?? ''}} {{$clave->apellido_materno ?? ''}}
+                                <!--<div>
+                                    <label>Sueldo Bruto: $ {{ $$portipopercepciones->sueldoBruto ?? ''}}
+                                    </label>
+                                </div>-->
+                                <div>
+                                    <label id="lblSueldoNeto">
+                                    </label>
+                                </div>
                             @else
                                 No ha seleccionado ningun empleado
                             @endif
@@ -45,7 +53,7 @@
                     <div class="card-body">
                         <div class="row" >
                             <div class="col-sm-6">
-                                <table class="table table-hover control">
+                                <table id="filasPercepciones" name="filasPercepciones" class="table table-hover control">
                                     <thead class="thead-light">
                                         <tr>
                                             <th scope="col" colspan="4" style="text-align: center;">Percepciones</th>
@@ -218,7 +226,7 @@
                                 </table>
                             </div>
                         </div>
-                        <!--<div class="row">
+                        <div class="row">
                             <div class = "col-sm-6"></div>
                             <div class = "col-sm-6">
                                 <table class="table table-hover">
@@ -238,8 +246,8 @@
                                 <table class="table table-hover">
                                 </table>
                             </div>
-                        </div>-->
-                    </div>   
+                        </div>
+                    </div>
                 </form>
             </div>
         </div>

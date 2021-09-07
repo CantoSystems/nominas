@@ -453,7 +453,7 @@
                               '<td style="text-align: center;">' + data[0] + '</td>'+
                               '<td style="text-align: center;">' + data[1] + '</td>'+
                               '<td  style="text-align: center;">$ ' + data[2].toFixed(2) + 
-                              '<input  class="totales3" id="trabajadorImss" type="hidden" value=" ' + data[2].toFixed(2) + ' ">'+
+                              '<input class="totales3" id="trabajadorImss" type="hidden" value=" ' + data[2].toFixed(2) + ' ">'+
                               '</td>'+
                             '</tr>'
             $('#filasImpuestos tbody').append(htmlTags);
@@ -488,10 +488,9 @@
 
                   $('.inputTotalOD').val(data[3].toFixed(2));
                   $('#filasODeducciones tbody').append(htmlTags);
-                  console.log(data[2]);
-                }else{
-                  console.log(data[2]);
                 }
+
+                $('#lblSueldoNeto').append("Sueldo Neto: $ " + data[2]);
               },
               error: function(xhr, status, error) {
                 var err = JSON.parse(xhr.responseText);
@@ -516,7 +515,7 @@
               monto: e.querySelector('.monto').value
             };
             myTableArray.push(fila);
-            console.log(myTableArray);
+            //console.log(myTableArray);
           });
           let jsonString = JSON.stringify(myTableArray);
           $.ajax({
@@ -534,32 +533,6 @@
             }
           });
         });
-
-        /* Script para calcular la pensión */
-        /*$.ajax({
-          url: "{{ route('control.pension') }}",
-          method: "POST",
-          data: {
-            _token: $("meta[name='csrf-token']").attr("content"),
-            clvEmp: $('.clvEmp').val(),
-            totalSueldo: $('').val(),
-          },
-          success: function(data){
-            let htmlTags = '<tr>'+
-                              '<td style="text-align: center;">' + data[0] + '</td>'+
-                              '<td style="text-align: center;">' + data[1] + '</td>'+
-                              '<td style="text-align: center;">$ ' + data[2].toFixed(2) + 
-                              '<input class="totales3" id="trabajadorImss" type="hidden" value=" ' + data[2].toFixed(2) + ' ">'+
-                              '</td>'+
-                            '</tr>'
-
-            $('#filasImpuestos tbody').append(htmlTags);
-          },
-          error: function(xhr, status, error) {
-            var err = JSON.parse(xhr.responseText);
-            console.log(err.Message);
-          }
-        });*/
       });
     </script>
     
@@ -578,7 +551,7 @@
               clvEmp:     e.querySelector('.clvEmp').value,
             };
             myTableControl.push(fila);
-            console.log(myTableControl);
+            //console.log(myTableControl);
           });
           let jsonString = JSON.stringify(myTableControl);
           $.ajax({
@@ -597,4 +570,9 @@
           });
         });
       });
+    </script>
+
+    <script>
+      /* Scripts para calcular los impuestos del patrón */
+     
     </script>

@@ -39,11 +39,10 @@
     public function index(Request $request){
         $clv = Session::get('clave_empresa');
         $num_periodo = Session::get('num_periodo');
-
         $clv_empresa = $this->conectar($clv);
         \Config::set('database.connections.DB_Serverr', $clv_empresa);
+        
         $accion = $request->acciones;
-
         $empleados = DB::connection('DB_Serverr')->table('empleados')
                      ->join('departamentos','departamentos.clave_departamento','=','empleados.clave_departamento')
                      ->join('puestos','puestos.clave_puesto','=','empleados.clave_puesto')
@@ -132,13 +131,8 @@
                     ->first();
 
         $isrDeterminado = $isrCalculado - $subsidio->cantidadSubsidio;
-        if($isrDeterminado<0){
-            $isr = 0;
-        }else{
-            $isr = $isrDeterminado;
-        }
 
-        return $collection = collect(['002I','ISR',$isr]);
+        return $collection = collect(['001I','ISR',$isrDeterminado]);
     }
 
     public function pensionAlimenticia(Request $request){
@@ -174,16 +168,15 @@
                 $sueldoTotal = $request->totalSueldo - $descuentoPension;
             }
 
-            return $collection = collect([$pension->clave_concepto,$pension->concepto,$sueldoTotal,$descuentoPension]);
+            return $collection = collect([$pension->clave_concepto,$pension->concepto,number_format($sueldoTotal,2),$descuentoPension]);
         }else{
             $sueldoTotal = $request->totalSueldo;
 
-            return $collection = collect(['','',$sueldoTotal,'']);
+            return $collection = collect(['','',number_format($sueldoTotal,2),'']);
         }
     }
 
     public function calcularIMSS(Request $request){
-        //dd($request);
         $clv = Session::get('clave_empresa');
         $num_periodo = Session::get('num_periodo');
 
@@ -195,54 +188,50 @@
                      ->where('clave_empleado','=',$request->clvEmp)
                      ->first();
 
-        $conceptos = DB::connection('DB_Serverr')->table('conceptos')
-                     ->select('imss_porcentaje','concepto')
-                     ->where([
-                         ['seleccionado','=',1],
-                         ['imss','=',1],
-                         ['imss_porcentaje','!=',0.00]
-                     ])
-                     ->get();
-
-        $at = $this->anios_trabajados($empleados->id_emp);
-        if($at == 0){
-            $at = 1;
-        }
-
-        $prestaciones = DB::connection('DB_Serverr')->table('prestaciones')
-                        ->select('dias')
-                        ->where('anio','=',$at)
-                        ->first();
-        
-        $SBC = $this->SBC($prestaciones->dias,$empleados->sueldo_diario,$request->totalImss,$request->clvEmp);
-        $uma = $this->uma();
-
-        $ims = IMSS::select('cuotatrabajador','id_imss','base')
-                     ->where('cuotatrabajador','!=',0)
-                     ->get();
-
-        $totalIMSS = 0;
-        foreach($ims as $cuotasIMSS){
-            if($cuotasIMSS->id_imss == 3){
-                $diferenciaSueldo = $SBC - ($uma->porcentaje_uma*3);
-                $sumaIMSS = ($cuotasIMSS->cuotatrabajador*$empleados->dias*$diferenciaSueldo)/100;
-                $totalIMSS = $totalIMSS + $sumaIMSS;
-            }else{
-                $sumaIMSS = ($cuotasIMSS->cuotatrabajador*$empleados->dias*$SBC)/100;
-                $totalIMSS = $totalIMSS + $sumaIMSS;
-            }
-        }
-
-        /*$region = $this->ahorro_riesgo();
+        $region = $this->ahorro_riesgo();
         $importeRegion = SalarioMinimo::select('importe')
                          ->where('region',$region->region)
-                         ->first();*/
+                         ->first();
 
-        if($totalIMSS < 50){
+        if($empleados->sueldo_diario <= $importeRegion->importe){
+            return $collection = collect(['002I','IMSS TRABAJADOR',0]);
+        }else{
+            $at = $this->anios_trabajados($empleados->id_emp);
+            if($at == 0){
+                $at = 1;
+            }
+
+            $prestaciones = DB::connection('DB_Serverr')->table('prestaciones')
+                            ->select('dias')
+                            ->where('anio','=',$at)
+                            ->first();
+
+            $SBC = $this->SBC($prestaciones->dias,$empleados->sueldo_diario,$request->totalImss,$request->clvEmp);
+            $uma = $this->uma();
+
+            $ims = IMSS::select('cuotatrabajador','id_imss','base')
+                   ->where('cuotatrabajador','!=',0)
+                   ->get();
+
             $totalIMSS = 0;
-        }
+            foreach($ims as $cuotasIMSS){
+                if($cuotasIMSS->id_imss == 23){
+                    $diferenciaSueldo = $SBC - ($uma->porcentaje_uma*3);
+                    $sumaIMSS = ($cuotasIMSS->cuotatrabajador*$empleados->dias*$diferenciaSueldo)/100;
+                    $totalIMSS = $totalIMSS + $sumaIMSS;
+                }else{
+                    $sumaIMSS = ($cuotasIMSS->cuotatrabajador*$empleados->dias*$SBC)/100;
+                    $totalIMSS = $totalIMSS + $sumaIMSS;
+                }
+            }
 
-        return $collection = collect(['003T','IMSS TRABAJADOR',$totalIMSS]);
+            return $collection = collect(['002I','IMSS TRABAJADOR',$totalIMSS]);
+        }
+    }
+
+    public function impuestosPatron(Request $request){
+        $diasAusentismo = $this->ausentismo($request->clvEmp);
+        //$sueldo = $request->totalPercepciones - 
     }
 
     public function SBC($diasVacaciones,$sueldoDiario,$totalIMSS,$clvEmp){
@@ -251,7 +240,7 @@
         $primaAguinaldo = 15/365;
         $primaVacaciones = ($diasVacaciones*0.25)/365;
         $FactorIntegracion = $primaAguinaldo + $primaVacaciones + 1;
-        $SBC = (($sueldoDiario * $FactorIntegracion) + $totalIMSS)/$diasTrabajados; 
+        $SBC = ($sueldoDiario * $FactorIntegracion); 
 
         return $SBC;
     }
@@ -281,7 +270,8 @@
             foreach($conceptos as $concep){
                 if($concep->clave_concepto == "001P"){
                     $resultaSueldo = $this->sueldo($emp->id_emp,$emp->clave_empleado);
-                    if($resultaSueldo!=0){
+                    //$resultaSueldoBruto = $this->sueldoBruto($emp->id_emp,$emp->clave_empleado);
+                    if($resultaSueldo != 0){
                         $Gravado = $resultaSueldo;
                         $Excento = 0;
                     }else{
@@ -316,14 +306,13 @@
                         $Excento = 0;
                     }
                 }else if($concep->clave_concepto == "004P"){
-                    $resultaFondoAhorro = $this->fondoAhorro($emp->id_emp);
+                    $resultaFondoAhorro = $this->fondoAhorro($resultaSueldo);
                     if($resultaFondoAhorro != 0){
                         $Gravado = 0;
                         $Excento = $resultaFondoAhorro;
     
                         $ControlPrenomina->push(["clave_empleado"=>$emp->clave_empleado,"clave_concepto"=>"004P","concepto"=>"FONDO DE AHORRO EMPRESA","monto"=>$resultaFondoAhorro,"gravable"=>$Gravado,"excento"=>$Excento,"tipo"=> "P"]);  
                     }
-                    
                 }else if($concep->clave_concepto == "005P"){
                     $resultaPremioPunt = $this->premioPunt($emp->id_emp,$emp->clave_empleado);
                     if($resultaPremioPunt != 0){
@@ -349,11 +338,15 @@
                 }else if($concep->clave_concepto == "007P"){
                     $resultaPrimaVacacional = $this->primaVacacional($emp->id_emp,$emp->clave_empleado);
                     if($resultaPrimaVacacional != 0){
-                        $Gravado = 0;
-                        $Excento = $resultaPrimaVacacional;
-                        /*$calculosISR = $this->calcularGravado($concep,$resultaPrimaVacacional);
-                        $Gravado = $calculosISR['percepcionGravable'];
-                        $Excento = $calculosISR['percepcionExcenta'];*/
+                        $uma = $this->uma();
+                        $limite = $uma->porcentaje_uma*15;
+                        if($resultaPrimaVacacional < $limite){
+                            $Gravado = 0;
+                            $Excento = $resultaPrimaVacacional;
+                        }else{
+                            $Gravado = $resultaPrimaVacacional - $limite;
+                            $Excento = $limite;
+                        }
 
                         $ControlPrenomina->push(["clave_empleado"=>$emp->clave_empleado,"clave_concepto"=>"007P","concepto"=>"PRIMA VACACIONAL","monto"=>$resultaPrimaVacacional,"gravable"=>$Gravado,"excento"=>$Excento,"tipo"=> "P"]);
                     }else{
@@ -467,10 +460,12 @@
                     $percepcionesImss->push(["clave_empleado"=>$emp->clave_empleado,"concepto"=>"TRABAJO EN DIAS DE DESCANSO", "total" => $montoDescanso]);
                 }else if($concep->clave_concepto == "001D"){
                     $resultaAusentismoDed = $this->ausentismoIncapacidadDeduccion($emp->id_emp,$emp->clave_empleado);
-                    $Gravado = 0;
-                    $Excento = 0;
+                    if($resultaAusentismoDed != 0){
+                        $Gravado = 0;
+                        $Excento = 0;
 
-                    $ControlPrenomina->push(["clave_empleado"=>$emp->clave_empleado,"clave_concepto"=>"001D","concepto"=>"AUSENTISMO","monto"=>$resultaAusentismoDed,"gravable"=>$Gravado,"excento"=>$Excento,"tipo"=> "D"]);
+                        $ControlPrenomina->push(["clave_empleado"=>$emp->clave_empleado,"clave_concepto"=>"001D","concepto"=>"AUSENTISMO","monto"=>$resultaAusentismoDed,"gravable"=>$Gravado,"excento"=>$Excento,"tipo"=> "D"]);
+                    }
                 }else if($concep->clave_concepto == "002D"){
                     $resultaIncapacidadDed = $this->ausentismoIncapacidadDeduccion($emp->id_emp,$emp->clave_empleado);
                     $Gravado = 0;
@@ -478,17 +473,21 @@
 
                     $ControlPrenomina->push(["clave_empleado"=>$emp->clave_empleado,"clave_concepto"=>"002D","concepto"=>"INCAPACIDAD","monto"=>$resultaIncapacidadDed,"gravable"=>$Gravado,"excento"=>$Excento,"tipo"=> "D"]);
                 }else if($concep->clave_concepto == "003D"){
-                    $resultaFondoAhorroTrabajador = $this->fondoAhorro($emp->id_emp);
-                    $Gravado = 0;
-                    $Excento = 0;
+                    $resultaFondoAhorroTrabajador = $this->fondoAhorro($resultaSueldo);
+                    if($resultaFondoAhorroTrabajador != 0){
+                        $Gravado = 0;
+                        $Excento = 0;
                     
-                    $ControlPrenomina->push(["clave_empleado"=>$emp->clave_empleado,"clave_concepto"=>"003D","concepto"=>"FONDO DE AHORRO TRABAJADOR","monto"=>$resultaFondoAhorroTrabajador,"gravable"=>$Gravado,"excento"=>$Excento,"tipo"=> "D"]);
+                        $ControlPrenomina->push(["clave_empleado"=>$emp->clave_empleado,"clave_concepto"=>"003D","concepto"=>"FONDO DE AHORRO TRABAJADOR","monto"=>$resultaFondoAhorroTrabajador,"gravable"=>$Gravado,"excento"=>$Excento,"tipo"=> "D"]);
+                    }
                 }else if($concep->clave_concepto == "004D"){
-                    $resultaDeduccionFondo = $this->fondoAhorro($emp->id_emp);
-                    $Gravado = 0;
-                    $Excento = 0;
-
-                    $ControlPrenomina->push(["clave_empleado"=>$emp->clave_empleado,"clave_concepto"=>"004D","concepto"=>"DEDUCCION FONDO DE AHORRO EMPRESA","monto"=>$resultaDeduccionFondo,"gravable"=>$Gravado,"excento"=>$Excento,"tipo"=> "D"]);
+                    $resultaDeduccionFondo = $this->fondoAhorro($resultaSueldo);
+                    if($resultaDeduccionFondo != 0){
+                        $Gravado = 0;
+                        $Excento = 0;
+                    
+                        $ControlPrenomina->push(["clave_empleado"=>$emp->clave_empleado,"clave_concepto"=>"004D","concepto"=>"DEDUCCION FONDO DE AHORRO EMPRESA","monto"=>$resultaDeduccionFondo,"gravable"=>$Gravado,"excento"=>$Excento,"tipo"=> "D"]);
+                    }
                 }else if($concep->clave_concepto == "005D"){
                     
                 }else if($concep->clave_concepto == "006D"){
@@ -584,9 +583,10 @@
 
     public function pagoVacaciones($idEmp,$claveEmp){
         $sd = $this->sueldo_horas($idEmp);
-        $diasTomadosPeriodo = $this->vacacionesEmpleadoPeriodo($claveEmp); 
-        //Dias de vacaciones tomados en el periodo
+        $diasTomadosPeriodo = $this->vacacionesEmpleadoPeriodo($claveEmp);
+
         $diasVacaciones = $diasTomadosPeriodo->cantidad * $sd->sueldo_diario;
+        
         return $diasVacaciones;
     }
 
@@ -647,17 +647,15 @@
         \Config::set('database.connections.DB_Serverr', $clv_empresa);
 
         $datos_empleado = DB::connection('DB_Serverr')->table('empleados')
-        ->select('sueldo_diario','horas_diarias')
-        ->where('id_emp','=',$idEmp)
-        ->first();
+                          ->select('sueldo_diario','horas_diarias')
+                          ->where('id_emp','=',$idEmp)
+                          ->first();
 
-        //Se retorna el sueldo en $ del empleado y las horas trabajadas
         return $datos_empleado;
     }
 
     public function jornadaTrabajo(){
         $num_periodo = Session::get('num_periodo');
-
         $clv = Session::get('clave_empresa');
         $clv_empresa = $this->conectar($clv);
         \Config::set('database.connections.DB_Serverr', $clv_empresa);
@@ -667,12 +665,10 @@
                     ->where('numero','=',$num_periodo)
                     ->first();
 
-        // se retorna los días del periodo
         return $periodos;
     }
 
     public function anios_trabajados($idEmp){
-        //Fecha Inicial del Periodo de Nómina - Fecha de Alta del Trabajador
         $num_p = Session::get('num_periodo');
         $clv = Session::get('clave_empresa');
         $clv_empresa = $this->conectar($clv);
@@ -683,8 +679,6 @@
                          ->where('numero','=',$num_p)
                          ->first();
 
-        //Accedemos a la fecha $fecha_inicial->fecha_inicio
-        //Parseando la fecha
         $inicial = now()->parse($fecha_inicial->fecha_inicio);
 
         $alta_trabajador = DB::connection('DB_Serverr')->table('empleados')
@@ -692,17 +686,14 @@
                            ->where('id_emp','=',$idEmp)
                            ->first();
 
-        //Accedemos a la fecha alta del trabajador $alta_trabajador->fecha_alta
-        //Parseando la fecha
         $alta = now()->parse($alta_trabajador->fecha_alta);
-
         $diferencia = $inicial->DiffInYears($alta);
+
         return $diferencia;
     }
 
     public function ausentismo($claveEmp){
         $num_periodo = Session::get('num_periodo');
-
         $clv = Session::get('clave_empresa');
         $clv_empresa = $this->conectar($clv);
         \Config::set('database.connections.DB_Serverr', $clv_empresa);
@@ -749,39 +740,51 @@
     }
 
     public function aguinaldo_vacaciones_prima($idEmp){
-        //Años trabajados se accede directamento con $at
-        $at = $this->anios_trabajados($idEmp);
-
         $clv = Session::get('clave_empresa');
         $clv_empresa = $this->conectar($clv);
         \Config::set('database.connections.DB_Serverr', $clv_empresa);
 
+        $at = $this->anios_trabajados($idEmp);
         $datos_prestaciones = DB::connection('DB_Serverr')->table('prestaciones')
                                 ->select('aguinaldo','dias','prima_vacacional')
                                 ->where('anio','=',$at)
                                 ->first();
-                                //retornamos la cantidad de dias otorgados acceder
-                                // $diasAguinaldo->aguinaldo
+
         if(is_null($datos_prestaciones)){
             $datos_prestaciones = DB::connection('DB_Serverr')->table('prestaciones')
-                                    ->select('aguinaldo','dias','prima_vacacional')
-                                    ->where('anio','=',1)
-                                    ->first();
+                                  ->select('aguinaldo','dias','prima_vacacional')
+                                  ->where('anio','=',1)
+                                  ->first();
         }
+
         return $datos_prestaciones;
     }
 
+    public function sueldoBruto($idEmp,$claveEmp){
+        $identificador_periodo = Session::get('num_periodo');
+        $clv = Session::get('clave_empresa');
+        $clv_empresa = $this->conectar($clv);
+        \Config::set('database.connections.DB_Serverr', $clv_empresa);
+
+        $sd = $this->sueldo_horas($idEmp);
+        $diasPeriodo = DB::connection('DB_Serverr')->table('periodos')
+                       ->select('fecha_inicio','fecha_fin','diasPeriodo')
+                       ->where('numero','=',$identificador_periodo)
+                       ->first();
+
+        $diasTotalesTrabajados = $sd->sueldo_diario * $diasPeriodo->diasPeriodo;
+
+        return $diasTotalesTrabajados;
+    }
+
     public function sueldo($idEmp,$claveEmp){
-        //Sueldo = SD * (JT-001D-002D)
         $sd = $this->sueldo_horas($idEmp);
         $jt = $this->dias_trabajados($claveEmp);
         $tiempo = $this->vacacionesEmpleado($idEmp,$claveEmp);
-         //Cantidad de vacaciones totales en el último año
          
-        $diasTotalesVacaciones = $this->aguinaldo_vacaciones_prima($idEmp); 
-        //Días totales de vacaciones que puede tomar
-        $diasTomadosPeriodo = $this->vacacionesEmpleadoPeriodo($claveEmp); 
-        //Dias de vacaciones tomados en el periodo        
+        $diasTotalesVacaciones = $this->aguinaldo_vacaciones_prima($idEmp);
+        $diasTomadosPeriodo = $this->vacacionesEmpleadoPeriodo($claveEmp);
+        
         $diasTotalesTrabajados = 0;
         if($diasTotalesVacaciones->dias >= $tiempo->cantidad){
             $diasTotalesTrabajados = ($jt - $diasTomadosPeriodo->cantidad)*$sd->sueldo_diario;
@@ -792,32 +795,27 @@
         return $diasTotalesTrabajados;
     }
 
-    public function fondoAhorro($idEmp){
-    /* //Formula SI(UMA*1.3>SD, UMA*1.3,SD)*PFA*/
-        $sd = $this->sueldo_horas($idEmp);
-        //$sd->sueldo_diario;
-        return $sd->sueldo_diario;
+    public function fondoAhorro($sueldoBruto){
         $region = $this->ahorro_riesgo();
-        //$region->porcentajeAhorro;
+        $totalFondo = ($region->porcentajeAhorro*$sueldoBruto)/100;
+        
         $importeRegion = SalarioMinimo::select('importe')
-                            ->where('region',$region->region)
-                            ->first();
-        $importeCondicion = $importeRegion->importe * 1.3;
-        //$importeCondicion;        
-        if($importeCondicion<$sd->sueldo_diario){
-            $totalFondo = ($importeRegion->importe * 1.3)*$region->porcentajeAhorro;
-             return $totalFondo;
+                         ->where('region',$region->region)
+                         ->first();
+        
+        if($totalFondo > $importeRegion->importe*15){
+            $totalFondo = $importeRegion->importe*15;
         }
 
-        $totalFondo = $sd->sueldo_diario*$region->porcentajeAhorro;
         return $totalFondo;
     }
 
     public function premioPunt($idEmp,$claveEmp){
-        //SD*(DT)*.1
         $sd = $this->sueldo_horas($idEmp);
         $diasTrabajados = $this->dias_trabajados($claveEmp);
+        
         $premioPuntualidad = $sd->sueldo_diario*($diasTrabajados)*0.1;
+
         return $premioPuntualidad;
     }
 
@@ -825,20 +823,36 @@
         $sd = $this->sueldo_horas($idEmp);
         $dv = $this->aguinaldo_vacaciones_prima($idEmp);
         $diasTomadosPeriodo = $this->vacacionesEmpleadoPeriodo($claveEmp);
+        
         $primaVacacional = (($sd->sueldo_diario*$diasTomadosPeriodo->cantidad) * $dv->prima_vacacional)/100;
+        
         return $primaVacacional;
     }
 
     public function primaDominical($idEmp){
         $sd = $this->sueldo_horas($idEmp);
         $primaDominical = $sd->sueldo_diario * 0.25 ;
+        
         return $primaDominical;
     }
 
     public function ausentismoIncapacidadDeduccion($idEmp,$claveEmp){
+        $identificador_periodo = Session::get('num_periodo');
+        $clv = Session::get('clave_empresa');
+        $clv_empresa = $this->conectar($clv);
+        \Config::set('database.connections.DB_Serverr', $clv_empresa);
+
+        $manipulacion_fechas = DB::connection('DB_Serverr')->table('periodos')
+                               ->select('fecha_inicio','fecha_fin','diasPeriodo')
+                               ->where('numero','=',$identificador_periodo)
+                               ->first();
+
         $sd = $this->sueldo_horas($idEmp);
         $diasTrabajados = $this->dias_trabajados($claveEmp);
-        $ausentismoIncapacidad = $sd->sueldo_diario * $diasTrabajados;
+        
+        $diasTotales = $manipulacion_fechas->diasPeriodo - $diasTrabajados;
+        $ausentismoIncapacidad = $sd->sueldo_diario * $diasTotales;
+        
         return $ausentismoIncapacidad;
     }
 
@@ -849,24 +863,24 @@
         \Config::set('database.connections.DB_Serverr', $clv_empresa);
 
         $manipulacion_fechas = DB::connection('DB_Serverr')->table('periodos')
-        ->select('fecha_inicio','fecha_fin','diasPeriodo')
-        ->where('numero','=',$identificador_periodo)
-        ->first();
+                               ->select('fecha_inicio','fecha_fin','diasPeriodo')
+                               ->where('numero','=',$identificador_periodo)
+                               ->first();
 
         $conteohoras = DB::connection('DB_Serverr')->table('tiempo_extra')
-        ->select(DB::raw('CASE WHEN COUNT(`cantidad_tiempo`) = "" THEN 0 ELSE SUM(`cantidad_tiempo`) END as cantidad_tiempo'))
-        ->where('periodo_extra','=',$identificador_periodo)
-        ->where('clave_empleado','=',$claveEmp)
-        ->first();
+                       ->select(DB::raw('CASE WHEN COUNT(`cantidad_tiempo`) = "" THEN 0 ELSE SUM(`cantidad_tiempo`) END as cantidad_tiempo'))
+                       ->where('periodo_extra','=',$identificador_periodo)
+                       ->where('clave_empleado','=',$claveEmp)
+                       ->first();
 
         if($conteohoras->cantidad_tiempo!=0){
             $horasExtras = DB::connection('DB_Serverr')->table('tiempo_extra')
-            ->select('fecha_extra',DB::raw('SUM(cantidad_tiempo) as cantidad_tiempo'))
-            ->where('periodo_extra','=',$identificador_periodo)
-            ->where('clave_empleado','=',$claveEmp)
-            ->whereBetween('fecha_extra',array($manipulacion_fechas->fecha_inicio,$manipulacion_fechas->fecha_fin))
-            ->groupBy('fecha_extra')
-            ->get();
+                           ->select('fecha_extra',DB::raw('SUM(cantidad_tiempo) as cantidad_tiempo'))
+                           ->where('periodo_extra','=',$identificador_periodo)
+                           ->where('clave_empleado','=',$claveEmp)
+                           ->whereBetween('fecha_extra',array($manipulacion_fechas->fecha_inicio,$manipulacion_fechas->fecha_fin))
+                           >groupBy('fecha_extra')
+                           ->get();
 
             $inicio_semana1 = $manipulacion_fechas->fecha_inicio;
             $horasTriples = 0;
