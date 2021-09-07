@@ -14,7 +14,9 @@
                 <div class="input-group col-md-12">
                   <div class="input-group-prepend">
                     <select class="custom-select personalizado" name="opcion">
-                      <option value="id">Clave: &nbsp;</option>
+                      <option value="id">Clave: &nbsp; &nbsp; &nbsp;</option>
+                      <option value="inical">Periodo Inicial: &nbsp; &nbsp; &nbsp;</option>
+                      <option value="final">Perido Final: &nbsp; &nbsp; &nbsp;</option>
                     </select>
                   </div>
                   <input type="text" class="form-control" aria-label="Username" name="busca" aria-describedby="basic-addon1" align='right' required>

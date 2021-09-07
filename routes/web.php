@@ -1,44 +1,20 @@
 <?php
     use App\Exports\PrenominaExport;
     use Maatwebsites\Excel\Facades\Excel;
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
+
 
 Route::get('/', function () {
     return view('auth.login');
 });
 
-Route::get('/PDF-PRUEBA', function(){
-    $pdf = App::make('dompdf.wrapper');
-    $pdf->loadHTML('<h1>Test</h1>');
-    return $pdf->stream();
-});
 Auth::routes();
 
 Route::get('home', 'HomeController@index')->name('home');
 
-/**
-    *Peticiones http Delete | Get
-    *Eliminación de la empresa
-    *Vaciado de ls empresas
-    *Vaciado y control de las acciones de los registros CRUD | Botones 
-    *@version V1
-    *@return Controlador | Método
-    *@author Elizabeth
-    *@param id | función Destroy
-*/
-//empresas
 Route::delete('empresa/{id}', 'EmpresaController@destroy')->name('empresas.destroy');
 Route::get('accciones', 'EmpresaController@acciones')->name('nominas.empresas');
 Route::get('selecempresa','EmpresaController@seleccionarempresa')->name('seleccionarempresa');
+Route::get('/empresa/nomina/{id}','EmpresaController@show')->name('mostrar.empresas');
 
 //areas
 Route::get('areas','AreasController@index')->name('areas.index');
@@ -60,29 +36,10 @@ Route::delete('puestos/{id}','PuestosController@eliminarpuestos')->name('puestos
 Route::get('/departamentos','DepartamentosController@index')->name('departamentos.index');
 Route::delete('departamentos/{id}', 'DepartamentosController@eliminardepartamento')->name('departamentos.eliminadepartamento');
 
-/**
-    *Peticiones http Delete | Get
-    *Eliminación de la bancos @eliminarbanco
-    *Vaciado de los registros de bancos
-    *Vaciado y control de las acciones de los registros CRUD | Botones 
-    *@version V1
-    *@return Controlador | Método
-    *@author Gustavo | Elizabeth
-    *@param id | función Destroy
-*/
 Route::get('bancos','BancosController@acciones')->name('bancos.acciones');
+Route::get('/bancos/visualizar/{id}','BancosController@show')->name('bancos.mostrar');
 Route::delete('bancos/{id}','BancosController@eliminarbanco')->name('bancos.eliminar');
 
-/**
-    *Peticiones http Delete | Get
-    *Eliminación de la bancos @destroy
-    *Vaciado de los registros de bancos
-    *Vaciado y control de las acciones de los registros CRUD | Botones 
-    *@version V1
-    *@return Controlador | Método
-    *@author Elizabeth
-    *@param id | función Destroy
-*/
 Route::get('/prestaciones','PrestacionesController@index')->name('prestaciones.index');
 Route::delete('/prestaciones/{id}','PrestacionesController@eliminarprestacion')->name('prestaciones.destroy');
 

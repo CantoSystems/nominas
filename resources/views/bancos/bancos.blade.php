@@ -14,14 +14,28 @@
                             <tr>
                                 <th>Clave</th>
                                 <th>Banco</th>
+                                <th></th>
                             </tr>
                         </thead>
                         <tbody>
                             @if(isset($bancos))
                                 @foreach ($bancos as $banc)
                                     <tr>
-                                        <th scope="row">{{$banc->clave_banco}}</th>
+                                        <td scope="row">{{$banc->clave_banco}}</td>
                                         <td>{{$banc->nombre_banco}}</td>
+                                        <td>
+                                            @canany(['administrador','capturista'])
+                                        <div>
+                                            <center>
+                                                <a href="{{ route('bancos.mostrar',$banc->id) }}">
+                                                    <button type="button" class="botones">
+                                                        <i class="far fa-eye"></i>
+                                                    </button>
+                                                </a>
+                                            </center>         
+                                        </div>
+                                @endcan
+                                        </td>
                                     </tr>
                                 @endforeach
                             @endif

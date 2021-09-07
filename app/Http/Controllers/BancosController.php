@@ -163,10 +163,15 @@ class BancosController extends Controller
     *@author Elizabeth
     *@param id | Integer
     */
+          public function show($id){
+            $banco= Banco::find($id);
+            $bancos=Banco::all();
+            return view('bancos.bancos', compact('banco','bancos'));
+          }
 
-    public function eliminarbanco($id){
-      $banc = Banco::find($id);
-      $banc->delete();
-      return redirect()->route('bancos.acciones');
-    }
+        public function eliminarbanco($id){
+          $banc = Banco::find($id);
+          $banc->delete();
+          return redirect()->route('bancos.acciones');
+        }
 }

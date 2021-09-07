@@ -14,8 +14,8 @@
                 <div class="input-group col-md-12">
                   <div class="input-group-prepend">
                     <select class="custom-select personalizado" name="opcion">
-                      <option value="clave">Banco:&nbsp;</option>
-                      <option value="banco">Clave:&nbsp;</option>
+                      <option value="clave">Banco:&nbsp;&nbsp;&nbsp;</option>
+                      <option value="banco">Clave:&nbsp;&nbsp;&nbsp;</option>
                     </select>
                   </div>
                   <input type="text" class="form-control" aria-label="Username" name="busca" aria-describedby="basic-addon1" align='right' required>

@@ -43,21 +43,22 @@ class EmpresaController extends Controller{
         switch ($accion) {
             case '':
                 $empresa = Empresa::first();
-
-                return view('empresas.crudempresas', compact('empresa'));
+                $nominas = Empresa::all();
+                return view('empresas.crudempresas', compact('empresa','nominas'));
             break;
             case 'atras':
                 $emp= Empresa::where('clave',$clv)->first();
                 $indic= $emp->id;
                 $empresa= Empresa::where('id','<',$indic)
-                ->orderBy('id','desc')
-                ->first();
+                    ->orderBy('id','desc')
+                    ->first();
 
                 if($empresa==""){
                     $empresa= Empresa::get()->last();
                 }
 
-                return view('empresas.crudempresas', compact('empresa'));
+                $nominas = Empresa::all();
+                return view('empresas.crudempresas', compact('empresa','nominas'));
             break;
             case 'siguiente':
                 $emp= Empresa::where('clave',$clv)->first();
@@ -66,15 +67,18 @@ class EmpresaController extends Controller{
                 if($empresa==""){
                    $empresa= Empresa::first();
                 }
-                return view('empresas.crudempresas', compact('empresa'));
+                $nominas = Empresa::all();
+                return view('empresas.crudempresas', compact('empresa','nominas'));
             break;
             case 'primero':
                 $empresa= Empresa::first();
-                return view('empresas.crudempresas', compact('empresa'));
+                $nominas = Empresa::all();
+                return view('empresas.crudempresas', compact('empresa','nominas'));
             break;
             case 'ultimo':
                 $empresa= Empresa::get()->last();
-                return view('empresas.crudempresas', compact('empresa'));
+                $nominas = Empresa::all();
+                return view('empresas.crudempresas', compact('empresa','nominas'));
             break;
             case 'registrar':
                 $this->registrar($request);
@@ -90,18 +94,6 @@ class EmpresaController extends Controller{
             case 'cancelar_actualiza';
                return redirect()->route('nominas.empresas');
             break;
-            case 'buscar':
-                $criterio= $request->opcion;
-                if($criterio == 'clave'){
-                    $empresa= Empresa::where('clave',$request->busca)->first();
-
-                    if($empresa == ""){
-                        return back()->with('busqueda','Coincidencia no encontrada');
-                    }
-                     
-                    return view('empresas.crudempresas', compact('empresa'));
-                }
-                break;
             default:
             break;
         }
@@ -700,6 +692,13 @@ class EmpresaController extends Controller{
         $empresas = Empresa::get('clave');
         return view('empresas.periodo',compact('empresas'));
     }
+
+    public function show($id){
+        $empresa = Empresa::find($id);
+        $nominas = Empresa::all();
+        return view('empresas.crudempresas', compact('empresa','nominas'));
+    }
+
 
     /**
     *Elimina el registro de la tabala empresa
