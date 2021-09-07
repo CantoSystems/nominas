@@ -16,6 +16,7 @@
                                 <th>Periodo Inicio</th>
                                 <th>Periodo Final</th>
                                 <th>UMAS </th>
+                                <th></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -26,6 +27,19 @@
                                         <td>{{$um->periodoinicio_uma}}</td>
                                         <td>{{$um->periodofin_uma}}</td>
                                         <td>{{$um->porcentaje_uma}}</td>
+                                        <td>
+                                            @canany(['administrador','capturista'])
+                                                <div>
+                                                    <center>
+                                                        <a href="{{ route('umas.mostrar',$um->id) }}">
+                                                            <button type="button" class="botones">
+                                                                <i class="far fa-eye"></i>
+                                                            </button>
+                                                        </a>
+                                                    </center>         
+                                                </div>
+                                            @endcan
+                                        </td>
                                     </tr>
                                 @endforeach
                             @endif

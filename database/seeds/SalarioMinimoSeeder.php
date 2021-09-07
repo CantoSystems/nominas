@@ -1,5 +1,6 @@
 <?php
 
+use Carbon\Carbon;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
@@ -18,14 +19,15 @@ class SalarioMinimoSeeder extends Seeder
             ["inicio" => "2021-01-01","fin" => "2021-12-31", "region" => "Frontera", "importe"=> 213.39]
         ]);
 
+        $fecha_periodo = now()->toDateString();
         foreach($salariosMinimos as $salario){
             DB::table('salario_minimos')->insert([
                 'fechaInicio' => $salario['inicio'],
                 'fechafin' => $salario['fin'],
                 'region' => $salario['region'],
                 'importe' => $salario['importe'],
-                'created_at' => "2021-05-04 07:06:32",
-                'updated_at' => "2021-05-04 07:06:32"
+                'created_at' => $fecha_periodo,
+                'updated_at' => $fecha_periodo
             ]);
         }
     }
