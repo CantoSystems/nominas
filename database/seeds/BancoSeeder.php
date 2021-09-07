@@ -1,5 +1,6 @@
 <?php
 
+use Carbon\Carbon;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
@@ -21,12 +22,13 @@ class BancoSeeder extends Seeder
             ["clave" => "B009", "bancos" => "Scotiabank"]
         ]);
 
+        $fecha_periodo = now()->toDateString();
         foreach($bancos as $banco){
             DB::table('bancos')->insert([
                 'clave_banco' => $banco['clave'],
                 'nombre_banco' => $banco['bancos'],
-                'created_at' => "2021-05-04 07:06:32",
-                'updated_at' => "2021-05-04 07:06:32"
+                'created_at' => $fecha_periodo,
+                'updated_at' => $fecha_periodo
             ]);
         }
 

@@ -15,7 +15,7 @@
                   <div class="input-group-prepend">
                     <select class="custom-select personalizado" name="opcion">
                       <option value="id">Clave: &nbsp; &nbsp; &nbsp;</option>
-                      <option value="inical">Periodo Inicial: &nbsp; &nbsp; &nbsp;</option>
+                      <option value="inicial">Periodo Inicial: &nbsp; &nbsp; &nbsp;</option>
                       <option value="final">Perido Final: &nbsp; &nbsp; &nbsp;</option>
                     </select>
                   </div>

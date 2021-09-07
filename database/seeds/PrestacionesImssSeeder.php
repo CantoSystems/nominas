@@ -1,5 +1,6 @@
 <?php
 
+use Carbon\Carbon;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
@@ -26,6 +27,7 @@ class PrestacionesImssSeeder extends Seeder
             ["concepto" => "Infonavit", "prestacion" =>  "Crédito para vivienda","patron" => 5.00, "trabajador" => 0.00, "total" => 5.00,"base" => "N/A"]
         ]);
 
+        $fecha_periodo = now()->toDateString();
         foreach($imss as $i){
             DB::table('i_m_s_s')->insert([
                 'concepto' => $i['concepto'],
@@ -34,8 +36,8 @@ class PrestacionesImssSeeder extends Seeder
                 'cuotatrabajador' => $i['trabajador'],
                 'cuotatotal' => $i['total'],
                 'base' => $i['base'],
-                'created_at' => "2021-05-04 07:06:32",
-                'updated_at' => "2021-05-04 07:06:32"
+                'created_at' => $fecha_periodo,
+                'updated_at' => $fecha_periodo
             ]);
         }
     }

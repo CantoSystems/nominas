@@ -1,5 +1,6 @@
 <?php
 
+use Carbon\Carbon;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
@@ -19,11 +20,12 @@ class RolesSeeder extends Seeder
             ["rol" => "Reportes"]
         ]);
 
+        $fecha_periodo = now()->toDateString();
         foreach($roles as $rol){
             DB::table('roles')->insert([
                 'nombre_rol' => $rol['rol'],
-                'created_at' => "2021-05-04 07:06:32",
-                'updated_at' => "2021-05-04 07:06:32"
+                'created_at' => $fecha_periodo,
+                'updated_at' => $fecha_periodo
             ]);
         }
     }

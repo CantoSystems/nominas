@@ -68,13 +68,31 @@ class UmasController extends Controller
                 break;
             case 'buscar':
                $criterio = $request->opcion;
+               
                if($criterio == 'id'){
-                  $uma = Umas::where('id','=',$request->busca)->first();
-                  if($uma == ""){
+                    $uma = Umas::where('id','=',$request->busca)->first();
+                  
+                    if($uma == "")
+                    {
                     return back()->with('busqueda','Coincidencia no encontrada');
-                  }
-                $umas=Umas::all();
-                return view('umas.crud-umas', compact('uma','umas'));
+                    }
+
+                    $umas=Umas::all();
+                    return view('umas.crud-umas', compact('uma','umas'));
+               }else if($criterio == 'inicial'){
+                    $uma = Umas::where('periodoinicio_uma','=',$request->busca)->first();
+                    if(is_null($uma)){
+                        return back()->with('busqueda','Coincidencia no encontrada');
+                    }
+                    $umas= Umas::all();
+                    return view('umas.crud-umas',compact('uma','umas'));
+               }else if($criterio == 'final'){
+                   $uma = Umas::where('periodofin_uma','=',$request->busca)->first();
+                   if(is_null($uma)){
+                       return back()->with('busqueda','Coincidencia no encontrada');
+                   }
+                   $umas= Umas::all();
+                   return view('umas.crud-umas',compact('uma','umas'));
                }
                 break;
             
@@ -86,22 +104,6 @@ class UmasController extends Controller
         
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store($datos)
     {  
         $coincidencia = Umas::where([
@@ -118,8 +120,12 @@ class UmasController extends Controller
         }else{
             return back()->with('msj','Registro duplicado');
         }
+    }
 
-        
+    public function show($id){
+        $uma = Umas::find($id);
+        $umas = Umas::all();
+        return view('umas.crud-umas',compact('uma','umas'));
     }
 
     public function update($datos)
@@ -131,12 +137,7 @@ class UmasController extends Controller
         $uma->save();
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Umas  $umas
-     * @return \Illuminate\Http\Response
-     */
+
     public function destroy($id)
     {
         $uma = Umas::find($id);

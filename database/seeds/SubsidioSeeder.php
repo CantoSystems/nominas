@@ -1,5 +1,6 @@
 <?php
 
+use Carbon\Carbon;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
@@ -48,6 +49,9 @@ class SubsidioSeeder extends Seeder
             ["para" => 7113.91,"hasta" => 7382.33,"cantidad" => 217.61,"periodo" => "MENSUAL"],
             ["para" => 7382.34,"hasta" => 7383.35,"cantidad" => 0.00,"periodo" => "MENSUAL"],         
          ]);
+        
+        
+        $fecha_periodo = now()->toDateString(); 
 
         foreach($subsidios as $sub){
             DB::table('subsidios')->insert([
@@ -55,8 +59,8 @@ class SubsidioSeeder extends Seeder
                 'hastaIngresos' => $sub['hasta'],
                 'cantidadSubsidio' => $sub['cantidad'],
                 'periodo_subsidio' => $sub['periodo'],
-                'created_at' => "2021-05-04 07:06:32",
-                'updated_at' => "2021-05-04 07:06:32"
+                'created_at' => $fecha_periodo,
+                'updated_at' => $fecha_periodo
             ]);
 
         }
