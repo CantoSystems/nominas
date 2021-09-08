@@ -491,7 +491,6 @@
                 }
 
                 $('#lblSueldoNeto').append("Sueldo Neto: $ " + data[2]);
-
                 $.ajax({
                   url: "{{ route('control.impPatron') }}",
                   method: "POST",
@@ -501,7 +500,22 @@
                     percepciones: totalPercepciones
                   },
                   success: function(data){
-                    
+                    $.each(data, function(index) {
+                      htmlTags = '<tr>'+
+                                    '<td style="text-align: center;">' + data[index].clave_concepto + '</td>'+
+                                    '<td style="text-align: center;">' + data[index].concepto + '</td>'+
+                                    '<td  style="text-align: center;">$ ' + data[index].monto + '<input class="totales4" id="impPatron" type="hidden" value=" ' + data[index].monto + ' "></td>'+
+                                 '</tr>'
+                      $('#filasPatron tbody').append(htmlTags);
+                    });
+
+                    let importe_total4 = 0;
+                    $(".totales4").each(function(index, value){
+                      if($.isNumeric($(this).val())){
+                        importe_total4 = importe_total4 + eval($(this).val());
+                      }
+                    });
+                    $(".totalImpuestosPatron").val(importe_total4.toFixed(2));
                   },
                   error: function(xhr, status, error) {
                     var err = JSON.parse(xhr.responseText);
