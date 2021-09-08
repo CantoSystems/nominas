@@ -230,6 +230,8 @@
     }
 
     public function impuestosPatron(Request $request){
+        $CollectionPatron = collect();
+
         $clv = Session::get('clave_empresa');
         $num_periodo = Session::get('num_periodo');
         $clv_empresa = $this->conectar($clv);
@@ -237,6 +239,7 @@
 
         //Impuesto Estatal
         $impuestoEstatal = ($request->percepciones*3)/100;
+        $CollectionPatron->push(["clave_concepto"=>"004I","concepto"=>"IMPUESTO ESTATAL","monto"=>number_format($impuestoEstatal,2)]);                           
 
         //IMSS Patronal
         $empleados = DB::connection('DB_Serverr')->table('empleados')
@@ -274,6 +277,21 @@
                     $sumaIMSS = ($cuotasIMSS->cuotapatron*$diasTrabajados*$diferenciaSueldo)/100;
                     $totalIMSS = $totalIMSS + $sumaIMSS;
                     break;
+                //Cesantía
+                case 28:
+                    $cesantia = ($cuotasIMSS->cuotapatron*$diasTrabajados*$SBC)/100;
+                    $CollectionPatron->push(["clave_concepto"=>"008I","concepto"=>"CESANTÍA","monto"=>number_format($cesantia,2)]);
+                    break;
+                //Fondo Retiro
+                case 27:
+                    $retiro = ($cuotasIMSS->cuotapatron*$diasTrabajados*$SBC)/100;
+                    $CollectionPatron->push(["clave_concepto"=>"007I","concepto"=>"FONDO RETIRO","monto"=>number_format($retiro,2)]);
+                    break;
+                //Infonavit Patrón
+                case 30:
+                    $infonavitEmpresa = ($cuotasIMSS->cuotapatron*$diasTrabajados*$SBC)/100;
+                    $CollectionPatron->push(["clave_concepto"=>"006I","concepto"=>"INFONAVIT EMPRESA","monto"=>number_format($infonavitEmpresa,2)]);
+                    break;
                 default:
                     $sumaIMSS = ($cuotasIMSS->cuotapatron*$diasTrabajados*$SBC)/100;
                     $totalIMSS = $totalIMSS + $sumaIMSS;
@@ -281,7 +299,11 @@
             }
         }
 
-        echo $totalIMSS;
+        $CollectionPatron->push(["clave_concepto"=>"005I","concepto"=>"IMSS PATRÓN","monto"=>number_format($totalIMSS,2)]);
+
+        //Fondo Retiro
+
+        return $CollectionPatron;
     }
 
     public function SBC($diasVacaciones,$sueldoDiario){
