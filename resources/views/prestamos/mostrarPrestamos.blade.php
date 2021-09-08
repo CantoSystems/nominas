@@ -7,7 +7,7 @@
                 <div class="card card-secondary">
                     <div class="card-header">
                         <h3 class="card-title">
-                            Préstamos
+                            Adicionales
                         </h3>
                     </div>
                 <div class="card-body">
@@ -46,7 +46,7 @@
         </div>
     </div>
         <div class="card-header">
-            <h3 class="card-title">Préstamos</h3>
+            <h3 class="card-title">Adicionales</h3>
         </div>
         <div class="card-body">
         @if(session()->has('msj'))

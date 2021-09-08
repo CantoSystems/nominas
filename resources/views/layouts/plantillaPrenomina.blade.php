@@ -491,6 +491,23 @@
                 }
 
                 $('#lblSueldoNeto').append("Sueldo Neto: $ " + data[2]);
+
+                $.ajax({
+                  url: "{{ route('control.impPatron') }}",
+                  method: "POST",
+                  data: {
+                    _token: $("meta[name='csrf-token']").attr("content"),
+                    clvEmp: $('.clvEmp').val(),
+                    percepciones: totalPercepciones
+                  },
+                  success: function(data){
+                    
+                  },
+                  error: function(xhr, status, error) {
+                    var err = JSON.parse(xhr.responseText);
+                    console.log(err.Message);
+                  }
+                });
               },
               error: function(xhr, status, error) {
                 var err = JSON.parse(xhr.responseText);
@@ -515,7 +532,6 @@
               monto: e.querySelector('.monto').value
             };
             myTableArray.push(fila);
-            //console.log(myTableArray);
           });
           let jsonString = JSON.stringify(myTableArray);
           $.ajax({
@@ -570,9 +586,4 @@
           });
         });
       });
-    </script>
-
-    <script>
-      /* Scripts para calcular los impuestos del patrón */
-     
     </script>

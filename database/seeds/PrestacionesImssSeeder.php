@@ -15,7 +15,7 @@ class PrestacionesImssSeeder extends Seeder
     public function run()
     {
         $imss = Collect([ 
-            ["concepto" => "Riesgos de Trabajo","prestacion" => "En especie y dinero","patron" => 0.00,"trabajador" => 0.00, "total" => 0.00, "base" => "UMA"],
+            ["concepto" => "Riesgos de Trabajo","prestacion" => "En especie y dinero","patron" => 0.00,"trabajador" => 0.00, "total" => 0.00, "base" => "SBC"],
             ["concepto" => "Enfermedades y Maternidad","prestacion" => "En especie","patron" => 20.40,"trabajador" => 0.00, "total" => 20.40, "base" => "UMA"],
             ["concepto" => "Enfermedades y Maternidad","prestacion" => "En especie","patron" => 1.10,"trabajador" => 0.40, "total" => 1.50,"base" =>  "N/A"],
             ["concepto" => "Enfermedades y Maternidad","prestacion" =>  "Gastos médicos para pensionados y beneficiarios","patron" => 1.05,"trabajador" => 0.375, "total" => 1.425,"base" => "SBC"],
