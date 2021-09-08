@@ -3,7 +3,7 @@
 <div class="container">
     <div class="card card-secondary">
         <div class="card-header">
-            <h3 class="card-title">Deducciones Adicionales</h3>
+            <h3 class="card-title">Adicionales</h3>
         </div>
         <div class="card-body">
             @if(session()->has('registro'))
@@ -105,7 +105,7 @@
                         <div class="card card-secondary">
                         <div class="card-header">
                             <h3 class="card-title">
-                                Deducciones Adicionales
+                                Adicionales
                             </h3>
                         </div>
                         <div class="card-body">

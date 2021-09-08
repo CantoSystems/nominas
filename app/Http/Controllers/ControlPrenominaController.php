@@ -179,7 +179,6 @@
     public function calcularIMSS(Request $request){
         $clv = Session::get('clave_empresa');
         $num_periodo = Session::get('num_periodo');
-
         $clv_empresa = $this->conectar($clv);
         \Config::set('database.connections.DB_Serverr', $clv_empresa);
 
@@ -206,8 +205,9 @@
                             ->where('anio','=',$at)
                             ->first();
 
-            $SBC = $this->SBC($prestaciones->dias,$empleados->sueldo_diario,$request->totalImss,$request->clvEmp);
+            $SBC = $this->SBC($prestaciones->dias,$empleados->sueldo_diario);
             $uma = $this->uma();
+            $diasTrabajados = $this->dias_trabajados($request->clvEmp);
 
             $ims = IMSS::select('cuotatrabajador','id_imss','base')
                    ->where('cuotatrabajador','!=',0)
@@ -217,10 +217,10 @@
             foreach($ims as $cuotasIMSS){
                 if($cuotasIMSS->id_imss == 23){
                     $diferenciaSueldo = $SBC - ($uma->porcentaje_uma*3);
-                    $sumaIMSS = ($cuotasIMSS->cuotatrabajador*$empleados->dias*$diferenciaSueldo)/100;
+                    $sumaIMSS = ($cuotasIMSS->cuotatrabajador*$diasTrabajados*$diferenciaSueldo)/100;
                     $totalIMSS = $totalIMSS + $sumaIMSS;
                 }else{
-                    $sumaIMSS = ($cuotasIMSS->cuotatrabajador*$empleados->dias*$SBC)/100;
+                    $sumaIMSS = ($cuotasIMSS->cuotatrabajador*$diasTrabajados*$SBC)/100;
                     $totalIMSS = $totalIMSS + $sumaIMSS;
                 }
             }
@@ -230,17 +230,65 @@
     }
 
     public function impuestosPatron(Request $request){
-        $diasAusentismo = $this->ausentismo($request->clvEmp);
-        //$sueldo = $request->totalPercepciones - 
+        $clv = Session::get('clave_empresa');
+        $num_periodo = Session::get('num_periodo');
+        $clv_empresa = $this->conectar($clv);
+        \Config::set('database.connections.DB_Serverr', $clv_empresa);
+
+        //Impuesto Estatal
+        $impuestoEstatal = ($request->percepciones*3)/100;
+
+        //IMSS Patronal
+        $empleados = DB::connection('DB_Serverr')->table('empleados')
+                     ->select('id_emp','sueldo_diario','dias')   
+                     ->where('clave_empleado','=',$request->clvEmp)
+                     ->first();
+
+        $at = $this->anios_trabajados($empleados->id_emp);
+        if($at == 0){
+            $at = 1;
+        }
+
+        $prestaciones = DB::connection('DB_Serverr')->table('prestaciones')
+                        ->select('dias')
+                        ->where('anio','=',$at)
+                        ->first();
+
+        $SBC = $this->SBC($prestaciones->dias,$empleados->sueldo_diario);
+        $uma = $this->uma();
+        $diasTrabajados = $this->dias_trabajados($request->clvEmp);
+
+        $ims = IMSS::select('cuotapatron','id_imss','base')
+               ->where('cuotapatron','!=',0)
+               ->get();
+
+        $totalIMSS = 0;
+        foreach($ims as $cuotasIMSS){
+            switch($cuotasIMSS->id_imss){
+                case 22:
+                    $sumaIMSS = ($cuotasIMSS->cuotapatron*$diasTrabajados*$uma->porcentaje_uma)/100;
+                    $totalIMSS = $totalIMSS + $sumaIMSS;
+                    break;
+                case 23:
+                    $diferenciaSueldo = $SBC - ($uma->porcentaje_uma*3);
+                    $sumaIMSS = ($cuotasIMSS->cuotapatron*$diasTrabajados*$diferenciaSueldo)/100;
+                    $totalIMSS = $totalIMSS + $sumaIMSS;
+                    break;
+                default:
+                    $sumaIMSS = ($cuotasIMSS->cuotapatron*$diasTrabajados*$SBC)/100;
+                    $totalIMSS = $totalIMSS + $sumaIMSS;
+                    break;
+            }
+        }
+
+        echo $totalIMSS;
     }
 
-    public function SBC($diasVacaciones,$sueldoDiario,$totalIMSS,$clvEmp){
-        $diasTrabajados = $this->dias_trabajados($clvEmp);
-        
+    public function SBC($diasVacaciones,$sueldoDiario){
         $primaAguinaldo = 15/365;
         $primaVacaciones = ($diasVacaciones*0.25)/365;
         $FactorIntegracion = $primaAguinaldo + $primaVacaciones + 1;
-        $SBC = ($sueldoDiario * $FactorIntegracion); 
+        $SBC = $sueldoDiario * $FactorIntegracion; 
 
         return $SBC;
     }
@@ -387,7 +435,7 @@
                         $Excento = $calculosISR['percepcionExcenta'];
 
                         $ControlPrenomina->push(["clave_empleado"=>$emp->clave_empleado,"clave_concepto"=>"009P","concepto"=>"DIFERENCIA DE SUELDO","monto"=>$montoDiferencia,"gravable"=>$Gravado,"excento"=>$Excento,"tipo"=> "P"]);
-                        $percepcionesImss->push(["clave_empleado"=>$emp->clave_empleado,"concepto"=>"DIFERENCIA DE SUELDO", "total" => $montoDiferencia->monto]);
+                        $percepcionesImss->push(["clave_empleado"=>$emp->clave_empleado,"concepto"=>"DIFERENCIA DE SUELDO", "total" => $montoDiferencia]);
                     }else{
                         $Gravado = 0;
                         $Excento = 0;
@@ -416,7 +464,7 @@
                         $Excento = $calculosISR['percepcionExcenta'];
 
                         $ControlPrenomina->push(["clave_empleado"=>$emp->clave_empleado,"clave_concepto"=>"015P","concepto"=>"COMISIONES","monto"=>$montoComisiones,"gravable"=>$Gravado,"excento"=>$Excento,"tipo"=> "P"]);
-                        $percepcionesImss->push(["clave_empleado"=>$emp->clave_empleado,"concepto"=>"COMISIONES", "total" => $montoComisiones->monto]);
+                        $percepcionesImss->push(["clave_empleado"=>$emp->clave_empleado,"concepto"=>"COMISIONES", "total" => $montoComisiones]);
                     }else{
                         $Gravado = 0;
                         $Excento = 0;
@@ -431,7 +479,7 @@
                         $Excento = $calculosISR['percepcionExcenta'];
 
                         $ControlPrenomina->push(["clave_empleado"=>$emp->clave_empleado,"clave_concepto"=>"017P","concepto"=>"BONO DE PRODUCTIVIDAD","monto"=>$montoComisiones,"gravable"=>$Gravado,"excento"=>$Excento,"tipo"=> "P"]);
-                        $percepcionesImss->push(["concepto"=>"BONO DE PRODUCTIVIDAD", "total" => $montoComisiones->monto]);
+                        $percepcionesImss->push(["clave_empleado"=>$emp->clave_empleado,"concepto"=>"BONO DE PRODUCTIVIDAD", "total" => $montoComisiones]);
                     }else{
                         $Gravado = 0;
                         $Excento = 0;
