@@ -196,16 +196,13 @@
             return $collection = collect(['002I','IMSS TRABAJADOR',0]);
         }else{
             $at = $this->anios_trabajados($empleados->id_emp);
-            if($at == 0){
-                $at = 1;
-            }
 
             $prestaciones = DB::connection('DB_Serverr')->table('prestaciones')
                             ->select('dias')
                             ->where('anio','=',$at)
                             ->first();
 
-            $SBC = $this->SBC($prestaciones->dias,$empleados->sueldo_diario);
+            $SBC = $this->SBC($prestaciones->dias,$empleados->sueldo_diario,$empleados->id_emp);
             $uma = $this->uma();
             $diasTrabajados = $this->dias_trabajados($request->clvEmp);
 
@@ -248,16 +245,13 @@
                      ->first();
 
         $at = $this->anios_trabajados($empleados->id_emp);
-        if($at == 0){
-            $at = 1;
-        }
 
         $prestaciones = DB::connection('DB_Serverr')->table('prestaciones')
                         ->select('dias')
                         ->where('anio','=',$at)
                         ->first();
 
-        $SBC = $this->SBC($prestaciones->dias,$empleados->sueldo_diario);
+        $SBC = $this->SBC($prestaciones->dias,$empleados->sueldo_diario,$empleados->id_emp);
         $uma = $this->uma();
         $diasTrabajados = $this->dias_trabajados($request->clvEmp);
 
@@ -265,9 +259,15 @@
                ->where('cuotapatron','!=',0)
                ->get();
 
+        $primaRiesgo = $this->ahorro_riesgo();
+        
         $totalIMSS = 0;
         foreach($ims as $cuotasIMSS){
             switch($cuotasIMSS->id_imss){
+                case 21:
+                    $sumaIMSS = ($primaRiesgo->primaRiesgo*$diasTrabajados*$SBC)/100;
+                    $totalIMSS = $totalIMSS + $sumaIMSS;
+                    break;
                 case 22:
                     $sumaIMSS = ($cuotasIMSS->cuotapatron*$diasTrabajados*$uma->porcentaje_uma)/100;
                     $totalIMSS = $totalIMSS + $sumaIMSS;
@@ -300,15 +300,14 @@
         }
 
         $CollectionPatron->push(["clave_concepto"=>"005I","concepto"=>"IMSS PATRÓN","monto"=>number_format($totalIMSS,2)]);
-
-        //Fondo Retiro
-
         return $CollectionPatron;
     }
 
-    public function SBC($diasVacaciones,$sueldoDiario){
-        $primaAguinaldo = 15/365;
-        $primaVacaciones = ($diasVacaciones*0.25)/365;
+    public function SBC($diasVacaciones,$sueldoDiario,$idEmp){
+        $datosPrestaciones = $this->aguinaldo_vacaciones_prima($idEmp);
+
+        $primaAguinaldo = $datosPrestaciones->aguinaldo/365;
+        $primaVacaciones = (($diasVacaciones*$datosPrestaciones->prima_vacacional)/365)/100;
         $FactorIntegracion = $primaAguinaldo + $primaVacaciones + 1;
         $SBC = $sueldoDiario * $FactorIntegracion; 
 
@@ -758,6 +757,10 @@
 
         $alta = now()->parse($alta_trabajador->fecha_alta);
         $diferencia = $inicial->DiffInYears($alta);
+
+        if($diferencia == 0){
+            $diferencia = 1;
+        }
 
         return $diferencia;
     }
