@@ -206,13 +206,14 @@
             $uma = $this->uma();
             $diasTrabajados = $this->dias_trabajados($request->clvEmp);
 
-            $ims = IMSS::select('cuotatrabajador','id_imss','base')
+            $ims = IMSS::select('cuotatrabajador','id_imss','base','claveImss')
                    ->where('cuotatrabajador','!=',0)
                    ->get();
 
             $totalIMSS = 0;
             foreach($ims as $cuotasIMSS){
-                if($cuotasIMSS->id_imss == 23){
+                //clave
+                if($cuotasIMSS->claveImss == 'IEM2'){
                     $diferenciaSueldo = $SBC - ($uma->porcentaje_uma*3);
                     $sumaIMSS = ($cuotasIMSS->cuotatrabajador*$diasTrabajados*$diferenciaSueldo)/100;
                     $totalIMSS = $totalIMSS + $sumaIMSS;
@@ -255,7 +256,7 @@
         $uma = $this->uma();
         $diasTrabajados = $this->dias_trabajados($request->clvEmp);
 
-        $ims = IMSS::select('cuotapatron','id_imss','base')
+        $ims = IMSS::select('cuotapatron','id_imss','base','claveImss')
                ->where('cuotapatron','!=',0)
                ->get();
 
@@ -263,33 +264,33 @@
         
         $totalIMSS = 0;
         foreach($ims as $cuotasIMSS){
-            switch($cuotasIMSS->id_imss){
+            switch($cuotasIMSS->claveImss){
                 //Riesgo de Trabajo
-                case 21:
+                case 'IRT':
                     $sumaIMSS = ($primaRiesgo->primaRiesgo*$diasTrabajados*$SBC)/100;
                     $totalIMSS = $totalIMSS + $sumaIMSS;
                     break;
-                case 22:
+                case 'IEM1':
                     $sumaIMSS = ($cuotasIMSS->cuotapatron*$diasTrabajados*$uma->porcentaje_uma)/100;
                     $totalIMSS = $totalIMSS + $sumaIMSS;
                     break;
-                case 23:
+                case 'IEM2':
                     $diferenciaSueldo = $SBC - ($uma->porcentaje_uma*3);
                     $sumaIMSS = ($cuotasIMSS->cuotapatron*$diasTrabajados*$diferenciaSueldo)/100;
                     $totalIMSS = $totalIMSS + $sumaIMSS;
                     break;
                 //Cesantía
-                case 28:
+                case 'IRC2':
                     $cesantia = ($cuotasIMSS->cuotapatron*$diasTrabajados*$SBC)/100;
                     $CollectionPatron->push(["clave_concepto"=>"008I","concepto"=>"CESANTÍA","monto"=>number_format($cesantia,2)]);
                     break;
                 //Fondo Retiro
-                case 27:
+                case 'IRC1':
                     $retiro = ($cuotasIMSS->cuotapatron*$diasTrabajados*$SBC)/100;
                     $CollectionPatron->push(["clave_concepto"=>"007I","concepto"=>"FONDO RETIRO","monto"=>number_format($retiro,2)]);
                     break;
                 //Infonavit Patrón
-                case 30:
+                case 'IIN1':
                     $infonavitEmpresa = ($cuotasIMSS->cuotapatron*$diasTrabajados*$SBC)/100;
                     $CollectionPatron->push(["clave_concepto"=>"006I","concepto"=>"INFONAVIT EMPRESA","monto"=>number_format($infonavitEmpresa,2)]);
                     break;
