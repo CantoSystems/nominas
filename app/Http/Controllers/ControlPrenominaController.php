@@ -264,6 +264,7 @@
         $totalIMSS = 0;
         foreach($ims as $cuotasIMSS){
             switch($cuotasIMSS->id_imss){
+                //Riesgo de Trabajo
                 case 21:
                     $sumaIMSS = ($primaRiesgo->primaRiesgo*$diasTrabajados*$SBC)/100;
                     $totalIMSS = $totalIMSS + $sumaIMSS;
