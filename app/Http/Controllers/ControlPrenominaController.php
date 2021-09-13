@@ -255,18 +255,14 @@
         $SBC = $this->SBC($prestaciones->dias,$empleados->sueldo_diario,$empleados->id_emp);
         $uma = $this->uma();
         $diasTrabajados = $this->dias_trabajados($request->clvEmp);
-
-        $ims = IMSS::select('cuotapatron','id_imss','base','claveImss')
-               ->where('cuotapatron','!=',0)
-               ->get();
-
+        $ims = IMSS::select('cuotapatron','id_imss','base','claveImss')->get();
         $primaRiesgo = $this->ahorro_riesgo();
         
         $totalIMSS = 0;
         foreach($ims as $cuotasIMSS){
             switch($cuotasIMSS->claveImss){
                 //Riesgo de Trabajo
-                case 'IRT':
+                case 'IRT1':
                     $sumaIMSS = ($primaRiesgo->primaRiesgo*$diasTrabajados*$SBC)/100;
                     $totalIMSS = $totalIMSS + $sumaIMSS;
                     break;
@@ -276,7 +272,12 @@
                     break;
                 case 'IEM2':
                     $diferenciaSueldo = $SBC - ($uma->porcentaje_uma*3);
-                    $sumaIMSS = ($cuotasIMSS->cuotapatron*$diasTrabajados*$diferenciaSueldo)/100;
+                    if($diferenciaSueldo > 0){
+                        $sumaIMSS = ($cuotasIMSS->cuotapatron*$diasTrabajados*$diferenciaSueldo)/100;
+                    }else{
+                        $sumaIMSS = 0;
+                    }
+                    
                     $totalIMSS = $totalIMSS + $sumaIMSS;
                     break;
                 //Cesantía
@@ -306,12 +307,19 @@
     }
 
     public function SBC($diasVacaciones,$sueldoDiario,$idEmp){
+        $clv = Session::get('clave_empresa');
+        $clv_empresa = $this->conectar($clv);
+        \Config::set('database.connections.DB_Serverr', $clv_empresa);
         $datosPrestaciones = $this->aguinaldo_vacaciones_prima($idEmp);
 
         $primaAguinaldo = $datosPrestaciones->aguinaldo/365;
         $primaVacaciones = (($diasVacaciones*$datosPrestaciones->prima_vacacional)/365)/100;
         $FactorIntegracion = $primaAguinaldo + $primaVacaciones + 1;
         $SBC = $sueldoDiario * $FactorIntegracion; 
+
+        DB::connection('DB_Serverr')->table('empleados')
+            ->where('id_emp',$idEmp)
+            ->update(['sueldo_integrado'=>number_format($SBC,4)]);
 
         return $SBC;
     }

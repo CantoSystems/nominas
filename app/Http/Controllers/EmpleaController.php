@@ -751,8 +751,6 @@ class EmpleaController extends Controller
 
     public function update($datos){
         $clv=Session::get('clave_empresa');
-
-
         $clv_empresa=$this->conectar($clv);
         \Config::set('database.connections.DB_Serverr', $clv_empresa);
 
