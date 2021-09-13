@@ -150,6 +150,11 @@ class RetencionesController extends Controller
         $retencion->periodo_retencion = $datos->periodo_retencion;
         $retencion->save();
     }
+
+    public function show($id)
+    {
+
+    }
     
     public function destroy($id)
     {

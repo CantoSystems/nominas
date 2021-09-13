@@ -20,7 +20,7 @@ class selectConceptosController extends Controller{
         switch ($accion) {
             case '':
                 $conceptos = DB::connection('DB_Serverr')->table('conceptos')
-                        ->whereNotIn('clave_concepto',['001T','002I','003T','004I'])
+                        ->whereNotIn('clave_concepto',['001T','002I','003T','004I','001S','002s'])
                         ->get();
 
                 return view('selectConceptos.selectconceptos',compact('conceptos'));
@@ -47,7 +47,7 @@ class selectConceptosController extends Controller{
                 }
                 
                 $conceptos = DB::connection('DB_Serverr')->table('conceptos')
-                    ->whereNotIn('clave_concepto',['001T','002I','003T','004I'])
+                ->whereNotIn('clave_concepto',['001T','002I','003T','004I','001S','002s'])
                     ->get();
                 return view('selectConceptos.selectconceptos',compact('conceptos'));
             break;

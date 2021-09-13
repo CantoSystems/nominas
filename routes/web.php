@@ -66,6 +66,7 @@ Route::delete('/usuarios/{id}','UsersController@destroy')->name('usuarios.destro
 
 //Retenciones
 Route::get('/retenciones','RetencionesController@index')->name('retenciones.index');
+Route::get('/retenciones/visualizar/{id}','RetencionesController@show')->name('retenciones.mostrar');
 Route::delete('/retenciones/{id}','RetencionesController@destroy')->name('retenciones.destroy');
 
 //I.M.S.S
