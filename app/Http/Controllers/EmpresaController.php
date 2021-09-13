@@ -9,8 +9,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Schema;
 
-
-
 class EmpresaController extends Controller{
     public function conectar($clv){
         $configDb = [
@@ -108,7 +106,7 @@ class EmpresaController extends Controller{
     *@param $datos | Array
     */
     public function actualizar($datos){
-        $emp= Empresa::where('clave',$datos->clave)->first();
+        $emp = Empresa::where('clave',$datos->clave)->first();
         $emp->nombre= $datos->nombre;
         $emp->nombre_nomina= $datos->nombre_nomina;
         $emp->rfc= $datos->rfc;
@@ -326,7 +324,6 @@ class EmpresaController extends Controller{
         ]);
         $fecha_periodo = now()->toDateString();
         foreach($conceptos as $con){
-            
             DB::connection('DB_Serverr')->insert('insert into conceptos 
                                                 (clave_concepto,concepto,formula,naturaleza,manejo
                                                 ,cantidad,importe,monto,isr,imss,infonavit,estatal,
@@ -337,9 +334,6 @@ class EmpresaController extends Controller{
                                                 $con['manejo'],$con['cantidad'],$con['importe'],$con['monto'],$con['isr'],$con['imss'],
                                                 $con['infonavit'],$con['estatal'],$con['isr_uma'],$con['isr_porcentaje'], $con['imss_uma'],
                                                 $con['imss_porcentaje'],$con['seleccionado'],$fecha_periodo,$fecha_periodo]);
-
-
-
         }
 
         Schema::connection('DB_Serverr')->create('prestaciones', function($table){
@@ -398,9 +392,6 @@ class EmpresaController extends Controller{
                                                     (anio,dias,prima_vacacional,aguinaldo,created_at,updated_at)
                                                     values (?,?,?,?,?,?)',
                                                     [$prima['anio'],$prima['dias'],25,15,$fecha_periodo,$fecha_periodo]);
-    
-    
-    
             }
 
         Schema::connection('DB_Serverr')->create('empleados', function($table){
