@@ -71,6 +71,7 @@ Route::delete('/retenciones/{id}','RetencionesController@destroy')->name('retenc
 
 //I.M.S.S
 Route::get('imss','IMSSController@acciones')->name('imss.acciones');
+Route::get('/imss/visualizar/{id_imss}','IMSSController@show')->name('imss.mostrar');
 Route::delete('imss/{id_imss}','IMSSController@eliminarimss')->name('imss.eliminarimss');
 
 //Subsidios

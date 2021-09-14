@@ -15,7 +15,7 @@
                                 <div class="col-sm-4">
                                     <div class="form-group">
                                         <label>Seguro y concepto:</label>
-                                        <select name="seguroIMSS" class="custom-select">
+                                        <select id="regionSalario" name="seguroIMSS" class="custom-select">
                                             @if($imss->concepto=="N/A" || $imss->concepto==null)
                                                 <option selected value="N/A">Selecciona una opción...</option>
                                                 <option value="Riesgos de Trabajo">Riesgos de Trabajo</option>
@@ -79,7 +79,7 @@
                                 <div class="col-sm-4">
                                     <div class="form-group">
                                         <label>Prestaciones:</label>
-                                        <select name="prestacionIMSS" class="custom-select">
+                                        <select id="regionSalario" name="prestacionIMSS" class="custom-select">
                                             @if($imss->prestaciones=="N/A" || $imss->prestaciones==null)
                                                 <option selected value="N/A">Selecciona una opción...</option>
                                                 <option value="En especie y dinero">En especie y dinero</option>
@@ -173,7 +173,7 @@
                                     <div class="form-group">
                                         <label>Base Salarial:</label>
                                         @if($imss->base=='SBC')
-                                            <select class="custom-select" name="basesalarial">
+                                            <select id="regionSalario" class="custom-select" name="basesalarial">
                                                 <option value="N/A">Selecciona una opción</option>
                                                 <option value="SBC" selected>SBC</option>
                                                 <option value="UMA">UMA</option>
@@ -191,6 +191,12 @@
                                                 <option value="UMA">UMA</option>
                                             </select>
                                         @endif
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group clv_imss">
+                                        <label>Clave:</label>
+                                        <input type="text" name="claveImss"class="form-control">
                                     </div>
                                 </div>
                             @else
@@ -226,7 +232,7 @@
                                 <div class="col-sm-4">
                                     <div class="form-group">
                                         <label>Cuota (Patrón):</label>
-                                        <input type="number" name="cuotapatron" class="form-control" step="0.01" >
+                                        <input type="text" name="cuotapatron" class="form-control" step="0.01" >
                                     </div>
                                 </div>
                                
@@ -245,6 +251,12 @@
                                         <option value="SBC">SBC</option>
                                         <option value="UMA">UMA</option>
                                     </select>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4 clv_imss">
+                                    <div class="form-group">
+                                        <label>Clave::</label>
+                                        <input type="text" name="claveImss" class="form-control">
                                     </div>
                                 </div>
                             @endif
