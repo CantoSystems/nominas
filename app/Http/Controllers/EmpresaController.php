@@ -162,6 +162,11 @@ class EmpresaController extends Controller{
               'telefono' => 'required',
               'email' => 'required',
               'tipoPeriodo' => 'required',
+              'inicioPeriodo' => 'required',
+              'regionEmpresa' => 'required',
+              'primaRiesgo' => 'required',
+              'porcentajeAhorro' => 'required'
+
         ]);
 
         $empresa = new Empresa;

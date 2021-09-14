@@ -1,4 +1,4 @@
-<div class="modal fade bs-example-modal-sm" tabindex="-1" id="modal-deleteimsss-{{$ims->id_imss}}" role="dialog" aria-hidden="true">
+<div class="modal fade" tabindex="-1" id="deleteimss-{{$imss->id_imss}}" role="dialog" aria-hidden="true">
 	<div class="modal-dialog modal-sm">
 		<div class="modal-content">
 			<div class="modal-header">
@@ -10,12 +10,12 @@
 				</button>
 			</div>
 			<div class="modal-body">
-				<form action="{{ route('imss.eliminarimss', $ims->id_imss )}}" method="post">
+				<form action="{{ route('imss.eliminarimss', $imss->id_imss )}}" method="post">
 					@method('DELETE')
 					@csrf
 					<div class="row">
 						<h5 style="text-align: center;">¿Estas seguro de eliminar este Concepto: 
-							<strong>{{$ims->concepto}}</strong>?
+							<strong>{{$imss->concepto}}</strong>?
 						</h5>
 					</div>
 					<div class="modal-footer">

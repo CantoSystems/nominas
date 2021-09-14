@@ -317,7 +317,7 @@
                                 <td>{{ $rtn->cuota_fija }}</td>
                                 <td>{{ $rtn->porcentaje_excedente }}</td>
                                 <td>{{ $rtn->periodo_retencion }}</td>
-                                <td> {{ $rtn->id}}
+                                <td> 
                                     @canany(['administrador','capturista'])
                                         <div>
                                             <center>

@@ -153,7 +153,9 @@ class RetencionesController extends Controller
 
     public function show($id)
     {
-
+        $isr=Retenciones::all();
+        $retencion = Retenciones::find($id);
+        return view('retenciones.crudretenciones', compact('isr','retencion'));
     }
     
     public function destroy($id)

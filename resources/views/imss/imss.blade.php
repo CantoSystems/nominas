@@ -6,7 +6,7 @@
         <div class="col">
             <div class="card card-secondary">
                 <div class="card-header">
-                    <h3 class="card-title">Tabla IMSS estoy editando</h3>
+                    <h3 class="card-title">Tabla IMSS </h3>
                 </div>
                 <div class="card-body">
                     <form action="{{ route('imss.acciones')}}" method="GET" autocomplete="off">
@@ -286,8 +286,6 @@
                                 </div>
                             @endcanany
 
-
-
                             <div class="col-md-5">
                                     <div class="margin">
                                         @canany(['administrador','capturista','reportes'])
@@ -331,7 +329,8 @@
                                                 @can('administrador')
                                                     @if(isset($imss))
                                                         <div class="form-group">
-                                                            <a id="eliminar" data-target="#modal-deleteimsss-{{$imss->id_imss}}" data-toggle="modal">
+                                                            <a id="eliminar" 
+                                                            data-target="#deleteimss-{{$imss->id_imss}}" data-toggle="modal">
                                                                 <button type="button" class="botonesgrandes">
                                                                     <i class="far fa-trash-alt"></i>
                                                                 </button>
@@ -358,14 +357,9 @@
                                             </div>
                                     </div>
                             </div>
-
-
-
-
                                 <div class="col-md-2">
                                         <div class="margin">
                                             <div class="btn-group">
-                                                
                                                     <!--Su uso solo es para visualizar la existencia del los iconos -->
                                                     <div class="form-group">
                                                     <button id="guardar_falso" disabled class="botonesgrandes"><i class="fas fa-save"></i></button>
@@ -390,8 +384,8 @@
         </div>
     </div>
 </div>
-@if(!empty($ims))
-  @include('imss.modaldeleteimss')
-  @include('imss.modalsearchimss')
+@if(!empty($imss))
+    @include('imss.modaldeleteimss')
+    @include('imss.modalsearchimss')
 @endif
 @endsection

@@ -75,6 +75,7 @@ Route::delete('imss/{id_imss}','IMSSController@eliminarimss')->name('imss.elimin
 
 //Subsidios
 Route::get('subsidios','SubsidioController@acciones')->name('subsidio.acciones');
+Route::get('/subsidios/visualizar/{id_subsidio}','SubsidioController@show')->name('subsidios.mostrar');
 Route::delete('subsidios/{id_subsidio}','SubsidioController@eliminarsubsidio')->name('subsidio.eliminarsubsidio');
 
 //Ajax-Insert-Multiple Incidencias
