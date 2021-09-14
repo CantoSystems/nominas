@@ -94,7 +94,8 @@ class SubsidioController extends Controller{
        $datos->validate([
             'hastaIngresos' => 'required',
             'ParaIngresos' => 'required',
-            'cantidadSubsidio' => 'required'
+            'cantidadSubsidio' => 'required',
+            'periodo_subsidio' => 'required'
         ]);
 
         $coincidencia = Subsidio::where([
@@ -107,6 +108,7 @@ class SubsidioController extends Controller{
             $sub->hastaIngresos = $datos->hastaIngresos;
             $sub->ParaIngresos = $datos->ParaIngresos;
             $sub->cantidadSubsidio = $datos->cantidadSubsidio;
+            $sub->periodo_subsidio = $datos->periodo_subsidio;
             $sub->save();
         }else{
             return back()->with('msj','Registro duplicado');
@@ -126,7 +128,13 @@ class SubsidioController extends Controller{
         $sub->IngresosDe = $datos->hastaingresos;
         $sub->ParaIngresos = $datos->paraingresos;
         $sub->SubsidioMensual = $datos->subsidiomensual;
+        $sub->periodo_subsidio = $datos->periodo_subsidio;
         $sub->save();
+    }
+    public function show($id_subsidio){
+        $subsidio = Subsidio::where('id_subsidio','=',$id_subsidio)->first();
+        $subsidios = Subsidio::all();
+        return view('subsidio.subsidio', compact('subsidio','subsidios'));
     }
 
     public function eliminarsubsidio($id_subsidio){

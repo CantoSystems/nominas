@@ -150,6 +150,13 @@ class RetencionesController extends Controller
         $retencion->periodo_retencion = $datos->periodo_retencion;
         $retencion->save();
     }
+
+    public function show($id)
+    {
+        $isr=Retenciones::all();
+        $retencion = Retenciones::find($id);
+        return view('retenciones.crudretenciones', compact('isr','retencion'));
+    }
     
     public function destroy($id)
     {

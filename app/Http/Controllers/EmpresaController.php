@@ -162,6 +162,11 @@ class EmpresaController extends Controller{
               'telefono' => 'required',
               'email' => 'required',
               'tipoPeriodo' => 'required',
+              'inicioPeriodo' => 'required',
+              'regionEmpresa' => 'required',
+              'primaRiesgo' => 'required',
+              'porcentajeAhorro' => 'required'
+
         ]);
 
         $empresa = new Empresa;
@@ -315,7 +320,12 @@ class EmpresaController extends Controller{
             ["clave_concepto" => "002I", "concepto" => "CREDITO AL SALARIO","formula" => NULL, "tipo" => "I", "manejo" => "variable","cantidad" => NULL, "importe" => NULL,"monto" => NULL,"isr" => 0, "imss" => 0, "infonavit" => 0,"estatal" => 0, "isr_uma" => 0.00, "isr_porcentaje" => 0.00, "imss_uma" =>  0.00, "imss_porcentaje" => 0.00, "seleccionado" => 1],
             ["clave_concepto" => "003T", "concepto" => "IMSS TRABAJADOR","formula" => NULL, "tipo" =>  "T","manejo" => "variable","cantidad" => NULL, "importe" => NULL,"monto" => NULL,"isr" => 0, "imss" => 0,"infonavit" => 0,"estatal" => 0, "isr_uma" => 0.00, "isr_porcentaje" => 0.00, "imss_uma" => 0.00, "imss_porcentaje" => 0.00, "seleccionado" => 1],
             ["clave_concepto" => "004I", "concepto" => "IMSS PATRONAL","formula" => NULL,"tipo" => "I","manejo" => "variable","cantidad" =>  NULL,"importe" =>  NULL, "monto" => NULL,"isr" => 0,"imss" => 0, "infonavit" =>  0, "estatal" => 0, "isr_uma" => 0.00,  "isr_porcentaje" => 0.00,"imss_uma" => 0.00, "imss_porcentaje" => 0.00, "seleccionado" => 1],
-            ["clave_concepto" => "005I", "concepto" => "INFONAVIT", "formula" => NULL, "tipo" => "I","manejo" => "fijo", "cantidad" =>  NULL, "importe" =>  NULL,"monto" => NULL,"isr" => 0, "imss" => 0, "infonavit" => 0,"estatal" => 0,"isr_uma" => 0.00,"isr_porcentaje" => 0.00, "imss_uma" => 0.00,"imss_porcentaje" => 0.00, "seleccionado" => 0]
+            ["clave_concepto" => "005I", "concepto" => "INFONAVIT", "formula" => NULL, "tipo" => "I","manejo" => "fijo", "cantidad" =>  NULL, "importe" =>  NULL,"monto" => NULL,"isr" => 0, "imss" => 0, "infonavit" => 0,"estatal" => 0,"isr_uma" => 0.00,"isr_porcentaje" => 0.00, "imss_uma" => 0.00,"imss_porcentaje" => 0.00, "seleccionado" => 0],
+            ["clave_concepto" => "006I", "concepto" => "INFONAVIT EMPRESA", "formula" => NULL, "tipo" => "I","manejo" => "fijo", "cantidad" =>  NULL, "importe" =>  NULL,"monto" => NULL,"isr" => 0, "imss" => 0, "infonavit" => 0,"estatal" => 0,"isr_uma" => 0.00,"isr_porcentaje" => 0.00, "imss_uma" => 0.00,"imss_porcentaje" => 0.00, "seleccionado" => 0],
+            ["clave_concepto" => "007I", "concepto" => "FONDO RETIRO", "formula" => NULL, "tipo" => "I","manejo" => "fijo", "cantidad" =>  NULL, "importe" =>  NULL,"monto" => NULL,"isr" => 0, "imss" => 0, "infonavit" => 0,"estatal" => 0,"isr_uma" => 0.00,"isr_porcentaje" => 0.00, "imss_uma" => 0.00,"imss_porcentaje" => 0.00, "seleccionado" => 0],
+            ["clave_concepto" => "008I", "concepto" => "CESANTÍA", "formula" => NULL, "tipo" => "I","manejo" => "fijo", "cantidad" =>  NULL, "importe" =>  NULL,"monto" => NULL,"isr" => 0, "imss" => 0, "infonavit" => 0,"estatal" => 0,"isr_uma" => 0.00,"isr_porcentaje" => 0.00, "imss_uma" => 0.00,"imss_porcentaje" => 0.00, "seleccionado" => 0],
+            ["clave_concepto" => "001S", "concepto" => "NETO", "formula" => NULL, "tipo" => "I","manejo" => "fijo", "cantidad" =>  NULL, "importe" =>  NULL,"monto" => NULL,"isr" => 0, "imss" => 0, "infonavit" => 0,"estatal" => 0,"isr_uma" => 0.00,"isr_porcentaje" => 0.00, "imss_uma" => 0.00,"imss_porcentaje" => 0.00, "seleccionado" => 1],
+            ["clave_concepto" => "002S", "concepto" => "BRUTO", "formula" => NULL, "tipo" => "I","manejo" => "fijo", "cantidad" =>  NULL, "importe" =>  NULL,"monto" => NULL,"isr" => 0, "imss" => 0, "infonavit" => 0,"estatal" => 0,"isr_uma" => 0.00,"isr_porcentaje" => 0.00, "imss_uma" => 0.00,"imss_porcentaje" => 0.00, "seleccionado" => 1],
         ]);
         $fecha_periodo = now()->toDateString();
         foreach($conceptos as $con){
