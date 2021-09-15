@@ -14,6 +14,7 @@
                             <tr>
                                 <th>Clave Área</th>
                                 <th>Área</th>
+                                <th></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -22,6 +23,19 @@
                                     <tr>
                                         <td>{{$area->clave_area}}</td>
                                         <td>{{$area->area}}</td>
+                                        <td>
+                                            @canany(['administrador','capturista'])
+                                            <div>
+                                                <center>
+                                                    <a href="{{ route('areas.mostrar',$area->id) }}">
+                                                        <button type="button" class="botones">
+                                                            <i class="far fa-eye"></i>
+                                                        </button>
+                                                    </a>
+                                                </center>         
+                                            </div>
+                                        @endcan
+                                        </td>
                                     </tr>
                                 @endforeach
                             @endif

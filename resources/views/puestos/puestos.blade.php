@@ -14,6 +14,7 @@
                             <tr>
                                 <th>Clave</th>
                                 <th>Puesto</th>
+                                <th></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -22,6 +23,19 @@
                                     <tr>
                                         <td>{{$puesto->clave_puesto}}</td>
                                         <td>{{$puesto->nombre_puesto}}</td>
+                                        <td>
+                                            @canany(['administrador','capturista'])
+                                                    <div>
+                                                        <center>
+                                                            <a href="{{ route('puestos.mostrar',$puesto->id) }}">
+                                                                <button type="button" class="botones">
+                                                                    <i class="far fa-eye"></i>
+                                                                </button>
+                                                            </a>
+                                                        </center>         
+                                                    </div>
+                                            @endcan
+                                        </td>
                                     </tr>
                                 @endforeach
                             @endif

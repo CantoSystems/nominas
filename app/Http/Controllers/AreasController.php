@@ -71,6 +71,7 @@ class AreasController extends Controller
                return redirect()->route('areas.index');
                break;
                case 'actualizar':
+                $fecha_actualiza= now()->toDateString();
                 $aux1 = DB::connection('DB_Serverr')->table('areas')->where('id',$indic)->first();
                    if($aux1!==""){
 
@@ -81,7 +82,7 @@ class AreasController extends Controller
 
                    DB::connection('DB_Serverr')->table('areas')->where('id',$indic)->update([
                               'area'=>$request->area, 
-                              'clave_area'=>$request->clave_area,
+                              'updated_at'=>$fecha_actualiza,
                             ]);
                    $aux = DB::connection('DB_Serverr')->table('areas')->get()->first();
                    $areas = DB::connection('DB_Serverr')->table('areas')->get();
@@ -182,6 +183,20 @@ public function conectar($clv)
     ];
 
   return $configDb;
+
+  }
+
+  public function show($id){
+    $clv=Session::get('clave_empresa');
+    $clv_empresa=$this->conectar($clv);
+    
+    \Config::set('database.connections.DB_Serverr', $clv_empresa);
+
+    $aux = DB::connection('DB_Serverr')->table('areas')
+            ->where('id','=',$id)
+            ->first();
+    $areas = DB::connection('DB_Serverr')->table('areas')->get();
+    return view('Areas.area',compact('aux','areas'));
 
   }
 
