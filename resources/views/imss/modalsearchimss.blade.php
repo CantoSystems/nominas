@@ -24,7 +24,19 @@
                         <tr>
                             <td>{{ $timss->concepto }}</td>
                             <td>{{ $timss->prestaciones}}</td>
-                            <td>{{ $timss->id_imss}}</td>
+                            <td>
+                              @canany(['administrador','capturista'])
+                              <div>
+                                  <center>
+                                      <a href="{{ route('imss.mostrar',$timss->id_imss) }}">
+                                          <button type="button" class="botones">
+                                              <i class="far fa-eye"></i>
+                                          </button>
+                                      </a>
+                                  </center>         
+                              </div>
+                              @endcan
+                            </td>
                         </tr>
                         @endforeach
                     @endif

@@ -1,4 +1,4 @@
-<div class="modal fade bs-example-modal-sm" tabindex="-1" id="modalBusqSal" role="dialog" aria-hidden="true">
++<div class="modal fade bs-example-modal-sm" tabindex="-1" id="modalBusqSal" role="dialog" aria-hidden="true">
 	<div class="modal-dialog modal-lg">
 		<div class="modal-content">
 			<div class="modal-header">
@@ -23,19 +23,20 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @if(!empty($salMins))
-                                    @foreach($salMins as $salMinAll)
+                                @if(!empty($SalarioMin))
+                                    @foreach($SalarioMin as $salMinAll)
                                         <tr>
                                             <td>{{ $salMinAll->fechaInicio}}</td>
                                             <td>{{ $salMinAll->fechafin }}</td>
                                             <td>{{ $salMinAll->region }}</td>
                                             <td>{{ $salMinAll->importe }}</td>
                                             <td style="width: 20px;">
+                                                
                                                 @canany(['administrador','capturista'])
                                                     <div>
                                                         <center>
                                                             <a href="{{ route('salariomin.mostrar',$salMinAll->idSalarioMinimo) }}">
-                                                                <button type="button" class="botones-modales">
+                                                                <button type="button" class="botones">
                                                                     <i class="far fa-eye"></i>
                                                                 </button>
                                                             </a>

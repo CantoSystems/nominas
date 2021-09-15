@@ -62,6 +62,7 @@ Route::delete('/conceptos/{id}','ConceptosController@eliminaconcepto')->name('co
 
 //Usuarios
 Route::get('/usuarios','UsersController@index')->name('usuarios.index');
+Route::get('/usuarios/visualizar/{id}','UsersController@show')->name('usuarios.mostrar');
 Route::delete('/usuarios/{id}','UsersController@destroy')->name('usuarios.destroy');
 
 //Retenciones
@@ -71,6 +72,7 @@ Route::delete('/retenciones/{id}','RetencionesController@destroy')->name('retenc
 
 //I.M.S.S
 Route::get('imss','IMSSController@acciones')->name('imss.acciones');
+Route::get('/imss/visualizar/{id_imss}','IMSSController@show')->name('imss.mostrar');
 Route::delete('imss/{id_imss}','IMSSController@eliminarimss')->name('imss.eliminarimss');
 
 //Subsidios
