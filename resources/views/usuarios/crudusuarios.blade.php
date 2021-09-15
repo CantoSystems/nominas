@@ -16,6 +16,7 @@
                                 <th>Name</th>
                                 <th>Email</th>
                                 <th>Nombre del Role</th>
+                                <th></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -28,6 +29,19 @@
                                 </th>
                                 <td>{{$data->email}}</td>
                                 <td>{{$data->nombre_rol}}</td>
+                                <td>
+                                    @canany(['administrador','capturista'])
+                                        <div>
+                                            <center>
+                                                <a href="{{ route('usuarios.mostrar',$data->id) }}">
+                                                    <button type="button" class="botones">
+                                                        <i class="far fa-eye"></i>
+                                                    </button>
+                                                </a>
+                                            </center>         
+                                        </div>
+                                        @endcan
+                                </td>
                             </tr>
                             @endforeach
                         @endif

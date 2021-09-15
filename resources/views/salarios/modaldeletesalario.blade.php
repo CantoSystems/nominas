@@ -1,4 +1,4 @@
-<div class="modal fade bs-example-modal-sm" tabindex="-1" id="modal-deleteSalario-{{$salMin->idSalarioMinimo}}" role="dialog" aria-hidden="true">
+<div class="modal fade bs-example-modal-sm" tabindex="-1" id="modal-deleteSalario-{{$salMinimo->idSalarioMinimo}}" role="dialog" aria-hidden="true">
 	<div class="modal-dialog modal-sm">
 		<div class="modal-content">
 			<div class="modal-header">
@@ -10,12 +10,12 @@
 				</button>
 			</div>
 			<div class="modal-body">
-				<form action="{{ route('salariomin.destroy', $salMin->idSalarioMinimo )}}" method="post">
+				<form action="{{ route('salariomin.destroy', $salMinimo->idSalarioMinimo )}}" method="post">
 					@method('DELETE')
 					@csrf
 					<div class="row">
 						<h5 style="text-align: center;" class="modalPersonalizado">¿Estas seguro de eliminar este Salario: 
-							<strong>{{ $salMin->region }}: ${{ $salMin->importe }}</strong>?
+							<strong>{{ $salMinimo->region }}: ${{ $salMinimo->importe }}</strong>?
 						</h5>
 					</div>
 					<div class="modal-footer">

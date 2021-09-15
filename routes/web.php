@@ -62,6 +62,7 @@ Route::delete('/conceptos/{id}','ConceptosController@eliminaconcepto')->name('co
 
 //Usuarios
 Route::get('/usuarios','UsersController@index')->name('usuarios.index');
+Route::get('/usuarios/visualizar/{id}','UsersController@show')->name('usuarios.mostrar');
 Route::delete('/usuarios/{id}','UsersController@destroy')->name('usuarios.destroy');
 
 //Retenciones
