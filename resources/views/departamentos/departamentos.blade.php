@@ -15,6 +15,7 @@
                                 <th>Clave departamento</th>
                                 <th>Nombre departamento</th>
                                 <th>Área</th>
+                                <th></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -24,6 +25,19 @@
                                         <td>{{$dep->clave_departamento}}</td>
                                         <td>{{$dep->departamento}}</td>
                                         <td>{{$dep->area}}</td>
+                                        <td>
+                                            @canany(['administrador','capturista'])
+                                            <div>
+                                                <center>
+                                                    <a href="{{ route('departamentos.mostrar',$dep->dni) }}">
+                                                        <button type="button" class="botones">
+                                                            <i class="far fa-eye"></i>
+                                                        </button>
+                                                    </a>
+                                                </center>         
+                                            </div>
+                                        @endcan
+                                        </td>
                                     </tr>
                                 @endforeach
                             @endif
@@ -90,7 +104,7 @@
                                 </div>
                                 <div class="col-md-6">
                                     <br>
-                                    <input type="hidden" class="form-control" name="identificador" value="{{$aux->id}}">
+                                    <input type="text" class="form-control" name="identificador" value="{{$aux->dni}}">
                                 </div>
                             @else
                                 <div class="col-md-6">

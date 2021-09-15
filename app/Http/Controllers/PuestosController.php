@@ -73,24 +73,14 @@ class PuestosController extends Controller
                     ]);
                     
                    DB::connection('DB_Serverr')->table('puestos')->where('id',$indic)->update([
-                              'clave_puesto'=>$request->clave_puesto,
                               'nombre_puesto'=>$request->puesto,
+                              'updated_at'=>$request->clave_puesto,
                             ]);
                    $aux = DB::connection('DB_Serverr')->table('puestos')->get()->first();
                    $puestos= DB::connection('DB_Serverr')->table('puestos')->get();
                    return view('puestos.puestos',compact('aux','puestos'));
                    }
               break;
-
-              case 'eliminar':
-                $aux1 = DB::connection('DB_Serverr')->table('puestos')->where('clave_puesto',$clave_p)->first();
-                if($aux1!==""){
-                DB::connection('DB_Serverr')->table('puestos')->where('clave_area',$request->clave_puesto)->delete();
-                $aux = DB::connection('DB_Serverr')->table('puestos')->get()->first();
-                return view('puestos.puestos',compact('aux'));
-                }
-              break;
-
               case 'cancelar':
                  return redirect()->route('puestos.index');
               break;
@@ -170,6 +160,21 @@ public function conectar($clv)
     ];
 
     return $configDb;
+
+  }
+
+  public function show($id){
+    $clv=Session::get('clave_empresa');
+    $clv_empresa=$this->conectar($clv);
+
+    \Config::set('database.connections.DB_Serverr', $clv_empresa);
+
+    $aux = DB::connection('DB_Serverr')->table('puestos')
+      ->where('id','=',$id)
+      ->first();
+    $puestos= DB::connection('DB_Serverr')->table('puestos')->get();
+    return view('puestos.puestos',compact('aux','puestos'));
+
 
   }
 

@@ -18,6 +18,7 @@ Route::get('/empresa/nomina/{id}','EmpresaController@show')->name('mostrar.empre
 
 //areas
 Route::get('areas','AreasController@index')->name('areas.index');
+Route::get('/areas/mostrar/{id}','AreasController@show')->name('areas.mostrar');
 Route::delete('areas/{id}', 'AreasController@eliminararea')->name('areas.eliminaarea');
 
 //periodos
@@ -30,16 +31,20 @@ Route::delete('accionesperiodos/{id}', 'PeriodosController@eliminarperiodo')->na
 
 //puestos 
 Route::get('puestos','PuestosController@index')->name('puestos.index');
+Route::get('/puestos/mostrar/{id}','PuestosController@show')->name('puestos.mostrar');
 Route::delete('puestos/{id}','PuestosController@eliminarpuestos')->name('puestos.eliminapuesto');
 
 //departamentos
 Route::get('/departamentos','DepartamentosController@index')->name('departamentos.index');
+Route::get('/departamentos/mostrar/{id}','DepartamentosController@show')->name('departamentos.mostrar');
 Route::delete('departamentos/{id}', 'DepartamentosController@eliminardepartamento')->name('departamentos.eliminadepartamento');
 
+//bancos
 Route::get('bancos','BancosController@acciones')->name('bancos.acciones');
 Route::get('/bancos/visualizar/{id}','BancosController@show')->name('bancos.mostrar');
 Route::delete('bancos/{id}','BancosController@eliminarbanco')->name('bancos.eliminar');
 
+//prestaciones
 Route::get('/prestaciones','PrestacionesController@index')->name('prestaciones.index');
 Route::delete('/prestaciones/{id}','PrestacionesController@eliminarprestacion')->name('prestaciones.destroy');
 
@@ -58,6 +63,7 @@ Route::delete('clasificacion/{id}','ClasificacionController@destroy')->name('cla
 
 //conceptos
 Route::get('/conceptos','ConceptosController@index')->name('conceptos.index');
+Route::get('/conceptos/mostrar/{id}','ConceptosController@show')->name('conceptos.mostrar');
 Route::delete('/conceptos/{id}','ConceptosController@eliminaconcepto')->name('conceptos.eliminaconcepto');
 
 //Usuarios
@@ -142,6 +148,7 @@ Route::post('/prenominaISR', 'CalculoPrenominaController@calcularImpuestos')->na
 
 //Días Festivos
 Route::get('/descanso', 'DescansosController@index')->name('descansos.index');
+Route::get('/descanso/mostrar/{id}','DescansosController@show')->name('descansos.mostrar');
 Route::delete('/descanso/{id}','DescansosController@destroy')->name('descansos.destroy');
 
 //nuevo control Prenomina

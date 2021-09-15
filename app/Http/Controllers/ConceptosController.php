@@ -20,7 +20,8 @@ class ConceptosController extends Controller{
         switch ($accion) {
             case '':
                 $aux = DB::connection('DB_Serverr')->table('conceptos')->first();
-                return view('conceptos.conceptos',compact('aux'));
+                $conceptosAll =  DB::connection('DB_Serverr')->table('conceptos')->get();
+                return view('conceptos.conceptos',compact('aux','conceptosAll'));
             break;
             case 'atras':
                 $id=DB::connection('DB_Serverr')->table('conceptos')->
@@ -31,7 +32,8 @@ class ConceptosController extends Controller{
                 if(is_null($aux)){
                     $aux=DB::connection('DB_Serverr')->table('conceptos')->get()->last();
                 }
-                return view('conceptos.conceptos', compact('aux'));
+                $conceptosAll =  DB::connection('DB_Serverr')->table('conceptos')->get();
+                return view('conceptos.conceptos',compact('aux','conceptosAll'));
             break;
             case 'siguiente':
                 $id=DB::connection('DB_Serverr')->table('conceptos')->
@@ -42,15 +44,18 @@ class ConceptosController extends Controller{
                 if(is_null($aux)){
                     $aux=DB::connection('DB_Serverr')->table('conceptos')->first();
                 }
-                return view('conceptos.conceptos', compact('aux'));
+                $conceptosAll =  DB::connection('DB_Serverr')->table('conceptos')->get();
+                return view('conceptos.conceptos',compact('aux','conceptosAll'));
             break;
             case 'primero':
                 $aux = DB::connection('DB_Serverr')->table('conceptos')->first();
-                return view('conceptos.conceptos',compact('aux'));
+                $conceptosAll =  DB::connection('DB_Serverr')->table('conceptos')->get();
+                return view('conceptos.conceptos',compact('aux','conceptosAll'));
             break;
             case 'ultimo':
                 $aux = DB::connection('DB_Serverr')->table('conceptos')->get()->last();
-                return view('conceptos.conceptos',compact('aux'));
+                $conceptosAll =  DB::connection('DB_Serverr')->table('conceptos')->get();
+                return view('conceptos.conceptos',compact('aux','conceptosAll'));
             break;
             case 'registrar':
                 $this->registrar($request);
@@ -62,26 +67,6 @@ class ConceptosController extends Controller{
             break;
             case 'cancelar':
                 return redirect()->route('conceptos.index');
-            break;
-            case 'buscar':
-
-                $criterio= $request->opcion;
-                if($criterio == 'clave_concepto'){
-                    $aux = DB::connection('DB_Serverr')->table('conceptos')->where('clave_concepto',$request->busca)->first();
-                    if($aux == "")
-                    {
-                          return back()->with('busqueda','Coincidencia no encontrada');
-                    }
-                    return view('conceptos.conceptos',compact('aux'));
-                }else if($criterio == 'concepto'){
-                    $aux = DB::connection('DB_Serverr')->table('conceptos')->where('concepto',$request->busca)->first();
-                    if($aux == "")
-                    {
-                          return back()->with('busqueda','Coincidencia no encontrada');
-                    }
-                    return view('conceptos.conceptos',compact('aux'));
-                }
-                
             break;
             default:
             break;
@@ -303,6 +288,19 @@ class ConceptosController extends Controller{
                      'updated_at'=>$fecha_periodo
                     ]);
         }
+    }
+
+    public function show($id){
+        $clv=Session::get('clave_empresa');
+        $clv_empresa=$this->conectar($clv);
+
+        \Config::set('database.connections.DB_Serverr', $clv_empresa);
+
+        $aux = DB::connection('DB_Serverr')->table('conceptos')
+                ->where('id','=',$id)
+                ->first();
+        $conceptosAll =  DB::connection('DB_Serverr')->table('conceptos')->get();
+        return view('conceptos.conceptos',compact('aux','conceptosAll'));
     }
 
     public function eliminaconcepto($id){

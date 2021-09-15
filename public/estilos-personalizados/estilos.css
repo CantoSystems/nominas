@@ -28,7 +28,7 @@
     select#regionSalario.custom-select{
       width: 100%;
       height: calc(1.75rem + 0.5px);
-      padding: .2rem .8rem;
+      padding: .375rem 1.75rem .375rem .75rem;
       font-size: 0.8em;
     }
     .botones{
@@ -49,7 +49,7 @@
     select.custom-select.personalizado{
     	width: 100%;
       height: calc(1.75rem + 0.5px);
-      padding: .2rem .8rem;
+      padding: .375rem 1.75rem .375rem .75rem;
       font-size: 0.9em;
     }
     .table td, .table th{

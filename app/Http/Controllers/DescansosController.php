@@ -135,6 +135,7 @@ class DescansosController extends Controller
     {
         $clv=Session::get('clave_empresa'); 
         $clv_empresa=$this->conectar($clv);
+        $fecha_actualizar = now()->toDateString();
 
         \Config::set('database.connections.DB_Serverr', $clv_empresa);
 
@@ -145,7 +146,23 @@ class DescansosController extends Controller
         $aux = DB::connection('DB_Serverr')->table('dias_descanso')->where('id',$datos->id)->first();
 		DB::connection('DB_Serverr')->table('dias_descanso')->where('id',$datos->id)->update(
             ['fecha_descanso'=>$datos->fecha_descanso,
-            'descripcion_descanso'=>$datos->descripcion_descanso]);
+            'descripcion_descanso'=>$datos->descripcion_descanso,
+            'updated_at'=>$fecha_actualizar]);
+    }
+
+    public function show($id){
+        $clv=Session::get('clave_empresa');
+        $clv_empresa=$this->conectar($clv);
+ 
+        \Config::set('database.connections.DB_Serverr', $clv_empresa);
+
+        $descanso = DB::connection('DB_Serverr')->table('dias_descanso')
+            ->where('id','=',$id)
+            ->first();
+        $total_descansos = DB::connection('DB_Serverr')->table('dias_descanso')->get();
+        return view('descansos.descansos', compact('descanso','total_descansos'));
+
+
     }
 
     public function destroy($id)

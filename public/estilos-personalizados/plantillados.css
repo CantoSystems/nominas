@@ -76,6 +76,12 @@
     .select.custom-select.nuevo{
       	font-size: 1em;
     }
+    select.custom-select{
+      width: 100%;
+      height: calc(1.75rem + 0.5px);
+      padding: .375rem 1.75rem .375rem .75rem;
+      font-size: 0.9em;
+    }
     .custom-select {
         display: inline-block;
         width: 100%;
@@ -111,4 +117,8 @@
     div.alert.alert-light{
       margin: 0px 0px 5px;
       padding:6px 6px 6px 6px;
+    }
+    .botones{
+      width:2.6em;
+      height:auto;
     }

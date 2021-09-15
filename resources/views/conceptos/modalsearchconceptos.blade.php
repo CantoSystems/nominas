@@ -1,31 +1,54 @@
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-sm">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title modalPersonalizado" id="exampleModalLabel">Buscar Concepto</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-            <form action="{{ route('conceptos.index')}}" method="GET" autocomplete="off">
-            <div class="row">
-                <div class="input-group col-md-12">
-                  <div class="input-group-prepend">
-                    <select class="custom-select" name="opcion">
-                        <option value="concepto">Concepto</option>
-                        <option value="clave_concepto">Clave concepto</option>
-                    </select>
-                  </div>
-                  <input type="text" class="form-control" aria-label="Username" name="busca" aria-describedby="basic-addon1" onkeyup="mayus(this)";  align='right' required>
+<div class="modal fade bs-example-modal-sm" tabindex="-1" id="exampleModal" role="dialog" aria-hidden="true">
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content">
+			<div class="modal-header">
+
+				<h4 class="modal-title modalPersonalizado" id="myModalLabel">
+					Buscar Concepto
+				</h4>
+				<button type="button" class="close" data-dismiss="modal">
+					<span aria-hidden="true">×</span>
+				</button>
+			</div>
+            <form method="GET">
+                <div class="modal-body">
+                    <table class="table table-bordered table-striped" id="example1">
+                        <div class="col-sm-12">
+                            <thead>
+                                <tr>
+                                    <th>Clave concepto</th>
+                                    <th>Concepto</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @if(!empty($conceptosAll))
+                                    @foreach($conceptosAll as $concep)
+                                        <tr>
+                                            <td scope="row">{{ $concep->clave_concepto }}</td>
+                                            <td>{{ $concep->concepto}}</td>
+
+                                            <td style="width: 20px;">
+                                                @canany(['administrador','capturista'])
+                                                    <div>
+                                                        <center>
+                                                            <a href="{{ route('conceptos.mostrar',$concep->id) }}">
+                                                                <button type="button" class="botones">
+                                                                    <i class="far fa-eye"></i>
+                                                                </button>
+                                                            </a>
+                                                        </center>         
+                                                    </div>
+                                                @endcan
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                @endif
+                            </tbody>
+                        </div>
+                    </table> 
                 </div>
-        </div>
-        <div class="modal-footer">
-          <button type="button"  class="botones-modales"  data-dismiss="modal">Cerrar</button>
-          <button type="submit" name="acciones" value="buscar"  class="botones-modales">Buscar</button>
-        </div>
             </form>
-      </div>
-    </div>
-  </div>
+		</div>
+	</div>
 </div>
