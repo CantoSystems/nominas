@@ -625,9 +625,7 @@
                 }else if($concep->clave_concepto == "016D"){
                     
                 }else if($concep->clave_concepto == "017D"){
-                    
-                }else if($concep->clave_concepto == "018D"){
-                    
+
                 }else if($concep->clave_concepto == "019D"){
                     $montoRetardo = $this->adicionales($emp->clave_empleado,'019D');
                     if($montoRetardo != 0){
@@ -649,6 +647,11 @@
     
         $calculospercepciones = $ControlPrenomina->where('clave_empleado',$clave->clave_empleado);
         $portipopercepciones = $calculospercepciones->where('tipo','P');
+
+        /*$conceptoInfonavit= "020D";
+        $res = $this->creditoInfonavit($clave->id_emp,$conceptoInfonavit);
+
+        dd($res);*/
 
         $calculosdeducciones = $ControlPrenomina->where('clave_empleado',$clave->clave_empleado);
         $portipodeducciones = $calculosdeducciones->where('tipo','D');
@@ -1081,5 +1084,14 @@
                           ->first();
 
         return $totalAdicional->monto;
+    }
+
+    public function creditoInfonavit($clave,$conceptoInfonavit){
+        $periodo = Session::get('num_periodo');
+        $clv = Session::get('clave_empresa');
+        $clv_empresa = $this->conectar($clv);
+        \Config::set('database.connections.DB_Serverr', $clv_empresa);
+
+        //return compact('clave','conceptoInfonavit');
     }
 }

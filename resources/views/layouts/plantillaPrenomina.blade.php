@@ -449,6 +449,7 @@
             totalImss: $('.totalPercepcionesIMSS').val(),
           },
           success: function(data){
+            //console.log(data);
             let htmlTags = '<tr>'+
                               '<td style="text-align: center;">' + data[0] + '</td>'+
                               '<td style="text-align: center;">' + data[1] + '</td>'+
@@ -459,13 +460,16 @@
             $('#filasImpuestos tbody').append(htmlTags);
 
             let importe_total3 = 0;
+            //Total del impuestos del trabajador
             $(".totales3").each(function(index, value){
               if($.isNumeric($(this).val())){
                 importe_total3 = importe_total3 + eval($(this).val());
               }
             });
+
             $(".totalImpuestosTrabajador").val(importe_total3.toFixed(2));
             totalImpuestos = $(".totalImpuestosTrabajador").val();
+            console.log(totalImpuestos);
             totalDeducciones = $(".totalDeducciones").val();
             totalPercepciones = $(".totalPercepciones").val();
             totalSueldoIn = totalPercepciones - totalDeducciones - totalImpuestos;
