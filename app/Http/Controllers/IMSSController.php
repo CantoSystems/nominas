@@ -74,27 +74,19 @@ class IMSSController extends Controller{
     }
 
     public function registrar($datos){
-        /*$datos->validate([
-            'clave_banco' => 'required|unique:bancos',
-            'nombre_banco' => 'required|unique:bancos',
-        ]);*/
-
         $totalcuotas =  $datos->cuotapatron + $datos->cuotatrabajador;
         $imss= new IMSS;
         $imss->concepto = $datos->seguroIMSS;
         $imss->prestaciones = $datos->prestacionIMSS;
         $imss->cuotapatron = $datos->cuotapatron;
         $imss->cuotatrabajador = $datos->cuotatrabajador;
+        $imss->claveImss = $datos->claveImss;
         $imss->cuotatotal = $totalcuotas;
         $imss->base = $datos->basesalarial;
         $imss->save();
     }
 
     public function actualizar($datos){
-        /*$datos->validate([
-            'clave_banco' => 'required',
-            'nombre_banco' => 'required',
-        ]);*/
         $imss = IMSS::where('id_imss',$datos->id_imss)->first();
         $imss->concepto = $datos->seguroIMSS;
         $imss->prestaciones = $datos->prestacionIMSS;
@@ -106,6 +98,11 @@ class IMSSController extends Controller{
         $imss->cuotatotal = $datos->cuotatotal;
         $imss->base = $datos->basesalarial;
         $imss->save();
+    }
+    public function show($id_imss){
+        $imss = IMSS::where('id_imss','=',$id_imss)->first();
+        $imsss = IMSS::all();
+        return view('imss.imss', compact('imss','imsss'));
     }
 
     public function eliminarimss($id_imss){

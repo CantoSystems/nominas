@@ -1,8 +1,7 @@
-<div class="modal fade bs-example-modal-sm" tabindex="-1" id="modalbusquedaemp" role="dialog" aria-hidden="true">
+<div class="modal fade bs-example-modal-sm" tabindex="-1" id="modalbusquedaempaguinaldo" role="dialog" aria-hidden="true">
 	<div class="modal-dialog modal-lg">
 		<div class="modal-content">
 			<div class="modal-header">
-
 				<h4 class="modal-title modalPersonalizado" id="myModalLabel">
 					Buscar Empleado
 				</h4>
@@ -22,7 +21,6 @@
                                     <th>Departamento</th>
                                     <th>Área</th>
                                     <th></th>
-
                                 </tr>
                             </thead>
                             <tbody>
@@ -38,7 +36,7 @@
                                                 @canany(['administrador','capturista'])
                                                     <div>
                                                         <center>
-                                                            <a href="{{ route('prenomina.show',$per->id_emp) }}">
+                                                            <a href="{{ route('aguinaldos.show',$per->id_emp) }}">
                                                                 <button type="button" class="botones-modales">
                                                                     <i class="far fa-eye"></i>
                                                                 </button>

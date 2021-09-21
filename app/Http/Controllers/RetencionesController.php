@@ -93,9 +93,6 @@ class RetencionesController extends Controller
 
                 }
                 break;
-
-
-            
             default:
                 # code...
                 break;
@@ -114,7 +111,6 @@ class RetencionesController extends Controller
               'periodo_retencion' => 'required'
         ]);
 
-        
         $coincidencia = Retenciones::where([
             ['limite_inferior','=',$datos->limite_inferior],
             ['limite_superior','=',$datos->limite_superior],
@@ -155,6 +151,12 @@ class RetencionesController extends Controller
         $retencion->save();
     }
 
+    public function show($id)
+    {
+        $isr=Retenciones::all();
+        $retencion = Retenciones::find($id);
+        return view('retenciones.crudretenciones', compact('isr','retencion'));
+    }
     
     public function destroy($id)
     {

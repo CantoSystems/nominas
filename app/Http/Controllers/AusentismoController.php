@@ -19,146 +19,112 @@ class AusentismoController extends Controller
         \Config::set('database.connections.DB_Serverr', $clv_empresa);
          $accion= $request->acciones;
 
-
          switch ($accion) {
              case '':
-
-                $empleado=DB::connection('DB_Serverr')->table('empleados')
-                        ->get();
-
                 $ausentismo= DB::connection('DB_Serverr')->table('ausentismos')
-                ->join('empleados','empleados.clave_empleado','=','ausentismos.clave_empleado')
-                ->select('ausentismos.*','empleados.*')
-                ->orderBy('id')->first();
-                //dd($ausentismo);
+                    ->join('empleados','empleados.clave_empleado','=','ausentismos.clave_empleado')
+                    ->join('conceptos','conceptos.clave_concepto','=','ausentismos.clave_concepto')
+                    ->select('ausentismos.*','empleados.*','conceptos.*','ausentismos.id as identificador')
+                    ->orderBy('ausentismos.id')->first();
 
                 $aux= DB::connection('DB_Serverr')->table('ausentismos')
-                ->join('empleados','empleados.clave_empleado','=','ausentismos.clave_empleado')
-                ->join('conceptos','conceptos.clave_concepto','=','ausentismos.clave_concepto')
-                ->select('ausentismos.*','empleados.*','conceptos.*')
-                ->get();
-                
-                
-                $conceptos=DB::connection('DB_Serverr')->table('conceptos')->get();
+                    ->join('empleados','empleados.clave_empleado','=','ausentismos.clave_empleado')
+                    ->join('conceptos','conceptos.clave_concepto','=','ausentismos.clave_concepto')
+                    ->select('ausentismos.*','empleados.*','conceptos.*','ausentismos.id as identificador')
+                    ->orderBy('ausentismos.id', 'DESC')->get();
 
-                return view('ausentismo.crudausentismo', compact('empleado','conceptos','ausentismo','aux'));
+                return view('ausentismo.crudausentismo', compact('ausentismo','aux'));
             break;
 
             case 'cancelar':
                  return redirect()->route('ausentismo.index');
             break;
 
-            case 'registrar':
-               
-                return redirect()->route('ausencia.index');
-            break;
-
             case 'atras':
-            //return 1;
                 $ausentismo= DB::connection('DB_Serverr')->table('ausentismos')
-                ->join('empleados','empleados.clave_empleado','=','ausentismos.clave_empleado')
-                ->select('ausentismos.*','empleados.*')
-                ->where('ausentismos.id','<',$indic)
-                ->latest('id')->first();
+                    ->join('empleados','empleados.clave_empleado','=','ausentismos.clave_empleado')
+                    ->join('conceptos','conceptos.clave_concepto','=','ausentismos.clave_concepto')
+                    ->select('ausentismos.*','empleados.*','conceptos.*','ausentismos.id as identificador')
+                    ->where('ausentismos.id','<',$indic)
+                    ->latest('ausentismos.id')->first();
+
                 if($ausentismo == ""){
-                $ausentismo= DB::connection('DB_Serverr')->table('ausentismos')
-                ->join('empleados','empleados.clave_empleado','=','ausentismos.clave_empleado')
-                ->select('ausentismos.*','empleados.*')
-                ->get()
-                ->last();
+                    $ausentismo= DB::connection('DB_Serverr')->table('ausentismos')
+                        ->join('empleados','empleados.clave_empleado','=','ausentismos.clave_empleado')
+                        ->join('conceptos','conceptos.clave_concepto','=','ausentismos.clave_concepto')
+                        ->select('ausentismos.*','empleados.*','conceptos.*','ausentismos.id as identificador')
+                        ->get()->last();
                 }
 
-
-                $empleado=DB::connection('DB_Serverr')->table('empleados')
-                        ->get();
-
                 $aux= DB::connection('DB_Serverr')->table('ausentismos')
-                ->join('empleados','empleados.clave_empleado','=','ausentismos.clave_empleado')
-                ->join('conceptos','conceptos.clave_concepto','=','ausentismos.clave_concepto')
-                ->select('ausentismos.*','empleados.*','conceptos.*')
-                ->get();
-                //dd($aux);
-                $conceptos=DB::connection('DB_Serverr')->table('conceptos')->get();
-
-                return view('ausentismo.crudausentismo', compact('empleado','conceptos','ausentismo','aux'));   
+                    ->join('empleados','empleados.clave_empleado','=','ausentismos.clave_empleado')
+                    ->join('conceptos','conceptos.clave_concepto','=','ausentismos.clave_concepto')
+                    ->select('ausentismos.*','empleados.*','conceptos.*','ausentismos.id as identificador')
+                    ->select('ausentismos.*','empleados.*','conceptos.*')
+                    ->orderBy('ausentismos.id', 'DESC')->get();
+                return view('ausentismo.crudausentismo', compact('ausentismo','aux'));   
             break;
 
             case 'siguiente':
-            //return 2;
                 $ausentismo= DB::connection('DB_Serverr')->table('ausentismos')
-                ->join('empleados','empleados.clave_empleado','=','ausentismos.clave_empleado')
-                ->select('ausentismos.*','empleados.*')
-                ->where('ausentismos.id','>',$request->id)
-                ->orderBy('id')->first();
+                    ->join('empleados','empleados.clave_empleado','=','ausentismos.clave_empleado')
+                    ->join('conceptos','conceptos.clave_concepto','=','ausentismos.clave_concepto')
+                    ->select('ausentismos.*','empleados.*','conceptos.*','ausentismos.id as identificador')
+                    ->where('ausentismos.id','>',$request->id)
+                    ->orderBy('ausentismos.id')->first();
 
                 if(is_null($ausentismo))
                 {
                     $ausentismo= DB::connection('DB_Serverr')->table('ausentismos')
-                ->join('empleados','empleados.clave_empleado','=','ausentismos.clave_empleado')
-                ->select('ausentismos.*','empleados.*')
-                ->orderBy('id')
-                ->first();
+                        ->join('empleados','empleados.clave_empleado','=','ausentismos.clave_empleado')
+                        ->join('conceptos','conceptos.clave_concepto','=','ausentismos.clave_concepto')
+                        ->select('ausentismos.*','empleados.*','conceptos.*','ausentismos.id as identificador')
+                        ->orderBy('ausentismos.id')
+                        ->first();
                 }
 
-
-                $empleado=DB::connection('DB_Serverr')->table('empleados')
-                        ->get();
-
                 $aux= DB::connection('DB_Serverr')->table('ausentismos')
-                ->join('empleados','empleados.clave_empleado','=','ausentismos.clave_empleado')
-                ->join('conceptos','conceptos.clave_concepto','=','ausentismos.clave_concepto')
-                ->select('ausentismos.*','empleados.*','conceptos.*')
-                ->get();
-                
-                $conceptos=DB::connection('DB_Serverr')->table('conceptos')->get();
+                    ->join('empleados','empleados.clave_empleado','=','ausentismos.clave_empleado')
+                    ->join('conceptos','conceptos.clave_concepto','=','ausentismos.clave_concepto')
+                    ->select('ausentismos.*','empleados.*','conceptos.*','ausentismos.id as identificador')
+                    ->orderBy('ausentismos.id')->get();
 
-                return view('ausentismo.crudausentismo', compact('empleado','conceptos','ausentismo','aux'));
+                return view('ausentismo.crudausentismo', compact('ausentismo','aux'));
             break;
 
             case 'primero':
 
-                $empleado=DB::connection('DB_Serverr')->table('empleados')
-                        ->get();
-
                 $ausentismo= DB::connection('DB_Serverr')->table('ausentismos')
-                ->join('empleados','empleados.clave_empleado','=','ausentismos.clave_empleado')
-                ->select('ausentismos.*','empleados.*')
-                ->orderBy('id')->first();
-
-                //dd($ausentismo);
+                    ->join('empleados','empleados.clave_empleado','=','ausentismos.clave_empleado')
+                    ->join('conceptos','conceptos.clave_concepto','=','ausentismos.clave_concepto')
+                    ->select('ausentismos.*','empleados.*','conceptos.*','ausentismos.id as identificador')
+                    ->orderBy('ausentismos.id')->first();
 
                 $aux= DB::connection('DB_Serverr')->table('ausentismos')
-                ->join('empleados','empleados.clave_empleado','=','ausentismos.clave_empleado')
-                ->join('conceptos','conceptos.clave_concepto','=','ausentismos.clave_concepto')
-                ->select('ausentismos.*','empleados.*','conceptos.*')
-                ->get();
-                
-                $conceptos=DB::connection('DB_Serverr')->table('conceptos')->get();
+                    ->join('empleados','empleados.clave_empleado','=','ausentismos.clave_empleado')
+                    ->join('conceptos','conceptos.clave_concepto','=','ausentismos.clave_concepto')
+                    ->select('ausentismos.*','empleados.*','conceptos.*','ausentismos.id as identificador')
+                    ->orderBy('ausentismos.id')->get();
 
-                return view('ausentismo.crudausentismo', compact('empleado','conceptos','ausentismo','aux'));
+                return view('ausentismo.crudausentismo', compact('ausentismo','aux'));
             break;
 
             case 'ultimo':
 
             $ausentismo= DB::connection('DB_Serverr')->table('ausentismos')
                 ->join('empleados','empleados.clave_empleado','=','ausentismos.clave_empleado')
-                ->select('ausentismos.*','empleados.*')
+                ->join('conceptos','conceptos.clave_concepto','=','ausentismos.clave_concepto')
+                ->select('ausentismos.*','empleados.*','conceptos.*','ausentismos.id as identificador')
                 ->get()
                 ->last();
-
-
-            $empleado=DB::connection('DB_Serverr')->table('empleados')
-                        ->get();
 
             $aux= DB::connection('DB_Serverr')->table('ausentismos')
                 ->join('empleados','empleados.clave_empleado','=','ausentismos.clave_empleado')
                 ->join('conceptos','conceptos.clave_concepto','=','ausentismos.clave_concepto')
-                ->select('ausentismos.*','empleados.*','conceptos.*')
+                ->select('ausentismos.*','empleados.*','conceptos.*','ausentismos.id as identificador')
                 ->get();
-                
-                $conceptos=DB::connection('DB_Serverr')->table('conceptos')->get();
 
-                return view('ausentismo.crudausentismo', compact('empleado','conceptos','ausentismo','aux'));
+                return view('ausentismo.crudausentismo', compact('ausentismo','aux'));
             break;
 
             case 'actualizar':
@@ -168,71 +134,51 @@ class AusentismoController extends Controller
 
             case 'buscar':
                 $criterio= $request->opcion;
-                //dd($criterio);
 
                 if($criterio == 'identificador')
                 {
                     $ausentismo = DB::connection('DB_Serverr')->table('ausentismos')
                         ->join('empleados','empleados.clave_empleado','=','ausentismos.clave_empleado')
-                        ->select('ausentismos.*','empleados.*')
+                        ->join('conceptos','conceptos.clave_concepto','=','ausentismos.clave_concepto')
+                        ->select('ausentismos.*','empleados.*','conceptos.*','ausentismos.id as identificador')
                         ->where('ausentismos.id',$request->busca)->first();
 
                         if($ausentismo == ""){
                              return back()->with('busqueda','Coincidencia no encontrada');
                         }
 
-
-
-                $empleado=DB::connection('DB_Serverr')->table('empleados')
-                        ->get();
-
-                $aux= DB::connection('DB_Serverr')->table('ausentismos')
-                ->join('empleados','empleados.clave_empleado','=','ausentismos.clave_empleado')
-                ->join('conceptos','conceptos.clave_concepto','=','ausentismos.clave_concepto')
-                ->select('ausentismos.*','empleados.*','conceptos.*')
-                ->get();
-                
-                $conceptos=DB::connection('DB_Serverr')->table('conceptos')->get();
-
-                return view('ausentismo.crudausentismo', compact('empleado','conceptos','ausentismo','aux'));
-
-                    
-                }else if($criterio == 'incapacidad'){
-                    $ausentismo = DB::connection('DB_Serverr')->table('ausentismos')
+                    $aux= DB::connection('DB_Serverr')->table('ausentismos')
                         ->join('empleados','empleados.clave_empleado','=','ausentismos.clave_empleado')
-                        ->select('ausentismos.*','empleados.*')
-                        ->where('incapacidad',$request->busca)->first();
+                        ->join('conceptos','conceptos.clave_concepto','=','ausentismos.clave_concepto')
+                        ->select('ausentismos.*','empleados.*','conceptos.*','ausentismos.id as identificador')
+                        ->get();
+                
+                return view('ausentismo.crudausentismo', compact('ausentismo','aux'));    
+                }else if($criterio == 'incapacidad'){
+                        $ausentismo = DB::connection('DB_Serverr')->table('ausentismos')
+                            ->join('empleados','empleados.clave_empleado','=','ausentismos.clave_empleado')
+                            ->join('conceptos','conceptos.clave_concepto','=','ausentismos.clave_concepto')
+                            ->select('ausentismos.*','empleados.*','conceptos.*','ausentismos.id as identificador')
+                            ->where('incapacidad',$request->busca)->first();
 
                                 if($ausentismo == "")
                                 {
                                 return back()->with('busqueda','Coincidencia no encontrada');
                                 }
 
-
-                        $empleado=DB::connection('DB_Serverr')->table('empleados')
-                        ->get();
-
-                        $aux= DB::connection('DB_Serverr')->table('ausentismos')
-                        ->join('empleados','empleados.clave_empleado','=','ausentismos.clave_empleado')
-                        ->join('conceptos','conceptos.clave_concepto','=','ausentismos.clave_concepto')
-                        ->select('ausentismos.*','empleados.*','conceptos.*')
-                        ->get();
-                
-                        $conceptos=DB::connection('DB_Serverr')->table('conceptos')->get();
-
-                        return view('ausentismo.crudausentismo', compact('empleado','conceptos','ausentismo','aux'));
-
+                            $aux= DB::connection('DB_Serverr')->table('ausentismos')
+                                ->join('empleados','empleados.clave_empleado','=','ausentismos.clave_empleado')
+                                ->join('conceptos','conceptos.clave_concepto','=','ausentismos.clave_concepto')
+                                ->select('ausentismos.*','empleados.*','conceptos.*','ausentismos.id as identificador')
+                                ->get();
+            
+                        return view('ausentismo.crudausentismo', compact('ausentismo','aux'));
                 }
-
-
                 break;
-
-             
              default:
                  # code...
                  break;
          }
-        
     }
 
      public function conectar($clv)
@@ -357,8 +303,6 @@ class AusentismoController extends Controller
         }else{
             return back()->with('msj','Registro duplicado');
         }
-
-
     }
 
     public function actualizar($datos){
@@ -385,18 +329,36 @@ class AusentismoController extends Controller
                     'descripcion'=>$datos->descripcion
                     ]);
     }
+    public function show($id){
+        $clv= Session::get('clave_empresa');
+        $clv_empresa=$this->conectar($clv);
+        \Config::set('database.connections.DB_Serverr', $clv_empresa);
+
+        $ausentismo= DB::connection('DB_Serverr')->table('ausentismos')
+            ->join('empleados','empleados.clave_empleado','=','ausentismos.clave_empleado')
+            ->join('conceptos','conceptos.clave_concepto','=','ausentismos.clave_concepto')
+            ->select('ausentismos.*','empleados.*','conceptos.*','ausentismos.id as identificador')
+            ->where('ausentismos.id',$id)
+            ->orderBy('ausentismos.id')->first();
+
+        $aux= DB::connection('DB_Serverr')->table('ausentismos')
+            ->join('empleados','empleados.clave_empleado','=','ausentismos.clave_empleado')
+            ->join('conceptos','conceptos.clave_concepto','=','ausentismos.clave_concepto')
+            ->select('ausentismos.*','empleados.*','conceptos.*','ausentismos.id as identificador')
+            ->orderBy('ausentismos.id', 'DESC')->get();
+
+        return view('ausentismo.crudausentismo', compact('ausentismo','aux'));
+
+    }
 
     public function eliminar($id){
         $clv= Session::get('clave_empresa');
         $clv_empresa=$this->conectar($clv);
-
-
         \Config::set('database.connections.DB_Serverr', $clv_empresa);
 
+        $aux1 = DB::connection('DB_Serverr')->table('ausentismos')->where('id',$id)->delete();
 
-    $aux1 = DB::connection('DB_Serverr')->table('ausentismos')->where('id',$id)->delete();
-
-    return redirect()->route('ausentismo.index');
+        return redirect()->route('ausentismo.index');
     }
 
 

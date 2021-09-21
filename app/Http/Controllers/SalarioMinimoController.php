@@ -8,45 +8,41 @@ use Illuminate\Http\Request;
 class SalarioMinimoController extends Controller{
     public function acciones(Request $request){
         $accion= $request->acciones;
-        $clv=$request->idSalMin;
+        $indicador=$request->idsalMinimo;
 
         switch ($accion) {
             case '':
-                $salMin = SalarioMinimo::first();
-                $salMins = SalarioMinimo::all();
-                return view('salarios.crudsalarios', compact('salMin','salMins'));
+                $salMinimo = SalarioMinimo::first();
+                $SalarioMin = SalarioMinimo::all();
+                return view('salarios.crudsalarios', compact('salMinimo','SalarioMin'));
                 break;
             case 'atras':
-                $SalMin2 = SalarioMinimo::where('idSalarioMinimo',$clv)->first();
-                $salMin = SalarioMinimo::where('idSalarioMinimo','<',$SalMin2->idSalarioMinimo)
+                $salMinimo = SalarioMinimo::where('idSalarioMinimo','<',$indicador)
                 ->orderBy('idSalarioMinimo','desc')->first();
 
-                if($salMin==""){
-                    $salMin = SalarioMinimo::get()->last();
+                if(is_null($salMinimo)){
+                    $salMinimo = SalarioMinimo::get()->last();
                 }
-                $SalMins = SalarioMinimo::all();
-                return view('salarios.crudsalarios', compact('salMin','SalMins'));
+                $SalarioMin = SalarioMinimo::all();
+                return view('salarios.crudsalarios', compact('salMinimo','SalarioMin'));
             break;
             case 'siguiente':
-                $SalMin2 = SalarioMinimo::where('idSalarioMinimo',$clv)->first();
-                $indic = $SalMin2->idSalarioMinimo;
-
-                $salMin = SalarioMinimo::where('idSalarioMinimo','>',$indic)->first();
-                if($salMin==""){
-                    $salMin = SalarioMinimo::first();
+                $salMinimo = SalarioMinimo::where('idSalarioMinimo','>',$indicador)->first();
+                if(is_null($salMinimo)){
+                    $salMinimo = SalarioMinimo::first();
                 }
-                $SalMins = SalarioMinimo::all();
-                return view('salarios.crudsalarios', compact('salMin','SalMins'));
-            break;
+                $SalarioMin = SalarioMinimo::all();
+                return view('salarios.crudsalarios', compact('salMinimo','SalarioMin'));
+            break;      
             case 'primero':
-                $salMin = SalarioMinimo::first();
-                $SalMins = SalarioMinimo::all();
-                return view('salarios.crudsalarios', compact('salMin','SalMins'));
+                $salMinimo = SalarioMinimo::first();
+                $SalarioMin = SalarioMinimo::all();
+                return view('salarios.crudsalarios', compact('salMinimo','SalarioMin'));
             break;
             case 'ultimo':
-                $salMin = SalarioMinimo::get()->last();
-                $SalMins = SalarioMinimo::all();
-                return view('salarios.crudsalarios', compact('salMin','SalMins'));
+                $salMinimo = SalarioMinimo::get()->last();
+                $SalarioMin = SalarioMinimo::all();
+                return view('salarios.crudsalarios', compact('salMinimo','SalarioMin'));
             break;
             case 'registrar':
                 $this->registrar($request);
@@ -84,10 +80,9 @@ class SalarioMinimoController extends Controller{
     }
 
     public function show($idSalMin){
-        $salMin = SalarioMinimo::where('idSalarioMinimo',$idSalMin)->first();
-        $SalMins = SalarioMinimo::all();
-
-        return view('salarios.crudsalarios', compact('salMin','SalMins'));
+        $salMinimo  = SalarioMinimo::where('idSalarioMinimo',$idSalMin)->first();
+        $SalarioMin = SalarioMinimo::all();
+        return view('salarios.crudsalarios', compact('salMinimo','SalarioMin'));
     }
 
     public function destroy($idSalMin){

@@ -1,8 +1,6 @@
 @extends('layouts.principal')
 @section('content')
 <div class="container">
-
-
         <!--Sección botones y direcciones-->
         <div class="row">
             <div class="card card-secondary">
@@ -33,10 +31,25 @@
                                             name="limite_inferior"
                                             value="{{$retencion->limite_inferior ?? ''}}" 
                                             class="form-control"
-                                            maxlength="4"
-                                            step="0.1" 
-                                            onkeyup="mayus(this);">
+                                            step="0.01">
                                     @error('limite_inferior')
+                                        <div class="alert alert-secondary">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
+                                </div>
+                            </div>
+                            
+                            <div class="col-sm-2">
+                                <div class="form-group">
+                                    <label>Limite Superior:</label>
+                                    <input  type="number" 
+                                            name="limite_superior"
+                                            value="{{$retencion->limite_superior ?? ''}}" 
+                                            class="form-control"
+                                            step="0.01"
+                                            onkeyup="mayus(this);">
+                                    @error('limite_superior')
                                         <div class="alert alert-secondary">
                                             {{ $message }}
                                         </div>
@@ -50,25 +63,9 @@
                                             name="cuota_fija" 
                                             value="{{$retencion->cuota_fija ?? '' }}"
                                             class="form-control"
-                                            step="0.1" 
+                                            step="0.01" 
                                             onkeyup="mayus(this);">
                                     @error('cuota_fija')
-                                        <div class="alert alert-secondary">
-                                            {{ $message }}
-                                        </div>
-                                    @enderror
-                                </div>
-                            </div>
-                            <div class="col-sm-2">
-                                <div class="form-group">
-                                    <label>Limite Superior:</label>
-                                    <input  type="number" 
-                                            name="limite_superior"
-                                            value="{{$retencion->limite_superior ?? ''}}" 
-                                            class="form-control"
-                                            step="0.1"
-                                            onkeyup="mayus(this);">
-                                    @error('limite_superior')
                                         <div class="alert alert-secondary">
                                             {{ $message }}
                                         </div>
@@ -82,7 +79,7 @@
                                             name="porcentaje_excedente"
                                             value="{{$retencion->porcentaje_excedente ?? ''}}" 
                                             class="form-control"
-                                            step="0.1"
+                                            step="0.01"
                                             onkeyup="mayus(this);">
                                     @error('porcentaje_excedente')
                                         <div class="alert alert-secondary">
@@ -96,24 +93,34 @@
                                     <label>Periodo:</label>
                                     @if(isset($retencion))
                                         @if($retencion->periodo_retencion == 'MENSUAL')
-                                        <select class="custom-select personalizado" name="periodo_retencion">
-                                            <option value="{{$retencion->periodo_retencion}}">{{$retencion->periodo_retencion}}</option>
-                                             <option value="ANUAL">ANUAL</option>
-                                        </select>
-                                        @else
-                                        <select class="custom-select personalizado" name="periodo_retencion">
-                                        <option value="{{$retencion->periodo_retencion}}">{{$retencion->periodo_retencion}}</option>
-                                             <option value="MENSUAL">MENSUAL</option>
-                                        </select>
-
+                                             <select class="custom-select personalizado" name="periodo_retencion">
+                                                <option selected value="MENSUAL">MENSUAL</option>
+                                                <option value="SEMANAL">SEMANAL</option>
+                                                <option value="QUINCENAL"> QUINCENAL</option>
+                                            </select>
+                                        @elseif($retencion->periodo_retencion == 'QUINCENAL')
+                                            <select class="custom-select personalizado" name="periodo_retencion">
+                                                <option selected value="QUINCENAL">QUINCENAL</option>
+                                                <option value="MENSUAL">MENSUAL</option>
+                                                <option value="SEMANAL">SEMANAL</option>
+                                            </select>
+                                        @elseif($retencion->periodo_retencion == 'SEMANAL')
+                                            <select class="custom-select personalizado" name="periodo_retencion">
+                                                <option selected value="SEMANAL">SEMANAL</option>
+                                                <option value="MENSUAL">MENSUAL</option>
+                                                <option value="QUINCENAL">QUINCENAL</option>
+                                            </select>
                                         @endif
                                     @else
-                                    <select class="custom-select personalizado" name="periodo_retencion">
-                                        <option value="">Selecciona una opción</option>
-                                        <option value="MENSUAL">MENSUAL</option>
-                                        <option value="ANUAL">ANUAL</option>
-                                    </select>
+                                        <select class="custom-select personalizado" name="periodo_retencion">
+                                            <option value="">Selecciona una opción</option>
+                                            <option value="QUINCENAL">QUINCENAL</opotion>
+                                            <option value="MENSUAL">MENSUAL</option>
+                                            <option value="ANUAL">ANUAL</option>
+                                        </select>
                                     @endif
+
+
                                     @error('periodo_retencion')
                                         <div class="alert alert-secondary">
                                             {{ $message }}
@@ -296,6 +303,7 @@
                                 <th>Cuota fija</th>
                                 <th>Porcentaje Excedente</th>
                                 <th>Periodo</th>
+                                <th> </th>
                             </tr>
                         </thead>
                         <tbody>
@@ -309,6 +317,19 @@
                                 <td>{{ $rtn->cuota_fija }}</td>
                                 <td>{{ $rtn->porcentaje_excedente }}</td>
                                 <td>{{ $rtn->periodo_retencion }}</td>
+                                <td> 
+                                    @canany(['administrador','capturista'])
+                                        <div>
+                                            <center>
+                                                <a href="{{ route('retenciones.mostrar',$rtn->id) }}">
+                                                    <button type="button" class="botones">
+                                                        <i class="far fa-eye"></i>
+                                                    </button>
+                                                </a>
+                                            </center>         
+                                        </div>
+                                    @endcan
+                                </td>
                             </tr>
                                 @endforeach
                             @endif

@@ -161,6 +161,18 @@ class UsersController extends Controller
       $usuarios->save();    
     }
 
+    public function show($id){
+        $roles = Role::all();
+        $usuarios = User::select('users.*','roles.*')
+                ->join('roles','roles.id_rol','=','users.role_id')
+                ->where('id','=',$id)
+                ->first();
+        $data_user = User::select('users.*','roles.*')
+                ->join('roles','roles.id_rol','=','users.role_id')
+                ->get();
+        return view('usuarios.crudusuarios',compact('roles','usuarios','data_user'));
+    }
+
     
     public function destroy($id)
     {

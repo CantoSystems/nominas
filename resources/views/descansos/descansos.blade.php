@@ -14,14 +14,29 @@
                             <tr>
                                 <th>Fecha de descanso</th>
                                 <th>Día festivo / Descripción</th>
+                                <th></th>
                             </tr>
                         </thead>
                         <tbody>
                         @if(!empty($total_descansos))
                             @foreach ($total_descansos as $aux)
                             <tr>
-                                <td>{{$aux->fecha_descanso ?? ''}}</td>
-                                <td>{{$aux->descripcion_descanso ?? ''}}</td>
+                                <td>{{ $aux->fecha_descanso ?? '' }}</td>
+                                <td>{{ $aux->descripcion_descanso ?? '' }}</td>
+                                <td>{{ $aux->id }}
+                                @canany(['administrador','capturista'])
+                                    <div>
+                                        <center>
+                                            <a href="{{ route('descansos.mostrar',$aux->id ) }}">
+                                                <button type="button" class="botones">
+                                                    <i class="far fa-eye"></i>
+                                                </button>
+                                            </a>
+                                        </center>         
+                                    </div>
+                                @endcan
+
+                                </td>
                             </tr>
                             @endforeach
                         @endif
@@ -72,15 +87,12 @@
                                                 {{ $message }}
                                             </div>
                                         @enderror
-        
                                 </div>
                             </div>
 
                             <div class="col-md-12">
                                 <br>
                             </div>
-
-
                         @canany(['administrador','capturista','reportes'])
                             <div class="col-md-5">
                                     <div class="margin">
@@ -223,5 +235,4 @@
 </div>
 </div>
 </div>
-
 @endsection

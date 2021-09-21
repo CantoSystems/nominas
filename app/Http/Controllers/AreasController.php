@@ -71,6 +71,7 @@ class AreasController extends Controller
                return redirect()->route('areas.index');
                break;
                case 'actualizar':
+                $fecha_actualiza= now()->toDateString();
                 $aux1 = DB::connection('DB_Serverr')->table('areas')->where('id',$indic)->first();
                    if($aux1!==""){
 
@@ -81,22 +82,12 @@ class AreasController extends Controller
 
                    DB::connection('DB_Serverr')->table('areas')->where('id',$indic)->update([
                               'area'=>$request->area, 
-                              'clave_area'=>$request->clave_area,
+                              'updated_at'=>$fecha_actualiza,
                             ]);
                    $aux = DB::connection('DB_Serverr')->table('areas')->get()->first();
                    $areas = DB::connection('DB_Serverr')->table('areas')->get();
                 return view('Areas.area',compact('aux','areas'));
                    }
-               break;
-               case 'eliminar':
-               /*
-                $aux1 = DB::connection('DB_Serverr')->table('areas')->where('clave_area',$clave_ar)->first();
-                if($aux1!==""){
-                DB::connection('DB_Serverr')->table('areas')->where('clave_area',$request->clave_area)->delete();
-                $aux = DB::connection('DB_Serverr')->table('areas')->get()->first();
-                $areas = DB::connection('DB_Serverr')->table('areas')->get();
-                return view('Areas.area',compact('aux','areas'));
-                }*/
                break;
                case 'cancelar':
                  return redirect()->route('areas.index');
@@ -127,10 +118,6 @@ class AreasController extends Controller
                        $areas = DB::connection('DB_Serverr')->table('areas')->get();
                       return view('Areas.area',compact('aux','areas'));
                   }
-
-                
-                  
-
                 break;
 
                default:
@@ -154,17 +141,8 @@ class AreasController extends Controller
         */
 
     public function registrar($datos){
-    
-    /*if($datos->area === null){
-      return redirect()->route('areas.index');
-    }*/
-
-
       $clv=Session::get('clave_empresa');
-      //$clave_area= $this->generador();
       $clv_empresa=$this->conectar($clv);
-
-
       \Config::set('database.connections.DB_Serverr', $clv_empresa);
 
       $datos->validate([
@@ -184,30 +162,8 @@ class AreasController extends Controller
         }else{
           return back()->with('msj','Registro duplicado');
         }
-
-      
-
     }
 
-
-   /**
-      *Genera un numero random de digitos
-      *Para la clave indicadora del banco
-      * @version V1
-      * @author Gustavo
-      * @param void
-      * @return $codigo | int
-      */
-
-public function generador(){
-	$raiz= '0123456789';
-	$codigo='';
-	for ($i=0; $i < 3; $i++) {
-		$letra= $raiz[mt_rand(0, 4 - 1)];
-		$codigo .=$letra;
-	}
-	return $codigo;
-	}
 public function conectar($clv)
   {
 
@@ -230,12 +186,23 @@ public function conectar($clv)
 
   }
 
+  public function show($id){
+    $clv=Session::get('clave_empresa');
+    $clv_empresa=$this->conectar($clv);
+    
+    \Config::set('database.connections.DB_Serverr', $clv_empresa);
+
+    $aux = DB::connection('DB_Serverr')->table('areas')
+            ->where('id','=',$id)
+            ->first();
+    $areas = DB::connection('DB_Serverr')->table('areas')->get();
+    return view('Areas.area',compact('aux','areas'));
+
+  }
+
   public function eliminararea($id){
     $clv=Session::get('clave_empresa');
-    $clave_area= $this->generador();
     $clv_empresa=$this->conectar($clv);
-
-
     \Config::set('database.connections.DB_Serverr', $clv_empresa);
 
     $aux1 = DB::connection('DB_Serverr')->table('areas')->where('id',$id)->delete();

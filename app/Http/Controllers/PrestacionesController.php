@@ -113,15 +113,8 @@ class PrestacionesController extends Controller{
         * @return void
     */
     public function registrar($datos){
-
-        /*if($datos->anio === null){
-            return redirect()->route('prestaciones.index');
-        }*/
-        
         $clv=Session::get('clave_empresa');
-        $clave_pr= $this->generador();
         $clv_empresa=$this->conectar($clv);
-
         \Config::set('database.connections.DB_Serverr', $clv_empresa);
 
         $datos->validate([
@@ -161,24 +154,6 @@ class PrestacionesController extends Controller{
         DB::connection('DB_Serverr')->table('prestaciones')->where('id',$clv2)->update(['anio'=>$datos->anio,'dias'=>$datos->dias,'prima_vacacional'=>$datos->prima_vacacional,'aguinaldo'=>$datos->aguinaldo]);
     }
 
-   /**
-      *Genera un numero random de digitos
-      *Para la clave indicadora del banco
-      * @version V1
-      * @author Gustavo
-      * @param void
-      * @return $codigo | int
-      */
-    public function generador(){
-        $raiz= '0123456789';
-        $codigo='';
-        for ($i=0; $i < 3; $i++) {
-            $letra= $raiz[mt_rand(0, 4 - 1)];
-            $codigo .=$letra;
-        }
-        return $codigo;
-    }
-    
     public function conectar($clv){
         $configDb = [
             'driver'      => 'mysql',
@@ -199,9 +174,7 @@ class PrestacionesController extends Controller{
 
     public function eliminarprestacion($id){
         $clv=Session::get('clave_empresa');
-        $clave_pr= $this->generador();
         $clv_empresa=$this->conectar($clv);
-
         \Config::set('database.connections.DB_Serverr', $clv_empresa);
 
         $aux1 = DB::connection('DB_Serverr')->table('prestaciones')->where('id',$id)->delete();

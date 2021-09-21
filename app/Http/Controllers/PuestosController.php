@@ -73,24 +73,14 @@ class PuestosController extends Controller
                     ]);
                     
                    DB::connection('DB_Serverr')->table('puestos')->where('id',$indic)->update([
-                              'clave_puesto'=>$request->clave_puesto,
                               'nombre_puesto'=>$request->puesto,
+                              'updated_at'=>$request->clave_puesto,
                             ]);
                    $aux = DB::connection('DB_Serverr')->table('puestos')->get()->first();
                    $puestos= DB::connection('DB_Serverr')->table('puestos')->get();
                    return view('puestos.puestos',compact('aux','puestos'));
                    }
               break;
-
-              case 'eliminar':
-                $aux1 = DB::connection('DB_Serverr')->table('puestos')->where('clave_puesto',$clave_p)->first();
-                if($aux1!==""){
-                DB::connection('DB_Serverr')->table('puestos')->where('clave_area',$request->clave_puesto)->delete();
-                $aux = DB::connection('DB_Serverr')->table('puestos')->get()->first();
-                return view('puestos.puestos',compact('aux'));
-                }
-              break;
-
               case 'cancelar':
                  return redirect()->route('puestos.index');
               break;
@@ -123,8 +113,6 @@ class PuestosController extends Controller
                   }
 
               break;
-
-
               default:
                    # code...
               break;
@@ -132,15 +120,8 @@ class PuestosController extends Controller
 }
 
     public function registrar($datos){
-
-      /*if ($datos->puesto === null) {
-      return redirect()->route('puestos.index');
-      }*/
-
       $clv=Session::get('clave_empresa');
-      //$clave_puesto= $this->generador();
       $clv_empresa=$this->conectar($clv);
-
       \Config::set('database.connections.DB_Serverr', $clv_empresa);
         $datos->validate([
               'clave_puesto' => 'required',
@@ -159,16 +140,6 @@ class PuestosController extends Controller
           return back()->with('msj','Registro duplicado');
         }
 }
-
-public function generador(){
-	$raiz= '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
-	$codigo='';
-	for ($i=0; $i < 3; $i++) {
-		$letra= $raiz[mt_rand(0, 4 - 1)];
-		$codigo .=$letra;
-	}
-	return $codigo;
-    }
 
 public function conectar($clv)
   {
@@ -192,10 +163,24 @@ public function conectar($clv)
 
   }
 
-  public function eliminarpuestos($id){
+  public function show($id){
     $clv=Session::get('clave_empresa');
     $clv_empresa=$this->conectar($clv);
 
+    \Config::set('database.connections.DB_Serverr', $clv_empresa);
+
+    $aux = DB::connection('DB_Serverr')->table('puestos')
+      ->where('id','=',$id)
+      ->first();
+    $puestos= DB::connection('DB_Serverr')->table('puestos')->get();
+    return view('puestos.puestos',compact('aux','puestos'));
+
+
+  }
+
+  public function eliminarpuestos($id){
+    $clv=Session::get('clave_empresa');
+    $clv_empresa=$this->conectar($clv);
     \Config::set('database.connections.DB_Serverr', $clv_empresa);
 
     $aux1 = DB::connection('DB_Serverr')->table('puestos')->where('id',$id)->delete();

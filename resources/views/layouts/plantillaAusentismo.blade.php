@@ -55,14 +55,6 @@
                   <i class="right fas fa-angle-left"></i>
                 </p>
               </a>
-              <!--<ul class="nav nav-treeview">
-                <li class="nav-item {{!Route::is('empleados.index') ?: 'active'}}">
-                  <a href="{{ route('empleados.index')}}" class="nav-link active">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>Empleados</p>
-                  </a>
-                </li>
-              </ul>-->
               <ul class="nav nav-treeview">
                 <li class="nav-item {{!Route::is('emplea.index') ?: 'active'}}">
                   <a href="{{ route('emplea.index')}}" class="nav-link active">
@@ -168,6 +160,14 @@
                   </a>
                 </li>
               </ul>
+              <ul class="nav nav-treeview">
+                <li class="nav-item {{!Route::is('prestamos.index') ?: 'active'}}">
+                  <a href="{{ route('prestamos.index')}}" class="nav-link active">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Capturar Adicionales</p>
+                  </a>
+                </li>
+              </ul>
             </li>
             <li class="nav-item has-treeview menu-open">
               <a href="#" class="nav-link">
@@ -198,6 +198,14 @@
                   <a href="{{ route('incid2.index')}}" class="nav-link active">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Incidencias</p>
+                  </a>
+                </li>
+              </ul>
+              <ul class="nav nav-treeview">
+                <li class="nav-item {{!Route::is('prestamos.show') ?: 'active'}}">
+                  <a href="{{ route('prestamos.show')}}" class="nav-link active">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Consultar Adicionales</p>
                   </a>
                 </li>
               </ul>
@@ -245,7 +253,7 @@
               </a>
               <ul class="nav nav-treeview">
                 <li class="nav-item">
-                  <a name="botonNominas" id="botonNominas" href="{{ route('prenomina.index')}}" class="nav-link active">
+                  <a name="botonNominas" id="botonNominas" href="{{ route('aguinaldos.index')}}" class="nav-link active">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Prenómina</p>
                   </a>
@@ -278,7 +286,7 @@
               </a>
               <ul class="nav nav-treeview">
                 <li class="nav-item">
-                  <a name="botonNominas" id="botonNominas" href="{{ route('prenomina.index')}}" class="nav-link active">
+                  <a name="botonNominas" id="botonNominas" href="#" class="nav-link active">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Prenómina</p>
                   </a>
@@ -309,50 +317,9 @@
                   <i class="right fas fa-angle-left"></i>
                 </p>
               </a>
-              <!--<ul class="nav nav-treeview">
-                <li class="nav-item">
-                  <a name="botonNominas" id="botonNominas" href="{{ route('prenomina.index')}}" class="nav-link active">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>Prenómina</p>
-                  </a>
-                </li>
-              </ul>-->
               <ul class="nav nav-treeview">
                 <li class="nav-item">
-                  <a name="botonNominas" id="botonNominas" href="{{ route('prenomina.index')}}" class="nav-link active">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>Prenómina</p>
-                  </a>
-                </li>
-              </ul>
-              <ul class="nav nav-treeview">
-                <li class="nav-item">
-                  <a href="{{ route('reportnomina.index')}}" class="nav-link active">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>Nómina normal</p>
-                  </a>
-                </li>
-              </ul>
-              <ul class="nav nav-treeview">
-                <li class="nav-item">
-                  <a href="{{ route('reportnomina.index')}}" class="nav-link active">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>Recibo</p>
-                  </a>
-                </li>
-              </ul>
-            </li>
-            <li class="nav-item has-treeview menu-open">
-              <a href="#" class="nav-link">
-                <i class="nav-icon fas fa-tachometer-alt"></i>
-                <p>
-                Fondo de Ahorro
-                  <i class="right fas fa-angle-left"></i>
-                </p>
-              </a>
-              <ul class="nav nav-treeview">
-                <li class="nav-item">
-                  <a name="botonNominas" id="botonNominas" href="{{ route('prenomina.index')}}" class="nav-link active">
+                  <a name="botonNominas" id="botonNominas" href="#" class="nav-link active">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Prenómina</p>
                   </a>
@@ -409,8 +376,9 @@
     <script src="{{asset('/script-personalizados/funcionamientoBotones.js')}}"></script>
     <!--Validaciones inputs mayusculas, números y letras-->
     <script src="{{asset('/script-personalizados/validacionesInput.js')}}"></script>
+    
     <!--AUTOcOMPLEMENTADO-->
-   <script>
+    <script>
      $(document).ready(function(){ 
     //Scripts para Autocomplete empleados y conceptos
     $('#concepto_clave').keyup(function(){
@@ -535,20 +503,20 @@
       });
 
       $('#finalizar_ausencia').click(function (e){
-      let myTableArrayAusencia = [];
-      document.querySelectorAll('.example13 tbody tr').forEach(function(e){
-        let filas = {
-          empleado: e.querySelector('.empleado').innerText,
-          ausentismo: e.querySelector('.ausentismo').innerText,
-          concepto: e.querySelector('.concepto').innerText,
-          fecha: e.querySelector('.fecha').innerText.split("/").reverse().join("-"),
-          incapacidad: e.querySelector('.incapacidad').innerText,
-          descripcion: e.querySelector('.descripcion').innerText
-        };
-        myTableArrayAusencia.push(filas);
-      });
-      let jsonStringa = JSON.stringify(myTableArrayAusencia);
-    $.ajax({
+        let myTableArrayAusencia = [];
+        document.querySelectorAll('.example13 tbody tr').forEach(function(e){
+          let filas = {
+            empleado: e.querySelector('.empleado').innerText,
+            ausentismo: e.querySelector('.ausentismo').innerText,
+            concepto: e.querySelector('.concepto').innerText,
+            fecha: e.querySelector('.fecha').innerText.split("/").reverse().join("-"),
+            incapacidad: e.querySelector('.incapacidad').innerText,
+            descripcion: e.querySelector('.descripcion').innerText
+          };
+          myTableArrayAusencia.push(filas);
+        });
+        let jsonStringa = JSON.stringify(myTableArrayAusencia);
+      $.ajax({
         url: "{{ route('ausencia.store') }}",
         method: "POST",
         data: {
@@ -564,16 +532,6 @@
           console.log(err.Message);
         }
       });
-  
     });
-
-
   });
-   </script>
-   <script>
-    
-
-  
-
-    
-  </script>
+</script>

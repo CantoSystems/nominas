@@ -1,47 +1,24 @@
 <?php
     use App\Exports\PrenominaExport;
     use Maatwebsites\Excel\Facades\Excel;
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
+
 
 Route::get('/', function () {
     return view('auth.login');
 });
 
-Route::get('/PDF-PRUEBA', function(){
-    $pdf = App::make('dompdf.wrapper');
-    $pdf->loadHTML('<h1>Test</h1>');
-    return $pdf->stream();
-});
 Auth::routes();
 
 Route::get('home', 'HomeController@index')->name('home');
 
-/**
-    *Peticiones http Delete | Get
-    *Eliminación de la empresa
-    *Vaciado de ls empresas
-    *Vaciado y control de las acciones de los registros CRUD | Botones 
-    *@version V1
-    *@return Controlador | Método
-    *@author Elizabeth
-    *@param id | función Destroy
-*/
-//empresas
 Route::delete('empresa/{id}', 'EmpresaController@destroy')->name('empresas.destroy');
 Route::get('accciones', 'EmpresaController@acciones')->name('nominas.empresas');
 Route::get('selecempresa','EmpresaController@seleccionarempresa')->name('seleccionarempresa');
+Route::get('/empresa/nomina/{id}','EmpresaController@show')->name('mostrar.empresas');
 
 //areas
 Route::get('areas','AreasController@index')->name('areas.index');
+Route::get('/areas/mostrar/{id}','AreasController@show')->name('areas.mostrar');
 Route::delete('areas/{id}', 'AreasController@eliminararea')->name('areas.eliminaarea');
 
 //periodos
@@ -54,36 +31,20 @@ Route::delete('accionesperiodos/{id}', 'PeriodosController@eliminarperiodo')->na
 
 //puestos 
 Route::get('puestos','PuestosController@index')->name('puestos.index');
+Route::get('/puestos/mostrar/{id}','PuestosController@show')->name('puestos.mostrar');
 Route::delete('puestos/{id}','PuestosController@eliminarpuestos')->name('puestos.eliminapuesto');
 
 //departamentos
 Route::get('/departamentos','DepartamentosController@index')->name('departamentos.index');
+Route::get('/departamentos/mostrar/{id}','DepartamentosController@show')->name('departamentos.mostrar');
 Route::delete('departamentos/{id}', 'DepartamentosController@eliminardepartamento')->name('departamentos.eliminadepartamento');
 
-
-/**
-    *Peticiones http Delete | Get
-    *Eliminación de la bancos @eliminarbanco
-    *Vaciado de los registros de bancos
-    *Vaciado y control de las acciones de los registros CRUD | Botones 
-    *@version V1
-    *@return Controlador | Método
-    *@author Gustavo | Elizabeth
-    *@param id | función Destroy
-*/
+//bancos
 Route::get('bancos','BancosController@acciones')->name('bancos.acciones');
+Route::get('/bancos/visualizar/{id}','BancosController@show')->name('bancos.mostrar');
 Route::delete('bancos/{id}','BancosController@eliminarbanco')->name('bancos.eliminar');
 
-/**
-    *Peticiones http Delete | Get
-    *Eliminación de la bancos @destroy
-    *Vaciado de los registros de bancos
-    *Vaciado y control de las acciones de los registros CRUD | Botones 
-    *@version V1
-    *@return Controlador | Método
-    *@author Elizabeth
-    *@param id | función Destroy
-*/
+//prestaciones
 Route::get('/prestaciones','PrestacionesController@index')->name('prestaciones.index');
 Route::delete('/prestaciones/{id}','PrestacionesController@eliminarprestacion')->name('prestaciones.destroy');
 
@@ -102,32 +63,33 @@ Route::delete('clasificacion/{id}','ClasificacionController@destroy')->name('cla
 
 //conceptos
 Route::get('/conceptos','ConceptosController@index')->name('conceptos.index');
+Route::get('/conceptos/mostrar/{id}','ConceptosController@show')->name('conceptos.mostrar');
 Route::delete('/conceptos/{id}','ConceptosController@eliminaconcepto')->name('conceptos.eliminaconcepto');
-
-//Empleados
-Route::get('/empleados', 'EmpleadosController@index')->name('empleados.index');
-Route::delete('/empleados/{id_emp}','EmpleadosController@eliminaempleado')->name('empleados.eliminaempleado');
-Route::patch('/empleados/{id_emp}','EmpleadosController@actualizar_empleado')->name('empleados.actualizarempleado');
 
 //Usuarios
 Route::get('/usuarios','UsersController@index')->name('usuarios.index');
+Route::get('/usuarios/visualizar/{id}','UsersController@show')->name('usuarios.mostrar');
 Route::delete('/usuarios/{id}','UsersController@destroy')->name('usuarios.destroy');
 
 //Retenciones
 Route::get('/retenciones','RetencionesController@index')->name('retenciones.index');
+Route::get('/retenciones/visualizar/{id}','RetencionesController@show')->name('retenciones.mostrar');
 Route::delete('/retenciones/{id}','RetencionesController@destroy')->name('retenciones.destroy');
 
 //I.M.S.S
 Route::get('imss','IMSSController@acciones')->name('imss.acciones');
+Route::get('/imss/visualizar/{id_imss}','IMSSController@show')->name('imss.mostrar');
 Route::delete('imss/{id_imss}','IMSSController@eliminarimss')->name('imss.eliminarimss');
 
 //Subsidios
 Route::get('subsidios','SubsidioController@acciones')->name('subsidio.acciones');
+Route::get('/subsidios/visualizar/{id_subsidio}','SubsidioController@show')->name('subsidios.mostrar');
 Route::delete('subsidios/{id_subsidio}','SubsidioController@eliminarsubsidio')->name('subsidio.eliminarsubsidio');
 
 //Ajax-Insert-Multiple Incidencias
 Route::get('/incidencias','IncidenciaController@index')->name('incidencias.index');
 Route::post('/incidencias/enviodata', 'IncidenciaController@store')->name('incidencias.store');
+Route::post('/incidencias/check', 'IncidenciaController@check')->name('incidencias.check');
 
 //Incidencias
 Route::get('/incid','IncidenController@index')->name('incid2.index');
@@ -145,8 +107,9 @@ Route::delete('horas-extras/delete/{id_tiempo}', 'ExtrasController@elimina')->na
 Route::get('/ausencia','AusenciaController@index')->name('ausencia.index');
 Route::post('/ausencia/enviamultiple','AusenciaController@store')->name('ausencia.store');
 
-//ausentismo
+//ausentismo - Crud
 Route::get('/ausentismo','AusentismoController@index')->name('ausentismo.index');
+Route::get('/ausentismo/visualizar/{id}','AusentismoController@show')->name('ausentismo.visualizar');
 Route::post('/ausentismo/busqueda','AusentismoController@mostrarempleado')->name('ausentismo.mostrarempleado');
 Route::post('/ausentismo/busquedaconcepto','AusentismoController@mostrarconcepto')->name('ausentismo.mostrarconcepto');
 Route::delete('ausentismo/delete/{id}', 'AusentismoController@eliminar')->name('ausentismo.destroy');
@@ -172,27 +135,39 @@ Route::get('/define','SeleccionTiempoExtraController@store')->name('selecciontie
 
 //UMAS
 Route::get('/umas', 'UmasController@index')->name('umas.index');
+Route::get('/umas/visualizar/{id}','UmasController@show')->name('umas.mostrar');
 Route::delete('/umas/{id}','UmasController@destroy')->name('umas.destroy');
 
 //Seleccionar Conceptos
 Route::get('/selectConceptos','SelectConceptosController@index')->name('selectConceptos.index');
 
 //Prenómina
-Route::get('/prenomina', 'CalculoPrenominaController@index')->name('prenomina.index');
-Route::get('/prenomina-nuevo', 'CalculoPrenominaController@create')->name('prenomina.create');
 Route::get('/prenomina-prueba/{id_emp}', 'CalculoPrenominaController@show')->name('prenomina.show');
 Route::post('/prenomina-act/enviodata', 'CalculoPrenominaController@store')->name('prenomina.store');
 Route::post('/prenominaISR', 'CalculoPrenominaController@calcularImpuestos')->name('prenomina.Impuestos');
 
 //Días Festivos
 Route::get('/descanso', 'DescansosController@index')->name('descansos.index');
+Route::get('/descanso/mostrar/{id}','DescansosController@show')->name('descansos.mostrar');
 Route::delete('/descanso/{id}','DescansosController@destroy')->name('descansos.destroy');
 
 //nuevo control Prenomina
 Route::get('/prenomina-normal', 'ControlPrenominaController@index')->name('control.index');
 Route::get('/prenomina-normal/{id_emp}', 'ControlPrenominaController@create')->name('control.create');
+Route::get('/prenomina-excel','ControlPrenominaController@excelPrenomina')->name('control.excel');
+Route::get('/prenomina-excel3','ControlPrenominaController@exportExcel')->name('control.excel3');
 Route::post('/prenomina-normal/enviocontrolprenomina', 'ControlPrenominaController@store')->name('control.store');
 Route::post('/prenominaImpuestos', 'ControlPrenominaController@calcularImpuestos')->name('control.Impuestos');
 Route::post('/prenominaIMSS', 'ControlPrenominaController@calcularIMSS')->name('control.IMSS');
-Route::get('/prenomina-excel','ControlPrenominaController@excelPrenomina')->name('control.excel');
-Route::get('/prenomina-excel3','ControlPrenominaController@exportExcel')->name('control.excel3');
+Route::post('/prenominaPension', 'ControlPrenominaController@pensionAlimenticia')->name('control.pension');
+Route::post('/prenominaPatron', 'ControlPrenominaController@impuestosPatron')->name('control.impPatron');
+
+//Aguinaldos
+Route::get('/aguinaldos', 'AguinaldosController@index')->name('aguinaldos.index');
+Route::get('/aguinaldosl/{id_emp}', 'AguinaldosController@create')->name('aguinaldos.show');
+
+//Préstamos
+Route::get('/prestamos', 'PrestamosController@index')->name('prestamos.index');
+Route::get('/verPrestamos', 'PrestamosController@show')->name('prestamos.show');
+Route::post('/prestamos/enviodata', 'PrestamosController@store')->name('prestamos.store');
+Route::delete('/prestamos/delete/{id}', 'PrestamosController@eliminar')->name('prestamos.destroy');

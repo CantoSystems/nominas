@@ -368,8 +368,18 @@
                         <label>Días del Periodo:</label>
                         @if(isset($empresa))
                             <input type="number" maxlength="2" name="tipoPeriodo" class="form-control" value="{{ $empresa->tipoPeriodo }}">
+                            @error('tipoPeriodo')
+                                <div class="alert alert-secondary">
+                                    {{ $message }}
+                                </div>
+                            @enderror
                         @else
                             <input type="number" maxlength="2" name="tipoPeriodo" class="form-control">
+                            @error('tipoPeriodo')
+                                <div class="alert alert-secondary">
+                                    {{ $message }}
+                                </div>
+                            @enderror
                         @endif
                     </div>
                 </div>
@@ -378,8 +388,18 @@
                         <label>Inicio del Periodo:</label>
                         @if(isset($empresa))
                             <input type="date" name="inicioPeriodo" class="form-control" value="{{ $empresa->inicioPeriodo }}">
+                            @error('inicioPeriodo')
+                                <div class="alert alert-secondary">
+                                    {{ $message }}
+                                </div>
+                            @enderror
                         @else
                             <input type="date" name="inicioPeriodo" class="form-control">
+                            @error('inicioPeriodo')
+                                <div class="alert alert-secondary">
+                                    {{ $message }}
+                                </div>
+                            @enderror
                         @endif
                     </div>
                 </div>
@@ -402,12 +422,22 @@
                                     <option selected value="Resto">Resto del país</option>
                                 @endif
                             </select>
+                            @error('regionEmpresa')
+                                <div class="alert alert-secondary">
+                                    {{ $message }}
+                                </div>
+                            @enderror
                         @else
                             <select id="regionSalario" name="regionEmpresa" class="custom-select">
                                 <option value="N/A">Selecciona una opción</option>
                                 <option value="Frontera">Zona Libre de la Frontera Norte</option>
                                 <option selected value="Resto">Resto del país</option>
                             </select>
+                            @error('regionEmpresa')
+                                <div class="alert alert-secondary">
+                                    {{ $message }}
+                                </div>
+                            @enderror
                         @endif
                     </div>
                 </div>
@@ -416,8 +446,18 @@
                         <label>Factor Prima de Riesgo de Trabajo:x</label>
                         @if(isset($empresa))
                             <input type="number" min="-1" max="10" step="any" name="primaRiesgo" class="form-control" value="{{ $empresa->primaRiesgo }}">
+                            @error('primaRiesgo')
+                                <div class="alert alert-secondary">
+                                    {{ $message }}
+                                </div>
+                            @enderror
                         @else
                             <input type="number" min="-1" max="10" step="any" name="primaRiesgo" class="form-control">
+                            @error('primaRiesgo')
+                                <div class="alert alert-secondary">
+                                    {{ $message }}
+                                </div>
+                            @enderror
                         @endif
                     </div>
                 </div>
@@ -426,8 +466,18 @@
                         <label>Fondo de Ahorro (%):</label>
                         @if(isset($empresa))
                             <input type="number" name="porcentajeAhorro" class="form-control porcentajeAhorro" value="{{ $empresa->porcentajeAhorro }}">
+                            @error('porcentajeAhorro')
+                                <div class="alert alert-secondary">
+                                    {{ $message }}
+                                </div>
+                            @enderror
                         @else
                             <input type="number" name="porcentajeAhorro" class="form-control porcentajeAhorro">
+                            @error('porcentajeAhorro')
+                                <div class="alert alert-secondary">
+                                    {{ $message }}
+                                </div>
+                            @enderror
                         @endif
                     </div>
                 </div>

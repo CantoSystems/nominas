@@ -55,7 +55,6 @@
                   <i class="right fas fa-angle-left"></i>
                 </p>
               </a>
-              
               <ul class="nav nav-treeview">
                 <li class="nav-item {{!Route::is('emplea.index') ?: 'active'}}">
                   <a href="{{ route('emplea.index')}}" class="nav-link active">
@@ -377,115 +376,228 @@
     <script src="{{asset('/script-personalizados/funcionamientoBotones.js')}}"></script>
     <!--Validaciones inputs mayusculas, números y letras-->
     <script src="{{asset('/script-personalizados/validacionesInput.js')}}"></script>
-    <!--Funcionamiento de Ausentismo Autocompletado -->
+    <!-- Scripts para Prenómina-->
     <script>
-      $(document).ready(function(){ 
+      $(document).ready(function(){
+        /* Scripts para generar los resultados de las operaciones al cargar la página */
+        let importe_total = 0
+        $(".totales").each(function(index, value) {
+          if($.isNumeric($(this).val())){
+            importe_total = importe_total + eval($(this).val());
+          }
+        });
+        $(".totalPercepciones").val(importe_total.toFixed(2));
 
-        $('.clave_empledo').keyup(function(){
-          let query = $(this).val();  
-            if(query != ''){
-              let _token = $('input[name="_token"]').val();
-              $.ajax({
-                url:"{{ route('ausentismo.mostrarempleado') }}",
-                method: "POST",
-                data:{query:query,_token:_token},
-                success:function(data){
-                  $('.listaclave_empleado').fadeIn();
-                  $('.listaclave_empleado').html(data);
-                }
-              });
-            }
+        let importe_total2 = 0
+        $(".totales2").each(function(index, value) {
+          if($.isNumeric($(this).val())){
+            importe_total2 = importe_total2 + eval($(this).val());
+          }
+        });
+        $(".totalDeducciones").val(importe_total2.toFixed(2));
+
+        /* Suma Percepciones Gravadas */
+        let importe_totalGrav = 0
+        $(".percepGrav").each(function(index, value) {
+          if($.isNumeric($(this).val())){
+            importe_totalGrav = importe_totalGrav + eval($(this).val());
+          }
+        });
+        $(".totalPercepcionesGravadas").val(importe_totalGrav);
+
+        /* Suma Percepciones NO Gravadas */
+        let importe_totalNoGrav = 0
+        $(".percepExcentas").each(function(index, value) {
+          if($.isNumeric($(this).val())){
+            importe_totalNoGrav = importe_totalNoGrav + eval($(this).val());
+          }
+        });
+        $(".totalPercepcionesExcentas").val(importe_totalNoGrav);
+
+        /* Script para calcular los impuestos */
+        $.ajax({
+          url: "{{ route('control.Impuestos') }}",
+          method: "POST",
+          data: {
+            _token: $("meta[name='csrf-token']").attr("content"),
+            totalPercepcionesGrav: $('.totalPercepcionesGravadas').val(),
+            totalPercepcionesNoGrav: $('.totalPercepcionesExcentas').val(),
+          },
+          success: function(data){
+            let htmlTags = '<tr>'+
+                              '<td style="text-align: center;">' + data[0] + '</td>'+
+                              '<td style="text-align: center;">' + data[1] + '</td>'+
+                              '<td style="text-align: center;">$ ' + data[2].toFixed(2) + 
+                              '<input class="totales3" id="trabajadorIsr" type="hidden" value=" ' + data[2].toFixed(2) + ' ">'+
+                              '</td>'+
+                            '</tr>'
+            $('#filasImpuestos tbody').append(htmlTags);
+          },
+          error: function(xhr, status, error) {
+            var err = JSON.parse(xhr.responseText);
+            console.log(err.Message);
+          }
         });
 
-        $(document).on('click','#empleado',function(){
-          let infoempleado = $(this).text();
-          let empleado_nombre = infoempleado.substring(4);
-          let empleado_clave = infoempleado.substring(0,4);
-          $('.clave_empledo').val(empleado_clave);
-          $('.listaclave_empleado').fadeOut();
-          $('.nombre_empleado').val(empleado_nombre);
+        /* Script para calcular el IMSS */
+        $.ajax({
+          url: "{{ route('control.IMSS') }}",
+          method: "POST",
+          data: {
+            _token: $("meta[name='csrf-token']").attr("content"),
+            clvEmp: $('.clvEmp').val(),
+            totalImss: $('.totalPercepcionesIMSS').val(),
+          },
+          success: function(data){
+            let htmlTags = '<tr>'+
+                              '<td style="text-align: center;">' + data[0] + '</td>'+
+                              '<td style="text-align: center;">' + data[1] + '</td>'+
+                              '<td  style="text-align: center;">$ ' + data[2].toFixed(2) + 
+                              '<input class="totales3" id="trabajadorImss" type="hidden" value=" ' + data[2].toFixed(2) + ' ">'+
+                              '</td>'+
+                            '</tr>'
+            $('#filasImpuestos tbody').append(htmlTags);
+
+            let importe_total3 = 0;
+            $(".totales3").each(function(index, value){
+              if($.isNumeric($(this).val())){
+                importe_total3 = importe_total3 + eval($(this).val());
+              }
+            });
+            $(".totalImpuestosTrabajador").val(importe_total3.toFixed(2));
+            totalImpuestos = $(".totalImpuestosTrabajador").val();
+            totalDeducciones = $(".totalDeducciones").val();
+            totalPercepciones = $(".totalPercepciones").val();
+            totalSueldoIn = totalPercepciones - totalDeducciones - totalImpuestos;
+            $.ajax({
+              url: "{{ route('control.pension') }}",
+              method: "POST",
+              data: {
+                _token: $("meta[name='csrf-token']").attr("content"),
+                clvEmp: $('.clvEmp').val(),
+                totalSueldo: totalSueldoIn
+              },
+              success: function(data){
+                if(data[0] != ''){
+                  $('.otrasDeducciones').css('display', 'block');
+                  let htmlTags = '<tr>'+
+                                  '<td style="text-align: center;">' + data[0] + '</td>'+
+                                  '<td style="text-align: center;">' + data[1] + '</td>'+
+                                  '<td style="text-align: center;">$ ' + data[3].toFixed(2) + '</td>'+
+                                '</tr>'
+
+                  $('.inputTotalOD').val(data[3].toFixed(2));
+                  $('#filasODeducciones tbody').append(htmlTags);
+                }
+
+                $('#lblSueldoNeto').append("Sueldo Neto: $ " + data[2]);
+                $.ajax({
+                  url: "{{ route('control.impPatron') }}",
+                  method: "POST",
+                  data: {
+                    _token: $("meta[name='csrf-token']").attr("content"),
+                    clvEmp: $('.clvEmp').val(),
+                    percepciones: totalPercepciones
+                  },
+                  success: function(data){
+                    $.each(data, function(index) {
+                      htmlTags = '<tr>'+
+                                    '<td style="text-align: center;">' + data[index].clave_concepto + '</td>'+
+                                    '<td style="text-align: center;">' + data[index].concepto + '</td>'+
+                                    '<td  style="text-align: center;">$ ' + data[index].monto + '<input class="totales4" id="impPatron" type="hidden" value=" ' + data[index].monto + ' "></td>'+
+                                 '</tr>'
+                      $('#filasPatron tbody').append(htmlTags);
+                    });
+
+                    let importe_total4 = 0;
+                    $(".totales4").each(function(index, value){
+                      if($.isNumeric($(this).val())){
+                        importe_total4 = importe_total4 + eval($(this).val());
+                      }
+                    });
+                    $(".totalImpuestosPatron").val(importe_total4.toFixed(2));
+                  },
+                  error: function(xhr, status, error) {
+                    var err = JSON.parse(xhr.responseText);
+                    console.log(err.Message);
+                  }
+                });
+              },
+              error: function(xhr, status, error) {
+                var err = JSON.parse(xhr.responseText);
+                console.log(err.Message);
+              }
+            });
+          },
+          error: function(xhr, status, error) {
+            var err = JSON.parse(xhr.responseText);
+            console.log(err.Message);
+          }
+        });
+
+        /* Script para guardar los cambios hechos en los inputs */
+        $('#recalcular').click(function(e){
+          e.preventDefault();
+          let myTableArray = [];
+          document.querySelectorAll('.prueba tbody tr').forEach(function(e){
+            let fila = {
+              idPre: e.querySelector('.idPrenomina').value,
+              concepto: e.querySelector('.clvCncpt').value,
+              monto: e.querySelector('.monto').value
+            };
+            myTableArray.push(fila);
+          });
+          let jsonString = JSON.stringify(myTableArray);
+          $.ajax({
+            url: "{{ route('prenomina.store') }}",
+            method: "POST",
+            data: {
+              _token: $("meta[name='csrf-token']").attr("content"),
+              info : jsonString,
+            },
+            success: function(data){
+            },
+            error: function(xhr, status, error) {
+              var err = JSON.parse(xhr.responseText);
+              console.log(err.Message);
+            }
+          });
         });
       });
     </script>
- <!--Funcionamiento de Tiempo Extra-->
- <script>
-  $(document).on('click', '.borrar', function (event) {
-    event.preventDefault();
-    $(this).closest('tr').remove();
-    var fecha = new Date(); //Fecha actual
-    var mes = fecha.getMonth()+1; //obteniendo mes
-    var dia = fecha.getDate()-1; //obteniendo dia
-    var ano = fecha.getFullYear(); //obteniendo año
-    if(dia<10)
-      dia='0'+dia; //agrega cero si el menor de 10
-    if(mes<10)
-      mes='0'+mes //agrega cero si el menor de 10
-    document.getElementById('fecha_extra').value=ano+"-"+mes+"-"+dia;
-  });
-
-  $(document).ready(function(){
-    let i = 1;
-    $('#agregar').click(function(e){
-      i++;
-      e.preventDefault();
-      let clave_empledo = $('#clave_empledo').val();
-      let nombre = $('#nombre').val();
-      let cantidad_tiempo = $('#cantidad_tiempo').val();
-      let fecha_extra = $('#fecha_extra').val();
-      fecha_extra = fecha_extra.split("-").reverse().join("/");
-
-      if(clave_empledo!="" && nombre!="" && cantidad_tiempo!="" && fecha_extra!=""){
-        let htmlTags = '<tr>'+
-                          '<td class="empleado">' + clave_empledo + '</td>'+
-                          '<td class="cantidad">' + cantidad_tiempo + '</td>'+
-                          '<td class="fecha">' + fecha_extra + '</td>'+
-                          '<td style="text-align: center; width:40px; height:25px;"><button class="borrar" type="button" style="width:40px; height:25px"><i class="far fa-trash-alt"></i></button></td>'+
-                        '</tr>'
-        $('#example12 tbody').append(htmlTags);
-        $('input[type="text"]').val('');
-        $('input[type="date"]').val('');
-        $('input[type="number"]').val('');
-        let fecha = new Date(); //Fecha actual
-        let mes = fecha.getMonth()+1; //obteniendo mes
-        let dia = fecha.getDate()-1; //obteniendo dia
-        let ano = fecha.getFullYear(); //obteniendo año
-        if(dia<10)
-          dia='0'+dia; //agrega cero si el menor de 10
-        if(mes<10)
-          mes='0'+mes //agrega cero si el menor de 10
-        document.getElementById('fecha_extra').value=ano+"-"+mes+"-"+dia;
-      }else{
-        alert("Falta información");
-      }
-    });
-  });
-
-  $('#finalizar').click(function (e){
-    let myTableArray = [];
-    document.querySelectorAll('.example12 tbody tr').forEach(function(e){
-      let fila = {
-        empleado: e.querySelector('.empleado').innerText,
-        cantidad: e.querySelector('.cantidad').innerText,
-        fecha: e.querySelector('.fecha').innerText.split("/").reverse().join("-")
-      };
-      myTableArray.push(fila);
-    });
-  let jsonString = JSON.stringify(myTableArray);
-  $.ajax({
-      url: "{{ route('tiempo.store') }}",
-      method: "POST",
-      data: {
-        _token: $("meta[name='csrf-token']").attr("content"),
-        info : jsonString,
-      },
-      success: function(data){
-        console.log(data);
-        $(".example12 tbody tr").closest('tr').remove();
-      },
-      error: function(xhr, status, error) {
-        let err = JSON.parse(xhr.responseText);
-        console.log(err.Message);
-      }
-    });
-  });
-</script>
+    
+    <!--Script para el control de prenomina-->
+    <script>
+      $(document).ready(function(){
+        $('#autorizar').click(function(e){
+          e.preventDefault();
+          let myTableControl = [];
+          document.querySelectorAll('.control tbody tr').forEach(function(e){
+            let fila = {
+              concepto:   e.querySelector('.clvCncpt').value,
+              monto:      e.querySelector('.monto').value,
+              gravable:   e.querySelector('.gravable').value,
+              excento:    e.querySelector('.excento').value,
+              clvEmp:     e.querySelector('.clvEmp').value,
+            };
+            myTableControl.push(fila);
+            //console.log(myTableControl);
+          });
+          let jsonString = JSON.stringify(myTableControl);
+          $.ajax({
+            url: "{{ route('control.store') }}",
+            method: "POST",
+            data: {
+              _token: $("meta[name='csrf-token']").attr("content"),
+              info : jsonString,
+            },
+            success: function(data){
+            },
+            error: function(xhr, status, error) {
+              var err = JSON.parse(xhr.responseText);
+              console.log(err.Message);
+            }
+          });
+        });
+      });
+    </script>

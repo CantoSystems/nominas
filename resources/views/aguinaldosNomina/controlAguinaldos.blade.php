@@ -1,11 +1,11 @@
-@extends('layouts.plantillaPrenomina')
+@extends('layouts.segunda')
 @section('content')
 <div class="container">
     <div class="col" style="padding:0px 0px 0px 0px;">
         <div class="card card-secondary">
             <div class="card-header" style="padding:6px 6px 6px 6px;">
                 <h3 class="card-title">
-                    Cálculo de Prenómina
+                    Cálculo de Aguinaldos
                 </h3>
             </div>
             <div class="card-body">
@@ -14,17 +14,23 @@
                     <div class="row">
                         <div class="col">
                             @can('administrador')
-                                <a data-target="#modalbusquedaemp" data-toggle="modal">
-                                    <button type="submit" name="acciones" value="mostrar"  style='width: 65px; height: 38px'>
+                                <a data-target="#modalbusquedaempaguinaldo" data-toggle="modal">
+                                    <button type="submit" name="acciones" value="mostrar" style='width: 65px; height: 38px'>
                                         <i class="far fa-eye"></i>
                                     </button>
                                 </a>
-                                @include('prenomina.modaldespliegue-empleados')
+                                @include('aguinaldosNomina.modaldespliegue-empleadosAguinaldo')
                             @endcan
                         </div>
                         <div class="col">
                             <button type="submit" id="autorizar"style='width:125px; height:38px;'>Autorizar Nómina</button>
                         </div>
+                        <!--<div class="col">
+                            <form action="{{ route('control.excel') }}">
+                                <input type="hidden" name="datosPrenomina" value="<?php //echo $cadena; ?>">
+                                <button type="submit" style='width:125px; height:38px;'>Descargar excel</button>
+                            </form>
+                        </div>-->
                         <div class="col">
                             <form action="{{ route('control.excel3') }}">
                                 <button type="submit" style='width:125px; height:38px;'>Descargar Excel</button>
@@ -32,19 +38,11 @@
                         </div>
                     </div>
                     <br>
-                    <div class="card-header" style="background-color:darkgrey; padding:6px 6px 6px 6px; color: white;">
+                    <div class="card-header" style="background-color:darkgrey;padding:6px 6px 6px 6px; color:white">
                         <h6 class="card-title">
-                            <b>Empleado: </b>
-                            @if(isset($portipopercepciones))
+                            Empleado: 
+                            @if(isset($clave))
                                 {{$clave->nombre ?? ''}} {{$clave->apellido_paterno ?? ''}} {{$clave->apellido_materno ?? ''}}
-                                <!--<div>
-                                    <label>Sueldo Bruto: $ {{ $$portipopercepciones->sueldoBruto ?? ''}}
-                                    </label>
-                                </div>-->
-                                <div>
-                                    <label id="lblSueldoNeto">
-                                    </label>
-                                </div>
                             @else
                                 No ha seleccionado ningun empleado
                             @endif
@@ -53,7 +51,7 @@
                     <div class="card-body">
                         <div class="row" >
                             <div class="col-sm-6">
-                                <table id="filasPercepciones" name="filasPercepciones" class="table table-hover control">
+                                <table class="table table-hover control">
                                     <thead class="thead-light">
                                         <tr>
                                             <th scope="col" colspan="4" style="text-align: center;">Percepciones</th>
@@ -156,42 +154,6 @@
                                 </table>
                             </div>
                         </div>
-                        <div class="otrasDeducciones" style="display: none;">
-                            <div class="row">
-                                <div class="col-sm-6"></div>
-                                <div class="col-sm-6">
-                                    <table id="filasODeducciones" name="filasODeducciones" class="table table-hover">
-                                        <thead class="thead-light">
-                                            <tr>
-                                                <th scope="col" colspan="3" style="text-align: center;">Otras Deducciones</th>
-                                            </tr>
-                                            <tr>
-                                                <th scope="col" style="text-align: center;">Clave</th>
-                                                <th scope="col" style="text-align: center;">Concepto</th>
-                                                <th scope="col" style="text-align: center;">Total</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-sm-6"></div>
-                                <div class="col-sm-6">
-                                    <table class="table table-hover">
-                                        <tbody>
-                                            <tr>
-                                                <td colspan="2" style="text-align: right; valign: middle;">Total: </td>
-                                                <td style="width: 42%;">
-                                                    <input type="number" step=".01" disabled class="form-control inputTotalOD">
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
                         <div class="row">
                             <div class = "col-sm-6"></div>
                             <div class = "col-sm-6">
@@ -229,7 +191,7 @@
                         <div class="row">
                             <div class = "col-sm-6"></div>
                             <div class = "col-sm-6">
-                                <table id="filasPatron" name="filasPatron" class="table table-hover">
+                                <table class="table table-hover">
                                     <thead class="thead-light">
                                         <tr>
                                             <th scope="col" colspan="3" style="text-align: center;">Impuestos del Patrón</th>
@@ -243,24 +205,11 @@
                                     <tbody>
                                     </tbody>
                                 </table>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-6"></div>
-                            <div class="col-sm-6">
                                 <table class="table table-hover">
-                                    <tbody>
-                                        <tr>
-                                            <td colspan="2" style="text-align: right; valign: middle;">Total: </td>
-                                            <td style="width: 42%;">
-                                                <input type="number" step=".01" disabled class="form-control totalImpuestosPatron">
-                                            </td>
-                                        </tr>
-                                    </tbody>
                                 </table>
                             </div>
                         </div>
-                    </div>
+                    </div>   
                 </form>
             </div>
         </div>

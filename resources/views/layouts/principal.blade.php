@@ -263,12 +263,14 @@ scratch. This page gets rid of all links and provides the needed markup only.
   $(document).ready(function(){
      //función de los botones de los catalogos globales
   //Acción nuevo registro
+  $('.clv_imss').hide();
+
   $(function(){ 
-        
-        $('#nuevo').click(function(){
+          $('#nuevo').click(function(){
           $('#actualizar_reg').hide();
           $('#buscar').attr("disabled", true);
           $('#nuevo_reg').show();
+          $('.clv_imss').show();
           $('#cancelar_reg').attr("disabled", false);
           $('input[type="text"]').val('');
           $('input[type="email"]').val('');

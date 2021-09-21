@@ -1,4 +1,4 @@
-@extends('layouts.segunda')
+@extends('layouts.plantillatiempoExtra')
 @section('content')
 <div class="container">
     <div class="card card-secondary">

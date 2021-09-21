@@ -5,7 +5,7 @@
         <div class="col">
             <div class="card card-secondary">
                 <div class="card-header">
-                    <h3 class="card-title">Subsidio Mensual</h3>
+                    <h3 class="card-title">Subsidio</h3>
                 </div>
                 <div class="card-body">
                     <table id="example1" class="table table-bordered table-striped">
@@ -14,6 +14,8 @@
                                 <th>Para ingresos De</th>
                                 <th>Hasta ingresos De</th>
                                 <th>Cantidad de Subsidio</th>
+                                <th>Periodo</th>
+                                <th></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -23,6 +25,20 @@
                                         <th>{{ $sub->ParaIngresos }}</th>
                                         <td>{{ $sub->hastaIngresos }}</td>
                                         <td>{{ $sub->cantidadSubsidio }}</td>
+                                        <td>{{ $sub->periodo_subsidio }}</td>
+                                        <td>
+                                            @canany(['administrador','capturista'])
+                                                <div>
+                                                    <center>
+                                                        <a href="{{ route('subsidios.mostrar',$sub->id_subsidio ) }}">
+                                                    <button type="button" class="botones">
+                                                        <i class="far fa-eye"></i>
+                                                    </button>
+                                                        </a>
+                                                    </center>         
+                                                </div>
+                                            @endcan
+                                        </td>
                                     </tr>
                                 @endforeach
                             @endif
@@ -34,7 +50,7 @@
         <div class="col">
             <div class="card card-secondary">
                 <div class="card-header">
-                    <h3 class="card-title">Subsidio Mensual</h3>
+                    <h3 class="card-title">Subsidio</h3>
                 </div>
                 <div class="card-body">
                     @if(session()->has('msj'))
@@ -49,7 +65,7 @@
                     @endif
                     <form action="{{ route('subsidio.acciones')}}" method="GET" autocomplete="off">
                         <div class="row">
-                            <div class="col-sm-4">
+                            <div class="col-sm-6">
                                 <br>
                                 <div class="form-group">
                                     <label>Para ingresos de ($):</label>
@@ -62,7 +78,7 @@
                                     @enderror
                                 </div>
                             </div>
-                            <div class="col-sm-4">
+                            <div class="col-sm-6">
                                 <br>
                                 <div class="form-group">
                                     <label>Hasta ingresos de ($):</label>
@@ -74,9 +90,9 @@
                                     @enderror
                                 </div>
                             </div>
-                            <div class="col-sm-4">
+                            <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label>Cantidad de subsidio para el empleo mensual ($):</label>
+                                    <label>Cantidad de subsidio para el empleo ($):</label>
                                     <input type="number" name="cantidadSubsidio" value="{{ $subsidio->cantidadSubsidio ?? '' }}" class="form-control">
                                     @error('cantidadSubsidio')
                                         <div class="alert alert-secondary">
@@ -85,6 +101,40 @@
                                     @enderror
                                 </div>
                             </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label>Seleccione el periodo:</label>
+                                    @if(isset($subsidio))
+                                        @if($subsidio->periodo_subsidio == 'MENSUAL')
+                                            <select class="custom-select personalizado" name="periodo_subsidio">
+                                                <option selected value="MENSUAL">MENSUAL</option>
+                                                <option value="SEMANAL">SEMANAL</option>
+                                                <option value="QUINCENAL"> QUINCENAL</option>
+                                            </select>
+                                        @elseif($subsidio->periodo_subsidio =='QUINCENAL')
+                                            <select class="custom-select personalizado" name="periodo_subsidio">
+                                                <option selected value="QUINCENAL">QUINCENAL</option>
+                                                <option value="MENSUAL">MENSUAL</option>
+                                                <option value="SEMANAL">SEMANAL</option>
+                                            </select>
+                                        @elseif($subsidio->periodo_subsidio = 'SEMANAL')
+                                            <select class="custom-select personalizado" name="periodo_subsidio">
+                                                <option selected value="SEMANAL">SEMANAL</option>
+                                                <option value="MENSUAL">MENSUAL</option>
+                                                <option value="QUINCENAL">QUINCENAL</option>
+                                            </select>
+                                        @endif
+                                    @else
+                                        <select class="custom-select personalizado" name="periodo_subsidio">
+                                            <option value="">Selecciona una opción</option>
+                                            <option value="QUINCENAL">QUINCENAL</opotion>
+                                            <option value="MENSUAL">MENSUAL</option>
+                                            <option value="SEMANAL">SEMANAL</option>
+                                        </select>
+                                    @endif
+                                </div>
+                            </div>
+
                             @canany(['administrador','capturista','reportes'])
                                 <div class="col-md-5">
                                     <div class="margin">

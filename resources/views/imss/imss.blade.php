@@ -6,7 +6,7 @@
         <div class="col">
             <div class="card card-secondary">
                 <div class="card-header">
-                    <h3 class="card-title">Tabla IMSS estoy editando</h3>
+                    <h3 class="card-title">Tabla IMSS </h3>
                 </div>
                 <div class="card-body">
                     <form action="{{ route('imss.acciones')}}" method="GET" autocomplete="off">
@@ -15,7 +15,7 @@
                                 <div class="col-sm-4">
                                     <div class="form-group">
                                         <label>Seguro y concepto:</label>
-                                        <select name="seguroIMSS" class="custom-select">
+                                        <select id="regionSalario" name="seguroIMSS" class="custom-select">
                                             @if($imss->concepto=="N/A" || $imss->concepto==null)
                                                 <option selected value="N/A">Selecciona una opción...</option>
                                                 <option value="Riesgos de Trabajo">Riesgos de Trabajo</option>
@@ -79,7 +79,7 @@
                                 <div class="col-sm-4">
                                     <div class="form-group">
                                         <label>Prestaciones:</label>
-                                        <select name="prestacionIMSS" class="custom-select">
+                                        <select id="regionSalario" name="prestacionIMSS" class="custom-select">
                                             @if($imss->prestaciones=="N/A" || $imss->prestaciones==null)
                                                 <option selected value="N/A">Selecciona una opción...</option>
                                                 <option value="En especie y dinero">En especie y dinero</option>
@@ -173,7 +173,7 @@
                                     <div class="form-group">
                                         <label>Base Salarial:</label>
                                         @if($imss->base=='SBC')
-                                            <select class="custom-select" name="basesalarial">
+                                            <select id="regionSalario" class="custom-select" name="basesalarial">
                                                 <option value="N/A">Selecciona una opción</option>
                                                 <option value="SBC" selected>SBC</option>
                                                 <option value="UMA">UMA</option>
@@ -191,6 +191,12 @@
                                                 <option value="UMA">UMA</option>
                                             </select>
                                         @endif
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group clv_imss">
+                                        <label>Clave:</label>
+                                        <input type="text" name="claveImss"class="form-control">
                                     </div>
                                 </div>
                             @else
@@ -226,7 +232,7 @@
                                 <div class="col-sm-4">
                                     <div class="form-group">
                                         <label>Cuota (Patrón):</label>
-                                        <input type="number" name="cuotapatron" class="form-control" step="0.01" >
+                                        <input type="text" name="cuotapatron" class="form-control" step="0.01" >
                                     </div>
                                 </div>
                                
@@ -245,6 +251,12 @@
                                         <option value="SBC">SBC</option>
                                         <option value="UMA">UMA</option>
                                     </select>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4 clv_imss">
+                                    <div class="form-group">
+                                        <label>Clave::</label>
+                                        <input type="text" name="claveImss" class="form-control">
                                     </div>
                                 </div>
                             @endif
@@ -285,8 +297,6 @@
                                         </div>
                                 </div>
                             @endcanany
-
-
 
                             <div class="col-md-5">
                                     <div class="margin">
@@ -331,7 +341,8 @@
                                                 @can('administrador')
                                                     @if(isset($imss))
                                                         <div class="form-group">
-                                                            <a id="eliminar" data-target="#modal-deleteimsss-{{$imss->id_imss}}" data-toggle="modal">
+                                                            <a id="eliminar" 
+                                                            data-target="#deleteimss-{{$imss->id_imss}}" data-toggle="modal">
                                                                 <button type="button" class="botonesgrandes">
                                                                     <i class="far fa-trash-alt"></i>
                                                                 </button>
@@ -358,14 +369,9 @@
                                             </div>
                                     </div>
                             </div>
-
-
-
-
                                 <div class="col-md-2">
                                         <div class="margin">
                                             <div class="btn-group">
-                                                
                                                     <!--Su uso solo es para visualizar la existencia del los iconos -->
                                                     <div class="form-group">
                                                     <button id="guardar_falso" disabled class="botonesgrandes"><i class="fas fa-save"></i></button>
@@ -390,8 +396,8 @@
         </div>
     </div>
 </div>
-@if(!empty($ims))
-  @include('imss.modaldeleteimss')
-  @include('imss.modalsearchimss')
+@if(!empty($imss))
+    @include('imss.modaldeleteimss')
+    @include('imss.modalsearchimss')
 @endif
 @endsection

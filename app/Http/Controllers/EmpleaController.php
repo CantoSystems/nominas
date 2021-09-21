@@ -48,17 +48,16 @@ class EmpleaController extends Controller
         switch ($accion) {
             case '':
                 $departamentos=DB::connection('DB_Serverr')->table('departamentos')->get();
-
                 $puestos=DB::connection('DB_Serverr')->table('puestos')->get();
-
                 $bancos=Banco::all();
 
                 $persona = DB::connection('DB_Serverr')->table('empleados')
                 ->join('departamentos','departamentos.clave_departamento','=','empleados.clave_departamento')
                 ->join('puestos','puestos.clave_puesto','=','empleados.clave_puesto')
                 ->join('areas','areas.clave_area', '=','departamentos.clave_area')
-                ->select('empleados.*','areas.*','departamentos.*','puestos.*')
-                ->get()->first();
+                ->join('nominas.bancos as ebancos','ebancos.clave_banco','=','empleados.clave_banco')
+                ->select('empleados.*','areas.*','departamentos.*','puestos.*','ebancos.*')
+                ->orderBy('id_emp')->first();
 
                 $empleados = DB::connection('DB_Serverr')->table('empleados')
                 ->join('departamentos','departamentos.clave_departamento','=','empleados.clave_departamento')
@@ -70,18 +69,16 @@ class EmpleaController extends Controller
                 return view('emplea.emplea',compact('departamentos','puestos','bancos','persona','empleados'));
             break;
             case 'busqueda':
-                echo $request->identificador;
                 $departamentos = DB::connection('DB_Serverr')->table('departamentos')->get();
-
                 $puestos = DB::connection('DB_Serverr')->table('puestos')->get();
-
                 $bancos = Banco::all();
 
                 $persona = DB::connection('DB_Serverr')->table('empleados')
                 ->join('departamentos','departamentos.clave_departamento','=','empleados.clave_departamento')
                 ->join('puestos','puestos.clave_puesto','=','empleados.clave_puesto')
                 ->join('areas','areas.clave_area', '=','departamentos.clave_area')
-                ->select('empleados.*','areas.*','departamentos.*','puestos.*')
+                ->join('nominas.bancos as ebancos','ebancos.clave_banco','=','empleados.clave_banco')
+                ->select('empleados.*','areas.*','departamentos.*','puestos.*','ebancos.*')
                 ->where('id_emp',$request->idEmp)
                 ->orderBy('id_emp')
 				->get()->first();
@@ -105,16 +102,15 @@ class EmpleaController extends Controller
             break;
             case 'ultimo':
                 $departamentos=DB::connection('DB_Serverr')->table('departamentos')->get();
-
                 $puestos=DB::connection('DB_Serverr')->table('puestos')->get();
-
                 $bancos=Banco::all();
 
                 $persona = DB::connection('DB_Serverr')->table('empleados')
                 ->join('departamentos','departamentos.clave_departamento','=','empleados.clave_departamento')
                 ->join('puestos','puestos.clave_puesto','=','empleados.clave_puesto')
                 ->join('areas','areas.clave_area', '=','departamentos.clave_area')
-                ->select('empleados.*','areas.*','departamentos.*','puestos.*')
+                ->join('nominas.bancos as ebancos','ebancos.clave_banco','=','empleados.clave_banco')
+                ->select('empleados.*','areas.*','departamentos.*','puestos.*','ebancos.*')
                 ->orderBy('id_emp')
                 ->get()->last();
 
@@ -129,17 +125,16 @@ class EmpleaController extends Controller
             break;
             case 'primero':
                 $departamentos=DB::connection('DB_Serverr')->table('departamentos')->get();
-
                 $puestos=DB::connection('DB_Serverr')->table('puestos')->get();
-
                 $bancos=Banco::all();
 
                 $persona = DB::connection('DB_Serverr')->table('empleados')
                 ->join('departamentos','departamentos.clave_departamento','=','empleados.clave_departamento')
                 ->join('puestos','puestos.clave_puesto','=','empleados.clave_puesto')
                 ->join('areas','areas.clave_area', '=','departamentos.clave_area')
-                ->select('empleados.*','areas.*','departamentos.*','puestos.*')
-                ->get()->first();
+                ->join('nominas.bancos as ebancos','ebancos.clave_banco','=','empleados.clave_banco')
+                ->select('empleados.*','areas.*','departamentos.*','puestos.*','ebancos.*')
+                ->orderBy('id_emp')->first();
 
                 $empleados = DB::connection('DB_Serverr')->table('empleados')
                 ->join('departamentos','departamentos.clave_departamento','=','empleados.clave_departamento')
@@ -152,26 +147,26 @@ class EmpleaController extends Controller
             break;
             case 'siguiente':
                 $departamentos=DB::connection('DB_Serverr')->table('departamentos')->get();
-
                 $puestos=DB::connection('DB_Serverr')->table('puestos')->get();
-
                 $bancos=Banco::all();
 
                 $persona = DB::connection('DB_Serverr')->table('empleados')
                 ->join('departamentos','departamentos.clave_departamento','=','empleados.clave_departamento')
                 ->join('puestos','puestos.clave_puesto','=','empleados.clave_puesto')
                 ->join('areas','areas.clave_area', '=','departamentos.clave_area')
-                ->select('empleados.*','areas.*','departamentos.*','puestos.*')
+                ->join('nominas.bancos as ebancos','ebancos.clave_banco','=','empleados.clave_banco')
+                ->select('empleados.*','areas.*','departamentos.*','puestos.*','ebancos.*')
                 ->where('id_emp','>',$indic)
                 ->orderBy('id_emp')->first();
 
                 if(is_null($persona)){
-                  $persona = DB::connection('DB_Serverr')->table('empleados')
-                  ->join('departamentos','departamentos.clave_departamento','=','empleados.clave_departamento')
-                  ->join('puestos','puestos.clave_puesto','=','empleados.clave_puesto')
-                  ->join('areas','areas.clave_area', '=','departamentos.clave_area')
-                  ->select('empleados.*','areas.*','departamentos.*','puestos.*')
-                  ->get()->first();
+                    $persona = DB::connection('DB_Serverr')->table('empleados')
+                    ->join('departamentos','departamentos.clave_departamento','=','empleados.clave_departamento')
+                    ->join('puestos','puestos.clave_puesto','=','empleados.clave_puesto')
+                    ->join('areas','areas.clave_area', '=','departamentos.clave_area')
+                    ->join('nominas.bancos as ebancos','ebancos.clave_banco','=','empleados.clave_banco')
+                    ->select('empleados.*','areas.*','departamentos.*','puestos.*')
+                  ->orderBy('id_emp')->first();
                 }
                 
                 $empleados = DB::connection('DB_Serverr')->table('empleados')
@@ -184,38 +179,40 @@ class EmpleaController extends Controller
                 return view('emplea.emplea',compact('departamentos','puestos','bancos','persona','empleados'));
             break;
             case 'atras':
-                $departamentos=DB::connection('DB_Serverr')->table('departamentos')->get();
-
-                $puestos=DB::connection('DB_Serverr')->table('puestos')->get();
-
-                $bancos=Banco::all();
+                $departamentos = DB::connection('DB_Serverr')->table('departamentos')->get();
+                $puestos = DB::connection('DB_Serverr')->table('puestos')->get();
+                $bancos = Banco::all();
 
                 $persona = DB::connection('DB_Serverr')->table('empleados')
-                ->join('departamentos','departamentos.clave_departamento','=','empleados.clave_departamento')
-                ->join('puestos','puestos.clave_puesto','=','empleados.clave_puesto')
-                ->join('areas','areas.clave_area', '=','departamentos.clave_area')
-                ->select('empleados.*','areas.*','departamentos.*','puestos.*')
-                ->where('id_emp','<',$indic)
-                ->orderBy('id_emp', 'DESC')->first();
+                           ->join('departamentos','departamentos.clave_departamento','=','empleados.clave_departamento')
+                           ->join('puestos','puestos.clave_puesto','=','empleados.clave_puesto')
+                           ->join('areas','areas.clave_area', '=','departamentos.clave_area')
+                           ->join('nominas.bancos as ebancos','ebancos.clave_banco','=','empleados.clave_banco')
+                           ->select('empleados.*','areas.*','departamentos.*','puestos.*','ebancos.*')
+                           ->where('id_emp','<',$indic)
+                           ->orderBy('id_emp', 'DESC')->first();
 
                 if(is_null($persona)){
-                  $persona = DB::connection('DB_Serverr')->table('empleados')
-                  ->join('departamentos','departamentos.clave_departamento','=','empleados.clave_departamento')
-                  ->join('puestos','puestos.clave_puesto','=','empleados.clave_puesto')
-                  ->join('areas','areas.clave_area', '=','departamentos.clave_area')
-                  ->select('empleados.*','areas.*','departamentos.*','puestos.*')
-                  ->orderBy('id_emp')
-                  ->get()->last();
+                    $persona = DB::connection('DB_Serverr')->table('empleados')
+                               ->join('departamentos','departamentos.clave_departamento','=','empleados.clave_departamento')
+                               ->join('puestos','puestos.clave_puesto','=','empleados.clave_puesto')
+                               ->join('areas','areas.clave_area', '=','departamentos.clave_area')
+                               ->join('nominas.bancos as ebancos','ebancos.clave_banco','=','empleados.clave_banco')
+                               ->select('empleados.*','areas.*','departamentos.*','puestos.*','ebancos.*')
+                               ->orderBy('id_emp')
+                               ->get()->last();
                 }
 
                 $empleados = DB::connection('DB_Serverr')->table('empleados')
-                ->join('departamentos','departamentos.clave_departamento','=','empleados.clave_departamento')
-                ->join('puestos','puestos.clave_puesto','=','empleados.clave_puesto')
-                ->join('areas','areas.clave_area', '=','departamentos.clave_area')
-                ->select('empleados.*','areas.*','departamentos.*','puestos.*')
-                ->get();
+                             ->join('departamentos','departamentos.clave_departamento','=','empleados.clave_departamento')
+                             ->join('puestos','puestos.clave_puesto','=','empleados.clave_puesto')
+                             ->join('areas','areas.clave_area', '=','departamentos.clave_area')
+                             ->select('empleados.*','areas.*','departamentos.*','puestos.*')
+                             ->get();
 
-              case 'actualizar':
+                return view('emplea.emplea',compact('departamentos','puestos','bancos','persona','empleados'));
+            break;
+            case 'actualizar':
                 $this->update($request);
                 return redirect()->route("emplea.index");
                 break;
@@ -223,17 +220,6 @@ class EmpleaController extends Controller
                 # code...
                 break;
         }
-        
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
     }
 
     /**
@@ -720,7 +706,7 @@ class EmpleaController extends Controller
                                                             ,$datos->dias
                                                             ,$datos->horas_diarias
                                                             ,$datos->forma_pago
-                                                            ,'BNC1'
+                                                            ,$datos->clave_banco
                                                             ,$datos->cuenta_bancaria
                                                             ,$datos->clabe_interbancaria
                                                             ,$ptu
@@ -765,8 +751,6 @@ class EmpleaController extends Controller
 
     public function update($datos){
         $clv=Session::get('clave_empresa');
-
-
         $clv_empresa=$this->conectar($clv);
         \Config::set('database.connections.DB_Serverr', $clv_empresa);
 
@@ -989,7 +973,7 @@ class EmpleaController extends Controller
                      ,'forma_pago'=>$datos->forma_pago
                      ,'cuenta_bancaria'=>$datos->cuenta_bancaria
                      ,'clabe_interbancaria'=>$datos->clabe_interbancaria
-                     ,'clave_banco'=>'BNC1'
+                     ,'clave_banco'=>$datos->clave_banco
                      ,'ptu'=>$ptu
                      ,'observaciones'=>$datos->observaciones]);
         }

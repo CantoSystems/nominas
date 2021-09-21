@@ -42,11 +42,12 @@ class DepartamentosController extends Controller{
 			case '':
 				$aux = DB::connection('DB_Serverr')->table('departamentos')
 				->join('areas','departamentos.clave_area','=','areas.clave_area')
-				->select('departamentos.*','areas.area')->latest('id')->first();
+				->select('departamentos.*','areas.area', 'departamentos.id as dni')->latest('departamentos.id')->first();
 				
 				$departamentos = DB::connection('DB_Serverr')->table('departamentos')
 				->join('areas','departamentos.clave_area','=','areas.clave_area')
-				->select('departamentos.*','areas.area')->get();
+				->select('departamentos.*','areas.area', 'departamentos.id as dni')
+				->get();
 
 				$areas=DB::connection('DB_Serverr')->table('areas')->get();
 				
@@ -54,19 +55,21 @@ class DepartamentosController extends Controller{
 			break;
 			case 'atras':
 				$aux = DB::connection('DB_Serverr')->table('departamentos')
-				->join('areas','departamentos.clave_area','=','areas.clave_area')
-				->select('departamentos.*','areas.area')
-				->where('departamentos.id','<',$request->identificador)->latest('id')->first();
-				
-				if($aux==""){
-					$aux = DB::connection('DB_Serverr')->table('departamentos')
 					->join('areas','departamentos.clave_area','=','areas.clave_area')
-					->select('departamentos.*','areas.area')->get()->last();
+					->select('departamentos.*','areas.area', 'departamentos.id as dni')
+					->where('departamentos.id','<',$request->identificador)
+					->latest('departamentos.id')->first();
+				
+				if(is_null($aux)){
+					$aux = DB::connection('DB_Serverr')->table('departamentos')
+						->join('areas','departamentos.clave_area','=','areas.clave_area')
+						->select('departamentos.*','areas.area', 'departamentos.id as dni')
+						->get()->last();
 				}
 				
 				$departamentos = DB::connection('DB_Serverr')->table('departamentos')
-				->join('areas','departamentos.clave_area','=','areas.clave_area')
-				->select('departamentos.*','areas.area')->get();
+					->join('areas','departamentos.clave_area','=','areas.clave_area')
+					->select('departamentos.*','areas.area', 'departamentos.id as dni')->get();
 
 				$areas=DB::connection('DB_Serverr')->table('areas')->get();
 
@@ -74,19 +77,21 @@ class DepartamentosController extends Controller{
 			break;
 			case 'siguiente':
 				$aux = DB::connection('DB_Serverr')->table('departamentos')
-				->join('areas','departamentos.clave_area','=','areas.clave_area')
-				->select('departamentos.*','areas.area')
-				->where('departamentos.id','>',$request->identificador)->first();
-				
-				if($aux==""){
-					$aux = DB::connection('DB_Serverr')->table('departamentos')
 					->join('areas','departamentos.clave_area','=','areas.clave_area')
-					->select('departamentos.*','areas.area')->first();
+					->select('departamentos.*','areas.area', 'departamentos.id as dni')
+					->where('departamentos.id','>',$request->identificador)->first();
+				
+				if(is_null($aux)){
+					$aux = DB::connection('DB_Serverr')->table('departamentos')
+						->join('areas','departamentos.clave_area','=','areas.clave_area')
+						->select('departamentos.*','areas.area', 'departamentos.id as dni')
+						->first();
 				}
 				
 				$departamentos = DB::connection('DB_Serverr')->table('departamentos')
-				->join('areas','departamentos.clave_area','=','areas.clave_area')
-				->select('departamentos.*','areas.area')->get();
+					->join('areas','departamentos.clave_area','=','areas.clave_area')
+					->select('departamentos.*','areas.area', 'departamentos.id as dni')
+					->get();
 				
 				$areas=DB::connection('DB_Serverr')->table('areas')->get();
 				
@@ -94,12 +99,13 @@ class DepartamentosController extends Controller{
 			break;
 			case 'primero':
 				$aux = DB::connection('DB_Serverr')->table('departamentos')
-				->join('areas','departamentos.clave_area','=','areas.clave_area')
-				->select('departamentos.*','areas.area')->first();
+					->join('areas','departamentos.clave_area','=','areas.clave_area')
+					->select('departamentos.*','areas.area', 'departamentos.id as dni')
+					->first();
 				
 				$departamentos = DB::connection('DB_Serverr')->table('departamentos')
-				->join('areas','departamentos.clave_area','=','areas.clave_area')
-				->select('departamentos.*','areas.area')->get();
+					->join('areas','departamentos.clave_area','=','areas.clave_area')
+					->select('departamentos.*','areas.area', 'departamentos.id as dni')->get();
 				
 				$areas=DB::connection('DB_Serverr')->table('areas')->get();
 				
@@ -107,12 +113,14 @@ class DepartamentosController extends Controller{
 			break;
 			case 'ultimo':
 				$aux = DB::connection('DB_Serverr')->table('departamentos')
-				->join('areas','departamentos.clave_area','=','areas.clave_area')
-				->select('departamentos.*','areas.area')->get()->last();
+					->join('areas','departamentos.clave_area','=','areas.clave_area')
+					->select('departamentos.*','areas.area', 'departamentos.id as dni')
+					->get()->last();
 				
 				$departamentos = DB::connection('DB_Serverr')->table('departamentos')
-				->join('areas','departamentos.clave_area','=','areas.clave_area')
-				->select('departamentos.*','areas.area')->get();
+					->join('areas','departamentos.clave_area','=','areas.clave_area')
+					->select('departamentos.*','areas.area', 'departamentos.id as dni')
+					->get();
 				
 				$areas=DB::connection('DB_Serverr')->table('areas')->get();
 				
@@ -121,20 +129,6 @@ class DepartamentosController extends Controller{
 			case 'registrar':
 				$this->registrar($request);
 				return redirect()->route('departamentos.index');
-			break;
-			case 'eliminar':
-				//DB::connection('DB_Serverr')->table('departamentos')->where('clave_departamento',$request->clave_departamento)->delete();
-				$aux = DB::connection('DB_Serverr')->table('departamentos')
-				->join('areas','departamentos.clave_area','=','areas.clave_area')
-				->select('departamentos.*','areas.area')->get()->last();
-				
-				$departamentos = DB::connection('DB_Serverr')->table('departamentos')
-				->join('areas','departamentos.clave_area','=','areas.clave_area')
-				->select('departamentos.*','areas.area')->get();
-				
-				$areas=DB::connection('DB_Serverr')->table('areas')->get();
-				
-				return view('departamentos.departamentos',compact('aux','departamentos','areas'));
 			break;
 			case 'actualizar':
 				$this->actualizar($request);
@@ -149,35 +143,37 @@ class DepartamentosController extends Controller{
 				if($criterio == 'clave_departamento'){
 					$aux = DB::connection('DB_Serverr')->table('departamentos')
 						->join('areas','departamentos.clave_area','=','areas.clave_area')
-						->select('departamentos.*','areas.area')
+						->select('departamentos.*','areas.area', 'departamentos.id as dni')
 						->where('clave_departamento',$request->busca)
 						->first();
 
-					if($aux == ""){
+					if(is_null($aux)){
 						return back()->with('busqueda','Coincidencia no encontrada');
 					}
 
 					$departamentos = DB::connection('DB_Serverr')->table('departamentos')
 						->join('areas','departamentos.clave_area','=','areas.clave_area')
-						->select('departamentos.*','areas.area')->get();
+						->select('departamentos.*','areas.area', 'departamentos.id as dni')
+						->get();
 
 					$areas=DB::connection('DB_Serverr')->table('areas')->get();
 					
 					return view('departamentos.departamentos',compact('aux','departamentos','areas'));
 				}else if($criterio == 'departamento'){
 					$aux = DB::connection('DB_Serverr')->table('departamentos')
-					->join('areas','departamentos.clave_area','=','areas.clave_area')
-					->select('departamentos.*','areas.area')
-					->where('departamento',$request->busca)
-					->first();
+						->join('areas','departamentos.clave_area','=','areas.clave_area')
+						->select('departamentos.*','areas.area', 'departamentos.id as dni')
+						->where('departamento',$request->busca)
+						->first();
 
-					if($aux == ""){
+					if(is_null($aux)){
 						return back()->with('busqueda','Coincidencia no encontrada');
 					}
 
 					$departamentos = DB::connection('DB_Serverr')->table('departamentos')
 						->join('areas','departamentos.clave_area','=','areas.clave_area')
-						->select('departamentos.*','areas.area')->get();
+						->select('departamentos.*','areas.area', 'departamentos.id as dni')
+						->get();
 
 					$areas=DB::connection('DB_Serverr')->table('areas')->get();
 					
@@ -215,19 +211,10 @@ class DepartamentosController extends Controller{
 		}
 	}
 
-	public function generador(){
-		$raiz= '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
-		$codigo='';
-		for ($i=0; $i < 3; $i++) {
-			$letra= $raiz[mt_rand(0, 4 - 1)];
-			$codigo .=$letra;
-		}
-		return $codigo;
-	}
-
 	public function actualizar($datos){
 		$clv= Session::get('clave_empresa');
 		$clv_empresa=$this->conectar($clv);
+		$fecha_actualiza = now()->toDateString();
 		\Config::set('database.connections.DB_Serverr', $clv_empresa);
 
 		$datos->validate([
@@ -239,10 +226,33 @@ class DepartamentosController extends Controller{
 		$clv2=$datos->identificador;
 		$aux1 = DB::connection('DB_Serverr')->table('departamentos')->where('id',$clv2)->first();
 		DB::connection('DB_Serverr')->table('departamentos')->where('id',$clv2)
-		->update(['clave_departamento'=>$datos->clave_departamento
-			     ,'departamento'=>$datos->departamento
-				 ,'clave_area'=>$datos->clave_area]);
+		->update(['departamento'=>$datos->departamento,
+				 'clave_area'=>$datos->clave_area,
+				'updated_at'=>$fecha_actualiza]);
     }
+
+	public function show($id){
+		$clv=Session::get('clave_empresa');
+        $clv_empresa=$this->conectar($clv);
+
+        \Config::set('database.connections.DB_Serverr', $clv_empresa);
+
+		$aux = DB::connection('DB_Serverr')->table('departamentos')
+				->join('areas','departamentos.clave_area','=','areas.clave_area')
+				->select('departamentos.*','areas.area', 'departamentos.id as dni')
+				->where('departamentos.id','=',$id)
+				->latest('departamentos.id')->first();
+				
+		$departamentos = DB::connection('DB_Serverr')->table('departamentos')
+				->join('areas','departamentos.clave_area','=','areas.clave_area')
+				->select('departamentos.*','areas.area', 'departamentos.id as dni')
+				->get();
+
+		$areas=DB::connection('DB_Serverr')->table('areas')->get();
+				
+		return view('departamentos.departamentos',compact('aux','departamentos','areas'));
+
+	}
 
     public function eliminardepartamento($id){
 		$clv= Session::get('clave_empresa');
