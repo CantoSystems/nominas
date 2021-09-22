@@ -345,7 +345,7 @@
 
         $percepcionesImss = Collect();
         $ControlPrenomina = collect();
-        foreach($empleados as $emp){    
+        /*foreach($empleados as $emp){    
             foreach($conceptos as $concep){
                 if($concep->clave_concepto == "001P"){
                     $resultaSueldo = $this->sueldo($emp->id_emp,$emp->clave_empleado);
@@ -638,12 +638,15 @@
                     }
                 }
             }
-        }
+        }*/
 
         $clave = DB::connection('DB_Serverr')->table('empleados')
                  ->select('clave_empleado','nombre','apellido_paterno','apellido_materno','id_emp')
                  ->where('id_emp','=',$id_emp)
                  ->first();
+
+        $infona = $this->creditoInfonavit($clave->clave_empleado,'021D');
+        dd($infona);
 
         $sumaImss = $percepcionesImss->where('clave_empleado',$clave->clave_empleado)->sum('total');
     
@@ -1081,5 +1084,47 @@
                           ->first();
 
         return $totalAdicional->monto;
+    }
+
+    public function creditoInfonavit($claveEmp,$claveConcepto){
+        $periodo = Session::get('num_periodo');
+        $clv = Session::get('clave_empresa');
+        $clv_empresa = $this->conectar($clv);
+        \Config::set('database.connections.DB_Serverr', $clv_empresa);
+
+        $conteoInfonavit = DB::connection('DB_Serverr')->table('incidencias')
+                            ->where([
+                                ['clave_empleado','=',$claveEmp],
+                                ['periodo_incidencia','=',$periodo]
+                            ])
+                            ->whereIn('clave_concepto',['007D','021D'])
+                            ->count();
+
+
+        if($conteoInfonavit != 0){
+            $infonavit = DB::connection('DB_Serverr')->table('incidencias')
+                            ->join('conceptos','conceptos.clave_concepto','=','incidencias.clave_concepto')
+                            ->select('incidencias.monto','conceptos.concepto','conceptos.clave_concepto')
+                            ->where([
+                                ['clave_empleado','=',$claveEmp],
+                                ['periodo_incidencia','=',$periodo]
+                            ])
+                            ->whereIn('incidencias.clave_concepto',['007D','021D'])
+                            ->first();
+            
+            if($claveConcepto == '007D'){
+                $infonavitTotal = $infonavit->monto;
+                return $infonavitTotal;
+           
+            }elseif ($claveConcepto == '021D') {
+                $porcentajeInfonavit = $infonavit->monto;
+                return 2;  
+           }
+        }
+
+        return $conteoInfonavit;
+
+
+
     }
 }
