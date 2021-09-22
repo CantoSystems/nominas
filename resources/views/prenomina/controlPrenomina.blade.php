@@ -260,6 +260,40 @@
                                 </table>
                             </div>
                         </div>
+                        <div class="row">
+                            <div class = "col-sm-6"></div>
+                            <div class = "col-sm-6">
+                                <table id="filasTotales" name="filasTotales" class="table table-hover">
+                                    <thead class="thead-light">
+                                        <tr>
+                                            <th scope="col" colspan="3" style="text-align: center;">Totales</th>
+                                        </tr>
+                                        <tr>
+                                            <th scope="col" style="text-align: center;">Clave</th>
+                                            <th scope="col" style="text-align: center;">Concepto</th>
+                                            <th scope="col" style="text-align: center;">Total</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6"></div>
+                            <div class="col-sm-6">
+                                <table class="table table-hover">
+                                    <tbody>
+                                        <tr>
+                                            <td colspan="2" style="text-align: right; valign: middle;">Total: </td>
+                                            <td style="width: 42%;">
+                                                <input disabled class="form-control inpTotalNeto">
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
                     </div>
                 </form>
             </div>

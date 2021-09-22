@@ -183,7 +183,7 @@
         \Config::set('database.connections.DB_Serverr', $clv_empresa);
 
         $empleados = DB::connection('DB_Serverr')->table('empleados')
-                     ->select('id_emp','sueldo_diario','dias')   
+                     ->select('id_emp','sueldo_diario','dias','tipo_jornada')   
                      ->where('clave_empleado','=',$request->clvEmp)
                      ->first();
 
