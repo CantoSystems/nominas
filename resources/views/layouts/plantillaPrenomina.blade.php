@@ -491,6 +491,15 @@
                 }
 
                 $('#lblSueldoNeto').append("Sueldo Neto: $ " + data[2]);
+                let htmlTags =  '<tr>'+
+                                  '<td style="text-align: center;">002S</td>'+
+                                  '<td style="text-align: center;">SUELDO NETO</td>'+
+                                  '<td style="text-align: center;">$ ' + data[2] + '</td>'+
+                                '</tr>'
+                
+                $('#filasTotales tbody').append(htmlTags);
+                $('.inpTotalNeto').val(data[2]);
+                
                 $.ajax({
                   url: "{{ route('control.impPatron') }}",
                   method: "POST",

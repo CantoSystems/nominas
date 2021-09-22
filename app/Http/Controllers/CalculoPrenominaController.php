@@ -17,8 +17,6 @@ use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 
 class CalculoPrenominaController extends Controller{
-   
-
     public function store(Request $request){
         if(empty($request->all())) {
             return response()->json(["error" => "Sin data"]);
