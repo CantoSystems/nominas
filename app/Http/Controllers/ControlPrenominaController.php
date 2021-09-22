@@ -572,6 +572,13 @@
                 }else if($concep->clave_concepto == "006D"){
                     
                 }else if($concep->clave_concepto == "007D"){
+                    $resultadoInfonavit = $this->creditoInfonavit($emp->id_emp,$emp->clave_empleado,'007D');
+                    if($resultadoInfonavit != 0){
+                        $Gravado = 0;
+                        $Excento = 0;
+
+                        $ControlPrenomina->push(["clave_empleado"=>$emp->clave_empleado,"clave_concepto"=>"007D","concepto"=>"CREDITO INFONAVIT CANTIDAD","monto"=>$resultadoInfonavit,"gravable"=>$Gravado,"excento"=>$Excento,"tipo"=> "D"]);
+                    }
 
                 }else if($concep->clave_concepto == "008D"){
                     
@@ -636,6 +643,15 @@
                         $Gravado = 0;
                         $Excento = 0;
                     }
+                }else if($concep->clave_concepto == "021D"){
+                    $resultadoInfonavit = $this->creditoInfonavit($emp->id_emp,$emp->clave_empleado,'021D');
+                    if($resultadoInfonavit != 0){
+                        $Gravado = 0;
+                        $Excento = 0;
+
+                        $ControlPrenomina->push(["clave_empleado"=>$emp->clave_empleado,"clave_concepto"=>"021D","concepto"=>"CREDITO INFONAVIT CANTIDAD","monto"=>$resultadoInfonavit,"gravable"=>$Gravado,"excento"=>$Excento,"tipo"=> "D"]);
+                    }
+
                 }
             }
         }
@@ -644,6 +660,9 @@
                  ->select('clave_empleado','nombre','apellido_paterno','apellido_materno','id_emp')
                  ->where('id_emp','=',$id_emp)
                  ->first();
+       // $i =      $this->creditoInfonavit($clave->id_emp,$clave->clave_empleado,'007D');
+       // return $i;
+    
 
         $sumaImss = $percepcionesImss->where('clave_empleado',$clave->clave_empleado)->sum('total');
     
@@ -1081,5 +1100,46 @@
                           ->first();
 
         return $totalAdicional->monto;
+    }
+
+    public function creditoInfonavit($idEmp,$claveEmp,$claveConcepto){
+        $periodo = Session::get('num_periodo');
+        $clv = Session::get('clave_empresa');
+        $clv_empresa = $this->conectar($clv);
+        \Config::set('database.connections.DB_Serverr', $clv_empresa);
+
+        $conteoInfonavit = DB::connection('DB_Serverr')->table('incidencias')
+                            ->where([
+                                ['clave_empleado','=',$claveEmp],
+                                ['periodo_incidencia','=',$periodo]
+                            ])
+                            ->whereIn('clave_concepto',['007D','021D'])
+                            ->count();
+
+        if($conteoInfonavit != 0){
+                $infonavit = DB::connection('DB_Serverr')->table('incidencias')
+                            ->select('monto','clave_concepto')
+                            ->where([
+                                ['clave_empleado','=',$claveEmp],
+                                ['periodo_incidencia','=',$periodo],
+                                ['clave_concepto','=',$claveConcepto]
+                            ])
+                            ->first(); 
+
+                            if($infonavit){
+                                if($infonavit->clave_concepto == '007D'){
+                                    $infonavitTotal = $infonavit->monto;
+                                    
+                                    return $infonavitTotal;
+                    
+                                }else if ($infonavit->clave_concepto == '021D') {
+                                    $porcentajeInfonavit = $infonavit->monto;
+                                    $sueldo = $this->sueldo($idEmp,$claveEmp);
+                                    $calculoInfonavit = ($sueldo * $porcentajeInfonavit)/100;
+                                    return $calculoInfonavit;
+                               }
+
+                           }
+        }
     }
 }
