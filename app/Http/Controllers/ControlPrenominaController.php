@@ -652,6 +652,15 @@
                         $ControlPrenomina->push(["clave_empleado"=>$emp->clave_empleado,"clave_concepto"=>"021D","concepto"=>"CREDITO INFONAVIT CANTIDAD","monto"=>$resultadoInfonavit,"gravable"=>$Gravado,"excento"=>$Excento,"tipo"=> "D"]);
                     }
 
+                }else if($concep->clave_concepto == "022D"){
+                    $resultadoSeguroInfonavit = $this->adicionales($emp->clave_empleado,'022D');
+                    if($resultadoSeguroInfonavit != 0){
+                        $Gravado = 0;
+                        $Excento = 0;
+
+                        $ControlPrenomina->push(["clave_empleado"=>$emp->clave_empleado,"clave_concepto"=>"022D","concepto"=>"SEGURO DE VIVIENDA INFONAVIT","monto"=>$resultadoSeguroInfonavit,"gravable"=>$Gravado,"excento"=>$Excento,"tipo"=> "D"]);
+                    }
+
                 }
             }
         }
@@ -1126,20 +1135,19 @@
                             ])
                             ->first(); 
 
-                            if($infonavit){
-                                if($infonavit->clave_concepto == '007D'){
-                                    $infonavitTotal = $infonavit->monto;
-                                    
-                                    return $infonavitTotal;
+                if($infonavit){
+                    if($infonavit->clave_concepto == '007D'){
+                            $infonavitTotal = $infonavit->monto;
+                            return $infonavitTotal;
                     
-                                }else if ($infonavit->clave_concepto == '021D') {
-                                    $porcentajeInfonavit = $infonavit->monto;
-                                    $sueldo = $this->sueldo($idEmp,$claveEmp);
-                                    $calculoInfonavit = ($sueldo * $porcentajeInfonavit)/100;
-                                    return $calculoInfonavit;
-                               }
+                    }else if ($infonavit->clave_concepto == '021D') {
+                            $porcentajeInfonavit = $infonavit->monto;
+                            $sueldo = $this->sueldo($idEmp,$claveEmp);
+                            $calculoInfonavit = ($sueldo * $porcentajeInfonavit)/100;
+                             return $calculoInfonavit;
+                    }
 
-                           }
+                }
         }
     }
 }
