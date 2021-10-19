@@ -615,11 +615,8 @@ class EmpresaController extends Controller{
             $table->increments('id_prenomina');
             $table->integer('noPrenomina');
             $table->char('clave_empleado',5);
-            $table->integer('prenomina_periodo');
             $table->char('clave_concepto',5);
             $table->double('monto');
-            $table->double('gravable');
-            $table->double('excento');
             $table->boolean('status_prenomina');
             $table->timestamps();
         });

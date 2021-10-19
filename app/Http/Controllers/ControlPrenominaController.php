@@ -70,24 +70,20 @@
         \Config::set('database.connections.DB_Serverr', $clv_empresa);
 
         foreach ($data as $value) {
-            DB::connection('DB_Serverr')->insert('INSERT INTO prenomina (clave_empleado,
-                                                                         prenomina_periodo,
+            DB::connection('DB_Serverr')->insert('INSERT INTO prenomina (noPrenomina,
+                                                                         clave_empleado,
                                                                          clave_concepto,
                                                                          monto,
-                                                                         gravable,
-                                                                         excento,
                                                                          status_prenomina,
                                                                          created_at,
                                                                          updated_at
-                                                                )values(?,?,?,?,?,?,?,?,?)',[$value->clvEmp
-                                                                                            ,$periodo
-                                                                                            ,$value->concepto
-                                                                                            ,$value->monto
-                                                                                            ,$value->gravable
-                                                                                            ,$value->excento
-                                                                                            ,1
-                                                                                            ,$fecha_periodo
-                                                                                            ,$fecha_periodo]);
+                                                                )values(?,?,?,?,?,?,?)',[$periodo,
+                                                                                            $value->clvEmp,
+                                                                                            $value->concepto,
+                                                                                            $value->monto,
+                                                                                            1,
+                                                                                            $fecha_periodo,
+                                                                                            $fecha_periodo]);
         }
     }
 
@@ -152,7 +148,7 @@
         if($pension!=0){
             $pension = DB::connection('DB_Serverr')->table('incidencias')
                        ->join('conceptos','conceptos.clave_concepto','=','incidencias.clave_concepto')
-                       ->select('incidencias.monto','conceptos.concepto','conceptos.clave_concepto')
+                       ->select('incidencias.monto','conceptos.concepto','incidencias.clave_empleado','conceptos.clave_concepto')
                        ->where([
                            ['clave_empleado','=',$request->clvEmp],
                            ['periodo_incidencia','=',$periodo]
@@ -168,11 +164,11 @@
                 $sueldoTotal = $request->totalSueldo - $descuentoPension;
             }
 
-            return $collection = collect([$pension->clave_concepto,$pension->concepto,number_format($sueldoTotal,2),$descuentoPension]);
+            return $collection = collect([$pension->clave_concepto,$pension->concepto,number_format($sueldoTotal,2),$descuentoPension,$pension->clave_empleado]);
         }else{
             $sueldoTotal = $request->totalSueldo;
 
-            return $collection = collect(['','',number_format($sueldoTotal,2),'']);
+            return $collection = collect(['','',number_format($sueldoTotal,2),'','']);
         }
     }
 

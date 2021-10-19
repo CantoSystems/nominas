@@ -424,10 +424,16 @@
             totalPercepcionesNoGrav: $('.totalPercepcionesExcentas').val(),
           },
           success: function(data){
+            empclave = $('#extraerEmp').val();
             let htmlTags = '<tr>'+
-                              '<td style="text-align: center;">' + data[0] + '</td>'+
-                              '<td style="text-align: center;">' + data[1] + '</td>'+
+                              '<td style="text-align: center;">' + data[0] + 
+                              '<input type="hidden" class="clvCncpt" value="'+data[0]+'">'+
+                              '</td>'+
+                              '<td style="text-align: center;">' + data[1] +
+                              '<input type="hidden" class="clvEmp" value="'+empclave+'">'+
+                               '</td>'+
                               '<td style="text-align: center;">$ ' + data[2].toFixed(2) + 
+                                '<input type="hidden" class="monto" value="'+ data[2].toFixed(2) +'">'+
                               '<input class="totales3" id="trabajadorIsr" type="hidden" value=" ' + data[2].toFixed(2) + ' ">'+
                               '</td>'+
                             '</tr>'
@@ -450,9 +456,14 @@
           },
           success: function(data){
             let htmlTags = '<tr>'+
-                              '<td style="text-align: center;">' + data[0] + '</td>'+
-                              '<td style="text-align: center;">' + data[1] + '</td>'+
+                              '<td style="text-align: center;">' + data[0] + 
+                              '<input type="hidden" class="clvCncpt" value="'+data[0]+'">'+
+                              '</td>'+
+                              '<td style="text-align: center;">' + data[1] +
+                              '<input type="hidden" class="clvEmp" value="'+empclave+'">'+
+                              '</td>'+
                               '<td  style="text-align: center;">$ ' + data[2].toFixed(2) + 
+                                '<input type="hidden" class="monto" value="'+ data[2].toFixed(2) +'">'+
                               '<input class="totales3" id="trabajadorImss" type="hidden" value=" ' + data[2].toFixed(2) + ' ">'+
                               '</td>'+
                             '</tr>'
@@ -481,9 +492,15 @@
                 if(data[0] != ''){
                   $('.otrasDeducciones').css('display', 'block');
                   let htmlTags = '<tr>'+
-                                  '<td style="text-align: center;">' + data[0] + '</td>'+
-                                  '<td style="text-align: center;">' + data[1] + '</td>'+
-                                  '<td style="text-align: center;">$ ' + data[3].toFixed(2) + '</td>'+
+                                  '<td style="text-align: center;">' + data[0] +
+                                  '<input type="hidden" class="clvCncpt" value="'+data[0]+'">'+
+                                  '</td>'+
+                                  '<td style="text-align: center;">'+ data[1] +
+                                  '<input type="hidden" class="clvEmp" value="'+data[4]+'">'+
+                                  '</td>'+
+                                  '<td style="text-align: center;">$' + data[3].toFixed(2) +
+                                  '<input type="hidden" class="monto" value="'+ data[3].toFixed(2) +'">'+
+                                  '</td>'+
                                 '</tr>'
 
                   $('.inputTotalOD').val(data[3].toFixed(2));
@@ -492,9 +509,15 @@
 
                 $('#lblSueldoNeto').append("Sueldo Neto: $ " + data[2]);
                 let htmlTags =  '<tr>'+
-                                  '<td style="text-align: center;">002S</td>'+
-                                  '<td style="text-align: center;">SUELDO NETO</td>'+
-                                  '<td style="text-align: center;">$ ' + data[2] + '</td>'+
+                                  '<td style="text-align: center;">002S'+
+                                    '<input type="hidden" class="clvCncpt" value="002S">'+
+                                  '</td>'+
+                                  '<td style="text-align: center;">SUELDO NETO'+
+                                  '<input type="hidden" class="clvEmp" value="'+empclave+'">'+
+                                  '</td>'+
+                                  '<td style="text-align: center;">$ ' + data[2] + 
+                                    '<input type="hidden" class="monto" value="'+ data[2] +'">'+
+                                  '</td>'+
                                 '</tr>'
                 
                 $('#filasTotales tbody').append(htmlTags);
@@ -509,11 +532,18 @@
                     percepciones: totalPercepciones
                   },
                   success: function(data){
-                    $.each(data, function(index) {
+                    $.each(data, function(index) {                     
                       htmlTags = '<tr>'+
-                                    '<td style="text-align: center;">' + data[index].clave_concepto + '</td>'+
-                                    '<td style="text-align: center;">' + data[index].concepto + '</td>'+
-                                    '<td  style="text-align: center;">$ ' + data[index].monto + '<input class="totales4" id="impPatron" type="hidden" value=" ' + data[index].monto + ' "></td>'+
+                                    '<td style="text-align: center;">' + data[index].clave_concepto +
+                                    '<input type="hidden" class="clvCncpt" value="'+data[index].clave_concepto+'">'+
+                                    '</td>'+
+                                    '<td style="text-align: center;">' + data[index].concepto +
+                                    '<input type="hidden" class="clvEmp" value="'+empclave+'">'+
+                                    '</td>'+
+                                    
+                                    '<td  style="text-align: center;">$ ' + data[index].monto +
+                                    '<input type="hidden" class="monto" value="'+ data[index].monto +'">'+
+                                    '<input class="totales4" id="impPatron" type="hidden" value=" ' + data[index].monto + ' "></td>'+
                                  '</tr>'
                       $('#filasPatron tbody').append(htmlTags);
                     });
@@ -585,12 +615,10 @@
             let fila = {
               concepto:   e.querySelector('.clvCncpt').value,
               monto:      e.querySelector('.monto').value,
-              gravable:   e.querySelector('.gravable').value,
-              excento:    e.querySelector('.excento').value,
               clvEmp:     e.querySelector('.clvEmp').value,
             };
             myTableControl.push(fila);
-            //console.log(myTableControl);
+            console.log(myTableControl);
           });
           let jsonString = JSON.stringify(myTableControl);
           $.ajax({
@@ -601,6 +629,7 @@
               info : jsonString,
             },
             success: function(data){
+              console.log(data);
             },
             error: function(xhr, status, error) {
               var err = JSON.parse(xhr.responseText);
