@@ -387,9 +387,11 @@
                 $(document).on('click','#concepto',function(){
                   let info_concepto = $(this).text();
                   let concep_clave = info_concepto.substring(0,4);
-                  if(concep_clave == "013P"){
+                  if(concep_clave === "013P"){
                     $("#importe_incidencias").val(sueldo);
                     $("#importe_incidencias").attr("disabled", true);
+                  }else{
+                    $("#importe_incidencias").attr("disabled", false);
                   }
                 });
               }

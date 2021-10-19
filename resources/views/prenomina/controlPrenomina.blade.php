@@ -37,14 +37,6 @@
                             <b>Empleado: </b>
                             @if(isset($portipopercepciones))
                                 {{$clave->nombre ?? ''}} {{$clave->apellido_paterno ?? ''}} {{$clave->apellido_materno ?? ''}}
-                                <!--<div>
-                                    <label>Sueldo Bruto: $ {{ $$portipopercepciones->sueldoBruto ?? ''}}
-                                    </label>
-                                </div>-->
-                                <div>
-                                    <label id="lblSueldoNeto">
-                                    </label>
-                                </div>
                             @else
                                 No ha seleccionado ningun empleado
                             @endif
@@ -106,7 +98,7 @@
                                             @foreach($portipodeducciones as $deducciones)
                                                 <tr>
                                                     <td style="text-align: center;">
-                                                        <input type="hidden" class="clvEmp" value="{{ $deducciones['clave_empleado'] }}">
+                                                        <input type="hidden" id="extraerEmp"class="clvEmp" value="{{ $deducciones['clave_empleado'] }}">
                                                         {{ $deducciones['clave_concepto'] }}
                                                     <td>
                                                     <td>
@@ -160,7 +152,7 @@
                             <div class="row">
                                 <div class="col-sm-6"></div>
                                 <div class="col-sm-6">
-                                    <table id="filasODeducciones" name="filasODeducciones" class="table table-hover">
+                                    <table id="filasODeducciones" name="filasODeducciones" class="table table-hover control">
                                         <thead class="thead-light">
                                             <tr>
                                                 <th scope="col" colspan="3" style="text-align: center;">Otras Deducciones</th>
@@ -195,13 +187,13 @@
                         <div class="row">
                             <div class = "col-sm-6"></div>
                             <div class = "col-sm-6">
-                                <table id="filasImpuestos" name="filasImpuestos" class="table table-hover prueba">
+                                <table id="filasImpuestos" name="filasImpuestos" class="table table-hover control">
                                     <thead class="thead-light">
                                         <tr>
                                             <th scope="col" colspan="3" style="text-align: center;">Impuestos del Trabajador</th>
                                         </tr>
                                         <tr>
-                                            <th scope="col" style="text-align: center;">Clave</th>
+                                            <th scope="col" style="text-align: center;">Clave </th>
                                             <th scope="col" style="text-align: center;">Concepto</th>
                                             <th scope="col" style="text-align: center;">Total</th>
                                         </tr>
@@ -229,7 +221,7 @@
                         <div class="row">
                             <div class = "col-sm-6"></div>
                             <div class = "col-sm-6">
-                                <table id="filasPatron" name="filasPatron" class="table table-hover">
+                                <table id="filasPatron" name="filasPatron" class="table table-hover control">
                                     <thead class="thead-light">
                                         <tr>
                                             <th scope="col" colspan="3" style="text-align: center;">Impuestos del Patrón</th>
@@ -263,7 +255,7 @@
                         <div class="row">
                             <div class = "col-sm-6"></div>
                             <div class = "col-sm-6">
-                                <table id="filasTotales" name="filasTotales" class="table table-hover">
+                                <table id="filasTotales" name="filasTotales" class="table table-hover control">
                                     <thead class="thead-light">
                                         <tr>
                                             <th scope="col" colspan="3" style="text-align: center;">Totales</th>
