@@ -515,7 +515,7 @@
                                   '<td style="text-align: center;">SUELDO NETO'+
                                   '<input type="hidden" class="clvEmp" value="'+empclave+'">'+
                                   '</td>'+
-                                  '<td style="text-align: center;">'+ data[2] + 
+                                  '<td style="text-align: center;">$'+ data[2] + 
                                     '<input type="hidden" class="monto" value="'+ data[2] +'">'+
                                   '</td>'+
                                 '</tr>'

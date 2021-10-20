@@ -37,6 +37,7 @@
                             <b>Empleado: </b>
                             @if(isset($portipopercepciones))
                                 {{$clave->nombre ?? ''}} {{$clave->apellido_paterno ?? ''}} {{$clave->apellido_materno ?? ''}}
+                                <input type="hidden" id="extraerEmp" value="{{ $clave->clave_empleado}}">
                             @else
                                 No ha seleccionado ningun empleado
                             @endif
@@ -69,10 +70,10 @@
                                                         {{$percepciones['concepto'] }}
                                                     </td>
                                                     <td style="text-align: center;">
-                                                        <input type="hidden" step=".01" class="monto totales" value="{{ $percepciones['monto'] }}">
-                                                        <input type="hidden" step=".01" class="gravable percepGrav" value="{{ $percepciones['gravable'] }}">
-                                                        <input type="hidden" step=".01" class="excento percepExcentas" value="{{ $percepciones['excento'] }}">
-                                                        $ {{ number_format($percepciones['monto'],2) }}
+                                                        <input type="hidden" step=".01" class="monto totales" value="{{ $percepciones['monto'] ?? 0 }}">
+                                                        <input type="hidden" step=".01" class="gravable percepGrav" value="{{ $percepciones['gravable'] ?? 0}}">
+                                                        <input type="hidden" step=".01" class="excento percepExcentas" value="{{ $percepciones['excento'] ?? 0}}">
+                                                        $ {{ number_format($percepciones['monto'],2) ?? 0}}
                                                     </td>
                                                 </tr>
                                             @endforeach 
@@ -98,7 +99,7 @@
                                             @foreach($portipodeducciones as $deducciones)
                                                 <tr>
                                                     <td style="text-align: center;">
-                                                        <input type="hidden" id="extraerEmp"class="clvEmp" value="{{ $deducciones['clave_empleado'] }}">
+                                                        <input type="hidden" class="clvEmp" value="{{ $deducciones['clave_empleado'] }}">
                                                         {{ $deducciones['clave_concepto'] }}
                                                     <td>
                                                     <td>

@@ -63,7 +63,8 @@
         }
 
         $periodo = Session::get('num_periodo');
-        $fecha_periodo = now()->toDateString();
+        $fecha_periodo = now();
+        //->toDateString();
         
         $clv = Session::get('clave_empresa');
         $clv_empresa = $this->conectar($clv);
@@ -127,7 +128,7 @@
                     ->first();
 
         $isrDeterminado = $isrCalculado - $subsidio->cantidadSubsidio;
-
+        
         return $collection = collect(['001I','ISR',$isrDeterminado]);
     }
 
@@ -164,11 +165,11 @@
                 $sueldoTotal = $request->totalSueldo - $descuentoPension;
             }
 
-            return $collection = collect([$pension->clave_concepto,$pension->concepto,$sueldoTotal,$descuentoPension,$pension->clave_empleado]);
+            return $collection = collect([$pension->clave_concepto,$pension->concepto,round($sueldoTotal,2),$descuentoPension,$pension->clave_empleado]);
         }else{
             $sueldoTotal = $request->totalSueldo;
 
-            return $collection = collect(['','',$sueldoTotal,'','']);
+            return $collection = collect(['','',round($sueldoTotal, 2),'','']);
         }
     }
 
