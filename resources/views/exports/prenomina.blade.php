@@ -24,39 +24,14 @@
         <tr>
             <th>Empleado</th>
             <th>Sueldo</th>
-            <th>Horas Extras Dobles</th>
-            <th>Horas Extras Triples</th>
-            <th>Fondo de Ahorro Empresa</th>
-            <th>Premio Puntualidad</th>
-            <th>Premio Asistencia</th>
-            <th>Prima Vacacional</th>
-            <th>Prima Dominical</th>
-            <th>Vacaciones</th>
-            <th>Aguinaldo</th>
-            <th>Ausentismo</th>
-            <th>Incapacidad</th>
-            <th>Fondo de Ahorro Trabajador</th>
-            <th>Deducción Fondo de Ahorro</th>
         </tr>
     </thead>
     <tbody>
         @foreach ($prenomina as $pre) {
             <tr>
                <td>{{ $pre->nombre ?? ''}}</td>
-               <td>{{ $pre->Sueldo ?? ''}}</td>
-               <td>{{ $pre->HoraExtraDoble ?? '' }}</td>
-               <td>{{ $pre->HoraExtraTriple ?? '' }}</td>
-               <td>{{ $pre->FondoAhorroEmpresa ?? '' }}</td>
-               <td>{{ $pre->PremioPuntualidad ?? '' }}</td>
-               <td>{{ $pre->PremioAsistencia ?? '' }}</td>
-               <td>{{ $pre->PrimaVacacional ?? '' }}</td>
-               <td>{{ $pre->PrimaDominical ?? '' }}</td>
-               <td>{{ $pre->Vacaciones ?? ''}}</td>
-               <td>{{ $pre->Aguinaldo ?? ''}}</td>
-               <td>{{ $pre->Ausentismo ?? '' }}</td>
-               <td>{{ $pre->Incapacidad ?? '' }}</td>
-               <td>{{ $pre->FondoAhorroTrabajador ?? '' }}</td>
-               <td>{{ $pre->DeducciónFondoAhorro ?? '' }}</td>
+               <td>{{ $pre->monto ?? ''}}</td>
+              
             </tr>
         @endforeach
     </tbody>

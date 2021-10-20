@@ -37,31 +37,20 @@ class PrenominaExport implements FromView{
         \Config::set('database.connections.DB_Serverr', $clv_empresa);
 
         $prenomina = DB::connection('DB_Serverr')->table('prenomina')
-                     ->select(DB::raw('CONCAT(empleados.clave_empleado," - ",empleados.nombre," ",empleados.apellido_paterno," ",empleados.apellido_materno) as nombre,
-                                       GROUP_CONCAT(CASE WHEN prenomina.clave_concepto = "001P" THEN prenomina.monto ELSE NULL END) AS "Sueldo",
-                                       GROUP_CONCAT(CASE WHEN prenomina.clave_concepto = "002P" THEN prenomina.monto ELSE NULL END) AS "HoraExtraDoble",
-                                       GROUP_CONCAT(CASE WHEN prenomina.clave_concepto = "003P" THEN prenomina.monto ELSE NULL END) AS "HoraExtraTriple",
-                                       GROUP_CONCAT(CASE WHEN prenomina.clave_concepto = "004P" THEN prenomina.monto ELSE NULL END) AS "FondoAhorroEmpresa",
-                                       GROUP_CONCAT(CASE WHEN prenomina.clave_concepto = "005P" THEN prenomina.monto ELSE NULL END) AS "PremioPuntualidad",
-                                       GROUP_CONCAT(CASE WHEN prenomina.clave_concepto = "006P" THEN prenomina.monto ELSE NULL END) AS "PremioAsistencia",
-                                       GROUP_CONCAT(CASE WHEN prenomina.clave_concepto = "007P" THEN prenomina.monto ELSE NULL END) AS "PrimaVacacional",
-                                       GROUP_CONCAT(CASE WHEN prenomina.clave_concepto = "008P" THEN prenomina.monto ELSE NULL END) AS "PrimaDominical",
-                                       GROUP_CONCAT(CASE WHEN prenomina.clave_concepto = "013P" THEN prenomina.monto ELSE NULL END) AS "Vacaciones",
-                                       GROUP_CONCAT(CASE WHEN prenomina.clave_concepto = "014P" THEN prenomina.monto ELSE NULL END) AS "Aguinaldo",
-                                       GROUP_CONCAT(CASE WHEN prenomina.clave_concepto = "001D" THEN prenomina.monto ELSE NULL END) AS "Ausentismo",
-                                       GROUP_CONCAT(CASE WHEN prenomina.clave_concepto = "002D" THEN prenomina.monto ELSE NULL END) AS "Incapacidad",
-                                       GROUP_CONCAT(CASE WHEN prenomina.clave_concepto = "003D" THEN prenomina.monto ELSE NULL END) AS "FondoAhorroTrabajador",
-                                       GROUP_CONCAT(CASE WHEN prenomina.clave_concepto = "004D" THEN prenomina.monto ELSE NULL END) AS "DeducciónFondoAhorro",
-                                       SUM(prenomina.gravable) AS "PercepcionesGravadas",
-                                       SUM(prenomina.excento) AS "PercepcionesExcentas",
-                                       SUM(prenomina.excento)+SUM(prenomina.gravable) AS "TotalPercepciones"'))
+                     ->select('empleados.clave_empleado','empleados.nombre','empleados.apellido_paterno','empleados.apellido_materno','prenomina.id_prenomina',
+                     'prenomina.monto','conceptos.concepto')
                      ->join('empleados','empleados.clave_empleado','=','prenomina.clave_empleado')
+                     ->join('conceptos', 'conceptos.clave_concepto', '=', 'prenomina.clave_concepto')
                      ->where([
-                         ['prenomina.prenomina_periodo','=',$num_periodo],
+                         ['prenomina.noPrenomina','=',$num_periodo],
                          ['prenomina.status_prenomina','=',1],
+                         ['conceptos.seleccionado', '=',1],
+                         ['conceptos.naturaleza', '=', 'P']
                         ])
-                     ->groupBy('empleados.clave_empleado','empleados.nombre','empleados.apellido_paterno','empleados.apellido_materno')
+                        ->groupBy('empleados.clave_empleado','empleados.nombre','empleados.apellido_paterno','empleados.apellido_materno','prenomina.id_prenomina',
+                        'prenomina.monto','conceptos.concepto')
                      ->get();
+        
 
         return view('exports.prenomina',[
             'prenomina' => $prenomina
