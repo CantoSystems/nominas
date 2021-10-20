@@ -164,11 +164,11 @@
                 $sueldoTotal = $request->totalSueldo - $descuentoPension;
             }
 
-            return $collection = collect([$pension->clave_concepto,$pension->concepto,number_format($sueldoTotal,2),$descuentoPension,$pension->clave_empleado]);
+            return $collection = collect([$pension->clave_concepto,$pension->concepto,$sueldoTotal,$descuentoPension,$pension->clave_empleado]);
         }else{
             $sueldoTotal = $request->totalSueldo;
 
-            return $collection = collect(['','',number_format($sueldoTotal,2),'','']);
+            return $collection = collect(['','',$sueldoTotal,'','']);
         }
     }
 
