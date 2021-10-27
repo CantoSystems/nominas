@@ -19,20 +19,20 @@
       background-color: #D4C19C;
    }
 </style>
+<?PHP dd($prenomina); ?>
 <table>
-    <thead>
-        <tr>
-            <th>Empleado</th>
-            <th>Sueldo</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach ($prenomina as $pre) {
-            <tr>
-               <td>{{ $pre->nombre ?? ''}}</td>
-               <td>{{ $pre->monto ?? ''}}</td>
-              
-            </tr>
-        @endforeach
-    </tbody>
+   <thead>
+      <tr>
+         <th>Empleado</th>
+         <th>Sueldo</th>
+      </tr>
+   </thead>
+   <tbody>
+      @foreach ($prenomina as $pre) {
+         <tr>
+            <td>{{ $pre->nombre ?? '' }} {{ $pre->apellido_paterno ?? '' }} {{ $pre->apellido_materno ?? '' }} </td>
+            <td>{{ $pre->monto ?? '' }}</td>
+         </tr>
+      @endforeach
+   </tbody>
 </table>
