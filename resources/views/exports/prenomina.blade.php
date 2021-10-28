@@ -19,20 +19,16 @@
       background-color: #D4C19C;
    }
 </style>
-<?PHP dd($prenomina); ?>
 <table>
    <thead>
       <tr>
-         <th>Empleado</th>
-         <th>Sueldo</th>
+         <?PHP $array = json_decode(json_encode($prenomina[0]), true);
+         $keys = array_keys($array);
+         for($i = 0; $i < count($keys) ; $i++){ ?>
+            <th><?PHP echo $keys[$i]; ?></th>
+         <?PHP } ?>
       </tr>
    </thead>
    <tbody>
-      @foreach ($prenomina as $pre) {
-         <tr>
-            <td>{{ $pre->nombre ?? '' }} {{ $pre->apellido_paterno ?? '' }} {{ $pre->apellido_materno ?? '' }} </td>
-            <td>{{ $pre->monto ?? '' }}</td>
-         </tr>
-      @endforeach
    </tbody>
 </table>
