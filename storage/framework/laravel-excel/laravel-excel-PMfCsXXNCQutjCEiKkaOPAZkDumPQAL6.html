@@ -19,16 +19,5 @@
       background-color: #D4C19C;
    }
 </style>
-<table>
-   <thead>
-      <tr>
-         <?PHP $array = json_decode(json_encode($prenomina[0]), true);
-         $keys = array_keys($array);
-         for($i = 0; $i < count($keys) ; $i++){ ?>
-            <th><?PHP echo $keys[$i]; ?></th>
-         <?PHP } ?>
-      </tr>
-   </thead>
-   <tbody>
-   </tbody>
-</table>
+
+dd($prenomina);

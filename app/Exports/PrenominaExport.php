@@ -36,7 +36,9 @@ class PrenominaExport implements FromView{
         $clv_empresa = $this->conectar($clv);
         \Config::set('database.connections.DB_Serverr', $clv_empresa);
 
-        $prenomina = DB::connection('DB_Serverr')->table('prenomina')
+        $PSPrenoina = DB::connection('DB_Serverr')->select('CALL obtenerPrenomina();');
+
+        /*$prenomina = DB::connection('DB_Serverr')->table('prenomina')
                      ->select('empleados.clave_empleado','empleados.nombre','empleados.apellido_paterno','empleados.apellido_materno','prenomina.id_prenomina',
                      'prenomina.monto','conceptos.concepto')
                      ->join('empleados','empleados.clave_empleado','=','prenomina.clave_empleado')
@@ -47,13 +49,12 @@ class PrenominaExport implements FromView{
                          ['conceptos.seleccionado', '=',1],
                          ['conceptos.naturaleza', '=', 'P']
                         ])
-                        ->groupBy('empleados.clave_empleado','empleados.nombre','empleados.apellido_paterno','empleados.apellido_materno','prenomina.id_prenomina',
-                        'prenomina.monto','conceptos.concepto')
-                     ->get();
-        
+                     ->groupBy('empleados.clave_empleado','empleados.nombre','empleados.apellido_paterno','empleados.apellido_materno','prenomina.id_prenomina',
+                    'prenomina.monto','conceptos.concepto')
+                     ->get();*/
 
         return view('exports.prenomina',[
-            'prenomina' => $prenomina
+            'prenomina' => $PSPrenoina
         ]);
     }
 }
