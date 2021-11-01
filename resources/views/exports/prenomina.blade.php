@@ -22,6 +22,11 @@
 <table>
    <thead>
       <tr>
+         <!--
+         Aquí escribeme que debe hacer
+
+         Imprimir todos los valores de la consulta, solo imprime uno
+         -->
          <?PHP $array = json_decode(json_encode($prenomina[0]), true);
          $keys = array_keys($array);
          for($i = 0; $i < count($keys) ; $i++){ ?>
@@ -30,5 +35,26 @@
       </tr>
    </thead>
    <tbody>
+      @php
+      $datosFinales = [];
+      foreach($prenomina as $pre) {
+         array_push($datosFinales, array_values((array)$pre));
+      }
+  
+      foreach( $datosFinales as $datoFinal){
+         echo '<tr>';
+         foreach ($datoFinal as $value) {   
+         echo '<td>';
+         echo $value;
+         echo '</td>';
+         }
+         echo '</tr>';
+      }
+
+      @endphp
+      
+         
+      
+     
    </tbody>
 </table>
