@@ -35,8 +35,9 @@ class PrenominaExport implements FromView{
 
         $clv_empresa = $this->conectar($clv);
         \Config::set('database.connections.DB_Serverr', $clv_empresa);
-
-        $PSPrenoina = DB::connection('DB_Serverr')->select('CALL obtenerPrenomina();');
+       
+        $PSPrenoina = DB::connection('DB_Serverr')->select('exec obtenerPrenomina ?', array($num_periodo));
+        //$PSPrenoina = DB::connection('DB_Serverr')->select('CALL obtenerPrenomina($num_periodo);');
 
         /*$prenomina = DB::connection('DB_Serverr')->table('prenomina')
                      ->select('empleados.clave_empleado','empleados.nombre','empleados.apellido_paterno','empleados.apellido_materno','prenomina.id_prenomina',
