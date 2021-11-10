@@ -96,9 +96,19 @@ class ReportNominaPDFController extends Controller{
                                 ['conceptos.naturaleza','=','D']
                                 ])
                         ->first();
+                                
+        $totalretenciones = DB::connection('DB_Serverr')->table('prenomina')
+                        ->join('conceptos','conceptos.clave_concepto','=','prenomina.clave_concepto')
+                        ->select( DB::raw('SUM(prenomina.monto) as totalRetencion'))
+                        ->whereIn('prenomina.clave_concepto',['001I','002I'])
+                        ->where([
+                            ['prenomina.noPrenomina','=',$num_periodo],
+                            ['prenomina.status_prenomina','=',1],
+                            ['prenomina.clave_empleado','=',$persona->clave_empleado]
+                        ])
+                        ->first();
 
-
-        $pdf = PDF::loadView('NominaPDF.report-nomina',compact('persona','empresa','periodo_act','prenominaPercepciones','prenominaDeducciones','totalpercepciones','totaldeducciones'));
+        $pdf = PDF::loadView('NominaPDF.report-nomina',compact('persona','empresa','periodo_act','prenominaPercepciones','prenominaDeducciones','totalpercepciones','totaldeducciones','totalretenciones'));
 
         return $pdf->stream();
     }

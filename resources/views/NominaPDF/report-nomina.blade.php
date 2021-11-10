@@ -55,7 +55,7 @@
 						<br>
 						RFC: {{$empresa->rfc}} 	&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
 					</strong>
-					<br>Reg. pat: 
+					<br>Reg. pat: {{$empresa->segurosocial}}
 					<br>Reg. Fiscal:
 					<br>Lugar de expedición: {{$empresa->municipio}}
 				</article>
@@ -90,7 +90,7 @@
 							<br>Puesto: {{ $persona->nombre_puesto }}
 							<br>Depto: {{ $persona->departamento}}
 							<br>SD: $ {{ number_format($persona->sueldo_diario,2) }}
-							<br>SBC: {{ number_format(0,2) }}
+							<br>SBC:$ {{ number_format($persona->sueldo_integrado,2) }}
 						</td>
 					</tr>
 				</thead>
@@ -194,7 +194,7 @@
 											Retenciones $
 										</td>
 										<td style="text-align: right;">
-											{{ number_format(0,2) }}
+											{{ number_format($totalretenciones->totalRetencion,2) }}
 										</td>
 									</tr>
 									<tr>
@@ -202,7 +202,7 @@
 											Total $
 										</td>
 										<td style="text-align: right;">
-											{{ number_format($totalpercepciones->total_percepciones - $totaldeducciones->total_deducciones,2) }}
+											{{ number_format($totalpercepciones->total_percepciones - ($totaldeducciones->total_deducciones + $totalretenciones->totalRetencion),2) }}
 										</td>
 									</tr>
 									<tr>
@@ -210,7 +210,7 @@
 											Neto del recibo $
 										</td>
 										<td style="text-align: right;">
-											{{ number_format($totalpercepciones->total_percepciones - $totaldeducciones->total_deducciones,2) }}
+											{{ number_format($totalpercepciones->total_percepciones - ($totaldeducciones->total_deducciones + $totalretenciones->totalRetencion),2) }}
 										</td>
 									</tr>
 								</table>
