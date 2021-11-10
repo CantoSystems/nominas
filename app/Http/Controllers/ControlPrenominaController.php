@@ -635,7 +635,7 @@
                 }else if($concep->clave_concepto == "019D"){
                     $montoRetardo = $this->adicionales($emp->clave_empleado,'019D');
                     if($montoRetardo != 0){
-                        $ControlPrenomina->push(["clave_empleado"=>$emp->clave_empleado,"clave_concepto"=>"013D","concepto"=>"RETARDO","monto"=>$montoRetardo,"gravable"=>$Gravado,"excento"=>$Excento,"tipo"=> "D"]);
+                        $ControlPrenomina->push(["clave_empleado"=>$emp->clave_empleado,"clave_concepto"=>"019D","concepto"=>"RETARDO","monto"=>$montoRetardo,"gravable"=>$Gravado,"excento"=>$Excento,"tipo"=> "D"]);
                     }else{
                         $Gravado = 0;
                         $Excento = 0;

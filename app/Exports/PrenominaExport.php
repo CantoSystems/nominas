@@ -39,20 +39,6 @@ class PrenominaExport implements FromView{
         
         $PSPrenoina = DB::connection('DB_Serverr')->select('CALL obtenerPrenomina(?)',[$ped]);
 
-        /*$prenomina = DB::connection('DB_Serverr')->table('prenomina')
-                     ->select('empleados.clave_empleado','empleados.nombre','empleados.apellido_paterno','empleados.apellido_materno','prenomina.id_prenomina',
-                     'prenomina.monto','conceptos.concepto')
-                     ->join('empleados','empleados.clave_empleado','=','prenomina.clave_empleado')
-                     ->join('conceptos', 'conceptos.clave_concepto', '=', 'prenomina.clave_concepto')
-                     ->where([
-                         ['prenomina.noPrenomina','=',$num_periodo],
-                         ['prenomina.status_prenomina','=',1],
-                         ['conceptos.seleccionado', '=',1],
-                         ['conceptos.naturaleza', '=', 'P']
-                        ])
-                     ->groupBy('empleados.clave_empleado','empleados.nombre','empleados.apellido_paterno','empleados.apellido_materno','prenomina.id_prenomina',
-                    'prenomina.monto','conceptos.concepto')
-                     ->get();*/
 
         return view('exports.prenomina',[
             'prenomina' => $PSPrenoina
