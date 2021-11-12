@@ -387,6 +387,10 @@
           }
         });
         $(".totalPercepciones").val(importe_total.toFixed(2));
+        $(".conceptoPercepciones").val("01TP");
+
+
+        let htmlTotal;
 
         let importe_total2 = 0
         $(".totales2").each(function(index, value) {
@@ -395,6 +399,7 @@
           }
         });
         $(".totalDeducciones").val(importe_total2.toFixed(2));
+        $(".conceptodeducciones").val("02TD");
 
         /* Suma Percepciones Gravadas */
         let importe_totalGrav = 0
@@ -476,6 +481,7 @@
               }
             });
             $(".totalImpuestosTrabajador").val(importe_total3.toFixed(2));
+            $(".conceptoTrabajador").val("04TI");
             totalImpuestos = $(".totalImpuestosTrabajador").val();
             totalDeducciones = $(".totalDeducciones").val();
             totalPercepciones = $(".totalPercepciones").val();
@@ -490,29 +496,29 @@
               },
               success: function(data){
                 if(data[0] != ''){
-                  $('.otrasDeducciones').css('display', 'block');
+                  //$('.otrasDeducciones').css('display', 'block');
                   let htmlTags = '<tr>'+
                                   '<td style="text-align: center;">' + data[0] +
-                                  '<input type="hidden" class="clvCncpt" value="'+data[0]+'">'+
+                                  '<input type="hidden" class="form-control clvCncpt" value="'+data[0]+'">'+
                                   '</td>'+
-                                  '<td style="text-align: center;">'+ data[1] +
-                                  '<input type="hidden" class="clvEmp" value="'+data[4]+'">'+
+                                  '<td colspan="2" style="text-align:center;">'+ data[1] +
+                                  '<input type="hidden" class="form-control clvEmp" value="'+data[4]+'">'+
                                   '</td>'+
                                   '<td style="text-align: center;">$' + data[3].toFixed(2) +
-                                  '<input type="hidden" class="monto" value="'+ data[3].toFixed(2) +'">'+
+                                  '<input type="text" class="form-control monto totales2" value="'+ data[3].toFixed(2) +'">'+
                                   '</td>'+
                                 '</tr>'
 
                   $('.inputTotalOD').val(data[3].toFixed(2));
-                  $('#filasODeducciones tbody').append(htmlTags);
+                  $('#filasDeducciones tbody').append(htmlTags);
                 }
 
                 $('#lblSueldoNeto').append("Sueldo Neto: $ " + data[2]);
                 let htmlTags =  '<tr>'+
-                                  '<td style="text-align: center;">002S'+
-                                    '<input type="hidden" class="clvCncpt" value="002S">'+
+                                  '<td style="text-align: center;">001S'+
+                                    '<input type="hidden" class="clvCncpt" value="001S">'+
                                   '</td>'+
-                                  '<td style="text-align: center;">SUELDO NETO'+
+                                  '<td style="text-align: center;">PAGO NETO'+
                                   '<input type="hidden" class="clvEmp" value="'+empclave+'">'+
                                   '</td>'+
                                   '<td style="text-align: center;">$'+ data[2] + 
@@ -555,6 +561,7 @@
                       }
                     });
                     $(".totalImpuestosPatron").val(importe_total4.toFixed(2));
+                    $(".conceptoPatron").val("03TI");
                   },
                   error: function(xhr, status, error) {
                     var err = JSON.parse(xhr.responseText);
