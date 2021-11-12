@@ -485,9 +485,19 @@
                     <div class="form-group">
                         <label>Clave del SAT:</label>
                         @if(isset($empresa))
-                            <input type="number" name="claveSat" class="form-control" value="">
+                            <input type="text" name="claveSat" class="form-control" value="{{ $empresa->claveSat }}">
+                            @error('claveSat')
+                                <div class="alert alert-secondary">
+                                    {{ $message }}
+                                </div>
+                            @enderror
                         @else
-                            <input type="number" name="claveSat" class="form-control">
+                            <input type="text" name="claveSat" class="form-control">
+                            @error('claveSat')
+                                <div class="alert alert-secondary">
+                                    {{ $message }}
+                                </div>
+                            @enderror
                         @endif
                     </div>
                 </div>
@@ -495,9 +505,19 @@
                     <div class="form-group">
                         <label>Regimen Fiscal:</label>
                         @if(isset($empresa))
-                            <input type="number" name="regimenFiscal" class="form-control" value="">
+                            <input type="text" name="regimenFiscal" class="form-control" value="{{ $empresa->regimenFiscal }}">
+                            @error('regimenFiscal')
+                                <div class="alert alert-secondary">
+                                    {{ $message }}
+                                </div>
+                            @enderror
                         @else
-                            <input type="number" name="regimenFiscal" class="form-control">
+                            <input type="text" name="regimenFiscal" class="form-control">
+                            @error('regimenFiscal')
+                                <div class="alert alert-secondary">
+                                    {{ $message }}
+                                </div>
+                            @enderror
                         @endif
                     </div>
                 </div>
@@ -505,9 +525,19 @@
                     <div class="form-group">
                         <label>CURP Representante Legal:</label>
                         @if(isset($empresa))
-                            <input type="number" name="curpRepresente" class="form-control" value="">
+                            <input type="text" name="curpRepresentante" class="form-control" value="{{ $empresa->curpRepresente }}" >
+                            @error('curpRepresentante')
+                            <div class="alert alert-secondary">
+                                {{ $message }}
+                            </div>
+                        @enderror
                         @else
-                            <input type="number" name="curpRepresente" class="form-control">
+                            <input type="text" name="curpRepresentante" class="form-control">
+                            @error('curpRepresentante')
+                            <div class="alert alert-secondary">
+                                {{ $message }}
+                            </div>
+                        @enderror
                         @endif
                     </div>
                 </div>

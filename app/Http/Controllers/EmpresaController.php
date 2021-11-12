@@ -165,8 +165,7 @@ class EmpresaController extends Controller{
               'inicioPeriodo' => 'required',
               'regionEmpresa' => 'required',
               'primaRiesgo' => 'required',
-              'porcentajeAhorro' => 'required'
-
+              'porcentajeAhorro' => 'required',
         ]);
 
         $empresa = new Empresa;
@@ -194,6 +193,9 @@ class EmpresaController extends Controller{
         $empresa->region = $datos->regionEmpresa;
         $empresa->primaRiesgo = $datos->primaRiesgo;
         $empresa->porcentajeAhorro = $datos->porcentajeAhorro;
+        $empresa->claveSat = $datos->claveSat;
+        $empresa->regimenFiscal = $datos->regimenFiscal;
+        $empresa->curpRepresentante = $datos->curpRepresentante;
         $empresa->save();
         
         DB::statement('create database '.$empresa->clave);
@@ -324,10 +326,14 @@ class EmpresaController extends Controller{
             ["clave_concepto" => "006I", "concepto" => "INFONAVIT EMPRESA", "formula" => NULL, "tipo" => "I","manejo" => "fijo", "cantidad" =>  NULL, "importe" =>  NULL,"monto" => NULL,"isr" => 0, "imss" => 0, "infonavit" => 0,"estatal" => 0,"isr_uma" => 0.00,"isr_porcentaje" => 0.00, "imss_uma" => 0.00,"imss_porcentaje" => 0.00, "seleccionado" => 0],
             ["clave_concepto" => "007I", "concepto" => "FONDO RETIRO", "formula" => NULL, "tipo" => "I","manejo" => "fijo", "cantidad" =>  NULL, "importe" =>  NULL,"monto" => NULL,"isr" => 0, "imss" => 0, "infonavit" => 0,"estatal" => 0,"isr_uma" => 0.00,"isr_porcentaje" => 0.00, "imss_uma" => 0.00,"imss_porcentaje" => 0.00, "seleccionado" => 0],
             ["clave_concepto" => "008I", "concepto" => "CESANTÍA", "formula" => NULL, "tipo" => "I","manejo" => "fijo", "cantidad" =>  NULL, "importe" =>  NULL,"monto" => NULL,"isr" => 0, "imss" => 0, "infonavit" => 0,"estatal" => 0,"isr_uma" => 0.00,"isr_porcentaje" => 0.00, "imss_uma" => 0.00,"imss_porcentaje" => 0.00, "seleccionado" => 0],
-            ["clave_concepto" => "001S", "concepto" => "NETO", "formula" => NULL, "tipo" => "I","manejo" => "fijo", "cantidad" =>  NULL, "importe" =>  NULL,"monto" => NULL,"isr" => 0, "imss" => 0, "infonavit" => 0,"estatal" => 0,"isr_uma" => 0.00,"isr_porcentaje" => 0.00, "imss_uma" => 0.00,"imss_porcentaje" => 0.00, "seleccionado" => 1],
-            ["clave_concepto" => "002S", "concepto" => "BRUTO", "formula" => NULL, "tipo" => "I","manejo" => "fijo", "cantidad" =>  NULL, "importe" =>  NULL,"monto" => NULL,"isr" => 0, "imss" => 0, "infonavit" => 0,"estatal" => 0,"isr_uma" => 0.00,"isr_porcentaje" => 0.00, "imss_uma" => 0.00,"imss_porcentaje" => 0.00, "seleccionado" => 1],
+            ["clave_concepto" => "001S", "concepto" => "PAGO NETO", "formula" => NULL, "tipo" => "S","manejo" => "fijo", "cantidad" =>  NULL, "importe" =>  NULL,"monto" => NULL,"isr" => 0, "imss" => 0, "infonavit" => 0,"estatal" => 0,"isr_uma" => 0.00,"isr_porcentaje" => 0.00, "imss_uma" => 0.00,"imss_porcentaje" => 0.00, "seleccionado" => 1],
+            ["clave_concepto" => "002S", "concepto" => "BRUTO", "formula" => NULL, "tipo" => "S","manejo" => "fijo", "cantidad" =>  NULL, "importe" =>  NULL,"monto" => NULL,"isr" => 0, "imss" => 0, "infonavit" => 0,"estatal" => 0,"isr_uma" => 0.00,"isr_porcentaje" => 0.00, "imss_uma" => 0.00,"imss_porcentaje" => 0.00, "seleccionado" => 1],
+            ["clave_concepto" => "01TP", "concepto" => "TOTAL PERCEPCIONES", "formula" => NULL, "tipo" => "TP","manejo" => "fijo", "cantidad" =>  NULL, "importe" =>  NULL,"monto" => NULL,"isr" => 0, "imss" => 0, "infonavit" => 0,"estatal" => 0,"isr_uma" => 0.00,"isr_porcentaje" => 0.00, "imss_uma" => 0.00,"imss_porcentaje" => 0.00, "seleccionado" => 1],
+            ["clave_concepto" => "02TD", "concepto" => "TOTAL DEDUCCIONES", "formula" => NULL, "tipo" => "TD","manejo" => "fijo", "cantidad" =>  NULL, "importe" =>  NULL,"monto" => NULL,"isr" => 0, "imss" => 0, "infonavit" => 0,"estatal" => 0,"isr_uma" => 0.00,"isr_porcentaje" => 0.00, "imss_uma" => 0.00,"imss_porcentaje" => 0.00, "seleccionado" => 1],
+            ["clave_concepto" => "03TI", "concepto" => "TOTAL IMPUESTOS PATRON", "formula" => NULL, "tipo" => "TI","manejo" => "fijo", "cantidad" =>  NULL, "importe" =>  NULL,"monto" => NULL,"isr" => 0, "imss" => 0, "infonavit" => 0,"estatal" => 0,"isr_uma" => 0.00,"isr_porcentaje" => 0.00, "imss_uma" => 0.00,"imss_porcentaje" => 0.00, "seleccionado" => 1],
+            ["clave_concepto" => "04TT", "concepto" => "TOTAL IMPUESTOS TRABAJADOR", "formula" => NULL, "tipo" => "TT","manejo" => "fijo", "cantidad" =>  NULL, "importe" =>  NULL,"monto" => NULL,"isr" => 0, "imss" => 0, "infonavit" => 0,"estatal" => 0,"isr_uma" => 0.00,"isr_porcentaje" => 0.00, "imss_uma" => 0.00,"imss_porcentaje" => 0.00, "seleccionado" => 1],
         ]);
-        $fecha_periodo = now();
+        $fecha_periodo = now()->toDateString();
         foreach($conceptos as $con){
             DB::connection('DB_Serverr')->insert('insert into conceptos 
                                                 (clave_concepto,concepto,formula,naturaleza,manejo
@@ -621,6 +627,26 @@ class EmpresaController extends Controller{
             $table->timestamps();
         });
 
+        Schema::connection('DB_Serverr')->create('prenomina_aguinaldo', function($table){
+            $table->increments('id_prenomina');
+            $table->integer('noPrenomina');
+            $table->char('clave_empleado',5);
+            $table->char('clave_concepto',5);
+            $table->double('monto');
+            $table->boolean('status_prenomina');
+            $table->timestamps();
+        });
+
+        Schema::connection('DB_Serverr')->create('prenomina_ptu', function($table){
+            $table->increments('id_prenomina');
+            $table->integer('noPrenomina');
+            $table->char('clave_empleado',5);
+            $table->char('clave_concepto',5);
+            $table->double('monto');
+            $table->boolean('status_prenomina');
+            $table->timestamps();
+        });
+
         Schema::connection('DB_Serverr')->create('prestamos', function($table){
             $table->increments('idPrestamo');
             $table->char('claveEmpleado',5);
@@ -667,8 +693,12 @@ class EmpresaController extends Controller{
                                                                   ,fecha_inicio
                                                                   ,fecha_fin
                                                                   ,fecha_pago
-                                                                  ,diasPeriodo)
+                                                                  ,diasPeriodo
+                                                                  ,created_at
+                                                                  ,updated_at)
                                                            VALUES(?
+                                                                 ,?
+                                                                 ,?
                                                                  ,?
                                                                  ,?
                                                                  ,?
@@ -677,7 +707,9 @@ class EmpresaController extends Controller{
                                                                 ,$fechaInicio
                                                                 ,$fechaFin
                                                                 ,$fechaPago
-                                                                ,$datos->tipoPeriodo]);
+                                                                ,$datos->tipoPeriodo
+                                                                ,$fecha_periodo
+                                                                ,$fecha_periodo]);
     }
 
 

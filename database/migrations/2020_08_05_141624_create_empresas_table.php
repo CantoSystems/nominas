@@ -39,6 +39,9 @@ class CreateEmpresasTable extends Migration
             $table->string('region',50);
             $table->double('primaRiesgo',8,4);
             $table->double('porcentajeAhorro');
+            $table->string('claveSat',8)->nullable();
+            $table->string('regimenFiscal',40)->nullable();
+            $table->string('curpRepresentante',18)->nullable();
             $table->timestamps();
         });
     }
