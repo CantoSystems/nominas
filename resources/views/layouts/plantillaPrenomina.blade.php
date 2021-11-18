@@ -481,7 +481,7 @@
               }
             });
             $(".totalImpuestosTrabajador").val(importe_total3.toFixed(2));
-            $(".conceptoTrabajador").val("04TI");
+            $(".conceptoTrabajador").val("04TT");
             totalImpuestos = $(".totalImpuestosTrabajador").val();
             totalDeducciones = $(".totalDeducciones").val();
             totalPercepciones = $(".totalPercepciones").val();
@@ -511,6 +511,15 @@
 
                   $('.inputTotalOD').val(data[3].toFixed(2));
                   $('#filasDeducciones tbody').append(htmlTags);
+
+                  let importe_total2 = 0
+                  $(".totales2").each(function(index, value) {
+                    if($.isNumeric($(this).val())){
+                      importe_total2 = importe_total2 + eval($(this).val());
+                    }
+                  });
+                  $(".totalDeducciones").val(importe_total2.toFixed(2));
+                  $(".conceptodeducciones").val("02TD");
                 }
 
                 $('#lblSueldoNeto').append("Sueldo Neto: $ " + data[2]);
