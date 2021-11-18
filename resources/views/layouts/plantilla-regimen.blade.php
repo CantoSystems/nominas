@@ -360,28 +360,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
 </script>
 
 <script>
-  $(document).on('change', '#prestacionIMSS', function(event) {
-    if(($("#seguroIMSS option:selected").val()=="Enfermedades y Maternidad") && ($("#prestacionIMSS option:selected").val()=="En especie")){
-      $("#cuotapatron2").prop("disabled", false );
-      console.log("Primero");
-    }else{
-      $("#cuotapatron2").prop("disabled", true );
-      console.log("Segundo");
-    }
-  });
-
-  $(document).on('change', '#seguroIMSS', function(event) {
-    if(($("#seguroIMSS option:selected").val()=="Enfermedades y Maternidad") && ($("#prestacionIMSS option:selected").val()=="En especie")){
-      $("#cuotapatron2").prop("disabled", false );
-      console.log("Tercero");
-    }else{
-      $("#cuotapatron2").prop("disabled", true );
-      console.log("Cuarto");
-    }
-  });
-</script>
-
-<script>
   $(function () {
     $("#example1").DataTable({
       "responsive": true,
@@ -397,6 +375,42 @@ scratch. This page gets rid of all links and provides the needed markup only.
       "responsive": true,
     });
   });
+</script>
+<script>
+    $(document).ready(function(){
+        $('#nuevo_reg').click(function(e){
+            e.preventDefault();
+            let datosRegimen = {
+                clave: $('#claveRegimen').val(),
+                descripcion: $('#descripcionRegimen').val(),
+            }
+            console.log(datosRegimen);
+            let jsonString = JSON.stringify(datosRegimen);
+            console.log(jsonString);
+            $.ajax({
+                url: "{{ route('regimen.store') }}",
+                method: "POST",
+                data:{
+                    _token: $("meta[name='csrf-token']").attr("content"),
+                    info: jsonString,
+                },
+                success: function(data) {
+                    console.log(data);
+                    $('#claveRegimen').val(data.claveRegimen);
+                    $('#descripcionRegimen').val(data.descripcionRegimen);
+                    $('#nuevo_reg').hide();
+
+                },
+                error:  function(xhr, status, error) {
+                var err = JSON.parse(xhr.responseText);
+                console.log(err.Message);
+            }
+            });
+        });
+       
+
+
+    });
 </script>
 </body>
 </html>
