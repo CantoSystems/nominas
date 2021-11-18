@@ -129,7 +129,7 @@
 
         $isrDeterminado = $isrCalculado - $subsidio->cantidadSubsidio;
         
-        return $collection = collect(['001I','ISR',$isrDeterminado]);
+        return $collection = collect(['001T','ISR',$isrDeterminado]);
     }
 
     public function pensionAlimenticia(Request $request){
@@ -190,7 +190,7 @@
                          ->first();
 
         if($empleados->sueldo_diario <= $importeRegion->importe){
-            return $collection = collect(['002I','IMSS TRABAJADOR',0]);
+            return $collection = collect(['003T','IMSS TRABAJADOR',0]);
         }else{
             $at = $this->anios_trabajados($empleados->id_emp);
 
@@ -220,7 +220,7 @@
                 }
             }
 
-            return $collection = collect(['002I','IMSS TRABAJADOR',$totalIMSS]);
+            return $collection = collect(['003T','IMSS TRABAJADOR',$totalIMSS]);
         }
     }
 
@@ -668,7 +668,6 @@
                  ->first();
        // $i =      $this->creditoInfonavit($clave->id_emp,$clave->clave_empleado,'007D');
        // return $i;
-    
 
         $sumaImss = $percepcionesImss->where('clave_empleado',$clave->clave_empleado)->sum('total');
     
