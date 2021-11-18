@@ -7,8 +7,14 @@ use Session;
 use Illuminate\Contracts\View\View;
 use Maatwebsite\Excel\Concerns\FromView;
 use Maatwebsite\Excel\Concerns\Exportable;
+use Maatwebsite\Excel\Concerns\WithTitle;
+use Maatwebsite\Excel\Concerns\ShouldAutoSize;
+use Maatwebsite\Excel\Concerns\WithStyles;
+use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
+use Maatwebsite\Excel\Concerns\WithHeadingRow;
 
-class PrenominaExport implements FromView{
+
+class PrenominaExport implements FromView, WithTitle, ShouldAutoSize, WithStyles, WithHeadingRow{
     use Exportable;
 
     public function conectar($clv){
@@ -39,9 +45,22 @@ class PrenominaExport implements FromView{
         
         $PSPrenoina = DB::connection('DB_Serverr')->select('CALL obtenerPrenomina(?)',[$ped]);
 
-
         return view('exports.prenomina',[
             'prenomina' => $PSPrenoina
         ]);
+    }
+
+    public function title(): string{
+        return 'Nómina';
+    }
+
+    public function styles(Worksheet $sheet){
+        return [
+            1    => ['font' => ['bold' => true]]
+        ];
+    }
+
+    public function headingRow(): int{
+        return 2;
     }
 }

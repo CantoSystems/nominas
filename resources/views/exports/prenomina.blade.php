@@ -1,32 +1,6 @@
-<style type="text/css">
-   table{
-      width: 100%;
-      text-align: left;
-      border-collapse: collapse;
-   }
-
-   th, td{
-      padding: 10;
-   }
-
-   thead{
-      background-color: #9D2449;
-      border-bottom: solid 2px #00;
-      color: white;
-   }
-
-   tr:nth-child(even){
-      background-color: #D4C19C;
-   }
-</style>
 <table>
    <thead>
       <tr>
-         <!--
-         Aquí escribeme que debe hacer
-
-         Imprimir todos los valores de la consulta, solo imprime uno
-         -->
          <?PHP $array = json_decode(json_encode($prenomina[0]), true);
          $keys = array_keys($array);
          for($i = 0; $i < count($keys) ; $i++){ ?>
@@ -52,9 +26,20 @@
       }
 
       @endphp
-      
-         
-      
-     
    </tbody>
 </table>
+
+<!--<table>
+   <thead>
+      <tr>
+         <th></th>
+         <th></th>
+      </tr>
+   </thead>
+   <tbody>
+      <tr>
+         <th>Total Percepciones:</th>
+         <th>1000.00</th>
+      </tr>
+   </tbody>
+</table>-->
