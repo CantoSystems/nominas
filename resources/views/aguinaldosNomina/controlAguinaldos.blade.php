@@ -12,29 +12,32 @@
                 <form action="" method="GET" autocomplete="off">
                     <meta name="csrf-token" content="{{ csrf_token() }}">
                     <div class="row">
-                        <div class="col">
+                        <div class="col-sm-6">
                             @can('administrador')
+                                <label for="validationDefault04">Cálculo ISR</label>
+                                <select class="custom-select" name="causa_baja">
+                                    <option selected disabled value="">Seleccione una opción:</option>
+                                    <option>Art. 86</option>
+                                    <option>Cálculo normal</option>
+                                </select>
+                                @include('aguinaldosNomina.modaldespliegue-empleadosAguinaldo')
+                            @endcan
+                        </div>
+                        <br>
+                        <div class="col-sm-3 form-group">
+                            @can('administrador')
+                                <label for="validationDefault04"></label>
                                 <a data-target="#modalbusquedaempaguinaldo" data-toggle="modal">
-                                    <button type="submit" name="acciones" value="mostrar" style='width: 65px; height: 38px'>
+                                    <button type="submit" name="acciones" value="mostrar">
                                         <i class="far fa-eye"></i>
                                     </button>
                                 </a>
                                 @include('aguinaldosNomina.modaldespliegue-empleadosAguinaldo')
                             @endcan
                         </div>
-                        <div class="col">
-                            <button type="submit" id="autorizar"style='width:125px; height:38px;'>Autorizar Nómina</button>
-                        </div>
-                        <!--<div class="col">
-                            <form action="{{ route('control.excel') }}">
-                                <input type="hidden" name="datosPrenomina" value="<?php //echo $cadena; ?>">
-                                <button type="submit" style='width:125px; height:38px;'>Descargar excel</button>
-                            </form>
-                        </div>-->
-                        <div class="col">
-                            <form action="{{ route('control.excel3') }}">
-                                <button type="submit" style='width:125px; height:38px;'>Descargar Excel</button>
-                            </form>
+                        <div class="col-sm-3 form-group">
+                            <label for="validationDefault04"></label>
+                            <button type="submit" id="autorizar">Autorizar Nómina</button>
                         </div>
                     </div>
                     <br>
