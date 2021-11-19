@@ -399,6 +399,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     $('#claveRegimen').val(data.claveRegimen);
                     $('#descripcionRegimen').val(data.descripcionRegimen);
                     $('#nuevo_reg').hide();
+                    $('#guardar_falso').show();
+                    $('#guardar_falso').attr("disabled", true);
 
                 },
                 error:  function(xhr, status, error) {

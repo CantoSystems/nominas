@@ -24,7 +24,8 @@ class RegimenFiscalController extends Controller
      */
     public function create()
     {
-        //
+        $datoFiscal = RegimenFiscal::first();
+        return $datoFiscal;
     }
 
     /**
