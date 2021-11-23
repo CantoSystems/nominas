@@ -1,4 +1,4 @@
-@extends('layouts.plantilla-regimen')
+@extends('layouts.principal')
 @section('content')
 <div class="container">
     <div class="row">
@@ -6,19 +6,39 @@
         <div class="col">
             <div class="card card-secondary">
                 <div class="card-header">
-                    <h3 class="card-title">Regimen Fiscal</h3>
+                    <h3 class="card-title">Régimen Fiscal</h3>
                 </div>
                 <div class="card-body">
                     <table id="example1" class="table table-bordered table-striped">
                         <thead>
                             <tr>
-                                <th>Clave Régimen Fiscal</th>
-                                <th>Descripción Régimen Fiscal</th>
+                                <th>Clave régimen fiscal</th>
+                                <th>Descripción régimen fiscal </th>
                                 <th></th>
                             </tr>
                         </thead>
                         <tbody>
-                           
+                            @if(isset($datosRegimen))
+                                @foreach ($datosRegimen as $regimen)
+                                    <tr>
+                                        <td scope="row">{{$regimen->claveRegimen}}</td>
+                                        <td>{{$regimen->descripcionRegimen}}</td>
+                                        <td>
+                                        @canany(['administrador','capturista'])
+                                        <div>
+                                            <center>
+                                                <a href="{{ route('regimen.show',$regimen->id) }}">
+                                                    <button type="button" class="botones">
+                                                        <i class="far fa-eye"></i>
+                                                    </button>
+                                                </a>
+                                            </center>         
+                                        </div>
+                                        @endcan
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            @endif
                         </tbody>
                     </table>
                 </div>
@@ -41,18 +61,12 @@
                             {{ session('msj')}}
                         </div>
                     @endif
-                    <form action="" method="GET" autocomplete="off">
-                        <meta name="csrf-token" content="{{ csrf_token() }}">
+                    <form action="{{ route('regimen.index') }}" method="GET" autocomplete="off">
                         <div class="row">
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label>Clave Régimen Fiscal:</label>
-                                        <input type="text"  name="claveRegimen" 
-                                                            value="{{$regimen->claveRegimen ?? ''}}" 
-                                                            class="form-control" 
-                                                            maxlength = "3" 
-                                                            id="claveRegimen"
-                                                            onkeyup="mayus(this);">
+                                    <label>Clave régimen fiscal:</label>
+                                        <input type="text" name="claveRegimen" value="{{$regimenFiscal->claveRegimen ?? ''}}" class="form-control" maxlength = "3" onkeyup="mayus(this);">
                                         @error('claveRegimen')
                                             <div class="alert alert-secondary">
                                                 {{ $message }}
@@ -62,24 +76,14 @@
                             </div>
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label>Descripción:</label>
-                                        <input type="hidden"    name="id" 
-                                                                value="{{$banco->id ?? ''}}" 
-                                                                class="form-control" 
-                                                                id="idRegimen">
-
-                                        <input type="text"      name="descripcionRegimen"
-                                                                value="{{$banco->nombre_banco ?? ''}}" 
-                                                                class="form-control"  
-                                                                id="descripcionRegimen"
-                                                                onkeyup="mayus(this);" 
-                                                                onkeypress="return validar(event);">
+                                    <label>Nombre:</label>
+                                        <input type="hidden" name="id" value="{{$regimenFiscal->id ?? ''}}" class="form-control"  onkeyup="mayus(this);">
+                                        <input type="text" name="descripcionRegimen" value="{{$regimenFiscal->descripcionRegimen ?? ''}}" class="form-control"  onkeyup="mayus(this);" onkeypress="return validar(event);" >
                                         @error('descripcionRegimen')
                                             <div class="alert alert-secondary">
                                                 {{ $message }}
                                             </div>
                                         @enderror
-                        
                                 </div>
                             </div>
                             <!---Flechas-->
@@ -87,6 +91,7 @@
                                 <div class="col-md-5">
                                     <div class="margin">
                                         <div class="btn-group">
+                                            @if(isset($regimenFiscal))
                                                 <div class="form-group">
                                                     <button type="submit"  name="acciones" value="primero" id="primero" class="botones"><i class="fas fa-backward" ></i></button>
                                                 </div>
@@ -99,7 +104,7 @@
                                                 <div class="form-group">
                                                     <button type="submit" name="acciones" value="ultimo" id="ultimo" class="botones"><i class="fas fa-forward"></i></button>
                                                 </div>
-                                                <!--
+                                            @else
                                                 <div class="form-group">
                                                     <button type="submit" class="botones" disabled><i class="fas fa-backward" ></i></button>
                                                 </div>
@@ -112,7 +117,7 @@
                                                 <div class="form-group">
                                                     <button type="submit" class="botones" disabled><i class="fas fa-forward"></i></button>
                                                 </div>
-                                            -->
+                                            @endif 
                                         </div>
                                     </div>
                                 </div>
@@ -123,33 +128,34 @@
                                     <div class="margin">
                                         <div class="btn-group">
                                         @canany(['administrador','capturista','reportes'])
+                                                    @if(isset($regimenFiscal))
                                                     <div class="form-group">
-                                                        <button id="buscar" type="button" data-toggle="modal" data-target="#exampleModal" class="botones">
+                                                        <button id="buscar" type="button" data-toggle="modal" data-target="#busqueda-regimen" class="botones">
                                                             <i class="fas fa-search"></i>
                                                         </button>
                                                     </div>
-                                                <!--
+                                                    @else
                                                     <div class="form-group">
                                                         <button id="buscar_falso" type="button" class="botones" disabled>
                                                             <i class="fas fa-search"></i>
                                                         </button>
                                                     </div>
-                                                -->
+                                                    @endif
                                                 
                                             @endcanany
                                             @canany(['administrador','capturista'])
                                                 <div class="form-group">
                                                     <button type="button" id="nuevo" class="botones"> <i class="fas fa-user-plus"></i></button>
                                                 </div>
-                                             
+                                                @if(isset($regimenFiscal))
                                                     <div class="form-group">
                                                         <button type="button" id="actualizar" class="botones" > <i class="fas fa-pen-square"></i></button>
                                                     </div>
-                                              <!--
+                                                @else
                                                     <div class="form-group">
                                                         <button type="button" class="botones" disabled> <i class="fas fa-pen-square"></i></button>
                                                     </div>
-                                                -->
+                                                @endif
                                             @elsecanany(['reportes'])
                                                 <div class="form-group">
                                                     <button type="button" disabled class="botones"> <i class="fas fa-user-plus"></i></button>
@@ -159,15 +165,15 @@
                                                     </div>
                                             @endcanany
                                             @can('administrador')  
-                                                
+                                                @if(isset($regimenFiscal))
                                                     <div class="form-group">
-                                                        <a id="eliminar" data-target="#modal-deletebanco-{{$banco->id}}" data-toggle="modal">
+                                                        <a id="eliminar" data-target="#modal-deleteregimen-{{$regimenFiscal->id}}" data-toggle="modal">
                                                             <button type="button" class="botones">
                                                                 <i class="far fa-trash-alt"></i>
                                                             </button>
                                                         </a>
                                                     </div>
-                                                <!--
+                                                @else
                                                     <div class="form-group">
                                                         <a id="eliminar_vacio">
                                                             <button type="button" disabled class="botones">
@@ -175,7 +181,7 @@
                                                             </button>
                                                         </a>
                                                     </div>
-                                                -->
+                                                @endif
                                             @elsecanany(['capturista','reportes'])
                                                 <div class="form-group">
                                                         <a id="eliminar_">
@@ -195,13 +201,13 @@
                                         <div class="btn-group">
                                               <!--Su uso solo es para visualizar la existencia del los iconos -->
                                             <div class="form-group">
-                                                <button id="guardar_falso" disabled style="background-color: aquamarine" class="botones"><i class="fas fa-save"></i></button>
+                                                <button id="guardar_falso" disabled class="botones"><i class="fas fa-save"></i></button>
                                             </div>
                                             <div class="form-group">
-                                                <button id="nuevo_reg" name="acciones" value="registrar" type="submit" class="botones" style="display: none;background:coral"><i class="fas fa-save"></i></button>
+                                                <button id="nuevo_reg" name="acciones" value="registrar" type="submit" class="botones" style="display: none;"><i class="fas fa-save"></i></button>
                                             </div>
                                             <div class="form-group">
-                                                <button name="acciones" value="actualizar" id="actualizar_reg" type="submit" style="display: none;background:cian" class="botones"><i class="fas fa-save"></i></button>
+                                                <button name="acciones" value="actualizar" id="actualizar_reg" type="submit" style="display: none;" class="botones"><i class="fas fa-save"></i></button>
                                             </div>
                                             <div class="form-group">
                                                 <button name="acciones" value="cancelar" id="cancelar_reg" type="submit" class="botones" disabled><i class="far fa-window-close" ></i></button>
@@ -212,10 +218,11 @@
                             </div>
                         </div>                        
                     </form>
-                    @isset($banco)
-                        @include('bancos.modaldeletebanco')
+                    @include('regimen.modalbusquedaregimen')
+                    @isset($regimenFiscal)
+                        @include('regimen.modaldeleteregimen')
                     @endisset
-                    @include('bancos.modalsearchbancos')
+                   
                    </div>
                 </div>
             </div>

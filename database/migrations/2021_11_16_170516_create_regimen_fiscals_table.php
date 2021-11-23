@@ -16,7 +16,7 @@ class CreateRegimenFiscalsTable extends Migration
         Schema::create('regimen_fiscals', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('claveRegimen',3);
-            $table->string('descripcionRegimen',60);
+            $table->string('descripcionRegimen',80);
             $table->timestamps();
         });
     }

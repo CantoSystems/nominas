@@ -41,8 +41,9 @@ class BancosController extends Controller
               case 'atras':
                 $id= Banco::where("id",$clv)->first();
                 $banco= Banco::where('id','<',$id->id)
-                ->orderBy('id','desc')
-                ->first();
+                  ->orderBy('id','desc')
+                  ->first();
+
                 if(is_null($banco)){
                   $banco= Banco::get()->last();
                 }
@@ -122,7 +123,6 @@ class BancosController extends Controller
               'nombre_banco' => 'required',
             ]);
         $banc= Banco::where('id',$datos->id)->first();
-        $banc->clave_banco= $datos->clave_banco;
         $banc->nombre_banco= $datos->nombre_banco;
         $banc->save();
       }

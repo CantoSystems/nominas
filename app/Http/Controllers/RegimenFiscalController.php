@@ -12,9 +12,67 @@ class RegimenFiscalController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        return view('regimen.regimen');
+        $accion = $request->acciones;
+        $identificador = $request->id;
+
+        switch($accion){
+            case '':
+                $datosRegimen = RegimenFiscal::all();
+                $regimenFiscal = RegimenFiscal::first();
+                return view('regimen.regimen',compact('datosRegimen','regimenFiscal'));
+                break;
+            case 'registrar':
+                $this->registrar($request);
+                return redirect()->route('regimen.index');
+                break;
+            case 'cancelar':
+                return redirect()->route('regimen.index');
+                break;
+            case 'primero':
+                return redirect()->route('regimen.index');
+                break;
+            case 'ultimo':
+                $datosRegimen = RegimenFiscal::all();
+                $regimenFiscal = RegimenFiscal::get()->last();
+                return view('regimen.regimen',compact('datosRegimen','regimenFiscal'));
+                break;
+            case 'atras':
+               
+                $datosRegimen = RegimenFiscal::all();
+                $regimenFiscal = RegimenFiscal::where('id','<',$identificador)
+                    ->orderBy('id','desc')
+                    ->first();
+
+                    if(is_null($regimenFiscal)){
+                        $regimenFiscal = RegimenFiscal::get()->last();
+                    }
+
+                return view('regimen.regimen',compact('datosRegimen','regimenFiscal'));
+                break;
+            
+            case 'siguiente':
+                $datosRegimen = RegimenFiscal::all();
+                $regimenFiscal = RegimenFiscal::where('id','>',$identificador)
+                    ->first();
+
+                    if(is_null($regimenFiscal)){
+                        $regimenFiscal = RegimenFiscal::first();
+                    }
+
+                return view('regimen.regimen',compact('datosRegimen','regimenFiscal'));
+                break;
+            
+                case 'actualizar':
+                    $this->update($request);
+                    return redirect()->route('regimen.index');
+                    break;
+
+            
+
+
+        }
     }
 
     /**
@@ -22,11 +80,22 @@ class RegimenFiscalController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
-        $datoFiscal = RegimenFiscal::first();
-        return $datoFiscal;
+
+
+    public function registrar($datos){
+
+        $datos->validate([
+            'claveRegimen' => 'required|unique:regimen_fiscals',
+            'descripcionRegimen' => 'required|unique:regimen_fiscals',
+        ]);
+
+        $regimen = new RegimenFiscal;
+        $regimen->claveRegimen = $datos->claveRegimen;
+        $regimen->descripcionRegimen = $datos->descripcionRegimen;
+        $regimen->save(); 
     }
+
+
 
     /**
      * Store a newly created resource in storage.
@@ -34,7 +103,7 @@ class RegimenFiscalController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    /*public function store(Request $request)
     {
         if (empty($request->all())) {
             return response()->json(["error" => "Sin data"]);
@@ -52,7 +121,7 @@ class RegimenFiscalController extends Controller
 
         $datoFiscal = RegimenFiscal::first();
         return $datoFiscal;
-    }
+    }*/
 
     /**
      * Display the specified resource.
@@ -60,9 +129,11 @@ class RegimenFiscalController extends Controller
      * @param  \App\RegimenFiscal  $regimenFiscal
      * @return \Illuminate\Http\Response
      */
-    public function show(RegimenFiscal $regimenFiscal)
+    public function show($id)
     {
-        //
+        $datosRegimen = RegimenFiscal::all();
+        $regimenFiscal = RegimenFiscal::find($id);
+        return view('regimen.regimen',compact('datosRegimen','regimenFiscal'));
     }
 
     /**
@@ -83,9 +154,17 @@ class RegimenFiscalController extends Controller
      * @param  \App\RegimenFiscal  $regimenFiscal
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, RegimenFiscal $regimenFiscal)
+    public function update($datos)
     {
-        //
+        $datos->validate([
+            'claveRegimen' => 'required',
+            'descripcionRegimen' => 'required',
+        ]);
+
+        $regimen = RegimenFiscal::where('id',$datos->id)->first();
+        $regimen->descripcionRegimen = $datos->descripcionRegimen;
+        $regimen->save();
+
     }
 
     /**
@@ -94,8 +173,10 @@ class RegimenFiscalController extends Controller
      * @param  \App\RegimenFiscal  $regimenFiscal
      * @return \Illuminate\Http\Response
      */
-    public function destroy(RegimenFiscal $regimenFiscal)
+    public function destroy($id)
     {
-        //
+        $reg = RegimenFiscal::find($id);
+        $reg->delete();
+        return redirect()->route('regimen.index');
     }
 }
