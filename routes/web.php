@@ -161,10 +161,6 @@ Route::post('/prenominaIMSS', 'ControlPrenominaController@calcularIMSS')->name('
 Route::post('/prenominaPension', 'ControlPrenominaController@pensionAlimenticia')->name('control.pension');
 Route::post('/prenominaPatron', 'ControlPrenominaController@impuestosPatron')->name('control.impPatron');
 
-//Aguinaldos
-Route::get('/aguinaldos', 'AguinaldosController@index')->name('aguinaldos.index');
-Route::get('/aguinaldosl/{id_emp}', 'AguinaldosController@create')->name('aguinaldos.show');
-
 //Préstamos
 Route::get('/prestamos', 'PrestamosController@index')->name('prestamos.index');
 Route::get('/verPrestamos', 'PrestamosController@show')->name('prestamos.show');
@@ -202,3 +198,5 @@ Route::get('/regimen','RegimenFiscalController@index')->name('regimen.index');
 Route::get('/regimen/visualizar/{id}','RegimenFiscalController@show')->name('regimen.show');
 Route::delete('/regimen/{id}','RegimenFiscalController@destroy')->name('regimen.destroy');
 //Route::post('/regimen-fiscal','RegimenFiscalController@store')->name('regimen.store');
+//Aguinaldos
+Route::get('/aguinaldos', 'prenominaAguinaldo@index')->name('aguinaldosP.index');

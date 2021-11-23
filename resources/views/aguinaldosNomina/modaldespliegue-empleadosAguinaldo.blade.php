@@ -36,11 +36,7 @@
                                                 @canany(['administrador','capturista'])
                                                     <div>
                                                         <center>
-                                                            <a href="{{ route('aguinaldos.show',$per->id_emp) }}">
-                                                                <button type="button" class="botones-modales">
-                                                                    <i class="far fa-eye"></i>
-                                                                </button>
-                                                            </a>
+                                                            
                                                         </center>         
                                                     </div>
                                                 @endcan
