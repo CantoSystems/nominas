@@ -1,4 +1,4 @@
-@extends('layouts.segunda')
+@extends('layouts.plantillaAguinaldos')
 @section('content')
 <div class="container">
     <div class="col" style="padding:0px 0px 0px 0px;">
@@ -12,32 +12,20 @@
                 <form action="" method="GET" autocomplete="off">
                     <meta name="csrf-token" content="{{ csrf_token() }}">
                     <div class="row">
-                        <div class="col-sm-6">
-                            @can('administrador')
-                                <label for="validationDefault04">Cálculo ISR</label>
-                                <select class="custom-select" name="causa_baja">
-                                    <option selected disabled value="">Seleccione una opción:</option>
-                                    <option>Art. 86</option>
-                                    <option>Cálculo normal</option>
-                                </select>
-                                @include('aguinaldosNomina.modaldespliegue-empleadosAguinaldo')
-                            @endcan
-                        </div>
-                        <br>
-                        <div class="col-sm-3 form-group">
+                        <div class="col">
                             @can('administrador')
                                 <label for="validationDefault04"></label>
-                                <a data-target="#modalbusquedaempaguinaldo" data-toggle="modal">
-                                    <button type="submit" name="acciones" value="mostrar">
+                                <a data-target="#modalbusquedaempAg" data-toggle="modal">
+                                    <button type="submit" name="acciones" value="mostrar" style='width: 65px; height: 38px'>
                                         <i class="far fa-eye"></i>
                                     </button>
                                 </a>
                                 @include('aguinaldosNomina.modaldespliegue-empleadosAguinaldo')
                             @endcan
                         </div>
-                        <div class="col-sm-3 form-group">
+                        <div class="col">
                             <label for="validationDefault04"></label>
-                            <button type="submit" id="autorizar">Autorizar Nómina</button>
+                            <button type="submit" id="autorizar" style='width: 125px; height:38px;'>Autorizar Nómina</button>
                         </div>
                     </div>
                     <br>
