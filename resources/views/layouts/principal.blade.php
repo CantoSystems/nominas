@@ -322,6 +322,37 @@ scratch. This page gets rid of all links and provides the needed markup only.
         });
       })
 
+
+  //Funcion autocomplementado de regimen para empresas
+      $('.obtenerRegimen').keyup(function(){
+          let consulta = $(this).val();
+          //console.log(consulta);
+            if( consulta != ''){
+              let _token = $('input[name="_token"]').val();
+              $.ajax({
+                url:"{{ route('regimen.autocomplete') }}",
+                method: "POST",
+                data:{consulta:consulta,_token:_token},
+                success:function(data){
+                    console.log(data);
+                    let tagRegimen;
+                  
+                      $.each(data, function(index){
+                        tagRegimen =  '<ul class="dropdpwn-menu" aria-labelledby="dropdownMenuLink" style="display:block; position:relative;">'+
+                                      '<li id="desplegarRegimen" style="list-style:none">'+
+                                      '<a class="dropdown-item" href="#">'+
+                                      data.claveRegimen +
+                                      '&nbsp;' + data.descripcionRegimen +'&nbsp;'+
+                                      '</a>' + '</li>';
+
+                      });
+
+                }
+              });
+            }
+      });
+
+
   });
  
 </script>

@@ -5,6 +5,7 @@ use DB;
 use Session;
 use App\Empresa;
 use Carbon\Carbon;
+use App\RegimenFiscal;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Schema;

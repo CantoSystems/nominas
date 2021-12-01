@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use App\RegimenFiscal;
 use Illuminate\Http\Request;
 
@@ -166,6 +167,15 @@ class RegimenFiscalController extends Controller
         $regimen->save();
 
     }
+    public function muestraregimen(Request $request){
+        $criteriob= $request->get('consulta');
+
+        $resultado =  RegimenFiscal::where('claveRegimen','LIKE','%'.$criteriob.'%')
+                            ->orWhere('descripcionRegimen','LIKE','%'.$criteriob.'%')
+                            ->get();
+        return $resultado;
+        
+    }
 
     /**
      * Remove the specified resource from storage.
@@ -178,5 +188,14 @@ class RegimenFiscalController extends Controller
         $reg = RegimenFiscal::find($id);
         $reg->delete();
         return redirect()->route('regimen.index');
+    }
+
+
+    public function fechas(){
+        //$ffecha =  Carbon::now()->startOfMonth()->subMonth()->toDateString();
+        //$ffecha =  Carbon::now()->endOfMonth()->toDateString();
+        $end = new Carbon('last day of December');
+$lastDay = $end->format('Y-m-d');
+        return $lastDay;
     }
 }
