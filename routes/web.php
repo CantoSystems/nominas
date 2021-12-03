@@ -169,4 +169,6 @@ Route::delete('/prestamos/delete/{id}', 'PrestamosController@eliminar')->name('p
 
 //Aguinaldos
 Route::get('/aguinaldos', 'prenominaAguinaldo@index')->name('aguinaldosP.index');
+Route::get('/aguinaldos-excel3','prenominaAguinaldo@exportExcel')->name('aguinaldos.excel3');
 Route::post('/aguinaldos', 'prenominaAguinaldo@create')->name('aguinaldosP.create');
+Route::post('/aguinaldos/enviocontrolaguinaldo', 'prenominaAguinaldo@store')->name('aguinaldosP.store');

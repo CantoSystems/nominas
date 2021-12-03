@@ -6,7 +6,7 @@ use DB;
 use App\Empresa;
 use App\Umas;
 use App\SalarioMinimo;
-use App\Exports\PrenominaExport;
+use App\Exports\AguinaldoExport;
 use Session;
 use DataTables;
 use Carbon\Carbon;
@@ -121,7 +121,32 @@ class prenominaAguinaldo extends Controller{
             echo "Normal";
         }
         
-        return view('aguinaldosNomina.controlAguinaldos', compact('empleados','aguinaldoFinal','ISRRetenerFinal','clave'));
+        return compact('empleados','aguinaldoFinal','ISRRetenerFinal','clave');
+    }
+
+    public function store(Request $request){
+        if (empty($request->all())) {
+            return response()->json(["error" => "Sin data"]);
+        }
+
+        foreach ($request->only('info') as $value) {
+            $data = json_decode($value);
+        }
+
+        $periodo = Session::get('num_periodo');
+        $fecha_periodo = now();
+        
+        $clv = Session::get('clave_empresa');
+        $clv_empresa = $this->conectar($clv);
+        \Config::set('database.connections.DB_Serverr', $clv_empresa);
+
+        foreach ($data as $value) {
+            DB::connection('DB_Serverr')->insert('INSERT INTO prenomina_aguinaldo (noPrenomina, clave_empleado, clave_concepto, monto, status_prenomina, created_at, updated_at)
+                                                  VALUES(?,?,?,?,?,?,?)',[$periodo, $value->clvEmp, $value->concepto, $value->monto, 1, $fecha_periodo, $fecha_periodo]);
+        }
+
+        DB::connection('DB_Serverr')->insert('INSERT INTO prenomina_aguinaldo (noPrenomina, clave_empleado, clave_concepto, monto, status_prenomina, created_at, updated_at)
+                                              VALUES(?,?,?,?,?,?,?)',[$periodo, $request->clvEmp, '001S', $request->totalAguinaldo, 1, $fecha_periodo, $fecha_periodo]);
     }
 
     //Funciones para ayudar al cálculo del aguinaldo
@@ -145,10 +170,6 @@ class prenominaAguinaldo extends Controller{
 
         $alta = now()->parse($alta_trabajador->fecha_alta);
         $diferencia = $inicial->DiffInYears($alta);
-
-        /*if($diferencia == 0){
-            $diferencia = 1;
-        }*/
 
         return $diferencia;
     }
@@ -190,5 +211,9 @@ class prenominaAguinaldo extends Controller{
                     ->first();
 
         return $periodos;
+    }
+
+    public function exportExcel(){
+        return (new AguinaldoExport)->download('aguinaldos.xlsx');
     }
 }

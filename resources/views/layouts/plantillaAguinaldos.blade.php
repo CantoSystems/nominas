@@ -376,39 +376,99 @@
     <script src="{{asset('/script-personalizados/funcionamientoBotones.js')}}"></script>
     <!--Validaciones inputs mayusculas, números y letras-->
     <script src="{{asset('/script-personalizados/validacionesInput.js')}}"></script>
-    <!-- Scripts para Prenómina-->
+    <!-- Scripts para Aguinaldos-->
     <script>
-        $('.aguinaldo').on('click', function(){
-            $.ajax({
-                url:"{{ route('aguinaldosP.create') }}",
-                method: "POST",
-                data: {
-                    _token: $("meta[name='csrf-token']").attr("content"),
-                    clvEmp: $(this).closest('button').val(),
-                    calculoISR: $('#calculoISR').val(),
-                },
-                success: function(data){
-                  console.log(data);
-                  $('#modalbusquedaempAg').modal('hide');
-                  /*empclave = $('#extraerEmp').val();
-                  let htmlTags = '<tr>'+
-                                    '<td style="text-align: center;">' + data[0] + 
-                                    '<input type="hidden" class="clvCncpt" value="'+data[0]+'">'+
-                                    '</td>'+
-                                    '<td style="text-align: center;">' + data[1] +
-                                    '<input type="hidden" class="clvEmp" value="'+empclave+'">'+
-                                    '</td>'+
-                                    '<td style="text-align: center;">$ ' + data[2].toFixed(2) + 
-                                      '<input type="hidden" class="monto" value="'+ data[2].toFixed(2) +'">'+
-                                    '<input class="totales3" id="trabajadorIsr" type="hidden" value=" ' + data[2].toFixed(2) + ' ">'+
-                                    '</td>'+
-                                  '</tr>'
-                  $('#filasImpuestos tbody').append(htmlTags);*/
-                },
-                error: function(xhr, status, error) {
-                  var err = JSON.parse(xhr.responseText);
-                  console.log(err.Message);
-                }
-            });
+      $(document).ready(function(){
+        $('#divEmp').html('<h6 id="nombreEmp" class="card-title"><b>Empleado:</b> No ha seleccionado ningún empleado</h6>');
+      });
+
+      $('.aguinaldo').on('click', function(){
+        $.ajax({
+          url:"{{ route('aguinaldosP.create') }}",
+          method: "POST",
+          dataType: 'json',
+          data: {
+              _token: $("meta[name='csrf-token']").attr("content"),
+              clvEmp: $(this).closest('button').val(),
+              calculoISR: $('#calculoISR').val(),
+          },
+          success: function(data){
+            $('#modalbusquedaempAg').modal('hide');
+            $('#divEmp').html('<h6 id="nombreEmp" class="card-title"><b>Empleado:</b> '+data['clave']['nombre']+' '+data['clave']['apellido_paterno']+' '+data['clave']['apellido_materno']+'</h6>');
+            let htmlTags = '<tr>'+
+                              '<td style="text-align: center;">' + data['aguinaldoFinal'][0]['clave_concepto'] + 
+                                '<input type="hidden" class="datos clvCncpt" value="'+ data['aguinaldoFinal'][0]['clave_concepto'] +'">'+
+                              '</td>'+
+                              '<td style="text-align: center;">' + data['aguinaldoFinal'][0]['concepto'] +
+                                '<input type="hidden" class="datos clvEmp" value="'+ data['clave']['clave_empleado'] +'">'+
+                              '</td>'+
+                              '<td  style="text-align: center;">$ ' + data['aguinaldoFinal'][0]['monto'].toFixed(2) + 
+                                '<input type="hidden" class="datos monto" value="' + data['aguinaldoFinal'][0]['monto'].toFixed(2) +'">'+
+                              '</td>'+
+                            '</tr>'
+            $('#filasPercepciones tbody').append(htmlTags);
+            $(".totalPercepTrab").val(data['aguinaldoFinal'][0]['monto'].toFixed(2));
+
+            let htmlTags2 = '<tr>'+
+                              '<td style="text-align: center;">' + data['ISRRetenerFinal'][0]['clave_concepto'] + 
+                                '<input type="hidden" class="datos clvCncpt" value="'+ data['ISRRetenerFinal'][0]['clave_concepto'] +'">'+
+                              '</td>'+
+                              '<td style="text-align: center;">' + data['ISRRetenerFinal'][0]['concepto'] +
+                                '<input type="hidden" class="datos clvEmp" value="'+ data['clave']['clave_empleado'] +'">'+
+                              '</td>'+
+                              '<td  style="text-align: center;">$' + data['ISRRetenerFinal'][0]['monto'].toFixed(2) + 
+                                '<input type="hidden" class="datos monto" value="'+ data['ISRRetenerFinal'][0]['monto'].toFixed(2) +'">'+
+                              '</td>'+
+                            '</tr>'
+            $('#filasImpuestos tbody').append(htmlTags2);
+            $(".totalImpTrab").val(data['ISRRetenerFinal'][0]['monto'].toFixed(2));
+          },
+          error: function(xhr, status, error) {
+            var err = JSON.parse(xhr.responseText);
+            console.log(err.Message);
+          }
         });
+      });
+
+      $('#acciones').on('click', function(){
+        $('#filasPercepciones tbody tr').detach();
+        $('#filasImpuestos tbody tr').detach();
+        $(".totalImpTrab").val("");
+        $(".totalPercepTrab").val("");
+        $(".datos").val("");
+        $('#divEmp').html('<h6 id="nombreEmp" class="card-title"><b>Empleado:</b> No ha seleccionado ningún empleado</h6>');
+        $("#calculoISR").val("N/A");
+      });
+
+      $('#autorizar').click(function(e){
+        e.preventDefault();
+        let myTableControl = [];
+        document.querySelectorAll('.control tbody tr').forEach(function(e){
+          let fila = {
+            concepto:   e.querySelector('.clvCncpt').value,
+            monto:      e.querySelector('.monto').value,
+            clvEmp:     e.querySelector('.clvEmp').value,
+          };
+          myTableControl.push(fila);
+          //console.log(myTableControl);
+        });
+        let jsonString = JSON.stringify(myTableControl);
+        $.ajax({
+          url: "{{ route('aguinaldosP.store') }}",
+          method: "POST",
+          data: {
+            _token: $("meta[name='csrf-token']").attr("content"),
+            info : jsonString,
+            totalAguinaldo : $(".totalPercepTrab").val() - $(".totalImpTrab").val(),
+            clvEmp : $(".clvEmp").val(),
+          },
+          success: function(data){
+            console.log(data);
+          },
+          error: function(xhr, status, error) {
+            var err = JSON.parse(xhr.responseText);
+            console.log(err.Message);
+          }
+        });
+      });
     </script>
