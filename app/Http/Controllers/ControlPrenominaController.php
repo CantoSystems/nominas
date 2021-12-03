@@ -64,28 +64,21 @@
 
         $periodo = Session::get('num_periodo');
         $fecha_periodo = now();
-        //->toDateString();
         
         $clv = Session::get('clave_empresa');
         $clv_empresa = $this->conectar($clv);
         \Config::set('database.connections.DB_Serverr', $clv_empresa);
 
         foreach ($data as $value) {
-            DB::connection('DB_Serverr')->insert('INSERT INTO prenomina (noPrenomina,
-                                                                         clave_empleado,
-                                                                         clave_concepto,
-                                                                         monto,
-                                                                         status_prenomina,
-                                                                         created_at,
-                                                                         updated_at
-                                                                )values(?,?,?,?,?,?,?)',[$periodo,
-                                                                                            $value->clvEmp,
-                                                                                            $value->concepto,
-                                                                                            $value->monto,
-                                                                                            1,
-                                                                                            $fecha_periodo,
-                                                                                            $fecha_periodo]);
+            DB::connection('DB_Serverr')->insert('INSERT INTO prenomina (noPrenomina, clave_empleado, clave_concepto, monto, status_prenomina, created_at, updated_at)
+                                                  VALUES(?,?,?,?,?,?,?)',[$periodo, $value->clvEmp, $value->concepto, $value->monto, 1, $fecha_periodo, $fecha_periodo]);
         }
+        
+        DB::connection('DB_Serverr')->insert('INSERT INTO prenomina (noPrenomina, clave_empleado, clave_concepto, monto, status_prenomina, created_at, updated_at)
+                                              VALUES(?,?,?,?,?,?,?)',[$periodo, $request->clvEmp, '01OC', $request->totalGrav, 1, $fecha_periodo, $fecha_periodo]);
+
+        DB::connection('DB_Serverr')->insert('INSERT INTO prenomina (noPrenomina, clave_empleado, clave_concepto, monto, status_prenomina, created_at, updated_at)
+                                              VALUES(?,?,?,?,?,?,?)',[$periodo, $request->clvEmp, '02OC', $request->totalExc, 1, $fecha_periodo, $fecha_periodo]);
     }
 
     public function calcularImpuestos(Request $request){
@@ -346,7 +339,6 @@
             foreach($conceptos as $concep){
                 if($concep->clave_concepto == "001P"){
                     $resultaSueldo = $this->sueldo($emp->id_emp,$emp->clave_empleado);
-                    //$resultaSueldoBruto = $this->sueldoBruto($emp->id_emp,$emp->clave_empleado);
                     if($resultaSueldo != 0){
                         $Gravado = $resultaSueldo;
                         $Excento = 0;

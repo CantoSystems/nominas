@@ -332,7 +332,10 @@ class EmpresaController extends Controller{
             ["clave_concepto" => "02TD", "concepto" => "TOTAL DEDUCCIONES", "formula" => NULL, "tipo" => "TD","manejo" => "fijo", "cantidad" =>  NULL, "importe" =>  NULL,"monto" => NULL,"isr" => 0, "imss" => 0, "infonavit" => 0,"estatal" => 0,"isr_uma" => 0.00,"isr_porcentaje" => 0.00, "imss_uma" => 0.00,"imss_porcentaje" => 0.00, "seleccionado" => 1],
             ["clave_concepto" => "03TI", "concepto" => "TOTAL IMPUESTOS PATRON", "formula" => NULL, "tipo" => "TI","manejo" => "fijo", "cantidad" =>  NULL, "importe" =>  NULL,"monto" => NULL,"isr" => 0, "imss" => 0, "infonavit" => 0,"estatal" => 0,"isr_uma" => 0.00,"isr_porcentaje" => 0.00, "imss_uma" => 0.00,"imss_porcentaje" => 0.00, "seleccionado" => 1],
             ["clave_concepto" => "04TT", "concepto" => "TOTAL IMPUESTOS TRABAJADOR", "formula" => NULL, "tipo" => "TT","manejo" => "fijo", "cantidad" =>  NULL, "importe" =>  NULL,"monto" => NULL,"isr" => 0, "imss" => 0, "infonavit" => 0,"estatal" => 0,"isr_uma" => 0.00,"isr_porcentaje" => 0.00, "imss_uma" => 0.00,"imss_porcentaje" => 0.00, "seleccionado" => 1],
+            ["clave_concepto" => "01OC", "concepto" => "INGRESOS GRAVADOS", "formula" => NULL, "tipo" => "OC","manejo" => "fijo", "cantidad" =>  NULL, "importe" =>  NULL,"monto" => NULL,"isr" => 0, "imss" => 0, "infonavit" => 0,"estatal" => 0,"isr_uma" => 0.00,"isr_porcentaje" => 0.00, "imss_uma" => 0.00,"imss_porcentaje" => 0.00, "seleccionado" => 1],
+            ["clave_concepto" => "02OC", "concepto" => "INGRESOS EXENTOS", "formula" => NULL, "tipo" => "OC","manejo" => "fijo", "cantidad" =>  NULL, "importe" =>  NULL,"monto" => NULL,"isr" => 0, "imss" => 0, "infonavit" => 0,"estatal" => 0,"isr_uma" => 0.00,"isr_porcentaje" => 0.00, "imss_uma" => 0.00,"imss_porcentaje" => 0.00, "seleccionado" => 1],
         ]);
+        
         $fecha_periodo = now()->toDateString();
         foreach($conceptos as $con){
             DB::connection('DB_Serverr')->insert('insert into conceptos 
