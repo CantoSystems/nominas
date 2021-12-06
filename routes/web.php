@@ -167,32 +167,6 @@ Route::get('/verPrestamos', 'PrestamosController@show')->name('prestamos.show');
 Route::post('/prestamos/enviodata', 'PrestamosController@store')->name('prestamos.store');
 Route::delete('/prestamos/delete/{id}', 'PrestamosController@eliminar')->name('prestamos.destroy');
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 //Régimen Fiscal
 Route::get('/regimen','RegimenFiscalController@index')->name('regimen.index');
 Route::post('/regimen/busqueda','RegimenFiscalController@muestraregimen')->name('regimen.autocomplete');
@@ -200,5 +174,9 @@ Route::get('/regimen/visualizar/{id}','RegimenFiscalController@show')->name('reg
 Route::delete('/regimen/{id}','RegimenFiscalController@destroy')->name('regimen.destroy');
 
 //Route::post('/regimen-fiscal','RegimenFiscalController@store')->name('regimen.store');
+
 //Aguinaldos
 Route::get('/aguinaldos', 'prenominaAguinaldo@index')->name('aguinaldosP.index');
+Route::get('/aguinaldos-excel3','prenominaAguinaldo@exportExcel')->name('aguinaldos.excel3');
+Route::post('/aguinaldos', 'prenominaAguinaldo@create')->name('aguinaldosP.create');
+Route::post('/aguinaldos/enviocontrolaguinaldo', 'prenominaAguinaldo@store')->name('aguinaldosP.store');

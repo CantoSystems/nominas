@@ -15,7 +15,7 @@
                         <div class="col">
                             @can('administrador')
                                 <a data-target="#modalbusquedaemp" data-toggle="modal">
-                                    <button type="submit" name="acciones" value="mostrar"  style='width: 65px; height: 38px'>
+                                    <button type="submit" name="acciones" value="mostrar" style='width: 65px; height: 38px'>
                                         <i class="far fa-eye"></i>
                                     </button>
                                 </a>
@@ -23,7 +23,7 @@
                             @endcan
                         </div>
                         <div class="col">
-                            <button type="submit" id="autorizar"style='width:125px; height:38px;'>Autorizar Nómina</button>
+                            <button type="submit" id="autorizar" style='width:125px; height:38px;'>Autorizar Nómina</button>
                         </div>
                         <div class="col">
                             <form action="{{ route('control.excel3') }}">
@@ -128,7 +128,7 @@
                                             <td colspan="2" style="text-align: right; valign: middle;">Total: </td>
                                             <td style="width: 42%;">
                                                 <input type="hidden" class="form-control conceptoPercepciones clvCncpt">
-                                                <input type="hidden"  class="clvEmp" value="{{ $clave->clave_empleado ?? ''}}">
+                                                <input type="hidden" class="clvEmp" value="{{ $clave->clave_empleado ?? ''}}">
                                                 <input type="number" step=".01" disabled class="form-control monto totalPercepciones">
                                                 <input type="hidden" step=".01" class="totalPercepcionesGravadas">
                                                 <input type="hidden" step=".01" class="totalPercepcionesExcentas">
