@@ -324,6 +324,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
 
   //Funcion autocomplementado de regimen para empresas
+  //Llenado del listado de la consulta de Regimen
       $('.obtenerRegimen').keyup(function(){
           let consulta = $(this).val();
           //console.log(consulta);
@@ -334,25 +335,32 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 method: "POST",
                 data:{consulta:consulta,_token:_token},
                 success:function(data){
-                    console.log(data);
+                    //console.log(data);
                     let tagRegimen;
-                  
+          
                       $.each(data, function(index){
                         tagRegimen =  '<ul class="dropdpwn-menu" aria-labelledby="dropdownMenuLink" style="display:block; position:relative;">'+
-                                      '<li id="desplegarRegimen" style="list-style:none">'+
+                                      '<li class="desplegarRegimen" style="list-style:none">'+
                                       '<a class="dropdown-item" href="#">'+
-                                      data.claveRegimen +
-                                      '&nbsp;' + data.descripcionRegimen +'&nbsp;'+
+                                      data[index].claveRegimen +
+                                      '&nbsp;' + data[index].descripcionRegimen +'&nbsp;'+
                                       '</a>' + '</li>';
-
+                        $('#listadoRegimen').fadeIn();
+                        $('#listadoRegimen').append(tagRegimen);
                       });
-
                 }
               });
             }
       });
 
 
+      $(document).on('click','.desplegarRegimen',function(){
+        let infoRegimen = $(this).text();
+        let fiscalClave = infoRegimen.substring(0,3);
+        console.log(fiscalClave);
+        $('.obtenerRegimen').val(fiscalClave);
+        $('#listadoRegimen').fadeOut();
+      });
   });
  
 </script>

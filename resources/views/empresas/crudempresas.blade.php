@@ -500,6 +500,9 @@
                                 </div>
                             @enderror
                         @endif
+                        <div id="listadoRegimen">
+
+                        </div>
                     </div>
                 </div>
                 <div class="col-sm-3">
