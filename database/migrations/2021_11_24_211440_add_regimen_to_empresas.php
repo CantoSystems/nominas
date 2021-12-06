@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateRegimenFiscalsTable extends Migration
+class AddRegimenToEmpresas extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,9 @@ class CreateRegimenFiscalsTable extends Migration
      */
     public function up()
     {
-        Schema::create('regimen_fiscals', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->string('claveRegimen',3);
-            $table->string('descripcionRegimen',150);
-            $table->timestamps();
+        Schema::table('empresas', function (Blueprint $table) {
+            $table->unsignedBigInteger('regimen_id');
+            $table->foreign('regimen_id')->references('id')->on('regimen_fiscals');
         });
     }
 
@@ -28,6 +26,8 @@ class CreateRegimenFiscalsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('regimen_fiscals');
+        Schema::table('empresas', function (Blueprint $table) {
+            //
+        });
     }
 }

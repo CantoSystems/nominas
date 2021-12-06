@@ -405,6 +405,7 @@
       $('#listaconcepto_clave').fadeOut();
       $('#nomConcepto').val(nombreConcepto);
     });
+    
     $('.clave_empledo').keyup(function(){
       let query = $(this).val();  
         if(query != ''){

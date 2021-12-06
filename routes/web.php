@@ -8,7 +8,7 @@ Route::get('/', function () {
 });
 
 Auth::routes();
-
+Route::get('/prueba-fechas','RegimenFiscalController@fechas');
 Route::get('home', 'HomeController@index')->name('home');
 
 Route::delete('empresa/{id}', 'EmpresaController@destroy')->name('empresas.destroy');
@@ -169,8 +169,10 @@ Route::delete('/prestamos/delete/{id}', 'PrestamosController@eliminar')->name('p
 
 //Régimen Fiscal
 Route::get('/regimen','RegimenFiscalController@index')->name('regimen.index');
+Route::post('/regimen/busqueda','RegimenFiscalController@muestraregimen')->name('regimen.autocomplete');
 Route::get('/regimen/visualizar/{id}','RegimenFiscalController@show')->name('regimen.show');
 Route::delete('/regimen/{id}','RegimenFiscalController@destroy')->name('regimen.destroy');
+
 //Route::post('/regimen-fiscal','RegimenFiscalController@store')->name('regimen.store');
 
 //Aguinaldos

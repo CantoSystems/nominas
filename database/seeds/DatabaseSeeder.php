@@ -20,6 +20,7 @@ class DatabaseSeeder extends Seeder
             UmaSeeder::class,
             BancoSeeder::class,
             PrestacionesImssSeeder::class,
+            RegimenSeeder::class,
         ]);
        
     }

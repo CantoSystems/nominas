@@ -11,6 +11,7 @@
             </div>
         @endif
         <form action="{{ route('nominas.empresas')}}" method="GET" autocomplete="off">
+            <meta name="csrf-token" content="{{ csrf_token() }}">
     		<div class="row">
     			<div class="col-sm-4">
                     <div class="form-group">
@@ -483,42 +484,25 @@
                 </div>
                 <div class="col-sm-3">
                     <div class="form-group">
-                        <label>Clave del SAT:</label>
-                        @if(isset($empresa))
-                            <input type="text" name="claveSat" class="form-control" value="{{ $empresa->claveSat }}">
-                            @error('claveSat')
-                                <div class="alert alert-secondary">
-                                    {{ $message }}
-                                </div>
-                            @enderror
-                        @else
-                            <input type="text" name="claveSat" class="form-control">
-                            @error('claveSat')
-                                <div class="alert alert-secondary">
-                                    {{ $message }}
-                                </div>
-                            @enderror
-                        @endif
-                    </div>
-                </div>
-                <div class="col-sm-3">
-                    <div class="form-group">
                         <label>Regimen Fiscal:</label>
                         @if(isset($empresa))
-                            <input type="text" name="regimenFiscal" class="form-control" value="{{ $empresa->regimenFiscal }}">
+                            <input type="text" name="regimenFiscal" class="form-control obtenerRegimen" value="{{ $empresa->regimenFiscal }}">
                             @error('regimenFiscal')
                                 <div class="alert alert-secondary">
                                     {{ $message }}
                                 </div>
                             @enderror
                         @else
-                            <input type="text" name="regimenFiscal" class="form-control">
+                            <input type="text" name="regimenFiscal" class="form-control obtenerRegimen">
                             @error('regimenFiscal')
                                 <div class="alert alert-secondary">
                                     {{ $message }}
                                 </div>
                             @enderror
                         @endif
+                        <div id="listadoRegimen">
+
+                        </div>
                     </div>
                 </div>
                 <div class="col-sm-3">
