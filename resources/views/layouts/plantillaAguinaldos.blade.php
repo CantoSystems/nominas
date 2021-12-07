@@ -396,18 +396,18 @@
             $('#modalbusquedaempAg').modal('hide');
             $('#divEmp').html('<h6 id="nombreEmp" class="card-title"><b>Empleado:</b> '+data['clave']['nombre']+' '+data['clave']['apellido_paterno']+' '+data['clave']['apellido_materno']+'</h6>');
             let htmlTags = '<tr>'+
-                              '<td style="text-align: center;">' + data['aguinaldoFinal'][0]['clave_concepto'] + 
-                                '<input type="hidden" class="datos clvCncpt" value="'+ data['aguinaldoFinal'][0]['clave_concepto'] +'">'+
+                              '<td style="text-align: center;">' + data['aguinaldo'][0]['clave_concepto'] + 
+                                '<input type="hidden" class="datos clvCncpt" value="'+ data['aguinaldo'][0]['clave_concepto'] +'">'+
                               '</td>'+
-                              '<td style="text-align: center;">' + data['aguinaldoFinal'][0]['concepto'] +
+                              '<td style="text-align: center;">' + data['aguinaldo'][0]['concepto'] +
                                 '<input type="hidden" class="datos clvEmp" value="'+ data['clave']['clave_empleado'] +'">'+
                               '</td>'+
-                              '<td  style="text-align: center;">$ ' + data['aguinaldoFinal'][0]['monto'].toFixed(2) + 
-                                '<input type="hidden" class="datos monto" value="' + data['aguinaldoFinal'][0]['monto'].toFixed(2) +'">'+
+                              '<td  style="text-align: center;">$ ' + data['aguinaldo'][0]['monto'].toFixed(2) + 
+                                '<input type="hidden" class="datos monto" value="' + data['aguinaldo'][0]['monto'].toFixed(2) +'">'+
                               '</td>'+
                             '</tr>'
             $('#filasPercepciones tbody').append(htmlTags);
-            $(".totalPercepTrab").val(data['aguinaldoFinal'][0]['monto'].toFixed(2));
+            $(".totalPercepTrab").val(data['aguinaldo'][0]['monto'].toFixed(2));
 
             let htmlTags2 = '<tr>'+
                               '<td style="text-align: center;">' + data['ISRRetenerFinal'][0]['clave_concepto'] + 
@@ -422,6 +422,20 @@
                             '</tr>'
             $('#filasImpuestos tbody').append(htmlTags2);
             $(".totalImpTrab").val(data['ISRRetenerFinal'][0]['monto'].toFixed(2));
+
+            let htmlTags3 = '<tr>'+
+                              '<td style="text-align: center;">' + data['aguinaldoFinal'][0]['clave_concepto'] + 
+                                '<input type="hidden" class="datos clvCncpt" value="'+ data['aguinaldoFinal'][0]['clave_concepto'] +'">'+
+                              '</td>'+
+                              '<td style="text-align: center;">' + data['aguinaldoFinal'][0]['concepto'] +
+                                '<input type="hidden" class="datos clvEmp" value="'+ data['clave']['clave_empleado'] +'">'+
+                              '</td>'+
+                              '<td  style="text-align: center;">$ ' + data['aguinaldoFinal'][0]['monto'].toFixed(2) + 
+                                '<input type="hidden" class="datos monto" value="' + data['aguinaldoFinal'][0]['monto'].toFixed(2) +'">'+
+                              '</td>'+
+                            '</tr>'
+            $('#filasTotales tbody').append(htmlTags3);
+            $(".totalSueldoNeto").val(data['aguinaldoFinal'][0]['monto'].toFixed(2));
           },
           error: function(xhr, status, error) {
             var err = JSON.parse(xhr.responseText);
@@ -433,11 +447,13 @@
       $('#acciones').on('click', function(){
         $('#filasPercepciones tbody tr').detach();
         $('#filasImpuestos tbody tr').detach();
+        $('#filasTotales tbody tr').detach();
         $(".totalImpTrab").val("");
         $(".totalPercepTrab").val("");
+        $(".totalSueldoNeto").val("");
         $(".datos").val("");
-        $('#divEmp').html('<h6 id="nombreEmp" class="card-title"><b>Empleado:</b> No ha seleccionado ningún empleado</h6>');
         $("#calculoISR").val("N/A");
+        $('#divEmp').html('<h6 id="nombreEmp" class="card-title"><b>Empleado:</b> No ha seleccionado ningún empleado</h6>');
       });
 
       $('#autorizar').click(function(e){
@@ -450,7 +466,6 @@
             clvEmp:     e.querySelector('.clvEmp').value,
           };
           myTableControl.push(fila);
-          //console.log(myTableControl);
         });
         let jsonString = JSON.stringify(myTableControl);
         $.ajax({
