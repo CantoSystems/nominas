@@ -34,8 +34,7 @@
                         </div>
                     </div>
                     <br>
-                    <div id="divEmp" class="card-header" style="background-color:darkgrey;padding:6px 6px 6px 6px; color:white">
-                    </div>
+                    <div id="divEmp" class="card-header" style="background-color:darkgrey;padding:6px 6px 6px 6px; color:white"></div>
                     <div class="card-body">
                         <div class="row" >
                             <div class="col-sm-6">
@@ -97,13 +96,13 @@
                                 </table>
                             </div>
                         </div>
-                        <!--<div class="row">
+                        <div class="row">
                             <div class = "col-sm-6"></div>
                             <div class = "col-sm-6">
-                                <table class="table table-hover">
+                                <table id="filasTotales" name="filasTotales" class="table table-hover control">
                                     <thead class="thead-light">
                                         <tr>
-                                            <th scope="col" colspan="3" style="text-align: center;">Impuestos del Patrón</th>
+                                            <th scope="col" colspan="3" style="text-align: center;">Totales</th>
                                         </tr>
                                         <tr>
                                             <th scope="col" style="text-align: center;">Clave</th>
@@ -114,10 +113,23 @@
                                     <tbody>
                                     </tbody>
                                 </table>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6"></div>
+                            <div class="col-sm-6">
                                 <table class="table table-hover">
+                                    <tbody>
+                                        <tr>
+                                            <td colspan="2" style="text-align: right; valign: middle;">Total: </td>
+                                            <td style="width: 42%;">
+                                                <input type="number" style="text-align: right; font-weight: bold;" step=".01" disabled class="form-control totalSueldoNeto">
+                                            </td>
+                                        </tr>
+                                    </tbody>
                                 </table>
                             </div>
-                        </div>-->
+                        </div>
                     </div>   
                 </form>
             </div>
