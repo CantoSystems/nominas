@@ -41,6 +41,11 @@
                             @else
                                 No ha seleccionado ningun empleado
                             @endif
+                            @if(session()->has('uma'))
+                            <div class="alert alert-danger" role="alert">
+                                {{ session('uma')}}
+                            </div>
+                        @endif
                         </h6>
                     </div>
                     <div class="card-body">

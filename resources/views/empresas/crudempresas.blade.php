@@ -24,7 +24,7 @@
                                 </div>
                             @enderror
                         @else
-                            <input type="text" name="nombre"  class="form-control" value="" onkeyup="mayus(this)"; onkeypress="return validar(event)">
+                            <input type="text" name="nombre"  class="form-control" onkeyup="mayus(this)"; onkeypress="return validar(event)">
                             @error('nombre')
                                 <div class="alert alert-secondary">
                                     {{ $message }}
@@ -158,14 +158,14 @@
                     <div class="form-group">
                         <label>Número exterior:</label>
                         @if(isset($empresa))
-                            <input type="text" name="num_externo" maxlength="20" class="form-control" value="{{$empresa->num_externo}}" onkeypress="return numeros(event)">
+                            <input type="text" name="num_externo" maxlength="40" class="form-control" value="{{$empresa->num_externo}}" onkeyup="mayus(this)";>
                             @error('num_externo')
                                 <div class="alert alert-secondary">
                                     {{ $message }}
                                 </div>
                             @enderror
                         @else
-                            <input type="text" name="num_externo" maxlength="20" class="form-control" value="" onkeypress="return numeros(event)">
+                            <input type="text" name="num_externo" maxlength="40" class="form-control" onkeyup="mayus(this)";>
                             @error('num_externo')
                                 <div class="alert alert-secondary">
                                     {{ $message }}
@@ -178,9 +178,9 @@
                     <div class="form-group">
                         <label>Número interior:</label>
                         @if(isset($empresa))
-                            <input type="text" name="num_interno" maxlength="20" class="form-control" value="{{$empresa->num_interno}}">
+                            <input type="text" name="num_interno" maxlength="40" class="form-control" value="{{$empresa->num_interno}}" onkeyup="mayus(this)";>
                         @else
-                            <input type="text" name="num_interno" maxlength="20" class="form-control" >
+                            <input type="text" name="num_interno" maxlength="40" class="form-control" onkeyup="mayus(this)";>
                         @endif
                     </div>
                 </div>
@@ -486,7 +486,7 @@
                     <div class="form-group">
                         <label>Regimen Fiscal:</label>
                         @if(isset($empresa))
-                            <input type="text" name="regimenFiscal" class="form-control obtenerRegimen" value="{{ $empresa->regimenFiscal }}">
+                            <input type="text" name="regimenFiscal" class="form-control obtenerRegimen" value="{{ $empresa->claveRegimen }}">
                             @error('regimenFiscal')
                                 <div class="alert alert-secondary">
                                     {{ $message }}
@@ -509,7 +509,7 @@
                     <div class="form-group">
                         <label>CURP Representante Legal:</label>
                         @if(isset($empresa))
-                            <input type="text" name="curpRepresentante" class="form-control" value="{{ $empresa->curpRepresente }}" >
+                            <input type="text" name="curpRepresentante" class="form-control" value="{{ $empresa->curpRepresentante}}" >
                             @error('curpRepresentante')
                             <div class="alert alert-secondary">
                                 {{ $message }}

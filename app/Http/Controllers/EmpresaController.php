@@ -40,21 +40,28 @@ class EmpresaController extends Controller{
     public function acciones(Request $request){
      $accion= $request->acciones;
      $clv=$request->clave;
+     
         switch ($accion) {
             case '':
-                $empresa = Empresa::first();
+                $empresa = Empresa::select('empresas.*','regimen_fiscals.claveRegimen')
+                                    ->join('regimen_fiscals','empresas.regimen_id','=','regimen_fiscals.id')
+                                    ->first();
                 $nominas = Empresa::all();
                 return view('empresas.crudempresas', compact('empresa','nominas'));
             break;
             case 'atras':
                 $emp= Empresa::where('clave',$clv)->first();
                 $indic= $emp->id;
-                $empresa= Empresa::where('id','<',$indic)
-                    ->orderBy('id','desc')
-                    ->first();
+                $empresa= Empresa::select('empresas.*','regimen_fiscals.claveRegimen')
+                                    ->join('regimen_fiscals','empresas.regimen_id','=','regimen_fiscals.id')
+                                    ->where('empresas.id','<',$indic)
+                                    ->orderBy('empresas.id','desc')
+                                    ->first();
 
                 if($empresa==""){
-                    $empresa= Empresa::get()->last();
+                    $empresa= Empresa::select('empresas.*','regimen_fiscals.claveRegimen')
+                                    ->join('regimen_fiscals','empresas.regimen_id','=','regimen_fiscals.id')
+                                    ->get()->last();
                 }
 
                 $nominas = Empresa::all();
@@ -63,20 +70,28 @@ class EmpresaController extends Controller{
             case 'siguiente':
                 $emp= Empresa::where('clave',$clv)->first();
                 $indic= $emp->id;
-                $empresa= Empresa::where('id','>',$indic)->first();
-                if($empresa==""){
-                   $empresa= Empresa::first();
+                $empresa= Empresa::select('empresas.*','regimen_fiscals.claveRegimen')
+                            ->join('regimen_fiscals','empresas.regimen_id','=','regimen_fiscals.id')
+                            ->where('empresas.id','>',$indic)->first();
+                if(is_null($empresa)){
+                   $empresa= Empresa::select('empresas.*','regimen_fiscals.claveRegimen')
+                                    ->join('regimen_fiscals','empresas.regimen_id','=','regimen_fiscals.id')
+                                    ->first();
                 }
                 $nominas = Empresa::all();
                 return view('empresas.crudempresas', compact('empresa','nominas'));
             break;
             case 'primero':
-                $empresa= Empresa::first();
+                $empresa= Empresa::select('empresas.*','regimen_fiscals.claveRegimen')
+                                ->join('regimen_fiscals','empresas.regimen_id','=','regimen_fiscals.id')
+                                ->first();
                 $nominas = Empresa::all();
                 return view('empresas.crudempresas', compact('empresa','nominas'));
             break;
             case 'ultimo':
-                $empresa= Empresa::get()->last();
+                $empresa= Empresa::select('empresas.*','regimen_fiscals.claveRegimen')
+                                ->join('regimen_fiscals','empresas.regimen_id','=','regimen_fiscals.id')
+                                ->get()->last();
                 $nominas = Empresa::all();
                 return view('empresas.crudempresas', compact('empresa','nominas'));
             break;
@@ -107,6 +122,12 @@ class EmpresaController extends Controller{
     *@param $datos | Array
     */
     public function actualizar($datos){
+
+        $fiscalClave =  RegimenFiscal::select('id')
+                            ->where('claveRegimen','=',$datos->regimenFiscal)
+                            ->first();
+
+
         $emp = Empresa::where('clave',$datos->clave)->first();
         $emp->nombre= $datos->nombre;
         $emp->nombre_nomina= $datos->nombre_nomina;
@@ -130,6 +151,8 @@ class EmpresaController extends Controller{
         $emp->region = $datos->regionEmpresa;
         $emp->primaRiesgo = $datos->primaRiesgo;
         $emp->porcentajeAhorro = $datos->porcentajeAhorro;
+        $emp->regimen_id = $fiscalClave->id;
+        $emp->curpRepresentante = $datos->curpRepresentante;
         $emp ->save();
     }
 
@@ -169,6 +192,11 @@ class EmpresaController extends Controller{
               'porcentajeAhorro' => 'required',
         ]);
 
+        $fiscalClave =  RegimenFiscal::select('id')
+                            ->where('claveRegimen','=',$datos->regimenFiscal)
+                            ->first();
+
+
         $empresa = new Empresa;
         $empresa->rfc = $datos->rfc;
         $empresa->clave = $datos->clave;
@@ -194,8 +222,7 @@ class EmpresaController extends Controller{
         $empresa->region = $datos->regionEmpresa;
         $empresa->primaRiesgo = $datos->primaRiesgo;
         $empresa->porcentajeAhorro = $datos->porcentajeAhorro;
-        $empresa->claveSat = $datos->claveSat;
-        $empresa->regimenFiscal = $datos->regimenFiscal;
+        $empresa->regimen_id = $fiscalClave->id;
         $empresa->curpRepresentante = $datos->curpRepresentante;
         $empresa->save();
         
@@ -335,6 +362,7 @@ class EmpresaController extends Controller{
             ["clave_concepto" => "04TT", "concepto" => "TOTAL IMPUESTOS TRABAJADOR", "formula" => NULL, "tipo" => "TT","manejo" => "fijo", "cantidad" =>  NULL, "importe" =>  NULL,"monto" => NULL,"isr" => 0, "imss" => 0, "infonavit" => 0,"estatal" => 0,"isr_uma" => 0.00,"isr_porcentaje" => 0.00, "imss_uma" => 0.00,"imss_porcentaje" => 0.00, "seleccionado" => 1],
             ["clave_concepto" => "01OC", "concepto" => "INGRESOS GRAVADOS", "formula" => NULL, "tipo" => "OC","manejo" => "fijo", "cantidad" =>  NULL, "importe" =>  NULL,"monto" => NULL,"isr" => 0, "imss" => 0, "infonavit" => 0,"estatal" => 0,"isr_uma" => 0.00,"isr_porcentaje" => 0.00, "imss_uma" => 0.00,"imss_porcentaje" => 0.00, "seleccionado" => 1],
             ["clave_concepto" => "02OC", "concepto" => "INGRESOS EXENTOS", "formula" => NULL, "tipo" => "OC","manejo" => "fijo", "cantidad" =>  NULL, "importe" =>  NULL,"monto" => NULL,"isr" => 0, "imss" => 0, "infonavit" => 0,"estatal" => 0,"isr_uma" => 0.00,"isr_porcentaje" => 0.00, "imss_uma" => 0.00,"imss_porcentaje" => 0.00, "seleccionado" => 1],
+            ["clave_concepto" => "001I", "concepto" => "IMPUESTO ESTATAL", "formula" => NULL,"tipo" =>  "I", "manejo" => "fijo","cantidad" => NULL,"importe" => NULL,"monto" => NULL,"isr" => 0,"imss" => 0, "infonavit" => 0,"estatal" =>  0,"isr_uma" => 0.00, "isr_porcentaje" => 0.00,"imss_uma" => 0.00,"imss_porcentaje" => 0.00, "seleccionado" => 1],
         ]);
         
         $fecha_periodo = now()->toDateString();
@@ -730,7 +758,10 @@ class EmpresaController extends Controller{
     }
 
     public function show($id){
-        $empresa = Empresa::find($id);
+        $empresa = Empresa::select('empresas.*','regimen_fiscals.claveRegimen')
+                            ->join('regimen_fiscals','empresas.regimen_id','=','regimen_fiscals.id')
+                            ->where('empresas.id','=',$id)
+                            ->first();
         $nominas = Empresa::all();
         return view('empresas.crudempresas', compact('empresa','nominas'));
     }
