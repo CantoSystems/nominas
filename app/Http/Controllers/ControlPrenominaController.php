@@ -407,6 +407,10 @@
                     $resultaPrimaVacacional = $this->primaVacacional($emp->id_emp,$emp->clave_empleado);
                     if($resultaPrimaVacacional != 0){
                         $uma = $this->uma();
+                        if(is_null($uma)){
+                            return back()->with('uma','El valor de "uma" no esta actualizado');
+                        }
+
                         $limite = $uma->porcentaje_uma*15;
                         if($resultaPrimaVacacional < $limite){
                             $Gravado = 0;
