@@ -376,162 +376,116 @@
     <script src="{{asset('/script-personalizados/funcionamientoBotones.js')}}"></script>
     <!--Validaciones inputs mayusculas, números y letras-->
     <script src="{{asset('/script-personalizados/validacionesInput.js')}}"></script>
-    
-    <!--AUTOcOMPLEMENTADO-->
+    <!-- Scripts para Aguinaldos-->
     <script>
-     $(document).ready(function(){ 
-    //Scripts para Autocomplete empleados y conceptos
-    $('#concepto_clave').keyup(function(){
-      let consulta = $(this).val();  
-        if(consulta != ''){
-          let _token = $('input[name="_token"]').val();
-          $.ajax({
-            url:"{{ route('ausentismo.mostrarconcepto') }}",
-            method: "POST",
-            data:{consulta:consulta,_token:_token},
-            success:function(data){
-              $('#listaconcepto_clave').fadeIn();
-              $('#listaconcepto_clave').html(data);
-            }
-          });
-        }
-    });
-
-    $(document).on('click','#concepto',function(){
-      let infoconcepto = $(this).text();
-      let concep = infoconcepto.substring(0,4);
-      let nombreConcepto = infoconcepto.substring(4);
-      $('#concepto_clave').val(concep);
-      $('#listaconcepto_clave').fadeOut();
-      $('#nomConcepto').val(nombreConcepto);
-    });
-    $('.clave_empledo').keyup(function(){
-      let query = $(this).val();  
-        if(query != ''){
-          let _token = $('input[name="_token"]').val();
-          $.ajax({
-            url:"{{ route('ausentismo.mostrarempleado') }}",
-            method: "POST",
-            data:{query:query,_token:_token},
-            success:function(data){
-              $('.listaclave_empleado').fadeIn();
-              $('.listaclave_empleado').html(data);
-              let sueldo = $("#sueldoDiario").val();
-              
-              $(document).on('click','#concepto',function(){
-                let info_concepto = $(this).text();
-                let concep_clave = info_concepto.substring(0,4);
-                if(concep_clave == "013P"){
-                  $("#importe_incidencias").val(sueldo);
-                }else{
-                  $("#importe_incidencias").val(0);
-                }
-              });
-            }
-          });
-        }
-    });
-
-    $(document).on('click','#empleado',function(){
-      let infoempleado = $(this).text();
-      let empleado_nombre = infoempleado.substring(4);
-      let empleado_clave = infoempleado.substring(0,4);
-      $('.clave_empledo').val(empleado_clave);
-      $('.listaclave_empleado').fadeOut();
-      $('.nombre_empleado').val(empleado_nombre);
-    });
-
-    $('#can_incidencia').keyup(function(){
-      Cantidad = $('#can_incidencia').val();
-      Importe = $('#importe_incidencias').val();
-      $('#monto_incidencias').val(Cantidad*Importe);
-    });
-
-    $(document).on('click', '.borrar_ausencia', function (event) {
-      event.preventDefault();
-      $(this).closest('tr').remove();
-      let fecha = new Date(); //Fecha actual
-      let mes = fecha.getMonth()+1; //obteniendo mes
-      let dia = fecha.getDate()-1; //obteniendo dia
-      let ano = fecha.getFullYear(); //obteniendo año
-      if(dia<10)
-        dia='0'+dia; //agrega cero si el menor de 10
-      if(mes<10)
-        mes='0'+mes //agrega cero si el menor de 10
-      document.getElementById('fecha_ausentismo').value=ano+"-"+mes+"-"+dia;
-    });
-
-    let i = 1;
-      $('#agregar_ausencia').click(function(e){
-        i++;
-        e.preventDefault();
-        let clave_empledo = $('#clave_empledo').val();
-        let nombre = $('#nombre').val();
-        let cantidad_ausentismo = $('#cantidad_ausentismo').val();
-        let concepto_clave = $('#concepto_clave').val();
-        let fecha_ausentismo = $('#fecha_ausentismo').val();
-        fecha_ausentismo = fecha_ausentismo.split("-").reverse().join("/");
-        let incapacidad_ausencia = $('#incapacidad_ausencia').val();
-        let descripcion = $('#descripcion').val();
-
-        if(clave_empledo!="" && nombre!="" && cantidad_ausentismo!="" && concepto_clave!="" && fecha_ausentismo!="" && descripcion!=""){
-          let htmlTags = '<tr>'+
-                            '<td class="empleado">' + clave_empledo + '</td>'+
-                            '<td class="ausentismo">' + cantidad_ausentismo + '</td>'+
-                            '<td class="concepto">' + concepto_clave + '</td>'+
-                            '<td class="fecha">' + fecha_ausentismo + '</td>'+
-                            '<td class="incapacidad">' + incapacidad_ausencia + '</td>'+
-                            '<td class="descripcion">' + descripcion + '</td>'+
-                            '<td class="elimina" style="text-align: center; width:40px; height:25px;"><button class="borrar_ausencia" type="button" style="width:40px; height:25px"><i class="far fa-trash-alt"></i></button></td>'+
-                          '</tr>'
-          $('#example13 tbody').append(htmlTags);
-          $('input[type="text"]').val('');
-          $('input[type="date"]').val('');
-          $('input[type="number"]').val('');
-          let fecha = new Date(); //Fecha actual
-          let mes = fecha.getMonth()+1; //obteniendo mes
-          let dia = fecha.getDate()-1; //obteniendo dia
-          let ano = fecha.getFullYear(); //obteniendo año
-          if(dia<10)
-            dia='0'+dia; //agrega cero si el menor de 10
-          if(mes<10)
-            mes='0'+mes //agrega cero si el menor de 10
-          document.getElementById('fecha_ausentismo').value=ano+"-"+mes+"-"+dia;
-        }else{
-          alert("Falta información");
-        }
+      $(document).ready(function(){
+        $('#divEmp').html('<h6 id="nombreEmp" class="card-title"><b>Empleado:</b> No ha seleccionado ningún empleado</h6>');
       });
 
-      $('#finalizar_ausencia').click(function (e){
-        let myTableArrayAusencia = [];
-        document.querySelectorAll('.example13 tbody tr').forEach(function(e){
-          let filas = {
-            empleado: e.querySelector('.empleado').innerText,
-            ausentismo: e.querySelector('.ausentismo').innerText,
-            concepto: e.querySelector('.concepto').innerText,
-            fecha: e.querySelector('.fecha').innerText.split("/").reverse().join("-"),
-            incapacidad: e.querySelector('.incapacidad').innerText,
-            descripcion: e.querySelector('.descripcion').innerText
-          };
-          myTableArrayAusencia.push(filas);
+      $('.ptu').on('click', function(){
+        $.ajax({
+          url:"{{ route('ptu.create') }}",
+          method: "POST",
+          dataType: 'json',
+          data: {
+              _token: $("meta[name='csrf-token']").attr("content"),
+              clvEmp: $(this).closest('button').val(),
+              calculoISR: $('#calculoISR').val(),
+              totalPTU: $('#totalPTU').val(),
+              ingresosEmp: $('#ingEmpSind').val(),
+          },
+          success: function(data){
+            $('#modalbusquedaempAg').modal('hide');
+            $('#divEmp').html('<h6 id="nombreEmp" class="card-title"><b>Empleado:</b> '+data['clave']['nombre']+' '+data['clave']['apellido_paterno']+' '+data['clave']['apellido_materno']+'</h6>');
+            let htmlTags = '<tr>'+
+                              '<td style="text-align: center;">' + data['aguinaldo'][0]['clave_concepto'] + 
+                                '<input type="hidden" class="datos clvCncpt" value="'+ data['aguinaldo'][0]['clave_concepto'] +'">'+
+                              '</td>'+
+                              '<td style="text-align: center;">' + data['aguinaldo'][0]['concepto'] +
+                                '<input type="hidden" class="datos clvEmp" value="'+ data['clave']['clave_empleado'] +'">'+
+                              '</td>'+
+                              '<td  style="text-align: center;">$ ' + data['aguinaldo'][0]['monto'].toFixed(2) + 
+                                '<input type="hidden" class="datos monto" value="' + data['aguinaldo'][0]['monto'].toFixed(2) +'">'+
+                              '</td>'+
+                            '</tr>'
+            $('#filasPercepciones tbody').append(htmlTags);
+            $(".totalPercepTrab").val(data['aguinaldo'][0]['monto'].toFixed(2));
+
+            let htmlTags2 = '<tr>'+
+                              '<td style="text-align: center;">' + data['ISRRetenerFinal'][0]['clave_concepto'] + 
+                                '<input type="hidden" class="datos clvCncpt" value="'+ data['ISRRetenerFinal'][0]['clave_concepto'] +'">'+
+                              '</td>'+
+                              '<td style="text-align: center;">' + data['ISRRetenerFinal'][0]['concepto'] +
+                                '<input type="hidden" class="datos clvEmp" value="'+ data['clave']['clave_empleado'] +'">'+
+                              '</td>'+
+                              '<td  style="text-align: center;">$' + data['ISRRetenerFinal'][0]['monto'].toFixed(2) + 
+                                '<input type="hidden" class="datos monto" value="'+ data['ISRRetenerFinal'][0]['monto'].toFixed(2) +'">'+
+                              '</td>'+
+                            '</tr>'
+            $('#filasImpuestos tbody').append(htmlTags2);
+            $(".totalImpTrab").val(data['ISRRetenerFinal'][0]['monto'].toFixed(2));
+
+            let htmlTags3 = '<tr>'+
+                              '<td style="text-align: center;">' + data['aguinaldoFinal'][0]['clave_concepto'] + 
+                                '<input type="hidden" class="datos clvCncpt" value="'+ data['aguinaldoFinal'][0]['clave_concepto'] +'">'+
+                              '</td>'+
+                              '<td style="text-align: center;">' + data['aguinaldoFinal'][0]['concepto'] +
+                                '<input type="hidden" class="datos clvEmp" value="'+ data['clave']['clave_empleado'] +'">'+
+                              '</td>'+
+                              '<td  style="text-align: center;">$ ' + data['aguinaldoFinal'][0]['monto'].toFixed(2) + 
+                                '<input type="hidden" class="datos monto" value="' + data['aguinaldoFinal'][0]['monto'].toFixed(2) +'">'+
+                              '</td>'+
+                            '</tr>'
+            $('#filasTotales tbody').append(htmlTags3);
+            $(".totalSueldoNeto").val(data['aguinaldoFinal'][0]['monto'].toFixed(2));
+          },
+          error: function(xhr, status, error) {
+            var err = JSON.parse(xhr.responseText);
+            console.log(err.Message);
+          }
         });
-        let jsonStringa = JSON.stringify(myTableArrayAusencia);
-      $.ajax({
-        url: "{{ route('ausencia.store') }}",
-        method: "POST",
-        data: {
-          _token: $("meta[name='csrf-token']").attr("content"),
-          info : jsonStringa,
-        },
-        success: function(data){
-          console.log(data);
-          $(".example13 tbody tr").closest('tr').remove();
-        },
-        error: function(xhr, status, error) {
-          var err = JSON.parse(xhr.responseText);
-          console.log(err.Message);
-        }
       });
-    });
-  });
-</script>
+
+      $('#acciones').on('click', function(){
+        $('#filasPercepciones tbody tr').detach();
+        $('#filasImpuestos tbody tr').detach();
+        $('#filasTotales tbody tr').detach();
+        $(".totalImpTrab").val("");
+        $(".totalPercepTrab").val("");
+        $(".totalSueldoNeto").val("");
+        $(".datos").val("");
+        $("#calculoISR").val("N/A");
+        $('#divEmp').html('<h6 id="nombreEmp" class="card-title"><b>Empleado:</b> No ha seleccionado ningún empleado</h6>');
+      });
+
+      $('#autorizar').click(function(e){
+        e.preventDefault();
+        let myTableControl = [];
+        document.querySelectorAll('.control tbody tr').forEach(function(e){
+          let fila = {
+            concepto:   e.querySelector('.clvCncpt').value,
+            monto:      e.querySelector('.monto').value,
+            clvEmp:     e.querySelector('.clvEmp').value,
+          };
+          myTableControl.push(fila);
+        });
+        let jsonString = JSON.stringify(myTableControl);
+        $.ajax({
+          url: "{{ route('aguinaldosP.store') }}",
+          method: "POST",
+          data: {
+            _token: $("meta[name='csrf-token']").attr("content"),
+            info : jsonString,
+            totalAguinaldo : $(".totalPercepTrab").val() - $(".totalImpTrab").val(),
+            clvEmp : $(".clvEmp").val(),
+          },
+          success: function(data){
+            console.log(data);
+          },
+          error: function(xhr, status, error) {
+            var err = JSON.parse(xhr.responseText);
+            console.log(err.Message);
+          }
+        });
+      });
+    </script>
