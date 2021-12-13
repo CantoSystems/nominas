@@ -155,6 +155,14 @@ scratch. This page gets rid of all links and provides the needed markup only.
               </p>
             </a>
           </li>
+          <li class="nav-item {{!Route::is('regimen.index') ?: 'activo'}}">
+            <a href="{{ route('regimen.index')}}" class="nav-link">
+              <i class="nav-icon fas fa-th"></i>
+              <p>
+                Tabla Régimen Fiscal
+              </p>
+            </a>
+          </li>
           @can('administrador')
             <li class="nav-item {{!Route::is('usuarios.index') ?: 'activo'}}">
               <a href="{{ route('usuarios.index')}}" class="nav-link">
@@ -314,6 +322,45 @@ scratch. This page gets rid of all links and provides the needed markup only.
         });
       })
 
+
+  //Funcion autocomplementado de regimen para empresas
+  //Llenado del listado de la consulta de Regimen
+      $('.obtenerRegimen').keyup(function(){
+          let consulta = $(this).val();
+          //console.log(consulta);
+            if( consulta != ''){
+              let _token = $('input[name="_token"]').val();
+              $.ajax({
+                url:"{{ route('regimen.autocomplete') }}",
+                method: "POST",
+                data:{consulta:consulta,_token:_token},
+                success:function(data){
+                    //console.log(data);
+                    let tagRegimen;
+          
+                      $.each(data, function(index){
+                        tagRegimen =  '<ul class="dropdpwn-menu" aria-labelledby="dropdownMenuLink" style="display:block; position:relative;">'+
+                                      '<li class="desplegarRegimen" style="list-style:none">'+
+                                      '<a class="dropdown-item" href="#">'+
+                                      data[index].claveRegimen +
+                                      '&nbsp;' + data[index].descripcionRegimen +'&nbsp;'+
+                                      '</a>' + '</li>';
+                        $('#listadoRegimen').fadeIn();
+                        $('#listadoRegimen').append(tagRegimen);
+                      });
+                }
+              });
+            }
+      });
+
+
+      $(document).on('click','.desplegarRegimen',function(){
+        let infoRegimen = $(this).text();
+        let fiscalClave = infoRegimen.substring(0,3);
+        console.log(fiscalClave);
+        $('.obtenerRegimen').val(fiscalClave);
+        $('#listadoRegimen').fadeOut();
+      });
   });
  
 </script>

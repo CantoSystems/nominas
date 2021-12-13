@@ -56,7 +56,7 @@ class ReportNominaPDFController extends Controller{
                                 ->join('conceptos','conceptos.clave_concepto','=','prenomina.clave_concepto')
                                 ->select('prenomina.id_prenomina', 'empleados.clave_empleado','prenomina.clave_concepto','conceptos.concepto','prenomina.monto')
                                 ->where([
-                                    ['prenomina_periodo','=',$num_periodo],
+                                    ['noPrenomina','=',$num_periodo],
                                     ['status_prenomina','=','1'],
                                     ['prenomina.clave_empleado','=',$persona->clave_empleado],
                                     ['conceptos.naturaleza','=','P']
@@ -68,7 +68,7 @@ class ReportNominaPDFController extends Controller{
                             ->join('conceptos','conceptos.clave_concepto','=','prenomina.clave_concepto')
                             ->select('prenomina.id_prenomina', 'empleados.clave_empleado','prenomina.clave_concepto','conceptos.concepto','prenomina.monto')
                             ->where([
-                                    ['prenomina_periodo','=',$num_periodo],
+                                    ['noPrenomina','=',$num_periodo],
                                     ['status_prenomina','=','1'],
                                     ['prenomina.clave_empleado','=',$persona->clave_empleado],
                                     ['conceptos.naturaleza','=','D']
@@ -79,7 +79,7 @@ class ReportNominaPDFController extends Controller{
                                 ->join('conceptos','conceptos.clave_concepto','=','prenomina.clave_concepto')
                                 ->select( DB::raw('SUM(prenomina.monto) as total_percepciones'))
                                 ->where([
-                                    ['prenomina_periodo','=',$num_periodo],
+                                    ['noPrenomina','=',$num_periodo],
                                     ['status_prenomina','=','1'],
                                     ['prenomina.clave_empleado','=',$persona->clave_empleado],
                                     ['conceptos.naturaleza','=','P']
@@ -90,15 +90,25 @@ class ReportNominaPDFController extends Controller{
                             ->join('conceptos','conceptos.clave_concepto','=','prenomina.clave_concepto')
                             ->select( DB::raw('SUM(prenomina.monto) as total_deducciones'))
                             ->where([
-                                ['prenomina_periodo','=',$num_periodo],
+                                ['noPrenomina','=',$num_periodo],
                                 ['status_prenomina','=','1'],
                                 ['prenomina.clave_empleado','=',$persona->clave_empleado],
                                 ['conceptos.naturaleza','=','D']
                                 ])
                         ->first();
+                                
+        $totalretenciones = DB::connection('DB_Serverr')->table('prenomina')
+                        ->join('conceptos','conceptos.clave_concepto','=','prenomina.clave_concepto')
+                        ->select( DB::raw('SUM(prenomina.monto) as totalRetencion'))
+                        ->whereIn('prenomina.clave_concepto',['001I','002I'])
+                        ->where([
+                            ['prenomina.noPrenomina','=',$num_periodo],
+                            ['prenomina.status_prenomina','=',1],
+                            ['prenomina.clave_empleado','=',$persona->clave_empleado]
+                        ])
+                        ->first();
 
-
-        $pdf = PDF::loadView('NominaPDF.report-nomina',compact('persona','empresa','periodo_act','prenominaPercepciones','prenominaDeducciones','totalpercepciones','totaldeducciones'));
+        $pdf = PDF::loadView('NominaPDF.report-nomina',compact('persona','empresa','periodo_act','prenominaPercepciones','prenominaDeducciones','totalpercepciones','totaldeducciones','totalretenciones'));
 
         return $pdf->stream();
     }

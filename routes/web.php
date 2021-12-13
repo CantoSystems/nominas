@@ -8,7 +8,7 @@ Route::get('/', function () {
 });
 
 Auth::routes();
-
+Route::get('/prueba-fechas','RegimenFiscalController@fechas');
 Route::get('home', 'HomeController@index')->name('home');
 
 Route::delete('empresa/{id}', 'EmpresaController@destroy')->name('empresas.destroy');
@@ -161,12 +161,22 @@ Route::post('/prenominaIMSS', 'ControlPrenominaController@calcularIMSS')->name('
 Route::post('/prenominaPension', 'ControlPrenominaController@pensionAlimenticia')->name('control.pension');
 Route::post('/prenominaPatron', 'ControlPrenominaController@impuestosPatron')->name('control.impPatron');
 
-//Aguinaldos
-Route::get('/aguinaldos', 'AguinaldosController@index')->name('aguinaldos.index');
-Route::get('/aguinaldosl/{id_emp}', 'AguinaldosController@create')->name('aguinaldos.show');
-
 //Préstamos
 Route::get('/prestamos', 'PrestamosController@index')->name('prestamos.index');
 Route::get('/verPrestamos', 'PrestamosController@show')->name('prestamos.show');
 Route::post('/prestamos/enviodata', 'PrestamosController@store')->name('prestamos.store');
 Route::delete('/prestamos/delete/{id}', 'PrestamosController@eliminar')->name('prestamos.destroy');
+
+//Régimen Fiscal
+Route::get('/regimen','RegimenFiscalController@index')->name('regimen.index');
+Route::post('/regimen/busqueda','RegimenFiscalController@muestraregimen')->name('regimen.autocomplete');
+Route::get('/regimen/visualizar/{id}','RegimenFiscalController@show')->name('regimen.show');
+Route::delete('/regimen/{id}','RegimenFiscalController@destroy')->name('regimen.destroy');
+
+//Route::post('/regimen-fiscal','RegimenFiscalController@store')->name('regimen.store');
+
+//Aguinaldos
+Route::get('/aguinaldos', 'prenominaAguinaldo@index')->name('aguinaldosP.index');
+Route::get('/aguinaldos-excel3','prenominaAguinaldo@exportExcel')->name('aguinaldos.excel3');
+Route::post('/aguinaldos', 'prenominaAguinaldo@create')->name('aguinaldosP.create');
+Route::post('/aguinaldos/enviocontrolaguinaldo', 'prenominaAguinaldo@store')->name('aguinaldosP.store');

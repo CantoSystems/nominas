@@ -5,6 +5,7 @@ use DB;
 use Session;
 use App\Empresa;
 use Carbon\Carbon;
+use App\RegimenFiscal;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Schema;
@@ -39,21 +40,28 @@ class EmpresaController extends Controller{
     public function acciones(Request $request){
      $accion= $request->acciones;
      $clv=$request->clave;
+     
         switch ($accion) {
             case '':
-                $empresa = Empresa::first();
+                $empresa = Empresa::select('empresas.*','regimen_fiscals.claveRegimen')
+                                    ->join('regimen_fiscals','empresas.regimen_id','=','regimen_fiscals.id')
+                                    ->first();
                 $nominas = Empresa::all();
                 return view('empresas.crudempresas', compact('empresa','nominas'));
             break;
             case 'atras':
                 $emp= Empresa::where('clave',$clv)->first();
                 $indic= $emp->id;
-                $empresa= Empresa::where('id','<',$indic)
-                    ->orderBy('id','desc')
-                    ->first();
+                $empresa= Empresa::select('empresas.*','regimen_fiscals.claveRegimen')
+                                    ->join('regimen_fiscals','empresas.regimen_id','=','regimen_fiscals.id')
+                                    ->where('empresas.id','<',$indic)
+                                    ->orderBy('empresas.id','desc')
+                                    ->first();
 
                 if($empresa==""){
-                    $empresa= Empresa::get()->last();
+                    $empresa= Empresa::select('empresas.*','regimen_fiscals.claveRegimen')
+                                    ->join('regimen_fiscals','empresas.regimen_id','=','regimen_fiscals.id')
+                                    ->get()->last();
                 }
 
                 $nominas = Empresa::all();
@@ -62,20 +70,28 @@ class EmpresaController extends Controller{
             case 'siguiente':
                 $emp= Empresa::where('clave',$clv)->first();
                 $indic= $emp->id;
-                $empresa= Empresa::where('id','>',$indic)->first();
-                if($empresa==""){
-                   $empresa= Empresa::first();
+                $empresa= Empresa::select('empresas.*','regimen_fiscals.claveRegimen')
+                            ->join('regimen_fiscals','empresas.regimen_id','=','regimen_fiscals.id')
+                            ->where('empresas.id','>',$indic)->first();
+                if(is_null($empresa)){
+                   $empresa= Empresa::select('empresas.*','regimen_fiscals.claveRegimen')
+                                    ->join('regimen_fiscals','empresas.regimen_id','=','regimen_fiscals.id')
+                                    ->first();
                 }
                 $nominas = Empresa::all();
                 return view('empresas.crudempresas', compact('empresa','nominas'));
             break;
             case 'primero':
-                $empresa= Empresa::first();
+                $empresa= Empresa::select('empresas.*','regimen_fiscals.claveRegimen')
+                                ->join('regimen_fiscals','empresas.regimen_id','=','regimen_fiscals.id')
+                                ->first();
                 $nominas = Empresa::all();
                 return view('empresas.crudempresas', compact('empresa','nominas'));
             break;
             case 'ultimo':
-                $empresa= Empresa::get()->last();
+                $empresa= Empresa::select('empresas.*','regimen_fiscals.claveRegimen')
+                                ->join('regimen_fiscals','empresas.regimen_id','=','regimen_fiscals.id')
+                                ->get()->last();
                 $nominas = Empresa::all();
                 return view('empresas.crudempresas', compact('empresa','nominas'));
             break;
@@ -106,6 +122,12 @@ class EmpresaController extends Controller{
     *@param $datos | Array
     */
     public function actualizar($datos){
+
+        $fiscalClave =  RegimenFiscal::select('id')
+                            ->where('claveRegimen','=',$datos->regimenFiscal)
+                            ->first();
+
+
         $emp = Empresa::where('clave',$datos->clave)->first();
         $emp->nombre= $datos->nombre;
         $emp->nombre_nomina= $datos->nombre_nomina;
@@ -129,6 +151,8 @@ class EmpresaController extends Controller{
         $emp->region = $datos->regionEmpresa;
         $emp->primaRiesgo = $datos->primaRiesgo;
         $emp->porcentajeAhorro = $datos->porcentajeAhorro;
+        $emp->regimen_id = $fiscalClave->id;
+        $emp->curpRepresentante = $datos->curpRepresentante;
         $emp ->save();
     }
 
@@ -165,9 +189,13 @@ class EmpresaController extends Controller{
               'inicioPeriodo' => 'required',
               'regionEmpresa' => 'required',
               'primaRiesgo' => 'required',
-              'porcentajeAhorro' => 'required'
-
+              'porcentajeAhorro' => 'required',
         ]);
+
+        $fiscalClave =  RegimenFiscal::select('id')
+                            ->where('claveRegimen','=',$datos->regimenFiscal)
+                            ->first();
+
 
         $empresa = new Empresa;
         $empresa->rfc = $datos->rfc;
@@ -194,6 +222,8 @@ class EmpresaController extends Controller{
         $empresa->region = $datos->regionEmpresa;
         $empresa->primaRiesgo = $datos->primaRiesgo;
         $empresa->porcentajeAhorro = $datos->porcentajeAhorro;
+        $empresa->regimen_id = $fiscalClave->id;
+        $empresa->curpRepresentante = $datos->curpRepresentante;
         $empresa->save();
         
         DB::statement('create database '.$empresa->clave);
@@ -324,9 +354,17 @@ class EmpresaController extends Controller{
             ["clave_concepto" => "006I", "concepto" => "INFONAVIT EMPRESA", "formula" => NULL, "tipo" => "I","manejo" => "fijo", "cantidad" =>  NULL, "importe" =>  NULL,"monto" => NULL,"isr" => 0, "imss" => 0, "infonavit" => 0,"estatal" => 0,"isr_uma" => 0.00,"isr_porcentaje" => 0.00, "imss_uma" => 0.00,"imss_porcentaje" => 0.00, "seleccionado" => 0],
             ["clave_concepto" => "007I", "concepto" => "FONDO RETIRO", "formula" => NULL, "tipo" => "I","manejo" => "fijo", "cantidad" =>  NULL, "importe" =>  NULL,"monto" => NULL,"isr" => 0, "imss" => 0, "infonavit" => 0,"estatal" => 0,"isr_uma" => 0.00,"isr_porcentaje" => 0.00, "imss_uma" => 0.00,"imss_porcentaje" => 0.00, "seleccionado" => 0],
             ["clave_concepto" => "008I", "concepto" => "CESANTÍA", "formula" => NULL, "tipo" => "I","manejo" => "fijo", "cantidad" =>  NULL, "importe" =>  NULL,"monto" => NULL,"isr" => 0, "imss" => 0, "infonavit" => 0,"estatal" => 0,"isr_uma" => 0.00,"isr_porcentaje" => 0.00, "imss_uma" => 0.00,"imss_porcentaje" => 0.00, "seleccionado" => 0],
-            ["clave_concepto" => "001S", "concepto" => "NETO", "formula" => NULL, "tipo" => "I","manejo" => "fijo", "cantidad" =>  NULL, "importe" =>  NULL,"monto" => NULL,"isr" => 0, "imss" => 0, "infonavit" => 0,"estatal" => 0,"isr_uma" => 0.00,"isr_porcentaje" => 0.00, "imss_uma" => 0.00,"imss_porcentaje" => 0.00, "seleccionado" => 1],
-            ["clave_concepto" => "002S", "concepto" => "BRUTO", "formula" => NULL, "tipo" => "I","manejo" => "fijo", "cantidad" =>  NULL, "importe" =>  NULL,"monto" => NULL,"isr" => 0, "imss" => 0, "infonavit" => 0,"estatal" => 0,"isr_uma" => 0.00,"isr_porcentaje" => 0.00, "imss_uma" => 0.00,"imss_porcentaje" => 0.00, "seleccionado" => 1],
+            ["clave_concepto" => "001S", "concepto" => "PAGO NETO", "formula" => NULL, "tipo" => "S","manejo" => "fijo", "cantidad" =>  NULL, "importe" =>  NULL,"monto" => NULL,"isr" => 0, "imss" => 0, "infonavit" => 0,"estatal" => 0,"isr_uma" => 0.00,"isr_porcentaje" => 0.00, "imss_uma" => 0.00,"imss_porcentaje" => 0.00, "seleccionado" => 1],
+            ["clave_concepto" => "002S", "concepto" => "BRUTO", "formula" => NULL, "tipo" => "S","manejo" => "fijo", "cantidad" =>  NULL, "importe" =>  NULL,"monto" => NULL,"isr" => 0, "imss" => 0, "infonavit" => 0,"estatal" => 0,"isr_uma" => 0.00,"isr_porcentaje" => 0.00, "imss_uma" => 0.00,"imss_porcentaje" => 0.00, "seleccionado" => 1],
+            ["clave_concepto" => "01TP", "concepto" => "TOTAL PERCEPCIONES", "formula" => NULL, "tipo" => "TP","manejo" => "fijo", "cantidad" =>  NULL, "importe" =>  NULL,"monto" => NULL,"isr" => 0, "imss" => 0, "infonavit" => 0,"estatal" => 0,"isr_uma" => 0.00,"isr_porcentaje" => 0.00, "imss_uma" => 0.00,"imss_porcentaje" => 0.00, "seleccionado" => 1],
+            ["clave_concepto" => "02TD", "concepto" => "TOTAL DEDUCCIONES", "formula" => NULL, "tipo" => "TD","manejo" => "fijo", "cantidad" =>  NULL, "importe" =>  NULL,"monto" => NULL,"isr" => 0, "imss" => 0, "infonavit" => 0,"estatal" => 0,"isr_uma" => 0.00,"isr_porcentaje" => 0.00, "imss_uma" => 0.00,"imss_porcentaje" => 0.00, "seleccionado" => 1],
+            ["clave_concepto" => "03TI", "concepto" => "TOTAL IMPUESTOS PATRON", "formula" => NULL, "tipo" => "TI","manejo" => "fijo", "cantidad" =>  NULL, "importe" =>  NULL,"monto" => NULL,"isr" => 0, "imss" => 0, "infonavit" => 0,"estatal" => 0,"isr_uma" => 0.00,"isr_porcentaje" => 0.00, "imss_uma" => 0.00,"imss_porcentaje" => 0.00, "seleccionado" => 1],
+            ["clave_concepto" => "04TT", "concepto" => "TOTAL IMPUESTOS TRABAJADOR", "formula" => NULL, "tipo" => "TT","manejo" => "fijo", "cantidad" =>  NULL, "importe" =>  NULL,"monto" => NULL,"isr" => 0, "imss" => 0, "infonavit" => 0,"estatal" => 0,"isr_uma" => 0.00,"isr_porcentaje" => 0.00, "imss_uma" => 0.00,"imss_porcentaje" => 0.00, "seleccionado" => 1],
+            ["clave_concepto" => "01OC", "concepto" => "INGRESOS GRAVADOS", "formula" => NULL, "tipo" => "OC","manejo" => "fijo", "cantidad" =>  NULL, "importe" =>  NULL,"monto" => NULL,"isr" => 0, "imss" => 0, "infonavit" => 0,"estatal" => 0,"isr_uma" => 0.00,"isr_porcentaje" => 0.00, "imss_uma" => 0.00,"imss_porcentaje" => 0.00, "seleccionado" => 1],
+            ["clave_concepto" => "02OC", "concepto" => "INGRESOS EXENTOS", "formula" => NULL, "tipo" => "OC","manejo" => "fijo", "cantidad" =>  NULL, "importe" =>  NULL,"monto" => NULL,"isr" => 0, "imss" => 0, "infonavit" => 0,"estatal" => 0,"isr_uma" => 0.00,"isr_porcentaje" => 0.00, "imss_uma" => 0.00,"imss_porcentaje" => 0.00, "seleccionado" => 1],
+            ["clave_concepto" => "001I", "concepto" => "IMPUESTO ESTATAL", "formula" => NULL,"tipo" =>  "I", "manejo" => "fijo","cantidad" => NULL,"importe" => NULL,"monto" => NULL,"isr" => 0,"imss" => 0, "infonavit" => 0,"estatal" =>  0,"isr_uma" => 0.00, "isr_porcentaje" => 0.00,"imss_uma" => 0.00,"imss_porcentaje" => 0.00, "seleccionado" => 1],
         ]);
+        
         $fecha_periodo = now()->toDateString();
         foreach($conceptos as $con){
             DB::connection('DB_Serverr')->insert('insert into conceptos 
@@ -621,6 +659,26 @@ class EmpresaController extends Controller{
             $table->timestamps();
         });
 
+        Schema::connection('DB_Serverr')->create('prenomina_aguinaldo', function($table){
+            $table->increments('id_prenomina');
+            $table->integer('noPrenomina');
+            $table->char('clave_empleado',5);
+            $table->char('clave_concepto',5);
+            $table->double('monto');
+            $table->boolean('status_prenomina');
+            $table->timestamps();
+        });
+
+        Schema::connection('DB_Serverr')->create('prenomina_ptu', function($table){
+            $table->increments('id_prenomina');
+            $table->integer('noPrenomina');
+            $table->char('clave_empleado',5);
+            $table->char('clave_concepto',5);
+            $table->double('monto');
+            $table->boolean('status_prenomina');
+            $table->timestamps();
+        });
+
         Schema::connection('DB_Serverr')->create('prestamos', function($table){
             $table->increments('idPrestamo');
             $table->char('claveEmpleado',5);
@@ -667,8 +725,12 @@ class EmpresaController extends Controller{
                                                                   ,fecha_inicio
                                                                   ,fecha_fin
                                                                   ,fecha_pago
-                                                                  ,diasPeriodo)
+                                                                  ,diasPeriodo
+                                                                  ,created_at
+                                                                  ,updated_at)
                                                            VALUES(?
+                                                                 ,?
+                                                                 ,?
                                                                  ,?
                                                                  ,?
                                                                  ,?
@@ -677,7 +739,9 @@ class EmpresaController extends Controller{
                                                                 ,$fechaInicio
                                                                 ,$fechaFin
                                                                 ,$fechaPago
-                                                                ,$datos->tipoPeriodo]);
+                                                                ,$datos->tipoPeriodo
+                                                                ,$fecha_periodo
+                                                                ,$fecha_periodo]);
     }
 
 
@@ -694,7 +758,10 @@ class EmpresaController extends Controller{
     }
 
     public function show($id){
-        $empresa = Empresa::find($id);
+        $empresa = Empresa::select('empresas.*','regimen_fiscals.claveRegimen')
+                            ->join('regimen_fiscals','empresas.regimen_id','=','regimen_fiscals.id')
+                            ->where('empresas.id','=',$id)
+                            ->first();
         $nominas = Empresa::all();
         return view('empresas.crudempresas', compact('empresa','nominas'));
     }

@@ -15,7 +15,7 @@
                         <div class="col">
                             @can('administrador')
                                 <a data-target="#modalbusquedaemp" data-toggle="modal">
-                                    <button type="submit" name="acciones" value="mostrar"  style='width: 65px; height: 38px'>
+                                    <button type="submit" name="acciones" value="mostrar" style='width: 65px; height: 38px'>
                                         <i class="far fa-eye"></i>
                                     </button>
                                 </a>
@@ -23,7 +23,7 @@
                             @endcan
                         </div>
                         <div class="col">
-                            <button type="submit" id="autorizar"style='width:125px; height:38px;'>Autorizar Nómina</button>
+                            <button type="submit" id="autorizar" style='width:125px; height:38px;'>Autorizar Nómina</button>
                         </div>
                         <div class="col">
                             <form action="{{ route('control.excel3') }}">
@@ -41,6 +41,11 @@
                             @else
                                 No ha seleccionado ningun empleado
                             @endif
+                            @if(session()->has('uma'))
+                            <div class="alert alert-danger" role="alert">
+                                {{ session('uma')}}
+                            </div>
+                        @endif
                         </h6>
                     </div>
                     <div class="card-body">
@@ -83,7 +88,7 @@
                                 </table>
                             </div>
                             <div class = "col-sm-6">
-                                <table class="table table-hover control">
+                                <table id="filasDeducciones" name="filasDeducciones" class="table table-hover control" >
                                     <thead class="thead-light">
                                         <tr>
                                             <th scope="col" colspan="4" style="text-align: center;">Deducciones</th>
@@ -122,12 +127,14 @@
                         </div>
                         <div class="row">
                             <div class="col-sm-6">
-                                <table class="table table-hover">
+                                <table class="table table-hover control" >
                                     <tbody>
                                         <tr>
                                             <td colspan="2" style="text-align: right; valign: middle;">Total: </td>
                                             <td style="width: 42%;">
-                                                <input type="number" step=".01" disabled class="form-control totalPercepciones">
+                                                <input type="hidden" class="form-control conceptoPercepciones clvCncpt">
+                                                <input type="hidden" class="clvEmp" value="{{ $clave->clave_empleado ?? ''}}">
+                                                <input type="number" step=".01" disabled class="form-control monto totalPercepciones">
                                                 <input type="hidden" step=".01" class="totalPercepcionesGravadas">
                                                 <input type="hidden" step=".01" class="totalPercepcionesExcentas">
                                                 <input type="hidden" step=".01" class="totalPercepcionesIMSS" value="{{ $sumaImss ?? '' }}">
@@ -137,58 +144,40 @@
                                 </table>
                             </div>
                             <div class="col-sm-6">
-                                <table class="table table-hover">
+                                <table class="table table-hover control">
                                     <tbody>
                                         <tr>
                                             <td colspan="2" style="text-align: right; valign: middle;">Total: </td>
                                             <td style="width: 42%;">
-                                                <input type="number" step=".01" disabled class="form-control totalDeducciones">
+                                                <input type="hidden" class="clvEmp" value="{{ $clave->clave_empleado ?? ''}}">
+                                                <input type="hidden" class="form-control clvCncpt conceptodeducciones">
+                                                <input type="number" step=".01" disabled class="form-control monto totalDeducciones">
+
                                             </td>
                                         </tr>
                                     </tbody>
                                 </table>
                             </div>
                         </div>
-                        <div class="otrasDeducciones" style="display: none;">
-                            <div class="row">
-                                <div class="col-sm-6"></div>
-                                <div class="col-sm-6">
-                                    <table id="filasODeducciones" name="filasODeducciones" class="table table-hover control">
-                                        <thead class="thead-light">
-                                            <tr>
-                                                <th scope="col" colspan="3" style="text-align: center;">Otras Deducciones</th>
-                                            </tr>
-                                            <tr>
-                                                <th scope="col" style="text-align: center;">Clave</th>
-                                                <th scope="col" style="text-align: center;">Concepto</th>
-                                                <th scope="col" style="text-align: center;">Total</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-sm-6"></div>
-                                <div class="col-sm-6">
-                                    <table class="table table-hover">
-                                        <tbody>
-                                            <tr>
-                                                <td colspan="2" style="text-align: right; valign: middle;">Total: </td>
-                                                <td style="width: 42%;">
-                                                    <input type="number" step=".01" disabled class="form-control inputTotalOD">
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
                         <div class="row">
-                            <div class = "col-sm-6"></div>
                             <div class = "col-sm-6">
-                                <table id="filasImpuestos" name="filasImpuestos" class="table table-hover control">
+                                <table id="filasPatron" name="filasPatron" class="table table-hover control" >
+                                    <thead class="thead-light">
+                                        <tr>
+                                            <th scope="col" colspan="3" style="text-align: center;">Impuestos del Patrón</th>
+                                        </tr>
+                                        <tr>
+                                            <th scope="col" style="text-align: center;">Clave</th>
+                                            <th scope="col" style="text-align: center;">Concepto</th>
+                                            <th scope="col" style="text-align: center;">Total</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class = "col-sm-6">
+                                <table id="filasImpuestos" name="filasImpuestos" class="table table-hover control" >
                                     <thead class="thead-light">
                                         <tr>
                                             <th scope="col" colspan="3" style="text-align: center;">Impuestos del Trabajador</th>
@@ -205,48 +194,29 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-sm-6"></div>
                             <div class="col-sm-6">
-                                <table class="table table-hover">
+                                <table class="table table-hover control" >
                                     <tbody>
                                         <tr>
                                             <td colspan="2" style="text-align: right; valign: middle;">Total: </td>
                                             <td style="width: 42%;">
-                                                <input type="number" step=".01" disabled class="form-control totalImpuestosTrabajador">
+                                                <input type="hidden" class="form-control clvCncpt conceptoPatron">
+                                                <input type="hidden" class="clvEmp" value="{{ $clave->clave_empleado ?? ''}}">
+                                                <input type="number" step=".01" disabled class="form-control monto totalImpuestosPatron">
                                             </td>
                                         </tr>
                                     </tbody>
                                 </table>
                             </div>
-                        </div>
-                        <div class="row">
-                            <div class = "col-sm-6"></div>
-                            <div class = "col-sm-6">
-                                <table id="filasPatron" name="filasPatron" class="table table-hover control">
-                                    <thead class="thead-light">
-                                        <tr>
-                                            <th scope="col" colspan="3" style="text-align: center;">Impuestos del Patrón</th>
-                                        </tr>
-                                        <tr>
-                                            <th scope="col" style="text-align: center;">Clave</th>
-                                            <th scope="col" style="text-align: center;">Concepto</th>
-                                            <th scope="col" style="text-align: center;">Total</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-6"></div>
                             <div class="col-sm-6">
-                                <table class="table table-hover">
+                                <table class="table table-hover control" >
                                     <tbody>
                                         <tr>
                                             <td colspan="2" style="text-align: right; valign: middle;">Total: </td>
                                             <td style="width: 42%;">
-                                                <input type="number" step=".01" disabled class="form-control totalImpuestosPatron">
+                                                <input type="hidden" class="form-control clvCncpt conceptoTrabajador">
+                                                <input type="hidden" class="clvEmp" value="{{ $clave->clave_empleado ?? ''}}">
+                                                <input type="number" step=".01" disabled class="form-control monto totalImpuestosTrabajador">
                                             </td>
                                         </tr>
                                     </tbody>

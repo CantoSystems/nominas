@@ -46,7 +46,7 @@ class PeriodosController extends Controller
     //$cant=DB::connection('DB_Serverr')->table('periodos')->count();
 
         if($coincidencia->count() == 0){
-            $fecha_periodo = now()->toDateString();
+            $fecha_periodo = now();
             DB::connection('DB_Serverr')->insert('insert into periodos (numero,fecha_inicio,
             fecha_fin,fecha_pago,diasPeriodo,created_at,updated_at)
             values (?,?,?,?,?,?,?)',[$datos->numero,$datos->fecha_inicio,

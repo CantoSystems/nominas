@@ -23,8 +23,8 @@ class CreateEmpresasTable extends Migration
             $table->string('segurosocial',11);
             $table->string('registro_estatal',50);
             $table->string('calle',50);
-            $table->string('num_interno',20);
-            $table->string('num_externo',20)->nullable();
+            $table->string('num_interno',40);
+            $table->string('num_externo',40)->nullable();
             $table->string('colonia',50);
             $table->string('municipio',50);
             $table->string('ciudad',50);
@@ -39,6 +39,7 @@ class CreateEmpresasTable extends Migration
             $table->string('region',50);
             $table->double('primaRiesgo',8,4);
             $table->double('porcentajeAhorro');
+            $table->string('curpRepresentante',18);
             $table->timestamps();
         });
     }

@@ -64,28 +64,21 @@
 
         $periodo = Session::get('num_periodo');
         $fecha_periodo = now();
-        //->toDateString();
         
         $clv = Session::get('clave_empresa');
         $clv_empresa = $this->conectar($clv);
         \Config::set('database.connections.DB_Serverr', $clv_empresa);
 
         foreach ($data as $value) {
-            DB::connection('DB_Serverr')->insert('INSERT INTO prenomina (noPrenomina,
-                                                                         clave_empleado,
-                                                                         clave_concepto,
-                                                                         monto,
-                                                                         status_prenomina,
-                                                                         created_at,
-                                                                         updated_at
-                                                                )values(?,?,?,?,?,?,?)',[$periodo,
-                                                                                            $value->clvEmp,
-                                                                                            $value->concepto,
-                                                                                            $value->monto,
-                                                                                            1,
-                                                                                            $fecha_periodo,
-                                                                                            $fecha_periodo]);
+            DB::connection('DB_Serverr')->insert('INSERT INTO prenomina (noPrenomina, clave_empleado, clave_concepto, monto, status_prenomina, created_at, updated_at)
+                                                  VALUES(?,?,?,?,?,?,?)',[$periodo, $value->clvEmp, $value->concepto, $value->monto, 1, $fecha_periodo, $fecha_periodo]);
         }
+        
+        DB::connection('DB_Serverr')->insert('INSERT INTO prenomina (noPrenomina, clave_empleado, clave_concepto, monto, status_prenomina, created_at, updated_at)
+                                              VALUES(?,?,?,?,?,?,?)',[$periodo, $request->clvEmp, '01OC', $request->totalGrav, 1, $fecha_periodo, $fecha_periodo]);
+
+        DB::connection('DB_Serverr')->insert('INSERT INTO prenomina (noPrenomina, clave_empleado, clave_concepto, monto, status_prenomina, created_at, updated_at)
+                                              VALUES(?,?,?,?,?,?,?)',[$periodo, $request->clvEmp, '02OC', $request->totalExc, 1, $fecha_periodo, $fecha_periodo]);
     }
 
     public function calcularImpuestos(Request $request){
@@ -129,7 +122,7 @@
 
         $isrDeterminado = $isrCalculado - $subsidio->cantidadSubsidio;
         
-        return $collection = collect(['001I','ISR',$isrDeterminado]);
+        return $collection = collect(['001T','ISR',$isrDeterminado]);
     }
 
     public function pensionAlimenticia(Request $request){
@@ -190,7 +183,7 @@
                          ->first();
 
         if($empleados->sueldo_diario <= $importeRegion->importe){
-            return $collection = collect(['002I','IMSS TRABAJADOR',0]);
+            return $collection = collect(['003T','IMSS TRABAJADOR',0]);
         }else{
             $at = $this->anios_trabajados($empleados->id_emp);
 
@@ -220,7 +213,7 @@
                 }
             }
 
-            return $collection = collect(['002I','IMSS TRABAJADOR',$totalIMSS]);
+            return $collection = collect(['003T','IMSS TRABAJADOR',$totalIMSS]);
         }
     }
 
@@ -346,7 +339,6 @@
             foreach($conceptos as $concep){
                 if($concep->clave_concepto == "001P"){
                     $resultaSueldo = $this->sueldo($emp->id_emp,$emp->clave_empleado);
-                    //$resultaSueldoBruto = $this->sueldoBruto($emp->id_emp,$emp->clave_empleado);
                     if($resultaSueldo != 0){
                         $Gravado = $resultaSueldo;
                         $Excento = 0;
@@ -415,6 +407,10 @@
                     $resultaPrimaVacacional = $this->primaVacacional($emp->id_emp,$emp->clave_empleado);
                     if($resultaPrimaVacacional != 0){
                         $uma = $this->uma();
+                        if(is_null($uma)){
+                            return back()->with('uma','El valor de "uma" no esta actualizado');
+                        }
+
                         $limite = $uma->porcentaje_uma*15;
                         if($resultaPrimaVacacional < $limite){
                             $Gravado = 0;
@@ -635,7 +631,7 @@
                 }else if($concep->clave_concepto == "019D"){
                     $montoRetardo = $this->adicionales($emp->clave_empleado,'019D');
                     if($montoRetardo != 0){
-                        $ControlPrenomina->push(["clave_empleado"=>$emp->clave_empleado,"clave_concepto"=>"013D","concepto"=>"RETARDO","monto"=>$montoRetardo,"gravable"=>$Gravado,"excento"=>$Excento,"tipo"=> "D"]);
+                        $ControlPrenomina->push(["clave_empleado"=>$emp->clave_empleado,"clave_concepto"=>"019D","concepto"=>"RETARDO","monto"=>$montoRetardo,"gravable"=>$Gravado,"excento"=>$Excento,"tipo"=> "D"]);
                     }else{
                         $Gravado = 0;
                         $Excento = 0;
@@ -668,7 +664,6 @@
                  ->first();
        // $i =      $this->creditoInfonavit($clave->id_emp,$clave->clave_empleado,'007D');
        // return $i;
-    
 
         $sumaImss = $percepcionesImss->where('clave_empleado',$clave->clave_empleado)->sum('total');
     

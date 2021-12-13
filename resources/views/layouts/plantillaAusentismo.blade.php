@@ -252,8 +252,8 @@
                 </p>
               </a>
               <ul class="nav nav-treeview">
-                <li class="nav-item">
-                  <a name="botonNominas" id="botonNominas" href="{{ route('aguinaldos.index')}}" class="nav-link active">
+                <li class="nav-item {{!Route::is('aguinaldosP.index') ?: 'active'}}">
+                  <a name="botonAguinaldo" id="botonAguinaldo" href="{{ route('aguinaldosP.index')}}" class="nav-link active">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Prenómina</p>
                   </a>
@@ -405,6 +405,7 @@
       $('#listaconcepto_clave').fadeOut();
       $('#nomConcepto').val(nombreConcepto);
     });
+    
     $('.clave_empledo').keyup(function(){
       let query = $(this).val();  
         if(query != ''){

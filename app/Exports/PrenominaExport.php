@@ -7,8 +7,14 @@ use Session;
 use Illuminate\Contracts\View\View;
 use Maatwebsite\Excel\Concerns\FromView;
 use Maatwebsite\Excel\Concerns\Exportable;
+use Maatwebsite\Excel\Concerns\WithTitle;
+use Maatwebsite\Excel\Concerns\ShouldAutoSize;
+use Maatwebsite\Excel\Concerns\WithStyles;
+use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
+use Maatwebsite\Excel\Concerns\WithHeadingRow;
 
-class PrenominaExport implements FromView{
+
+class PrenominaExport implements FromView, WithTitle, ShouldAutoSize, WithStyles, WithHeadingRow{
     use Exportable;
 
     public function conectar($clv){
@@ -35,26 +41,26 @@ class PrenominaExport implements FromView{
 
         $clv_empresa = $this->conectar($clv);
         \Config::set('database.connections.DB_Serverr', $clv_empresa);
-
-        $PSPrenoina = DB::connection('DB_Serverr')->select('CALL obtenerPrenomina();');
-
-        /*$prenomina = DB::connection('DB_Serverr')->table('prenomina')
-                     ->select('empleados.clave_empleado','empleados.nombre','empleados.apellido_paterno','empleados.apellido_materno','prenomina.id_prenomina',
-                     'prenomina.monto','conceptos.concepto')
-                     ->join('empleados','empleados.clave_empleado','=','prenomina.clave_empleado')
-                     ->join('conceptos', 'conceptos.clave_concepto', '=', 'prenomina.clave_concepto')
-                     ->where([
-                         ['prenomina.noPrenomina','=',$num_periodo],
-                         ['prenomina.status_prenomina','=',1],
-                         ['conceptos.seleccionado', '=',1],
-                         ['conceptos.naturaleza', '=', 'P']
-                        ])
-                     ->groupBy('empleados.clave_empleado','empleados.nombre','empleados.apellido_paterno','empleados.apellido_materno','prenomina.id_prenomina',
-                    'prenomina.monto','conceptos.concepto')
-                     ->get();*/
+        $ped = (int)$num_periodo;
+        
+        $PSPrenoina = DB::connection('DB_Serverr')->select('CALL obtenerPrenomina(?)',[$ped]);
 
         return view('exports.prenomina',[
             'prenomina' => $PSPrenoina
         ]);
+    }
+
+    public function title(): string{
+        return 'Nómina';
+    }
+
+    public function styles(Worksheet $sheet){
+        return [
+            1    => ['font' => ['bold' => true]]
+        ];
+    }
+
+    public function headingRow(): int{
+        return 2;
     }
 }
