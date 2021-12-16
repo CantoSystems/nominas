@@ -285,7 +285,7 @@
                                 @can('administrador')
                                     @if(isset($ausentismo))
                                         <div class="form-group">
-                                            <a id="eliminar" data-target="#modal-deleteausent-{{$ausentismo->id}}" data-toggle="modal">
+                                            <a id="eliminar" data-target="#modal-deleteausent-{{$ausentismo->identificador}}" data-toggle="modal">
                                                 <button type="button" class="botonesgrandes">
                                                     <i class="far fa-trash-alt">
                                                     </i>
