@@ -30,6 +30,12 @@
                                 <button type="submit" style='width:125px; height:38px;'>Descargar Excel</button>
                             </form>
                         </div>
+                        <div class="col">
+                            <form action="">
+                                <button>Desactivar y crear nuevo periodo</button>
+                            </form>
+
+                        </div>
                     </div>
                     <br>
                     <div class="card-header" style="background-color:darkgrey; padding:6px 6px 6px 6px; color: white;">

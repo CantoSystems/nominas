@@ -461,7 +461,7 @@
           },
           success: function(data){
             console.log(data);
-            /*let htmlTags = '<tr>'+
+            let htmlTags = '<tr>'+
                               '<td style="text-align: center;">' + data[0] + 
                               '<input type="hidden" class="clvCncpt" value="'+data[0]+'">'+
                               '</td>'+
@@ -473,7 +473,7 @@
                               '<input class="totales3" id="trabajadorImss" type="hidden" value=" ' + data[2].toFixed(2) + ' ">'+
                               '</td>'+
                             '</tr>'
-            $('#filasImpuestos tbody').append(htmlTags);*/
+            $('#filasImpuestos tbody').append(htmlTags);
 
             let importe_total3 = 0;
             $(".totales3").each(function(index, value){
@@ -549,7 +549,7 @@
                   },
                   success: function(data){
                     console.log(data);
-                    /*$.each(data, function(index) {                     
+                    $.each(data, function(index) {                     
                       htmlTags = '<tr>'+
                                     '<td style="text-align: center;">' + data[index].clave_concepto +
                                     '<input type="hidden" class="clvCncpt" value="'+data[index].clave_concepto+'">'+
@@ -572,7 +572,7 @@
                       }
                     });
                     $(".totalImpuestosPatron").val(importe_total4.toFixed(2));
-                    $(".conceptoPatron").val("03TI");*/
+                    $(".conceptoPatron").val("03TI");
                   },
                   error: function(xhr, status, error) {
                     var err = JSON.parse(xhr.responseText);

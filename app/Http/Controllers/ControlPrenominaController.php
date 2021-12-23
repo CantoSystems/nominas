@@ -198,12 +198,17 @@
             $SBC = $this->SBC($prestaciones->dias,$empleados->sueldo_diario,$empleados->id_emp);
             
             $uma = $this->uma();
-            
+                if(is_null($uma)){
+                    return back()->with('uma','El valor de "uma" no ha sido actualizado');
+                }
+           
             $diasTrabajados = $this->dias_trabajados($request->clvEmp);
 
             $ims = IMSS::select('cuotatrabajador','id_imss','base','claveImss')
                    ->where('cuotatrabajador','!=',0)
                    ->get();
+            
+                   
            
    
             $totalIMSS = 0;
@@ -414,7 +419,7 @@
                     if($resultaPrimaVacacional != 0){
                         $uma = $this->uma();
                         if(is_null($uma)){
-                            return back()->with('uma','El valor de "uma" no esta actualizado');
+                            return back()->with('uma','El valor de "uma" no ha sido actualizado');
                         }
 
                         $limite = $uma->porcentaje_uma*15;
@@ -841,7 +846,7 @@
                     ])
                     ->first();
 
-        return $uma->porcentaje_uma;
+        return $uma;
     }
 
     public function ahorro_riesgo(){

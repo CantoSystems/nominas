@@ -61,6 +61,9 @@ class PeriodosController extends Controller
         return view('layouts.segunda');
     }
 
+    public function generarPeriodo(){
+        
+    }
     public function acciones(Request $request){
         $clv=Session::get('clave_empresa');
         $clv_empresa=$this->conectar($clv);
