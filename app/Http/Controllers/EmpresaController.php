@@ -252,6 +252,7 @@ class EmpresaController extends Controller{
             $table->date('fecha_fin');
             $table->date('fecha_pago');
             $table->smallInteger('diasPeriodo');
+            $table->boolean('status_periodo');
             $table->timestamps();
         });
 
@@ -726,9 +727,11 @@ class EmpresaController extends Controller{
                                                                   ,fecha_fin
                                                                   ,fecha_pago
                                                                   ,diasPeriodo
+                                                                  ,status_periodo
                                                                   ,created_at
                                                                   ,updated_at)
                                                            VALUES(?
+                                                                 ,?
                                                                  ,?
                                                                  ,?
                                                                  ,?
@@ -740,6 +743,7 @@ class EmpresaController extends Controller{
                                                                 ,$fechaFin
                                                                 ,$fechaPago
                                                                 ,$datos->tipoPeriodo
+                                                                ,1
                                                                 ,$fecha_periodo
                                                                 ,$fecha_periodo]);
     }

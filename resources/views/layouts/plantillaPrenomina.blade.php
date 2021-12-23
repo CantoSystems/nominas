@@ -460,6 +460,7 @@
             totalImss: $('.totalPercepcionesIMSS').val(),
           },
           success: function(data){
+            console.log(data);
             let htmlTags = '<tr>'+
                               '<td style="text-align: center;">' + data[0] + 
                               '<input type="hidden" class="clvCncpt" value="'+data[0]+'">'+
@@ -547,6 +548,7 @@
                     percepciones: totalPercepciones
                   },
                   success: function(data){
+                    console.log(data);
                     $.each(data, function(index) {                     
                       htmlTags = '<tr>'+
                                     '<td style="text-align: center;">' + data[index].clave_concepto +
