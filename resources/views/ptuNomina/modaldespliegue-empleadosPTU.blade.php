@@ -15,11 +15,11 @@
                     <div class="row">
                         <div class="col-sm-6">
                             <label for="totalPTU">Total PTU a Repartir</label>
-                            <input type="number" class="form-control" id="totalPTU" name="totalPTU">
+                            <input type="number" class="form-control datos" id="totalPTU" name="totalPTU">
                         </div>
                         <div class="col-sm-6">
                             <label for="ingEmpSind">Ingresos Percibidos del Empleado Sindicalizado</label>
-                            <input type="number" class="form-control" id="ingEmpSind" name="ingEmpSind">
+                            <input type="number" class="form-control datos" id="ingEmpSind" name="ingEmpSind">
                         </div>
                     </div>
                     <br>
