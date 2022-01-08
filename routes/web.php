@@ -28,6 +28,7 @@ Route::get('/seleccionarperiodo','PeriodosController@seleccionarperiodo')->name(
 Route::get('/periodos','PeriodosController@index')->name('periodos.index');
 Route::get('/accionesperiodos','PeriodosController@acciones')->name('periodos.acciones');
 Route::delete('accionesperiodos/{id}', 'PeriodosController@eliminarperiodo')->name('periodos.eliminarperiodo');
+Route::get('/generar-periodo','PeriodosController@generarPeriodo')->name('periodos.generar');
 
 //puestos 
 Route::get('puestos','PuestosController@index')->name('puestos.index');

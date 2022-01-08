@@ -62,6 +62,36 @@ class PeriodosController extends Controller
     }
 
     public function generarPeriodo(){
+        $actualPeriodo = Session::get('num_periodo');
+        $clv=Session::get('clave_empresa');
+        $clv_empresa=$this->conectar($clv);
+        \Config::set('database.connections.DB_Serverr', $clv_empresa);
+
+        $terminoPeriodo = DB::connection('DB_Serverr')->table('periodos')
+            ->select('fecha_fin','diasPeriodo')
+            ->where([
+                    ['numero','=',$actualPeriodo],
+                    ['status_periodo','=',1]
+                ])
+            ->first();
+        
+        $encontrarDia = date('d',strtotime($terminoPeriodo->fecha_fin))+1;
+        $encontrarMes  = date('m',strtotime($terminoPeriodo->fecha_fin));
+        $encontrarAnio = date('Y',strtotime($terminoPeriodo->fecha_fin));
+        echo $encontrarDia;
+        echo $encontrarMes;
+        echo $encontrarAnio;
+
+        echo $terminoPeriodo->diasPeriodo;
+
+        if( $terminoPeriodo->diasPeriodo == 15){
+            if($encontrarDia > 16){
+
+            }
+        }
+
+
+
         
     }
     public function acciones(Request $request){
