@@ -37,7 +37,7 @@
 
                         </div>
                         <div class="col">
-                            <form action="">
+                            <form action="{{ route('periodos.desactivar')}}">
                                 <button> Desactivar periodo</button>
                             </form>
                         </div>
