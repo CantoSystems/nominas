@@ -84,6 +84,7 @@
     public function calcularImpuestos(Request $request){
         $percGrav = $request->totalPercepcionesGrav;
         $percNoGrav = $request->totalPercepcionesNoGrav;
+        $claveEmpleado = $request->empclave;
 
         $jt = $this->jornadaTrabajo();
 
@@ -122,7 +123,7 @@
 
         $isrDeterminado = $isrCalculado - $subsidio->cantidadSubsidio;
         
-        return $collection = collect(['001T','ISR',$isrDeterminado]);
+        return $collection = collect(['001T','ISR',$isrDeterminado, $claveEmpleado]);
     }
 
     public function pensionAlimenticia(Request $request){
@@ -131,6 +132,8 @@
         $clv_empresa = $this->conectar($clv);
         \Config::set('database.connections.DB_Serverr', $clv_empresa);
 
+        $empleadoClave = $request->empclave;
+        ;
         $pension = DB::connection('DB_Serverr')->table('incidencias')
                    ->where([
                        ['clave_empleado','=',$request->clvEmp],
@@ -158,11 +161,11 @@
                 $sueldoTotal = $request->totalSueldo - $descuentoPension;
             }
 
-            return $collection = collect([$pension->clave_concepto,$pension->concepto,round($sueldoTotal,2),$descuentoPension,$pension->clave_empleado]);
+            return $collection = collect([$pension->clave_concepto,$pension->concepto,round($sueldoTotal,2),$descuentoPension,$pension->clave_empleado,$empleadoClave]);
         }else{
             $sueldoTotal = $request->totalSueldo;
 
-            return $collection = collect(['','',round($sueldoTotal, 2),'','']);
+            return $collection = collect(['','',round($sueldoTotal, 2),'','',$empleadoClave]);
         }
     }
 
@@ -171,6 +174,9 @@
         $num_periodo = Session::get('num_periodo');
         $clv_empresa = $this->conectar($clv);
         \Config::set('database.connections.DB_Serverr', $clv_empresa);
+        
+        $valorClvEmpleado = $request->empclave;
+        
 
         $empleados = DB::connection('DB_Serverr')->table('empleados')
                      ->select('id_emp','sueldo_diario','dias','tipo_jornada')   
@@ -185,7 +191,7 @@
         
         
         if($empleados->sueldo_diario <= $importeRegion->importe){
-            return $collection = collect(['003T','IMSS TRABAJADOR',0]);
+            return $collection = collect(['003T','IMSS TRABAJADOR',0,$valorClvEmpleado]);
         }else if($empleados->sueldo_diario > $importeRegion->importe){
           
             $at = $this->anios_trabajados($empleados->id_emp);
@@ -208,9 +214,6 @@
                    ->where('cuotatrabajador','!=',0)
                    ->get();
             
-                   
-           
-   
             $totalIMSS = 0;
             foreach($ims as $cuotasIMSS){
                 //clave
@@ -224,12 +227,13 @@
                 }
             }
 
-            return $collection = collect(['003T','IMSS TRABAJADOR',$totalIMSS]);
+            return $collection = collect(['003T','IMSS TRABAJADOR',$totalIMSS,$valorClvEmpleado]);
         }
     }
 
     public function impuestosPatron(Request $request){
         $CollectionPatron = collect();
+        $empleadoporClave = $request->empclave;
 
         $clv = Session::get('clave_empresa');
         $num_periodo = Session::get('num_periodo');
@@ -238,7 +242,7 @@
        
         //Impuesto Estatal
         $impuestoEstatal = ($request->percepciones*3)/100;
-        $CollectionPatron->push(["clave_concepto"=>"004I","concepto"=>"IMPUESTO ESTATAL","monto"=>number_format($impuestoEstatal,2)]);                           
+        $CollectionPatron->push(["clave_concepto"=>"004I","concepto"=>"IMPUESTO ESTATAL","monto"=>number_format($impuestoEstatal,2), "clave_empleado" => $empleadoporClave]);                           
 
         //IMSS Patronal
         $empleados = DB::connection('DB_Serverr')->table('empleados')
@@ -284,12 +288,12 @@
                 //Cesantía
                 case 'IRC2':
                     $cesantia = ($cuotasIMSS->cuotapatron*$diasTrabajados*$SBC)/100;
-                    $CollectionPatron->push(["clave_concepto"=>"008I","concepto"=>"CESANTÍA","monto"=>number_format($cesantia,2)]);
+                    $CollectionPatron->push(["clave_concepto"=>"008I","concepto"=>"CESANTÍA","monto"=>number_format($cesantia,2),"clave_empleado" => $empleadoporClave]);
                     break;
                 //Fondo Retiro
                 case 'IRC1':
                     $retiro = ($cuotasIMSS->cuotapatron*$diasTrabajados*$SBC)/100;
-                    $CollectionPatron->push(["clave_concepto"=>"007I","concepto"=>"FONDO RETIRO","monto"=>number_format($retiro,2)]);
+                    $CollectionPatron->push(["clave_concepto"=>"007I","concepto"=>"FONDO RETIRO","monto"=>number_format($retiro,2),"clave_empleado" => $empleadoporClave]);
                     break;
                 //Infonavit Patrón
                 case 'IIN1':
@@ -303,7 +307,7 @@
             }
         }
 
-        $CollectionPatron->push(["clave_concepto"=>"005I","concepto"=>"IMSS PATRÓN","monto"=>number_format($totalIMSS,2)]);
+        $CollectionPatron->push(["clave_concepto"=>"005I","concepto"=>"IMSS PATRÓN","monto"=>number_format($totalIMSS,2),"clave_empleado" => $empleadoporClave]);
         return $CollectionPatron;
     }
 
