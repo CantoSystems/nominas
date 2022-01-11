@@ -393,6 +393,7 @@
               calculoISR: $('#calculoISR').val(),
               totalPTU: $('#totalPTU').val(),
               ingresosEmp: $('#ingEmpSind').val(),
+              diasLaborados: $('#diasLaborados').val(),
           },
           success: function(data){
             $('#modalbusquedaempAg').modal('hide');
