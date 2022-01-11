@@ -1,5 +1,4 @@
-<div 	class="modal fade bs-example-modal-sm" tabindex="-1" 
-		id="modal-deleteausent-{{$ausentismo->id}}" role="dialog" aria-hidden="true">
+<div class="modal fade bs-example-modal-sm" tabindex="-1" id="modal-deleteausent-{{$ausentismo->identificador}}" role="dialog" aria-hidden="true">
 	<div class="modal-dialog modal-sm">
 		<div class="modal-content">
 			<div class="modal-header">
@@ -9,17 +8,17 @@
 				</button>
 			</div>
 			<div class="modal-body">
-				<form class="" action="{{ route('ausentismo.destroy', $ausentismo->id )}}" method="post">
+				<form class="" action="{{ route('ausentismo.destroy', $ausentismo->identificador )}}" method="post">
 					@method('DELETE')
 					@csrf
 					<div class="row">
-						<h5 style="text-align: center;">¿Estas seguro de eliminaresta incapacidad: 
+						<h5 style="text-align: center;">¿Estas seguro de eliminar esta incapacidad: 
 							<strong>{{$ausentismo->incapacidad}}</strong>?
 						</h5>
 					</div>
 					<div class="modal-footer">
 						<button type="button" data-dismiss="modal" class="botones-modales">Cancelar</button>
-						<button type="submit" class=botones-modales">Continuar</button>
+						<button type="submit" class="botones-modales">Continuar</button>
 					</div>
 				</form>
 			</div>

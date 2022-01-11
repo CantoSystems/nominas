@@ -28,6 +28,8 @@ Route::get('/seleccionarperiodo','PeriodosController@seleccionarperiodo')->name(
 Route::get('/periodos','PeriodosController@index')->name('periodos.index');
 Route::get('/accionesperiodos','PeriodosController@acciones')->name('periodos.acciones');
 Route::delete('accionesperiodos/{id}', 'PeriodosController@eliminarperiodo')->name('periodos.eliminarperiodo');
+Route::get('/generar-periodo','PeriodosController@generarPeriodo')->name('periodos.generar');
+Route::get('desactivar-periodo','PeriodosController@desactivarPeriodo')->name('periodos.desactivar');
 
 //puestos 
 Route::get('puestos','PuestosController@index')->name('puestos.index');
@@ -180,3 +182,7 @@ Route::get('/aguinaldos', 'prenominaAguinaldo@index')->name('aguinaldosP.index')
 Route::get('/aguinaldos-excel3','prenominaAguinaldo@exportExcel')->name('aguinaldos.excel3');
 Route::post('/aguinaldos', 'prenominaAguinaldo@create')->name('aguinaldosP.create');
 Route::post('/aguinaldos/enviocontrolaguinaldo', 'prenominaAguinaldo@store')->name('aguinaldosP.store');
+
+//PTU
+Route::get('/ptu', 'prenominaPTU@index')->name('ptu.index');
+Route::post('/ptu', 'prenominaPTU@create')->name('ptu.create');

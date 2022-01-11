@@ -285,8 +285,8 @@
                 </p>
               </a>
               <ul class="nav nav-treeview">
-                <li class="nav-item">
-                  <a name="botonNominas" id="botonNominas" href="#" class="nav-link active">
+                <li class="nav-item {{!Route::is('ptu.index') ?: 'active'}}">
+                  <a name="botonAguinaldo" id="botonAguinaldo" href="{{ route('ptu.index')}}" class="nav-link active">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Prenómina</p>
                   </a>
@@ -427,22 +427,22 @@
             _token: $("meta[name='csrf-token']").attr("content"),
             totalPercepcionesGrav: $('.totalPercepcionesGravadas').val(),
             totalPercepcionesNoGrav: $('.totalPercepcionesExcentas').val(),
+            empclave: $('#extraerEmp').val(),
           },
           success: function(data){
-            empclave = $('#extraerEmp').val();
-            let htmlTags = '<tr>'+
+                let htmlTags = '<tr>'+
                               '<td style="text-align: center;">' + data[0] + 
                               '<input type="hidden" class="clvCncpt" value="'+data[0]+'">'+
                               '</td>'+
                               '<td style="text-align: center;">' + data[1] +
-                              '<input type="hidden" class="clvEmp" value="'+empclave+'">'+
+                              '<input type="hidden" class="clvEmp" value="'+data[3]+'">'+
                                '</td>'+
                               '<td style="text-align: center;">$ ' + data[2].toFixed(2) + 
                                 '<input type="hidden" class="monto" value="'+ data[2].toFixed(2) +'">'+
                               '<input class="totales3" id="trabajadorIsr" type="hidden" value=" ' + data[2].toFixed(2) + ' ">'+
                               '</td>'+
                             '</tr>'
-            $('#filasImpuestos tbody').append(htmlTags);
+               $('#filasImpuestos tbody').append(htmlTags);
           },
           error: function(xhr, status, error) {
             var err = JSON.parse(xhr.responseText);
@@ -458,18 +458,20 @@
             _token: $("meta[name='csrf-token']").attr("content"),
             clvEmp: $('.clvEmp').val(),
             totalImss: $('.totalPercepcionesIMSS').val(),
+            empclave: $('#extraerEmp').val(),
           },
           success: function(data){
+            console.log(data);
             let htmlTags = '<tr>'+
                               '<td style="text-align: center;">' + data[0] + 
-                              '<input type="hidden" class="clvCncpt" value="'+data[0]+'">'+
+                                '<input type="hidden" class="clvCncpt" value="'+data[0]+'">'+
                               '</td>'+
                               '<td style="text-align: center;">' + data[1] +
-                              '<input type="hidden" class="clvEmp" value="'+empclave+'">'+
+                              '<input type="hidden" class="clvEmp" value="'+data[3]+'">'+
                               '</td>'+
                               '<td  style="text-align: center;">$ ' + data[2].toFixed(2) + 
                                 '<input type="hidden" class="monto" value="'+ data[2].toFixed(2) +'">'+
-                              '<input class="totales3" id="trabajadorImss" type="hidden" value=" ' + data[2].toFixed(2) + ' ">'+
+                                '<input class="totales3" id="trabajadorImss" type="hidden" value=" ' + data[2].toFixed(2) + ' ">'+
                               '</td>'+
                             '</tr>'
             $('#filasImpuestos tbody').append(htmlTags);
@@ -492,11 +494,14 @@
               data: {
                 _token: $("meta[name='csrf-token']").attr("content"),
                 clvEmp: $('.clvEmp').val(),
-                totalSueldo: totalSueldoIn
+                totalSueldo: totalSueldoIn,
+                empclave: $('#extraerEmp').val(),
               },
               success: function(data){
+              
+                
                 if(data[0] != ''){
-                  //$('.otrasDeducciones').css('display', 'block');
+                  
                   let htmlTags = '<tr>'+
                                   '<td style="text-align: center;">' + data[0] +
                                   '<input type="hidden" class="form-control clvCncpt" value="'+data[0]+'">'+
@@ -505,7 +510,7 @@
                                   '<input type="hidden" class="form-control clvEmp" value="'+data[4]+'">'+
                                   '</td>'+
                                   '<td style="text-align: center;">$' + data[3].toFixed(2) +
-                                  '<input type="text" class="form-control monto totales2" value="'+ data[3].toFixed(2) +'">'+
+                                  '<input type="hidden" class="form-control monto totales2" value="'+ data[3].toFixed(2) +'">'+
                                   '</td>'+
                                 '</tr>'
 
@@ -528,7 +533,7 @@
                                     '<input type="hidden" class="clvCncpt" value="001S">'+
                                   '</td>'+
                                   '<td style="text-align: center;">PAGO NETO'+
-                                  '<input type="hidden" class="clvEmp" value="'+empclave+'">'+
+                                  '<input type="hidden" class="clvEmp" value="'+data[5]+'">'+
                                   '</td>'+
                                   '<td style="text-align: center;">$'+ data[2] + 
                                     '<input type="hidden" class="monto" value="'+ data[2] +'">'+
@@ -544,16 +549,18 @@
                   data: {
                     _token: $("meta[name='csrf-token']").attr("content"),
                     clvEmp: $('.clvEmp').val(),
-                    percepciones: totalPercepciones
+                    percepciones: totalPercepciones,
+                    empclave: $('#extraerEmp').val(),
                   },
                   success: function(data){
+                   
                     $.each(data, function(index) {                     
                       htmlTags = '<tr>'+
                                     '<td style="text-align: center;">' + data[index].clave_concepto +
                                     '<input type="hidden" class="clvCncpt" value="'+data[index].clave_concepto+'">'+
                                     '</td>'+
                                     '<td style="text-align: center;">' + data[index].concepto +
-                                    '<input type="hidden" class="clvEmp" value="'+empclave+'">'+
+                                    '<input type="hidden" class="clvEmp" value="'+data[index].clave_empleado+'">'+
                                     '</td>'+
                                     
                                     '<td  style="text-align: center;">$ ' + data[index].monto +
@@ -634,7 +641,6 @@
               clvEmp:     e.querySelector('.clvEmp').value,
             };
             myTableControl.push(fila);
-            //console.log(myTableControl);
           });
           let jsonString = JSON.stringify(myTableControl);
           $.ajax({
@@ -648,7 +654,7 @@
               clvEmp : $(".clvEmp").val(),
             },
             success: function(data){
-              console.log(data);
+              //console.log(data);
             },
             error: function(xhr, status, error) {
               var err = JSON.parse(xhr.responseText);
