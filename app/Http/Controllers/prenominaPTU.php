@@ -4,6 +4,8 @@ use Illuminate\Http\Request;
 use App\Conecta\Conexionmultiple;
 use DB;
 use App\Umas;
+use App\Subsidio;
+use App\Retenciones;
 use App\Exports\AguinaldoExport;
 use Session;
 use DataTables;
@@ -82,6 +84,8 @@ class prenominaPTU extends Controller{
             $totalDias = $totalDias + (365-$sumAusencias->sumaAusencias);
         }
 
+        $totalDias = $totalDias + $request->diasLaborados;
+
         //Total de días por empleado
         $sumAusenciasEmp = DB::connection('DB_Serverr')->table('ausentismos')
                             ->select(DB::raw('CASE WHEN COUNT(cantidad_ausentismo) = " " THEN 0 ELSE 365 - SUM(cantidad_ausentismo) END as sumaAusenciasEmp'))
@@ -114,6 +118,8 @@ class prenominaPTU extends Controller{
             $TotalIng = $TotalIng + $IngNorm;
         }
 
+        $TotalIng = $TotalIng + $request->ingresosEmp;
+
         //Total de ingresos por empleado
         $ingTotalEmp = DB::connection('DB_Serverr')->table('prenomina')
                        ->join('periodos','prenomina.noPrenomina','=','numero')
@@ -125,7 +131,13 @@ class prenominaPTU extends Controller{
                            ])
                        ->sum('prenomina.monto');
 
-        $factorDias = $sumAusenciasEmp->sumaAusenciasEmp/$totalDias;
+        if($sumAusenciasEmp->sumaAusenciasEmp == 0){
+            $sumAuEmp = 365;
+        }else{
+            $sumAuEmp = $sumAusenciasEmp->sumaAusenciasEmp;
+        }
+
+        $factorDias = $sumAuEmp/$totalDias;
 
         if($ingTotalEmp > $request->ingresosEmp){
             $IngNorm = $request->ingresosEmp*1.1;
@@ -135,9 +147,7 @@ class prenominaPTU extends Controller{
 
         $FactIng = $IngNorm/$TotalIng;
         $PTUSueldo = ($request->totalPTU / 2) * $FactIng;
-        $diasEmp = 365 - $sumAusenciasEmp->sumaAusenciasEmp;
-        $FactDias = $diasEmp/$totalDias;
-        $PTUDias = ($request->totalPTU / 2) * $FactDias;
+        $PTUDias = ($request->totalPTU / 2) * $factorDias;
         $TotalPTUEmp = $PTUDias + $PTUSueldo;
 
         $uma = $this->uma();
@@ -153,14 +163,14 @@ class prenominaPTU extends Controller{
 
         if($request->calculoISR == "art86"){
             $end = new Carbon('last day of December');
-            $lastDay = $end->format('Y-m-d');
+            $lastDay = $end->format('2021-m-d');
             if($at >= 1){
                 $acumladoGrav = DB::connection('DB_Serverr')->table('prenomina')
                                 ->join('periodos','prenomina.noPrenomina','=','numero')
                                 ->where([
                                     ['prenomina.clave_empleado','=',$request->clvEmp],
                                     ['prenomina.clave_concepto','=','01OC'],
-                                    ['periodos.fecha_inicio','>=',date('Y-01-01')],
+                                    ['periodos.fecha_inicio','>=',date('2021-01-01')],
                                     ['periodos.fecha_fin','<=',$lastDay]
                                     ])
                                 ->sum('prenomina.monto');
@@ -174,6 +184,7 @@ class prenominaPTU extends Controller{
                                      ['periodos.fecha_fin','<=',$lastDay]
                                      ])
                                  ->sum('prenomina.monto');
+
             }else{
                 $acumladoGrav = DB::connection('DB_Serverr')->table('prenomina')
                                 ->join('periodos','prenomina.noPrenomina','=','numero')
@@ -208,8 +219,16 @@ class prenominaPTU extends Controller{
             $PTUFinal = $TotalPTUEmp - $ISRRetener;
         }
 
-        echo $PTUFinal;
-        //return compact('empleados','aguinaldo','aguinaldoFinal','ISRRetenerFinal','clave');*/
+        $clave = DB::connection('DB_Serverr')->table('empleados')
+                 ->select('clave_empleado','nombre','apellido_paterno','apellido_materno','id_emp')
+                 ->where('id_emp','=',$request->clvEmp)
+                 ->first();
+
+        $PTUSin = $collection = collect(['016P','P.T.U',$TotalPTUEmp]);
+        $PTUCon = $collection = collect(['001S','PAGO NETO',$PTUFinal]);
+        $ISRFinal = $collection = collect(['001T','ISR',$TotalPTUEmp]);
+
+        return compact('empleados','PTUSin','PTUCon','ISRFinal','clave');
     }
 
     public function calcularImpuestos($percExc,$percGrav){
@@ -275,7 +294,7 @@ class prenominaPTU extends Controller{
         $jt = $this->jornadaTrabajo();
         $uma = Umas::select('porcentaje_uma')
                     ->where([
-                        ['periodoinicio_uma','<',$jt->fecha_inicio],
+                        ['periodoinicio_uma','<=',$jt->fecha_inicio],
                         ['periodofin_uma','>',$jt->fecha_inicio]
                     ])
                     ->first();

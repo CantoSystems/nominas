@@ -24,7 +24,11 @@
                     </div>
                     <br>
                     <div class="row">
-                        <div class="col-sm-12">
+                         <div class="col-sm-6">
+                            <label for="diasLaborados">Días laborador del Empleado Sindicalizado</label>
+                            <input type="number" class="form-control datos" id="diasLaborados" name="diasLaborados">
+                        </div>
+                        <div class="col-sm-6">
                             <label for="calculoISR">Cálculo ISR</label>
                             <select class="custom-select" id="calculoISR" name="calculoISR">
                                 <option selected disabled value="N/A">Seleccione una opción:</option>
