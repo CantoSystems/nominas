@@ -31,10 +31,15 @@
                             </form>
                         </div>
                         <div class="col">
-                            <form action="">
-                                <button>Desactivar y crear nuevo periodo</button>
+                            <form action="{{ route('periodos.generar') }}">
+                                <button type="submit">Crear nuevo periodo</button>
                             </form>
 
+                        </div>
+                        <div class="col">
+                            <form action="{{ route('periodos.desactivar')}}">
+                                <button> Desactivar periodo</button>
+                            </form>
                         </div>
                     </div>
                     <br>
