@@ -77,10 +77,12 @@ class PeriodosController extends Controller
                     ['status_periodo','=',0]
                 ])
             ->first();
+        dd($terminoPeriodo);
        
         $encontrarDia = date('d',strtotime($terminoPeriodo->fecha_fin))+1;
         $encontrarMes  = date('m',strtotime($terminoPeriodo->fecha_fin));
         $encontrarAnio = date('Y',strtotime($terminoPeriodo->fecha_fin));
+
 
 
 
@@ -102,18 +104,26 @@ class PeriodosController extends Controller
         if( $terminoPeriodo->diasPeriodo == 15){
             if($encontrarDia <=15){
                 $siguienteMes = $encontrarMes+1;
-                $numeroPeriodo = ($siguienteMes*2)-1;
-                $iniciarPeriodo = $encontrarAnio.'-'.$siguienteMes.'-01';
-                $finalizarPeriodo = $encontrarAnio.'-'.$siguienteMes.'-15';
+
+                if($siguienteMes <= 12){
+                    $numeroPeriodo = ($siguienteMes*2)-1;
+                    $iniciarPeriodo = $encontrarAnio.'-'.$siguienteMes.'-01';
+                    $finalizarPeriodo = $encontrarAnio.'-'.$siguienteMes.'-15';
+                }else if($siguienteMes == 13){
+                    $siguienteMes = 1;
+                    $siguienteAnio = $encontrarAnio+1;
+                    $numeroPeriodo = ($siguienteMes*2)-1;
+                    $iniciarPeriodo = $siguienteAnio.'-'.$siguienteMes.'-01';
+                    $finalizarPeriodo = $siguienteAnio.'-'.$siguienteMes.'-15';
+                }
+              
 
             }else if($encontrarDia >= 16 and $encontrarDia<=31){
                 $numeroPeriodo = $encontrarMes*2;
                 $iniciarPeriodo = $encontrarAnio.'-'.$encontrarMes.'-16';
                 $mesSiguiente = $encontrarMes+1;
                 $finalizarPeriodo =  date('Y-m-d',(mktime(0,0,0,$mesSiguiente,1,$encontrarAnio)-1));
-                    echo $numeroPeriodo;
-                    echo $iniciarPeriodo;
-                    echo $finalizarPeriodo;
+
             }
         }
         
