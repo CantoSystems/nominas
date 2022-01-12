@@ -467,7 +467,7 @@
                                 '<input type="hidden" class="clvCncpt" value="'+data[0]+'">'+
                               '</td>'+
                               '<td style="text-align: center;">' + data[1] +
-                                '<input type="hidden" class="clvEmp" value="'+empclave+'">'+
+                              '<input type="hidden" class="clvEmp" value="'+data[3]+'">'+
                               '</td>'+
                               '<td  style="text-align: center;">$ ' + data[2].toFixed(2) + 
                                 '<input type="hidden" class="monto" value="'+ data[2].toFixed(2) +'">'+
