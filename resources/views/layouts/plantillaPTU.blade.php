@@ -396,49 +396,50 @@
               diasLaborados: $('#diasLaborados').val(),
           },
           success: function(data){
-            $('#modalbusquedaempAg').modal('hide');
+            console.log(data);
+            $('#modalbusquedaempPTU').modal('hide');
             $('#divEmp').html('<h6 id="nombreEmp" class="card-title"><b>Empleado:</b> '+data['clave']['nombre']+' '+data['clave']['apellido_paterno']+' '+data['clave']['apellido_materno']+'</h6>');
             let htmlTags = '<tr>'+
-                              '<td style="text-align: center;">' + data['aguinaldo'][0]['clave_concepto'] + 
-                                '<input type="hidden" class="datos clvCncpt" value="'+ data['aguinaldo'][0]['clave_concepto'] +'">'+
+                              '<td style="text-align: center;">' + data['PTUSin'][0]['clave_concepto'] + 
+                                '<input type="hidden" class="datos clvCncpt" value="'+ data['PTUSin'][0]['clave_concepto'] +'">'+
                               '</td>'+
-                              '<td style="text-align: center;">' + data['aguinaldo'][0]['concepto'] +
+                              '<td style="text-align: center;">' + data['PTUSin'][0]['concepto'] +
                                 '<input type="hidden" class="datos clvEmp" value="'+ data['clave']['clave_empleado'] +'">'+
                               '</td>'+
-                              '<td  style="text-align: center;">$ ' + data['aguinaldo'][0]['monto'].toFixed(2) + 
-                                '<input type="hidden" class="datos monto" value="' + data['aguinaldo'][0]['monto'].toFixed(2) +'">'+
+                              '<td  style="text-align: center;">$ ' + data['PTUSin'][0]['monto'].toFixed(2) + 
+                                '<input type="hidden" class="datos monto" value="' + data['PTUSin'][0]['monto'].toFixed(2) +'">'+
                               '</td>'+
                             '</tr>'
             $('#filasPercepciones tbody').append(htmlTags);
-            $(".totalPercepTrab").val(data['aguinaldo'][0]['monto'].toFixed(2));
+            $(".totalPercepTrab").val(data['PTUSin'][0]['monto'].toFixed(2));
 
             let htmlTags2 = '<tr>'+
-                              '<td style="text-align: center;">' + data['ISRRetenerFinal'][0]['clave_concepto'] + 
-                                '<input type="hidden" class="datos clvCncpt" value="'+ data['ISRRetenerFinal'][0]['clave_concepto'] +'">'+
+                              '<td style="text-align: center;">' + data['ISRFinal'][0]['clave_concepto'] + 
+                                '<input type="hidden" class="datos clvCncpt" value="'+ data['ISRFinal'][0]['clave_concepto'] +'">'+
                               '</td>'+
-                              '<td style="text-align: center;">' + data['ISRRetenerFinal'][0]['concepto'] +
+                              '<td style="text-align: center;">' + data['ISRFinal'][0]['concepto'] +
                                 '<input type="hidden" class="datos clvEmp" value="'+ data['clave']['clave_empleado'] +'">'+
                               '</td>'+
-                              '<td  style="text-align: center;">$' + data['ISRRetenerFinal'][0]['monto'].toFixed(2) + 
-                                '<input type="hidden" class="datos monto" value="'+ data['ISRRetenerFinal'][0]['monto'].toFixed(2) +'">'+
+                              '<td  style="text-align: center;">$' + data['ISRFinal'][0]['monto'].toFixed(2) + 
+                                '<input type="hidden" class="datos monto" value="'+ data['ISRFinal'][0]['monto'].toFixed(2) +'">'+
                               '</td>'+
                             '</tr>'
             $('#filasImpuestos tbody').append(htmlTags2);
-            $(".totalImpTrab").val(data['ISRRetenerFinal'][0]['monto'].toFixed(2));
+            $(".totalImpTrab").val(data['ISRFinal'][0]['monto'].toFixed(2));
 
             let htmlTags3 = '<tr>'+
-                              '<td style="text-align: center;">' + data['aguinaldoFinal'][0]['clave_concepto'] + 
-                                '<input type="hidden" class="datos clvCncpt" value="'+ data['aguinaldoFinal'][0]['clave_concepto'] +'">'+
+                              '<td style="text-align: center;">' + data['PTUCon'][0]['clave_concepto'] + 
+                                '<input type="hidden" class="datos clvCncpt" value="'+ data['PTUCon'][0] +'">'+
                               '</td>'+
-                              '<td style="text-align: center;">' + data['aguinaldoFinal'][0]['concepto'] +
+                              '<td style="text-align: center;">' + data['PTUCon'][0]['concepto'] +
                                 '<input type="hidden" class="datos clvEmp" value="'+ data['clave']['clave_empleado'] +'">'+
                               '</td>'+
-                              '<td  style="text-align: center;">$ ' + data['aguinaldoFinal'][0]['monto'].toFixed(2) + 
-                                '<input type="hidden" class="datos monto" value="' + data['aguinaldoFinal'][0]['monto'].toFixed(2) +'">'+
+                              '<td  style="text-align: center;">$ ' + data['PTUCon'][0]['monto'].toFixed(2) + 
+                                '<input type="hidden" class="datos monto" value="' + data['PTUCon'][0]['monto'].toFixed(2) +'">'+
                               '</td>'+
                             '</tr>'
             $('#filasTotales tbody').append(htmlTags3);
-            $(".totalSueldoNeto").val(data['aguinaldoFinal'][0]['monto'].toFixed(2));
+            $(".totalSueldoNeto").val(data['PTUCon'][0]['monto'].toFixed(2));
           },
           error: function(xhr, status, error) {
             var err = JSON.parse(xhr.responseText);
