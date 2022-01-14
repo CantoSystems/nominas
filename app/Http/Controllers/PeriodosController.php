@@ -76,35 +76,25 @@ class PeriodosController extends Controller
                     ['numero','=',$actualPeriodo],
                     ['status_periodo','=',0]
                 ])
-            ->first();
-        dd($terminoPeriodo);
+                ->latest('id')->first();
+        
+                if(is_null($terminoPeriodo)){
+                    echo "Verificar si se ha desactivado el periodo anterior";
+                }
+       
+        
        
         $encontrarDia = date('d',strtotime($terminoPeriodo->fecha_fin))+1;
         $encontrarMes  = date('m',strtotime($terminoPeriodo->fecha_fin));
         $encontrarAnio = date('Y',strtotime($terminoPeriodo->fecha_fin));
 
-
-
-
-        if($encontrarDia == 32 ){
+        if($encontrarDia === 32 or $encontrarDia === 29 or  $encontrarDia === 31){
             $encontrarDia = 1;
         }
 
-        if( $encontrarDia === 29){
-            $encontrarDia = 1;
-        }
-
-        if( $encontrarDia === 31){
-            $encontrarDia = 1;
-        }
-
-
-    
-
-        if( $terminoPeriodo->diasPeriodo == 15){
+        if( $terminoPeriodo->diasPeriodo === 15){
             if($encontrarDia <=15){
                 $siguienteMes = $encontrarMes+1;
-
                 if($siguienteMes <= 12){
                     $numeroPeriodo = ($siguienteMes*2)-1;
                     $iniciarPeriodo = $encontrarAnio.'-'.$siguienteMes.'-01';
@@ -116,15 +106,27 @@ class PeriodosController extends Controller
                     $iniciarPeriodo = $siguienteAnio.'-'.$siguienteMes.'-01';
                     $finalizarPeriodo = $siguienteAnio.'-'.$siguienteMes.'-15';
                 }
-              
-
             }else if($encontrarDia >= 16 and $encontrarDia<=31){
                 $numeroPeriodo = $encontrarMes*2;
                 $iniciarPeriodo = $encontrarAnio.'-'.$encontrarMes.'-16';
                 $mesSiguiente = $encontrarMes+1;
                 $finalizarPeriodo =  date('Y-m-d',(mktime(0,0,0,$mesSiguiente,1,$encontrarAnio)-1));
-
             }
+        }else if( $terminoPeriodo->diasPeriodo === 30){
+                $proximoMes = $encontrarMes + 1;                
+                    if($proximoMes <= 12){
+                        $numeroPeriodo = Ltrim($proximoMes,"0");
+                        $iniciarPeriodo =  $encontrarAnio.'-'.$proximoMes.'-1';
+                        $finalizarPeriodo = date('Y-m-d',(mktime(0,0,0,$proximoMes+1,1,$encontrarAnio)-1));
+                    }else if($proximoMes == 13){
+                        echo "Feliz Año nuevo";
+                        $anioNuevo = $encontrarAnio + 1;
+                        $reiniciarMes = $proximoMes = 1;
+                        $numeroPeriodo = Ltrim($reiniciarMes,"0");
+                        $iniciarPeriodo =  $anioNuevo.'-'.$reiniciarMes.'-1';
+                        $finalizarPeriodo = date('Y-m-d',(mktime(0,0,0,$reiniciarMes+1,1,$anioNuevo)-1));
+                    
+                    }
         }
         
         DB::connection('DB_Serverr')->insert('insert into periodos(numero,fecha_inicio,fecha_fin,fecha_pago,diasPeriodo
