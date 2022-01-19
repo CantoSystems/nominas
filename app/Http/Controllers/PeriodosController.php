@@ -119,7 +119,7 @@ class PeriodosController extends Controller
                         $iniciarPeriodo =  $encontrarAnio.'-'.$proximoMes.'-1';
                         $finalizarPeriodo = date('Y-m-d',(mktime(0,0,0,$proximoMes+1,1,$encontrarAnio)-1));
                     }else if($proximoMes == 13){
-                        echo "Feliz Año nuevo";
+                      
                         $anioNuevo = $encontrarAnio + 1;
                         $reiniciarMes = $proximoMes = 1;
                         $numeroPeriodo = Ltrim($reiniciarMes,"0");
