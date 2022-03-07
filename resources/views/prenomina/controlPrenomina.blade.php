@@ -9,6 +9,11 @@
                 </h3>
             </div>
             <div class="card-body">
+                @if(session()->has('status'))
+                        <div class="alert alert-danger" role="alert">
+                            {{ session('status')}}
+                        </div>
+                @endif
                 <form action="" method="GET" autocomplete="off">
                     <meta name="csrf-token" content="{{ csrf_token() }}">
                     <div class="row">

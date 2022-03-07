@@ -364,46 +364,8 @@
                         @endif
                     </div>
                 </div>
-                <div class="col-sm-2">
-                    <div class="form-group">
-                        <label>Días del Periodo:</label>
-                        @if(isset($empresa))
-                            <input type="number" maxlength="2" name="tipoPeriodo" class="form-control" value="{{ $empresa->tipoPeriodo }}">
-                            @error('tipoPeriodo')
-                                <div class="alert alert-secondary">
-                                    {{ $message }}
-                                </div>
-                            @enderror
-                        @else
-                            <input type="number" maxlength="2" name="tipoPeriodo" class="form-control">
-                            @error('tipoPeriodo')
-                                <div class="alert alert-secondary">
-                                    {{ $message }}
-                                </div>
-                            @enderror
-                        @endif
-                    </div>
-                </div>
-                <div class="col-sm-2">
-                    <div class="form-group">
-                        <label>Inicio del Periodo:</label>
-                        @if(isset($empresa))
-                            <input type="date" name="inicioPeriodo" class="form-control" value="{{ $empresa->inicioPeriodo }}">
-                            @error('inicioPeriodo')
-                                <div class="alert alert-secondary">
-                                    {{ $message }}
-                                </div>
-                            @enderror
-                        @else
-                            <input type="date" name="inicioPeriodo" class="form-control">
-                            @error('inicioPeriodo')
-                                <div class="alert alert-secondary">
-                                    {{ $message }}
-                                </div>
-                            @enderror
-                        @endif
-                    </div>
-                </div>
+               
+              
                 <div class="col-sm-3">
                     <div class="form-group">
                         <label>Área Geográfica:</label>
@@ -444,7 +406,7 @@
                 </div>
                 <div class="col-sm-3">
                     <div class="form-group">
-                        <label>Factor Prima de Riesgo de Trabajo:x</label>
+                        <label>Factor Prima de Riesgo de Trabajo:</label>
                         @if(isset($empresa))
                             <input type="number" min="-1" max="10" step="any" name="primaRiesgo" class="form-control" value="{{ $empresa->primaRiesgo }}">
                             @error('primaRiesgo')
@@ -462,7 +424,7 @@
                         @endif
                     </div>
                 </div>
-                <div class="col-sm-2">
+                <div class="col-sm-3">
                     <div class="form-group">
                         <label>Fondo de Ahorro (%):</label>
                         @if(isset($empresa))
@@ -522,6 +484,66 @@
                                 {{ $message }}
                             </div>
                         @enderror
+                        @endif
+                    </div>
+                </div>
+                <div class="col-sm-2">
+                    <div class="form-group">
+                        <label>Días del Periodo:</label>
+                        @if(isset($empresa))
+                            <input type="number" maxlength="2" name="tipoPeriodo" class="form-control tagperiodo" value="{{ $empresa->tipoPeriodo }}">
+                            @error('tipoPeriodo')
+                                <div class="alert alert-secondary">
+                                    {{ $message }}
+                                </div>
+                            @enderror
+                        @else
+                            <input type="number" maxlength="2" name="tipoPeriodo" class="form-control tagperiodo ">
+                            @error('tipoPeriodo')
+                                <div class="alert alert-secondary">
+                                    {{ $message }}
+                                </div>
+                            @enderror
+                        @endif
+                    </div>
+                </div>
+                <div class="col-sm-2">
+                    <div class="form-group">
+                        <label>Inicio del Periodo:</label>
+                        @if(isset($empresa))
+                            <input type="date" name="inicioPeriodo" class="form-control" value="{{ $empresa->inicioPeriodo }}">
+                            @error('inicioPeriodo')
+                                <div class="alert alert-secondary">
+                                    {{ $message }}
+                                </div>
+                            @enderror
+                        @else
+                            <input type="date" name="inicioPeriodo" class="form-control">
+                            @error('inicioPeriodo')
+                                <div class="alert alert-secondary">
+                                    {{ $message }}
+                                </div>
+                            @enderror
+                        @endif
+                    </div>
+                </div>
+                <div class="col-sm-2" id="pagoPeriodo">
+                    <div class="form-group">
+                        <label>Fecha pago periodo:</label>
+                        @if(isset($empresa))
+                            <input type="date" name="fechapago" class="form-control">
+                            @error('inicioPeriodo')
+                                <div class="alert alert-secondary">
+                                    {{ $message }}
+                                </div>
+                            @enderror
+                        @else
+                            <input type="date" name="fechapago" class="form-control">
+                            @error('inicioPeriodo')
+                                <div class="alert alert-secondary">
+                                    {{ $message }}
+                                </div>
+                            @enderror
                         @endif
                     </div>
                 </div>
