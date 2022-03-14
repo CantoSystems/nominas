@@ -12,9 +12,10 @@ use Illuminate\Support\Facades\Schema;
 
 class PeriodosController extends Controller
 {
-    public function index(){
+    public function index(Request $request){
         $clv= Session::get('clave_empresa');
         $clv_empresa=$this->conectar($clv);
+
 
         \Config::set('database.connections.DB_Serverr', $clv_empresa);
 
@@ -58,140 +59,156 @@ class PeriodosController extends Controller
     }
 
     public function seleccionarperiodo(Request $request){
+        $request->validate([
+            'periodo' => 'required'
+        ]);
         Session::put('num_periodo',$request->periodo);
         return view('layouts.segunda');
     }
 
     public function generarPeriodo(){
+        //se obtiene el numero del periodo 
         $actualPeriodo = Session::get('num_periodo');
+        //se obtiene la fecha actual para la inserción del nuevo periodo
         $fecha_periodo = now()->toDateString();
 
         $clv=Session::get('clave_empresa');
         $clv_empresa=$this->conectar($clv);
         \Config::set('database.connections.DB_Serverr', $clv_empresa);
 
+        /* se consulta a la tabla de periodos el último periodo regisrtrado
+            desactivado y por numero de periodo
+        */
+        
+        //dd($actualPeriodo);
         $terminoPeriodo = DB::connection('DB_Serverr')->table('periodos')
             ->select('fecha_fin','diasPeriodo','fecha_pago','numero')
             ->where([
                     ['numero','=',$actualPeriodo],
                     ['status_periodo','=',0]
                 ])
-                ->latest('id')->first();
+            ->latest('id')->first();
 
-        //dd($terminoPeriodo);
-        
-                if(is_null($terminoPeriodo)){
-                    return back()->with('status','Verificar si se ha desactivado el periodo anterior');
+        //return (is_null($terminoPeriodo)) ? "nulo" : "no nulo";
+        // evaluamos si se ha desactivado el periodo anterior
+        if(!is_null($terminoPeriodo)){
+
+            //variables 
+            $encontrarDia = date('d',strtotime($terminoPeriodo->fecha_fin))+1;
+            $encontrarMes  = date('m',strtotime($terminoPeriodo->fecha_fin));
+            $encontrarAnio = date('Y',strtotime($terminoPeriodo->fecha_fin));
+            $siguienteMes = $encontrarMes+1;
+            $siguienteAnio = $encontrarAnio+1;
+            $difFechas = Carbon::parse($terminoPeriodo->fecha_pago)->diffInDays($terminoPeriodo->fecha_fin);
+            $anionuevo = 1;
+
+            $validacionbisiesto = checkdate(2,29,$encontrarAnio);
+
+            // se toman en cuenta la suma del la variable encontrarDia+1, para comenzar en 1 el mes 
+            // Y la validación de si es año bisiesto
+            if($validacionbisiesto){
+                if($encontrarDia === 30){
+                    $encontrarDia = 1; 
                 }
-       
-        $encontrarDia = date('d',strtotime($terminoPeriodo->fecha_fin))+1;
-        $encontrarMes  = date('m',strtotime($terminoPeriodo->fecha_fin));
-        $encontrarAnio = date('Y',strtotime($terminoPeriodo->fecha_fin));
+            }else{
+                if($encontrarDia === 32 or $encontrarDia === 29 or  $encontrarDia === 31){
+                    $encontrarDia = 1;
+                }
+            }
 
-        if($encontrarDia === 32 or $encontrarDia === 29 or  $encontrarDia === 31){
-            $encontrarDia = 1;
-        }
+            //Se evalua el tipo de periodo para generar los siguientes periodos
+            if($terminoPeriodo->diasPeriodo === 7){
 
-        if( $terminoPeriodo->diasPeriodo === 15){
-            if($encontrarDia <=15){
-                $siguienteMes = $encontrarMes+1;
+                $numeroPeriodo = $terminoPeriodo->numero+1;
+                $iniciarPeriodo = $encontrarAnio.'-'.$encontrarMes.'-'.$encontrarDia;
+                $finalizarPeriodo = date("Y-m-d",strtotime($terminoPeriodo->fecha_fin."+ ".$terminoPeriodo->diasPeriodo." days"));
+                $pago = date("Y-m-d",strtotime($finalizarPeriodo."+ ".$difFechas." days"));
+
+                //Reiniciamos el número de periodo al cambiar de año
+                $anioInicioPeriodo =  date('Y',strtotime($iniciarPeriodo));
+                $anioPagoPeriodo   =  date('Y',strtotime($pago));
+
+                if($anioPagoPeriodo > $anioInicioPeriodo){
+                    $numeroPeriodo = 1;
+                }
+
+            }elseif($terminoPeriodo->diasPeriodo === 10){
+                //Ubicamos el día de la semana en que se realizo el primer día de pago
+                $diaPago = date('l',strtotime($terminoPeriodo->fecha_pago));
+                
+                $numeroPeriodo = $terminoPeriodo->numero+1;
+
+                    if($encontrarDia != 1){
+                        $iniciarPeriodo = $encontrarAnio.'-'.$encontrarMes.'-'.$encontrarDia;
+                    }else{
+                        $iniciarPeriodo = $encontrarAnio.'-'.$siguienteMes.'-'.$encontrarDia;
+                    }
+
+                $finalizarPeriodo = date("Y-m-d",strtotime($iniciarPeriodo."+ ".$terminoPeriodo->diasPeriodo." days"));
+                //formateamos la fecha en número 
+                $fechaFormateada = strtotime($finalizarPeriodo);
+                //Encontramos el día se la semana próximo para generar la fecha de pago
+                $pago = date('Y-m-d',strtotime('next '.$diaPago,$fechaFormateada));
+
+                //Reiniciamos el número de periodo al cambiar de año
+                $anioInicioPeriodo =  date('Y',strtotime($iniciarPeriodo));
+                $anioPagoPeriodo   =  date('Y',strtotime($pago));
+
+                if($anioPagoPeriodo > $anioInicioPeriodo){
+                    $numeroPeriodo = 1;
+                }
+               
+
+            }elseif($terminoPeriodo->diasPeriodo === 15){
+
+                if($encontrarDia <= 15){
+                    //validamos el mes y cambiamos de año 
+                    if($siguienteMes <= 12){
+                        $numeroPeriodo = ($siguienteMes*2)-1;
+                        $numeroPeriodo = ($siguienteMes*2)-1;
+                        $iniciarPeriodo = $encontrarAnio.'-'.$siguienteMes.'-01';
+                        $finalizarPeriodo = $encontrarAnio.'-'.$siguienteMes.'-15';
+                    }elseif($siguienteMes ==13){
+                        $numeroPeriodo = ($anionuevo*2)-1;
+                        $iniciarPeriodo = $siguienteAnio.'-'.$anionuevo.'-01';
+                        $finalizarPeriodo = $siguienteAnio.'-'.$anionuevo.'-15';
+                    }
+                    $pago = $finalizarPeriodo;
+                }elseif($encontrarDia >= 16){
+
+                    $numeroPeriodo = $encontrarMes*2;
+                    $iniciarPeriodo = $encontrarAnio.'-'.$encontrarMes.'-16';
+                    $mesSiguiente = $encontrarMes+1;
+                    $finalizarPeriodo =  date('Y-m-d',(mktime(0,0,0,$mesSiguiente,1,$encontrarAnio)-1));
+                    $pago = $finalizarPeriodo;
+                }
+            }elseif($terminoPeriodo->diasPeriodo === 30){
+                
                 if($siguienteMes <= 12){
-                    $numeroPeriodo = ($siguienteMes*2)-1;
-                    $iniciarPeriodo = $encontrarAnio.'-'.$siguienteMes.'-01';
-                    $finalizarPeriodo = $encontrarAnio.'-'.$siguienteMes.'-15';
-                    $pago = $finalizarPeriodo;
-                }else if($siguienteMes == 13){
-                    $siguienteMes = 1;
-                    $siguienteAnio = $encontrarAnio+1;
-                    $numeroPeriodo = ($siguienteMes*2)-1;
-                    $iniciarPeriodo = $siguienteAnio.'-'.$siguienteMes.'-01';
-                    $finalizarPeriodo = $siguienteAnio.'-'.$siguienteMes.'-15';
-                    $pago = $finalizarPeriodo;
+                    $numeroPeriodo = Ltrim($siguienteMes,"0");
+                    $iniciarPeriodo =  $encontrarAnio.'-'.$siguienteMes.'-1';
+                    $finalizarPeriodo = date('Y-m-d',(mktime(0,0,0,$siguienteMes+1,1,$encontrarAnio)-1));
+                }elseif($siguienteMes ==13){
+                    $numeroPeriodo = Ltrim($anionuevo,"0");
+                    $iniciarPeriodo =  $siguienteAnio.'-'.$anionuevo.'-1';
+                    $finalizarPeriodo = date('Y-m-d',(mktime(0,0,0,$anionuevo+1,1,$siguienteAnio)-1)); 
                 }
-            }else if($encontrarDia >= 16 and $encontrarDia<=31){
-                $numeroPeriodo = $encontrarMes*2;
-                $iniciarPeriodo = $encontrarAnio.'-'.$encontrarMes.'-16';
-                $mesSiguiente = $encontrarMes+1;
-                $finalizarPeriodo =  date('Y-m-d',(mktime(0,0,0,$mesSiguiente,1,$encontrarAnio)-1));
                 $pago = $finalizarPeriodo;
             }
-        }else if( $terminoPeriodo->diasPeriodo === 30){
-                $proximoMes = $encontrarMes + 1;                
-                    if($proximoMes <= 12){
-                        $numeroPeriodo = Ltrim($proximoMes,"0");
-                        $iniciarPeriodo =  $encontrarAnio.'-'.$proximoMes.'-1';
-                        $finalizarPeriodo = date('Y-m-d',(mktime(0,0,0,$proximoMes+1,1,$encontrarAnio)-1));
-                        $pago = $finalizarPeriodo;
-                    }else if($proximoMes == 13){
-                      
-                        $anioNuevo = $encontrarAnio + 1;
-                        $reiniciarMes = $proximoMes = 1;
-                        $numeroPeriodo = Ltrim($reiniciarMes,"0");
-                        $iniciarPeriodo =  $anioNuevo.'-'.$reiniciarMes.'-1';
-                        $finalizarPeriodo = date('Y-m-d',(mktime(0,0,0,$reiniciarMes+1,1,$anioNuevo)-1));
-                        $pago = $finalizarPeriodo;
-                    }
-        }else if($terminoPeriodo->diasPeriodo === 7){
-            $difFechas = Carbon::parse($terminoPeriodo->fecha_pago)->diffInDays($terminoPeriodo->fecha_fin);
-            $numeroPeriodo = $terminoPeriodo->numero+1;
-            $iniciarPeriodo = $encontrarAnio.'-'.$encontrarMes.'-'.$encontrarDia;
-            $finalizarPeriodo = date("Y-m-d",strtotime($terminoPeriodo->fecha_fin."+ ".$terminoPeriodo->diasPeriodo." days"));
-            $pago = date("Y-m-d",strtotime($finalizarPeriodo."+ ".$difFechas." days"));
-
-            $anioInicioPeriodo =  date('Y',strtotime($iniciarPeriodo));
-            $anioPagoPeriodo   =  date('Y',strtotime($pago));
-
-            if($anioPagoPeriodo > $anioInicioPeriodo){
-                $numeroPeriodo = 1;
-            }
-        }else if($terminoPeriodo->diasPeriodo === 10){
-            $encontrarDia = date('d',strtotime($terminoPeriodo->fecha_fin))+1;
-
-            if($encontrarDia <= 31){
-
-                if($encontrarMes === 4 || $encontrarMes === 6 || $encontrarMes === 9 || $encontrarMes === 11 ){
-                    echo "Mes 30 días";
-                    $encontrarDia = 1;
-                    $siguienteMes =  $encontrarMes+1;
-                    $diaPago = date('l',strtotime($terminoPeriodo->fecha_pago));
-                    $numeroPeriodo = $terminoPeriodo->numero+1;
-                    $iniciarPeriodo = $encontrarAnio.'-'.$siguienteMes.'-'.$encontrarDia;
-                    $finalizarPeriodo = date("Y-m-d",strtotime($terminoPeriodo->fecha_fin."+ ".$terminoPeriodo->diasPeriodo." days"));
-                    $fechaFormateada = strtotime($finalizarPeriodo);
-                    $pago = date('Y-m-d',strtotime('next '.$diaPago,$fechaFormateada));
-                    //echo $siguienteMes;
-                }else{
-                    echo "Mes 31 días";
-                    $diaPago = date('l',strtotime($terminoPeriodo->fecha_pago));
-                    $numeroPeriodo = $terminoPeriodo->numero+1;
-                    $iniciarPeriodo = $encontrarAnio.'-'.$encontrarMes.'-'.$encontrarDia;
-                    $finalizarPeriodo = date("Y-m-d",strtotime($terminoPeriodo->fecha_fin."+ ".$terminoPeriodo->diasPeriodo." days"));
-                    $fechaFormateada = strtotime($finalizarPeriodo);
-                    $pago = date('Y-m-d',strtotime('next '.$diaPago,$fechaFormateada));
-                }
-
-                
-            }else if ($encontrarDia === 32){
-                $encontrarDia = 1;
-                $siguienteMes =  $encontrarMes+1;
-                $diaPago = date('l',strtotime($terminoPeriodo->fecha_pago));
-                $numeroPeriodo = $terminoPeriodo->numero+1;
-                $iniciarPeriodo = $encontrarAnio.'-'.$siguienteMes.'-'.$encontrarDia;
-                $finalizarPeriodo = date("Y-m-d",strtotime($terminoPeriodo->fecha_fin."+ ".$terminoPeriodo->diasPeriodo." days"));
-                $fechaFormateada = strtotime($finalizarPeriodo);
-                $pago = date('Y-m-d',strtotime('next '.$diaPago,$fechaFormateada));
-            }
-           
-        }
         
-      /* DB::connection('DB_Serverr')->insert('insert into periodos(numero,fecha_inicio,fecha_fin,fecha_pago,diasPeriodo
+
+
+        } else {
+            return back()->with('status','Verificar si se ha desactivado el periodo anterior');
+        }
+
+        DB::connection('DB_Serverr')->insert('insert into periodos(numero,fecha_inicio,fecha_fin,fecha_pago,diasPeriodo
                                             ,status_periodo,created_at,updated_at)
                                             VALUES(?,?,?,?,?,?,?,?)',[$numeroPeriodo,$iniciarPeriodo
                                             ,$finalizarPeriodo,$pago
                                             ,$terminoPeriodo->diasPeriodo,1
                                             ,$fecha_periodo,$fecha_periodo]);
-        return redirect()->route('periodos.index');*/
-
+        return redirect()->route('periodos.index');
     }
     public function acciones(Request $request){
         $clv=Session::get('clave_empresa');

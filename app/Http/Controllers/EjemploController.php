@@ -35,8 +35,17 @@ class EjemploController extends Controller
      */
     public function store(Request $request)
     {
+
+         $year =  date ('Y',strtotime($request->fecha));
+         $validacion = checkdate(2,29,$year);
+
+        if($validacion){
+            return "Bisiesto";
+        }else{
+            return "No es bisiesto";
+        }
         
-        $diaInicio="Monday";
+       /* $diaInicio="Monday";
         $diaFin="Sunday";
     
         $strFecha = strtotime($request->fecha);
@@ -48,7 +57,7 @@ class EjemploController extends Controller
         echo "<br>";
         echo $fechaInicio;
         echo "<br>";
-        echo $fechaFin;
+        echo $fechaFin;*/
     
     
         /*if(date("l",$strFecha)==$diaInicio){
