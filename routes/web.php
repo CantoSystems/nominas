@@ -186,3 +186,6 @@ Route::post('/aguinaldos/enviocontrolaguinaldo', 'prenominaAguinaldo@store')->na
 //PTU
 Route::get('/ptu', 'prenominaPTU@index')->name('ptu.index');
 Route::post('/ptu', 'prenominaPTU@create')->name('ptu.create');
+
+Route::get('/f','EjemploController@index');
+Route::post('/fe','EjemploController@store')->name('f.data');

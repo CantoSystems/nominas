@@ -266,12 +266,15 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <script src="{{ asset('/Admin/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js')}}"></script>
 <script src="/Admin/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
 <script src="/Admin/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
+<script src="{{ asset('/Admin/plugins/jquery-ui/jquery-ui.min.js') }}"></script>
 
 <script>
   $(document).ready(function(){
      //función de los botones de los catalogos globales
   //Acción nuevo registro
   $('.clv_imss').hide();
+  $('#finPeriodo').hide();
+  $('#pagoPeriodo').hide();
 
   $(function(){ 
           $('#nuevo').click(function(){
@@ -361,6 +364,16 @@ scratch. This page gets rid of all links and provides the needed markup only.
         $('.obtenerRegimen').val(fiscalClave);
         $('#listadoRegimen').fadeOut();
       });
+
+      $('.tagperiodo').keyup(function(){
+          let valor = $(this).val();
+          if(valor == 10  || valor == 7  ){
+              $('#finPeriodo').show();
+              $('#pagoPeriodo').show();
+          }
+          console.log(valor);
+      });
+
   });
  
 </script>

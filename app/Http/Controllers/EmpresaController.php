@@ -706,21 +706,30 @@ class EmpresaController extends Controller{
                 $numero = ($mesInicio*2)-1;
                 $fechaInicio = $anioInicio.'-'.$mesInicio.'-01';
                 $fechaFin = $anioInicio.'-'.$mesInicio.'-15';
+                $fechaPago = $fechaFin;
             }else{
                 $numero = $mesInicio*2;
                 $fechaInicio = $anioInicio.'-'.$mesInicio.'-16';
                 $fechaFin = date('Y-m-d',(mktime(0,0,0,$mesInicio+1,1,$anioInicio)-1));
+                $fechaPago = $fechaFin;
             }
         }else if($datos->tipoPeriodo == 30){
             $numero = ltrim($mesInicio,"0");
             $fechaInicio = $anioInicio.'-'.$mesInicio.'-01';
             $fechaFin = date('Y-m-d',(mktime(0,0,0,$mesInicio+1,1,$anioInicio)-1));
-        }else{
+            $fechaPago = $fechaFin;
+        }else if($datos->tipoPeriodo == 7){
             $numero = 1;
             $fechaInicio = date('Y-m-d',strtotime($datos->inicioPeriodo));
             $fechaFin = date("Y-m-d",strtotime($datos->inicioPeriodo."+ ".$datos->tipoPeriodo." days"));
+            $fechaPago = $datos->fechapago;
+        }else if($datos->tipoPeriodo == 10){
+            $numero = 1;
+            $fechaInicio  = date("Y-m-d",strtotime($datos->inicioPeriodo));
+            $fechaFin  = date("Y-m-d",strtotime($datos->inicioPeriodo."+ ".$datos->tipoPeriodo." days"));
+            $fechaPago  = $datos->fechapago;
         }
-        $fechaPago = $fechaFin;
+
 
         DB::connection('DB_Serverr')->insert('insert into periodos(numero
                                                                   ,fecha_inicio
