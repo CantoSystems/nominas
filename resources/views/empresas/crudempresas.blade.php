@@ -448,14 +448,16 @@
                     <div class="form-group">
                         <label>Regimen Fiscal:</label>
                         @if(isset($empresa))
-                            <input type="text" name="regimenFiscal" class="form-control obtenerRegimen" value="{{ $empresa->claveRegimen }}">
+                            <input type="text" class="form-control obtenerRegimen" value="{{ $empresa->descripcionRegimen }}">
+                            <input type="hidden" name="regimenFiscal"  class="form-control idRegimen"  value="{{ $empresa->claveRegimen }}">
                             @error('regimenFiscal')
                                 <div class="alert alert-secondary">
                                     {{ $message }}
                                 </div>
                             @enderror
                         @else
-                            <input type="text" name="regimenFiscal" class="form-control obtenerRegimen">
+                        <input type="text" class="form-control obtenerRegimen">
+                        <input type="hidden" name="regimenFiscal"  class="form-control idRegimen">
                             @error('regimenFiscal')
                                 <div class="alert alert-secondary">
                                     {{ $message }}

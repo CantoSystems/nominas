@@ -43,7 +43,7 @@ class EmpresaController extends Controller{
      
         switch ($accion) {
             case '':
-                $empresa = Empresa::select('empresas.*','regimen_fiscals.claveRegimen')
+                $empresa= Empresa::select('empresas.*','regimen_fiscals.claveRegimen','regimen_fiscals.descripcionRegimen')
                                     ->join('regimen_fiscals','empresas.regimen_id','=','regimen_fiscals.id')
                                     ->first();
                 $nominas = Empresa::all();
@@ -52,14 +52,14 @@ class EmpresaController extends Controller{
             case 'atras':
                 $emp= Empresa::where('clave',$clv)->first();
                 $indic= $emp->id;
-                $empresa= Empresa::select('empresas.*','regimen_fiscals.claveRegimen')
+                $empresa= Empresa::select('empresas.*','regimen_fiscals.claveRegimen','regimen_fiscals.descripcionRegimen')
                                     ->join('regimen_fiscals','empresas.regimen_id','=','regimen_fiscals.id')
                                     ->where('empresas.id','<',$indic)
                                     ->orderBy('empresas.id','desc')
                                     ->first();
 
                 if($empresa==""){
-                    $empresa= Empresa::select('empresas.*','regimen_fiscals.claveRegimen')
+                    $empresa= Empresa::select('empresas.*','regimen_fiscals.claveRegimen','regimen_fiscals.descripcionRegimen')
                                     ->join('regimen_fiscals','empresas.regimen_id','=','regimen_fiscals.id')
                                     ->get()->last();
                 }
@@ -70,11 +70,11 @@ class EmpresaController extends Controller{
             case 'siguiente':
                 $emp= Empresa::where('clave',$clv)->first();
                 $indic= $emp->id;
-                $empresa= Empresa::select('empresas.*','regimen_fiscals.claveRegimen')
+                $empresa= Empresa::select('empresas.*','regimen_fiscals.claveRegimen','regimen_fiscals.descripcionRegimen')
                             ->join('regimen_fiscals','empresas.regimen_id','=','regimen_fiscals.id')
                             ->where('empresas.id','>',$indic)->first();
                 if(is_null($empresa)){
-                   $empresa= Empresa::select('empresas.*','regimen_fiscals.claveRegimen')
+                    $empresa= Empresa::select('empresas.*','regimen_fiscals.claveRegimen','regimen_fiscals.descripcionRegimen')
                                     ->join('regimen_fiscals','empresas.regimen_id','=','regimen_fiscals.id')
                                     ->first();
                 }
@@ -82,14 +82,14 @@ class EmpresaController extends Controller{
                 return view('empresas.crudempresas', compact('empresa','nominas'));
             break;
             case 'primero':
-                $empresa= Empresa::select('empresas.*','regimen_fiscals.claveRegimen')
+                $empresa= Empresa::select('empresas.*','regimen_fiscals.claveRegimen','regimen_fiscals.descripcionRegimen')
                                 ->join('regimen_fiscals','empresas.regimen_id','=','regimen_fiscals.id')
                                 ->first();
                 $nominas = Empresa::all();
                 return view('empresas.crudempresas', compact('empresa','nominas'));
             break;
             case 'ultimo':
-                $empresa= Empresa::select('empresas.*','regimen_fiscals.claveRegimen')
+                $empresa= Empresa::select('empresas.*','regimen_fiscals.claveRegimen','regimen_fiscals.descripcionRegimen')
                                 ->join('regimen_fiscals','empresas.regimen_id','=','regimen_fiscals.id')
                                 ->get()->last();
                 $nominas = Empresa::all();
@@ -718,16 +718,18 @@ class EmpresaController extends Controller{
             $fechaInicio = $anioInicio.'-'.$mesInicio.'-01';
             $fechaFin = date('Y-m-d',(mktime(0,0,0,$mesInicio+1,1,$anioInicio)-1));
             $fechaPago = $fechaFin;
-        }else if($datos->tipoPeriodo == 7){
+        }else if($datos->tipoPeriodo == 7 || $datos->tipoPeriodo == 10){
             $numero = 1;
+            $calculoPeriodo = $datos->tipoPeriodo-1;
             $fechaInicio = date('Y-m-d',strtotime($datos->inicioPeriodo));
-            $fechaFin = date("Y-m-d",strtotime($datos->inicioPeriodo."+ ".$datos->tipoPeriodo." days"));
+            $fechaFin = date("Y-m-d",strtotime($datos->inicioPeriodo."+ ".$calculoPeriodo." days"));
             $fechaPago = $datos->fechapago;
-        }else if($datos->tipoPeriodo == 10){
+        }else{
             $numero = 1;
+            $calculoPeriodo = $datos->tipoPeriodo-1;
             $fechaInicio  = date("Y-m-d",strtotime($datos->inicioPeriodo));
-            $fechaFin  = date("Y-m-d",strtotime($datos->inicioPeriodo."+ ".$datos->tipoPeriodo." days"));
-            $fechaPago  = $datos->fechapago;
+            $fechaFin  = date("Y-m-d",strtotime($datos->inicioPeriodo."+ ".$calculoPeriodo." days"));
+            $fechaPago  = $fechaFin;
         }
 
 
@@ -771,7 +773,7 @@ class EmpresaController extends Controller{
     }
 
     public function show($id){
-        $empresa = Empresa::select('empresas.*','regimen_fiscals.claveRegimen')
+        $empresa= Empresa::select('empresas.*','regimen_fiscals.claveRegimen','regimen_fiscals.descripcionRegimen')
                             ->join('regimen_fiscals','empresas.regimen_id','=','regimen_fiscals.id')
                             ->where('empresas.id','=',$id)
                             ->first();

@@ -23,7 +23,7 @@
                             <tr>
                                 <td>{{ $aux->fecha_descanso ?? '' }}</td>
                                 <td>{{ $aux->descripcion_descanso ?? '' }}</td>
-                                <td>{{ $aux->id }}
+                                <td>
                                 @canany(['administrador','capturista'])
                                     <div>
                                         <center>

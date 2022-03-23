@@ -16,6 +16,7 @@
                                 <th>Días</th>
                                 <th>Prima Vacacional</th>
                                 <th>Aguinaldo</th>
+                                <th></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -26,6 +27,19 @@
                                         <td>{{$presta->dias}}</td>
                                         <td>{{$presta->prima_vacacional}}</td>
                                         <td>{{$presta->aguinaldo}}</td>
+                                        <td>
+                                            @canany(['administrador','capturista'])
+                                                <div>
+                                                    <center>
+                                                        <a href="{{ route('prestaciones.show',$presta->id)}}">
+                                                            <button type="button" class="botones">
+                                                                <i class="far fa-eye"></i>
+                                                            </button>
+                                                        </a>
+                                                    </center>
+                                                </div>
+                                            @endcan
+                                        </td>
                                     </tr>
                                 @endforeach
                             @endif

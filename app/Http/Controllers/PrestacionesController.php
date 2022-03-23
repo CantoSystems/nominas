@@ -171,6 +171,20 @@ class PrestacionesController extends Controller{
         ];
         return $configDb;
     }
+    public function show($id){
+        $clv=Session::get('clave_empresa');
+        $clv_empresa=$this->conectar($clv);
+
+        \Config::set('database.connections.DB_Serverr', $clv_empresa);
+
+        $aux = DB::connection('DB_Serverr')->table('prestaciones')
+            ->where('id',$id)
+            ->first();
+        $prestaciones = DB::connection('DB_Serverr')->table('prestaciones')->get();
+        return view('prestaciones.prestaciones',compact('aux','prestaciones'));
+
+
+    }
 
     public function eliminarprestacion($id){
         $clv=Session::get('clave_empresa');
