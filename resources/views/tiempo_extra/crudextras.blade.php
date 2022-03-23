@@ -19,7 +19,7 @@
                                 <th>Clave del empleado y nombre</th>
                                 <th>Cantidad</th>
                                 <th>Fecha hora extra</th>
-                                
+                                <th></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -32,6 +32,20 @@
                                     {{$textra->apellido_materno ?? ''}}</td>
                                     <td>{{$textra->cantidad_tiempo ?? ''}}</td>
                                     <td>{{$textra->fecha_extra ?? ''}}</td>
+                                <td>
+                                    
+                                    @canany(['administrador','capturista'])
+                                                <div>
+                                                    <center>
+                                                        <a href="{{ route('horasextras.show',$textra->id_tiempo) }}">
+                                                            <button type="button" class="botones">
+                                                                <i class="far fa-eye"></i>
+                                                            </button>
+                                                        </a>
+                                                    </center>
+                                                </div>
+                                            @endcan
+                                </td>
                             </tr>
                            @endforeach 
                      

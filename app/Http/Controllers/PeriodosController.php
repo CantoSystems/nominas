@@ -16,7 +16,6 @@ class PeriodosController extends Controller
         $clv= Session::get('clave_empresa');
         $clv_empresa=$this->conectar($clv);
 
-
         \Config::set('database.connections.DB_Serverr', $clv_empresa);
 
         $periodos=DB::connection('DB_Serverr')->table('periodos')
@@ -144,7 +143,8 @@ class PeriodosController extends Controller
                         $iniciarPeriodo = $encontrarAnio.'-'.$siguienteMes.'-'.$encontrarDia;
                     }
 
-                $finalizarPeriodo = date("Y-m-d",strtotime($iniciarPeriodo."+ ".$terminoPeriodo->diasPeriodo." days"));
+                    
+                $finalizarPeriodo = date("Y-m-d",strtotime($terminoPeriodo->fecha_fin."+ ".$terminoPeriodo->diasPeriodo." days"));
                 //formateamos la fecha en número 
                 $fechaFormateada = strtotime($finalizarPeriodo);
                 //Encontramos el día se la semana próximo para generar la fecha de pago
@@ -391,7 +391,20 @@ class PeriodosController extends Controller
         ]);
 
         return redirect()->route('control.index');
+    }
 
+    public function show($id){
+        $clv=Session::get('clave_empresa');
+        $clv_empresa=$this->conectar($clv);
+
+        \Config::set('database.connections.DB_Serverr', $clv_empresa);
+
+        $aux = DB::connection('DB_Serverr')->table('periodos')
+        ->where('id',$id)->first();
+        $periodos=DB::connection('DB_Serverr')->table('periodos')->get();
+        return view('periodos.crudperiodos',compact('aux','periodos'));
+
+        
 
     }
 
@@ -400,7 +413,6 @@ class PeriodosController extends Controller
     $clv_empresa=$this->conectar($clv);
     \Config::set('database.connections.DB_Serverr', $clv_empresa);
     $aux1 = DB::connection('DB_Serverr')->table('periodos')->where('id',$id)->delete();
-
     return redirect()->route('periodos.acciones');
     }
 

@@ -20,6 +20,7 @@
                                 <th>Cantidad</th>
                                 <th>Importe</th>
                                 <th>Monto</th>
+                                <th></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -32,6 +33,19 @@
                                         <th>{{ $datos->cantidad }}</th>
                                         <th>{{ $datos->importe }}</th>
                                         <th>{{ $datos->monto }}</th>
+                                        <td>
+                                            @canany(['administrador','capturista'])
+                                                <div>
+                                                    <center>
+                                                        <a href="{{ route('incid2.show',$datos->id_incidencia ) }}">
+                                                            <button type="button" class="botones">
+                                                                <i class="far fa-eye"></i>
+                                                            </button>
+                                                        </a>
+                                                    </center>
+                                                </div>
+                                            @endcan
+                                        </td>
                                     </tr>
                                 @endforeach
                             @endif

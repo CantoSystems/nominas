@@ -21,6 +21,7 @@
                                 <th style="width: 20px; text-align: center;">Importe</th>
                                 <th style="width: 35px; text-align: center;">Monto</th>
                                 <th style="width: 60px; text-align: center;">Fecha de Solicitud</th>
+                                <th></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -36,6 +37,19 @@
                                         <th style="text-align: center;">$ {{ number_format($datos->importePrestamo,2) }}</th>
                                         <th style="text-align: center;">$ {{ number_format($datos->montoPrestamo,2) }}</th>
                                         <th style="text-align: center;">{{ substr($datos->created_at,0,10) }}</th>
+                                        <td>
+                                            @canany(['administrador','capturista'])
+                                                <div>
+                                                    <center>
+                                                        <a href="{{ route('prestamos.mostrar',$datos->idPrestamo) }}">
+                                                            <button type="button" class="botones">
+                                                                <i class="far fa-eye"></i>
+                                                            </button>
+                                                        </a>
+                                                    </center>
+                                                </div>
+                                            @endcan
+                                        </td>
                                     </tr>
                                 @endforeach
                             @endif

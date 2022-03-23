@@ -358,11 +358,16 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
 
       $(document).on('click','.desplegarRegimen',function(){
+        
         let infoRegimen = $(this).text();
+        //console.log(infoRegimen);
         let fiscalClave = infoRegimen.substring(0,3);
-        console.log(fiscalClave);
-        $('.obtenerRegimen').val(fiscalClave);
+        let fiscalDescripcion = infoRegimen.substring(4,100);
+        console.log(fiscalDescripcion);
+        $('.obtenerRegimen').val(fiscalDescripcion);
+        $('.idRegimen').val(fiscalClave);
         $('#listadoRegimen').fadeOut();
+        
       });
 
       $('.tagperiodo').keyup(function(){
