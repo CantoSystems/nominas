@@ -243,9 +243,10 @@
                         </div>  
                     </form>
                     @if(!empty($aux))
-                        @include('areas.modaldeletearea')
+                        @include('Areas.modaldeletearea')
                     @endif
-                    @include('areas.modalsearcharea')
+                        @include('Areas.modalsearcharea')
+
                 </div>  
             </div>
         <div>
