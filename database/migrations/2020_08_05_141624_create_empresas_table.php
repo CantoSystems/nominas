@@ -21,7 +21,7 @@ class CreateEmpresasTable extends Migration
             $table->string('nombre_nomina');
             $table->string('rfc',13);
             $table->string('segurosocial',11);
-            $table->string('registro_estatal',50);
+            $table->string('registro_estatal',50)->nullable();
             $table->string('calle',50);
             $table->string('num_interno',40);
             $table->string('num_externo',40)->nullable();
@@ -32,7 +32,7 @@ class CreateEmpresasTable extends Migration
             $table->string('pais',50);
             $table->string('representante_legal',50);
             $table->string('rfc_representante',13);
-            $table->string('telefono',15);
+            $table->string('telefono',15)->nullable();
             $table->string('email',50);
             $table->string('tipoPeriodo',10);
             $table->date('inicioPeriodo');
