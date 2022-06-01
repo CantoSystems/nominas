@@ -294,6 +294,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
           $('#ultimo').attr("disabled", true);
           $('#actualizar').attr("disabled", true);
           $('.porcentajeAhorro').val("0");
+          $('.primaRiesgo').val("0");
           //$('#eliminar').attr("disabled","disabled");
           //$('#eliminar_falso').show();
           $('#eliminar').addClass("not-active");

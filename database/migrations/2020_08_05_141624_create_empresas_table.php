@@ -30,10 +30,10 @@ class CreateEmpresasTable extends Migration
             $table->string('ciudad',50);
             $table->string('codigopostal',5);
             $table->string('pais',50);
-            $table->string('representante_legal',50);
+            $table->string('representante_legal',80);
             $table->string('rfc_representante',13);
             $table->string('telefono',15)->nullable();
-            $table->string('email',50);
+            $table->string('email',80)->nullable();
             $table->string('tipoPeriodo',10);
             $table->date('inicioPeriodo');
             $table->string('region',50);
