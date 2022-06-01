@@ -86,14 +86,14 @@
                             RFC (Empresa)<strong style="color: red">*</strong>
                         </label>
                         @if(isset($empresa))
-                            <input type="text" name="rfc" maxlength="13" minlength="12" class="form-control" value="{{$empresa->rfc}}" onkeyup="mayus(this);" pattern="^([A-ZÑ\x26]{3,4}([0-9]{2})(0[1-9]|1[0-2])(0[1-9]|1[0-9]|2[0-9]|3[0-1])([A-Z]|[0-9]){2}([A-ZÑ\x26]|[0-9]){1})?$">
+                            <input type="text" name="rfc" maxlength="13" minlength="12" class="form-control" value="{{$empresa->rfc}}" onkeyup="mayus(this);" pattern="^([A-ZÑ\x26]{3,4}([0-9]{2})(0[1-9]|1[0-2])(0[1-9]|1[0-9]|2[0-9]|3[0-1]))([A-Z\d]{3})?$">
                             @error('rfc')
                                 <div class="alert alert-secondary">
                                     {{ $message }}
                                 </div>
                             @enderror
                         @else
-                            <input type="text" name="rfc" maxlength="13" minlength="12" class="form-control" value="" onkeyup="mayus(this);" pattern="^([A-ZÑ\x26]{3,4}([0-9]{2})(0[1-9]|1[0-2])(0[1-9]|1[0-9]|2[0-9]|3[0-1])([A-Z]|[0-9]){2}([A-ZÑ\x26]|[0-9]){1})?$">
+                            <input type="text" name="rfc" maxlength="13" minlength="12" class="form-control" value="" onkeyup="mayus(this);" pattern="^([A-ZÑ\x26]{3,4}([0-9]{2})(0[1-9]|1[0-2])(0[1-9]|1[0-9]|2[0-9]|3[0-1]))([A-Z\d]{3})?$">
                             @error('rfc')
                                 <div class="alert alert-secondary">
                                     {{ $message }}
@@ -304,14 +304,14 @@
                             Representante legal<strong style="color: red">*</strong>
                         </label>
                         @if(isset($empresa))
-                            <input type="text" name="representante_legal" maxlength="20" class="form-control" value="{{$empresa->representante_legal}}" onkeyup="mayus(this);" onkeypress="return validar(event)">
+                            <input type="text" name="representante_legal" maxlength="50" class="form-control" value="{{$empresa->representante_legal}}" onkeyup="mayus(this);" onkeypress="return validar(event)">
                             @error('representante_legal')
                                 <div class="alert alert-secondary">
                                     {{ $message }}
                                 </div>
                             @enderror
                         @else
-                            <input type="text" name="representante_legal" maxlength="20" class="form-control" value="" onkeyup="mayus(this);" onkeypress="return validar(event)">
+                            <input type="text" name="representante_legal" maxlength="50" class="form-control" value="" onkeyup="mayus(this);" onkeypress="return validar(event)">
                             @error('representante_legal')
                                 <div class="alert alert-secondary">
                                     {{ $message }}
@@ -430,14 +430,14 @@
                     <div class="form-group">
                         <label>Factor Prima de Riesgo de Trabajo<strong style="color: red">*</strong></label>
                         @if(isset($empresa))
-                            <input type="number" min="-1" max="10" step="any" name="primaRiesgo" class="form-control" value="{{ $empresa->primaRiesgo }}">
+                            <input type="number" min="-1" max="10" step="any" name="primaRiesgo" class="form-control primaRiesgo" value="{{ $empresa->primaRiesgo }}">
                             @error('primaRiesgo')
                                 <div class="alert alert-secondary">
                                     {{ $message }}
                                 </div>
                             @enderror
                         @else
-                            <input type="number" min="-1" max="10" step="any" name="primaRiesgo" class="form-control">
+                            <input type="number" min="-1" max="10" step="any" name="primaRiesgo" class="form-control primaRiesgo">
                             @error('primaRiesgo')
                                 <div class="alert alert-secondary">
                                     {{ $message }}
