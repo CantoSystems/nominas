@@ -812,4 +812,9 @@ class EmpresaController extends Controller{
         Session::put('empresa',$empresa->nombre);
         return redirect()->route('periodos.index');
     }
+
+    public function valores(Request $request){
+        return $request->info;
+        
+    }
 }

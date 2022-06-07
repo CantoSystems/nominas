@@ -16,7 +16,7 @@
     			<div class="col-sm-4">
                     <div class="form-group">
                         <label>
-                            Nombre <strong style="color: red">*</strong>
+                            Nombre empresa <strong style="color: red">*</strong>
                         </label>
                         @if(isset($empresa))
                             <input type="text" name="nombre"  class="form-control" value="{{$empresa->nombre}}" onkeyup="mayus(this)"; onkeypress="return validar(event)">
@@ -532,23 +532,24 @@
                         @endif
                     </div>
                 </div>
+                <div class="col-sm-2" id="finPeriodo">
+                    <div class="form-group">
+                        <label>Fin del periodo<strong style="color: red">*</strong></label>
+                        @if(isset($empresa))
+                            <input type="date" name="fechapago" class="form-control">
+                        @else
+                            <input type="date" name="fechapago" class="form-control">
+                        @endif
+                    </div>
+                </div>
+
                 <div class="col-sm-2" id="pagoPeriodo">
                     <div class="form-group">
                         <label>Fecha pago periodo<strong style="color: red">*</strong></label>
                         @if(isset($empresa))
                             <input type="date" name="fechapago" class="form-control">
-                            @error('inicioPeriodo')
-                                <div class="alert alert-secondary">
-                                    {{ $message }}
-                                </div>
-                            @enderror
                         @else
                             <input type="date" name="fechapago" class="form-control">
-                            @error('inicioPeriodo')
-                                <div class="alert alert-secondary">
-                                    {{ $message }}
-                                </div>
-                            @enderror
                         @endif
                     </div>
                 </div>

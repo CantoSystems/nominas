@@ -23,6 +23,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <link rel="stylesheet" href="{{ asset('/Admin/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css')}}">
   <link rel="stylesheet" href="{{ asset('/Admin/plugins/datatables-responsive/css/responsive.bootstrap4.min.css')}}">
   <link rel="stylesheet" href="{{ asset('estilos-personalizados/estilos.css')}}">
+
 </head>
 <body>
 <div class="wrapper">
@@ -268,6 +269,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <script src="/Admin/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
 <script src="{{ asset('/Admin/plugins/jquery-ui/jquery-ui.min.js') }}"></script>
 
+
 <script>
   $(document).ready(function(){
      //función de los botones de los catalogos globales
@@ -373,13 +375,31 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
       $('.tagperiodo').keyup(function(){
           let valor = $(this).val();
+          
           if(valor == 10  || valor == 7  ){
               $('#finPeriodo').show();
               $('#pagoPeriodo').show();
-          }
-          console.log(valor);
-      });
 
+              $.ajax({
+                url: "{{ route('nominas.valores') }}",
+                method: "GET",
+                data:{
+                    info: valor,
+                },
+                success: function(data) {
+                    console.log(data);
+                },
+                error:  function(xhr, status, error) {
+                var err = JSON.parse(xhr.responseText);
+                console.log(err.Message);
+            }
+            });
+          }else{
+              $('#finPeriodo').hide();
+              $('#pagoPeriodo').hide();
+          }
+          
+      });
   });
  
 </script>
