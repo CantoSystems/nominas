@@ -10,42 +10,49 @@ use Session;
 
 class IMSSController extends Controller{
     public function acciones(Request $request){
-        $accion= $request->acciones;
-        $clv=$request->id_imss;
+        $accion = $request->acciones;
+        $clv = $request->id_imss;
 
         switch ($accion) {
             case '':
                 $imss = IMSS::first();
                 $imsss = IMSS::all();
+
                 return view('imss.imss', compact('imss','imsss'));
                 break;
             case 'atras':
-                $id= IMSS::where('id_imss',$clv)->first();
-                $imss= IMSS::where('id_imss','<',$id->id_imss)->orderBy('id_imss','desc')->first();
+                $id = IMSS::where('id_imss',$clv)->first();
+                $imss = IMSS::where('id_imss','<',$id->id_imss)->orderBy('id_imss','desc')->first();
+
                 if($imss==""){
-                    $imss= IMSS::get()->last();
+                    $imss = IMSS::get()->last();
                 }
-                $imsss=IMSS::all();
+
+                $imsss = IMSS::all();
                 return view('imss.imss', compact('imss','imsss'));
             break;
             case 'siguiente':
                 $ims = IMSS::where('id_imss',$clv)->first();
-                $indic= $ims->id_imss;
+                $indic = $ims->id_imss;
                 $imss = IMSS::where('id_imss','>',$indic)->first();
+
                 if($imss==""){
                     $imss = IMSS::first();
                 }
+
                 $imsss = IMSS::all();
                 return view('imss.imss', compact('imss','imsss'));
             break;
             case 'primero':
                 $imss = IMSS::first();
-                $imsss =IMSS::all();
+                $imsss = IMSS::all();
+
                 return view('imss.imss', compact('imss','imsss'));
             break;
             case 'ultimo':
-                $imss= IMSS::get()->last();
-                $imsss=IMSS::all();
+                $imss = IMSS::get()->last();
+                $imsss = IMSS::all();
+
                 return view('imss.imss', compact('imss','imsss'));
             break;
             case 'registrar':
@@ -62,20 +69,19 @@ class IMSSController extends Controller{
             case 'buscar':
                 $imss = IMSS::where('concepto',$request->busca)->first();
                 if($imss==""){
-                    $imss= IMSS::first();
+                    $imss = IMSS::first();
                 }
-                $imsss= IMSS::all();
+                $imsss = IMSS::all();
                 return view('imss.imss', compact('imss','imsss'));
             break;
             default:
-                # code...
             break;
         }
     }
 
     public function registrar($datos){
         $totalcuotas =  $datos->cuotapatron + $datos->cuotatrabajador;
-        $imss= new IMSS;
+        $imss = new IMSS;
         $imss->concepto = $datos->seguroIMSS;
         $imss->prestaciones = $datos->prestacionIMSS;
         $imss->cuotapatron = $datos->cuotapatron;
@@ -87,15 +93,13 @@ class IMSSController extends Controller{
     }
 
     public function actualizar($datos){
+        $totalcuotas =  $datos->cuotapatron + $datos->cuotatrabajador;
         $imss = IMSS::where('id_imss',$datos->id_imss)->first();
         $imss->concepto = $datos->seguroIMSS;
         $imss->prestaciones = $datos->prestacionIMSS;
-        $imss->cuotapatron1 = $datos->cuotapatron;
-        if($datos->cuotapatron2!=""){
-            $imss->cuotapatron2 = $datos->cuotapatron2;
-        }
+        $imss->cuotapatron = $datos->cuotapatron;     
         $imss->cuotatrabajador = $datos->cuotatrabajador;
-        $imss->cuotatotal = $datos->cuotatotal;
+        $imss->cuotatotal = $totalcuotas;
         $imss->base = $datos->basesalarial;
         $imss->save();
     }
