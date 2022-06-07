@@ -8,107 +8,94 @@ use DB;
 use Illuminate\Support\Facades\Schema;
 use Session;
 
-class RetencionesController extends Controller
-{
-
-    public function index(Request $request)
-    {
-        $accion= $request->acciones;
-        $clv=$request->id;
+class RetencionesController extends Controller{
+    public function index(Request $request){
+        $accion = $request->acciones;
+        $clv = $request->id;
         switch ($accion) {
             case '':
-                $isr=Retenciones::all();
+                $isr = Retenciones::orderByRaw("CASE WHEN periodo_retencion = 'SEMANAL' THEN 0 WHEN periodo_retencion = 'QUINCENAL' THEN 1 WHEN periodo_retencion = 'MENSUAL' THEN 2 END ASC")->get();
                 $retencion = Retenciones::first();
+
                 return view('retenciones.crudretenciones', compact('isr','retencion'));
                 break;
-
             case 'registrar':
                 $this->store($request);
                 return redirect()->route('retenciones.index');
                 
                 break;
-
             case 'cancelar':
-                 return redirect()->route('retenciones.index');
-                 break;
-
+                return redirect()->route('retenciones.index');
+                break;
             case 'primero':
                 return redirect()->route('retenciones.index');
                 break;
             case 'atras':
                 $id= Retenciones::where("id",$clv)->first();
-                $retencion= Retenciones::where('id','<',$id->id)
-                ->orderBy('id','desc')
-                ->first();
+                $retencion= Retenciones::where('id','<',$id->id)->orderBy('id','desc')->first();
+
                 if(is_null($retencion)){
-                  $retencion= Retenciones::get()->last();
+                    $retencion= Retenciones::get()->last();
                 }
+
                 $isr=Retenciones::all();
                 return view('retenciones.crudretenciones', compact('isr','retencion'));
                 break;
-
             case 'siguiente':
                 $indic= Retenciones::where('id',$clv)->first();
-               
                 $retencion= Retenciones::where('id','>',$indic->id)->first();
+
                 if($retencion==""){
-                  $retencion= Retenciones::first();
+                    $retencion= Retenciones::first();
                 }
+
                 $isr=Retenciones::all();
                 return view('retenciones.crudretenciones', compact('isr','retencion'));
                 break;
-
             case 'ultimo':
-                $retencion= Retenciones::get()->last();
-                $isr=Retenciones::all();
+                $retencion = Retenciones::get()->last();
+                $isr = Retenciones::all();
+
                 return view('retenciones.crudretenciones', compact('isr','retencion'));
                 break;
-
             case 'actualizar':
                 $this->update($request);
                 return redirect()->route('retenciones.index');
                 break;
-
             case 'buscar':
                 $criterio= $request->opcion;
                 if($criterio == 'limite_inferior'){
                     $retencion= Retenciones::where('limite_inferior',$request->busca)->first();
 
-                    if($retencion == "")
-                        {
-                          return back()->with('busqueda','Coincidencia no encontrada');
-                        }
-                     $isr=Retenciones::all();
+                    if($retencion == ""){
+                        return back()->with('busqueda','Coincidencia no encontrada');
+                    }
+                    $isr=Retenciones::all();
                     return view('retenciones.crudretenciones', compact('isr','retencion'));
-
                 }else if($criterio == 'limite_superior'){
                     $retencion= Retenciones::where('limite_superior',$request->busca)->first();
 
-                    if($retencion == "")
-                        {
-                          return back()->with('busqueda','Coincidencia no encontrada');
-                        }
-                    $isr=Retenciones::all();
-                    return view('retenciones.crudretenciones', compact('isr','retencion'));
+                    if($retencion == ""){
+                        return back()->with('busqueda','Coincidencia no encontrada');
+                    }
+                    $isr = Retenciones::all();
 
+                    return view('retenciones.crudretenciones', compact('isr','retencion'));
                 }
                 break;
             default:
-                # code...
                 break;
         }
-        
     }
 
 
-    public function store($datos)
-    {
+    public function store($datos){
         $datos->validate([
-              'limite_inferior' => 'required',
-              'cuota_fija' => 'required',
-              'limite_superior' => 'required',
-              'porcentaje_excedente' => 'required',
-              'periodo_retencion' => 'required'
+            'limite_inferior' => 'required',
+            'cuota_fija' => 'required',
+            'limite_superior' => 'required',
+            'porcentaje_excedente' => 'required',
+            'periodo_retencion' => 'required'
         ]);
 
         $coincidencia = Retenciones::where([
@@ -116,8 +103,7 @@ class RetencionesController extends Controller
             ['limite_superior','=',$datos->limite_superior],
         ])->get();
 
-        if($coincidencia->count() === 0)
-        {
+        if($coincidencia->count() === 0){
             $retencion = new Retenciones;
             $retencion->limite_inferior = $datos->limite_inferior;
             $retencion->cuota_fija = $datos->cuota_fija;
@@ -128,18 +114,15 @@ class RetencionesController extends Controller
         }else{
             return back()->with('msj','Registro duplicado');
         }
-        
     }
 
-   
-    public function update($datos)
-    {
+    public function update($datos){
         $datos->validate([
-              'limite_inferior' => 'required',
-              'cuota_fija' => 'required',
-              'limite_superior' => 'required',
-              'porcentaje_excedente' => 'required',
-              'periodo_retencion' => 'required'
+            'limite_inferior' => 'required',
+            'cuota_fija' => 'required',
+            'limite_superior' => 'required',
+            'porcentaje_excedente' => 'required',
+            'periodo_retencion' => 'required'
         ]);
 
         $retencion= Retenciones::where('id',$datos->id)->first();
@@ -151,15 +134,13 @@ class RetencionesController extends Controller
         $retencion->save();
     }
 
-    public function show($id)
-    {
+    public function show($id){
         $isr=Retenciones::all();
         $retencion = Retenciones::find($id);
         return view('retenciones.crudretenciones', compact('isr','retencion'));
     }
     
-    public function destroy($id)
-    {
+    public function destroy($id){
         $retencion = Retenciones::find($id);
         $retencion->delete();
         return redirect()->route('retenciones.index');
