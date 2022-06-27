@@ -17,14 +17,14 @@ class CreateEmpresasTable extends Migration
         Schema::create('empresas', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('nombre');
-            $table->string('clave',5);
+            $table->string('clave',5)->unique();
             $table->string('nombre_nomina');
             $table->string('rfc',13);
             $table->string('segurosocial',11);
-            $table->string('registro_estatal',50)->nullable();
+            $table->string('registro_estatal',50);
             $table->string('calle',50);
-            $table->string('num_interno',40);
-            $table->string('num_externo',40)->nullable();
+            $table->string('num_interno',100);
+            $table->string('num_externo',100)->nullable();
             $table->string('colonia',50);
             $table->string('municipio',50);
             $table->string('ciudad',50);
@@ -32,10 +32,8 @@ class CreateEmpresasTable extends Migration
             $table->string('pais',50);
             $table->string('representante_legal',80);
             $table->string('rfc_representante',13);
-            $table->string('telefono',15)->nullable();
-            $table->string('email',80)->nullable();
-            $table->string('tipoPeriodo',10);
-            $table->date('inicioPeriodo');
+            $table->string('telefono',15);
+            $table->string('email',80);
             $table->string('region',50);
             $table->double('primaRiesgo',8,4);
             $table->double('porcentajeAhorro');

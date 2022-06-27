@@ -17,14 +17,17 @@ class SubsidioController extends Controller{
             case '':
                 $subsidio = Subsidio::first();
                 $subsidios = Subsidio::all();
+
                 return view('subsidio.subsidio', compact('subsidio','subsidios'));
                 break;
             case 'atras':
                 $id = Subsidio::where('id_subsidio',$clv)->first();
                 $subsidio = Subsidio::where('id_subsidio','<',$id->id_subsidio)->orderBy('id_subsidio','desc')->first();
+
                 if($subsidio == ""){
                     $subsidio = Subsidio::get()->last();
                 }
+
                 $subsidios = Subsidio::all();
                 return view('subsidio.subsidio', compact('subsidio','subsidios'));
             break;
@@ -32,9 +35,11 @@ class SubsidioController extends Controller{
                 $sub = Subsidio::where('id_subsidio',$clv)->first();
                 $indic = $sub->id_subsidio;
                 $subsidio = Subsidio::where('id_subsidio','>',$indic)->first();
+
                 if($subsidio ==""){
                     $subsidio = Subsidio::first();
                 }
+
                 $subsidios = Subsidio::all();
                 return view('subsidio.subsidio', compact('subsidio','subsidios'));
             break;
@@ -61,37 +66,33 @@ class SubsidioController extends Controller{
                 break;
             case 'buscar':
                 $criterio = $request->opcion;
-                if($criterio == 'de')
-                {
-                    $subsidio = Subsidio::where('IngresosDe','=',$request->busca)->first();
-                    if($subsidio == ""){
-                         return back()->with('busqueda','Coincidencia no encontrada');
-                    }
+                if($criterio == 'de'){
+                    $subsidio = Subsidio::where('hastaIngresos','=',$request->busca)->first();
 
+                    if($subsidio == ""){
+                        return back()->with('busqueda','Coincidencia no encontrada');
+                    }
                     $subsidios = Subsidio::all();
                     return view('subsidio.subsidio', compact('subsidio','subsidios'));
 
                 }else if ($criterio == 'hasta'){
-
                     $subsidio = Subsidio::where('ParaIngresos','=',$request->busca)->first();
+
                     if($subsidio == ""){
-                         return back()->with('busqueda','Coincidencia no encontrada');
+                        return back()->with('busqueda','Coincidencia no encontrada');
                     }
 
                     $subsidios = Subsidio::all();
                     return view('subsidio.subsidio', compact('subsidio','subsidios'));
                 }
             break;
-
             default:
-                # code...
             break;
         }
     }
 
     public function registrar($datos){
-        return $datos;
-       $datos->validate([
+        $datos->validate([
             'hastaIngresos' => 'required',
             'ParaIngresos' => 'required',
             'cantidadSubsidio' => 'required',
@@ -113,24 +114,17 @@ class SubsidioController extends Controller{
         }else{
             return back()->with('msj','Registro duplicado');
         }
-
-        
     }
 
     public function actualizar($datos){
-        $datos->validate([
-            'hastaingresos' => 'required',
-            'paraingresos' => 'required',
-            'subsidiomensual' => 'required'
-        ]);
-
         $sub = Subsidio::where('id_subsidio',$datos->id_subsidio)->first();
-        $sub->IngresosDe = $datos->hastaingresos;
-        $sub->ParaIngresos = $datos->paraingresos;
-        $sub->SubsidioMensual = $datos->subsidiomensual;
+        $sub->hastaIngresos = $datos->hastaIngresos;
+        $sub->ParaIngresos = $datos->hastaIngresos;
+        $sub->cantidadSubsidio = $datos->cantidadSubsidio;
         $sub->periodo_subsidio = $datos->periodo_subsidio;
         $sub->save();
     }
+    
     public function show($id_subsidio){
         $subsidio = Subsidio::where('id_subsidio','=',$id_subsidio)->first();
         $subsidios = Subsidio::all();

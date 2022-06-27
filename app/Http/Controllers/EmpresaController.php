@@ -169,24 +169,27 @@ class EmpresaController extends Controller{
     public function registrar($datos){
         $datos->validate([
               'nombre' => 'required',
-              'rfc' => 'required',
-              'clave' => 'required',
+              'clave' => 'required|unique:empresas',
               'nombre_nomina' => 'required',
+              'rfc' => 'required',
               'segurosocial' => 'required',
+              'registro_estatal' => 'required',
               'calle' => 'required',
               'num_externo' => 'required',
               'colonia' => 'required',
-              'codigopostal' => 'required',
+              'ciudad' => 'required',
               'municipio' => 'required',
+              'codigopostal' => 'required',
               'ciudad' => 'required',
               'pais' => 'required',
               'representante_legal' => 'required',
               'rfc_representante' => 'required',
-              'tipoPeriodo' => 'required',
-              'inicioPeriodo' => 'required',
+              'telefono' => 'required',
+              'email' => 'required',
               'regionEmpresa' => 'required',
               'primaRiesgo' => 'required',
               'porcentajeAhorro' => 'required',
+              'curpRepresentante' => 'required',
         ]);
 
         $fiscalClave =  RegimenFiscal::select('id')
@@ -194,7 +197,9 @@ class EmpresaController extends Controller{
                             ->first();
 
 
-        $empresa = new Empresa;
+        $coincidencia = Empresa::where('clave',$datos->clave)->count();
+        if ($coincidencia === 0){
+            $empresa = new Empresa;
         $empresa->rfc = $datos->rfc;
         $empresa->clave = $datos->clave;
         $empresa->nombre = $datos->nombre;
@@ -214,8 +219,6 @@ class EmpresaController extends Controller{
         $empresa->rfc_representante = $datos->rfc_representante;
         $empresa->telefono = $datos->telefono;
         $empresa->email = $datos->email;
-        $empresa->inicioPeriodo = $datos->inicioPeriodo;
-        $empresa->tipoPeriodo = $datos->tipoPeriodo;
         $empresa->region = $datos->regionEmpresa;
         $empresa->primaRiesgo = $datos->primaRiesgo;
         $empresa->porcentajeAhorro = $datos->porcentajeAhorro;
@@ -754,6 +757,11 @@ class EmpresaController extends Controller{
                                                                 ,1
                                                                 ,$fecha_periodo
                                                                 ,$fecha_periodo]);
+
+        }else{
+            return back()->with('clavesExistentes','La clave no puede ser duplicada');
+        }                    
+        
     }
 
 
@@ -813,8 +821,13 @@ class EmpresaController extends Controller{
         return redirect()->route('periodos.index');
     }
 
-    public function valores(Request $request){
-        return $request->info;
+    public function fechaFin(Request $request){
+        
+        if($request->periodoTipo == 10 || $request->periodoTipo == 7){
+            $calculoPeriodo = $request->periodoTipo-1;
+            $fechaFin = date("Y-m-d",strtotime($request->inicio."+ ".$calculoPeriodo." days"));
+            return $fechaFin;
+        }
         
     }
 }

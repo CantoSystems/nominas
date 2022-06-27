@@ -23,7 +23,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <link rel="stylesheet" href="{{ asset('/Admin/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css')}}">
   <link rel="stylesheet" href="{{ asset('/Admin/plugins/datatables-responsive/css/responsive.bootstrap4.min.css')}}">
   <link rel="stylesheet" href="{{ asset('estilos-personalizados/estilos.css')}}">
-
 </head>
 <body>
 <div class="wrapper">
@@ -269,7 +268,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <script src="/Admin/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
 <script src="{{ asset('/Admin/plugins/jquery-ui/jquery-ui.min.js') }}"></script>
 
-
 <script>
   $(document).ready(function(){
      //función de los botones de los catalogos globales
@@ -277,7 +275,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
   $('.clv_imss').hide();
   $('#finPeriodo').hide();
   $('#pagoPeriodo').hide();
-
+  $('#periodoDias').hide();
+  $('#periodoInicio').hide();
   $(function(){ 
           $('#nuevo').click(function(){
           $('#actualizar_reg').hide();
@@ -297,15 +296,15 @@ scratch. This page gets rid of all links and provides the needed markup only.
           $('#actualizar').attr("disabled", true);
           $('.porcentajeAhorro').val("0");
           $('.primaRiesgo').val("0");
-          //$('#eliminar').attr("disabled","disabled");
-          //$('#eliminar_falso').show();
           $('#eliminar').addClass("not-active");
           $('#guardar_falso').hide();
           $('#contra').removeAttr("readOnly");
           $('#contra1').removeAttr("readOnly");
           $('#for_roles').hide();
+          $('#periodoDias').show();
+          $('#periodoInicio').show();
+          $('.inicioPeriodo').attr("disabled",true);
         });
-
           //Acción al actualizar el registro
           $('#actualizar').click(function(){
           $('#guardar_falso').hide();
@@ -327,8 +326,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
           $('#buscar').attr("disabled", true);
         });
       })
-
-
   //Funcion autocomplementado de regimen para empresas
   //Llenado del listado de la consulta de Regimen
       $('.obtenerRegimen').keyup(function(){
@@ -358,10 +355,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
               });
             }
       });
-
-
       $(document).on('click','.desplegarRegimen',function(){
-        
         let infoRegimen = $(this).text();
         //console.log(infoRegimen);
         let fiscalClave = infoRegimen.substring(0,3);
@@ -372,33 +366,51 @@ scratch. This page gets rid of all links and provides the needed markup only.
         $('#listadoRegimen').fadeOut();
         
       });
-
       $('.tagperiodo').keyup(function(){
-          let valor = $(this).val();
-          
-          if(valor == 10  || valor == 7  ){
-              $('#finPeriodo').show();
-              $('#pagoPeriodo').show();
+          let valorPeriodo = $(this).val();
 
-              $.ajax({
-                url: "{{ route('nominas.valores') }}",
-                method: "GET",
-                data:{
-                    info: valor,
-                },
-                success: function(data) {
-                    console.log(data);
-                },
-                error:  function(xhr, status, error) {
-                var err = JSON.parse(xhr.responseText);
-                console.log(err.Message);
-            }
-            });
+          if(valorPeriodo != 0){
+            $('.inicioPeriodo').attr("disabled",false);
+            $('#fechafin').attr("disabled",true);
+            $('#pagoPeriodo').attr("disabled",false);
+            $('fechafin').prop("required",true);
+            $('fechapago').prop("required",true);
+            if(valorPeriodo == 10  || valorPeriodo == 7  ){
+                $('#finPeriodo').show();
+                $('#pagoPeriodo').show();
+              }else{
+                $('#finPeriodo').hide();
+                $('#pagoPeriodo').hide();
+              }
           }else{
-              $('#finPeriodo').hide();
-              $('#pagoPeriodo').hide();
+            $('.inicioPeriodo').attr("disabled",true);
+            $('.inicioPeriodo').val('');
+            $('#finPeriodo').attr("disabled",false);
+            $('#fechafin').val('');
+            $('#pagoPeriodo').attr("disabled",false);
+            $('#fechapago').val('');
           }
           
+      });
+
+      $('.inicioPeriodo').change(function(){
+          let inicio = $(this).val();
+          let periodoTipo = $('.tagperiodo').val();
+         
+          $.ajax({
+            url: "{{ route('nominas.fechaFin') }}",
+            method:"GET",
+            data: {inicio,periodoTipo},
+            success:function(data){
+                console.log(data);
+                $('#fechafin').val(data);
+                
+            },
+            error: function(xhr, status, error) {
+              var err = JSON.parse(xhr.responseText);
+              console.log(err.Message);
+            }
+          });
       });
   });
  
@@ -447,7 +459,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
       console.log("Segundo");
     }
   });
-
   $(document).on('change', '#seguroIMSS', function(event) {
     if(($("#seguroIMSS option:selected").val()=="Enfermedades y Maternidad") && ($("#prestacionIMSS option:selected").val()=="En especie")){
       $("#cuotapatron2").prop("disabled", false );

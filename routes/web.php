@@ -15,7 +15,7 @@ Route::delete('empresa/{id}', 'EmpresaController@destroy')->name('empresas.destr
 Route::get('accciones', 'EmpresaController@acciones')->name('nominas.empresas');
 Route::get('selecempresa','EmpresaController@seleccionarempresa')->name('seleccionarempresa');
 Route::get('/empresa/nomina/{id}','EmpresaController@show')->name('mostrar.empresas');
-Route::get('valores', 'EmpresaController@valores')->name('nominas.valores');
+Route::get('valores', 'EmpresaController@fechaFin')->name('nominas.fechaFin');
 
 //areas
 Route::get('areas','AreasController@index')->name('areas.index');
