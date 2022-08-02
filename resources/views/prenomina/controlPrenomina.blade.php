@@ -9,6 +9,11 @@
                 </h3>
             </div>
             <div class="card-body">
+                @if(session()->has('status'))
+                        <div class="alert alert-danger" role="alert">
+                            {{ session('status')}}
+                        </div>
+                @endif
                 <form action="" method="GET" autocomplete="off">
                     <meta name="csrf-token" content="{{ csrf_token() }}">
                     <div class="row">
@@ -31,16 +36,17 @@
                             </form>
                         </div>
                         <div class="col">
+                            <form action="{{ route('periodos.desactivar')}}">
+                                <button type="submit" style='width:125px; height:38px;'> Desactivar periodo</button>
+                            </form>
+                        </div>
+                        <div class="col">
                             <form action="{{ route('periodos.generar') }}">
-                                <button type="submit">Crear nuevo periodo</button>
+                                <button type="submit" style='width:125px; height:38px;'>Crear nuevo periodo</button>
                             </form>
 
                         </div>
-                        <div class="col">
-                            <form action="{{ route('periodos.desactivar')}}">
-                                <button> Desactivar periodo</button>
-                            </form>
-                        </div>
+                        
                     </div>
                     <br>
                     <div class="card-header" style="background-color:darkgrey; padding:6px 6px 6px 6px; color: white;">

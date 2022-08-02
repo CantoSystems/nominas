@@ -7,30 +7,33 @@ use Illuminate\Http\Request;
 
 class SalarioMinimoController extends Controller{
     public function acciones(Request $request){
-        $accion= $request->acciones;
-        $indicador=$request->idsalMinimo;
+        $accion = $request->acciones;
+        $indicador = $request->idsalMinimo;
 
         switch ($accion) {
             case '':
                 $salMinimo = SalarioMinimo::first();
                 $SalarioMin = SalarioMinimo::all();
+                
                 return view('salarios.crudsalarios', compact('salMinimo','SalarioMin'));
                 break;
             case 'atras':
-                $salMinimo = SalarioMinimo::where('idSalarioMinimo','<',$indicador)
-                ->orderBy('idSalarioMinimo','desc')->first();
+                $salMinimo = SalarioMinimo::where('idSalarioMinimo','<',$indicador)->orderBy('idSalarioMinimo','desc')->first();
 
                 if(is_null($salMinimo)){
                     $salMinimo = SalarioMinimo::get()->last();
                 }
+
                 $SalarioMin = SalarioMinimo::all();
                 return view('salarios.crudsalarios', compact('salMinimo','SalarioMin'));
             break;
             case 'siguiente':
                 $salMinimo = SalarioMinimo::where('idSalarioMinimo','>',$indicador)->first();
+
                 if(is_null($salMinimo)){
                     $salMinimo = SalarioMinimo::first();
                 }
+
                 $SalarioMin = SalarioMinimo::all();
                 return view('salarios.crudsalarios', compact('salMinimo','SalarioMin'));
             break;      
@@ -56,7 +59,6 @@ class SalarioMinimoController extends Controller{
                 return redirect()->route('salariomin.acciones');
             break;
             default:
-                # code...
             break;
         }
     }
@@ -71,7 +73,7 @@ class SalarioMinimoController extends Controller{
     }
 
     public function update($datos){
-        $SalMin = SalarioMinimo::where('idSalarioMinimo',$datos->idSalMin)->first();
+        $SalMin = SalarioMinimo::where('idSalarioMinimo',$datos->idsalMinimo)->first();
         $SalMin->fechaInicio = $datos->fechaInicioSal;
         $SalMin->fechafin = $datos->fechaTerminoSal;
         $SalMin->region = $datos->regionSalario;

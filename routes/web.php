@@ -15,6 +15,7 @@ Route::delete('empresa/{id}', 'EmpresaController@destroy')->name('empresas.destr
 Route::get('accciones', 'EmpresaController@acciones')->name('nominas.empresas');
 Route::get('selecempresa','EmpresaController@seleccionarempresa')->name('seleccionarempresa');
 Route::get('/empresa/nomina/{id}','EmpresaController@show')->name('mostrar.empresas');
+Route::get('valores', 'EmpresaController@fechaFin')->name('nominas.fechaFin');
 
 //areas
 Route::get('areas','AreasController@index')->name('areas.index');
@@ -29,7 +30,8 @@ Route::get('/periodos','PeriodosController@index')->name('periodos.index');
 Route::get('/accionesperiodos','PeriodosController@acciones')->name('periodos.acciones');
 Route::delete('accionesperiodos/{id}', 'PeriodosController@eliminarperiodo')->name('periodos.eliminarperiodo');
 Route::get('/generar-periodo','PeriodosController@generarPeriodo')->name('periodos.generar');
-Route::get('desactivar-periodo','PeriodosController@desactivarPeriodo')->name('periodos.desactivar');
+Route::get('/desactivar-periodo','PeriodosController@desactivarPeriodo')->name('periodos.desactivar');
+Route::get('/mostrarPeriodo/{id}','PeriodosController@show')->name('periodos.mostrar');
 
 //puestos 
 Route::get('puestos','PuestosController@index')->name('puestos.index');
@@ -48,6 +50,7 @@ Route::delete('bancos/{id}','BancosController@eliminarbanco')->name('bancos.elim
 
 //prestaciones
 Route::get('/prestaciones','PrestacionesController@index')->name('prestaciones.index');
+Route::get('/prestaciones/mostrar/{id}','PrestacionesController@show')->name('prestaciones.show');
 Route::delete('/prestaciones/{id}','PrestacionesController@eliminarprestacion')->name('prestaciones.destroy');
 
 /**
@@ -95,6 +98,7 @@ Route::post('/incidencias/check', 'IncidenciaController@check')->name('incidenci
 
 //Incidencias
 Route::get('/incid','IncidenController@index')->name('incid2.index');
+Route::get('/incid2/show/{id_incidencia}','IncidenController@show')->name('incid2.show');
 Route::delete('/incid/delete/{id}', 'IncidenController@eliminar')->name('incid2.destroy');
 
 //Ajax-Insert-Multiple Tiempo extra
@@ -103,6 +107,7 @@ Route::post('/tiempo/enviodata','TiempoController@store')->name('tiempo.store');
 
 //Horas Extras
 Route::get('/horas-extras','ExtrasController@index')->name('horasextras.index');
+Route::get('/horas-extras/mostrar/{id_tiempo}','ExtrasController@show')->name('horasextras.show');
 Route::delete('horas-extras/delete/{id_tiempo}', 'ExtrasController@elimina')->name('tiempo.destroy');
 
 //Ajax-Insert-Multiple Ausentismo
@@ -167,6 +172,7 @@ Route::post('/prenominaPatron', 'ControlPrenominaController@impuestosPatron')->n
 Route::get('/prestamos', 'PrestamosController@index')->name('prestamos.index');
 Route::get('/verPrestamos', 'PrestamosController@show')->name('prestamos.show');
 Route::post('/prestamos/enviodata', 'PrestamosController@store')->name('prestamos.store');
+Route::get('/prestamos/mostrar/{idPrestamo}','PrestamosController@create')->name('prestamos.mostrar');
 Route::delete('/prestamos/delete/{id}', 'PrestamosController@eliminar')->name('prestamos.destroy');
 
 //Régimen Fiscal
@@ -186,3 +192,6 @@ Route::post('/aguinaldos/enviocontrolaguinaldo', 'prenominaAguinaldo@store')->na
 //PTU
 Route::get('/ptu', 'prenominaPTU@index')->name('ptu.index');
 Route::post('/ptu', 'prenominaPTU@create')->name('ptu.create');
+
+Route::get('/f','EjemploController@index');
+Route::post('/fe','EjemploController@store')->name('f.data');

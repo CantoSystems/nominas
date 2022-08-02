@@ -51,7 +51,9 @@ class prenominaPTU extends Controller{
     }
 
     public function create(Request $request){
-        //dd($request);
+        $PTUSin = Collect();
+        $PTUCon = Collect();
+        $ISRFinal = Collect();
         $clv = Session::get('clave_empresa');
         $num_periodo = Session::get('num_periodo');
 
@@ -221,12 +223,12 @@ class prenominaPTU extends Controller{
 
         $clave = DB::connection('DB_Serverr')->table('empleados')
                  ->select('clave_empleado','nombre','apellido_paterno','apellido_materno','id_emp')
-                 ->where('id_emp','=',$request->clvEmp)
+                 ->where('clave_empleado','=',$request->clvEmp)
                  ->first();
 
-        $PTUSin = $collection = collect(['016P','P.T.U',$TotalPTUEmp]);
-        $PTUCon = $collection = collect(['001S','PAGO NETO',$PTUFinal]);
-        $ISRFinal = $collection = collect(['001T','ISR',$TotalPTUEmp]);
+        $PTUSin->push(['clave_concepto'=>'016P','concepto'=>'P.T.U','monto'=>$TotalPTUEmp]);
+        $PTUCon->push(['clave_concepto'=>'001S','concepto'=>'PAGO NETO','monto'=>$PTUFinal]);
+        $ISRFinal->push(['clave_concepto'=>'001T','concepto'=>'ISR','monto'=>$ISRRetener]);
 
         return compact('empleados','PTUSin','PTUCon','ISRFinal','clave');
     }

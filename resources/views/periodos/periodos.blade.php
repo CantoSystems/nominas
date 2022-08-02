@@ -2,7 +2,10 @@
 @section('content')
 <div class="card">
   <div class="card-header">
-    Periodos
+    Periodos 
+    <strong>
+      {{ Session::get('empresa') }}
+    </strong>
   </div>
   <div class="card-body">
     <h5 class="card-title modalPersonalizado">Selecciona el periodo con el que trabajarás:</h5>

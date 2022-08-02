@@ -16,6 +16,7 @@
                                 <th>Fecha de Inicio</th>
                                 <th>Fecha Final</th>
                                 <th>Día de Pago</th>
+                                <th></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -26,6 +27,19 @@
                                         <td>{{$periodo->fecha_inicio}}</td>
                                         <td>{{$periodo->fecha_fin}}</td>
                                         <td>{{$periodo->fecha_pago}}</td>
+                                        <td>
+                                            @canany(['administrador','capturista'])
+                                                <div>
+                                                    <center>
+                                                        <a href="{{ route('periodos.mostrar',$periodo->id) }}">
+                                                            <button type="button" class="botones">
+                                                                <i class="far fa-eye"></i>
+                                                            </button>
+                                                        </a>
+                                                    </center>
+                                                </div>
+                                            @endcan
+                                        </td>
                                     </tr>
                                 @endforeach
                             @endif

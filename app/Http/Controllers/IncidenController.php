@@ -214,6 +214,29 @@ class IncidenController extends Controller{
                  ,'monto'=>$datos->monto]);
     }
 
+    public function show($id_incidencia){
+        $clv= Session::get('clave_empresa');
+        $clv_empresa=$this->conectar($clv);
+        \Config::set('database.connections.DB_Serverr', $clv_empresa);
+
+        $incidencias = DB::connection('DB_Serverr')->table('incidencias')
+                ->join('empleados','empleados.clave_empleado','=','incidencias.clave_empleado')
+                ->join('conceptos','conceptos.clave_concepto','=','incidencias.clave_concepto')
+                ->select('incidencias.*','empleados.*','conceptos.concepto')
+                ->where('id_incidencia',$id_incidencia)
+                ->first();
+
+        $incidencias2 = DB::connection('DB_Serverr')->table('incidencias')
+                ->join('empleados','empleados.clave_empleado','=','incidencias.clave_empleado')
+                ->join('conceptos','conceptos.clave_concepto','=','incidencias.clave_concepto')
+                ->select('incidencias.*','empleados.*','conceptos.concepto')
+                ->orderBy('id_incidencia')->get();
+
+                return view('incidencias.incidencias2',compact('incidencias2','incidencias'));
+
+
+    }
+
     public function eliminar($id){
         $clv= Session::get('clave_empresa');
         $clv_empresa=$this->conectar($clv);

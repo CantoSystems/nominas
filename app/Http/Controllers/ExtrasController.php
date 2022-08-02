@@ -199,6 +199,26 @@ class ExtrasController extends Controller{
                     'fecha_extra'=>$datos->fecha_extra
                     ]);
     }
+    public function show($id_tiempo){
+
+        $clv=Session::get('clave_empresa');
+        $clv_empresa=$this->conectar($clv);
+
+        \Config::set('database.connections.DB_Serverr', $clv_empresa);
+        
+        $extras_horas = DB::connection('DB_Serverr')->table('tiempo_extra')
+                ->join('empleados','empleados.clave_empleado','=','tiempo_extra.clave_empleado')
+                ->select('tiempo_extra.*','empleados.*')
+                ->where('id_tiempo',$id_tiempo)
+                ->first();
+
+                 $aux= DB::connection('DB_Serverr')->table('tiempo_extra')
+                ->join('empleados','empleados.clave_empleado','=','tiempo_extra.clave_empleado')
+                ->select('tiempo_extra.*','empleados.*')
+                ->orderBy('id_tiempo')->get();
+
+                return view('tiempo_extra.crudextras',compact('extras_horas','aux'));
+    }
 
     public function elimina($id_tiempo){
          $clv= Session::get('clave_empresa');

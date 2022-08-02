@@ -211,6 +211,29 @@ class PrestamosController extends Controller{
         }
     }
 
+    public function create($id_prestamo){
+        $clv = Session::get('clave_empresa');
+        $clv_empresa = $this->conectar($clv);
+        \Config::set('database.connections.DB_Serverr', $clv_empresa);
+
+        $prestamos = DB::connection('DB_Serverr')->table('prestamos')
+                        ->join('empleados','empleados.clave_empleado','=','prestamos.claveEmpleado')
+                        ->join('conceptos','conceptos.clave_concepto','=','prestamos.claveConcepto')
+                        ->select('empleados.*','prestamos.idPrestamo','conceptos.*','prestamos.importe as importePrestamo','prestamos.cantidad as cantidadPrestamo','prestamos.monto as montoPrestamo')
+                        ->get();
+
+        $prestamos2 = DB::connection('DB_Serverr')->table('prestamos')
+                        ->join('empleados','empleados.clave_empleado','=','prestamos.claveEmpleado')
+                        ->join('conceptos','conceptos.clave_concepto','=','prestamos.claveConcepto')
+                        ->select('empleados.*','prestamos.idPrestamo','conceptos.*','conceptos.clave_concepto as claveConceptoPrestamo','prestamos.importe as importePrestamo','prestamos.cantidad as cantidadPrestamo','prestamos.monto as montoPrestamo')
+                        ->where('idPrestamo',$id_prestamo)
+                        ->get()->last();
+                
+                return view('prestamos.mostrarPrestamos',compact('prestamos','prestamos2'));
+
+
+    }
+
     public function eliminar($id){
         $clv = Session::get('clave_empresa');
         $clv_empresa = $this->conectar($clv);
