@@ -195,3 +195,8 @@ Route::post('/ptu', 'prenominaPTU@create')->name('ptu.create');
 
 Route::get('/f','EjemploController@index');
 Route::post('/fe','EjemploController@store')->name('f.data');
+
+//Infonavit UMI
+Route::get('/infonavit','InfonavitController@acciones')->name('infonavit.acciones');
+Route::get('/infonavit/mostrar/{id}','InfonavitController@show')->name('infonavit.mostrar');
+Route::delete('infonavit/{id}','InfonavitController@delete')->name('infonavit.eliminar');
