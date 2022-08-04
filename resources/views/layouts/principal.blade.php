@@ -147,6 +147,14 @@ scratch. This page gets rid of all links and provides the needed markup only.
               </p>
             </a>
           </li>
+          <li class="nav-item {{!Route::is('infonavit.acciones') ?: 'activo'}}">
+            <a href="{{ route('infonavit.acciones')}}" class="nav-link">
+              <i class="nav-icon fas fa-th"></i>
+              <p>
+                Tabla UMI (Infonavit)
+              </p>
+            </a>
+          </li>
           <li class="nav-item {{!Route::is('salariomin.acciones') ?: 'activo'}}">
             <a href="{{ route('salariomin.acciones')}}" class="nav-link">
               <i class="nav-icon fas fa-th"></i>

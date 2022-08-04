@@ -135,7 +135,7 @@ class BancosController extends Controller{
   public function registrar($datos){
     $datos->validate([
       'clave_banco' => 'required|unique:bancos',
-      'nombre_banco' => 'required|unique:bancos',
+      'vsmInfonavit' => 'required|unique:bancos',
     ]);
 
     /**if ($datos->nombre_banco === null) {
