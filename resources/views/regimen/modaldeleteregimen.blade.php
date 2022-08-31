@@ -6,12 +6,11 @@
                 <h4 class="modal-title modalPersonalizado" id="myModalLabel">
                     Eliminar Régimen Fiscal
                 </h4>
-                <button type="button" class="close" data-dismiss="modal">
-                    <span aria-hidden="true">×</span>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span>
                 </button>
             </div>
             <div class="modal-body">
-                <form action="{{ route('regimen.destroy', $regimenFiscal->id )}}" method="post">
+                <form action="{{route('regimen.destroy', $regimenFiscal->id)}}" method="POST">
                     @method('DELETE')
                     @csrf
                     <div class="row">

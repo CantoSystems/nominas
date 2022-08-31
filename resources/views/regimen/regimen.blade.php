@@ -19,32 +19,32 @@
                         </thead>
                         <tbody>
                             @if(isset($datosRegimen))
-                            @foreach ($datosRegimen as $regimen)
-                            <tr>
-                                <td scope="row">{{$regimen->claveRegimen}}</td>
-                                <td>{{$regimen->descripcionRegimen}}</td>
-                                <td>
-                                    @canany(['administrador','capturista'])
-                                    <div>
-                                        <center>
-                                            <a href="{{ route('regimen.show',$regimen->id) }}">
-                                                <button type="button" class="botones">
-                                                    <i class="far fa-eye"></i>
-                                                </button>
-                                            </a>
-                                        </center>
-                                    </div>
-                                    @endcan
-                                </td>
-                            </tr>
-                            @endforeach
+                                @foreach ($datosRegimen as $regimen)
+                                <tr>
+                                    <td scope="row">{{$regimen->claveRegimen}}</td>
+                                    <td>{{$regimen->descripcionRegimen}}</td>
+                                    <td>
+                                        @canany(['administrador','capturista'])
+                                        <div>
+                                            <center>
+                                                <a href="{{ route('regimen.show',$regimen->id) }}">
+                                                    <button type="button" class="botones">
+                                                        <i class="far fa-eye"></i>
+                                                    </button>
+                                                </a>
+                                            </center>
+                                        </div>
+                                        @endcan
+                                    </td>
+                                </tr>
+                                @endforeach
                             @endif
                         </tbody>
                     </table>
                 </div>
             </div>
         </div>
-
+        <!-- Fin Datatables-->
         <div class="col">
             <div class="card card-secondary">
                 <div class="card-header">
@@ -52,14 +52,14 @@
                 </div>
                 <div class="card-body">
                     @if(session()->has('busqueda'))
-                    <div class="alert alert-danger" role="alert">
-                        {{ session('busqueda')}}
-                    </div>
+                        <div class="alert alert-danger" role="alert">
+                            {{ session('busqueda')}}
+                        </div>
                     @endif
                     @if(session()->has('msj'))
-                    <div class="alert alert-danger" role="alert">
-                        {{ session('msj')}}
-                    </div>
+                        <div class="alert alert-danger" role="alert">
+                            {{ session('msj')}}
+                        </div>
                     @endif
                     <form action="{{ route('regimen.index') }}" method="GET" autocomplete="off">
                         <div class="row">
@@ -91,7 +91,9 @@
                                     @enderror
                                 </div>
                             </div>
-                            <!---Flechas-->
+
+
+
                             @canany(['administrador','capturista','reportes'])
                             <div class="col-md-5">
                                 <div class="margin">
@@ -135,27 +137,24 @@
                                 </div>
                             </div>
                             @endcanany
-
-                            <!---Operaciones-->
                             <div class="col-md-5">
                                 <div class="margin">
+                                    @canany(['administrador','capturista','reportes'])
                                     <div class="btn-group">
-                                        @canany(['administrador','capturista','reportes'])
-                                        @if(isset($regimenFiscal))
                                         <div class="form-group">
+                                            @if(isset($regimenFiscal))
                                             <button id="buscar" type="button" data-toggle="modal"
                                                 data-target="#busqueda-regimen" class="botones">
                                                 <i class="fas fa-search"></i>
                                             </button>
+                                            @else
+                                            <div class="form-group">
+                                                <button id="buscar_falso" type="button" class="botones" disabled>
+                                                    <i class="fas fa-search"></i>
+                                                </button>
+                                            </div>
+                                            @endif
                                         </div>
-                                        @else
-                                        <div class="form-group">
-                                            <button id="buscar_falso" type="button" class="botones" disabled>
-                                                <i class="fas fa-search"></i>
-                                            </button>
-                                        </div>
-                                        @endif
-
                                         @endcanany
                                         @canany(['administrador','capturista'])
                                         <div class="form-group">
@@ -186,7 +185,8 @@
                                         @can('administrador')
                                         @if(isset($regimenFiscal))
                                         <div class="form-group">
-                                            <a id="eliminar" data-target="#modal-deleteregimen-{{$regimenFiscal->id}}"
+                                            <a id="eliminar"
+                                                data-target="#modal-deleteregimen-{{ $regimenFiscal->id }}"
                                                 data-toggle="modal">
                                                 <button type="button" class="botones">
                                                     <i class="far fa-trash-alt"></i>
@@ -210,12 +210,10 @@
                                                 </button>
                                             </a>
                                         </div>
-                                        @endcanany
+                                        @endcan
                                     </div>
                                 </div>
                             </div>
-
-                            <!---Acciones-->
                             <div class="col-md-2">
                                 <div class="margin">
                                     <div class="btn-group">
@@ -226,30 +224,33 @@
                                         </div>
                                         <div class="form-group">
                                             <button id="nuevo_reg" name="acciones" value="registrar" type="submit"
-                                                class="botones" style="display: none;"><i
-                                                    class="fas fa-save"></i></button>
+                                                style='display:none;' class="botones">
+                                                <i class="fas fa-save"></i>
+                                            </button>
                                         </div>
                                         <div class="form-group">
                                             <button name="acciones" value="actualizar" id="actualizar_reg" type="submit"
-                                                style="display: none;" class="botones"><i
-                                                    class="fas fa-save"></i></button>
+                                                style='display: none;' class="botones">
+                                                <i class="fas fa-save"></i>
+                                            </button>
                                         </div>
                                         <div class="form-group">
                                             <button name="acciones" value="cancelar" id="cancelar_reg" type="submit"
-                                                class="botones" disabled><i class="far fa-window-close"></i></button>
+                                                disabled class="botones">
+                                                <i class="far fa-window-close"></i>
+                                            </button>
                                         </div>
                                     </div>
                                 </div>
                             </div>
+
                         </div>
+                        @include('regimen.modalbusquedaregimen')
+                        @include('regimen.modaldeleteregimen')
                     </form>
                 </div>
-                @include('regimen.modalbusquedaregimen')
-                @include('regimen.modaldeleteregimen')
             </div>
         </div>
     </div>
-</div>
-</div>
 </div>
 @endsection
