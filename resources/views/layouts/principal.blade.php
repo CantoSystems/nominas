@@ -163,8 +163,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
               </p>
             </a>
           </li>
-          <li class="nav-item {{!Route::is('regimen.index') ?: 'activo'}}">
-            <a href="{{ route('regimen.index')}}" class="nav-link">
+          <li class="nav-item {{!Route::is('fiscal') ?: 'activo'}}">
+            <a href="{{ route('fiscal')}}" class="nav-link">
               <i class="nav-icon fas fa-th"></i>
               <p>
                 Tabla Régimen Fiscal
@@ -208,14 +208,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
              </div>
           </div>
 
-          <!--<li class="nav-item">
-            <a href="{{ route('clasificacion.acciones')}}" class="nav-link">
-              <i class="nav-icon fas fa-th"></i>
-              <p>
-                Clasificaciones
-              </p>
-            </a>
-          </li>-->
+         
         </ul>
       </nav>
       <!-- /.sidebar-menu -->
@@ -481,6 +474,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <script>
   $(function () {
     $("#example1").DataTable({
+      "responsive": true,
+      "autoWidth": false
+    });
+    $("#fiscal").DataTable({
       "responsive": true,
       "autoWidth": false
     });

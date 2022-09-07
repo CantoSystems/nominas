@@ -376,5 +376,16 @@
    <script src="{{ asset('/script-personalizados/funcionamientoBotones.js')}}"></script>
    <!--Validaciones inputs mayusculas, números y letras-->
    <script src="{{ asset('/script-personalizados/validacionesInput.js')}}"></script>
+   <script>
+      $(document).ready(function(){
+          $.ajax({
+            url: "{{ route('periodos.obtenerRango') }}",
+            method: "GET",
+            success:function(data){
+              $('#diasPeriodo').val(data);
+            }
+          })
+      });
+   </script>
   </body>
 </html>
