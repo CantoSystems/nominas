@@ -28,33 +28,29 @@ class PeriodosController extends Controller
     $clv= Session::get('clave_empresa');
     $clv_empresa=$this->conectar($clv);
     \Config::set('database.connections.DB_Serverr', $clv_empresa);
-
-    $tipoPeriodo = Empresa::select('tipoPeriodo')
-    ->where('clave',$clv)
-    ->first();
-
-
     $datos->validate([
-              'numero' => 'required',
-              'fecha_inicio' => 'required',
-              'fecha_fin' => 'required',
-              'fecha_pago' => 'required'
-        ]);
+        'numero' => 'required',
+        'fecha_inicio' => 'required',
+        'fecha_fin' => 'required',
+        'fecha_pago' => 'required'
+    ]);
+    $tipoPeriodo = $request->diasPeriodo;
+        if($tipoPeriodo === 7 ){
 
-    $coincidencia = DB::connection('DB_Serverr')->table('periodos')
-        ->where('numero','=',$datos->numero)
-        ->get();
-    //$cant=DB::connection('DB_Serverr')->table('periodos')->count();
+        }else{
+            return back()->with('msj','Registro duplicado');
+        }
+   
 
-        if($coincidencia->count() == 0){
+   
+
+        
             $fecha_periodo = now();
             DB::connection('DB_Serverr')->insert('insert into periodos (numero,fecha_inicio,
             fecha_fin,fecha_pago,diasPeriodo,created_at,updated_at)
             values (?,?,?,?,?,?,?)',[$datos->numero,$datos->fecha_inicio,
             $datos->fecha_fin,$datos->fecha_pago,$tipoPeriodo->tipoPeriodo,$fecha_periodo,$fecha_periodo]);
-        }else{
-            return back()->with('msj','Registro duplicado');
-        }
+        
     }
 
     public function seleccionarperiodo(Request $request){
@@ -256,6 +252,7 @@ class PeriodosController extends Controller
             break;
 
             case 'registrar':
+                
                 $this->agregarperiodos($request);
                 return redirect()->route('periodos.acciones');
             break;
@@ -404,8 +401,16 @@ class PeriodosController extends Controller
         $periodos=DB::connection('DB_Serverr')->table('periodos')->get();
         return view('periodos.crudperiodos',compact('aux','periodos'));
 
-        
+    }
 
+    public function rangoPeriodo(Request $request){
+        $clv= Session::get('clave_empresa');
+        $clv_empresa=$this->conectar($clv);
+        \Config::set('database.connections.DB_Serverr', $clv_empresa);
+        $dPeriodo = DB::connection('DB_Serverr')->table('periodos')
+                                                ->select('diasPeriodo')
+                                                ->latest('id')->first();
+        return $dPeriodo->diasPeriodo;
     }
 
     public function eliminarperiodo($id){

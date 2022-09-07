@@ -32,6 +32,7 @@ Route::delete('accionesperiodos/{id}', 'PeriodosController@eliminarperiodo')->na
 Route::get('/generar-periodo','PeriodosController@generarPeriodo')->name('periodos.generar');
 Route::get('/desactivar-periodo','PeriodosController@desactivarPeriodo')->name('periodos.desactivar');
 Route::get('/mostrarPeriodo/{id}','PeriodosController@show')->name('periodos.mostrar');
+Route::get('/obtener-diasPeriodo','PeriodosController@rangoPeriodo')->name('periodos.obtenerRango');
 
 //puestos 
 Route::get('puestos','PuestosController@index')->name('puestos.index');
@@ -175,13 +176,13 @@ Route::post('/prestamos/enviodata', 'PrestamosController@store')->name('prestamo
 Route::get('/prestamos/mostrar/{idPrestamo}','PrestamosController@create')->name('prestamos.mostrar');
 Route::delete('/prestamos/delete/{id}', 'PrestamosController@eliminar')->name('prestamos.destroy');
 
-//Régimen Fiscal
-Route::get('/regimen','RegimenFiscalController@index')->name('regimen.index');
+//CRUD regimen Fiscal
 Route::post('/regimen/busqueda','RegimenFiscalController@muestraregimen')->name('regimen.autocomplete');
-Route::get('/regimen/visualizar/{id}','RegimenFiscalController@show')->name('regimen.show');
-Route::delete('/regimen/{id}','RegimenFiscalController@destroy')->name('regimen.destroy');
+Route::get('/fiscal','FiscalController@index')->name('fiscal');
+Route::get('/fiscal/{id}','FiscalController@show')->name('fiscal.show');
+Route::get('/fiscalbusqueda/{id}','FiscalController@create')->name('fical.create');
+Route::delete('/fical-eliminar/{id}','FiscalController@destroy')->name('fiscal.destroy');
 
-//Route::post('/regimen-fiscal','RegimenFiscalController@store')->name('regimen.store');
 
 //Aguinaldos
 Route::get('/aguinaldos', 'prenominaAguinaldo@index')->name('aguinaldosP.index');

@@ -16,6 +16,7 @@
                                 <th>Fecha de Inicio</th>
                                 <th>Fecha Final</th>
                                 <th>Día de Pago</th>
+                                <th>Status</th>
                                 <th></th>
                             </tr>
                         </thead>
@@ -27,6 +28,13 @@
                                         <td>{{$periodo->fecha_inicio}}</td>
                                         <td>{{$periodo->fecha_fin}}</td>
                                         <td>{{$periodo->fecha_pago}}</td>
+                                        <td>
+                                            @if($periodo->status_periodo == 1)
+                                                Activo
+                                            @elseif($periodo->status_periodo == 0)
+                                                Inactivo
+                                            @endif
+                                        </td>
                                         <td>
                                             @canany(['administrador','capturista'])
                                                 <div>
@@ -69,11 +77,9 @@
                     @endif
                 <form action="{{ route('periodos.acciones')}}" method="GET" autocomplete="off">
                     <div class="row">
-                         @if(!empty($aux))
                             <div class="col-md-6">
-                           
                                 <label>Número del Periodo</label>
-                                <input type="number" class="form-control" name="numero" value="{{$aux->numero}}" onkeyup="mayus(this)"; onkeypress="return numeros(event)">
+                                <input type="number" class="form-control" name="numero" value="{{$aux->numero ?? ''}}" onkeyup="mayus(this)"; onkeypress="return numeros(event)">
                                 @error('numero')
                                     <div class="alert alert-secondary">
                                         {{ $message }}
@@ -82,8 +88,8 @@
                             </div>
                             <div class="col-md-6">
                                 <label>Fecha de Inicio</label>
-                                <input type="hidden" class="form-control" name="identificador" value="{{$aux->id}}">
-                                <input type="date" class="form-control" name="fecha_inicio" value="{{$aux->fecha_inicio}}" onkeyup="mayus(this)"; onkeypress="return numeros(event)">
+                                <input type="hidden" class="form-control" name="identificador" value="{{$aux->id ?? ''}}">
+                                <input type="date" class="form-control" name="fecha_inicio" value="{{$aux->fecha_inicio ?? ''}}" onkeyup="mayus(this)"; onkeypress="return numeros(event)">
                                 @error('fecha_inicio')
                                     <div class="alert alert-secondary">
                                         {{ $message }}
@@ -92,7 +98,7 @@
                             </div>
                             <div class="col-md-6">
                                 <label>Fecha de Fin</label>
-                                <input type="date" class="form-control" name="fecha_fin" value="{{$aux->fecha_fin}}" onkeyup="mayus(this)"; onkeypress="return numeros(event)">
+                                <input type="date" class="form-control" name="fecha_fin" value="{{$aux->fecha_fin ?? ''}}" onkeyup="mayus(this)"; onkeypress="return numeros(event)">
                                 @error('fecha_fin')
                                     <div class="alert alert-secondary">
                                         {{ $message }}
@@ -101,53 +107,23 @@
                             </div>
                             <div class="col-md-6">
                                 <label>Fecha de Pago</label>
-                                <input type="date" class="form-control" name="fecha_pago" value="{{$aux->fecha_pago}}" onkeyup="mayus(this)"; onkeypress="return numeros(event)">
+                                <input type="date" class="form-control" name="fecha_pago" value="{{$aux->fecha_pago ?? ''}}" onkeyup="mayus(this)"; onkeypress="return numeros(event)">
                                 @error('fecha_pago')
                                     <div class="alert alert-secondary">
                                         {{ $message }}
                                     </div>
                                 @enderror
                             </div>
-                        @else
                             <div class="col-md-6">
-                                <label>Número del Periodo</label>
-                                <input type="number" class="form-control" onkeyup="mayus(this)"; onkeypress="return numeros(event)" name="numero">
-                                @error('numero')
+                                <label>Días periodos</label>
+                                <input type="text" value="">
+                                <input type="text" id="diasPeriodo" class="form-control" name="diasPeriodo" onkeyup="mayus(this)"; onkeypress="return numeros(event)">
+                                @error('diasPeriodo')
                                     <div class="alert alert-secondary">
                                         {{ $message }}
                                     </div>
                                 @enderror
                             </div>
-                            <div class="col-md-6">
-                                <label>Fecha de Inicio</label>
-                                <input type="hidden" class="form-control" name="identificador" onkeyup="mayus(this)"; onkeypress="return numeros(event)">
-                                <input type="date" class="form-control" name="fecha_inicio" onkeyup="mayus(this)"; onkeypress="return numeros(event)">
-                                @error('fecha_inicio')
-                                    <div class="alert alert-secondary">
-                                        {{ $message }}
-                                    </div>
-                                @enderror
-                            </div>
-                            <div class="col-md-6">
-                                <label>Fecha de Fin</label>
-                                <input type="date" class="form-control" name="fecha_fin" onkeyup="mayus(this)"; onkeypress="return numeros(event)">
-                                @error('fecha_fin')
-                                    <div class="alert alert-secondary">
-                                        {{ $message }}
-                                    </div>
-                                @enderror
-                            </div>
-                            <div class="col-md-6">
-                                <label>Fecha de Pago</label>
-                                <input type="date" class="form-control" name="fecha_pago" onkeyup="mayus(this)"; onkeypress="return numeros(event)">
-                                @error('fecha_pago')
-                                    <div class="alert alert-secondary">
-                                        {{ $message }}
-                                    </div>
-                                @enderror
-                            </div>
-                            
-                        @endif
                         <div class="col-md-12">
                             <br><!--Div pra espaciar entre inputs y flechas-->
                         </div>
