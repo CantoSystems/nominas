@@ -25,31 +25,74 @@ class PeriodosController extends Controller
     }
 
     public function agregarperiodos($datos){
-    $clv= Session::get('clave_empresa');
-    $clv_empresa=$this->conectar($clv);
-    \Config::set('database.connections.DB_Serverr', $clv_empresa);
-    $datos->validate([
-        'numero' => 'required',
-        'fecha_inicio' => 'required',
-        'fecha_fin' => 'required',
-        'fecha_pago' => 'required'
-    ]);
-    $tipoPeriodo = $request->diasPeriodo;
-        if($tipoPeriodo === 7 ){
+        //$this->desactivarPeriodo();
+        $actualPeriodo = Session::get('num_periodo');
+        $clv= Session::get('clave_empresa');
+        $clv_empresa=$this->conectar($clv);
+        \Config::set('database.connections.DB_Serverr', $clv_empresa);
+        $datos->validate([
+            'diasPeriodo' => 'required',
+            'fecha_inicio' => 'required',
+            'fecha_pago' => 'required'
+        ]);
+        $tipoPeriodo = $datos->diasPeriodo;
 
-        }else{
-            return back()->with('msj','Registro duplicado');
-        }
+        $terminoPeriodo = DB::connection('DB_Serverr')->table('periodos')
+                    ->select('fecha_fin','diasPeriodo','fecha_pago','numero')
+                    ->where([
+                            ['numero','=',$actualPeriodo],
+                            ['status_periodo','=',0]
+                    ])
+                    ->latest('id')->first();
+
+        //Inicio periodo
+        $encontrarDia = date('d',strtotime($datos->fecha_inicio));
+        $encontrarMes = date('m',strtotime($datos->fecha_inicio));
+        $encontrarAnio = date('Y',strtotime($datos->fecha_inicio));
+        $siguienteMes = $encontrarMes+1;
+        $calculoPeriodo = $tipoPeriodo-1;
+
+
+            if($tipoPeriodo == 7 ){
+                $numero =  $terminoPeriodo->numero+1;
+                $fechaFin = date("Y-m-d",strtotime($datos->fecha_inicio."+ ".$calculoPeriodo." days"));
+            }else if($tipoPeriodo == 10){
+                $numero =  $terminoPeriodo->numero+1;
+                $fechaFin = date("Y-m-d",strtotime($datos->fecha_inicio."+ ".$calculoPeriodo." days"));
+            }else if($tipoPeriodo == 15){
+                if($encontrarDia <= 15 ){
+                    $numero =  $terminoPeriodo->numero+1;
+                    //$numero = ($siguienteMes*2)-1;
+                    $fechaFin = $encontrarAnio.'-'.$encontrarMes.'-'.'15';
+                }else if($encontrarDia >= 16 ){
+                    $numero =  $terminoPeriodo->numero+1;
+                    //$numero = $encontrarMes*2;
+                    $fechaFin = date('Y-m-d',(mktime(0,0,0,$encontrarMes+1,1,$encontrarAnio)-1));
+                }
+            }else if($tipoPeriodo == 30){
+                $numero =  $terminoPeriodo->numero+1;
+                $fechaFin = date('Y-m-d',(mktime(0,0,0,$encontrarMes+1,1,$encontrarAnio)-1));
+                
+            }else{
+                return back()->with('msj','Las fechas ingresadas son incorrectas');
+            }
+
+            DB::connection('DB_Serverr')->table('periodos')
+                    ->whereBetween('fecha_inicio',array($datos->fecha_inicio,$fechaFin,$datos->fecha_pago))
+                    ->whereBetween('fecha_fin',array($datos->fecha_inicio,$fechaFin,$datos->fecha_pago))
+                    ->whereBetween('fecha_pago',array($datos->fecha_inicio,$fechaFin,$datos->fecha_pago))
+                    ->get();
+
    
+            $this->desactivarPeriodo();
 
+            
    
-
-        
             $fecha_periodo = now();
             DB::connection('DB_Serverr')->insert('insert into periodos (numero,fecha_inicio,
-            fecha_fin,fecha_pago,diasPeriodo,created_at,updated_at)
-            values (?,?,?,?,?,?,?)',[$datos->numero,$datos->fecha_inicio,
-            $datos->fecha_fin,$datos->fecha_pago,$tipoPeriodo->tipoPeriodo,$fecha_periodo,$fecha_periodo]);
+            fecha_fin,fecha_pago,diasPeriodo,status_periodo,created_at,updated_at)
+            values (?,?,?,?,?,?,?,?)',[$numero,$datos->fecha_inicio,
+            $fechaFin,$datos->fecha_pago,$datos->diasPeriodo,1,$fecha_periodo,$fecha_periodo]);
         
     }
 
@@ -223,7 +266,7 @@ class PeriodosController extends Controller
 
             case 'atras':
                 $aux = DB::connection('DB_Serverr')->table('periodos')->where('id','<',$indic)->latest('id')->first();
-                if($aux==""){
+                if(is_null($aux)){
                     $aux = DB::connection('DB_Serverr')->table('periodos')->get()->last();
                 }
                 $periodos=DB::connection('DB_Serverr')->table('periodos')->get();
@@ -232,7 +275,7 @@ class PeriodosController extends Controller
 
             case 'siguiente':
                 $aux = DB::connection('DB_Serverr')->table('periodos')->where('id','>',$indic)->first();
-                if($aux==""){
+                if(is_null($aux)){
                     $aux = DB::connection('DB_Serverr')->table('periodos')->first();
                 }
                 $periodos=DB::connection('DB_Serverr')->table('periodos')->get();
@@ -252,7 +295,6 @@ class PeriodosController extends Controller
             break;
 
             case 'registrar':
-                
                 $this->agregarperiodos($request);
                 return redirect()->route('periodos.acciones');
             break;
@@ -269,7 +311,6 @@ class PeriodosController extends Controller
             case 'buscar':
                 $criterio= $request->opcion;
                 if($criterio == 'numero'){
-
                     $aux = DB::connection('DB_Serverr')->table('periodos')->where('numero',$request->busca)->first();
 
                         if($aux == "")
@@ -381,12 +422,14 @@ class PeriodosController extends Controller
         \Config::set('database.connections.DB_Serverr', $clv_empresa);
 
         $statusPeriodo = Session::get('num_periodo');
-        
 
         DB::connection('DB_Serverr')->table('periodos')->where('numero',$statusPeriodo)->update([  
             'status_periodo'=>0,
         ]);
+    }
 
+    public function desactivarPrenomina(){
+        $this->desactivarPeriodo();
         return redirect()->route('control.index');
     }
 
@@ -410,7 +453,33 @@ class PeriodosController extends Controller
         $dPeriodo = DB::connection('DB_Serverr')->table('periodos')
                                                 ->select('diasPeriodo')
                                                 ->latest('id')->first();
+                                                 
         return $dPeriodo->diasPeriodo;
+    }
+
+    public function calcularFechaFin(Request $request){
+        $clv= Session::get('clave_empresa');
+        $clv_empresa=$this->conectar($clv);
+        \Config::set('database.connections.DB_Serverr', $clv_empresa);
+
+            $diaInicio =  date('d',strtotime($request->inicio));
+            $mesInicio =  date('m',strtotime($request->inicio));
+            $anioInicio =  date('Y',strtotime($request->inicio));
+            $calculoPeriodo = $request->periodoTipo-1;
+
+         if($request->periodoTipo == 7 || $request->periodoTipo == 10){
+            
+            $fechaFin = date("Y-m-d",strtotime($request->inicio."+ ".$calculoPeriodo." days"));
+         }else if($request->periodoTipo == 15){
+            if($diaInicio < 16){
+                $fechaFin = $anioInicio.'-'.$mesInicio.'-'.'15';
+            }else{
+                $fechaFin = date('Y-m-d',(mktime(0,0,0,$mesInicio+1,1,$anioInicio)-1));
+            }
+         }else if($request->periodoTipo == 30){
+            $fechaFin = date('Y-m-d',(mktime(0,0,0,$mesInicio+1,1,$anioInicio)-1));
+         }
+         return $fechaFin;
     }
 
     public function eliminarperiodo($id){

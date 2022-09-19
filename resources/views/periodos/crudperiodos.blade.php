@@ -78,9 +78,11 @@
                 <form action="{{ route('periodos.acciones')}}" method="GET" autocomplete="off">
                     <div class="row">
                             <div class="col-md-6">
-                                <label>Número del Periodo</label>
-                                <input type="number" class="form-control" name="numero" value="{{$aux->numero ?? ''}}" onkeyup="mayus(this)"; onkeypress="return numeros(event)">
-                                @error('numero')
+                                <label>Días por periodo</label>
+                                <input type="hidden" value="{{ $aux->status_periodo ?? ''}}">
+                                <input type="text" id="diasPeriodo" class="form-control" value="{{ $aux->diasPeriodo ?? ''}}"
+                                name="diasPeriodo" onkeyup="mayus(this)"; onkeypress="return numeros(event)">
+                                @error('diasPeriodo')
                                     <div class="alert alert-secondary">
                                         {{ $message }}
                                     </div>
@@ -89,7 +91,7 @@
                             <div class="col-md-6">
                                 <label>Fecha de Inicio</label>
                                 <input type="hidden" class="form-control" name="identificador" value="{{$aux->id ?? ''}}">
-                                <input type="date" class="form-control" name="fecha_inicio" value="{{$aux->fecha_inicio ?? ''}}" onkeyup="mayus(this)"; onkeypress="return numeros(event)">
+                                <input type="date"  id="fecha_inicio" class="form-control" name="fecha_inicio" value="{{$aux->fecha_inicio ?? ''}}" onkeyup="mayus(this)"; onkeypress="return numeros(event)">
                                 @error('fecha_inicio')
                                     <div class="alert alert-secondary">
                                         {{ $message }}
@@ -98,7 +100,7 @@
                             </div>
                             <div class="col-md-6">
                                 <label>Fecha de Fin</label>
-                                <input type="date" class="form-control" name="fecha_fin" value="{{$aux->fecha_fin ?? ''}}" onkeyup="mayus(this)"; onkeypress="return numeros(event)">
+                                <input type="date" id="fecha_fin" class="form-control" name="fecha_fin" value="{{$aux->fecha_fin ?? ''}}" onkeyup="mayus(this)"; onkeypress="return numeros(event)">
                                 @error('fecha_fin')
                                     <div class="alert alert-secondary">
                                         {{ $message }}
@@ -107,23 +109,14 @@
                             </div>
                             <div class="col-md-6">
                                 <label>Fecha de Pago</label>
-                                <input type="date" class="form-control" name="fecha_pago" value="{{$aux->fecha_pago ?? ''}}" onkeyup="mayus(this)"; onkeypress="return numeros(event)">
+                                <input type="date" id="fecha_pago"  class="form-control" name="fecha_pago" value="{{$aux->fecha_pago ?? ''}}" onkeyup="mayus(this)"; onkeypress="return numeros(event)">
                                 @error('fecha_pago')
                                     <div class="alert alert-secondary">
                                         {{ $message }}
                                     </div>
                                 @enderror
                             </div>
-                            <div class="col-md-6">
-                                <label>Días periodos</label>
-                                <input type="text" value="">
-                                <input type="text" id="diasPeriodo" class="form-control" name="diasPeriodo" onkeyup="mayus(this)"; onkeypress="return numeros(event)">
-                                @error('diasPeriodo')
-                                    <div class="alert alert-secondary">
-                                        {{ $message }}
-                                    </div>
-                                @enderror
-                            </div>
+                            
                         <div class="col-md-12">
                             <br><!--Div pra espaciar entre inputs y flechas-->
                         </div>
