@@ -378,13 +378,52 @@
    <script src="{{ asset('/script-personalizados/validacionesInput.js')}}"></script>
    <script>
       $(document).ready(function(){
-          $.ajax({
+
+          $('#nuevo').click(function(){
+            $.ajax({
             url: "{{ route('periodos.obtenerRango') }}",
             method: "GET",
             success:function(data){
+              
               $('#diasPeriodo').val(data);
             }
-          })
+            });
+          });
+
+          $('#diasPeriodo').keyup(function(){
+              let valorPeriodo = $(this).val();
+                if(valorPeriodo == ''){
+                  $('#fecha_fin').attr("disabled",true);
+                  $('#fecha_fin').val('');
+                  $('#fecha_inicio').attr("disabled",true);
+                  $('#fecha_inicio').val('');
+                  $('#fecha_pago').attr("disabled",true);
+                  $('#fecha_pago').val('');
+                }else if(valorPeriodo == 7 || valorPeriodo == 10 || valorPeriodo == 15 || valorPeriodo == 30 ){
+                  $('#fecha_fin').attr("disabled",false);
+                  $('#fecha_inicio').attr("disabled",false);
+                  $('#fecha_pago').attr("disabled",false);
+                }
+
+          });
+
+          $('#fecha_inicio').change(function(){
+              let inicio = $(this).val();
+              let periodoTipo = $('#diasPeriodo').val();
+              $.ajax({
+                url: "{{ route('periodos.calcularFin') }}",
+                method: "GET",
+                data:{inicio,periodoTipo},
+                success:function(data){
+                  console.log(data);
+                  $('#fecha_fin').val(data);
+                  $('#fecha_fin').attr("disabled",true);
+                  
+                }
+              });
+
+
+          });
       });
    </script>
   </body>
