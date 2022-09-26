@@ -92,6 +92,7 @@
                                 <label>Fecha de Inicio</label>
                                 <input type="hidden" class="form-control" name="identificador" value="{{$aux->id ?? ''}}">
                                 <input type="date"  id="fecha_inicio" class="form-control" name="fecha_inicio" value="{{$aux->fecha_inicio ?? ''}}" onkeyup="mayus(this)"; onkeypress="return numeros(event)">
+                                <p id="sugerenciaFechaInicio"></p>
                                 @error('fecha_inicio')
                                     <div class="alert alert-secondary">
                                         {{ $message }}
