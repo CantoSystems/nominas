@@ -14,7 +14,8 @@
             <meta name="csrf-token" content="{{ csrf_token() }}">
             <div class="row">
               <div class="col-sm-2">
-                <label>Clave empleado:</label>
+                <label class="titulo">Clave empleado</label>
+                <strong class="obligatorio">*</strong>
                   <div class="input-group mb-3">
                   <input  type="text" 
                           name="clave_empledo"
@@ -35,7 +36,8 @@
 
               <div class="col-sm-2">
                 <div class="form-group">
-                    <label>Nombre:</label>
+                    <label class="titulo">Nombre</label>
+                    <strong class="obligatorio">*</strong>
                     <br>
                       <input  type="text" 
                               name="nombre" 
@@ -48,7 +50,8 @@
 
               <div class="col-sm-1">
                 <div class="form-group">
-                  <label>Cantidad:</label>
+                  <label class="titulo">Cantidad</label>
+                  <strong class="obligatorio">*</strong>
                   <br>
                     <input  type="number" 
                             name="cantidad_ausentismo" 
@@ -60,7 +63,8 @@
               </div>
 
               <div class="col-sm-2">
-                <label>Concepto:</label>
+                <label class="titulo">Concepto</label>
+                <strong class="obligatorio">*</strong>
                 <br>
                   <div class=" input-group mb-3">
                     <input  type="text"
@@ -81,7 +85,8 @@
 
               <div class="col-sm-2">
                 <div class="form-group">
-                  <label>Fecha:</label>
+                  <label class="titulo">Fecha</label>
+                  <strong class="obligatorio">*</strong>
                   <br>
                     <input  type="date" 
                             name="fecha_ausentismo"
@@ -95,7 +100,9 @@
               
                <div class="col-sm-1">
                 <div class="form-group">
-                   <label>Incapacidad:</label><br>
+                   <label class="titulo">Incapacidad</label>
+                   <strong class="obligatorio">*</strong>
+                   <br>
                     <input  type="text" 
                             name="incapacidad"
                             id="incapacidad_ausencia" 
@@ -106,7 +113,9 @@
               </div>
               <div class="col-sm-2">
                 <div class="form-group">
-                  <label>Descripcion:</label><br>
+                  <label class="titulo">Descripcion</label>
+                  <strong class="obligatorio">*</strong>
+                  <br>
                     <input  type="text" 
                             name="descripcion" 
                             id="descripcion" 

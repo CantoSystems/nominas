@@ -79,7 +79,8 @@
             <form action="{{ route('horasextras.index')}}" method="GET" autocomplete="off">
                 <div class="row">
                     <div class="col-sm-3">
-                        <label>Clave empleado: </label>
+                        <label class="titulo">Clave empleado</label>
+                        <strong class="obligatorio">*</strong>
                          <input type="hidden" name="id_tiempo" value="{{$extras_horas->id_tiempo ?? ''}}">
                         <div class=" input-group mb-3">
                             <input  type="text" 
@@ -106,7 +107,8 @@
 
                   <div class="col-sm-3">
                         <div class="form-group">
-                            <label>Nombre:</label>
+                            <label class="titulo">Nombre</label>
+                            <strong class="obligatorio">*</strong>
                             <input  type="text" 
                                     name="nombre" 
                                     class="form-control nombre_empleado"
@@ -123,7 +125,8 @@
 
                 <div class="col-sm-3">
                     <div class="form-group">
-                        <label>Cantidad:</label>
+                        <label class="titulo">Cantidad</label>
+                        <strong class="obligatorio">*</strong>
                         <input  type="number" 
                                 name="cantidad_tiempo"
                                 class="form-control"
@@ -142,7 +145,8 @@
                    
                     <div class="col-sm-3">
                         <div class="form-group">
-                            <label>Fecha:</label>
+                            <label class="titulo">Fecha</label>
+                            <strong class="obligatorio">*</strong>
                             <input  type="date" 
                                     name="fecha_extra" 
                                     class="form-control" 

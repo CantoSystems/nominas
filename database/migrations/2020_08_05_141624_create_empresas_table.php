@@ -23,8 +23,8 @@ class CreateEmpresasTable extends Migration
             $table->string('segurosocial',11);
             $table->string('registro_estatal',50);
             $table->string('calle',50);
-            $table->string('num_interno',100);
-            $table->string('num_externo',100)->nullable();
+            $table->string('num_interno',100)->nullable();
+            $table->string('num_externo',100);
             $table->string('colonia',50);
             $table->string('municipio',50);
             $table->string('ciudad',50);

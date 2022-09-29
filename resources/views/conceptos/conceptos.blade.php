@@ -21,7 +21,8 @@
                     @if(!empty($aux))
                         <div class="col-sm-2">
                             <div class="form-group">
-                                <label>Clave:</label>
+                                <label class="titulo">Clave</label>
+                                <strong class="obligatorio">*</strong>
                                 <input type="text" name="clave_concepto"  maxlength="3" class="form-control" value="{{$aux->clave_concepto}}" onkeyup="mayus(this)"; >
                             </div>
                             @error('clave_concepto')
@@ -32,7 +33,8 @@
                         </div>
                         <div class="col-sm-4">
                             <div class="form-group">
-                                <label>Concepto:</label>
+                                <label class="titulo">Concepto</label>
+                                <strong class="obligatorio">*</strong>
                                 <input type="text" name="concepto" class="form-control" value="{{$aux->concepto}}" onkeyup="mayus(this);" onkeypress="return validar(event)">
                                 <input type="hidden" name="id" class="form-control" value="{{$aux->id}}" onkeyup="mayus(this);">
                             </div>
@@ -44,7 +46,8 @@
                         </div>
                         <div class="col-sm-3">
                             <div class="form-group">
-                                <label>Naturaleza:</label>
+                                <label class="titulo">Naturaleza</label>
+                                <strong class="obligatorio">*</strong>
                                 <select class="custom-select" id="naturaleza" name="naturaleza">
                                     @if($aux->naturaleza=="1")
                                         <option value="1" selected>Selecciona una opción</option>
@@ -87,7 +90,8 @@
                         </div>
                         <div class="col-sm-3">
                             <div class="form-group">
-                                <label>Manejo:</label>
+                                <label class="titulo">Manejo</label>
+                                <strong class="obligatorio">*</strong>
                                 <select class="custom-select" id="manejo" name="manejo">
                                     @if($aux->manejo=="1")
                                         <option value="1" selected>Selecciona una opción</option>
@@ -112,30 +116,30 @@
                         </div>
                         <div class="col-sm-2">
                             <div class="form-group">
-                                <label>Fórmula:</label>
+                                <label class="titulo">Fórmula</label>
                                 <input type="text" name="formula" class="form-control" value="{{$aux->formula}}" onkeyup="mayus(this);" >
                             </div>
                         </div>
                         <div class="col-sm-2">
                             <div class="form-group">
-                                <label>Cantidad:</label>
+                                <label class="titulo">Cantidad</label>
                                 <input type="number" name="cantidad" class="form-control" value="{{$aux->cantidad}}" onkeyup="mayus(this);" onkeypress="return numeros(event)">
                             </div>
                         </div>
                         <div class="col-sm-2">
                             <div class="form-group">
-                                <label>Importe:</label>
+                                <label class="titulo">Importe</label>
                                 <input type="number" name="importe" class="form-control" value="{{$aux->importe}}" onkeypress="return numeros(event)" onkeyup="mayus(this);">
                             </div>
                         </div>
                         <div class="col-sm-2">
                             <div class="form-group">
-                                <label>Monto:</label>
+                                <label class="titulo">Monto</label>
                                 <input type="number" name="monto" class="form-control" value="{{$aux->monto}}" onkeypress="return numeros(event)" onkeyup="mayus(this);">
                             </div>
                         </div>
                         <div class="col-sm-4">
-                            <label for=""> Elije el gravado:</label>
+                            <label class="titulo"> Elije el gravado:</label>
                             <div class="form-group">
                                 <div class="form-check">
                                     @if($aux->isr==1)
@@ -174,28 +178,28 @@
 
                         <div class="col-sm-2">
                             <div class="form-group">
-                                <label>UMA ISR:</label>
+                                <label class="titulo">UMA ISR</label>
                                 <input type="number" name="isr_uma" class="form-control" value="{{$aux->isr_uma}}" onkeyup="mayus(this);" onkeypress="return numeros(event)">
                             </div>
                         </div>
 
                         <div class="col-sm-2">
                             <div class="form-group">
-                                <label>% ISR:</label>
+                                <label class="titulo">% ISR</label>
                                 <input type="number" name="isr_porcentaje" class="form-control" value="{{$aux->isr_porcentaje}}" onkeyup="mayus(this);" onkeypress="return numeros(event)">
                             </div>
                         </div>
 
                         <div class="col-sm-2">
                             <div class="form-group">
-                                <label>UMA IMSS:</label>
+                                <label class="titulo">UMA IMSS</label>
                                 <input type="number" name="imss_uma" class="form-control" value="{{$aux->imss_uma}}" onkeyup="mayus(this);" onkeypress="return numeros(event)">
                             </div>
                         </div>
 
                         <div class="col-sm-2">
                             <div class="form-group">
-                                <label>% IMSS:</label>
+                                <label class="titulo">% IMSS</label>
                                 <input type="number" name="imss_porcentaje" class="form-control" value="{{$aux->imss_porcentaje}}" onkeyup="mayus(this);" onkeypress="return numeros(event)">
                             </div>
                         </div>
@@ -204,7 +208,8 @@
                     @else
                         <div class="col-sm-2">
                             <div class="form-group">
-                                <label>Clave:</label>
+                                <label class="titulo">Clave</label>
+                                <strong class="obligatorio">*</strong>
                                 <input type="text" name="clave_concepto"  maxlength="3"  class="form-control" onkeyup="mayus(this);" >
                                 @error('clave_concepto')
                                     <div class="alert alert-secondary">
@@ -215,7 +220,8 @@
                         </div>
                         <div class="col-sm-4">
                             <div class="form-group">
-                                <label>Concepto:</label>
+                                <label class="titulo">Concepto</label>
+                                <strong class="obligatorio">*</strong>
                                 <input type="text" name="concepto" class="form-control" onkeyup="mayus(this);" onkeypress="return validar(event)">
                                 @error('concepto')
                                     <div class="alert alert-secondary">
@@ -226,7 +232,8 @@
                         </div>
                         <div class="col-sm-3">
                             <div class="form-group">
-                                <label>Naturaleza:</label>
+                                <label class="titulo">Naturaleza</label>
+                                <strong class="obligatorio">*</strong>
                                 <select class="custom-select" id="naturaleza" name="naturaleza">
                                     <option value="1">Selecciona una opción</option>
                                     <option value="P">Percepción</option>
@@ -243,7 +250,8 @@
                         </div>
                         <div class="col-sm-3">
                             <div class="form-group">
-                                <label>Manejo:</label>
+                                <label class="titulo">Manejo</label>
+                                <strong class="obligatorio">*</strong>
                                 <select class="custom-select" id="manejo" name="manejo">
                                     <option value="1">Selecciona una opción</option>
                                     <option value="fijo">Fijo</option>
@@ -258,30 +266,30 @@
                         </div>
                         <div class="col-sm-2">
                             <div class="form-group">
-                                <label>Fórmula:</label>
+                                <label class="titulo">Fórmula</label>
                                 <input type="text" name="formula" class="form-control" onkeyup="mayus(this);" >
                             </div>
                         </div>
                         <div class="col-sm-2">
                             <div class="form-group">
-                                <label>Cantidad:</label>
+                                <label class="titulo">Cantidad</label>
                                 <input type="number" name="cantidad" class="form-control" onkeyup="mayus(this);" onkeypress="return numeros(event)">
                             </div>
                         </div>
                         <div class="col-sm-2">
                             <div class="form-group">
-                                <label>Importe:</label>
+                                <label class="titulo">Importe</label>
                                 <input type="number" name="importe" class="form-control" onkeyup="mayus(this);">
                             </div>
                         </div>
                         <div class="col-sm-2">
                             <div class="form-group">
-                                <label>Monto:</label>
+                                <label class="titulo">Monto</label>
                                 <input type="number" name="monto" class="form-control" onkeyup="mayus(this);">
                             </div>
                         </div>
                         <div class="col-sm-4">
-                            <label for=""> Elije el gravado:</label>
+                            <label class="titulo"> Elije el gravado</label>
                             <div class="form-group">
                                 <div class="form-check">
                                     <input class="form-check-input" type="checkbox" name="isr">
@@ -305,28 +313,28 @@
 
                         <div class="col-sm-2">
                             <div class="form-group">
-                                <label>UMA ISR:</label>
+                                <label class="titulo">UMA ISR</label>
                                 <input type="number" name="isr_uma" class="form-control" value="" onkeyup="mayus(this);" onkeypress="return numeros(event)">
                             </div>
                         </div>
 
                         <div class="col-sm-2">
                             <div class="form-group">
-                                <label>% ISR:</label>
+                                <label class="titulo">% ISR</label>
                                 <input type="number" name="isr_porcentaje" class="form-control" value="" onkeyup="mayus(this);" onkeypress="return numeros(event)">
                             </div>
                         </div>
 
                         <div class="col-sm-2">
                             <div class="form-group">
-                                <label>UMA IMMS:</label>
+                                <label class="titulo">UMA IMMS</label>
                                 <input type="number" name="imss_uma" class="form-control" value="" onkeyup="mayus(this);" onkeypress="return numeros(event)">
                             </div>
                         </div>
 
                         <div class="col-sm-2">
                             <div class="form-group">
-                                <label>% IMMS:</label>
+                                <label class="titulo">% IMMS</label>
                                 <input type="number" name="imss_porcentaje" class="form-control" value="" onkeyup="mayus(this);" onkeypress="return numeros(event)">
                             </div>
                         </div>

@@ -609,6 +609,14 @@ class PeriodosController extends Controller
 
         if(!(is_null($aux1))){
             $aux1 = DB::connection('DB_Serverr')->table('periodos')->where('id',$id)->delete();
+            $anteriorPeriodo = DB::connection('DB_Serverr')->table('periodos')
+                                                ->select('id')->where([
+                                                ['status_periodo','=',0]
+                                                ])
+                                                ->latest('id')->first();
+            DB::connection('DB_Serverr')->table('periodos')->where('id',$anteriorPeriodo->id)->update([  
+                                                    'status_periodo'=>1,
+                                                ]);                             
             return redirect()->route('periodos.acciones');
         }else{
             return back()->with('msj','Periodos inactivos no pueden ser eliminados'); 

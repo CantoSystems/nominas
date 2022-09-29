@@ -66,7 +66,8 @@
                         <div class="row">
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label>Clave del área</label>
+                                    <label class="titulo">Clave del área</label>
+                                    <strong class="obligatorio">*</strong>
                                     @if(isset($aux))
                                         <input type="text" name="clave_area" class="form-control" value="{{$aux->clave_area}}"  maxlength="4" onkeyup="mayus(this);">
                                         <input type="hidden" name="identificador" class="form-control" value="{{$aux->id}}" onkeyup="mayus(this);">
@@ -89,7 +90,8 @@
 
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label>Nombre del área</label>
+                                    <label class="titulo">Nombre del área</label>
+                                    <strong class="obligatorio">*</strong>
                                     @if(isset($aux))
                                         <input type="text" name="area" class="form-control" value="{{$aux->area}}" onkeyup="mayus(this);" onkeypress="return validar(event)">
                                         @error('area')

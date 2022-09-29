@@ -65,7 +65,8 @@
                         <div class="row">
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label>Clave Banco:</label>
+                                    <label class="titulo">Clave Banco:</label>
+                                    <strong class="obligatorio">*</strong>
                                     @if(isset($banco))
                                     <input type="text" name="clave_banco" value="{{$banco->clave_banco}}"
                                         class="form-control" maxlength="4" onkeyup="mayus(this);">
@@ -87,7 +88,8 @@
                             </div>
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label>Nombre:</label>
+                                    <label class="titulo">Nombre:</label>
+                                    <strong class="obligatorio">*</strong>
                                     @if(isset($banco))
                                     <input type="hidden" name="id" value="{{$banco->id}}" class="form-control"
                                         onkeyup="mayus(this);">

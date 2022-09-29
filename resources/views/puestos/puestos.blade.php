@@ -67,7 +67,8 @@
                         <div class="row">
                             @if(!empty($aux))
                                 <div class="col-md-6">
-                                    <label>Clave del puesto:</label>
+                                    <label class="titulo">Clave del puesto</label>
+                                    <strong class="obligatorio">*</strong>
                                     <input type="text" class="form-control" onkeyup="mayus(this);" maxlength = "4" name="clave_puesto" value="{{$aux->clave_puesto}}">
                                     <input type="hidden" class="form-control" name="identificador" value="{{$aux->id}}">
                                     @error('clave_puesto')
@@ -77,7 +78,8 @@
                                     @enderror
                                 </div>
                                 <div class="col-md-6">
-                                    <label>Puesto:</label>
+                                    <label class="titulo">Puesto</label>
+                                    <strong class="obligatorio">*</strong>
                                     <input type="text" class="form-control" name="puesto" value="{{$aux->nombre_puesto}}" onkeyup="mayus(this);" onkeypress="return validar(event);">
                                     @error('puesto')
                                             <div class="alert alert-secondary">
@@ -87,7 +89,8 @@
                                 </div>
                             @else
                                 <div class="col-md-6">
-                                    <label>Clave del puesto:</label>
+                                    <label class="titulo">Clave del puesto</label>
+                                    <strong class="obligatorio">*</strong>
                                     <input type="text"  class="form-control" 
                                                         onkeyup="mayus(this);" 
                                                         maxlength="4" 
@@ -100,7 +103,8 @@
                                     @enderror
                                 </div>
                                 <div class="col-md-6">
-                                    <label>Puesto:</label>
+                                    <label class="titulo">Puesto</label>
+                                    <strong class="obligatorio">*</strong>
                                     <input type="text" class="form-control" name="puesto" onkeyup="mayus(this);" onkeypress="return validar(event);">
                                     @error('puesto')
                                             <div class="alert alert-secondary">

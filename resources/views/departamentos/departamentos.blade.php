@@ -69,7 +69,8 @@
                         <div class="row">
                             @if(!empty($aux))
                                 <div class="col-md-6">
-                                    <label>Clave:</label>
+                                    <label class="titulo">Clave</label>
+                                    <strong class="obligatorio">*</strong>
                                     <input type="text" class="form-control" name="clave_departamento" value="{{$aux->clave_departamento}}" maxlength="4" onkeyup="mayus(this)";>
                                     @error('clave_departamento')
                                             <div class="alert alert-secondary">
@@ -78,7 +79,8 @@
                                     @enderror
                                 </div>
                                 <div class="col-md-6">
-                                    <label>Nombre:</label>
+                                    <label class="titulo">Nombre</label>
+                                    <strong class="obligatorio">*</strong>
                                     <input type="text" class="form-control" name="departamento" onkeyup="mayus(this);" value="{{$aux->departamento}}" onkeypress="return validar(event)">
                                     @error('departamento')
                                             <div class="alert alert-secondary">
@@ -88,7 +90,8 @@
                                 </div>
                                 <div class="col-md-6">
                                     <br>
-                                    <label>Áreas:</label>
+                                    <label class="titulo">Áreas</label>
+                                    <strong class="obligatorio">*</strong>
                                     <select id="areas" class="custom-select" name="clave_area">
                                         <option id="first_areas" value="{{$aux->clave_area}}">{{$aux->area}}</option>
                                         <option  id="areas_null" value="null">---Selecciona una opción---</option>
@@ -108,7 +111,8 @@
                                 </div>
                             @else
                                 <div class="col-md-6">
-                                    <label>Clave:</label>
+                                    <label class="titulo">Clave</label>
+                                    <strong class="obligatorio">*</strong>
                                     <input type="text" class="form-control" name="clave_departamento" maxlength="4" onkeyup="mayus(this);";>
                                     @error('clave_departamento')
                                             <div class="alert alert-secondary">
@@ -117,7 +121,8 @@
                                     @enderror
                                 </div>
                                 <div class="col-md-6">
-                                    <label>Nombre:</label>
+                                    <label class="titulo">Nombre</label>
+                                    <strong class="obligatorio">*</strong>
                                     <input type="text" class="form-control" name="departamento" onkeyup="mayus(this);" onkeypress="return validar(event);">
                                     @error('departamento')
                                             <div class="alert alert-secondary">
@@ -127,7 +132,8 @@
                                 </div>
                                 <div class="col-md-6">
                                     <br>
-                                    <label>Áreas:</label>
+                                    <label class="titulo">Áreas</label>
+                                    <strong class="obligatorio">*</strong>
                                     <select id="areas" class="custom-select" name="clave_area">
                                         <option id="areas_null" value="null">---Selecciona una opción---</option>
                                         @if(!empty($areas))

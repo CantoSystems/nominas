@@ -67,7 +67,8 @@
                         <div class="row">
                             <div class="col-sm-5">
                                 <div class="form-group">
-                                    <label>Fecha descanso</label>
+                                    <label class="titulo">Fecha descanso</label>
+                                    <strong class="obligatorio">*</strong>
                                         <input type="date" name="fecha_descanso" class="form-control" value="{{$descanso->fecha_descanso ?? ''}}">
                                         <input type="hidden" name="id" class="form-control" value="{{$descanso->id ?? ''}}" onkeyup="mayus(this);">
                                         @error('fecha_descanso')
@@ -80,7 +81,8 @@
 
                             <div class="col-sm-7">
                                 <div class="form-group">
-                                    <label>Descripción - Día Festivo</label>
+                                    <label class="titulo">Descripción - Día Festivo</label>
+                                    <strong class="obligatorio">*</strong>
                                         <input type="text" name="descripcion_descanso" class="form-control" value="{{$descanso->descripcion_descanso ?? ''}}" onkeyup="mayus(this);" onkeypress="return validar(event)">
                                         @error('area')
                                             <div class="alert alert-secondary">
