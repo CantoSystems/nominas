@@ -67,7 +67,8 @@
                         <div class="row">
                             <div class="col-sm-4">
                                 <div class="form-group">
-                                    <label>Año:</label>
+                                    <label class="titulo">Año</label>
+                                    <strong class="obligatorio">*</strong>
                                     @if(isset($infonavit))
                                     <input type="text" id="anioInfonavit" name="anioInfonavit" value="{{ $infonavit->anio }}"
                                         class="form-control">
@@ -89,7 +90,8 @@
                             </div>
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label>Valor Veces Salario Mínimo:</label>
+                                    <label class="titulo">Valor Veces Salario Mínimo</label>
+                                    <strong class="obligatorio">*</strong>
                                     @if(isset($infonavit))
                                     <input type="number" step=".01" id="vsmInfonavit" name="vsmInfonavit" value="{{ $infonavit->vsm }}"
                                         class="form-control">
@@ -112,7 +114,8 @@
                         <div class="row">
                             <div class="col-sm-4">
                                 <div class="form-group">
-                                    <label>Var. % UMA:</label>
+                                    <label class="titulo">Var. % UMA</label>
+                                    <strong class="obligatorio">*</strong>
                                     @if(isset($infonavit))
                                     <input type="number" step=".01" id="varUma" name="varUma" value="{{ $infonavit->vsm }}"
                                         class="form-control">
@@ -133,7 +136,8 @@
                             </div>
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label>Valor Unidad Mixta Infonavit:</label>
+                                    <label class="titulo">Valor Unidad Mixta Infonavit</label>
+                                    <strong class="obligatorio">*</strong>
                                     @if(isset($infonavit))
                                     <input type="number" step=".01" id="valorInfonavit" name="valorInfonavit" value="{{ $infonavit->valorInfonavit }}"
                                         class="form-control">
@@ -156,7 +160,8 @@
                         <div class="row">
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label>Var % Unidad Mixta:</label>
+                                    <label class="titulo">Var % Unidad Mixta</label>
+                                    <strong class="obligatorio">*</strong>
                                     @if(isset($infonavit))
                                     <input type="number" step=".01" id="varUnidadMixta" name="varUnidadMixta" value="{{ $infonavit->varUnidadMixta }}"
                                         class="form-control">

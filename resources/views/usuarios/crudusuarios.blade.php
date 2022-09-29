@@ -63,7 +63,8 @@
                         <div class="row">
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label>Nombre del Usuario:</label>
+                                    <label class="titulo">Nombre del Usuario</label>
+                                    <strong class="obligatorio">*</strong>
                                     @if(isset($usuarios))
                                     <input type="hidden" name="id" value="{{$usuarios->id}}">
                                     <input type="text" name="nombre" value="{{$usuarios->nombre}}" class="form-control"
@@ -87,7 +88,8 @@
                             </div>
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label>Apellido Paterno:</label>
+                                    <label class="titulo">Apellido Paterno</label>
+                                    <strong class="obligatorio">*</strong>
                                     @if(isset($usuarios))
                                     <input type="text" name="apellido_paterno" value="{{$usuarios->apellido_paterno}}"
                                         class="form-control" onkeyup="mayus(this);">
@@ -109,7 +111,8 @@
                             </div>
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label>Apellido Materno:</label>
+                                    <label class="titulo">Apellido Materno</label>
+                                    <strong class="obligatorio">*</strong>
                                     @if(isset($usuarios))
                                     <input type="text" name="apellido_materno" value="{{$usuarios->apellido_materno}}"
                                         class="form-control" onkeyup="mayus(this);">
@@ -131,7 +134,8 @@
                             </div>
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label>Correo electronico:</label>
+                                    <label class="titulo">Correo electrónico</label>
+                                    <strong class="obligatorio">*</strong>
                                     @if(isset($usuarios))
                                     <input type="email" name="email" value="{{$usuarios->email}}" class="form-control"
                                         onkeyup="mayus(this)" ;>
@@ -153,7 +157,7 @@
                             </div>
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label id="contra-label">Contraseña:</label>
+                                    <label class="titulo">Contraseña</label>
                                     @if(isset($usuarios))
                                     <input type="password" id="contra" name="password" value="{{$usuarios->password}}"
                                         readonly class="form-control">
@@ -175,7 +179,7 @@
                             </div>
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label id="contra1-label">Confirmar contraseña:</label>
+                                    <label class="titulo">Confirmar contraseña:</label>
                                     @if(isset($usuarios))
                                     <input type="password" readonly id="contra1" name="password_confirmation"
                                         value="{{$usuarios->password}}" class="form-control">
@@ -187,7 +191,8 @@
                             </div>
                             <div class="col-sm-12">
                                 <div class="form-group">
-                                    <label>Asigne un rol:</label>
+                                    <label class="titulo">Asigne un rol</label>
+                                    <strong class="obligatorio">*</strong>
                                     @if(isset($usuarios))
                                     <select class="custom-select" name="role_id">
                                         <option id="for_roles" value="{{ $usuarios->role_id }}">

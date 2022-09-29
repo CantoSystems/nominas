@@ -69,4 +69,11 @@
       width:4.2em;
       height:auto;
     }
+    label.titulo{
+      text-transform: uppercase;
+      font-size: 0.7em;
+    }
+    strong.obligatorio{
+      color:red;
+    }
     

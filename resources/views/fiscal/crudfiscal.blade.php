@@ -65,7 +65,8 @@
                         <div class="row">
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label>Clave regimen fiscal:</label>
+                                    <label class="titulo">Clave regimen fiscal</label>
+                                    <strong class="obligatorio">*</strong>
                                     <input type="text" name="claveRegimen" value="{{$regimen->claveRegimen ?? ''}}"
                                         class="form-control" maxlength="4" onkeyup="mayus(this);">
                                     @error('claveRegimen')
@@ -77,7 +78,8 @@
                             </div>
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label>Clave regimen fiscal:</label>
+                                    <label class="titulo">Clave regimen fiscal</label>
+                                    <strong class="obligatorio">*</strong>
                                     <input type="text" name="descripcionRegimen" value="{{$regimen->descripcionRegimen ?? ''}}"
                                         class="form-control" maxlength="4" onkeyup="mayus(this);">
                                     <input type="hidden" name="id" value="{{$regimen->id ?? ''}}">

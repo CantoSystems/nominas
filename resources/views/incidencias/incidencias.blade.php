@@ -18,7 +18,8 @@
                 <meta name="csrf-token" content="{{ csrf_token() }}">
                 <div class="row">
                     <div class="col-sm-2">
-                        <label>Clave del Empleado</label>
+                        <label class="titulo">Clave del Empleado</label>
+                        <strong class="obligatorio">*</strong>
                         <div class="input-group mb-3">
                             <input type="text" 
                                    name="clave_empledo[]"
@@ -39,7 +40,8 @@
                     </div>
                     <div class="col-sm-2">
                         <div class="form-group">
-                            <label>Nombre:</label>
+                            <label class="titulo">Nombre</label>
+                            <strong class="obligatorio">*</strong>
                             <input type="text" 
                                    name="nombre_empleado" 
                                    class="form-control nombre_empleado"
@@ -49,7 +51,8 @@
                         </div>
                     </div>
                     <div class="col-sm-2">
-                        <label for="exampleInputFile">Clave del Concepto</label>
+                        <label class="titulo">Clave del Concepto</label>
+                        <strong class="obligatorio">*</strong>
                         <div class="input-group mb-3">
                             <input type="text" 
                                    name="concepto_clave"
@@ -71,7 +74,8 @@
                     </div>
                     <div class="col-sm-2">
                         <div class="form-group">
-                            <label>Concepto</label>
+                            <label class="titulo">Concepto</label>
+                            <strong class="obligatorio">*</strong>
                             <input type="text" 
                                    name="concepto" 
                                    class="form-control"
@@ -82,13 +86,15 @@
                     </div>
                     <div class="col-sm-1">
                         <div class="form-group">
-                            <label>Cantidad:</label>
+                            <label class="titulo">Cantidad</label>
+                            <strong class="obligatorio">*</strong>
                             <input type="number" name="cantidad" id="can_incidencia" required class="form-control" step="0.1" data-toggle="tooltip" data-placement="center">
                         </div>
                     </div>
                     <div class="col-sm-1">
                         <div class="form-group">
-                            <label>Importe:</label>
+                            <label class="titulo">Importe</label>
+                            <strong class="obligatorio">*</strong>
                             <input type="number" name="importe" 
                                                  id="importe_incidencias" 
                                                  required 
@@ -100,7 +106,8 @@
                     </div>
                     <div class="col-sm-2">
                         <div class="form-group">
-                            <label>Monto:</label>
+                            <label class="titulo">Monto</label>
+                            <strong class="obligatorio">*</strong>
                             <input type="number" name="monto" id="monto_incidencias" required class="form-control" step="0.1" data-toggle="tooltip" data-placement="center">
                         </div>
                     </div>

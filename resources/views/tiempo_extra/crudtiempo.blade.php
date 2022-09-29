@@ -15,7 +15,8 @@
                 <meta name="csrf-token" content="{{ csrf_token() }}">
                 <div class="row">
                     <div class="col-sm-3">
-                        <label>Clave empleado:</label>
+                        <label class="titulo">Clave empleado</label>
+                        <strong class="obligatorio">*</strong>
                         <div class="input-group mb-3">
                             <input type="text" 
                                    name="clave_empledo[]"
@@ -35,7 +36,8 @@
                     </div>
                     <div class="col-sm-4">
                         <div class="form-group">
-                            <label>Nombre:</label>
+                            <label class="titulo">Nombre</label>
+                            <strong class="obligatorio">*</strong>
                             <input type="text" 
                                    name="nombre" 
                                    id="nombre" 
@@ -46,7 +48,8 @@
                     </div>
                     <div class="col-sm-2">
                         <div class="form-group">
-                            <label>Cantidad:</label>
+                            <label class="titulo">Cantidad</label>
+                            <strong class="obligatorio">*</strong>
                             <input type="number" 
                                    name="cantidad_tiempo[]" 
                                    id="cantidad_tiempo"
@@ -57,7 +60,8 @@
                     </div>
                     <div class="col-sm-3">
                         <div class="form-group">
-                            <label>Fecha:</label>
+                            <label class="titulo">Fecha</label>
+                            <strong class="obligatorio">*</strong>
                             <input type="date" 
                                    name="fecha_extra[]" 
                                    id="fecha_extra"

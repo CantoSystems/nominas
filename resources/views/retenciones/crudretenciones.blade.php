@@ -24,7 +24,8 @@
                     <div class="row">
                         <div class="col-sm-2">
                             <div class="form-group">
-                                <label>Limite Inferior:</label>
+                                <label class="titulo">Limite Inferior</label>
+                                <strong class="obligatorio">*</strong>
                                 <input type="hidden" name="id" value="{{$retencion->id ?? ''}}" class="form-control">
                                 <input type="number" name="limite_inferior"
                                     value="{{$retencion->limite_inferior ?? ''}}" class="form-control" step="0.01">
@@ -38,7 +39,8 @@
 
                         <div class="col-sm-2">
                             <div class="form-group">
-                                <label>Limite Superior:</label>
+                                <label class="titulo">Limite Superior:</label>
+                                <strong class="obligatorio">*</strong>
                                 <input type="number" name="limite_superior"
                                     value="{{$retencion->limite_superior ?? ''}}" class="form-control" step="0.01">
                                 @error('limite_superior')
@@ -50,7 +52,8 @@
                         </div>
                         <div class="col-sm-2">
                             <div class="form-group">
-                                <label>Cuota Fija:</label>
+                                <label class="titulo">Cuota Fija:</label>
+                                <strong class="obligatorio">*</strong>
                                 <input type="number" name="cuota_fija" value="{{$retencion->cuota_fija ?? '' }}"
                                     class="form-control" step="0.01">
                                 @error('cuota_fija')
@@ -62,7 +65,8 @@
                         </div>
                         <div class="col-sm-2">
                             <div class="form-group">
-                                <label>Porcentaje Excedente:</label>
+                                <label class="titulo">Porcentaje Excedente:</label>
+                                <strong class="obligatorio">*</strong>
                                 <input type="number" name="porcentaje_excedente"
                                     value="{{$retencion->porcentaje_excedente ?? ''}}" class="form-control" step="0.01"
                                     onkeyup="mayus(this);">
@@ -75,7 +79,8 @@
                         </div>
                         <div class="col-sm-4">
                             <div class="form-group">
-                                <label>Periodo:</label>
+                                <label class="titulo">Periodo:</label>
+                                <strong class="obligatorio">*</strong>
                                 @if(isset($retencion))
                                 @if($retencion->periodo_retencion == 'MENSUAL')
                                 <select class="custom-select personalizado" name="periodo_retencion">

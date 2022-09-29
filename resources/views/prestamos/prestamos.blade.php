@@ -15,7 +15,8 @@
                 <meta name="csrf-token" content="{{ csrf_token() }}">
                 <div class="row justify-content-center">
                     <div class="col-sm-2">
-                        <label>Clave del Empleado</label>
+                        <label class="titulo">Clave del Empleado</label>
+                        <strong class="obligatorio">*</strong>
                         <div class="input-group mb-3">
                             <input type="text" 
                                    name="clave_empledo[]"
@@ -36,7 +37,8 @@
                     </div>
                     <div class="col-sm-3">
                         <div class="form-group">
-                            <label>Nombre:</label>
+                            <label class="titulo">Nombre</label>
+                            <strong class="obligatorio">*</strong>
                             <input type="text" 
                                    name="nombre_empleado" 
                                    class="form-control nombre_empleado"
@@ -46,7 +48,8 @@
                         </div>
                     </div>
                     <div class="col-sm-2">
-                        <label for="exampleInputFile">Clave del Concepto</label>
+                        <label class="titulo">Clave del Concepto</label>
+                        <strong class="obligatorio">*</strong>
                         <div class="input-group mb-3">
                             <input type="text" 
                                     name="concepto_clave"
@@ -68,7 +71,8 @@
                     </div>
                     <div class="col-sm-2">
                         <div class="form-group">
-                            <label>Concepto</label>
+                            <label class="titulo">Concepto</label>
+                            <strong class="obligatorio">*</strong>
                             <input type="text" 
                                     name="concepto" 
                                     class="form-control"
@@ -79,19 +83,22 @@
                     </div>
                     <div class="col-sm-1">
                         <div class="form-group">
-                            <label>Monto:</label>
+                            <label class="titulo">Monto</label>
+                            <strong class="obligatorio">*</strong>
                             <input type="number" name="monto" step="0.1" id="montoPrestamo" required class="form-control" data-toggle="tooltip" data-placement="center">
                         </div>
                     </div>
                     <div class="col-sm-1">
                         <div class="form-group">
-                            <label>Importe:</label>
+                            <label class="titulo">Importe</label>
+                            <strong class="obligatorio">*</strong>
                             <input type="number" name="importe" step="0.1" id="importePrestamo" required class="form-control" data-toggle="tooltip" data-placement="center">
                         </div>
                     </div>
                     <div class="col-sm-1">
                         <div class="form-group">
-                            <label>Cantidad:</label>
+                            <label class="titulo">Cantidad</label>
+                            <strong class="obligatorio">*</strong>
                             <input type="number" name="cantidad" step="0.1" id="cantidadPrestamo" required onkeypress="return numeros(event)" class="form-control" data-toggle="tooltip" data-placement="center" disabled>
                         </div>
                     </div>

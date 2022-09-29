@@ -34,6 +34,7 @@ Route::get('/desactivar-periodo','PeriodosController@desactivarPrenomina')->name
 Route::get('/mostrarPeriodo/{id}','PeriodosController@show')->name('periodos.mostrar');
 Route::get('/calcularperiodo','PeriodosController@calcularFechaFin')->name('periodos.calcularFin');
 Route::get('/obtener-diasPeriodo','PeriodosController@rangoPeriodo')->name('periodos.obtenerRango');
+Route::get('/obtener-fechaInicio','PeriodosController@sugerenciaFechaInicio')->name('periodos.sugerenciaFechaInicio');
 
 //puestos 
 Route::get('puestos','PuestosController@index')->name('puestos.index');

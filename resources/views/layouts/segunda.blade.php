@@ -384,9 +384,24 @@
             url: "{{ route('periodos.obtenerRango') }}",
             method: "GET",
             success:function(data){
-              
               $('#diasPeriodo').val(data);
             }
+            });
+          });
+
+          $('#nuevo').click(function(){
+            $.ajax({
+              url:"{{ route('periodos.sugerenciaFechaInicio')}}",
+              method: "GET",
+              success:function(data){
+                console.log(data);
+                if(data == null){
+                  $('#sugerenciaFechaInicio').text("Falló el proceso, recargar la página para reestablecer");
+                }else{
+                  $('#sugerenciaFechaInicio').text('Fecha sugerida  ' + data);
+                }
+                
+              }
             });
           });
 
@@ -421,9 +436,9 @@
                   
                 }
               });
-
-
           });
+
+
       });
    </script>
   </body>
