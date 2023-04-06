@@ -364,6 +364,7 @@ class EmpresaController extends Controller{
             ["clave_concepto" => "01OC", "concepto" => "INGRESOS GRAVADOS", "formula" => NULL, "tipo" => "OC","manejo" => "fijo", "cantidad" =>  NULL, "importe" =>  NULL,"monto" => NULL,"isr" => 0, "imss" => 0, "infonavit" => 0,"estatal" => 0,"isr_uma" => 0.00,"isr_porcentaje" => 0.00, "imss_uma" => 0.00,"imss_porcentaje" => 0.00, "seleccionado" => 1],
             ["clave_concepto" => "02OC", "concepto" => "INGRESOS EXENTOS", "formula" => NULL, "tipo" => "OC","manejo" => "fijo", "cantidad" =>  NULL, "importe" =>  NULL,"monto" => NULL,"isr" => 0, "imss" => 0, "infonavit" => 0,"estatal" => 0,"isr_uma" => 0.00,"isr_porcentaje" => 0.00, "imss_uma" => 0.00,"imss_porcentaje" => 0.00, "seleccionado" => 1],
             ["clave_concepto" => "001I", "concepto" => "IMPUESTO ESTATAL", "formula" => NULL,"tipo" =>  "I", "manejo" => "fijo","cantidad" => NULL,"importe" => NULL,"monto" => NULL,"isr" => 0,"imss" => 0, "infonavit" => 0,"estatal" =>  0,"isr_uma" => 0.00, "isr_porcentaje" => 0.00,"imss_uma" => 0.00,"imss_porcentaje" => 0.00, "seleccionado" => 1],
+            ["clave_concepto" => "023D", "concepto" => "CREDITO INFONAVIT VSM", "formula" => NULL,"tipo" => "D", "manejo" => "variable", "cantidad" => NULL,"importe" => NULL, "monto" => NULL, "isr" => 0, "imss" => 0,"infonavit" => 0,"estatal" => 0,"isr_uma" => 0.00,"isr_porcentaje" => 0.00,"imss_uma" =>  0.00, "imss_porcentaje" => 0.00, "seleccionado" => 0],
         ]);
         
         $fecha_periodo = now()->toDateString();

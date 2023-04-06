@@ -52,19 +52,19 @@ class EmpleaController extends Controller
                 $bancos=Banco::all();
 
                 $persona = DB::connection('DB_Serverr')->table('empleados')
-                ->join('departamentos','departamentos.clave_departamento','=','empleados.clave_departamento')
-                ->join('puestos','puestos.clave_puesto','=','empleados.clave_puesto')
-                ->join('areas','areas.clave_area', '=','departamentos.clave_area')
-                ->join('nominas.bancos as ebancos','ebancos.clave_banco','=','empleados.clave_banco')
-                ->select('empleados.*','areas.*','departamentos.*','puestos.*','ebancos.*')
-                ->orderBy('id_emp')->first();
+                            ->join('departamentos','departamentos.clave_departamento','=','empleados.clave_departamento')
+                            ->join('puestos','puestos.clave_puesto','=','empleados.clave_puesto')
+                            ->join('areas','areas.clave_area', '=','departamentos.clave_area')
+                            ->join('nominas.bancos as ebancos','ebancos.clave_banco','=','empleados.clave_banco')
+                            ->select('empleados.*','areas.*','departamentos.*','puestos.*','ebancos.*')
+                            ->orderBy('id_emp')->first();
 
                 $empleados = DB::connection('DB_Serverr')->table('empleados')
-                ->join('departamentos','departamentos.clave_departamento','=','empleados.clave_departamento')
-                ->join('puestos','puestos.clave_puesto','=','empleados.clave_puesto')
-                ->join('areas','areas.clave_area', '=','departamentos.clave_area')
-                ->select('empleados.*','areas.*','departamentos.*','puestos.*')
-                ->get();
+                            ->join('departamentos','departamentos.clave_departamento','=','empleados.clave_departamento')
+                            ->join('puestos','puestos.clave_puesto','=','empleados.clave_puesto')
+                            ->join('areas','areas.clave_area', '=','departamentos.clave_area')
+                            ->select('empleados.*','areas.*','departamentos.*','puestos.*')
+                            ->get();
 
                 return view('emplea.emplea',compact('departamentos','puestos','bancos','persona','empleados'));
             break;

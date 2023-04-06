@@ -183,7 +183,6 @@ Route::get('/fiscal/{id}','FiscalController@show')->name('fiscal.show');
 Route::get('/fiscalbusqueda/{id}','FiscalController@create')->name('fical.create');
 Route::delete('/fical-eliminar/{id}','FiscalController@destroy')->name('fiscal.destroy');
 
-
 //Aguinaldos
 Route::get('/aguinaldos', 'prenominaAguinaldo@index')->name('aguinaldosP.index');
 Route::get('/aguinaldos-excel3','prenominaAguinaldo@exportExcel')->name('aguinaldos.excel3');
