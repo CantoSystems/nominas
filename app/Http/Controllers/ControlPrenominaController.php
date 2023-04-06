@@ -170,30 +170,28 @@
     }
 
     public function calcularIMSS(Request $request){
+      
         $clv = Session::get('clave_empresa');
         $num_periodo = Session::get('num_periodo');
         $clv_empresa = $this->conectar($clv);
         \Config::set('database.connections.DB_Serverr', $clv_empresa);
         
         $valorClvEmpleado = $request->empclave;
-        
 
         $empleados = DB::connection('DB_Serverr')->table('empleados')
-                     ->select('id_emp','sueldo_diario','dias','tipo_jornada')   
-                     ->where('clave_empleado','=',$request->clvEmp)
-                     ->first();
-   
+                        ->select('id_emp','sueldo_diario','dias','tipo_jornada')   
+                        ->where('clave_empleado','=',$valorClvEmpleado)
+                        ->first();
+
         $region = $this->ahorro_riesgo();
         
         $importeRegion = SalarioMinimo::select('importe')
-                         ->where('region',$region->region)
-                         ->first();
-        
+                            ->where('region',$region->region)
+                            ->first();
         
         if($empleados->sueldo_diario <= $importeRegion->importe){
             return $collection = collect(['003T','IMSS TRABAJADOR',0,$valorClvEmpleado]);
         }else if($empleados->sueldo_diario > $importeRegion->importe){
-          
             $at = $this->anios_trabajados($empleados->id_emp);
             
             $prestaciones = DB::connection('DB_Serverr')->table('prestaciones')
@@ -204,19 +202,18 @@
             $SBC = $this->SBC($prestaciones->dias,$empleados->sueldo_diario,$empleados->id_emp);
             
             $uma = $this->uma();
-                if(is_null($uma)){
-                    return back()->with('uma','El valor de "uma" no ha sido actualizado');
-                }
-           
+            if(is_null($uma->porcentaje_uma)){
+               return $collection = collect(['003T','IMSS TRABAJADOR','',$valorClvEmpleado]);
+            }
+
             $diasTrabajados = $this->dias_trabajados($request->clvEmp);
 
             $ims = IMSS::select('cuotatrabajador','id_imss','base','claveImss')
-                   ->where('cuotatrabajador','!=',0)
-                   ->get();
+                    ->where('cuotatrabajador','!=',0)
+                    ->get();
             
             $totalIMSS = 0;
             foreach($ims as $cuotasIMSS){
-                //clave
                 if($cuotasIMSS->claveImss == 'IEM2'){
                     $diferenciaSueldo = $SBC - ($uma->porcentaje_uma*3);
                     $sumaIMSS = ($cuotasIMSS->cuotatrabajador*$diasTrabajados*$diferenciaSueldo)/100;
@@ -337,16 +334,16 @@
         \Config::set('database.connections.DB_Serverr', $clv_empresa);
 
         $empleados = DB::connection('DB_Serverr')->table('empleados')
-                     ->join('departamentos','departamentos.clave_departamento','=','empleados.clave_departamento')
-                     ->join('puestos','puestos.clave_puesto','=','empleados.clave_puesto')
-                     ->join('areas','areas.clave_area', '=','departamentos.clave_area')
-                     ->select('empleados.*','areas.*','departamentos.*','puestos.*')
-                     ->get();
+                        ->join('departamentos','departamentos.clave_departamento','=','empleados.clave_departamento')
+                        ->join('puestos','puestos.clave_puesto','=','empleados.clave_puesto')
+                        ->join('areas','areas.clave_area', '=','departamentos.clave_area')
+                        ->select('empleados.*','areas.*','departamentos.*','puestos.*')
+                        ->get();
         
         $conceptos = DB::connection('DB_Serverr')->table('conceptos')
-                     ->select('clave_concepto','isr','isr_uma','isr_porcentaje')   
-                     ->where('seleccionado','=',1)
-                     ->get();
+                        ->select('clave_concepto','isr','isr_uma','isr_porcentaje')   
+                        ->where('seleccionado','=',1)
+                        ->get();
 
         $percepcionesImss = Collect();
         $ControlPrenomina = collect();
@@ -669,14 +666,22 @@
                         $ControlPrenomina->push(["clave_empleado"=>$emp->clave_empleado,"clave_concepto"=>"022D","concepto"=>"SEGURO DE VIVIENDA INFONAVIT","monto"=>$resultadoSeguroInfonavit,"gravable"=>$Gravado,"excento"=>$Excento,"tipo"=> "D"]);
                     }
 
+                }else if($concep->clave_concepto == "023D"){
+                    $resultadoInfonavitUMI = $this->creditoInfonavit($emp->id_emp,$emp->clave_empleado,'023D');
+                    if($resultadoInfonavitUMI != 0){
+                        $Gravado = 0;
+                        $Excento = 0;
+
+                        $ControlPrenomina->push(["clave_empleado"=>$emp->clave_empleado,"clave_concepto"=>"023D","concepto"=>"CREDITO INFONAVIT VSM","monto"=>$resultadoInfonavitUMI,"gravable"=>$Gravado,"excento"=>$Excento,"tipo"=> "D"]);
+                    }
                 }
             }
         }
 
         $clave = DB::connection('DB_Serverr')->table('empleados')
-                 ->select('clave_empleado','nombre','apellido_paterno','apellido_materno','id_emp')
-                 ->where('id_emp','=',$id_emp)
-                 ->first();
+                    ->select('clave_empleado','nombre','apellido_paterno','apellido_materno','id_emp')
+                    ->where('id_emp','=',$id_emp)
+                    ->first();
 
         $sumaImss = $percepcionesImss->where('clave_empleado',$clave->clave_empleado)->sum('total');
     
@@ -706,9 +711,9 @@
         $at = $this->anios_trabajados($idEmp);
         
         $alta_trabajador = DB::connection('DB_Serverr')->table('empleados')
-                           ->select('fecha_alta')
-                           ->where('id_emp','=',$idEmp)
-                           ->first();
+                            ->select('fecha_alta')
+                            ->where('id_emp','=',$idEmp)
+                            ->first();
 
         $fecha_actual = now()->toDateString();
         if($at == 0){
@@ -725,16 +730,16 @@
                         ['status_periodo','=',1]
                     ])
                     ->get();
-      
+
         $arrayPeriodos = $periodos->pluck('numero')->toArray();
         $diasVacacionesTom = DB::connection('DB_Serverr')->table('incidencias')
-                             ->select(DB::raw('CASE WHEN COUNT(`cantidad`) = " " THEN 0 ELSE SUM(`cantidad`) END as cantidad'))
-                             ->where([
-                                 ['clave_concepto','=','013P'],
-                                 ['clave_empleado','=',$claveEmp]
-                             ])
-                             ->whereIn('periodo_incidencia', $arrayPeriodos)
-                             ->first();
+                                ->select(DB::raw('CASE WHEN COUNT(`cantidad`) = " " THEN 0 ELSE SUM(`cantidad`) END as cantidad'))
+                                ->where([
+                                    ['clave_concepto','=','013P'],
+                                    ['clave_empleado','=',$claveEmp]
+                                ])
+                                ->whereIn('periodo_incidencia', $arrayPeriodos)
+                                ->first();
         
         return $diasVacacionesTom;
     }
@@ -742,13 +747,13 @@
     public function vacacionesEmpleadoPeriodo($claveEmp){
         $num_periodo = Session::get('num_periodo');
         $diasVacacionesTom = DB::connection('DB_Serverr')->table('incidencias')
-                             ->select(DB::raw('CASE WHEN COUNT(`cantidad`) = " " THEN 0 ELSE SUM(`cantidad`) END as cantidad'))
-                             ->where([
-                                 ['clave_concepto','=','013P'],
-                                 ['clave_empleado','=',$claveEmp],
-                                 ['periodo_incidencia','=',$num_periodo]
-                             ])
-                             ->first();
+                                ->select(DB::raw('CASE WHEN COUNT(`cantidad`) = " " THEN 0 ELSE SUM(`cantidad`) END as cantidad'))
+                                ->where([
+                                    ['clave_concepto','=','013P'],
+                                    ['clave_empleado','=',$claveEmp],
+                                    ['periodo_incidencia','=',$num_periodo]
+                                ])
+                                ->first();
         
         return $diasVacacionesTom;
     }
@@ -760,9 +765,9 @@
         \Config::set('database.connections.DB_Serverr', $clv_empresa);
 
         $datos_empleado = DB::connection('DB_Serverr')->table('empleados')
-                          ->select('sueldo_diario','horas_diarias')
-                          ->where('id_emp','=',$idEmp)
-                          ->first();
+                            ->select('sueldo_diario','horas_diarias')
+                            ->where('id_emp','=',$idEmp)
+                            ->first();
 
         return $datos_empleado;
     }
@@ -791,19 +796,19 @@
         \Config::set('database.connections.DB_Serverr', $clv_empresa);
 
         $fecha_inicial = DB::connection('DB_Serverr')->table('periodos')
-                         ->select('fecha_inicio')
-                         ->where([
-                             ['numero','=',$num_p],
-                             ['status_periodo','=',1]
-                             ])
-                         ->first();
+                            ->select('fecha_inicio')
+                            ->where([
+                                ['numero','=',$num_p],
+                                ['status_periodo','=',1]
+                                ])
+                            ->first();
 
         $inicial = now()->parse($fecha_inicial->fecha_inicio);
 
         $alta_trabajador = DB::connection('DB_Serverr')->table('empleados')
-                           ->select('fecha_alta')
-                           ->where('id_emp','=',$idEmp)
-                           ->first();
+                            ->select('fecha_alta')
+                            ->where('id_emp','=',$idEmp)
+                            ->first();
 
         $alta = now()->parse($alta_trabajador->fecha_alta);
         $diferencia = $inicial->DiffInYears($alta);
@@ -822,13 +827,13 @@
         \Config::set('database.connections.DB_Serverr', $clv_empresa);
         
         $acumulado_ausen = DB::connection('DB_Serverr')->table('ausentismos')
-                           ->select(DB::raw('CASE WHEN COUNT(`cantidad_ausentismo`) = "" THEN 0 ELSE SUM(`cantidad_ausentismo`) END as conteoDias'))
-                           ->where([
-                               ['clave_empleado','=',$claveEmp],
-                               ['ausentismo_periodo','=',$num_periodo]
-                           ])
-                           ->whereIn('clave_concepto',['001D','002D'])
-                           ->first();
+                            ->select(DB::raw('CASE WHEN COUNT(`cantidad_ausentismo`) = "" THEN 0 ELSE SUM(`cantidad_ausentismo`) END as conteoDias'))
+                            ->where([
+                                ['clave_empleado','=',$claveEmp],
+                                ['ausentismo_periodo','=',$num_periodo]
+                            ])
+                            ->whereIn('clave_concepto',['001D','002D'])
+                            ->first();
 
         return $acumulado_ausen;
     }
@@ -839,6 +844,15 @@
         $diasTrabajados = $jt->diasPeriodo - $ausentismo->conteoDias;
 
         return $diasTrabajados;
+    }
+
+    public function obtenerUMI(){
+        $umi = DB::table('umiinfonavit')
+                    ->select('valorInfonavit')
+                    ->orderBy('anio','DESC')
+                    ->first();
+
+        return $umi;
     }
 
     public function uma(){
@@ -1121,13 +1135,12 @@
         \Config::set('database.connections.DB_Serverr', $clv_empresa);
 
         $totalAdicional = DB::connection('DB_Serverr')->table('incidencias')
-                          ->select(DB::raw('CASE WHEN COUNT(importe) = " " THEN 0 ELSE SUM(importe) END as monto'))
-                          ->where([
-                              ['clave_concepto','=',$claveConcepto],
-                              ['clave_empleado','=',$claveEmp],
-                              ['periodo_incidencia','=',$nperiodo]
-                          ])
-                          ->first();
+                            ->select(DB::raw('CASE WHEN COUNT(importe) = " " THEN 0 ELSE SUM(importe) END as monto'))
+                            ->where([
+                                ['clave_concepto','=',$claveConcepto],
+                                ['clave_empleado','=',$claveEmp],
+                                ['periodo_incidencia','=',$nperiodo]
+                            ])->first();
 
         return $totalAdicional->monto;
     }
@@ -1143,32 +1156,33 @@
                                 ['clave_empleado','=',$claveEmp],
                                 ['periodo_incidencia','=',$periodo]
                             ])
-                            ->whereIn('clave_concepto',['007D','021D'])
+                            ->whereIn('clave_concepto',['007D','021D','023D'])
                             ->count();
-
+                            
         if($conteoInfonavit != 0){
-                $infonavit = DB::connection('DB_Serverr')->table('incidencias')
-                            ->select('monto','clave_concepto')
-                            ->where([
-                                ['clave_empleado','=',$claveEmp],
-                                ['periodo_incidencia','=',$periodo],
-                                ['clave_concepto','=',$claveConcepto]
-                            ])
-                            ->first(); 
+            $infonavit = DB::connection('DB_Serverr')->table('incidencias')
+                        ->select('monto','clave_concepto','cantidad')
+                        ->where([
+                            ['clave_empleado','=',$claveEmp],
+                            ['periodo_incidencia','=',$periodo],
+                            ['clave_concepto','=',$claveConcepto]
+                        ])->first(); 
 
-                if($infonavit){
-                    if($infonavit->clave_concepto == '007D'){
-                            $infonavitTotal = $infonavit->monto;
-                            return $infonavitTotal;
-                    
-                    }else if ($infonavit->clave_concepto == '021D') {
-                            $porcentajeInfonavit = $infonavit->monto;
-                            $sueldo = $this->sueldo($idEmp,$claveEmp);
-                            $calculoInfonavit = ($sueldo * $porcentajeInfonavit)/100;
-                             return $calculoInfonavit;
-                    }
-
+            if($infonavit){
+                if($infonavit->clave_concepto == '007D'){
+                    $infonavitTotal = $infonavit->monto;
+                    return $infonavitTotal;
+                }else if ($infonavit->clave_concepto == '021D') {
+                    $porcentajeInfonavit = $infonavit->monto;
+                    $sueldo = $this->sueldo($idEmp,$claveEmp);
+                    $calculoInfonavit = ($sueldo * $porcentajeInfonavit)/100;
+                    return $calculoInfonavit;
+                }else if($infonavit->clave_concepto == '023D'){
+                    $umi = $this->obtenerUMI();
+                    $calculoUMI = $umi->valorInfonavit*$infonavit->cantidad;
+                    return $calculoUMI;
                 }
+            }
         }
     }
 }
