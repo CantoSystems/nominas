@@ -14,7 +14,8 @@
                             @if(isset($imss))
                                 <div class="col-sm-4">
                                     <div class="form-group">
-                                        <label>Seguro y concepto:</label>
+                                        <label class="titulo">Seguro y concepto</label>
+                                        <strong class="obligatorio">*</strong>
                                         <select id="regionSalario" name="seguroIMSS" class="custom-select">
                                             @if($imss->concepto=="N/A" || $imss->concepto==null)
                                                 <option selected value="N/A">Selecciona una opción...</option>
@@ -78,7 +79,8 @@
                                 </div>
                                 <div class="col-sm-4">
                                     <div class="form-group">
-                                        <label>Prestaciones:</label>
+                                        <label class="titulo">Prestaciones</label>
+                                        <strong class="obligatorio">*</strong>
                                         <select id="regionSalario" name="prestacionIMSS" class="custom-select">
                                             @if($imss->prestaciones=="N/A" || $imss->prestaciones==null)
                                                 <option selected value="N/A">Selecciona una opción...</option>
@@ -158,20 +160,23 @@
                                 </div>
                                 <div class="col-sm-4">
                                     <div class="form-group">
-                                        <label>Cuota (Patrón):</label>
+                                        <label class="titulo">Cuota (Patrón)</label>
+                                        <strong class="obligatorio">*</strong>
                                         <input type="hidden" name="id_imss" value="{{ $imss->id_imss }}">
                                         <input type="number" name="cuotapatron" value="{{ $imss->cuotapatron }}" class="form-control" step="0.01" >
                                     </div>
                                 </div>
                                 <div class="col-sm-4">
                                     <div class="form-group">
-                                        <label>Cuota (Trabajador):</label>
+                                        <label class="titulo">Cuota (Trabajador)</label>
+                                        <strong class="obligatorio">*</strong>
                                         <input type="number" name="cuotatrabajador" value="{{ $imss->cuotatrabajador }}" class="form-control" step="0.001">
                                     </div>
                                 </div>
                                 <div class="col-sm-4">
                                     <div class="form-group">
-                                        <label>Base Salarial:</label>
+                                        <label class="titulo">Base Salarial</label>
+                                        <strong class="obligatorio">*</strong>
                                         @if($imss->base=='SBC')
                                             <select id="regionSalario" class="custom-select" name="basesalarial">
                                                 <option value="N/A">Selecciona una opción</option>
@@ -195,14 +200,15 @@
                                 </div>
                                 <div class="col-sm-4">
                                     <div class="form-group clv_imss">
-                                        <label>Clave:</label>
+                                        <label class="titulo">Clave</label>
                                         <input type="text" name="claveImss"class="form-control">
                                     </div>
                                 </div>
                             @else
                                 <div class="col-sm-4">
                                     <div class="form-group">
-                                        <label>Seguro y concepto:</label>
+                                        <label class="titulo">Seguro y concepto</label>
+                                        <strong class="obligatorio">*</strong>
                                         <select id="seguroIMSS" name="seguroIMSS" class="custom-select">
                                             <option value="N/A">Selecciona una opción...</option>
                                             <option value="Riesgos de Trabajo">Riesgos de Trabajo</option>
@@ -216,7 +222,8 @@
                                 </div>
                                 <div class="col-sm-4">
                                     <div class="form-group">
-                                        <label>Prestaciones:</label>
+                                        <label class="titulo">Prestaciones</label>
+                                        <strong class="obligatorio">*</strong>
                                         <select id="prestacionIMSS" name="prestacionIMSS" class="custom-select">
                                             <option value="N/A">Selecciona una opción...</option>
                                             <option value="En especie y dinero">En especie y dinero</option>
@@ -231,7 +238,8 @@
                                 </div>
                                 <div class="col-sm-4">
                                     <div class="form-group">
-                                        <label>Cuota (Patrón):</label>
+                                        <label class="titulo">Cuota (Patrón)</label>
+                                        <strong class="titulo">*</strong>
                                         <input type="text" name="cuotapatron" class="form-control" step="0.01" >
                                     </div>
                                 </div>
@@ -239,13 +247,15 @@
                                 
                                 <div class="col-sm-4">
                                     <div class="form-group">
-                                        <label>Cuota (Trabajador):</label>
+                                        <label class="titulo">Cuota (Trabajador)</label>
+                                        <strong class="obligatorio">*</strong>
                                         <input type="number" name="cuotatrabajador" class="form-control" step="0.001">
                                     </div>
                                 </div>
                                 <div class="col-sm-4">
                                     <div class="form-group">
-                                        <label>Base Salarial:</label>
+                                        <label class="titulo">Base Salarial</label>
+                                        <strong class="obligatorio">*</strong>
                                     <select class="custom-select" name="basesalarial">
                                         <option value="N/A">Selecciona una opción</option>
                                         <option value="SBC">SBC</option>
@@ -255,7 +265,7 @@
                                 </div>
                                 <div class="col-sm-4 clv_imss">
                                     <div class="form-group">
-                                        <label>Clave::</label>
+                                        <label>Clave</label>
                                         <input type="text" name="claveImss" class="form-control">
                                     </div>
                                 </div>

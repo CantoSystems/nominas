@@ -76,7 +76,8 @@
         <form action="{{ route('prestamos.show')}}" method="GET" autocomplete="off">
             <div class="row justify-content-center">
                 <div class="col-sm-2">
-                    <label>Clave del Empleado</label>
+                    <label class="titulo">Clave del Empleado</label>
+                    <strong class="obligatorio">*</strong>
                     <div class="input-group mb-3">
                         <input type="text" 
                                 name="clave_empledo"
@@ -106,7 +107,8 @@
                 </div>
                 <div class="col-sm-2">
                     <div class="form-group">
-                        <label>Nombre:</label>
+                        <label class="titulo">Nombre</label>
+                        <strong class="obligatorio">*</strong>
                         <input type="text" 
                                 name="nombre" 
                                 class="form-control"
@@ -117,7 +119,8 @@
                     </div>
                 </div>
                 <div class="col-sm-2">
-                    <label for="exampleInputFile">Clave del Concepto</label>
+                    <label class="titulo">Clave del Concepto</label>
+                    <strong class="obligatorio">*</strong>
                     <div class="input-group mb-3">
                         <input type="text" 
                                 name="concepto_clave"
@@ -139,7 +142,8 @@
                 </div>
                 <div class="col-sm-3">
                     <div class="form-group">
-                        <label>Concepto</label>
+                        <label class="titulo">Concepto</label>
+                        <strong class="obligatorio">*</strong>
                         <input type="text" 
                                 name="concepto" 
                                 class="form-control"
@@ -150,19 +154,22 @@
                 </div>
                 <div class="col-sm-1">
                     <div class="form-group">
-                        <label>Cantidad:</label>
+                        <label class="titulo">Cantidad</label>
+                        <strong class="obligatorio">*</strong>
                         <input type="number" name="cantidad" id="cantidadPrestamo" onkeypress="return numeros(event)" value="{{ $prestamos2->cantidadPrestamo ?? '' }}" class="form-control" step="0.1" disabled>
                     </div>
                 </div>
                 <div class="col-sm-1">
                     <div class="form-group">
-                        <label>Importe:</label>
+                        <label class="titulo">Importe</label>
+                        <strong class="obligatorio">*</strong>
                         <input type="number" name="importe" id="importePrestamo" onkeypress="return numeros(event)" value="{{ $prestamos2->importePrestamo ?? '' }}" class="form-control" step="0.1">
                     </div>
                 </div>
                 <div class="col-sm-1">
                     <div class="form-group">
-                        <label>Monto:</label>
+                        <label class="titulo">Monto</label>
+                        <strong class="obligatorio">*</strong>
                         <input type="number" name="monto" id="montoPrestamo" onkeypress="return numeros(event)"  value="{{ $prestamos2->montoPrestamo ?? '' }}"class="form-control" step="0.1">
                     </div>
                 </div>

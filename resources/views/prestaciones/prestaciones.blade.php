@@ -71,8 +71,8 @@
                         <div class="row">
                             @if(!empty($aux))
                                 <div class="col-md-6">
-                                    <label>Año</label>
-                                    
+                                    <label class="titulo">Año</label>
+                                    <strong class="obligatorio">*</strong>
                                     <input type="hidden" class="form-control" name="identificador" value="{{$aux->id}}">
                                     <input type="number" class="form-control" name="anio" value="{{$aux->anio}}" onkeyup="mayus(this)"; onkeypress="return numeros(event)">
                                     @error('anio')
@@ -82,7 +82,8 @@
                                     @enderror
                                 </div>
                                 <div class="col-md-6">
-                                    <label>Días</label>
+                                    <label class="titulo">Días</label>
+                                    <strong class="obligatorio">*</strong>
                                     <input type="number" class="form-control" name="dias" value="{{$aux->dias}}" onkeyup="mayus(this)"; onkeypress="return numeros(event)">
                                     @error('dias')
                                             <div class="alert alert-secondary">
@@ -91,7 +92,8 @@
                                     @enderror
                                 </div>
                                 <div class="col-md-6">
-                                    <label>Prima Vacacional</label>
+                                    <label class="titulo">Prima Vacacional</label>
+                                    <strong class="obligatorio">*</strong>
                                     <input type="number" class="form-control" name="prima_vacacional" value="{{$aux->prima_vacacional}}" onkeyup="mayus(this)"; onkeypress="return numeros(event)">
                                     @error('prima_vacacional')
                                             <div class="alert alert-secondary">
@@ -100,7 +102,8 @@
                                     @enderror
                                 </div>
                                 <div class="col-md-6">
-                                    <label>Aguinaldo</label>
+                                    <label class="titulo">Aguinaldo</label>
+                                    <strong class="obligatorio">*</strong>
                                     <input type="number" class="form-control" name="aguinaldo" value="{{$aux->aguinaldo}}" onkeyup="mayus(this)"; onkeypress="return numeros(event)">
                                     @error('aguinaldo')
                                             <div class="alert alert-secondary">
@@ -110,20 +113,24 @@
                                 </div>
                             @else
                                 <div class="col-md-6">
-                                    <label>Año</label>
+                                    <label class="titulo">Año</label>
+                                    <strong class="obligatorio">*</strong>
                                     <input type="hidden" class="form-control" name="identificador">
                                     <input type="number" class="form-control" name="anio" onkeyup="mayus(this)," onkeypress="return numeros(event)">
                                 </div>
                                 <div class="col-md-6">
-                                    <label>Días</label>
+                                    <label class="titulo">Días</label>
+                                    <strong class="obligatorio">*</strong>
                                     <input type="number" class="form-control" name="dias" onkeyup="mayus(this);" onkeypress="return numeros(event)">
                                 </div>
                                 <div class="col-md-6">
-                                    <label>Prima Vacacional</label>
+                                    <label class="titulo">Prima Vacacional</label>
+                                    <strong class="obligatorio">*</strong>
                                     <input type="number" class="form-control" name="prima_vacacional" onkeyup="mayus(this);" onkeypress="return numeros(event)">
                                 </div>
                                 <div class="col-md-6">
-                                    <label>Aguinaldo</label>
+                                    <label class="titulo">Aguinaldo</label>
+                                    <strong class="obligatorio">*</strong>
                                     <input type="number" class="form-control" name="aguinaldo"onkeyup="mayus(this);" onkeypress="return numeros(event)">
                                 </div>
                             @endif

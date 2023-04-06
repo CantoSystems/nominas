@@ -36,6 +36,9 @@
       $('#nuevo').attr("disabled", true);
       $('#eliminar').addClass("not-active");
       $('#buscar').attr("disabled", true);
+      $('#fecha_inicio').attr("disabled", true);
+      $('#diasPeriodo').attr("disabled", true);
+      $('#fecha_fin').attr("disabled", true);
     });
     $('.actualizarporid').click(function(){
       $('.prueba').attr("disabled", false)

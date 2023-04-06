@@ -68,7 +68,8 @@
                         <div class="row">
                             <div class="col-sm-4">
                                 <div class="form-group">
-                                    <label>Periodo Inicial:</label>
+                                    <label class="titulo">Periodo Inicial</label>
+                                    <strong class="obligatorio">*</strong>
                                     <input type="date" name="periodoinicio_uma"
                                         value="{{$uma->periodoinicio_uma ?? ''}}" class="form-control" step="0.1"
                                         onkeyup="mayus(this);">
@@ -82,7 +83,8 @@
 
                             <div class="col-sm-4">
                                 <div class="form-group">
-                                    <label>Periodo Final:</label>
+                                    <label class="titulo">Periodo Final</label>
+                                    <strong class="obligatorio">*</strong>
                                     <input type="date" name="periodofin_uma" value="{{$uma->periodofin_uma ?? ''}}"
                                         class="form-control" step="0.1" onkeyup="mayus(this);">
                                     @error('periodofin_uma')
@@ -95,7 +97,8 @@
 
                             <div class="col-sm-4">
                                 <div class="form-group">
-                                    <label> UMA:</label>
+                                    <label class="titulo"> UMA</label>
+                                    <strong class="obligatorio">*</strong>
                                     <input type="hidden" name="id" value="{{$uma->id ?? ''}}" class="form-control"
                                         onkeyup="mayus(this);">
                                     <input type="number" name="porcentaje_uma" value="{{$uma->porcentaje_uma ?? ''}}"

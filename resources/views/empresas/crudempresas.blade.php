@@ -20,8 +20,8 @@
             <div class="row">
                 <div class="col-sm-4">
                     <div class="form-group">
-                        <label>
-                            Nombre empresa <strong style="color: red">*</strong>
+                        <label class="titulo">
+                            Nombre Empresa<strong class="obligatorio" >*</strong>
                         </label>
                         <input type="text" name="nombre" class="form-control" value="{{$empresa->nombre ?? ''}}"
                             onkeyup="mayus(this)" ; onkeypress="return validar(event)">
@@ -34,8 +34,8 @@
                 </div>
                 <div class="col-sm-1">
                     <div class="form-group">
-                        <label>
-                            Clave empresa<strong style="color: red">*</strong>
+                        <label class="titulo">
+                            Clave empresa<strong class="obligatorio">*</strong>
                         </label>
                         <input type="text" name="clave" class="form-control" value="{{$empresa->clave ?? ''}}"
                             maxlength="4" onkeyup="mayus(this);">
@@ -48,8 +48,8 @@
                 </div>
                 <div class="col-sm-4">
                     <div class="form-group">
-                        <label>
-                            Nombre Nómina<strong style="color: red">*</strong>
+                        <label class="titulo">
+                            Nombre Nómina<strong class="obligatorio">*</strong>
                         </label>
                         <input type="text" name="nombre_nomina" class="form-control"
                             value="{{$empresa->nombre_nomina  ?? ''}}" onkeyup="mayus(this);">
@@ -62,8 +62,8 @@
                 </div>
                 <div class="col-sm-3">
                     <div class="form-group">
-                        <label>
-                            RFC (Empresa)<strong style="color: red">*</strong>
+                        <label class="titulo">
+                            RFC (Empresa)<strong class="obligatorio">*</strong>
                         </label>
                         <input type="text" name="rfc" maxlength="13" minlength="12" class="form-control"
                             value="{{$empresa->rfc ?? ''}}" onkeyup="mayus(this);"
@@ -77,8 +77,8 @@
                 </div>
                 <div class="col-sm-2">
                     <div class="form-group">
-                        <label>
-                            Registro patronal<strong style="color: red">*</strong>
+                        <label class="titulo">
+                            Registro patronal<strong class="obligatorio">*</strong>
                         </label>
                         <input type="text" name="segurosocial" maxlength="11" class="form-control"
                             value="{{$empresa->segurosocial ?? ''}}" onkeyup="mayus(this)" ;
@@ -92,6 +92,7 @@
                 </div>
                 <div class="col-sm-3">
                     <div class="form-group">
+<<<<<<< HEAD
                         <label>Registro estatal ( REC )<strong style="color: red">*</strong></label>
                         <input type="text" name="registro_estatal" class="form-control"
                             value="{{$empresa->registro_estatal ?? ''}}" maxlength="11" onkeyup="mayus(this);">
@@ -100,12 +101,21 @@
                             {{ $message }}
                         </div>
                         @enderror
+=======
+                        <label class="titulo">Registro estatal ( REC )<strong class="obligatorio">*</strong></label>
+                            <input type="text" name="registro_estatal" class="form-control" value="{{$empresa->registro_estatal ?? ''}}" maxlength="11"onkeyup="mayus(this);">
+                            @error('registro_estatal')
+                                <div class="alert alert-secondary">
+                                    {{ $message }}
+                                </div>
+                            @enderror
+>>>>>>> 5f62bb11bddfc1800fbfbc9139e9cc4d468dd8bf
                     </div>
                 </div>
                 <div class="col-sm-3">
                     <div class="form-group">
-                        <label>
-                            Calle<strong style="color: red">*</strong>
+                        <label class="titulo">
+                            Calle<strong class="obligatorio">*</strong>
                         </label>
                         <input type="text" name="calle" class="form-control" value="{{$empresa->calle ?? ''}}"
                             onkeyup="mayus(this)" ; onkeypress="return validar(event)">
@@ -118,8 +128,8 @@
                 </div>
                 <div class="col-sm-2">
                     <div class="form-group">
-                        <label>
-                            Número exterior<strong style="color: red">*</strong>
+                        <label class="titulo">
+                            Número exterior<strong class="obligatorio">*</strong>
                         </label>
                         <input type="text" name="num_externo" maxlength="40" class="form-control"
                             value="{{$empresa->num_externo ?? ''}}" onkeyup="mayus(this)" ;>
@@ -132,15 +142,20 @@
                 </div>
                 <div class="col-sm-2">
                     <div class="form-group">
+<<<<<<< HEAD
                         <label>Número interior</label>
                         <input type="text" name="num_interno" maxlength="40" class="form-control"
                             value="{{$empresa->num_interno ?? ''}}" onkeyup="mayus(this)" ;>
+=======
+                        <label class="titulo">Número interior</label>
+                            <input type="text" name="num_interno" maxlength="40" class="form-control" value="{{$empresa->num_interno ?? ''}}" onkeyup="mayus(this)";>
+>>>>>>> 5f62bb11bddfc1800fbfbc9139e9cc4d468dd8bf
                     </div>
                 </div>
                 <div class="col-sm-2">
                     <div class="form-group">
-                        <label>
-                            Colonia<strong style="color: red">*</strong>
+                        <label class="titulo">
+                            Colonia<strong class="obligatorio">*</strong>
                         </label>
                         <input type="text" name="colonia" class="form-control" value="{{$empresa->colonia ?? ''}}"
                             onkeyup="mayus(this);" onkeypress="return validar(event)">
@@ -153,8 +168,8 @@
                 </div>
                 <div class="col-sm-2">
                     <div class="form-group">
-                        <label>
-                            Código postal<strong style="color: red">*</strong>
+                        <label class="titulo">
+                            Código postal<strong class="obligatorio">*</strong>
                         </label>
                         <input type="number" name="codigopostal" class="form-control"
                             value="{{$empresa->codigopostal ?? ''}}" maxlength="5">
@@ -167,8 +182,8 @@
                 </div>
                 <div class="col-sm-2">
                     <div class="form-group">
-                        <label>
-                            Municipio<strong style="color: red">*</strong>
+                        <label class="titulo">
+                            Municipio<strong class="obligatorio">*</strong>
                         </label>
                         <input type="text" name="municipio" class="form-control" value="{{$empresa->municipio ?? ''}}"
                             onkeyup="mayus(this);" onkeypress="return validar(event)">
@@ -181,8 +196,8 @@
                 </div>
                 <div class="col-sm-3">
                     <div class="form-group">
-                        <label>
-                            Ciudad<strong style="color: red">*</strong>
+                        <label class="titulo">
+                            Ciudad<strong class="obligatorio">*</strong>
                         </label>
                         <input type="text" name="ciudad" class="form-control" value="{{$empresa->ciudad ?? ''}}"
                             onkeyup="mayus(this);" onkeypress="return validar(event)">
@@ -195,8 +210,8 @@
                 </div>
                 <div class="col-sm-3">
                     <div class="form-group">
-                        <label>
-                            País<strong style="color: red">*</strong>
+                        <label class="titulo">
+                            País<strong class="obligatorio">*</strong>
                         </label>
                         <input type="text" name="pais" class="form-control" value="{{$empresa->pais ?? ''}}"
                             onkeyup="mayus(this);" onkeypress="return validar(event)">
@@ -209,8 +224,8 @@
                 </div>
                 <div class="col-sm-3">
                     <div class="form-group">
-                        <label>
-                            Representante legal<strong style="color: red">*</strong>
+                        <label class="titulo">
+                            Representante legal<strong class="obligatorio">*</strong>
                         </label>
                         <input type="text" name="representante_legal" maxlength="50" class="form-control"
                             value="{{$empresa->representante_legal ?? ''}}" onkeyup="mayus(this);"
@@ -224,8 +239,8 @@
                 </div>
                 <div class="col-sm-3">
                     <div class="form-group">
-                        <label>
-                            RFC (Representante legal)<strong style="color: red">*</strong>
+                        <label class="titulo">
+                            RFC (Representante legal)<strong class="obligatorio">*</strong>
                         </label>
                         <input type="text" name="rfc_representante" maxlength="13" class="form-control"
                             value="{{$empresa->rfc_representante ?? ''}}" onkeyup="mayus(this);"
@@ -239,6 +254,7 @@
                 </div>
                 <div class="col-sm-3">
                     <div class="form-group">
+<<<<<<< HEAD
                         <label>Teléfono <strong style="color: red">*</strong></label>
 
                         <input type="text" name="telefono" id="telefono" max="10" class="form-control telefono"
@@ -248,10 +264,21 @@
                             {{ $message }}
                         </div>
                         @enderror
+=======
+                        <label class="titulo">Teléfono <strong class="obligatorio">*</strong></label>
+                        
+                            <input type="text" name="telefono" id="telefono" max="10" class="form-control telefono" value="{{$empresa->telefono ?? ''}}" onkeypress="return numeros(event)">
+                            @error('telefono')
+                                <div class="alert alert-secondary">
+                                    {{ $message }}
+                                </div>
+                            @enderror
+>>>>>>> 5f62bb11bddfc1800fbfbc9139e9cc4d468dd8bf
                     </div>
                 </div>
                 <div class="col-sm-3">
                     <div class="form-group">
+<<<<<<< HEAD
                         <label>Correo electrónico <strong style="color: red">*</strong></label>
                         <input type="email" name="email" class="form-control" value="{{$empresa->email ?? ''}}">
                         @error('email')
@@ -259,12 +286,21 @@
                             {{ $message }}
                         </div>
                         @enderror
+=======
+                        <label class="titulo">Correo electrónico <strong class="obligatorio">*</strong></label>
+                            <input type="email" name="email" class="form-control" value="{{$empresa->email ?? ''}}">
+                            @error('email')
+                                <div class="alert alert-secondary">
+                                    {{ $message }}
+                                </div>
+                            @enderror
+>>>>>>> 5f62bb11bddfc1800fbfbc9139e9cc4d468dd8bf
                     </div>
                 </div>
                 <div class="col-sm-3">
                     <div class="form-group">
-                        <label>
-                            CURP Representante Legal<strong style="color: red">*</strong>
+                        <label class="titulo">
+                            CURP Representante Legal<strong class="obligatorio">*</strong>
                         </label>
                         <input type="text" name="curpRepresentante" class="form-control"
                             value="{{ $empresa->curpRepresentante ?? ''}}">
@@ -277,8 +313,8 @@
                 </div>
                 <div class="col-sm-3">
                     <div class="form-group">
-                        <label>
-                            Área Geográfica<strong style="color: red">*</strong>
+                        <label class="titulo">
+                            Área Geográfica<strong class="obligatorio">*</strong>
                         </label>
                         @if(isset($empresa))
                         <select id="regionSalario" name="regionEmpresa" class="custom-select">
@@ -318,6 +354,7 @@
 
                 <div class="col-sm-3">
                     <div class="form-group">
+<<<<<<< HEAD
                         <label>Factor Prima de Riesgo de Trabajo<strong style="color: red">*</strong></label>
                         <input type="number" min="-1" max="10" step="any" name="primaRiesgo"
                             class="form-control primaRiesgo" value="{{ $empresa->primaRiesgo ?? ''}}">
@@ -326,11 +363,21 @@
                             {{ $message }}
                         </div>
                         @enderror
+=======
+                        <label class="titulo">Factor Prima de Riesgo de Trabajo<strong class="obligatorio">*</strong></label>
+                            <input type="number" min="-1" max="10" step="any" name="primaRiesgo" class="form-control primaRiesgo" value="{{ $empresa->primaRiesgo ?? ''}}">
+                            @error('primaRiesgo')
+                                <div class="alert alert-secondary">
+                                    {{ $message }}
+                                </div>
+                            @enderror
+>>>>>>> 5f62bb11bddfc1800fbfbc9139e9cc4d468dd8bf
                     </div>
                 </div>
 
                 <div class="col-sm-3">
                     <div class="form-group">
+<<<<<<< HEAD
                         <label>Fondo de Ahorro (%)<strong style="color: red">*</strong></label>
                         <input type="number" name="porcentajeAhorro" class="form-control porcentajeAhorro"
                             value="{{ $empresa->porcentajeAhorro ?? ''}}">
@@ -339,10 +386,20 @@
                             {{ $message }}
                         </div>
                         @enderror
+=======
+                        <label class="titulo">Fondo de Ahorro (%)<strong class="obligatorio">*</strong></label>
+                            <input type="number" name="porcentajeAhorro" class="form-control porcentajeAhorro" value="{{ $empresa->porcentajeAhorro ?? ''}}">
+                            @error('porcentajeAhorro')
+                                <div class="alert alert-secondary">
+                                    {{ $message }}
+                                </div>
+                            @enderror
+>>>>>>> 5f62bb11bddfc1800fbfbc9139e9cc4d468dd8bf
                     </div>
                 </div>
                 <div class="col-sm-3">
                     <div class="form-group">
+<<<<<<< HEAD
                         <label>Regimen Fiscal<strong style="color: red">*</strong></label>
                         <input type="text" class="form-control obtenerRegimen"
                             value="{{ $empresa->descripcionRegimen ?? '' }}">
@@ -353,6 +410,16 @@
                             {{ $message }}
                         </div>
                         @enderror
+=======
+                        <label class="titulo">Regimen Fiscal<strong class="obligatorio">*</strong></label>               
+                            <input type="text" class="form-control obtenerRegimen" value="{{ $empresa->descripcionRegimen ?? '' }}">
+                            <input type="hidden" name="regimenFiscal"  class="form-control idRegimen"  value="{{ $empresa->claveRegimen ?? ''}}">
+                            @error('regimenFiscal')
+                                <div class="alert alert-secondary">
+                                    {{ $message }}
+                                </div>
+                            @enderror
+>>>>>>> 5f62bb11bddfc1800fbfbc9139e9cc4d468dd8bf
                         <div id="listadoRegimen">
 
                         </div>
@@ -362,29 +429,49 @@
                 <!--Manejo de periodo-->
                 <div class="col-sm-2">
                     <div class="form-group" id="periodoDias">
+<<<<<<< HEAD
                         <label>Días del Periodo<strong style="color: red">*</strong></label>
                         <input type="number" maxlength="2" name="tipoPeriodo" class="form-control tagperiodo"
                             value="{{ $empresa->tipoPeriodo ?? ''}}">
+=======
+                        <label class="titulo">Días del Periodo<strong class="obligatorio">*</strong></label>
+                            <input type="number" maxlength="2" name="tipoPeriodo" class="form-control tagperiodo" value="{{ $empresa->tipoPeriodo ?? ''}}">
+>>>>>>> 5f62bb11bddfc1800fbfbc9139e9cc4d468dd8bf
                     </div>
                 </div>
 
 
                 <div class="col-sm-2" id="periodoInicio">
                     <div class="form-group">
+<<<<<<< HEAD
                         <label>Inicio del Periodo<strong style="color: red">*</strong></label>
                         <input type="date" name="inicioPeriodo" class="form-control inicioPeriodo">
+=======
+                        <label class="titulo">Inicio del Periodo<strong class="obligatorio">*</strong></label>
+                            <input type="date" name="inicioPeriodo" class="form-control inicioPeriodo">
+>>>>>>> 5f62bb11bddfc1800fbfbc9139e9cc4d468dd8bf
                     </div>
                 </div>
                 <div class="col-sm-2" id="finPeriodo">
                     <div class="form-group">
+<<<<<<< HEAD
                         <label>Fecha fin periodo<strong style="color: red">*</strong></label>
                         <input type="date" name="fechafin" class="form-control" id="fechafin">
+=======
+                        <label class="titulo">Fecha fin periodo<strong class="obligatorio">*</strong></label>
+                            <input type="date" name="fechafin" class="form-control" id="fechafin">
+>>>>>>> 5f62bb11bddfc1800fbfbc9139e9cc4d468dd8bf
                     </div>
                 </div>
                 <div class="col-sm-2" id="pagoPeriodo">
                     <div class="form-group">
+<<<<<<< HEAD
                         <label>Fecha pago periodo<strong style="color: red">*</strong></label>
                         <input type="date" name="fechapago" id="fechapago" class="form-control">
+=======
+                        <label class="titulo">Fecha pago periodo<strong class="obligatorio">*</strong></label>
+                            <input type="date" name="fechapago" id="fechapago" class="form-control">
+>>>>>>> 5f62bb11bddfc1800fbfbc9139e9cc4d468dd8bf
                     </div>
                 </div>
             </div>

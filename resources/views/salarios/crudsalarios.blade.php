@@ -13,7 +13,8 @@
                             @if(isset($salMinimo))
                             <div class="col-sm-3">
                                 <div class="form-group">
-                                    <label>Fecha de Inicio</label>
+                                    <label class="titulo">Fecha de Inicio</label>
+                                    <strong class="obligatorio">*</strong>
                                     <input type="date" id="fechaInicioSal" name="fechaInicioSal"
                                         value="{{ $salMinimo->fechaInicio }}" class="form-control">
                                     <input type="hidden" id="idsalMinimo" name="idsalMinimo"
@@ -22,14 +23,16 @@
                             </div>
                             <div class="col-sm-3">
                                 <div class="form-group">
-                                    <label>Fecha de Término</label>
+                                    <label class="titulo">Fecha de Término</label>
+                                    <strong class="obligatorio">*</strong>
                                     <input type="date" id="fechaTerminoSal" name="fechaTerminoSal"
                                         value="{{ $salMinimo->fechafin }}" class="form-control">
                                 </div>
                             </div>
                             <div class="col-sm-3">
                                 <div class="form-group">
-                                    <label>Área Geográfica</label>
+                                    <label class="titulo">Área Geográfica</label>
+                                    <strong class="obligatorio">*</strong>
                                     <select id="regionSalario" name="regionSalario" class="custom-select">
                                         @if($salMinimo->region=="N/A")
                                         <option selected value="N/A">Selecciona una opción</option>
@@ -49,7 +52,8 @@
                             </div>
                             <div class="col-sm-3">
                                 <div class="form-group">
-                                    <label>Monto Vigente</label>
+                                    <label class="titulo">Monto Vigente</label>
+                                    <strong class="obligatorio">*</strong>
                                     <input type="number" id="importeSal" name="importeSal" step="0.01"
                                         value="{{ $salMinimo->importe }}" class="form-control">
                                 </div>
@@ -57,19 +61,22 @@
                             @else
                             <div class="col-sm-3">
                                 <div class="form-group">
-                                    <label>Fecha de Inicio</label>
+                                    <label class="titulo">Fecha de Inicio</label>
+                                    <strong class="obligatorio">*</strong>
                                     <input type="date" id="fechaInicioSal" name="fechaInicioSal" class="form-control">
                                 </div>
                             </div>
                             <div class="col-sm-3">
                                 <div class="form-group">
-                                    <label>Fecha de Término</label>
+                                    <label class="titulo">Fecha de Término</label>
+                                    <strong class="obligatorio">*</strong>
                                     <input type="date" id="fechaTerminoSal" name="fechaTerminoSal" class="form-control">
                                 </div>
                             </div>
                             <div class="col-sm-3">
                                 <div class="form-group">
-                                    <label>Área Geográfica</label>
+                                    <label class="titulo">Área Geográfica</label>
+                                    <strong class="obligatorio">*</strong>
                                     <select id="regionSalario" name="regionSalario" class="custom-select">
                                         <option value="N/A">Selecciona una opción</option>
                                         <option value="Frontera">Zona Libre de la Frontera Norte</option>
@@ -79,7 +86,8 @@
                             </div>
                             <div class="col-sm-3">
                                 <div class="form-group">
-                                    <label>Monto Vigente</label>
+                                    <label class="titulo">Monto Vigente</label>
+                                    <strong class="obligatorio">*</strong>
                                     <input type="number" id="importeSal" name="importeSal" step="0.01"
                                         class="form-control">
                                 </div>

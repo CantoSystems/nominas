@@ -30,9 +30,11 @@ Route::get('/periodos','PeriodosController@index')->name('periodos.index');
 Route::get('/accionesperiodos','PeriodosController@acciones')->name('periodos.acciones');
 Route::delete('accionesperiodos/{id}', 'PeriodosController@eliminarperiodo')->name('periodos.eliminarperiodo');
 Route::get('/generar-periodo','PeriodosController@generarPeriodo')->name('periodos.generar');
-Route::get('/desactivar-periodo','PeriodosController@desactivarPeriodo')->name('periodos.desactivar');
+Route::get('/desactivar-periodo','PeriodosController@desactivarPrenomina')->name('periodos.desactivar');
 Route::get('/mostrarPeriodo/{id}','PeriodosController@show')->name('periodos.mostrar');
+Route::get('/calcularperiodo','PeriodosController@calcularFechaFin')->name('periodos.calcularFin');
 Route::get('/obtener-diasPeriodo','PeriodosController@rangoPeriodo')->name('periodos.obtenerRango');
+Route::get('/obtener-fechaInicio','PeriodosController@sugerenciaFechaInicio')->name('periodos.sugerenciaFechaInicio');
 
 //puestos 
 Route::get('puestos','PuestosController@index')->name('puestos.index');

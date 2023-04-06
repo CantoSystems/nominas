@@ -72,7 +72,8 @@
         <form action="{{ route('incid2.index')}}" method="GET" autocomplete="off">
             <div class="row">
                 <div class="col-sm-2">
-                    <label>Clave del Empleado</label>
+                    <label class="titulo">Clave del Empleado</label>
+                    <strong class="obligatorio">*</strong>
                     <div class="input-group mb-3">
                         <input type="text" 
                                 name="clave_empledo"
@@ -102,7 +103,8 @@
                 </div>
                 <div class="col-sm-4">
                     <div class="form-group">
-                        <label>Nombre:</label>
+                        <label class="titulo">Nombre</label>
+                        <strong class="obligatorio">*</strong>
                         <input type="text" 
                                 name="nombre" 
                                 class="form-control"
@@ -113,7 +115,8 @@
                     </div>
                 </div>
                 <div class="col-sm-2">
-                    <label for="exampleInputFile">Clave del Concepto</label>
+                    <label class="titulo">Clave del Concepto</label>
+                    <strong class="obligatorio">*</strong>
                     <div class="input-group mb-3">
                         <input type="text" 
                                 name="concepto_clave"
@@ -139,7 +142,8 @@
                 </div>
                 <div class="col-sm-4">
                     <div class="form-group">
-                        <label>Concepto</label>
+                        <label class="titulo">Concepto</label>
+                        <strong class="obligatorio">*</strong>
                         <input type="text" 
                                 name="concepto" 
                                 class="form-control"
@@ -151,19 +155,22 @@
                 </div>
                 <div class="col-sm-4">
                     <div class="form-group">
-                        <label>Cantidad:</label>
+                        <label class="titulo">Cantidad</label>
+                        <strong class="obligatorio">*</strong>
                         <input type="number" name="cantidad" onkeypress="return numeros(event)" value="{{ $incidencias->cantidad ?? '' }}" class="form-control" step="0.1" onkeyup="mayus(this);">
                     </div>
                 </div>
                 <div class="col-sm-4">
                     <div class="form-group">
-                        <label>Importe:</label>
+                        <label class="titulo">Importe</label>
+                        <strong class="obligatorio">*</strong>
                         <input type="number" name="importe" onkeypress="return numeros(event)" value="{{ $incidencias->importe ?? '' }}" class="form-control" step="0.1">
                     </div>
                 </div>
                 <div class="col-sm-4">
                     <div class="form-group">
-                        <label>Monto:</label>
+                        <label class="titulo">Monto</label>
+                        <strong class="obligatorio">*</strong>
                         <input type="number" name="monto" onkeypress="return numeros(event)" value="{{ $incidencias->monto ?? '' }}" class="form-control" step="0.1">
                     </div>
                 </div>

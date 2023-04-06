@@ -68,7 +68,8 @@
                             <div class="col-sm-6">
                                 <br>
                                 <div class="form-group">
-                                    <label>Para Ingresos de ($):</label>
+                                    <label class="titulo">Para Ingresos de ($):</label>
+                                    <strong class="obligatorio">*</strong>
                                     <input type="hidden" name="id_subsidio" value="{{ $subsidio->id_subsidio ?? ''}}"
                                         class="form-control">
                                     <input type="number" name="ParaIngresos" step="0.01"
@@ -83,7 +84,8 @@
                             <div class="col-sm-6">
                                 <br>
                                 <div class="form-group">
-                                    <label>Hasta Ingresos De ($):</label>
+                                    <label class="titulo">Hasta Ingresos De ($):</label>
+                                    <strong class="obligatorio">*</strong>
                                     <input type="number" name="hastaIngresos" step="0.01"
                                         value="{{ $subsidio->hastaIngresos ?? ''}}" class="form-control">
                                     @error('hastaIngresos')
@@ -95,7 +97,8 @@
                             </div>
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label>Cantidad de Subsidio para el Empleado ($):</label>
+                                    <label class="titulo">Cantidad de Subsidio para el Empleado ($):</label>
+                                    <strong class="obligatorio">*</strong>
                                     <input type="number" name="cantidadSubsidio" step="0.01"
                                         value="{{ $subsidio->cantidadSubsidio ?? '' }}" class="form-control">
                                     @error('cantidadSubsidio')
@@ -107,7 +110,8 @@
                             </div>
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label>Seleccione el Periodo:</label>
+                                    <label class="titulo">Seleccione el Periodo:</label>
+                                    <strong class="obligatorio">*</strong>
                                     @if(isset($subsidio))
                                     @if($subsidio->periodo_subsidio == 'MENSUAL')
                                     <select class="custom-select personalizado" name="periodo_subsidio">

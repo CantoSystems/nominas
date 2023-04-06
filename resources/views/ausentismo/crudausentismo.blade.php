@@ -83,7 +83,8 @@
             <form action="{{ route('ausentismo.index')}}" method="GET" autocomplete="off">
                 <div class="row">
                     <div class="col-sm-4 ">
-                        <label>Clave empleado: </label>
+                        <label class="titulo">Clave empleado </label>
+                        <strong class="obligatorio">*</strong>
                         <input type="hidden" name="id" value="{{ $ausentismo->identificador ?? ''}}">
                         <div class=" input-group mb-3">
                             <input  type="text" 
@@ -110,7 +111,8 @@
                     </div>
                     <div class="col-sm-2">
                         <div class="form-group">
-                            <label>Cantidad:</label>
+                            <label class="titulo">Cantidad</label>
+                            <strong class="obligatorio">*</strong>
                             <input  type="number" 
                                     name="cantidad_ausentismo"
                                     class="form-control"
@@ -127,7 +129,8 @@
                         </div>
                     </div>
                     <div class="col-sm-3">
-                        <label>Concepto:</label>
+                        <label class="titulo">Concepto</label>
+                        <strong class="obligatorio">*</strong>
                         <div class=" input-group mb-3">
                             <input  type="text"
                                     class="form-control"
@@ -151,7 +154,8 @@
                     </div>
                     <div class="col-sm-3">
                         <div class="form-group">
-                            <label>Fecha:</label>
+                            <label class="titulo">Fecha</label>
+                            <strong class="obligatorio">*</strong>
                             <input  type="date" 
                                     name="fecha_ausentismo" 
                                     class="form-control" 
@@ -167,7 +171,8 @@
                     </div>
                     <div class="col-sm-2">
                         <div class="form-group">
-                            <label>Incapacidad:</label>
+                            <label class="titulo">Incapacidad</label>
+                            <strong class="obligatorio">*</strong>
                             <input  type="text" 
                                     name="incapacidad" 
                                     class="form-control" 
@@ -182,7 +187,8 @@
                     </div>
                     <div class="col-sm-4">
                         <div class="form-group">
-                            <label>Nombre:</label>
+                            <label class="titulo">Nombre</label>
+                            <strong class="obligatorio">*</strong>
                             <input  type="text" 
                                     name="nombre" 
                                     class="form-control"
@@ -198,7 +204,8 @@
                     </div>
                     <div class="col-sm-3">
                         <div class="form-group">
-                            <label>Descripcion:</label>
+                            <label class="titulo">Descripcion</label>
+                            <strong class="obligatorio">*</strong>
                             <input  type="text" 
                                     name="descripcion" 
                                     class="form-control" 
