@@ -1,9 +1,6 @@
 <?php
 
-use Carbon\Carbon;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Collection;
-use Illuminate\Support\Facades\DB;
 
 class InfonavitSeeder extends Seeder
 {
@@ -12,8 +9,7 @@ class InfonavitSeeder extends Seeder
      *
      * @return void
      */
-    public function run()
-    {
+    public function run(){
         $infonavit = Collect([ 
             ["anio"=> "2017", "vsm" => 80.04, "varUma" => 3.36, "varUnidadMixta" => 3.36, "valorInfonavit" => 75.49],
             ["anio"=> "2018", "vsm" => 88.36, "varUma" => 6.67, "varUnidadMixta" => 3.90, "valorInfonavit" => 78.43],

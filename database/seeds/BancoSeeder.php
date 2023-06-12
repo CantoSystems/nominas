@@ -5,11 +5,8 @@ use Illuminate\Database\Seeder;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 
-class BancoSeeder extends Seeder
-{
-   
-    public function run()
-    {
+class BancoSeeder extends Seeder{
+    public function run(){
         $bancos = Collect([
             ["clave" => "B001", "bancos" => "BBVA"],
             ["clave" => "B002", "bancos" => "Citibanamex"],
@@ -31,7 +28,5 @@ class BancoSeeder extends Seeder
                 'updated_at' => $fecha_periodo
             ]);
         }
-
-
-        }
+    }
 }
