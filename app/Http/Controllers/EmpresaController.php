@@ -96,6 +96,7 @@ class EmpresaController extends Controller{
                 return view('empresas.crudempresas', compact('empresa','nominas'));
             break;
             case 'registrar':
+            dd($request);
                 $this->registrar($request);
                 return redirect()->route('nominas.empresas');
                 break;
@@ -164,7 +165,7 @@ class EmpresaController extends Controller{
     *@param $datos | Array
     */
     public function registrar($datos){
-       
+
         $datos->validate([
             'nombre' => 'required',
             'clave' => 'required|unique:empresas',
