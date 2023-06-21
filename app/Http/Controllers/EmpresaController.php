@@ -145,7 +145,6 @@ class EmpresaController extends Controller{
         $emp->telefono= $datos->telefono;
         $emp->email= $datos->email;
         $emp->inicioPeriodo = $datos->inicioPeriodo;
-        $emp->tipoPeriodo = $datos->tipoPeriodo;
         $emp->region = $datos->regionEmpresa;
         $emp->primaRiesgo = $datos->primaRiesgo;
         $emp->porcentajeAhorro = $datos->porcentajeAhorro;
@@ -165,7 +164,7 @@ class EmpresaController extends Controller{
     *@param $datos | Array
     */
     public function registrar($datos){
-        
+        dd($datos);
         $datos->validate([
             'nombre' => 'required',
             'clave' => 'required|unique:empresas',
@@ -690,6 +689,7 @@ class EmpresaController extends Controller{
             $anioInicio = date('Y',strtotime($datos->inicioPeriodo));
 
             if($datos->tipoPeriodo == 15){
+                 dd(1);
                 if($diaInicio<16){
                     $numero = ($mesInicio*2)-1;
                     $fechaInicio = $anioInicio.'-'.$mesInicio.'-01';
