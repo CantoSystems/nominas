@@ -165,7 +165,7 @@ class EmpresaController extends Controller{
     *@param $datos | Array
     */
     public function registrar($datos){
-        dd($datos);
+     
         $datos->validate([
             'nombre' => 'required',
             'clave' => 'required|unique:empresas',
@@ -192,7 +192,7 @@ class EmpresaController extends Controller{
             'tipoPeriodo' => 'required',
         ]);
 
-        if(!is_null($datos->tipoPeriodo){
+        if(!is_null($datos->tipoPeriodo)){
 
             $fiscalClave =  RegimenFiscal::select('id')
                             ->where('claveRegimen','=',$datos->regimenFiscal)
