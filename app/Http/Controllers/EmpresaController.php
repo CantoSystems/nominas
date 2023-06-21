@@ -9,7 +9,6 @@ use App\RegimenFiscal;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Schema;
-use Illuminate\Support\Facades\Validator;
 
 class EmpresaController extends Controller{
     public function conectar($clv){
@@ -97,36 +96,6 @@ class EmpresaController extends Controller{
                 return view('empresas.crudempresas', compact('empresa','nominas'));
             break;
             case 'registrar':
-                $validator = Validator::make($request->all(),[
-                    'nombre' => 'required',
-                    'clave' => 'required|unique:empresas',
-                    'nombre_nomina' => 'required',
-                    'rfc' => 'required',
-                    'segurosocial' => 'required',
-                    'registro_estatal' => 'required',
-                    'calle' => 'required',
-                    'num_externo' => 'required',
-                    'colonia' => 'required',
-                    'ciudad' => 'required',
-                    'municipio' => 'required',
-                    'codigopostal' => 'required',
-                    'ciudad' => 'required',
-                    'pais' => 'required',
-                    'representante_legal' => 'required',
-                    'rfc_representante' => 'required',
-                    'telefono' => 'required',
-                    'email' => 'required',
-                    'regionEmpresa' => 'required',
-                    'primaRiesgo' => 'required',
-                    'porcentajeAhorro' => 'required',
-                    'curpRepresentante' => 'required',
-                    'tipoPeriodo' => 'required',
-                ]
-                
-
-                if($validator->fails()){
-                    return back()->withErrors($validator)->withInput();
-                }
 
                 $this->registrar($request);
                 return redirect()->route('nominas.empresas');
@@ -196,11 +165,38 @@ class EmpresaController extends Controller{
     *@param $datos | Array
     */
     public function registrar($datos){
+     
+        $datos->validate([
+            'nombre' => 'required',
+            'clave' => 'required|unique:empresas',
+            'nombre_nomina' => 'required',
+            'rfc' => 'required',
+            'segurosocial' => 'required',
+            'registro_estatal' => 'required',
+            'calle' => 'required',
+            'num_externo' => 'required',
+            'colonia' => 'required',
+            'ciudad' => 'required',
+            'municipio' => 'required',
+            'codigopostal' => 'required',
+            'ciudad' => 'required',
+            'pais' => 'required',
+            'representante_legal' => 'required',
+            'rfc_representante' => 'required',
+            'telefono' => 'required',
+            'email' => 'required',
+            'regionEmpresa' => 'required',
+            'primaRiesgo' => 'required',
+            'porcentajeAhorro' => 'required',
+            'curpRepresentante' => 'required',
+            'tipoPeriodo' => 'required',
+        ]);
 
-        $fiscalClave =  RegimenFiscal::select('id')
+
+            $fiscalClave =  RegimenFiscal::select('id')
                             ->where('claveRegimen','=',$datos->regimenFiscal)
                             ->first();
-        $coincidencia = Empresa::where('clave',$datos->clave)->count();
+            $coincidencia = Empresa::where('clave',$datos->clave)->count();
 
         if ($coincidencia === 0){
             $empresa = new Empresa;
@@ -228,8 +224,9 @@ class EmpresaController extends Controller{
             $empresa->porcentajeAhorro = $datos->porcentajeAhorro;
             $empresa->regimen_id = $fiscalClave->id;
             $empresa->curpRepresentante = $datos->curpRepresentante;
-            $empresa->save();
+            $empresa->save(); 
         }
+    }
 
     /**
     *Funcion seleccion empresa |
