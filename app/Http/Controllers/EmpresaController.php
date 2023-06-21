@@ -96,7 +96,7 @@ class EmpresaController extends Controller{
                 return view('empresas.crudempresas', compact('empresa','nominas'));
             break;
             case 'registrar':
-            dd($request);
+
                 $this->registrar($request);
                 return redirect()->route('nominas.empresas');
                 break;
@@ -165,7 +165,7 @@ class EmpresaController extends Controller{
     *@param $datos | Array
     */
     public function registrar($datos){
-
+        dd($datos);
         $datos->validate([
             'nombre' => 'required',
             'clave' => 'required|unique:empresas',
@@ -192,10 +192,9 @@ class EmpresaController extends Controller{
             'tipoPeriodo' => 'required',
         ]);
 
-        if(is_null($datos->tipoPeriodo)){
-            return "vacio";
-        }
-        $fiscalClave =  RegimenFiscal::select('id')
+        if(!is_null($datos->tipoPeriodo){
+
+            $fiscalClave =  RegimenFiscal::select('id')
                             ->where('claveRegimen','=',$datos->regimenFiscal)
                             ->first();
         $coincidencia = Empresa::where('clave',$datos->clave)->count();
@@ -732,8 +731,10 @@ class EmpresaController extends Controller{
 
             }else{
                 return back()->with('clavesExistentes','La clave no puede ser duplicada');
-            }                    
+            }                   
             
+        }
+          
         }
 
     /**
