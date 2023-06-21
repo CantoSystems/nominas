@@ -305,6 +305,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
         });
         $('.tagperiodo').keyup(function() {
             let valorPeriodo = $(this).val();
+            console.log(valorPeriodo);
             if (valorPeriodo != 0) {
                 $('.inicioPeriodo').attr("disabled", false);
                 $('#fechafin').attr("disabled", true);
