@@ -164,7 +164,7 @@ class EmpresaController extends Controller{
     *@param $datos | Array
     */
     public function registrar($datos){
-        dd($datos);
+       
         $datos->validate([
             'nombre' => 'required',
             'clave' => 'required|unique:empresas',
@@ -188,8 +188,12 @@ class EmpresaController extends Controller{
             'primaRiesgo' => 'required',
             'porcentajeAhorro' => 'required',
             'curpRepresentante' => 'required',
+            'tipoPeriodo' => 'required',
         ]);
 
+        if(is_null($datos->tipoPeriodo)){
+            return "vacio";
+        }
         $fiscalClave =  RegimenFiscal::select('id')
                             ->where('claveRegimen','=',$datos->regimenFiscal)
                             ->first();
@@ -689,7 +693,7 @@ class EmpresaController extends Controller{
             $anioInicio = date('Y',strtotime($datos->inicioPeriodo));
 
             if($datos->tipoPeriodo == 15){
-                 dd(1);
+                
                 if($diaInicio<16){
                     $numero = ($mesInicio*2)-1;
                     $fechaInicio = $anioInicio.'-'.$mesInicio.'-01';
