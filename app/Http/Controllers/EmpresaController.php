@@ -165,7 +165,7 @@ class EmpresaController extends Controller{
     *@param $datos | Array
     */
     public function registrar($datos){
-        dd($datos->tipoPeriodo);
+        
         $datos->validate([
             'nombre' => 'required',
             'clave' => 'required|unique:empresas',
