@@ -96,9 +96,8 @@ class EmpresaController extends Controller{
                 return view('empresas.crudempresas', compact('empresa','nominas'));
             break;
             case 'registrar':
-
                 $this->registrar($request);
-                return redirect()->route('nominas.empresas');
+                //return redirect()->route('nominas.empresas');
                 break;
             case 'actualizar':
                 $this->actualizar($request);
@@ -165,7 +164,7 @@ class EmpresaController extends Controller{
     *@param $datos | Array
     */
     public function registrar($datos){
-        return 123;
+   dd(823);
     }
 
     /**
