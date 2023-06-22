@@ -194,8 +194,8 @@ class EmpresaController extends Controller{
                             ->where('claveRegimen','=',$datos->regimenFiscal)
                             ->first();
         $coincidencia = Empresa::where('clave',$datos->clave)->count();
-        dd($coincidencia);
-        if(is_null($coincidencia)){
+
+        if($coincidencia === 0){
             dd(777);
         }//Fin coincidencia
     }
