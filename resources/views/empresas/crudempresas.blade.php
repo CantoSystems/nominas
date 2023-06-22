@@ -360,7 +360,7 @@
                         <label class="titulo">Días del Periodo<strong class="obligatorio">*</strong></label>
                         <input type="number" 
                         maxlength="2" name="tipoPeriodo" 
-                        class="form-control"
+                        class="form-control tagperiodo"
                         value="">
                     </div>
                 </div>
