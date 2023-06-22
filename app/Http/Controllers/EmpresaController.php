@@ -224,6 +224,7 @@ class EmpresaController extends Controller{
             $empresa->porcentajeAhorro = $datos->porcentajeAhorro;
             $empresa->regimen_id = $fiscalClave->id;
             $empresa->tipoPeriodo = $datos->tipoPeriodo;
+            $empresa->inicioPeriodo = $datos->inicioPeriodo;
             $empresa->curpRepresentante = $datos->curpRepresentante;
             $empresa->save();
             
