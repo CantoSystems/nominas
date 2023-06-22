@@ -223,36 +223,11 @@ class EmpresaController extends Controller{
             $empresa->primaRiesgo = $datos->primaRiesgo;
             $empresa->porcentajeAhorro = $datos->porcentajeAhorro;
             $empresa->regimen_id = $fiscalClave->id;
-            $empresa->tipoPeriodo = $datos->tipoPeriodo
+            $empresa->tipoPeriodo = $datos->tipoPeriodo;
             $empresa->curpRepresentante = $datos->curpRepresentante;
             $empresa->save();
             
-            $empresa = new Empresa;
-            $empresa->rfc = $datos->rfc;
-            $empresa->clave = $datos->clave;
-            $empresa->nombre = $datos->nombre;
-            $empresa->nombre_nomina = $datos->nombre_nomina;
-            $empresa->rfc = $datos->rfc;
-            $empresa->segurosocial = $datos->segurosocial;
-            $empresa->registro_estatal = $datos->registro_estatal;
-            $empresa->calle = $datos->calle;
-            $empresa->num_interno = $datos->num_interno;
-            $empresa->num_externo = $datos->num_externo;
-            $empresa->colonia = $datos->colonia;
-            $empresa->codigopostal = $datos->codigopostal;
-            $empresa->municipio = $datos->municipio;
-            $empresa->ciudad = $datos->ciudad;
-            $empresa->pais = $datos->pais;
-            $empresa->representante_legal = $datos->representante_legal;
-            $empresa->rfc_representante = $datos->rfc_representante;
-            $empresa->telefono = $datos->telefono;
-            $empresa->email = $datos->email;
-            $empresa->region = $datos->regionEmpresa;
-            $empresa->primaRiesgo = $datos->primaRiesgo;
-            $empresa->porcentajeAhorro = $datos->porcentajeAhorro;
-            $empresa->regimen_id = $fiscalClave->id;
-            $empresa->curpRepresentante = $datos->curpRepresentante;
-            $empresa->save();
+            
             
             DB::statement('create database '.$datos->clave);
                 $clv= $datos->clave;
