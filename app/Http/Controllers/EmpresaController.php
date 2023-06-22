@@ -164,7 +164,40 @@ class EmpresaController extends Controller{
     *@param $datos | Array
     */
     public function registrar($datos){
-   dd($datos);
+        $datos->validate([
+            'nombre' => 'required',
+            'clave' => 'required|unique:empresas',
+            'nombre_nomina' => 'required',
+            'rfc' => 'required',
+            'segurosocial' => 'required',
+            'registro_estatal' => 'required',
+            'calle' => 'required',
+            'num_externo' => 'required',
+            'colonia' => 'required',
+            'ciudad' => 'required',
+            'municipio' => 'required',
+            'codigopostal' => 'required',
+            'ciudad' => 'required',
+            'pais' => 'required',
+            'representante_legal' => 'required',
+            'rfc_representante' => 'required',
+            'telefono' => 'required',
+            'email' => 'required',
+            'regionEmpresa' => 'required',
+            'primaRiesgo' => 'required',
+            'porcentajeAhorro' => 'required',
+            'curpRepresentante' => 'required',
+            'tipoPeriodo' => 'required',
+        ]);
+
+        $fiscalClave =  RegimenFiscal::select('id')
+                            ->where('claveRegimen','=',$datos->regimenFiscal)
+                            ->first();
+        $coincidencia = Empresa::where('clave',$datos->clave)->count();
+
+        if(is_null($coincidencia)){
+            dd(777);
+        }//Fin coincidencia
     }
 
     /**
