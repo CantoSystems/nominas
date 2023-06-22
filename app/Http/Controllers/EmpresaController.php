@@ -164,7 +164,7 @@ class EmpresaController extends Controller{
     *@param $datos | Array
     */
     public function registrar($datos){
-   dd(823);
+   dd($datos);
     }
 
     /**
