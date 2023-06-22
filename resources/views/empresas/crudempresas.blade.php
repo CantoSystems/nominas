@@ -357,10 +357,11 @@
                 </div>
                 <div class="col-sm-2">
                     <div class="form-group" id="periodoDias">
-                        <label class="titulo">***Días del Periodo<strong class="obligatorio">*</strong></label>
-                        <input type="number" maxlength="2" name="tipoPeriodo" 
-                        class="form-control tagperiodo"
-                        value="{{ $empresa->tipoPeriodo ?? ''}}">
+                        <label class="titulo">Días del Periodo<strong class="obligatorio">*</strong></label>
+                        <input type="number" 
+                        maxlength="2" name="tipoPeriodo" 
+                        class="form-control"
+                        value="">
                     </div>
                 </div>
                 <div class="col-sm-2" id="periodoInicio">
