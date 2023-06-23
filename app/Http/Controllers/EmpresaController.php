@@ -223,12 +223,13 @@ class EmpresaController extends Controller{
             $empresa->primaRiesgo = $datos->primaRiesgo;
             $empresa->porcentajeAhorro = $datos->porcentajeAhorro;
             $empresa->regimen_id = $fiscalClave->id;
-            $empresa->tipoPeriodo = $datos->tipoPeriodo;
-            $empresa->inicioPeriodo = $datos->inicioPeriodo;
             $empresa->curpRepresentante = $datos->curpRepresentante;
             $empresa->save();
             
-            
+            /*
+            $empresa->tipoPeriodo = $datos->tipoPeriodo;
+            $empresa->inicioPeriodo = $datos->inicioPeriodo;
+            */
             
             DB::statement('create database '.$datos->clave);
                 $clv= $datos->clave;
