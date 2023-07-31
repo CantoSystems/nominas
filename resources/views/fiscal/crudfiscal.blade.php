@@ -78,10 +78,10 @@
                             </div>
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label class="titulo">Clave regimen fiscal</label>
+                                    <label class="titulo">Regimen fiscal</label>
                                     <strong class="obligatorio">*</strong>
                                     <input type="text" name="descripcionRegimen" value="{{$regimen->descripcionRegimen ?? ''}}"
-                                        class="form-control" maxlength="4" onkeyup="mayus(this);">
+                                        class="form-control" onkeyup="mayus(this);">
                                     <input type="hidden" name="id" value="{{$regimen->id ?? ''}}">
                                     @error('descripcionRegimen')
                                     <div class="alert alert-secondary">
