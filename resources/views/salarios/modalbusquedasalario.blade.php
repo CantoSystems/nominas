@@ -31,7 +31,7 @@
                                     <td>{{ $salMinAll->region }}</td>
                                     <td>{{ $salMinAll->importe }}</td>
                                     <td style="width: 20px;">
-                                        @canany(['administrador','capturista'])
+                                        @canany(['administrador','capturista','reportes'])
                                         <div>
                                             <center>
                                                 <a href="{{ route('salariomin.mostrar',$salMinAll->idSalarioMinimo) }}">

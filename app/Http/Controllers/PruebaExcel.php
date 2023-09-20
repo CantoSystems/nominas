@@ -4,18 +4,18 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Exports\UsersExport;
-use Maatwebsite\Excel\Excel;
+// use Maatwebsite\Excel\Excel;
 
 
 class PruebaExcel extends Controller
 {
 
-    private $excel;
+     private $excel;
 
-    public function __construct(Excel $excel)
-    {
+     public function __construct(Excel $excel)
+     {
         $this->excel = $excel;
-    }
+     }
 
     public function index()
     {

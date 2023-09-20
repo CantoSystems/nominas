@@ -27,7 +27,7 @@
                                 <td>{{ $sub->cantidadSubsidio }}</td>
                                 <td>{{ $sub->periodo_subsidio }}</td>
                                 <td>
-                                    @canany(['administrador','capturista'])
+                                    @canany(['administrador','capturista','reportes'])
                                     <div>
                                         <center>
                                             <a href="{{ route('subsidios.mostrar',$sub->id_subsidio ) }}">

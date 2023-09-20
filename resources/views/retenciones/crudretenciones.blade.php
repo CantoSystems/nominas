@@ -303,7 +303,7 @@
                                 <td>{{ $rtn->porcentaje_excedente }}</td>
                                 <td>{{ $rtn->periodo_retencion }}</td>
                                 <td>
-                                    @canany(['administrador','capturista'])
+                                    @canany(['administrador','capturista','reportes'])
                                     <div>
                                         <center>
                                             <a href="{{ route('retenciones.mostrar',$rtn->id) }}">

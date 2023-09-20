@@ -27,7 +27,7 @@
                                 <td style="text-align: center;">{{ $inf->varUma }}</td>
                                 <td style="text-align: center;">{{ $inf->valorInfonavit }}</td>
                                 <td>
-                                    @canany(['administrador','capturista'])
+                                    @canany(['administrador','capturista','reportes'])
                                     <div>
                                         <center>
                                             <a href="{{ route('infonavit.mostrar',$inf->id) }}">

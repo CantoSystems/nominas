@@ -28,7 +28,7 @@
                                 <td>{{ date('d-m-Y',strtotime($um->periodofin_uma)) }}</td>
                                 <td>{{ $um->porcentaje_uma }}</td>
                                 <td>
-                                    @canany(['administrador','capturista'])
+                                    @canany(['administrador','capturista','reportes'])
                                     <div>
                                         <center>
                                             <a href="{{ route('umas.mostrar',$um->id) }}">

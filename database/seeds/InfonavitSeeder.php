@@ -16,7 +16,8 @@ class InfonavitSeeder extends Seeder
             ["anio"=> "2019", "vsm" => 102.68, "varUma" => 4.83, "varUnidadMixta" => 4.83, "valorInfonavit" => 82.22],
             ["anio"=> "2020", "vsm" => 123.22, "varUma" => 2.83, "varUnidadMixta" => 2.83, "valorInfonavit" => 84.55],
             ["anio"=> "2021", "vsm" => 141.70, "varUma" => 3.15, "varUnidadMixta" => 3.15, "valorInfonavit" => 87.21],
-            ["anio"=> "2022", "vsm" => 172.87, "varUma" => 7.36, "varUnidadMixta" => 4.99, "valorInfonavit" => 91.56]
+            ["anio"=> "2022", "vsm" => 172.87, "varUma" => 7.36, "varUnidadMixta" => 4.99, "valorInfonavit" => 91.56],
+            ["anio"=> "2022", "vsm" => 207.44, "varUma" => 7.82, "varUnidadMixta" => 5.20, "valorInfonavit" => 96.32],
         ]);
 
         $fecha_periodo = now()->toDateString();

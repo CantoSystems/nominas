@@ -25,7 +25,7 @@
                             <td>{{ $timss->concepto }}</td>
                             <td>{{ $timss->prestaciones}}</td>
                             <td>
-                              @canany(['administrador','capturista'])
+                              @canany(['administrador','capturista','reportes'])
                               <div>
                                   <center>
                                       <a href="{{ route('imss.mostrar',$timss->id_imss) }}">

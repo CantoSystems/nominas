@@ -24,7 +24,7 @@
                                 <td scope="row">{{$banc->clave_banco}}</td>
                                 <td>{{$banc->nombre_banco}}</td>
                                 <td>
-                                    @canany(['administrador','capturista'])
+                                    @canany(['administrador','capturista','reportes'])
                                     <div>
                                         <center>
                                             <a href="{{ route('bancos.mostrar',$banc->id) }}">
@@ -34,6 +34,7 @@
                                             </a>
                                         </center>
                                     </div>
+                                    
                                     @endcan
                                 </td>
                             </tr>

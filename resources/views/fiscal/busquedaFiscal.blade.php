@@ -25,7 +25,7 @@
                               <td>{{ $reg->claveRegimen }}</td>
                               <td>{{ $reg->descripcionRegimen}}</td>
                               <td>
-                                @canany(['administrador','capturista'])
+                                @canany(['administrador','capturista','reportes'])
                                 <div>
                                     <center>
                                         <a href="{{ route('fical.create',$reg->id) }}">
