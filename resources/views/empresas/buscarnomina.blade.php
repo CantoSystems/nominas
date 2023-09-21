@@ -27,7 +27,7 @@
                             <td>{{ $nom->clave }}</td>
                             <td>{{ $nom->nombre_nomina }}</td>
                             <td>
-                                @canany(['administrador','capturista'])
+                                @canany(['administrador','capturista','reportes'])
                                 <div>
                                     <center>
                                         <a href="{{ route('mostrar.empresas',$nom->id) }}">
