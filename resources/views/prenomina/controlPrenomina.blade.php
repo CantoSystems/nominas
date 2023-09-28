@@ -18,32 +18,56 @@
                     <meta name="csrf-token" content="{{ csrf_token() }}">
                     <div class="row">
                         <div class="col">
-                            @can('administrador')
+                            @canany(['administrador','capturista'])
                                 <a data-target="#modalbusquedaemp" data-toggle="modal">
                                     <button type="submit" name="acciones" value="mostrar" style='width: 65px; height: 38px'>
                                         <i class="far fa-eye"></i>
                                     </button>
                                 </a>
                                 @include('prenomina.modaldespliegue-empleados')
+                            @elsecanany(['reportes'])
+                                
+                                    <button type="button" value="mostrar" style='width: 65px; height: 38px' disabled>
+                                        <i class="far fa-eye"></i>
+                                    </button>
+                                
                             @endcan
                         </div>
                         <div class="col">
+                            @canany(['administrador','capturista'])
                             <button type="submit" id="autorizar" style='width:125px; height:38px;'>Autorizar Nómina</button>
+                            @elsecanany(['reportes'])
+                            <button type="button"  style='width:125px; height:38px;' disabled>Autorizar Nómina</button>
+                            @endcan
                         </div>
                         <div class="col">
+                        @canany(['administrador','capturista'])
                             <form action="{{ route('control.excel3') }}">
                                 <button type="submit" style='width:125px; height:38px;'>Descargar Excel</button>
                             </form>
+                        @elsecanany(['reportes'])
+                            <button type="button" style='width:125px; height:38px;' disabled>Descargar Excel</button>
+                        @endcan
+
                         </div>
                         <div class="col">
+                        @canany(['administrador','capturista'])
                             <form action="{{ route('periodos.desactivar')}}">
                                 <button type="submit" style='width:125px; height:38px;'> Desactivar periodo</button>
                             </form>
+                        @elsecanany(['reportes'])
+                            <button type="button" style='width:125px; height:38px;' disabled> Desactivar periodo</button>
+                        @endcan
+
                         </div>
                         <div class="col">
+                        @canany(['administrador','capturista'])
                             <form action="{{ route('periodos.generar') }}">
                                 <button type="submit" style='width:125px; height:38px;'>Crear nuevo periodo</button>
                             </form>
+                        @elsecanany(['reportes'])
+                            <button type="button" style='width:125px; height:38px;' disabled>Crear nuevo periodo</button>
+                        @endcan
 
                         </div>
                         

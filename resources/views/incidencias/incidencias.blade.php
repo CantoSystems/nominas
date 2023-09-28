@@ -112,9 +112,15 @@
                         </div>
                     </div>
                 </div>
+                @canany(['administrador','capturista'])
                 <center>
                     <input type="button" name="agregarIncidencia" id="agregarIncidencia" value="Agregar Nuevo" style='width:125px; height:25px'>
                 </center>
+                @elsecanany(['reportes'])
+                <center>
+                    <input type="button" value="Agregar Nuevo" style='width:125px; height:25px' disabled>
+                </center> 
+                @endcan
                 <br>
                 <div class="row">
                     <div class="col">
@@ -140,9 +146,16 @@
                                 </tbody>
                             </table>
                             <br>
+                            @canany(['administrador','capturista'])
                             <center>
                                 <input type="button" id="finalizarIncidencia" value="Finalizar" style='width:120px; height:25px'>
                             </center>
+                            @elsecanany(['reportes'])
+                            <center>
+                                <input type="button"  value="Finalizar" style='width:120px; height:25px' disabled>
+                            </center>
+                            
+                            @endcan
                         </div>
                     </div>
                 </div>
