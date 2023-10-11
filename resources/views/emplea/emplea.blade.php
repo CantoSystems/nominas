@@ -48,8 +48,7 @@
                                 <li class="nav-item">
                                     <a class="nav-link" id="custom-tabs-cinco-referencias-tab" data-toggle="pill"
                                         href="#custom-tabs-cinco-referencias" role="tab"
-                                        aria-controls="custom-tabs-cinco-referencias" aria-selected="false">Referencias
-                                        Nuevas</a>
+                                        aria-controls="custom-tabs-cinco-referencias" aria-selected="false">Referencias</a>
                                 </li>
                             </ul>
                         </div>
@@ -67,8 +66,7 @@
                                         <!--Personal 1-->
                                         <div class="form-row">
                                             <div class="col-md-1 mb-2">
-                                                <label class="titulo">Clave <strong
-                                                        class="obligatorio">*</strong></label>
+                                                <label class="titulo">Clave</label>
                                                 <input type="text" class="form-control" name="clave_empleado"
                                                     maxlength="4" onkeyup="mayus(this);"
                                                     value="{{ $persona->clave_empleado ?? ''}}">
@@ -81,16 +79,10 @@
                                                 @enderror
                                             </div>
                                             <div class="col-md-3">
-                                                <label class="titulo">Clasificación <strong
-                                                        class="obligatorio">*</strong></label>
+                                                <label class="titulo">Clasificación </label>
                                                 <input type="text" class="form-control" name="clasificacion"
                                                     value="{{$persona->clasificacion ?? ''}}" onkeyup="mayus(this);"
                                                     onkeypress="return validar(event)">
-                                                @error('clasificacion')
-                                                <div class="alert alert-secondary">
-                                                    {{ $message }}
-                                                </div>
-                                                @enderror
                                             </div>
                                             <div class="col-md-2 mb-3">
                                                 <label class="titulo">Nombre <strong
@@ -146,7 +138,7 @@
                                             </div>
                                             <div class="col-md-2 mb-3">
                                                 <label class="titulo">Causa de baja</label>
-                                                <strong class="obligatorio">*</strong>
+                                                <
                                                 @if(isset($persona))
                                                 <select class="custom-select" name="causa_baja">
                                                     @if($persona->causa_baja=="")
@@ -173,8 +165,7 @@
                                                 @endif
                                             </div>
                                             <div class="col-md-2 mb-3">
-                                                <label class="titulo">Departamento <strong
-                                                        class="obligatorio">*</strong></label>
+                                                <label class="titulo">Departamento</label>
                                                 @if(isset($persona))
                                                 <select class="custom-select" name="clave_departamento">
                                                     <option selected disabled value="">Seleccione una opción:</option>
@@ -188,29 +179,18 @@
                                                     @endif
                                                     @endforeach
                                                 </select>
-                                                @error('clave_departamento')
-                                                <div class="alert alert-secondary">
-                                                    {{ $message }}
-                                                </div>
-                                                @enderror
                                                 @else
                                                 <select class="custom-select" name="clave_departamento">
-                                                    <option selected disabled value="">Seleccione una opción: <strong
-                                                            class="obligatorio">*</strong></option>
+                                                    <option selected disabled value="">Seleccione una opción: </option>
                                                     @foreach ($departamentos as $depa)
                                                     <option value="{{$depa->clave_departamento}}">
                                                         {{$depa->departamento}}</option>
                                                     @endforeach
                                                 </select>
-                                                @error('clave_departamento')
-                                                <div class="alert alert-secondary">
-                                                    {{ $message }}
-                                                </div>
-                                                @enderror
                                                 @endif
                                             </div>
                                             <div class="col-md-2 mb-3">
-                                                <label>Puesto <strong class="obligatorio">*</strong></label>
+                                                <label>Puesto</label>
                                                 @if(isset($persona))
                                                 <select class="custom-select" name="clave_puesto">
                                                     <option selected disabled value="">Seleccione una opción:</option>
@@ -224,11 +204,6 @@
                                                     @endif
                                                     @endforeach
                                                 </select>
-                                                @error('clave_puesto')
-                                                <div class="alert alert-secondary">
-                                                    {{ $message }}
-                                                </div>
-                                                @enderror
                                                 @else
                                                 <select class="custom-select" name="clave_puesto">
                                                     <option selected disabled value="">Seleccione una opción:<strong
@@ -238,11 +213,6 @@
                                                     </option>
                                                     @endforeach
                                                 </select>
-                                                @error('clave_puesto')
-                                                <div class="alert alert-secondary">
-                                                    {{ $message }}
-                                                </div>
-                                                @enderror
                                                 @endif
                                             </div>
                                             <div class="col-md-2">
@@ -294,15 +264,15 @@
                                                 @enderror
                                             </div>
                                             <div class="col-md-2 mb-3">
-                                                <label class="titulo">Pasaporte</label>
+                                                <label class="titulo">Crédito Infonavit</label>
                                                 <input type="text" class="form-control"
-                                                    value="{{$persona->pasaporte ?? ''}}" maxlength="6" name="pasaporte"
+                                                    value="{{$persona->credito_infonavit ?? ''}}" maxlength="6" name="credito_infonavit"
                                                     onkeyup="mayus(this);">
                                             </div>
                                             <div class="col-md-2 mb-3">
-                                                <label class="titulo">Cartilla</label>
+                                                <label class="titulo">Crédito Fonacot</label>
                                                 <input type="text" class="form-control"
-                                                    value="{{$persona->cartilla ?? ''}}" maxlength="10" name="cartilla"
+                                                    value="{{$persona->credito_fonacot ?? ''}}" maxlength="10" name="credito_fonacot"
                                                     onkeyup="mayus(this);">
                                             </div>
                                             <div class="col-md-2 mb-3">
@@ -515,16 +485,10 @@
                                                 @enderror
                                             </div>
                                             <div class="col-md-2 mb-3">
-                                                <label class="titulo">Tipo de sangre <strong
-                                                        class="obligatorio">*</strong> </label>
+                                                <label class="titulo">Tipo de sangre  </label>
                                                 <input type="text" class="form-control"
                                                     value="{{$persona->tipo_sangre ?? ''}}" name="tipo_sangre"
                                                     onkeyup="mayus(this);" onkeypress="return validasangre(event)">
-                                                @error('tipo_sangre')
-                                                <div class="alert alert-secondary">
-                                                    {{ $message }}
-                                                </div>
-                                                @enderror
                                             </div>
                                             <div class="col-md-2 mb-3">
                                                 <label class="titulo">Alergias</label>
@@ -532,25 +496,13 @@
                                                     value="{{$persona->alergias ?? ''}}" name="alergias"
                                                     onkeyup="mayus(this);" onkeypress="return validar(event)">
                                             </div>
-                                            <div class="col-md-1 mb-3">
-                                                <label class="titulo">Estatura <strong
-                                                        class="obligatorio">*</strong></label>
-                                                <input type="number" class="form-control"
-                                                    value="{{$persona->estatura ?? ''}}" name="estatura" min="1.20"
-                                                    max="2.5" step="0.01">
-                                                @error('estatura')
-                                                <div class="alert alert-secondary">
-                                                    {{ $message }}
-                                                </div>
-                                                @enderror
-                                            </div>
-                                            <div class="col-md-1 mb-3">
-                                                <label class="titulo">Peso <strong class="obligatorio">*</strong>
+                                            <div class="col-md-2 mb-4">
+                                                <label class="titulo">Nacimiento <strong style="color:red">*</strong>
                                                 </label>
-                                                <input type="number" class="form-control"
-                                                    value="{{$persona->peso ?? ''}}" name="peso" min="30" max="200"
-                                                    step="0.01">
-                                                @error('peso')
+                                                <input type="date" class="form-control"
+                                                    value="{{$persona->fecha_nacimiento ?? ''}}"
+                                                    name="fecha_nacimiento">
+                                                @error('fecha_nacimiento')
                                                 <div class="alert alert-secondary">
                                                     {{ $message }}
                                                 </div>
@@ -587,57 +539,28 @@
                                                     value="{{$persona->asosiacion ?? ''}}" onkeyup="mayus(this);"
                                                     onkeypress="return validar(event)">
                                             </div>
-                                            <div class="col-md-3 mb-3">
+                                            <div class="col-md-4 mb-3">
                                                 <label class="titulo">Objetivo de Vida</label>
                                                 <input type="text" class="form-control" name="objetivo_vida"
                                                     value="{{$persona->objetivo_vida ?? ''}}" onkeyup="mayus(this);"
                                                     onkeypress="return validar(event)">
                                             </div>
-                                            <div class="col-md-3 mb-3">
-                                                <label class="titulo">Nacimiento <strong style="color:red">*</strong>
-                                                </label>
-                                                <input type="date" class="form-control"
-                                                    value="{{$persona->fecha_nacimiento ?? ''}}"
-                                                    name="fecha_nacimiento">
-                                                @error('fecha_nacimiento')
-                                                <div class="alert alert-secondary">
-                                                    {{ $message }}
-                                                </div>
-                                                @enderror
-                                            </div>
-                                            <div class="col-md-3 mb-3">
-                                                <label class="titulo">Lugar de Origen <strong
-                                                        style="color:red">*</strong></label>
+                                            <div class="col-md-4 mb-3">
+                                                <label class="titulo">Lugar de Origen</label>
                                                 <input type="text" class="form-control" name="lugar"
                                                     value="{{$persona->lugar ?? ''}}" onkeyup="mayus(this);"
                                                     onkeypress="return validar(event)">
-                                                @error('lugar')
-                                                <div class="alert alert-secondary">
-                                                    {{ $message }}
-                                                </div>
-                                                @enderror
                                             </div>
                                             <div class="col-md-3 mb-3">
-                                                <label class="titulo">UMF <strong style="color:red">*</strong></label>
+                                                <label class="titulo">UMF </label>
                                                 <input type="text" class="form-control" name="umf"
                                                     value="{{$persona->umf ?? ''}}" onkeypress="return numeros(event)">
-                                                @error('umf')
-                                                <div class="alert alert-secondary">
-                                                    {{ $message }}
-                                                </div>
-                                                @enderror
                                             </div>
                                             <div class="col-md-4 mb-3">
-                                                <label class="titulo">Nombre del Padre <strong
-                                                        style="color:red">*</strong> </label>
+                                                <label class="titulo">Nombre del Padre  </label>
                                                 <input type="text" class="form-control" name="nombre_padre"
                                                     value="{{$persona->nombre_padre ?? ''}}" onkeyup="mayus(this);"
                                                     onkeypress="return validar(event)">
-                                                @error('nombre_padre')
-                                                <div class="alert alert-secondary">
-                                                    {{ $message }}
-                                                </div>
-                                                @enderror
                                             </div>
                                             <div class="col-md-1 mb-3">
                                                 <br>
@@ -673,16 +596,10 @@
                                                     onkeypress="return validar(event)">
                                             </div>
                                             <div class="col-md-4 mb-3">
-                                                <label class="titulo">Nombre de la Madre <strong
-                                                        style="color:red">*</strong></label>
+                                                <label class="titulo">Nombre de la Madre</label>
                                                 <input type="text" class="form-control"
                                                     value="{{$persona->nombre_madre ?? ''}}" name="nombre_madre"
                                                     onkeyup="mayus(this);" onkeypress="return validar(event)">
-                                                @error('nombre_madre')
-                                                <div class="alert alert-secondary">
-                                                    {{ $message }}
-                                                </div>
-                                                @enderror
                                             </div>
                                             <div class="col-md-1 mb-3">
                                                 <br>
@@ -730,40 +647,22 @@
                                                     onkeypress="return validar(event)">
                                             </div>
                                             <div class="col-md-3 mb-3">
-                                                <label class="titulo">Funciones de Oficina <strong
-                                                        style="color:red">*</strong></label>
+                                                <label class="titulo">Funciones de Oficina</label>
                                                 <input type="text" class="form-control" name="funciones_oficina"
                                                     value="{{$persona->funciones_oficina ?? ''}}" onkeyup="mayus(this);"
                                                     onkeypress="return validar(event)">
-                                                @error('funciones_oficina')
-                                                <div class="alert alert-secondary">
-                                                    {{ $message }}
-                                                </div>
-                                                @enderror
                                             </div>
                                             <div class="col-md-4 mb-3">
-                                                <label class="titulo">Máquinas de Oficina o Taller que Maneje <strong
-                                                        style="color:red">*</strong></label>
+                                                <label class="titulo">Máquinas de Oficina o Taller que Maneje </label>
                                                 <input type="text" class="form-control" maxlength="20"
                                                     name="maquinas_oficina" value="{{$persona->maquinas_oficina ?? ''}}"
                                                     onkeyup="mayus(this);" onkeypress="return validar(event)">
-                                                @error('maquinas_oficina')
-                                                <div class="alert alert-secondary">
-                                                    {{ $message }}
-                                                </div>
-                                                @enderror
                                             </div>
                                             <div class="col-md-4 mb-3">
-                                                <label class="titulo">Software que conoce <strong
-                                                        style="color:red">*</strong> </label>
+                                                <label class="titulo">Software que conoce </label>
                                                 <input type="text" class="form-control" name="software"
                                                     value="{{$persona->software ?? ''}}" onkeyup="mayus(this);"
                                                     onkeypress="return validar(event)">
-                                                @error('software')
-                                                <div class="alert alert-secondary">
-                                                    {{ $message }}
-                                                </div>
-                                                @enderror
                                             </div>
                                             <div class="col-md-4 mb-3">
                                                 <label class="titulo">Otras funciones o trabajos que domina</label>
@@ -882,36 +781,20 @@
                                             </div>
                                             <!--Fin titulos-->
                                             <!--Inicio Primaria-->
-                                            <label for="" class="col-form-label col-sm-2 titulo">Primaria <strong
-                                                    style="color:red">*</strong></label>
+                                            <label for="" class="col-form-label col-sm-2 titulo">Primaria </label>
                                             <div class="col-sm-3">
                                                 <input type="text" value="{{$persona->primaria ?? ''}}" name="primaria"
                                                     class="form-control" onkeyup="mayus(this);"
                                                     onkeypress="return validar(event)">
-                                                @error('primaria')
-                                                <div class="alert alert-secondary">
-                                                    {{ $message }}
-                                                </div>
-                                                @enderror
                                             </div>
                                             <div class="col-sm-4">
                                                 <input value="{{$persona->duracion_primaria ?? ''}}"
                                                     name="duracion_primaria" class="form-control" id="duracion5">
-                                                @error('duracion_primaria')
-                                                <div class="alert alert-secondary">
-                                                    {{ $message }}
-                                                </div>
-                                                @enderror
                                             </div>
                                             <div class="col-sm-3">
                                                 <input type="text" value="{{$persona->titulo_primaria ?? ''}}"
                                                     name="titulo_primaria" class="form-control" onkeyup="mayus(this);"
                                                     onkeypress="return validar(event)">
-                                                @error('titulo_primaria')
-                                                <div class="alert alert-secondary">
-                                                    {{ $message }}
-                                                </div>
-                                                @enderror
                                             </div>
                                             <!--FIN Primaria-->
                                             <!--Inicio Secundaria-->
@@ -1449,7 +1332,7 @@
                                             <div class="col-sm-2">
                                                 <label class="titulo" style="text-align: left;">Tiempo (Años)</label>
                                                 <input type="number" value="{{$persona->tiempo ?? ''}}" name="tiempo"
-                                                    min="1" max="99" step="1" class="form-control" maxlength="2"
+                                                 step="1" class="form-control" maxlength="2"
                                                     onkeypress="return numeros(event)">
                                                 @error('tiempo')
                                                 <div class="alert alert-secondary">
@@ -1457,10 +1340,10 @@
                                                 </div>
                                                 @enderror
                                                 <input type="number" value="{{$persona->tiempo1 ?? ''}}" name="tiempo1"
-                                                    min="1" max="99" step="1" class="form-control" maxlength="2"
+                                                    step="1" class="form-control" maxlength="2"
                                                     onkeypress="return numeros(event)">
                                                 <input type="number" value="{{$persona->tiempo2 ?? ''}}" name="tiempo2"
-                                                    min="1" max="99" step="1" class="form-control" maxlength="2"
+                                                    step="1" class="form-control" maxlength="2"
                                                     onkeypress="return numeros(event)">
                                             </div>
                                         </div>
@@ -1956,29 +1839,18 @@
                                             </div>
                                             <div class="col-md-4 mb-4">
                                                 <br>
-                                                <label class="titulo">Cuenta Bancaria <strong
-                                                        style="color:red">*</strong></label>
+                                                <label class="titulo">Cuenta Bancaria</label>
                                                 <input type="text" value="{{$persona->cuenta_bancaria ?? ''}}"
                                                     class="form-control" maxlength="20" name="cuenta_bancaria" value=""
                                                     onkeypress="return numeros(event)">
-                                                @error('cuenta_bancaria')
-                                                <div class="alert alert-secondary">
-                                                    {{ $message }}
-                                                </div>
-                                                @enderror
+                                            
                                             </div>
                                             <div class="col-md-4 mb-4">
                                                 <br>
-                                                <label class="titulo">Clabe Interbancaria <strong
-                                                        style="color:red">*</strong></label>
+                                                <label class="titulo">Clabe Interbancaria</label>
                                                 <input type="text" value="{{$persona->clabe_interbancaria ?? ''}}"
                                                     class="form-control" maxlength="18" name="clabe_interbancaria"
                                                     value="" onkeypress="return numeros(event)">
-                                                @error('clabe_interbancaria')
-                                                <div class="alert alert-secondary">
-                                                    {{ $message }}
-                                                </div>
-                                                @enderror
                                             </div>
                                             <div class="col-md-2 mb-3">
                                                 <br>
@@ -2024,40 +1896,40 @@
                                                         <div class="btn-group">
                                                             @if(isset($persona))
                                                             <div class="form-group">
-                                                                <button type="submit" name="acciones" value="primero"
+                                                                <button title="Primero" type="submit" name="acciones" value="primero"
                                                                     id="primero" class="botonesgrandes"><i
                                                                         class="fas fa-backward"></i></button>
                                                             </div>
                                                             <div class="form-group">
-                                                                <button type="submit" name="acciones" value="atras"
+                                                                <button title="Atrás" type="submit" name="acciones" value="atras"
                                                                     id="atras" class="botonesgrandes"><i
                                                                         class="fas fa-arrow-circle-left"></i></button>
                                                             </div>
                                                             <div class="form-group">
-                                                                <button type="submit" name="acciones" value="siguiente"
+                                                                <button title="Siguiente" type="submit" name="acciones" value="siguiente"
                                                                     id="siguiente" class="botonesgrandes"><i
                                                                         class="fas fa-arrow-circle-right"></i></button>
                                                             </div>
                                                             <div class="form-group">
-                                                                <button type="submit" name="acciones" value="ultimo"
+                                                                <button title="Último" type="submit" name="acciones" value="ultimo"
                                                                     id="ultimo" class="botonesgrandes"><i
                                                                         class="fas fa-forward"></i></button>
                                                             </div>
                                                             @else
                                                             <div class="form-group">
-                                                                <button type="submit" class="botones" disabled><i
+                                                                <button title="Primero" type="submit" class="botones" disabled><i
                                                                         class="fas fa-backward"></i></button>
                                                             </div>
                                                             <div class="form-group">
-                                                                <button type="submit" class="botones" disabled><i
+                                                                <button title="Atrás" type="submit" class="botones" disabled><i
                                                                         class="fas fa-arrow-circle-left"></i></button>
                                                             </div>
                                                             <div class="form-group">
-                                                                <button type="submit" class="botones" disabled><i
+                                                                <button title="Siguiente"  type="submit" class="botones" disabled><i
                                                                         class="fas fa-arrow-circle-right"></i></button>
                                                             </div>
                                                             <div class="form-group">
-                                                                <button type="submit" class="botones" disabled><i
+                                                                <button title="Último" type="submit" class="botones" disabled><i
                                                                         class="fas fa-forward"></i></button>
                                                             </div>
                                                             @endif

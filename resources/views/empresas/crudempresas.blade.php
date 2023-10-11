@@ -78,16 +78,10 @@
                 <div class="col-sm-2">
                     <div class="form-group">
                         <label class="titulo">
-                            Registro patronal<strong class="obligatorio">*</strong>
+                            Registro patronal
                         </label>
                         <input type="text" name="segurosocial" maxlength="11" class="form-control"
-                            value="{{$empresa->segurosocial ?? ''}}" onkeyup="mayus(this);"
-                            onkeypress="return numeros(event);">
-                        @error('segurosocial')
-                        <div class="alert alert-secondary">
-                            {{ $message }}
-                        </div>
-                        @enderror
+                            value="{{$empresa->segurosocial ?? ''}}" onkeyup="mayus(this);">
                     </div>
                 </div>
                 <div class="col-sm-3">
@@ -239,7 +233,7 @@
                 </div>
                 <div class="col-sm-3">
                     <div class="form-group">
-                        <label class="titulo">Teléfono<strong class="obligatorio">*</strong></label>
+                        <label class="titulo">Teléfono de contacto<strong class="obligatorio">*</strong></label>
                         <input type="text" name="telefono" id="telefono" max="10" class="form-control telefono"
                             value="{{$empresa->telefono ?? ''}}" onkeypress="return numeros(event);">
                         @error('telefono')
@@ -263,15 +257,10 @@
                 <div class="col-sm-3">
                     <div class="form-group">
                         <label class="titulo">
-                            CURP Representante Legal<strong class="obligatorio">*</strong>
+                            CURP Representante Legal
                         </label>
                         <input type="text" name="curpRepresentante" class="form-control"
                             value="{{ $empresa->curpRepresentante ?? ''}}" onkeyup="mayus(this);">
-                        @error('curpRepresentante')
-                        <div class="alert alert-secondary">
-                            {{ $message }}
-                        </div>
-                        @enderror
                     </div>
                 </div>
                 <div class="col-sm-3">
@@ -316,27 +305,16 @@
                 </div>
                 <div class="col-sm-3">
                     <div class="form-group">
-                        <label class="titulo">Factor Prima de Riesgo de Trabajo<strong
-                                class="obligatorio">*</strong></label>
+                        <label class="titulo">Factor Prima de Riesgo de Trabajo
                         <input type="number" min="-1" max="10" step="any" name="primaRiesgo"
                             class="form-control primaRiesgo" value="{{ $empresa->primaRiesgo ?? ''}}">
-                        @error('primaRiesgo')
-                        <div class="alert alert-secondary">
-                            {{ $message }}
-                        </div>
-                        @enderror
                     </div>
                 </div>
                 <div class="col-sm-3">
                     <div class="form-group">
-                        <label class="titulo">Fondo de Ahorro (%)<strong class="obligatorio">*</strong></label>
+                        <label class="titulo">Fondo de Ahorro (%)</label>
                         <input type="number" name="porcentajeAhorro" class="form-control porcentajeAhorro"
                             value="{{ $empresa->porcentajeAhorro ?? ''}}">
-                        @error('porcentajeAhorro')
-                        <div class="alert alert-secondary">
-                            {{ $message }}
-                        </div>
-                        @enderror
                     </div>
                 </div>
                 <div class="col-sm-3">
@@ -390,36 +368,36 @@
                         <div class="btn-group">
                             @if(isset($empresa))
                             <div class="form-group">
-                                <button type="submit" name="acciones" value="primero" id="primero"
+                                <button title="Primero" type="submit" name="acciones" value="primero" id="primero"
                                     class="botonesgrandes"><i class="fas fa-backward"></i></button>
                             </div>
                             <div class="form-group">
-                                <button type="submit" name="acciones" value="atras" id="atras" class="botonesgrandes"><i
+                                <button title="Atrás" type="submit" name="acciones" value="atras" id="atras" class="botonesgrandes"><i
                                         class="fas fa-arrow-circle-left"></i></button>
                             </div>
                             <div class="form-group">
-                                <button type="submit" name="acciones" value="siguiente" id="siguiente"
+                                <button title="Siguiente" type="submit" name="acciones" value="siguiente" id="siguiente"
                                     class="botonesgrandes"><i class="fas fa-arrow-circle-right"></i></button>
                             </div>
                             <div class="form-group">
-                                <button type="submit" name="acciones" value="ultimo" id="ultimo"
+                                <button title="Último" type="submit" name="acciones" value="ultimo" id="ultimo"
                                     class="botonesgrandes"><i class="fas fa-forward"></i></button>
                             </div>
                             @else
                             <div class="form-group">
-                                <button type="submit" class="botonesgrandes" disabled><i
+                                <button title="Primero" type="submit" class="botonesgrandes" disabled><i
                                         class="fas fa-backward"></i></button>
                             </div>
                             <div class="form-group">
-                                <button type="submit" class="botonesgrandes" disabled><i
+                                <button title="Atrás" type="submit" class="botonesgrandes" disabled><i
                                         class="fas fa-arrow-circle-left"></i></button>
                             </div>
                             <div class="form-group">
-                                <button type="submit" class="botonesgrandes" disabled><i
+                                <button title="Siguiente" type="submit" class="botonesgrandes" disabled><i
                                         class="fas fa-arrow-circle-right"></i></button>
                             </div>
                             <div class="form-group">
-                                <button type="submit" class="botonesgrandes" disabled><i
+                                <button title="Último" type="submit" class="botonesgrandes" disabled><i
                                         class="fas fa-forward"></i></button>
                             </div>
                             @endif
@@ -433,14 +411,15 @@
                             @canany(['administrador','capturista','reportes'])
                             @if(isset($empresa))
                             <div class="form-group">
-                                <button id="buscar" type="button" data-toggle="modal" data-target="#exampleModal"
+                           
+                                <button title="Buscar" id="buscar" type="button" data-toggle="modal" data-target="#exampleModal"
                                     class="botonesgrandes">
                                     <i class="fas fa-search"></i>
                                 </button>
                             </div>
                             @else
                             <div class="form-group">
-                                <button id="buscar_falso" type="button" class="botonesgrandes" disabled>
+                                <button title="Buscar" id="buscar_falso" type="button" class="botonesgrandes" disabled>
                                     <i class="fas fa-search"></i>
                                 </button>
                             </div>
@@ -448,37 +427,37 @@
                             @endcanany
                             @canany(['administrador','capturista'])
                             <div class="form-group">
-                                <button type="button" id="nuevo" class="botonesgrandes"> <i
+                                <button title="Agregar" type="button" id="nuevo" class="botonesgrandes"> <i
                                         class="fas fa-user-plus"></i></button>
                             </div>
                             @elsecanany(['reportes'])
                             <div class="form-group">
-                                <button type="button" disabled class="botonesgrandes"> <i
+                                <button title="Agregar" type="button" disabled class="botonesgrandes"> <i
                                         class="fas fa-user-plus"></i></button>
                             </div>
                             @endcanany
                             @canany(['administrador','capturista'])
                             @if(isset($empresa))
                             <div class="form-group">
-                                <button type="button" id="actualizar" class="botonesgrandes"> <i
+                                <button title="Actualizar" type="button" id="actualizar" class="botonesgrandes"> <i
                                         class="fas fa-pen-square"></i></button>
                             </div>
                             @else
                             <div class="form-group">
-                                <button type="button" disabled class="botonesgrandes"> <i
+                                <button title="Actualizar" type="button" disabled class="botonesgrandes"> <i
                                         class="fas fa-pen-square"></i></button>
                             </div>
                             @endif
                             @elsecanany(['reportes'])
                             <div class="form-group">
-                                <button type="button" disabled class="botonesgrandes"> <i
+                                <button title="Actualizar" type="button" disabled class="botonesgrandes"> <i
                                         class="fas fa-pen-square"></i></button>
                             </div>
                             @endcanany
                             @can('administrador')
                             <div class="form-group">
                                 @if(isset($empresa))
-                                <a href="#" id="eliminar" data-target="#modal-deletenom-{{$empresa->id}}"
+                                <a href="#" title="Eliminar" id="eliminar" data-target="#modal-deletenom-{{$empresa->id}}"
                                     data-toggle="modal">
                                     <button type="button" class="botonesgrandes">
                                         <i class="far fa-trash-alt"></i>
@@ -487,7 +466,7 @@
                                 @else
                                 <div class="form-group">
                                     <a id="eliminar_vacio">
-                                        <button type="button" disabled class="botonesgrandes">
+                                        <button title="Eliminar" type="button" disabled class="botonesgrandes">
                                             <i class="far fa-trash-alt"></i>
                                         </button>
                                     </a>
@@ -497,7 +476,7 @@
                             @elsecanany(['capturista','reportes'])
                             <div class="form-group">
                                 <a id="eliminar_">
-                                    <button type="button" disabled class="botonesgrandes">
+                                    <button title="Eliminar" type="button" disabled class="botonesgrandes">
                                         <i class="far fa-trash-alt"></i>
                                     </button>
                                 </a>
@@ -511,19 +490,19 @@
                         <div class="btn-group">
                             <!--Su uso solo es para visualizar la existencia del los iconos -->
                             <div class="form-group">
-                                <button id="guardar_falso" disabled class="botonesgrandes"><i
+                                <button title="Guardar" id="guardar_falso" disabled class="botonesgrandes"><i
                                         class="fas fa-save"></i></button>
                             </div>
                             <div class="form-group">
-                                <button id="nuevo_reg" name="acciones" value="registrar" type="submit"
+                                <button title="Guardar" id="nuevo_reg" name="acciones" value="registrar" type="submit"
                                     style="display: none;" class="botonesgrandes"><i class="fas fa-save"></i></button>
                             </div>
                             <div class="form-group">
-                                <button name="acciones" value="actualizar" id="actualizar_reg" type="submit"
+                                <button title="Cancelar" name="acciones" value="actualizar" id="actualizar_reg" type="submit"
                                     style="display: none;" class="botonesgrandes"><i class="fas fa-save"></i></button>
                             </div>
                             <div class="form-group">
-                                <button name="acciones" value="cancelar" id="cancelar_reg" type="submit" disabled
+                                <button title="Cancelar" name="acciones" value="cancelar" id="cancelar_reg" type="submit" disabled
                                     class="botonesgrandes"><i class="far fa-window-close"></i></button>
                             </div>
                         </div>

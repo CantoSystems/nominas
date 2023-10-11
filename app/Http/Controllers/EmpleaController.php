@@ -51,13 +51,14 @@ class EmpleaController extends Controller
                 $puestos=DB::connection('DB_Serverr')->table('puestos')->get();
                 $bancos=Banco::all();
 
-                $persona = DB::connection('DB_Serverr')->table('empleados')
-                            ->join('departamentos','departamentos.clave_departamento','=','empleados.clave_departamento')
+                $persona = DB::connection('DB_Serverr')->table('empleados')->get()->first();
+                           /* ->join('departamentos','departamentos.clave_departamento','=','empleados.clave_departamento')
                             ->join('puestos','puestos.clave_puesto','=','empleados.clave_puesto')
                             ->join('areas','areas.clave_area', '=','departamentos.clave_area')
                             ->join('nominas.bancos as ebancos','ebancos.clave_banco','=','empleados.clave_banco')
                             ->select('empleados.*','areas.*','departamentos.*','puestos.*','ebancos.*')
-                            ->orderBy('id_emp')->first();
+                            ->orderBy('id_emp')->first();*/
+                           
 
                 $empleados = DB::connection('DB_Serverr')->table('empleados')
                             ->join('departamentos','departamentos.clave_departamento','=','empleados.clave_departamento')
@@ -290,14 +291,10 @@ class EmpleaController extends Controller
         }
 
         $datos->validate([
-              'clave_empleado' => 'required',
-              'clasificacion' => 'required',
               'nombre' => 'required',
               'apellido_paterno' => 'required',
               'apellido_materno' => 'required',
               'fecha_alta' => 'required',
-              'clave_departamento' => 'required',
-              'clave_puesto' => 'required',
               'rfc' => 'required',
               'curp' => 'required',
               'imss' => 'required',
@@ -314,38 +311,10 @@ class EmpleaController extends Controller
               'sexo' => 'required',
               'estado_civil' => 'required',
               'nacionalidad' => 'required',
-              'tipo_sangre' => 'required',
-              'estatura' => 'required',
-              'peso' => 'required',
               'fecha_nacimiento' => 'required',
-              'lugar' => 'required',
-              'umf' => 'required',
-              'nombre_padre' => 'required',
-              'nombre_madre' => 'required',
-              'funciones_oficina' => 'required',
-              'maquinas_oficina' => 'required',
-              'software' => 'required',
               'beneficiario' => 'required',
               'parentesco' => 'required',
               'porcentaje' => 'required',
-              'primaria' => 'required',
-              'duracion_primaria' => 'required',
-              'titulo_primaria' => 'required',
-              'duracion_trabajo' => 'required',
-              'nombre_compania' => 'required',
-              'direccion_compania' => 'required',
-              'telefono_compania' => 'required',
-              'sueldo' => 'required',
-              'motivo_separacion' => 'required',
-              'nombre_jefe' => 'required',
-              'puesto_jefe' => 'required',
-              'solicitar_informes' => 'required',
-              'razones' => 'required',
-              'referencia' => 'required',
-              'direccion_trabajo' => 'required',
-              'telefono_referencia' => 'required',
-              'ocupacion' => 'required',
-              'tiempo' => 'required',
               'tipo_trabajador' => 'required',
               'turno' => 'required',
               'contrato' => 'required',
@@ -360,8 +329,6 @@ class EmpleaController extends Controller
               'horas_diarias' => 'required',
               'forma_pago' => 'required',
               'clave_banco' => 'required',
-              'cuenta_bancaria' => 'required',
-              'clabe_interbancaria' => 'required',
         ]);
 
         
@@ -380,8 +347,8 @@ class EmpleaController extends Controller
                                                                    ,imss
                                                                    ,afore
                                                                    ,ine
-                                                                   ,pasaporte
-                                                                   ,cartilla
+                                                                   ,credito_infonavit
+                                                                   ,credito_fonacot
                                                                    ,licencia
                                                                    ,documento_migratorio
                                                                    ,calle
@@ -558,8 +525,8 @@ class EmpleaController extends Controller
                                                             ,$datos->imss
                                                             ,$datos->afore
                                                             ,$datos->ine
-                                                            ,$datos->pasaporte
-                                                            ,$datos->cartilla
+                                                            ,$datos->credito_infonavit
+                                                            ,$datos->credito_fonacot
                                                             ,$datos->licencia
                                                             ,$datos->documento_migratorio
                                                             ,$datos->calle

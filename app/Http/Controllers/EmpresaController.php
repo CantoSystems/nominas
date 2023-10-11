@@ -98,7 +98,7 @@ class EmpresaController extends Controller{
             break;
             case 'registrar':
                 $this->registrar($request);
-                //return redirect()->route('nominas.empresas');
+                return redirect()->route('nominas.empresas');
                 break;
             case 'actualizar':
                 $this->actualizar($request);
@@ -170,7 +170,6 @@ class EmpresaController extends Controller{
             'clave' => 'required|unique:empresas',
             'nombre_nomina' => 'required',
             'rfc' => 'required',
-            'segurosocial' => 'required',
             'registro_estatal' => 'required',
             'calle' => 'required',
             'num_externo' => 'required',
@@ -185,9 +184,6 @@ class EmpresaController extends Controller{
             'telefono' => 'required',
             'email' => 'required',
             'regionEmpresa' => 'required',
-            'primaRiesgo' => 'required',
-            'porcentajeAhorro' => 'required',
-            'curpRepresentante' => 'required',
             'tipoPeriodo' => 'required',
         ]);
 
@@ -435,23 +431,23 @@ class EmpresaController extends Controller{
 
             Schema::connection('DB_Serverr')->create('empleados', function($table){
                 $table->increments('id_emp');
-                $table->char('clave_empleado',5);
-                $table->string('clasificacion',100);
+                $table->char('clave_empleado',5)->nullable();
+                $table->string('clasificacion',100)->nullable();
                 $table->string('nombre',50);
                 $table->string('apellido_paterno',50);
                 $table->string('apellido_materno',50);
                 $table->date('fecha_alta');
                 $table->date('fecha_baja')->nullable();
                 $table->string('causa_baja')->nullable();
-                $table->char('clave_departamento',5);
-                $table->char('clave_puesto',5);
+                $table->char('clave_departamento',5)->nullable();
+                $table->char('clave_puesto',5)->nullable();
                 $table->string('rfc',13);
                 $table->string('curp',18);
                 $table->string('imss',11);
                 $table->string('afore',50)->nullable();
                 $table->string('ine',18);
-                $table->string('pasaporte',6)->nullable();
-                $table->string('cartilla',10)->nullable();
+                $table->string('credito_infonavit',15)->nullable();
+                $table->string('credito_fonacot',15)->nullable();
                 $table->string('licencia',5)->nullable();
                 $table->string('documento_migratorio',13)->nullable();
                 $table->string('calle',80);
@@ -467,19 +463,19 @@ class EmpresaController extends Controller{
                 $table->string('sexo',6);
                 $table->string('estado_civil',20);
                 $table->string('nacionalidad',20);
-                $table->string('tipo_sangre',10);
+                $table->string('tipo_sangre',10)->nullable();
                 $table->string('alergias',100)->nullable();
-                $table->double('estatura');
-                $table->double('peso');
+                $table->double('estatura')->nullable();
+                $table->double('peso')->nullable();
                 $table->string('enfermedad_cronica',100)->nullable();
                 $table->string('deporte',100)->nullable();
                 $table->string('pasatiempo',100)->nullable();
                 $table->string('asosiacion',100)->nullable();
                 $table->string('objetivo_vida',100)->nullable();
-                $table->date('fecha_nacimiento');
-                $table->string('lugar',100);
-                $table->string('umf',100);
-                $table->string('nombre_padre',100);
+                $table->date('fecha_nacimiento')->nullable();
+                $table->string('lugar',100)->nullable();
+                $table->string('umf',100)->nullable();
+                $table->string('nombre_padre',100)->nullable();
                 $table->string('nombre_madre',100);
                 $table->boolean('finado_padre')->nullable();
                 $table->boolean('finado_madre')->nullable();
@@ -489,9 +485,9 @@ class EmpresaController extends Controller{
                 $table->string('ocupacion_madre',100)->nullable();;
                 $table->string('hijos',100)->nullable();
                 $table->string('idiomas',100)->nullable();
-                $table->string('funciones_oficina',100);
-                $table->string('maquinas_oficina',20);
-                $table->string('software',100);
+                $table->string('funciones_oficina',100)->nullable();
+                $table->string('maquinas_oficina',20)->nullable();
+                $table->string('software',100)->nullable();
                 $table->string('otras_funciones',100)->nullable();
                 $table->string('beneficiario',100);
                 $table->string('beneficiario1',100)->nullable();
@@ -508,9 +504,9 @@ class EmpresaController extends Controller{
                 $table->double('porcentaje2')->nullable();
                 $table->double('porcentaje3')->nullable();
                 $table->double('porcentaje4')->nullable();
-                $table->string('primaria',100);
-                $table->string('duracion_primaria');
-                $table->string('titulo_primaria',100);
+                $table->string('primaria',100)->nullable();
+                $table->string('duracion_primaria')->nullable();
+                $table->string('titulo_primaria',100)->nullable();
                 $table->string('secundaria',100)->nullable();
                 $table->string('duracion_secundaria')->nullable();
                 $table->string('titulo_secundaria',100)->nullable();
@@ -531,12 +527,12 @@ class EmpresaController extends Controller{
                 $table->string('nombre_compania',100);
                 $table->string('direccion_compania',100);
                 $table->string('telefono_compania',15);
-                $table->double('sueldo');
+                $table->double('sueldo')->nullable();
                 $table->string('motivo_separacion',100);
                 $table->string('nombre_jefe',100);
                 $table->string('puesto_jefe',100);
-                $table->boolean('solicitar_informes');
-                $table->string('razones',100);
+                $table->boolean('solicitar_informes')->nullable();
+                $table->string('razones',100)->nullable();
                 $table->string('duracion_trabajo1')->nullable();
                 $table->string('nombre_compania1',100)->nullable();
                 $table->string('direccion1_trabajo1',100)->nullable();
@@ -567,11 +563,11 @@ class EmpresaController extends Controller{
                 $table->string('puesto_jefe3',100)->nullable();
                 $table->boolean('solicitar_informes3')->nullable();
                 $table->string('razones3',100)->nullable();
-                $table->string('referencia',100);
-                $table->string('direccion_trabajo',100);
-                $table->string('telefono_referencia',15);
-                $table->string('ocupacion',100);
-                $table->double('tiempo');
+                $table->string('referencia',100)->nullable();
+                $table->string('direccion_trabajo',100)->nullable();
+                $table->string('telefono_referencia',15)->nullable();
+                $table->string('ocupacion',100)->nullable();
+                $table->double('tiempo')->nullable();
                 $table->string('referencia1',100)->nullable();
                 $table->string('direccion1',100)->nullable();
                 $table->string('telefono_referencia1',15)->nullable();
@@ -599,8 +595,8 @@ class EmpresaController extends Controller{
                 $table->double('horas_diarias');
                 $table->string('forma_pago',50);
                 $table->char('clave_banco',5);
-                $table->string('cuenta_bancaria',20);
-                $table->string('clabe_interbancaria',18);
+                $table->string('cuenta_bancaria',20)->nullable();
+                $table->string('clabe_interbancaria',18)->nullable();
                 $table->boolean('ptu')->nullable();
                 $table->string('observaciones',255)->nullable();
                 $table->timestamps();
