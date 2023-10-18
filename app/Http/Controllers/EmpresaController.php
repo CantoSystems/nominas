@@ -263,12 +263,11 @@ class EmpresaController extends Controller{
                 $table->timestamps();
             });
 
-            Schema::connection('DB_Serverr')->create('puestos', function($table){
-                $table->increments('id');
-                $table->char('clave_puesto',10);
-                $table->string('nombre_puesto',50);
-                $table->timestamps();
-            });
+            $fecha_periodo = now()->toDateString();
+            DB::connection('DB_Serverr')
+                    ->insert('insert into areas (area,clave_area,created_at,updated_at)
+                                values (?,?,?,?)',
+                                ["ADMINISTRATIVO","A001",$fecha_periodo,$fecha_periodo]);
 
             Schema::connection('DB_Serverr')->create('departamentos', function($table){
                 $table->increments('id');
@@ -277,6 +276,32 @@ class EmpresaController extends Controller{
                 $table->char('clave_area', 10);
                 $table->timestamps();
             });
+             DB::connection('DB_Serverr')
+                    ->insert('insert into departamentos (clave_departamento,departamento,clave_area,created_at,updated_at)
+                                values (?,?,?,?,?)',
+                                ["D001","ADMINISTRATIVO","A001",$fecha_periodo,$fecha_periodo]);
+
+
+            Schema::connection('DB_Serverr')->create('puestos', function($table){
+                $table->increments('id');
+                $table->char('clave_puesto',10);
+                $table->string('nombre_puesto',50);
+                $table->timestamps();
+            });
+
+            $puestos = Collect([
+                ["clave_puesto"=> "P001","nombre_puesto"=>"RECURSOS HUMANOS"],
+                ["clave_puesto"=> "P002","nombre_puesto"=>"AUXILIAR DE OPERACIONES"],
+            ]);
+
+            foreach($puestos as $pt){
+                DB::connection('DB_Serverr')->insert('insert into puestos (clave_puesto,nombre_puesto,created_at,updated_at)
+                                values (?,?,?,?)',
+                                [$pt['clave_puesto'],$pt['nombre_puesto'],$fecha_periodo,$fecha_periodo]);
+            }
+
+            
+            
 
             Schema::connection('DB_Serverr')->create('conceptos', function($table){
                 $table->increments('id');
@@ -367,7 +392,7 @@ class EmpresaController extends Controller{
                 ["clave_concepto" => "023D", "concepto" => "CREDITO INFONAVIT VSM", "formula" => NULL,"tipo" => "D", "manejo" => "variable", "cantidad" => NULL,"importe" => NULL, "monto" => NULL, "isr" => 0, "imss" => 0,"infonavit" => 0,"estatal" => 0,"isr_uma" => 0.00,"isr_porcentaje" => 0.00,"imss_uma" =>  0.00, "imss_porcentaje" => 0.00, "seleccionado" => 0],
             ]);
             
-            $fecha_periodo = now()->toDateString();
+            
             foreach($conceptos as $con){
                 DB::connection('DB_Serverr')
                     ->insert('insert into conceptos (clave_concepto,concepto,formula,naturaleza,manejo,cantidad,importe,monto,isr,imss,infonavit,estatal,isr_uma,isr_porcentaje,imss_uma,imss_porcentaje,seleccionado,created_at,updated_at)
