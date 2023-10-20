@@ -1634,7 +1634,7 @@
                                             <div class="col-md-2 mb-2">
                                                 <br>
                                                 <label class="titulo">Sueldo diario <strong
-                                                        style="color:red">*</strong></label>
+                                                        style="color:red">**</strong></label>
                                                 <input type="number" class="form-control" name="sueldo_diario"
                                                     value="{{$persona->sueldo_diario ?? ''}}" maxlength="5" min="0.01"
                                                     max="10000.00" step="0.01">
