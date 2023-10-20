@@ -51,13 +51,14 @@ class EmpleaController extends Controller
                 $puestos=DB::connection('DB_Serverr')->table('puestos')->get();
                 $bancos=Banco::all();
 
-                $persona = DB::connection('DB_Serverr')->table('empleados')->get()->first();
-                           /* ->join('departamentos','departamentos.clave_departamento','=','empleados.clave_departamento')
+                $persona = DB::connection('DB_Serverr')->table('empleados')->join('departamentos','departamentos.clave_departamento','=','empleados.clave_departamento')
                             ->join('puestos','puestos.clave_puesto','=','empleados.clave_puesto')
                             ->join('areas','areas.clave_area', '=','departamentos.clave_area')
                             ->join('nominas.bancos as ebancos','ebancos.clave_banco','=','empleados.clave_banco')
                             ->select('empleados.*','areas.*','departamentos.*','puestos.*','ebancos.*')
-                            ->orderBy('id_emp')->first();*/
+                            ->orderBy('id_emp')->first();
+
+                            
                            
 
                 $empleados = DB::connection('DB_Serverr')->table('empleados')
@@ -329,6 +330,10 @@ class EmpleaController extends Controller
               'horas_diarias' => 'required',
               'forma_pago' => 'required',
               'clave_banco' => 'required',
+              'clave_departamento'  => 'required',
+              'clave_puesto' => 'required',
+
+
         ]);
 
         
@@ -791,8 +796,8 @@ class EmpleaController extends Controller
                      ,'imss'=>$datos->imss
                      ,'afore'=>$datos->afore
                      ,'ine'=>$datos->ine
-                     ,'pasaporte'=>$datos->pasaporte
-                     ,'cartilla'=>$datos->cartilla
+                     ,'credito_infonavit'=>$datos->credito_infonavit
+                     ,'credito_fonacot'=>$datos->credito_fonacot
                      ,'licencia'=>$datos->licencia
                      ,'documento_migratorio'=>$datos->documento_migratorio
                      ,'calle'=>$datos->calle
@@ -810,8 +815,6 @@ class EmpleaController extends Controller
                      ,'nacionalidad'=>$datos->nacionalidad
                      ,'tipo_sangre'=>$datos->tipo_sangre
                      ,'alergias'=>$datos->alergias
-                     ,'estatura'=>$datos->estatura
-                     ,'peso'=>$datos->peso
                      ,'enfermedad_cronica'=>$datos->enfermedad_cronica
                      ,'deporte'=>$datos->deporte
                      ,'pasatiempo'=>$datos->pasatiempo

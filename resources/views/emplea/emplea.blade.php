@@ -1446,22 +1446,22 @@
                                                     @if($persona->contrato=="")
                                                     <option selected disabled value="">Seleccione una opción:</option>
                                                     <option value="PRUEBA">Prueba</option>
-                                                    <option value="DETERMINDO">Tiempo determinado</option>
+                                                    <option value="DETERMINADO">Tiempo determinado</option>
                                                     <option value="INDETERMINADO">Tiempo indeterminado</option>
                                                     @elseif($persona->contrato=="PRUEBA")
                                                     <option disabled value="">Seleccione una opción:</option>
                                                     <option selected value="PRUEBA">Prueba</option>
-                                                    <option value="DETERMINDO">Tiempo determinado</option>
+                                                    <option value="DETERMINADO">Tiempo determinado</option>
                                                     <option value="INDETERMINADO">Tiempo indeterminado</option>
                                                     @elseif($persona->contrato=="DETERMINADO")
                                                     <option disabled value="">Seleccione una opción:</option>
                                                     <option value="PRUEBA">Prueba</option>
-                                                    <option selected value="DETERMINDO">Tiempo determinado</option>
+                                                    <option selected value="DETERMINADO">Tiempo determinado</option>
                                                     <option value="INDETERMINADO">Tiempo indeterminado</option>
                                                     @elseif($persona->contrato=="INDETERMINADO")
                                                     <option disabled value="">Seleccione una opción:</option>
                                                     <option value="PRUEBA">Prueba</option>
-                                                    <option value="DETERMINDO">Tiempo determinado</option>
+                                                    <option value="DETERMINADO">Tiempo determinado</option>
                                                     <option selected value="INDETERMINADO">Tiempo indeterminado</option>
                                                     @endif
                                                 </select>
@@ -1945,14 +1945,14 @@
                                                 @canany(['administrador','capturista','reportes'])
                                                 @if(isset($persona))
                                                 <div class="form-group">
-                                                    <button id="buscar" type="button" data-toggle="modal"
+                                                    <button title="Buscar" id="buscar" type="button" data-toggle="modal"
                                                         data-target="#modalbusquedaemp" class="botonesgrandes">
                                                         <i class="fas fa-search"></i>
                                                     </button>
                                                 </div>
                                                 @else
                                                 <div class="form-group">
-                                                    <button id="buscar_falso" type="button" class="botonesgrandes"
+                                                    <button title="Buscar" id="buscar_falso" type="button" class="botonesgrandes"
                                                         disabled>
                                                         <i class="fas fa-search"></i>
                                                     </button>
@@ -1961,37 +1961,37 @@
                                                 @endcanany
                                                 @canany(['administrador','capturista'])
                                                 <div class="form-group">
-                                                    <button type="button" id="nuevo" class="botonesgrandes"> <i
+                                                    <button title="Agregar" type="button" id="nuevo" class="botonesgrandes"> <i
                                                             class="fas fa-user-plus"></i></button>
                                                 </div>
                                                 @elsecanany(['reportes'])
                                                 <div class="form-group">
-                                                    <button type="button" disabled class="botonesgrandes"> <i
+                                                    <button title="Agregar" type="button" disabled class="botonesgrandes"> <i
                                                             class="fas fa-user-plus"></i></button>
                                                 </div>
                                                 @endcanany
                                                 @canany(['administrador','capturista'])
                                                 @if(isset($persona))
                                                 <div class="form-group">
-                                                    <button type="button" id="actualizar" class="botonesgrandes"> <i
+                                                    <button title="Actualizar" type="button" id="actualizar" class="botonesgrandes"> <i
                                                             class="fas fa-pen-square"></i></button>
                                                 </div>
                                                 @else
                                                 <div class="form-group">
-                                                    <button type="button" disabled class="botonesgrandes"> <i
+                                                    <button title="Actualizar" type="button" disabled class="botonesgrandes"> <i
                                                             class="fas fa-pen-square"></i></button>
                                                 </div>
                                                 @endif
                                                 @elsecanany(['reportes'])
                                                 <div class="form-group">
-                                                    <button type="button" disabled class="botonesgrandes"> <i
+                                                    <button title="Actualizar" type="button" disabled class="botonesgrandes"> <i
                                                             class="fas fa-pen-square"></i></button>
                                                 </div>
                                                 @endcanany
                                                 @can('administrador')
                                                 <div class="form-group">
                                                     @if(isset($persona))
-                                                    <a href="#" id="eliminar"
+                                                    <a href="#" title="Eliminar" id="eliminar"
                                                         data-target="#modaldeleteempleado{{$persona->id_emp}}"
                                                         data-toggle="modal">
                                                         <button type="button" class="botonesgrandes">
@@ -2001,7 +2001,7 @@
                                                     @else
                                                     <div class="form-group">
                                                         <a id="eliminar_vacio">
-                                                            <button type="button" disabled class="botonesgrandes">
+                                                            <button title="Eliminar" type="button" disabled class="botonesgrandes">
                                                                 <i class="far fa-trash-alt"></i>
                                                             </button>
                                                         </a>
@@ -2011,7 +2011,7 @@
                                                 @elsecanany(['capturista','reportes'])
                                                 <div class="form-group">
                                                     <a id="eliminar_">
-                                                        <button type="button" disabled class="botonesgrandes">
+                                                        <button title="Eliminar" type="button" disabled class="botonesgrandes">
                                                             <i class="far fa-trash-alt"></i>
                                                         </button>
                                                     </a>
@@ -2024,21 +2024,21 @@
                                                 &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
                                                 <!--Su uso solo es para visualizar la existencia del los iconos -->
                                                 <div class="form-group">
-                                                    <button id="guardar_falso" disabled class="botonesgrandes"><i
+                                                    <button title="Guardar" id="guardar_falso" disabled class="botonesgrandes"><i
                                                             class="fas fa-save"></i></button>
                                                 </div>
                                                 <div class="form-group">
-                                                    <button id="nuevo_reg" name="acciones" value="registrar"
+                                                    <button title="Guardar" id="nuevo_reg" name="acciones" value="registrar"
                                                         type="submit" style="display: none;" class="botonesgrandes"><i
                                                             class="fas fa-save"></i></button>
                                                 </div>
                                                 <div class="form-group">
-                                                    <button name="acciones" value="actualizar" id="actualizar_reg"
+                                                    <button title="Guardar" name="acciones" value="actualizar" id="actualizar_reg"
                                                         type="submit" style="display: none;" class="botonesgrandes"><i
                                                             class="fas fa-save"></i></button>
                                                 </div>
                                                 <div class="form-group">
-                                                    <button name="acciones" value="cancelar" id="cancelar_reg"
+                                                    <button title="Cancelar" name="acciones" value="cancelar" id="cancelar_reg"
                                                         type="submit" disabled class="botonesgrandes"><i
                                                             class="far fa-window-close"></i></button>
                                                 </div>

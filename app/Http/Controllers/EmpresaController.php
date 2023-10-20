@@ -300,8 +300,6 @@ class EmpresaController extends Controller{
                                 [$pt['clave_puesto'],$pt['nombre_puesto'],$fecha_periodo,$fecha_periodo]);
             }
 
-            
-            
 
             Schema::connection('DB_Serverr')->create('conceptos', function($table){
                 $table->increments('id');
@@ -464,8 +462,8 @@ class EmpresaController extends Controller{
                 $table->date('fecha_alta');
                 $table->date('fecha_baja')->nullable();
                 $table->string('causa_baja')->nullable();
-                $table->char('clave_departamento',5)->nullable();
-                $table->char('clave_puesto',5)->nullable();
+                $table->char('clave_departamento',5);
+                $table->char('clave_puesto',5);
                 $table->string('rfc',13);
                 $table->string('curp',18);
                 $table->string('imss',11);
