@@ -97,7 +97,7 @@ class EmpresaController extends Controller{
                 return view('empresas.crudempresas', compact('empresa','nominas'));
             break;
             case 'registrar':
-                return $request;
+                return $request::all();
                 $this->registrar($request);
                 return redirect()->route('nominas.empresas');
                 break;
