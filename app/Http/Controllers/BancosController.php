@@ -133,17 +133,13 @@ class BancosController extends Controller{
     * @return $codigo | int
   */
   public function registrar($datos){
-    return $datos;
+
     $datos->validate([
       'clave_banco' => 'required|unique:bancos',
-      'vsmInfonavit' => 'required|unique:bancos',
+      'nombre_banco' => 'required|unique:bancos',
     ]);
-   
-    /**if ($datos->nombre_banco === null) {
-      return redirect()->route('bancos.acciones');
-    }*/
+
     $banco = new Banco;
-    //$clave= $this->generador();
     $banco->clave_banco= $datos->clave_banco;
     $banco->nombre_banco= $datos->nombre_banco;
     $banco->save();
