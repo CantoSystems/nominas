@@ -13,7 +13,7 @@
                         <thead>
                             <tr>
                                 <th>Banco</th>
-                                <th></th>
+                                <th>Mostrar</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -242,21 +242,21 @@
                                     <div class="btn-group">
                                         <!--Su uso solo es para visualizar la existencia del los iconos -->
                                         <div class="form-group">
-                                            <button id="guardar_falso" disabled class="botones"><i
+                                            <button id="guardar_falso" title="Guardar" disabled class="botones"><i
                                                     class="fas fa-save"></i></button>
                                         </div>
                                         <div class="form-group">
-                                            <button id="nuevo_reg" name="acciones" value="registrar" type="submit"
+                                            <button id="nuevo_reg" title="Guardar" name="acciones" value="registrar" type="submit"
                                                 class="botones" style="display: none;"><i
                                                     class="fas fa-save"></i></button>
                                         </div>
                                         <div class="form-group">
-                                            <button name="acciones" value="actualizar" id="actualizar_reg" type="submit"
+                                            <button name="acciones" title="Guardar" value="actualizar" id="actualizar_reg" type="submit"
                                                 style="display: none;" class="botones"><i
                                                     class="fas fa-save"></i></button>
                                         </div>
                                         <div class="form-group">
-                                            <button name="acciones" value="cancelar" id="cancelar_reg" type="submit"
+                                            <button name="acciones" title="Cancelar" value="cancelar" id="cancelar_reg" type="submit"
                                                 class="botones" disabled><i class="far fa-window-close"></i></button>
                                         </div>
                                     </div>

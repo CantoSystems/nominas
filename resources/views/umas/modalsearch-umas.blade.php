@@ -1,32 +1,50 @@
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-sm">
+<div class="modal fade bs-example-modal-sm" id="exampleModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-md">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title modalPersonalizado" id="exampleModalLabel">Buscar UMA</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
+                <h4 class="modal-title modalPersonalizado" id="myModalLabel">
+                    Buscar
+                </h4>
+                <button type="button" class="close" data-dismiss="modal">
+                    <span aria-hidden="true">×</span>
                 </button>
             </div>
             <div class="modal-body">
-                <form action="{{ route('umas.index')}}" method="GET" autocomplete="off">
-                    <div class="row">
-                        <div class="input-group col-md-12">
-                            <div class="input-group-prepend">
-                                <select class="custom-select personalizado" name="opcion">
-                                    <option value="id">Clave: &nbsp; &nbsp; &nbsp;</option>
-                                    <option value="inicial">Periodo Inicial: &nbsp; &nbsp; &nbsp;</option>
-                                    <option value="final">Perido Final: &nbsp; &nbsp; &nbsp;</option>
-                                </select>
-                            </div>
-                            <input type="text" class="form-control" aria-label="Username" name="busca"
-                                aria-describedby="basic-addon1" align='right' required>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="botones-modales" data-dismiss="modal">Cerrar</button>
-                        <button type="submit" name="acciones" value="buscar" class="botones-modales">Buscar</button>
-                    </div>
-                </form>
+                <table id="example3" class="table table-bordered table-striped">
+                    <thead>
+                        <tr>
+                        <th>Periodo Inicio</th>
+                        <th>Periodo Final</th>
+                        <th>UMA</th>
+                        <th> Mostrar más</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    @if(isset($umas))
+                            @foreach ($umas as $um)
+                            <tr>
+                                <td>{{ date('d-m-Y',strtotime($um->periodoinicio_uma)) }}</td>
+                                <td>{{ date('d-m-Y',strtotime($um->periodofin_uma)) }}</td>
+                                <td>{{ $um->porcentaje_uma }}</td>
+                                <td>
+                                    @canany(['administrador','capturista','reportes'])
+                                    <div>
+                                        <center>
+                                            <a href="{{ route('umas.mostrar',$um->id) }}">
+                                                <button type="button" title="Mostrar más" class="botones">
+                                                    <i class="far fa-eye"></i>
+                                                </button>
+                                            </a>
+                                        </center>
+                                    </div>
+                                    @endcan
+                                </td>
+                            </tr>
+                            @endforeach
+                            @endif
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
+</div>

@@ -398,6 +398,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
             "autoWidth": false,
             "responsive": true,
         });
+        $("#example3").DataTable({
+            "responsive": true,
+            "autoWidth": false
+        });
     });
     </script>
 

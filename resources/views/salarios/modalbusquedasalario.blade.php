@@ -1,5 +1,5 @@
 +<div class="modal fade bs-example-modal-sm" tabindex="-1" id="modalBusqSal" role="dialog" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
+    <div class="modal-dialog modal-md">
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title modalPersonalizado" id="myModalLabel">
@@ -19,7 +19,7 @@
                                     <th>Fecha Término</th>
                                     <th>Región</th>
                                     <th>Importe</th>
-                                    <th></th>
+                                    <th>Mostrar más</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -35,7 +35,7 @@
                                         <div>
                                             <center>
                                                 <a href="{{ route('salariomin.mostrar',$salMinAll->idSalarioMinimo) }}">
-                                                    <button type="button" class="botones">
+                                                    <button type="button" title="Mostrar más" class="botones">
                                                         <i class="far fa-eye"></i>
                                                     </button>
                                                 </a>
