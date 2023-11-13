@@ -4,12 +4,14 @@
     <div class="col-md-12">
         <div class="card card-secondary">
             <div class="card-header">
-                <h3 class="card-title modalPersonalizado">Empleados</h3>
+                <h3 class="card-title modalPersonalizado">Empleados &nbsp;&nbsp;&nbsp;</h3>
                 <center>
                     {{$persona->nombre ?? ''}}
                     {{$persona->apellido_paterno ?? ''}}
                     {{$persona->apellido_materno ?? ''}}
                 </center>
+
+
             </div>
             <div class="card-body">
                 @if ($errors->any())
@@ -2023,6 +2025,7 @@
                                                 &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
                                                 &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
                                                 <!--Su uso solo es para visualizar la existencia del los iconos -->
+                                                
                                                 <div class="form-group">
                                                     <button title="Guardar" id="guardar_falso" disabled class="botonesgrandes"><i
                                                             class="fas fa-save"></i></button>
@@ -2042,6 +2045,16 @@
                                                         type="submit" disabled class="botonesgrandes"><i
                                                             class="far fa-window-close"></i></button>
                                                 </div>
+                                            
+                                                &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                                                &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                                                &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                                                &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                                                <div class="form-group">
+                                                    <button title="Subir Archivos" name="acciones" id="subir"
+                                                        type="button" class="botonesgrandes"  data-toggle="modal" data-target="#subirArchivo">
+                                                        <i class="far fa-copy"></i></button>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -2052,6 +2065,7 @@
                 </div>
             </div>
             @include('emplea.modalbusqid')
+            @include('emplea.subirArchivoEmpleado')
             @isset($persona)
             @include('emplea.modalelimina')
             @endisset

@@ -23,6 +23,7 @@
       $('#actualizar').attr("disabled", true);
       $('#eliminar').addClass("not-active");
       $('#buscar').attr("disabled", true);
+      $('#subir').attr("disabled", true);
     });
     $('#actualizar').click(function(){
       $('#nuevo_reg').attr("disabled", true);
@@ -39,6 +40,7 @@
       $('#fecha_inicio').attr("disabled", true);
       $('#diasPeriodo').attr("disabled", true);
       $('#fecha_fin').attr("disabled", true);
+      $('#subir').attr("disabled", true);
     });
     $('.actualizarporid').click(function(){
       $('.prueba').attr("disabled", false)
