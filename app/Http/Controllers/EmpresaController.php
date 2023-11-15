@@ -454,7 +454,7 @@ class EmpresaController extends Controller{
 
             Schema::connection('DB_Serverr')->create('empleados', function($table){
                 $table->increments('id_emp');
-                $table->char('clave_empleado',5)->nullable();
+                $table->char('clave_empleado',5)->unique();
                 $table->string('clasificacion',100)->nullable();
                 $table->string('nombre',50);
                 $table->string('apellido_paterno',50);

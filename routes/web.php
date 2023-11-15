@@ -125,9 +125,11 @@ Route::post('/ausentismo/busquedaconcepto','AusentismoController@mostrarconcepto
 Route::delete('ausentismo/delete/{id}', 'AusentismoController@eliminar')->name('ausentismo.destroy')->middleware('auth');
 
 // Reestructuración catalogos
+//Empleados
 Route::get('/empleado', 'EmpleaController@index')->name('emplea.index')->middleware('auth');
 Route::get('/empleado/mostrar/{id_emp}','EmpleaController@show')->name('emplea.mostrar')->middleware('auth');
 Route::delete('/empleados/{id_emp}','EmpleaController@destroy')->name('emplea.destroy')->middleware('auth');
+Route::post('/importar-empleados','EmpleaController@importarEmpleados')->name('emplea.importarEmpleados')->middleware('auth');
 
 //Salario Mínimo
 Route::get('/salariominimo','SalarioMinimoController@acciones')->name('salariomin.acciones')->middleware('auth');

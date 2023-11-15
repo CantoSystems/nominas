@@ -5,6 +5,10 @@ namespace App\Http\Controllers;
 use App\Banco;
 use Illuminate\Http\Request;
 use DB;
+
+use Maatwebsite\Excel\Facades\Excel;
+use App\Imports\EmpleadosImport;
+
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\Storage;
 use Session;
@@ -965,5 +969,13 @@ class EmpleaController extends Controller
 
         $aux1 = DB::connection('DB_Serverr')->table('empleados')->where('id_emp',$id_emp)->delete();
         return redirect()->route('emplea.index');
+    }
+
+    public function importarEmpleados(EmpleadosImport $import, Request $request){
+
+        if($request->hasFile('file')){
+            $file = $request->file('file');
+            Excel::import(new EmpleadosImport, $file);
+        }
     }
 }
