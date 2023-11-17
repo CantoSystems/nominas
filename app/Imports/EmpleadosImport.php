@@ -3,6 +3,7 @@
 namespace App\Imports;
 use DB;
 use Session;
+use Carbon\Carbon;
 use Illuminate\Support\Collection;
 use Maatwebsite\Excel\Concerns\ToCollection;
 
@@ -40,18 +41,18 @@ class EmpleadosImport implements ToCollection
 
         foreach($collections as $collection)
         {
-            DB::connection('DB_Serverr')->insert('insert into empleados(nombre
+            DB::connection('DB_Serverr')->insert('insert into empleados(clave_empleado
+                                                                        ,nombre
                                                                         ,apellido_paterno
                                                                         ,apellido_materno
+                                                                        ,fecha_alta
                                                                         ,clave_departamento
                                                                         ,clave_puesto
                                                                         ,rfc
                                                                         ,curp
                                                                         ,imss
-                                                                        ,afore
                                                                         ,ine
                                                                         ,calle
-                                                                        ,numero_interno
                                                                         ,numero_externo
                                                                         ,colonia
                                                                         ,cp
@@ -65,21 +66,24 @@ class EmpleadosImport implements ToCollection
                                                                         ,nacionalidad
                                                                         ,fecha_nacimiento
                                                                         ,beneficiario
-                                                                        ,parentesco,
+                                                                        ,parentesco
                                                                         ,porcentaje
                                                                         ,tipo_trabajador
                                                                         ,turno
                                                                         ,contrato
                                                                         ,vigencia
+                                                                        ,diadescanso_empleado
+                                                                        ,sueldo_diario
                                                                         ,tipo_salario
                                                                         ,tipo_jornada
                                                                         ,dias
                                                                         ,horas_diarias
-                                                                        ,forma_pago)
+                                                                        ,forma_pago
+                                                                        ,clave_banco)
                                                                         values(?,?,?,?,?,?,?,?,?,?,
                                                                                 ?,?,?,?,?,?,?,?,?,?,
                                                                                 ?,?,?,?,?,?,?,?,?,?,
-                                                                                ?,?,?,?,?,?)',[$collection[0],$collection[1],$collection[2],
+                                                                                ?,?,?,?,?,?,?,?,?)',[$collection[0],$collection[1],$collection[2],
                                                                                                 $collection[3],$collection[4],$collection[5],
                                                                                                 $collection[6],$collection[7],$collection[8],
                                                                                                 $collection[9],$collection[10],$collection[11],
@@ -91,7 +95,7 @@ class EmpleadosImport implements ToCollection
                                                                                                 $collection[27],$collection[28],$collection[29],
                                                                                                 $collection[30],$collection[31],$collection[32],
                                                                                                 $collection[33],$collection[34],$collection[35],
-                                                                                                $collection[36],
+                                                                                                $collection[36],$collection[37],$collection[38]
                                                                             ]);
         }
     }
