@@ -115,6 +115,13 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                     Tabla I.M.S.S
                                 </p>
                             </a>
+                        </li><li class="nav-item {{!Route::is('vejez.acciones') ?: 'activo'}}">
+                            <a href="{{ route('vejez.acciones')}}" class="nav-link">
+                                <i class="nav-icon fas fa-th"></i>
+                                <p>
+                                    Tabla SBC Vejez
+                                </p>
+                            </a>
                         </li>
                         <li class="nav-item {{!Route::is('infonavit.acciones') ?: 'activo'}}">
                             <a href="{{ route('infonavit.acciones')}}" class="nav-link">

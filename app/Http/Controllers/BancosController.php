@@ -50,7 +50,7 @@ class BancosController extends Controller{
         $indic = $banc->id;
         $banco = Banco::where('id','>',$indic)->first();
 
-        if($banco==""){
+        if(is_null($banco)){
           $banco = Banco::first();
         }
         $bancos = Banco::all();

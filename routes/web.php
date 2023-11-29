@@ -204,3 +204,23 @@ Route::post('/fe','EjemploController@store')->name('f.data')->middleware('auth')
 Route::get('/infonavit','InfonavitController@acciones')->name('infonavit.acciones')->middleware('auth');
 Route::get('/infonavit/mostrar/{id}','InfonavitController@show')->name('infonavit.mostrar')->middleware('auth');
 Route::delete('infonavit/{id}','InfonavitController@delete')->name('infonavit.eliminar')->middleware('auth');
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//SBC Vejez
+Route::get('/vejez','BaseVejezController@acciones')->name('vejez.acciones')->middleware('auth');
+Route::get('/vejez/visualizar/{id}','BaseVejezController@show')->name('vejez.mostrar')->middleware('auth');
+Route::delete('/vejez/{id}','BaseVejezController@eliminarbasevejez')->name('vejez.eliminar')->middleware('auth');

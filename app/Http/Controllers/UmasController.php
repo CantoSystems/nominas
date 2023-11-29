@@ -38,7 +38,7 @@ class UmasController extends Controller{
                 break;
             case 'atras':
                 $identificador = Umas::where('id','=',$request->id)->first();
-                $uma = Umas::where('id','<',$identificador->id)->orderBy('id','desc')>first();
+                $uma = Umas::where('id','<',$identificador->id)->orderBy('id','desc')->first();
                 
                 if(is_null($uma)){
                     $uma = Umas::get()->last();
