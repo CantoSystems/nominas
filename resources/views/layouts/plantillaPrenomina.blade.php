@@ -398,9 +398,7 @@
             $(".totalPercepciones").val(importe_total.toFixed(2));
             $(".conceptoPercepciones").val("01TP");
 
-
             let htmlTotal;
-
             let importe_total2 = 0
             $(".totales2").each(function(index, value) {
                 if ($.isNumeric($(this).val())) {
@@ -439,6 +437,7 @@
                     empclave: $('#extraerEmp').val(),
                 },
                 success: function(data) {
+                    console.log(data);
                     let htmlTags = '<tr>' +
                         '<td style="text-align: center;">' + data[0] +
                         '<input type="hidden" class="clvCncpt" value="' + data[0] + '">' +
@@ -472,7 +471,7 @@
                 },
                 success: function(data) {
                     console.log();
-                    if (data[2] == null)
+                    if (data[2] == null) {
                         let htmlTags = '<tr>' +
                             '<td style="text-align: center;">' + data[0] +
                             '<input type="hidden" class="clvCncpt" value="' + data[0] + '">' +
@@ -488,7 +487,8 @@
                                 2].toFixed(2) + '">' +
                             '</td>' +
                             '</tr>'
-                    $('#filasImpuestos tbody').append(htmlTags);
+                        $('#filasImpuestos tbody').append(htmlTags);
+                            }
 
                     let importe_total3 = 0;
                     $(".totales3").each(function(index, value) {
@@ -496,6 +496,7 @@
                             importe_total3 = importe_total3 + eval($(this).val());
                         }
                     });
+                    
                     $(".totalImpuestosTrabajador").val(importe_total3.toFixed(2));
                     $(".conceptoTrabajador").val("04TT");
                     totalImpuestos = $(".totalImpuestosTrabajador").val();
