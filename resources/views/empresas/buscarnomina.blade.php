@@ -1,5 +1,5 @@
 <div class="modal fade bs-example-modal-sm" id="exampleModal" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
+    <div class="modal-dialog modal-md">
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title modalPersonalizado" id="myModalLabel">
@@ -27,7 +27,7 @@
                             <td>{{ $nom->clave }}</td>
                             <td>{{ $nom->nombre_nomina }}</td>
                             <td>
-                                @canany(['administrador','capturista'])
+                                @canany(['administrador','capturista','reportes'])
                                 <div>
                                     <center>
                                         <a href="{{ route('mostrar.empresas',$nom->id) }}">

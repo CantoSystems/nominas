@@ -13,8 +13,12 @@
             <table id="example1" class="table table-bordered table-striped">
                 <thead>
                     <tr>
-                        <th>Concepto</th>
-                        <th>Prestaciones </th>
+                        <th> Concepto</th>
+                        <th> Prestaciones </th>
+                        <th> Cuota Patrón </th>
+                        <th> Cuota Trabajador </th>
+                        <th> Cuota Total</th>
+                        <th> Base </th>
                         <th>Visualizar</th>
                     </tr>
                 </thead>
@@ -24,8 +28,12 @@
                         <tr>
                             <td>{{ $timss->concepto }}</td>
                             <td>{{ $timss->prestaciones}}</td>
+                            <td>{{ $timss->cuotapatron}} </td>
+                            <td>{{ $timss->cuotatrabajador }}</td>
+                            <td>{{ $timss->cuotatotal}}</td>
+                            <td>{{ $timss->base}}</td>
                             <td>
-                              @canany(['administrador','capturista'])
+                              @canany(['administrador','capturista','reportes'])
                               <div>
                                   <center>
                                       <a href="{{ route('imss.mostrar',$timss->id_imss) }}">

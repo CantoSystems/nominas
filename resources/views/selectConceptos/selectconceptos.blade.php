@@ -56,9 +56,15 @@
                                 </tbody>
                             </table>
                             <br>
+                            @canany(['administrador','capturista'])
                             <center>
                                 <button name="acciones" value="actualizarConcepto" id="actualizar_reg" type="submit">Guardar</button>
                             </center>
+                            @elsecanany(['reportes'])
+                            <center>
+                                <button type="submit" disabled>Guardar</button>
+                            </center>
+                            @endcan
                         </div>
                     </form>
                 </div>

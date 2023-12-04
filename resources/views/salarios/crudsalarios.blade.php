@@ -101,37 +101,37 @@
                                     <div class="btn-group">
                                         @if(isset($salMinimo))
                                         <div class="form-group">
-                                            <button type="submit" name="acciones" value="primero" id="primero"
+                                            <button type="submit" name="acciones" title="Primero" value="primero" id="primero"
                                                 class="botonesgrandes"><i class="fas fa-backward"></i></button>
                                         </div>
                                         <div class="form-group">
-                                            <button type="submit" name="acciones" value="atras" id="atras"
+                                            <button type="submit" name="acciones" title="Atrás" value="atras" id="atras"
                                                 class="botonesgrandes"><i class="fas fa-arrow-circle-left"></i></button>
                                         </div>
                                         <div class="form-group">
-                                            <button type="submit" name="acciones" value="siguiente" id="siguiente"
+                                            <button type="submit" name="acciones" title="Siguiente" value="siguiente" id="siguiente"
                                                 class="botonesgrandes"><i
                                                     class="fas fa-arrow-circle-right"></i></button>
                                         </div>
                                         <div class="form-group">
-                                            <button type="submit" name="acciones" value="ultimo" id="ultimo"
+                                            <button type="submit" name="acciones"  title="Siguiente" value="ultimo" id="ultimo"
                                                 class="botonesgrandes"><i class="fas fa-forward"></i></button>
                                         </div>
                                         @else
                                         <div class="form-group">
-                                            <button type="submit" class="botonesgrandes" disabled><i
+                                            <button type="submit"  title="Primero" class="botonesgrandes" disabled><i
                                                     class="fas fa-backward"></i></button>
                                         </div>
                                         <div class="form-group">
-                                            <button type="submit" class="botonesgrandes" disabled><i
+                                            <button type="submit"  title="Atrás" class="botonesgrandes" disabled><i
                                                     class="fas fa-arrow-circle-left"></i></button>
                                         </div>
                                         <div class="form-group">
-                                            <button type="submit" class="botonesgrandes" disabled><i
+                                            <button type="submit" title="Siguiente" class="botonesgrandes" disabled><i
                                                     class="fas fa-arrow-circle-right"></i></button>
                                         </div>
                                         <div class="form-group">
-                                            <button type="submit" class="botonesgrandes" disabled><i
+                                            <button type="submit" title="Último" class="botonesgrandes" disabled><i
                                                     class="fas fa-forward"></i></button>
                                         </div>
                                         @endif
@@ -146,13 +146,13 @@
                                     <div class="btn-group">
                                         <div class="form-group">
                                             @if(isset($salMinimo))
-                                            <button id="buscar" type="button" data-toggle="modal"
+                                            <button id="buscar" type="button" title="Buscar" data-toggle="modal"
                                                 data-target="#modalBusqSal" class="botonesgrandes">
                                                 <i class="fas fa-search"></i>
                                             </button>
                                             @else
                                             <div class="form-group">
-                                                <button id="buscar_falso" type="button" class="botonesgrandes" disabled>
+                                                <button id="buscar_falso" title="Buscar" type="button" class="botonesgrandes" disabled>
                                                     <i class="fas fa-search"></i>
                                                 </button>
                                             </div>
@@ -161,27 +161,27 @@
                                         @endcanany
                                         @canany(['administrador','capturista'])
                                         <div class="form-group">
-                                            <button type="button" id="nuevo" class="botonesgrandes"> <i
+                                            <button type="button" title="Agregar" id="nuevo" class="botonesgrandes"> <i
                                                     class="fas fa-user-plus"></i></button>
                                         </div>
                                         @if(isset($salMinimo))
                                         <div class="form-group">
-                                            <button type="button" id="actualizar" class="botonesgrandes"> <i
+                                            <button type="button" title="Actualizar" id="actualizar" class="botonesgrandes"> <i
                                                     class="fas fa-pen-square"></i></button>
                                         </div>
                                         @else
                                         <div class="form-group">
-                                            <button type="button" class="botonesgrandes" disabled> <i
+                                            <button type="button" title="Actualizar" class="botonesgrandes" disabled> <i
                                                     class="fas fa-pen-square"></i></button>
                                         </div>
                                         @endif
                                         @elsecanany(['reportes'])
                                         <div class="form-group">
-                                            <button type="button" disabled class="botonesgrandes"> <i
+                                            <button type="button" title="Agregar" disabled class="botonesgrandes"> <i
                                                     class="fas fa-user-plus"></i></button>
                                         </div>
                                         <div class="form-group">
-                                            <button type="button" class="botonesgrandes" disabled> <i
+                                            <button type="button" title="Actualizar" class="botonesgrandes" disabled> <i
                                                     class="fas fa-pen-square"></i></button>
                                         </div>
                                         @endcanany
@@ -191,7 +191,7 @@
                                             <a id="eliminar"
                                                 data-target="#modal-deleteSalario-{{$salMinimo->idSalarioMinimo}}"
                                                 data-toggle="modal">
-                                                <button type="button" class="botonesgrandes">
+                                                <button type="button" title="Eliminar" class="botonesgrandes">
                                                     <i class="far fa-trash-alt"></i>
                                                 </button>
                                             </a>
@@ -199,7 +199,7 @@
                                         @else
                                         <div class="form-group">
                                             <a id="eliminar_vacio">
-                                                <button type="button" disabled class="botonesgrandes">
+                                                <button type="button" title="Eliminar" disabled class="botonesgrandes">
                                                     <i class="far fa-trash-alt"></i>
                                                 </button>
                                             </a>
@@ -208,7 +208,7 @@
                                         @elsecanany(['capturista','reportes'])
                                         <div class="form-group">
                                             <a id="eliminar_">
-                                                <button type="button" disabled class="botonesgrandes">
+                                                <button type="button" title="Eliminar" disabled class="botonesgrandes">
                                                     <i class="far fa-trash-alt"></i>
                                                 </button>
                                             </a>
@@ -223,21 +223,21 @@
                                     <div class="btn-group">
                                         <!--Su uso solo es para visualizar la existencia del los iconos -->
                                         <div class="form-group">
-                                            <button id="guardar_falso" disabled class="botonesgrandes"><i
+                                            <button id="guardar_falso" title="Guardar" disabled class="botonesgrandes"><i
                                                     class="fas fa-save"></i></button>
                                         </div>
                                         <div class="form-group">
-                                            <button id="nuevo_reg" name="acciones" value="registrar" type="submit"
+                                            <button id="nuevo_reg" title="Guardar" name="acciones" value="registrar" type="submit"
                                                 style="display: none;" class="botonesgrandes"><i
                                                     class="fas fa-save"></i></button>
                                         </div>
                                         <div class="form-group">
-                                            <button name="acciones" value="actualizar" id="actualizar_reg" type="submit"
+                                            <button name="acciones" title="Guardar" value="actualizar" id="actualizar_reg" type="submit"
                                                 style="display: none;" class="botonesgrandes"><i
                                                     class="fas fa-save"></i></button>
                                         </div>
                                         <div class="form-group">
-                                            <button name="acciones" value="cancelar" id="cancelar_reg" type="submit"
+                                            <button name="acciones" title="Cancelar" value="cancelar" id="cancelar_reg" type="submit"
                                                 class="botonesgrandes" disabled><i
                                                     class="far fa-window-close"></i></button>
                                         </div>

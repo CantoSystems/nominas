@@ -9,6 +9,7 @@ use App\RegimenFiscal;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Arr;
 
 class EmpresaController extends Controller{
     public function conectar($clv){
@@ -145,7 +146,6 @@ class EmpresaController extends Controller{
         $emp->telefono= $datos->telefono;
         $emp->email= $datos->email;
         $emp->inicioPeriodo = $datos->inicioPeriodo;
-        $emp->tipoPeriodo = $datos->tipoPeriodo;
         $emp->region = $datos->regionEmpresa;
         $emp->primaRiesgo = $datos->primaRiesgo;
         $emp->porcentajeAhorro = $datos->porcentajeAhorro;
@@ -170,7 +170,6 @@ class EmpresaController extends Controller{
             'clave' => 'required|unique:empresas',
             'nombre_nomina' => 'required',
             'rfc' => 'required',
-            'segurosocial' => 'required',
             'registro_estatal' => 'required',
             'calle' => 'required',
             'num_externo' => 'required',
@@ -185,9 +184,7 @@ class EmpresaController extends Controller{
             'telefono' => 'required',
             'email' => 'required',
             'regionEmpresa' => 'required',
-            'primaRiesgo' => 'required',
-            'porcentajeAhorro' => 'required',
-            'curpRepresentante' => 'required',
+            'tipoPeriodo' => 'required',
         ]);
 
         $fiscalClave =  RegimenFiscal::select('id')
@@ -195,7 +192,9 @@ class EmpresaController extends Controller{
                             ->first();
         $coincidencia = Empresa::where('clave',$datos->clave)->count();
 
-        if ($coincidencia === 0){
+        if($coincidencia === 0){
+
+            if(Arr::has($datos,'tipoPeriodo')){
             $empresa = new Empresa;
             $empresa->rfc = $datos->rfc;
             $empresa->clave = $datos->clave;
@@ -223,15 +222,20 @@ class EmpresaController extends Controller{
             $empresa->curpRepresentante = $datos->curpRepresentante;
             $empresa->save();
             
-            DB::statement('create database '.$empresa->clave);
-                $clv= $empresa->clave;
+            /*
+            $empresa->tipoPeriodo = $datos->tipoPeriodo;
+            $empresa->inicioPeriodo = $datos->inicioPeriodo;
+            */
+            
+            DB::statement('create database '.$datos->clave);
+                $clv= $datos->clave;
                 $configDb = [
                     'driver'      => 'mysql',
                     'host'        => env('DB_HOST', 'localhost'),
                     'port'        => env('DB_PORT', '3306'),
                     'database'    => $clv,
-                    'username'    => env('DB_USERNAME', 'root'),
-                    'password'    => env('DB_PASSWORD', ''),
+                    'username'    => env('DB_USERNAME', 'forge'),
+                    'password'    => env('DB_PASSWORD', 'lpbnscon61lmB1ctWYIA'),
                     'unix_socket' => env('DB_SOCKET', ''),
                     'charset'     => 'utf8',
                     'collation'   => 'utf8_unicode_ci',
@@ -259,12 +263,11 @@ class EmpresaController extends Controller{
                 $table->timestamps();
             });
 
-            Schema::connection('DB_Serverr')->create('puestos', function($table){
-                $table->increments('id');
-                $table->char('clave_puesto',10);
-                $table->string('nombre_puesto',50);
-                $table->timestamps();
-            });
+            $fecha_periodo = now()->toDateString();
+            DB::connection('DB_Serverr')
+                    ->insert('insert into areas (area,clave_area,created_at,updated_at)
+                                values (?,?,?,?)',
+                                ["ADMINISTRATIVO","A001",$fecha_periodo,$fecha_periodo]);
 
             Schema::connection('DB_Serverr')->create('departamentos', function($table){
                 $table->increments('id');
@@ -273,6 +276,30 @@ class EmpresaController extends Controller{
                 $table->char('clave_area', 10);
                 $table->timestamps();
             });
+             DB::connection('DB_Serverr')
+                    ->insert('insert into departamentos (clave_departamento,departamento,clave_area,created_at,updated_at)
+                                values (?,?,?,?,?)',
+                                ["D001","ADMINISTRATIVO","A001",$fecha_periodo,$fecha_periodo]);
+
+
+            Schema::connection('DB_Serverr')->create('puestos', function($table){
+                $table->increments('id');
+                $table->char('clave_puesto',10);
+                $table->string('nombre_puesto',50);
+                $table->timestamps();
+            });
+
+            $puestos = Collect([
+                ["clave_puesto"=> "P001","nombre_puesto"=>"RECURSOS HUMANOS"],
+                ["clave_puesto"=> "P002","nombre_puesto"=>"AUXILIAR DE OPERACIONES"],
+            ]);
+
+            foreach($puestos as $pt){
+                DB::connection('DB_Serverr')->insert('insert into puestos (clave_puesto,nombre_puesto,created_at,updated_at)
+                                values (?,?,?,?)',
+                                [$pt['clave_puesto'],$pt['nombre_puesto'],$fecha_periodo,$fecha_periodo]);
+            }
+
 
             Schema::connection('DB_Serverr')->create('conceptos', function($table){
                 $table->increments('id');
@@ -363,7 +390,7 @@ class EmpresaController extends Controller{
                 ["clave_concepto" => "023D", "concepto" => "CREDITO INFONAVIT VSM", "formula" => NULL,"tipo" => "D", "manejo" => "variable", "cantidad" => NULL,"importe" => NULL, "monto" => NULL, "isr" => 0, "imss" => 0,"infonavit" => 0,"estatal" => 0,"isr_uma" => 0.00,"isr_porcentaje" => 0.00,"imss_uma" =>  0.00, "imss_porcentaje" => 0.00, "seleccionado" => 0],
             ]);
             
-            $fecha_periodo = now()->toDateString();
+            
             foreach($conceptos as $con){
                 DB::connection('DB_Serverr')
                     ->insert('insert into conceptos (clave_concepto,concepto,formula,naturaleza,manejo,cantidad,importe,monto,isr,imss,infonavit,estatal,isr_uma,isr_porcentaje,imss_uma,imss_porcentaje,seleccionado,created_at,updated_at)
@@ -427,8 +454,8 @@ class EmpresaController extends Controller{
 
             Schema::connection('DB_Serverr')->create('empleados', function($table){
                 $table->increments('id_emp');
-                $table->char('clave_empleado',5);
-                $table->string('clasificacion',100);
+                $table->char('clave_empleado',5)->unique();
+                $table->string('clasificacion',100)->nullable();
                 $table->string('nombre',50);
                 $table->string('apellido_paterno',50);
                 $table->string('apellido_materno',50);
@@ -442,8 +469,8 @@ class EmpresaController extends Controller{
                 $table->string('imss',11);
                 $table->string('afore',50)->nullable();
                 $table->string('ine',18);
-                $table->string('pasaporte',6)->nullable();
-                $table->string('cartilla',10)->nullable();
+                $table->string('credito_infonavit',15)->nullable();
+                $table->string('credito_fonacot',15)->nullable();
                 $table->string('licencia',5)->nullable();
                 $table->string('documento_migratorio',13)->nullable();
                 $table->string('calle',80);
@@ -459,20 +486,20 @@ class EmpresaController extends Controller{
                 $table->string('sexo',6);
                 $table->string('estado_civil',20);
                 $table->string('nacionalidad',20);
-                $table->string('tipo_sangre',10);
+                $table->string('tipo_sangre',10)->nullable();
                 $table->string('alergias',100)->nullable();
-                $table->double('estatura');
-                $table->double('peso');
+                $table->double('estatura')->nullable();
+                $table->double('peso')->nullable();
                 $table->string('enfermedad_cronica',100)->nullable();
                 $table->string('deporte',100)->nullable();
                 $table->string('pasatiempo',100)->nullable();
                 $table->string('asosiacion',100)->nullable();
                 $table->string('objetivo_vida',100)->nullable();
                 $table->date('fecha_nacimiento');
-                $table->string('lugar',100);
-                $table->string('umf',100);
-                $table->string('nombre_padre',100);
-                $table->string('nombre_madre',100);
+                $table->string('lugar',100)->nullable();
+                $table->string('umf',100)->nullable();
+                $table->string('nombre_padre',100)->nullable();
+                $table->string('nombre_madre',100)->nullable();
                 $table->boolean('finado_padre')->nullable();
                 $table->boolean('finado_madre')->nullable();
                 $table->string('direccion_padre',100)->nullable();
@@ -481,9 +508,9 @@ class EmpresaController extends Controller{
                 $table->string('ocupacion_madre',100)->nullable();;
                 $table->string('hijos',100)->nullable();
                 $table->string('idiomas',100)->nullable();
-                $table->string('funciones_oficina',100);
-                $table->string('maquinas_oficina',20);
-                $table->string('software',100);
+                $table->string('funciones_oficina',100)->nullable();
+                $table->string('maquinas_oficina',20)->nullable();
+                $table->string('software',100)->nullable();
                 $table->string('otras_funciones',100)->nullable();
                 $table->string('beneficiario',100);
                 $table->string('beneficiario1',100)->nullable();
@@ -500,9 +527,9 @@ class EmpresaController extends Controller{
                 $table->double('porcentaje2')->nullable();
                 $table->double('porcentaje3')->nullable();
                 $table->double('porcentaje4')->nullable();
-                $table->string('primaria',100);
-                $table->string('duracion_primaria');
-                $table->string('titulo_primaria',100);
+                $table->string('primaria',100)->nullable();
+                $table->string('duracion_primaria')->nullable();
+                $table->string('titulo_primaria',100)->nullable();
                 $table->string('secundaria',100)->nullable();
                 $table->string('duracion_secundaria')->nullable();
                 $table->string('titulo_secundaria',100)->nullable();
@@ -519,16 +546,16 @@ class EmpresaController extends Controller{
                 $table->string('carrera',100)->nullable();
                 $table->integer('grado')->nullable();
                 $table->char('horario',20)->nullable();
-                $table->string('duracion_trabajo');
-                $table->string('nombre_compania',100);
-                $table->string('direccion_compania',100);
-                $table->string('telefono_compania',15);
-                $table->double('sueldo');
-                $table->string('motivo_separacion',100);
-                $table->string('nombre_jefe',100);
-                $table->string('puesto_jefe',100);
-                $table->boolean('solicitar_informes');
-                $table->string('razones',100);
+                $table->string('duracion_trabajo')->nullable();
+                $table->string('nombre_compania',100)->nullable();
+                $table->string('direccion_compania',100)->nullable();
+                $table->string('telefono_compania',15)->nullable();
+                $table->double('sueldo')->nullable();
+                $table->string('motivo_separacion',100)->nullable();
+                $table->string('nombre_jefe',100)->nullable();
+                $table->string('puesto_jefe',100)->nullable();
+                $table->boolean('solicitar_informes')->nullable();
+                $table->string('razones',100)->nullable();
                 $table->string('duracion_trabajo1')->nullable();
                 $table->string('nombre_compania1',100)->nullable();
                 $table->string('direccion1_trabajo1',100)->nullable();
@@ -559,11 +586,11 @@ class EmpresaController extends Controller{
                 $table->string('puesto_jefe3',100)->nullable();
                 $table->boolean('solicitar_informes3')->nullable();
                 $table->string('razones3',100)->nullable();
-                $table->string('referencia',100);
-                $table->string('direccion_trabajo',100);
-                $table->string('telefono_referencia',15);
-                $table->string('ocupacion',100);
-                $table->double('tiempo');
+                $table->string('referencia',100)->nullable();
+                $table->string('direccion_trabajo',100)->nullable();
+                $table->string('telefono_referencia',15)->nullable();
+                $table->string('ocupacion',100)->nullable();
+                $table->double('tiempo')->nullable();
                 $table->string('referencia1',100)->nullable();
                 $table->string('direccion1',100)->nullable();
                 $table->string('telefono_referencia1',15)->nullable();
@@ -578,11 +605,11 @@ class EmpresaController extends Controller{
                 $table->string('turno',50);
                 $table->string('contrato',100);
                 $table->date('vigencia');
-                $table->time('horario_trabajoinicio');
-                $table->time('horario_trabajofin');
+                $table->time('horario_trabajoinicio')->nullable();
+                $table->time('horario_trabajofin')->nullable();
                 $table->string('diadescanso_empleado');
                 $table->double('sueldo_diario');
-                $table->double('sueldo_integrado');
+                $table->double('sueldo_integrado')->nullable();
                 $table->string('nivel',50)->nullable();
                 $table->string('categoria',50)->nullable();
                 $table->string('tipo_salario',30);
@@ -591,8 +618,8 @@ class EmpresaController extends Controller{
                 $table->double('horas_diarias');
                 $table->string('forma_pago',50);
                 $table->char('clave_banco',5);
-                $table->string('cuenta_bancaria',20);
-                $table->string('clabe_interbancaria',18);
+                $table->string('cuenta_bancaria',20)->nullable();
+                $table->string('clabe_interbancaria',18)->nullable();
                 $table->boolean('ptu')->nullable();
                 $table->string('observaciones',255)->nullable();
                 $table->timestamps();
@@ -689,6 +716,7 @@ class EmpresaController extends Controller{
             $anioInicio = date('Y',strtotime($datos->inicioPeriodo));
 
             if($datos->tipoPeriodo == 15){
+                
                 if($diaInicio<16){
                     $numero = ($mesInicio*2)-1;
                     $fechaInicio = $anioInicio.'-'.$mesInicio.'-01';
@@ -726,9 +754,14 @@ class EmpresaController extends Controller{
 
             }else{
                 return back()->with('clavesExistentes','La clave no puede ser duplicada');
-            }                    
+            }                  
+                
+            }
             
-        }
+          
+
+    //Fin coincidencia
+    }
 
     /**
     *Funcion seleccion empresa |

@@ -13,7 +13,7 @@ class CreateInfonavitsTable extends Migration
      */
     public function up()
     {
-        Schema::create('UMIInfonavit', function (Blueprint $table) {
+        Schema::create('umiinfonavit', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->text('anio');
             $table->double('vsm',10,2);
@@ -31,6 +31,6 @@ class CreateInfonavitsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('UMIInfonavit');
+        Schema::dropIfExists('umiinfonavit');
     }
 }

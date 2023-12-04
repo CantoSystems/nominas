@@ -29,7 +29,7 @@
                                             <td>{{ $concep->concepto}}</td>
 
                                             <td style="width: 20px;">
-                                                @canany(['administrador','capturista'])
+                                                @canany(['administrador','capturista','reportes'])
                                                     <div>
                                                         <center>
                                                             <a href="{{ route('conceptos.mostrar',$concep->id) }}">

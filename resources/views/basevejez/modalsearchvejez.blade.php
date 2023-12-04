@@ -13,42 +13,36 @@
                 <table id="example3" class="table table-bordered table-striped">
                     <thead>
                         <tr>
-                        <th>Limite Inferior</th>
-                                <th>Limite Superior</th>
-                                <th>Cuota fija</th>
-                                <th>Porcentaje Excedente</th>
-                                <th>Periodo</th>
+                                <th>De SBC Cesantía y Vejez</th>
+                                <th>Hasta SBC Cesantía y Vejez</th>
+                                <th>Cuota patronal</th>
                                 <th>Mostrar más</th>
                         </tr>
                     </thead>
                     <tbody>
-                    @if(isset($isr))
-                            @foreach ($isr as $rtn)
+                    @if(isset($basevejez))
+                            @foreach ($basevejez as $base)
                             <tr>
-                                <th scope="row">
-                                    {{ $rtn->limite_inferior }}
-                                </th>
-                                <td> {{ $rtn->limite_superior }}</td>
-                                <td>{{ $rtn->cuota_fija }}</td>
-                                <td>{{ $rtn->porcentaje_excedente }}</td>
-                                <td>{{ $rtn->periodo_retencion }}</td>
+                                <td>{{$base->de_salariocotizacion_vejez}}</td>
+                                <td>{{$base->hasta_salariocotizacion_vejez}}</td>
+                                <td>{{$base->cuotapatronal_vejez}}</td>
                                 <td>
                                     @canany(['administrador','capturista','reportes'])
                                     <div>
                                         <center>
-                                            <a href="{{ route('retenciones.mostrar',$rtn->id) }}">
+                                            <a href="{{ route('vejez.mostrar',$base->id) }}">
                                                 <button title="Mostrar más" type="button" class="botones">
                                                     <i class="far fa-eye"></i>
                                                 </button>
                                             </a>
                                         </center>
                                     </div>
+                                    
                                     @endcan
                                 </td>
                             </tr>
                             @endforeach
                             @endif
-
                     </tbody>
                 </table>
             </div>

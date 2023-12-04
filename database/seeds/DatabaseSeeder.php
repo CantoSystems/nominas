@@ -19,7 +19,8 @@ class DatabaseSeeder extends Seeder
             BancoSeeder::class,
             PrestacionesImssSeeder::class,
             RegimenSeeder::class,
-            InfonavitSeeder::class
+            InfonavitSeeder::class,
+            VejezSeeder::class
         ]);  
     }
 }

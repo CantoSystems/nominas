@@ -15,8 +15,8 @@ class SalarioMinimoSeeder extends Seeder
     public function run()
     {
         $salariosMinimos = Collect([
-            ["inicio" => "2021-01-01","fin" => "2021-12-31", "region" => "Resto", "importe"=> 141.70],
-            ["inicio" => "2021-01-01","fin" => "2021-12-31", "region" => "Frontera", "importe"=> 213.39]
+            ["inicio" => "2023-01-01","fin" => "2023-12-31", "region" => "Resto", "importe"=> 207.44],
+            ["inicio" => "2023-01-01","fin" => "2023-12-31", "region" => "Frontera", "importe"=> 312.41]
         ]);
 
         $fecha_periodo = now()->toDateString();

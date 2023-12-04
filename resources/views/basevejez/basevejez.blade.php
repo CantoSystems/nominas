@@ -2,41 +2,41 @@
 @section('content')
 <div class="container">
     <div class="row">
+        <!-- Inicio Datatables-->
         <div class="col">
             <div class="card card-secondary">
                 <div class="card-header">
-                    <h3 class="card-title">Subsidio</h3>
+                    <h3 class="card-title">Base de cotización Cesantía y Vejez</h3>
                 </div>
                 <div class="card-body">
                     <table id="example1" class="table table-bordered table-striped">
                         <thead>
                             <tr>
-                                <th>Para Ingresos De</th>
-                                <th>Hasta Ingresos De</th>
-                                <th>Cantidad de Subsidio</th>
-                                <th>Periodo</th>
+                                <th>De SBC Cesantía y Vejez</th>
+                                <th>Hasta SBC Cesantía y Vejez</th>
+                                <th>Cuota patronal</th>
                                 <th>Mostrar más</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @if(isset($subsidios))
-                            @foreach ($subsidios as $sub)
+                            @if(isset($basevejez))
+                            @foreach ($basevejez as $base)
                             <tr>
-                                <th>{{ $sub->ParaIngresos }}</th>
-                                <td>{{ $sub->hastaIngresos }}</td>
-                                <td>{{ $sub->cantidadSubsidio }}</td>
-                                <td>{{ $sub->periodo_subsidio }}</td>
+                                <td>{{$base->de_salariocotizacion_vejez}}</td>
+                                <td>{{$base->hasta_salariocotizacion_vejez}}</td>
+                                <td>{{$base->cuotapatronal_vejez}}</td>
                                 <td>
                                     @canany(['administrador','capturista','reportes'])
                                     <div>
                                         <center>
-                                            <a href="{{ route('subsidios.mostrar',$sub->id_subsidio ) }}">
+                                            <a href="{{ route('vejez.mostrar',$base->id) }}">
                                                 <button title="Mostrar más" type="button" class="botones">
                                                     <i class="far fa-eye"></i>
                                                 </button>
                                             </a>
                                         </center>
                                     </div>
+                                    
                                     @endcan
                                 </td>
                             </tr>
@@ -47,138 +47,103 @@
                 </div>
             </div>
         </div>
+
         <div class="col">
             <div class="card card-secondary">
                 <div class="card-header">
-                    <h3 class="card-title">Subsidio</h3>
+                    <h3 class="card-title">Base de cotización Cesantía y Vejez</h3>
                 </div>
                 <div class="card-body">
-                    @if(session()->has('msj'))
-                    <div class="alert alert-danger" role="alert">
-                        {{ session('msj')}}
-                    </div>
-                    @endif
                     @if(session()->has('busqueda'))
                     <div class="alert alert-danger" role="alert">
                         {{ session('busqueda')}}
                     </div>
                     @endif
-                    <form action="{{ route('subsidio.acciones')}}" method="GET" autocomplete="off">
+                    @if(session()->has('msj'))
+                    <div class="alert alert-danger" role="alert">
+                        {{ session('msj')}}
+                    </div>
+                    @endif
+                    <form action="{{ route('vejez.acciones')}}" method="GET" autocomplete="off">
                         <div class="row">
-                            <div class="col-sm-6">
-                                <br>
+                            <div class="col-sm-4">
                                 <div class="form-group">
-                                    <label class="titulo">Para Ingresos de ($):</label>
-                                    <strong class="obligatorio">*</strong>
-                                    <input type="hidden" name="id_subsidio" value="{{ $subsidio->id_subsidio ?? ''}}"
+                                    <label class="titulo">De SBC Cesantía:<strong class="obligatorio">*</strong></label>
+                                    
+                                    <input type="text" name="de_salariocotizacion_vejez" value="{{$vejez->de_salariocotizacion_vejez ?? ''}}"
+                                        class="form-control" >
+                                    @error('de_salariocotizacion_vejez')
+                                    <div class="alert alert-secondary">
+                                        {{ $message }}
+                                    </div>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label class="titulo">Hasta SBC Cesantía:<strong class="obligatorio">*</strong></label>
+                                    
+                                    <input type="text" name="hasta_salariocotizacion_vejez" value="{{$vejez->hasta_salariocotizacion_vejez ?? ''}}"
                                         class="form-control">
-                                    <input type="number" name="ParaIngresos" step="0.01"
-                                        value="{{ $subsidio->ParaIngresos ?? '' }}" class="form-control">
-                                    @error('ParaIngresos')
+                                    @error('hasta_salariocotizacion_vejez')
                                     <div class="alert alert-secondary">
                                         {{ $message }}
                                     </div>
                                     @enderror
                                 </div>
                             </div>
-                            <div class="col-sm-6">
-                                <br>
+                            <div class="col-sm-4">
                                 <div class="form-group">
-                                    <label class="titulo">Hasta Ingresos De ($):</label>
-                                    <strong class="obligatorio">*</strong>
-                                    <input type="number" name="hastaIngresos" step="0.01"
-                                        value="{{ $subsidio->hastaIngresos ?? ''}}" class="form-control">
-                                    @error('hastaIngresos')
+                                    <label class="titulo">Cuota patronal:<strong class="obligatorio">*</strong></label>
+                                    
+                                    <input type="hidden" name="id" value="{{$vejez->id}}" class="form-control"
+                                        onkeyup="mayus(this);">
+                                    <input type="text" name="cuotapatronal_vejez" value="{{$vejez->cuotapatronal_vejez}}"
+                                        class="form-control">
+                                    @error('cuotapatronal_vejez')
                                     <div class="alert alert-secondary">
                                         {{ $message }}
                                     </div>
                                     @enderror
                                 </div>
                             </div>
-                            <div class="col-sm-6">
-                                <div class="form-group">
-                                    <label class="titulo">Cantidad de Subsidio para el Empleado ($):</label>
-                                    <strong class="obligatorio">*</strong>
-                                    <input type="number" name="cantidadSubsidio" step="0.01"
-                                        value="{{ $subsidio->cantidadSubsidio ?? '' }}" class="form-control">
-                                    @error('cantidadSubsidio')
-                                    <div class="alert alert-secondary">
-                                        {{ $message }}
-                                    </div>
-                                    @enderror
-                                </div>
-                            </div>
-                            <div class="col-sm-6">
-                                <div class="form-group">
-                                    <label class="titulo">Seleccione el Periodo:</label>
-                                    <strong class="obligatorio">*</strong>
-                                    @if(isset($subsidio))
-                                    @if($subsidio->periodo_subsidio == 'MENSUAL')
-                                    <select class="custom-select personalizado" name="periodo_subsidio">
-                                        <option selected value="MENSUAL">MENSUAL</option>
-                                        <option value="SEMANAL">SEMANAL</option>
-                                        <option value="QUINCENAL"> QUINCENAL</option>
-                                    </select>
-                                    @elseif($subsidio->periodo_subsidio =='QUINCENAL')
-                                    <select class="custom-select personalizado" name="periodo_subsidio">
-                                        <option selected value="QUINCENAL">QUINCENAL</option>
-                                        <option value="MENSUAL">MENSUAL</option>
-                                        <option value="SEMANAL">SEMANAL</option>
-                                    </select>
-                                    @elseif($subsidio->periodo_subsidio = 'SEMANAL')
-                                    <select class="custom-select personalizado" name="periodo_subsidio">
-                                        <option selected value="SEMANAL">SEMANAL</option>
-                                        <option value="MENSUAL">MENSUAL</option>
-                                        <option value="QUINCENAL">QUINCENAL</option>
-                                    </select>
-                                    @endif
-                                    @else
-                                    <select class="custom-select personalizado" name="periodo_subsidio">
-                                        <option value="">Selecciona una opción</option>
-                                        <option value="QUINCENAL">QUINCENAL</opotion>
-                                        <option value="MENSUAL">MENSUAL</option>
-                                        <option value="SEMANAL">SEMANAL</option>
-                                    </select>
-                                    @endif
-                                </div>
-                            </div>
-
+                            <!---Flechas-->
                             @canany(['administrador','capturista','reportes'])
                             <div class="col-md-5">
                                 <div class="margin">
                                     <div class="btn-group">
-                                        @if(isset($subsidio))
+                                        @if(isset($vejez))
                                         <div class="form-group">
-                                            <button type="submit" title="Primero" name="acciones" value="primero" id="primero"
+                                            <button type="submit" name="acciones" value="primero" title="Primero" id="primero"
                                                 class="botones"><i class="fas fa-backward"></i></button>
                                         </div>
                                         <div class="form-group">
-                                            <button type="submit"  title="Atrás" name="acciones" value="atras" id="atras"
+                                            <button type="submit" name="acciones" value="atras" title="Atrás" id="atras"
                                                 class="botones"><i class="fas fa-arrow-circle-left"></i></button>
                                         </div>
                                         <div class="form-group">
-                                            <button type="submit" title="Siguiente" name="acciones" value="siguiente" id="siguiente"
+                                            <button type="submit" name="acciones" value="siguiente" title="Siguiente" id="siguiente"
                                                 class="botones"><i class="fas fa-arrow-circle-right"></i></button>
                                         </div>
                                         <div class="form-group">
-                                            <button type="submit" title="Último" name="acciones" value="ultimo" id="ultimo"
+                                            <button type="submit" name="acciones" value="ultimo" title="Último" id="ultimo"
                                                 class="botones"><i class="fas fa-forward"></i></button>
                                         </div>
                                         @else
                                         <div class="form-group">
-                                            <button type="submit" title="Primero" class="botones" disabled><i
+                                            <button type="submit" class="botones" title="Primero" disabled><i
                                                     class="fas fa-backward"></i></button>
                                         </div>
                                         <div class="form-group">
-                                            <button type="submit" title="Atrás" class="botones" disabled><i
+                                            <button type="submit" class="botones" title="Atrás" disabled><i
                                                     class="fas fa-arrow-circle-left"></i></button>
                                         </div>
                                         <div class="form-group">
-                                            <button type="submit" title="Siguiente" class="botones" disabled><i
+                                            <button type="submit" class="botones" title="Siguiente" disabled><i
                                                     class="fas fa-arrow-circle-right"></i></button>
                                         </div>
                                         <div class="form-group">
-                                            <button type="submit" title="Último" class="botones" disabled><i
+                                            <button type="submit" class="botones" title="Último" disabled><i
                                                     class="fas fa-forward"></i></button>
                                         </div>
                                         @endif
@@ -186,33 +151,37 @@
                                 </div>
                             </div>
                             @endcanany
+
+                            <!---Operaciones-->
                             <div class="col-md-5">
                                 <div class="margin">
-                                    @canany(['administrador','capturista','reportes'])
                                     <div class="btn-group">
+                                        @canany(['administrador','capturista','reportes'])
+                                        @if(isset($vejez))
                                         <div class="form-group">
-                                            @if(isset($subsidio))
                                             <button id="buscar" title="Buscar" type="button" data-toggle="modal"
                                                 data-target="#exampleModal" class="botones">
                                                 <i class="fas fa-search"></i>
                                             </button>
-                                            @else
-                                            <div class="form-group">
-                                                <button id="buscar_falso" title="Buscar" type="button" class="botones" disabled>
-                                                    <i class="fas fa-search"></i>
-                                                </button>
-                                            </div>
-                                            @endif
                                         </div>
+                                        @else
+                                        <div class="form-group">
+                                            <button id="buscar_falso" title="Buscar"
+                                             type="button" class="botones" disabled>
+                                                <i class="fas fa-search"></i>
+                                            </button>
+                                        </div>
+                                        @endif
+
                                         @endcanany
                                         @canany(['administrador','capturista'])
                                         <div class="form-group">
-                                            <button type="button" title="Agregar" id="nuevo" class="botones"> <i
+                                            <button type="button" id="nuevo" title="Agregar" class="botones"> <i
                                                     class="fas fa-user-plus"></i></button>
                                         </div>
-                                        @if(isset($subsidio))
+                                        @if(isset($vejez))
                                         <div class="form-group">
-                                            <button type="button" title="Actualizar" id="actualizar" class="botones"> <i
+                                            <button type="button"  title="Actualizar" id="actualizar" class="botones"> <i
                                                     class="fas fa-pen-square"></i></button>
                                         </div>
                                         @else
@@ -232,10 +201,9 @@
                                         </div>
                                         @endcanany
                                         @can('administrador')
-                                        @if(isset($subsidio))
+                                        @if(isset($vejez))
                                         <div class="form-group">
-                                            <a id="eliminar"
-                                                data-target="#modal-deletesubsidio-{{ $subsidio->id_subsidio }}"
+                                            <a id="eliminar" data-target="#modal-deletevejez-{{$vejez->id}}"
                                                 data-toggle="modal">
                                                 <button type="button" title="Eliminar" class="botones">
                                                     <i class="far fa-trash-alt"></i>
@@ -259,10 +227,12 @@
                                                 </button>
                                             </a>
                                         </div>
-                                        @endcan
+                                        @endcanany
                                     </div>
                                 </div>
                             </div>
+
+                            <!---Acciones-->
                             <div class="col-md-2">
                                 <div class="margin">
                                     <div class="btn-group">
@@ -273,34 +243,32 @@
                                         </div>
                                         <div class="form-group">
                                             <button id="nuevo_reg" title="Guardar" name="acciones" value="registrar" type="submit"
-                                                style='display:none;' class="botones">
-                                                <i class="fas fa-save"></i>
-                                            </button>
+                                                class="botones" style="display: none;"><i
+                                                    class="fas fa-save"></i></button>
                                         </div>
                                         <div class="form-group">
                                             <button name="acciones" title="Guardar" value="actualizar" id="actualizar_reg" type="submit"
-                                                style='display: none;' class="botones">
-                                                <i class="fas fa-save"></i>
-                                            </button>
+                                                style="display: none;" class="botones"><i
+                                                    class="fas fa-save"></i></button>
                                         </div>
                                         <div class="form-group">
                                             <button name="acciones" title="Cancelar" value="cancelar" id="cancelar_reg" type="submit"
-                                                disabled class="botones">
-                                                <i class="far fa-window-close"></i>
-                                            </button>
+                                                class="botones" disabled><i class="far fa-window-close"></i></button>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </form>
                 </div>
+                </form>
+                @isset($vejez)
+                @include('basevejez.modaldeletevejez')
+                @endisset
+               @include('basevejez.modalsearchvejez')
             </div>
         </div>
     </div>
 </div>
-@if(!empty($sub))
-@include('subsidio.modaldeletesubsidio')
-@include('subsidio.busquedasubsidio')
-@endif
+</div>
+</div>
 @endsection
