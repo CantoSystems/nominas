@@ -12,6 +12,7 @@ use App\Retenciones;
 use App\RetencionesTemp;
 use App\SalarioMinimo;
 use App\IMSS;
+use App\BaseVejez;
 use App\Exports\PrenominaExport;
 use Session;
 use DataTables;
@@ -80,14 +81,14 @@ class ControlPrenominaController extends Controller
 
         foreach ($data as $value) {
             DB::connection('DB_Serverr')->insert('INSERT INTO prenomina (noPrenomina, clave_empleado, clave_concepto, monto, status_prenomina, created_at, updated_at)
-                                                  VALUES(?,?,?,?,?,?,?)', [$periodo, $value->clvEmp, $value->concepto, $value->monto, 1, $fecha_periodo, $fecha_periodo]);
+                                                VALUES(?,?,?,?,?,?,?)', [$periodo, $value->clvEmp, $value->concepto, $value->monto, 1, $fecha_periodo, $fecha_periodo]);
         }
 
         DB::connection('DB_Serverr')->insert('INSERT INTO prenomina (noPrenomina, clave_empleado, clave_concepto, monto, status_prenomina, created_at, updated_at)
-                                              VALUES(?,?,?,?,?,?,?)', [$periodo, $request->clvEmp, '01OC', $request->totalGrav, 1, $fecha_periodo, $fecha_periodo]);
+                                            VALUES(?,?,?,?,?,?,?)', [$periodo, $request->clvEmp, '01OC', $request->totalGrav, 1, $fecha_periodo, $fecha_periodo]);
 
         DB::connection('DB_Serverr')->insert('INSERT INTO prenomina (noPrenomina, clave_empleado, clave_concepto, monto, status_prenomina, created_at, updated_at)
-                                              VALUES(?,?,?,?,?,?,?)', [$periodo, $request->clvEmp, '02OC', $request->totalExc, 1, $fecha_periodo, $fecha_periodo]);
+                                            VALUES(?,?,?,?,?,?,?)', [$periodo, $request->clvEmp, '02OC', $request->totalExc, 1, $fecha_periodo, $fecha_periodo]);
     }
 
     public function calcularImpuestos(Request $request)
@@ -234,7 +235,6 @@ class ControlPrenominaController extends Controller
 
     public function calcularIMSS(Request $request)
     {
-
         $clv = Session::get('clave_empresa');
         $num_periodo = Session::get('num_periodo');
         $clv_empresa = $this->conectar($clv);
@@ -344,12 +344,18 @@ class ControlPrenominaController extends Controller
                     } else {
                         $sumaIMSS = 0;
                     }
-
                     $totalIMSS = $totalIMSS + $sumaIMSS;
                     break;
                     //Cesantía
                 case 'IRC2':
-                    $cesantia = ($cuotasIMSS->cuotapatron * $diasTrabajados * $SBC) / 100;
+                    $imssPatron = $SBC / $uma->porcentaje_uma;
+                    $porcentajePatron = BaseVejez::select('cuotapatronal_vejez')
+                        ->where([
+                            ['de_salariocotizacion_vejez', '<', $imssPatron],
+                            ['hasta_salariocotizacion_vejez', '>', $imssPatron]
+                        ])
+                        ->first();
+                    $cesantia = ($porcentajePatron->cuotapatronal_vejez * $diasTrabajados * $SBC) / 100;
                     $CollectionPatron->push(["clave_concepto" => "008I", "concepto" => "CESANTÍA", "monto" => number_format($cesantia, 2), "clave_empleado" => $empleadoporClave]);
                     break;
                     //Fondo Retiro
