@@ -24,7 +24,11 @@
                             <tr>
                                 <td>{{ date('d-m-Y',strtotime($um->periodoinicio_uma)) }}</td>
                                 <td>{{ date('d-m-Y',strtotime($um->periodofin_uma)) }}</td>
-                                <td>{{ $um->porcentaje_uma }}</td>
+                                <td>$
+                                    
+                                {{  number_format($um->porcentaje_uma,2,'.',',')
+                                       
+                                }}</td>
                                 <td>
                                     @canany(['administrador','capturista','reportes'])
                                     <div>

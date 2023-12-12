@@ -29,7 +29,7 @@
                                     <td>{{ $salMinAll->fechaInicio}}</td>
                                     <td>{{ $salMinAll->fechafin }}</td>
                                     <td>{{ $salMinAll->region }}</td>
-                                    <td>{{ $salMinAll->importe }}</td>
+                                    <td>${{ number_format($salMinAll->importe,2,'.',',')  }}</td>
                                     <td style="width: 20px;">
                                         @canany(['administrador','capturista','reportes'])
                                         <div>

@@ -25,9 +25,9 @@
                             @foreach ($infonavitGral as $inf)
                             <tr>
                                 <td style="text-align: center;" scope="row">{{ $inf->anio }}</td>
-                                <td style="text-align: center;">{{ $inf->vsm }}</td>
-                                <td style="text-align: center;">{{ $inf->varUma }}</td>
-                                <td style="text-align: center;">{{ $inf->valorInfonavit }}</td>
+                                <td style="text-align: center;">{{ number_format($inf->vsm,2,'.',',')  }}</td>
+                                <td style="text-align: center;">{{ number_format($inf->varUma,2,'.',',')  }} </td>
+                                <td style="text-align: center;">{{ number_format($inf->valorInfonavit,2,'.',',')  }} </td>
                                 <td>
                                     @canany(['administrador','capturista','reportes'])
                                     <div>

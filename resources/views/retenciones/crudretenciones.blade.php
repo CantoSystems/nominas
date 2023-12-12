@@ -295,12 +295,12 @@
                             @if(isset($isr))
                             @foreach ($isr as $rtn)
                             <tr>
-                                <th scope="row">
-                                    {{ $rtn->limite_inferior }}
+                                <th scope="row"> 
+                                    {{ number_format($rtn->limite_inferior,2,'.',',') }} 
                                 </th>
-                                <td> {{ $rtn->limite_superior }}</td>
-                                <td>{{ $rtn->cuota_fija }}</td>
-                                <td>{{ $rtn->porcentaje_excedente }}</td>
+                                <td> {{ number_format($rtn->limite_superior,2,'.',',') }}</td>
+                                <td>{{  number_format($rtn->cuota_fija,2,'.',',') }}</td>
+                                <td>{{ number_format($rtn->porcentaje_excedente,2,'.',',')  }}</td>
                                 <td>{{ $rtn->periodo_retencion }}</td>
                                 <td>
                                     @canany(['administrador','capturista','reportes'])
