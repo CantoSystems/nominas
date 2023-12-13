@@ -8,6 +8,7 @@ use DB;
 use App\Empresa;
 use App\Umas;
 use App\Subsidio;
+use App\SubsidiosTemp;
 use App\Retenciones;
 use App\RetencionesTemp;
 use App\SalarioMinimo;
@@ -116,15 +117,7 @@ class ControlPrenominaController extends Controller
 
         $isrTemp = $this->isrTemp($claveEmpleado, $percGrav);
 
-        $subsidio = Subsidio::select('cantidadSubsidio')
-            ->where([
-                ['ParaIngresos', '<', $percGrav],
-                ['periodo_subsidio', '=', $cadenaPeriodo]
-            ])
-            ->orderBy('id_subsidio', 'desc')
-            ->first();
-
-        $isrDeterminado = ($isrTemp - $isrN) - $subsidio->cantidadSubsidio;
+        $isrDeterminado = $isrTemp - $isrN;
 
         return $collection = collect(['001T', 'ISR', $isrDeterminado, $claveEmpleado]);
     }
@@ -141,7 +134,33 @@ class ControlPrenominaController extends Controller
 
         $diferencia = $percGrav - $limites->limite_inferior;
         $impuestoMarginal = ($diferencia * $limites->porcentaje_excedente) / 100;
-        return $isrCalculado = $impuestoMarginal + $limites->cuota_fija;
+        $isrCalculado = $impuestoMarginal + $limites->cuota_fija;
+
+        $subsidio = Subsidio::select('cantidadSubsidio')
+            ->where([
+                ['ParaIngresos', '<', $percGrav],
+                ['periodo_subsidio', '=', $cadenaPeriodo]
+            ])
+            ->orderBy('id_subsidio', 'desc')
+            ->first();
+
+        $isrCalculado = $isrCalculado - $subsidio->cantidadSubsidio;
+
+        $fechaInicioAnio = now()->parse(date('Y-01-01'))->format('Y-m-d');
+        $fechasPeriodoActual = DB::connection('DB_Serverr')->table('periodos')
+            ->select('fecha_inicio', 'fecha_fin')
+            ->where('status_periodo', '=', 1)
+            ->first();
+
+        $AcumISR = DB::connection('DB_Serverr')->table('prenomina')
+            ->join('periodos', 'periodos.id', '=', 'prenomina.noPrenomina')
+            ->select(DB::raw('SUM(monto) AS total'))
+            ->whereBetween('periodos.fecha_inicio', [$fechaInicioAnio, $fechasPeriodoActual->fecha_inicio])
+            ->whereBetween('periodos.fecha_fin', [$fechaInicioAnio, $fechasPeriodoActual->fecha_fin])
+            ->where('prenomina.clave_concepto', '=', '001T')
+            ->first();
+
+        return $isrCalculado + $AcumISR->total;
     }
 
     public function isrTemp($empclave, $percGrav)
@@ -154,13 +173,34 @@ class ControlPrenominaController extends Controller
         $fechaInicioAnio = now()->parse(date('Y-01-01'))->format('Y-m-d');
         $fechaAlta = now()->parse($alta_trabajador->fecha_alta)->format('Y-m-d');
         $fecha_actual = now()->toDateString();
+        $fechasPeriodoActual = DB::connection('DB_Serverr')->table('periodos')
+            ->select('fecha_inicio', 'fecha_fin')
+            ->where('status_periodo', '=', 1)
+            ->first();
+
         if ($fechaAlta < $fechaInicioAnio) {
             $diffMeses = bcdiv(Carbon::parse($fechaInicioAnio)->floatDiffInMonths($fecha_actual), '1', 1);
         } else {
             $diffMeses = bcdiv(Carbon::parse($fechaAlta)->floatDiffInMonths($fecha_actual), '1', 1);
         }
 
-        RetencionesTemp::truncate();
+        $decimal = floor($diffMeses);
+        $result = $diffMeses - $decimal;
+        if (($result > 0) && ($result < 0.5)) {
+            $diffMeses = floor($diffMeses) + 0.5;
+        } else {
+            $diffMeses = round($diffMeses, 0, PHP_ROUND_HALF_UP) + 0.5;
+        }
+
+        $AcumPercGrav = DB::connection('DB_Serverr')->table('prenomina')
+            ->join('periodos', 'periodos.id', '=', 'prenomina.noPrenomina')
+            ->select(DB::raw('SUM(monto) AS total'))
+            ->whereBetween('periodos.fecha_inicio', [$fechaInicioAnio, $fechasPeriodoActual->fecha_inicio])
+            ->whereBetween('periodos.fecha_fin', [$fechaInicioAnio, $fechasPeriodoActual->fecha_fin])
+            ->where('prenomina.clave_concepto', '=', '01OC')
+            ->first();
+
+        $AcumPercGrav = $AcumPercGrav->total + $percGrav;
 
         $limites = Retenciones::select('limite_inferior', 'limite_superior', 'cuota_fija', 'porcentaje_excedente')
             ->where([
@@ -169,6 +209,7 @@ class ControlPrenominaController extends Controller
             ->orderBy('id', 'asc')
             ->get();
 
+        RetencionesTemp::truncate();
         foreach ($limites as $lim) {
             $limTemp = new RetencionesTemp;
             $limTemp->limite_inferior = bcdiv(($lim->limite_inferior * $diffMeses) - .1, '1', 4);
@@ -180,14 +221,39 @@ class ControlPrenominaController extends Controller
 
         $limites = RetencionesTemp::select('limite_inferior', 'limite_superior', 'cuota_fija', 'porcentaje_excedente')
             ->where([
-                ['limite_inferior', '<=', $percGrav]
+                ['limite_inferior', '<=', $AcumPercGrav]
             ])
             ->orderBy('id', 'desc')
             ->first();
 
-        $diferencia = $percGrav - $limites->limite_inferior;
+        $diferencia = $AcumPercGrav - $limites->limite_inferior;
         $impuestoMarginal = ($diferencia * $limites->porcentaje_excedente) / 100;
-        return $isrTempCalculado = $impuestoMarginal + $limites->cuota_fija;
+        $isrTempCalculado = $impuestoMarginal + $limites->cuota_fija;
+
+        $subsidio = Subsidio::select('ParaIngresos', 'hastaIngresos', 'cantidadSubsidio')
+            ->where([
+                ['periodo_subsidio', '=', 'MENSUAL']
+            ])
+            ->orderBy('id_subsidio', 'asc')
+            ->get();
+
+        SubsidiosTemp::truncate();
+        foreach ($subsidio as $sub) {
+            $subTemp = new SubsidiosTemp;
+            $subTemp->ParaIngresos = bcdiv(($sub->ParaIngresos * $diffMeses) - .1, '1', 4);
+            $subTemp->hastaIngresos = bcdiv($sub->hastaIngresos * $diffMeses, '1', 4);
+            $subTemp->cantidadSubsidio = bcdiv($sub->cantidadSubsidio * $diffMeses, '1', 4);
+            $subTemp->save();
+        }
+
+        $subsidio = SubsidiosTemp::select('cantidadSubsidio')
+            ->where([
+                ['ParaIngresos', '<', $AcumPercGrav]
+            ])
+            ->orderBy('id_subsidio', 'desc')
+            ->first();
+
+        return $isrTempCalculado - $subsidio->cantidadSubsidio;
     }
 
     public function pensionAlimenticia(Request $request)
@@ -366,7 +432,7 @@ class ControlPrenominaController extends Controller
                     //Infonavit Patrón
                 case 'IIN1':
                     $infonavitEmpresa = ($cuotasIMSS->cuotapatron * $diasTrabajados * $SBC) / 100;
-                    $CollectionPatron->push(["clave_concepto" => "006I", "concepto" => "INFONAVIT EMPRESA", "monto" => number_format($infonavitEmpresa, 2)]);
+                    $CollectionPatron->push(["clave_concepto" => "006I", "concepto" => "INFONAVIT EMPRESA", "monto" => number_format($infonavitEmpresa, 2), "clave_empleado" => $empleadoporClave]);
                     break;
                 default:
                     $sumaIMSS = ($cuotasIMSS->cuotapatron * $diasTrabajados * $SBC) / 100;
