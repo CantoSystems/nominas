@@ -23,9 +23,9 @@
                     @if(isset($basevejez))
                             @foreach ($basevejez as $base)
                             <tr>
-                                <td>{{$base->de_salariocotizacion_vejez}}</td>
-                                <td>{{$base->hasta_salariocotizacion_vejez}}</td>
-                                <td>{{$base->cuotapatronal_vejez}}</td>
+                                <td>{{ number_format($base->de_salariocotizacion_vejez,2,'.',',') }}</td>
+                                <td>{{ number_format($base->hasta_salariocotizacion_vejez,2,'.',',') }} </td>
+                                <td>{{ number_format($base->cuotapatronal_vejez,2,'.',',') }}  </td>
                                 <td>
                                     @canany(['administrador','capturista','reportes'])
                                     <div>

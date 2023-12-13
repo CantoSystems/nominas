@@ -22,9 +22,9 @@
                             @if(isset($subsidios))
                             @foreach ($subsidios as $sub)
                             <tr>
-                                <th>{{ $sub->ParaIngresos }}</th>
-                                <td>{{ $sub->hastaIngresos }}</td>
-                                <td>{{ $sub->cantidadSubsidio }}</td>
+                                <th>{{  number_format($sub->ParaIngresos,2,'.',',') }}</th>
+                                <td>{{ number_format($sub->hastaIngresos,2,'.',',')}}</td>
+                                <td>{{  number_format($sub->cantidadSubsidio,2,'.',',') }}</td>
                                 <td>{{ $sub->periodo_subsidio }}</td>
                                 <td>
                                     @canany(['administrador','capturista','reportes'])

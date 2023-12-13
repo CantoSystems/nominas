@@ -1,5 +1,5 @@
 <div class="modal fade bs-example-modal-sm" id="exampleModal" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-dialog modal-md">
+    <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title modalPersonalizado" id="myModalLabel">
@@ -25,13 +25,13 @@
                     @if(isset($isr))
                             @foreach ($isr as $rtn)
                             <tr>
-                                <th scope="row">
-                                    {{ $rtn->limite_inferior }}
-                                </th>
-                                <td> {{ $rtn->limite_superior }}</td>
-                                <td>{{ $rtn->cuota_fija }}</td>
-                                <td>{{ $rtn->porcentaje_excedente }}</td>
-                                <td>{{ $rtn->periodo_retencion }}</td>
+                                <td scope="row">
+                                   $ {{ number_format($rtn->limite_inferior,2,'.',',') }}
+                                </td>
+                                <td>  $ {{ number_format($rtn->limite_superior,2,'.',',') }} </td>
+                                <td> $ {{ number_format($rtn->cuota_fija,2,'.',',') }} </td>
+                                <td> {{ number_format($rtn->porcentaje_excedente,2,'.',',') }} %</td>
+                                <td>{{ $rtn->periodo_retencion }} </td>
                                 <td>
                                     @canany(['administrador','capturista','reportes'])
                                     <div>

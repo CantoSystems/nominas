@@ -28,9 +28,9 @@
                         <tr>
                             <td>{{ $timss->concepto }}</td>
                             <td>{{ $timss->prestaciones}}</td>
-                            <td>{{ $timss->cuotapatron}} </td>
-                            <td>{{ $timss->cuotatrabajador }}</td>
-                            <td>{{ $timss->cuotatotal}}</td>
+                            <td>{{ number_format($timss->cuotapatron,2,'.',',') }} </td>
+                            <td>{{ number_format($timss->cuotatrabajador,2,'.',',') }} </td>
+                            <td>{{ number_format($timss->cuotatotal,2,'.',',') }} </td>
                             <td>{{ $timss->base}}</td>
                             <td>
                               @canany(['administrador','capturista','reportes'])
