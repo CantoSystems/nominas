@@ -117,7 +117,11 @@ class ControlPrenominaController extends Controller
 
         $isrTemp = $this->isrTemp($claveEmpleado, $percGrav);
 
-        $isrDeterminado = $isrTemp - $isrN;
+        if (($isrTemp - $isrN['AcumISR']) > 0) {
+            $isrDeterminado = ($isrTemp - $isrN['AcumISR']) * (-1);
+        } else {
+            $isrDeterminado = $isrN['ISR'];
+        }
 
         return $collection = collect(['001T', 'ISR', $isrDeterminado, $claveEmpleado]);
     }
@@ -146,7 +150,8 @@ class ControlPrenominaController extends Controller
 
         $isrCalculado = $isrCalculado - $subsidio->cantidadSubsidio;
 
-        $fechaInicioAnio = now()->parse(date('Y-01-01'))->format('Y-m-d');
+        $fechaInicioAnio = date('Y-m-d', strtotime('2023-01-01'));
+        //$fechaInicioAnio = now()->parse(date('Y-01-01'))->format('Y-m-d');
         $fechasPeriodoActual = DB::connection('DB_Serverr')->table('periodos')
             ->select('fecha_inicio', 'fecha_fin')
             ->where('status_periodo', '=', 1)
@@ -160,7 +165,15 @@ class ControlPrenominaController extends Controller
             ->where('prenomina.clave_concepto', '=', '001T')
             ->first();
 
-        return $isrCalculado + $AcumISR->total;
+        if ($AcumISR->total == null) {
+            $AcumISR->total = 0;
+        }
+
+        $isrTotal = $AcumISR->total + $isrCalculado;
+
+        $infoISR = array('AcumISR' => $isrTotal, 'ISR' => $isrCalculado);
+
+        return $infoISR;
     }
 
     public function isrTemp($empclave, $percGrav)
@@ -170,9 +183,11 @@ class ControlPrenominaController extends Controller
             ->where('clave_empleado', '=', $empclave)
             ->first();
 
-        $fechaInicioAnio = now()->parse(date('Y-01-01'))->format('Y-m-d');
+        $fechaInicioAnio = date('Y-m-d', strtotime('2023-01-01'));
+        //$fechaInicioAnio = now()->parse(date('Y-01-01'))->format('Y-m-d');
         $fechaAlta = now()->parse($alta_trabajador->fecha_alta)->format('Y-m-d');
-        $fecha_actual = now()->toDateString();
+        $fecha_actual = date('Y-m-d', strtotime('2023-12-01'));
+        //$fecha_actual = now()->toDateString();
         $fechasPeriodoActual = DB::connection('DB_Serverr')->table('periodos')
             ->select('fecha_inicio', 'fecha_fin')
             ->where('status_periodo', '=', 1)
@@ -185,11 +200,10 @@ class ControlPrenominaController extends Controller
         }
 
         $decimal = floor($diffMeses);
-        $result = $diffMeses - $decimal;
-        if (($result > 0) && ($result < 0.5)) {
-            $diffMeses = floor($diffMeses) + 0.5;
+        if (date('d', strtotime($fecha_actual)) > 15) {
+            $diffMeses = $decimal + 1;
         } else {
-            $diffMeses = round($diffMeses, 0, PHP_ROUND_HALF_UP) + 0.5;
+            $diffMeses = $decimal + 0.5;
         }
 
         $AcumPercGrav = DB::connection('DB_Serverr')->table('prenomina')
