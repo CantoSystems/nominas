@@ -140,7 +140,7 @@
                                             </div>
                                             <div class="col-md-2 mb-3">
                                                 <label class="titulo">Causa de baja</label>
-                                                <
+                                                
                                                 @if(isset($persona))
                                                 <select class="custom-select" name="causa_baja">
                                                     @if($persona->causa_baja=="")
@@ -1636,7 +1636,7 @@
                                             <div class="col-md-2 mb-2">
                                                 <br>
                                                 <label class="titulo">Sueldo diario <strong
-                                                        style="color:red">**</strong></label>
+                                                        style="color:red">*</strong></label>
                                                 <input type="number" class="form-control" name="sueldo_diario"
                                                     value="{{$persona->sueldo_diario ?? ''}}" maxlength="5" min="0.01"
                                                     max="10000.00" step="0.01">
@@ -1775,15 +1775,24 @@
                                                     <option selected disabled value="">Seleccione una opción:</option>
                                                     <option value="EFECTIVO">Efectivo</option>
                                                     <option value="CHEQUE">Cheque</option>
+                                                    <option value="TRANSFERENCIA">Transferencia</option>
                                                     @elseif($persona->forma_pago=="EFECTIVO")
                                                     <option disabled value="">Seleccione una opción:</option>
                                                     <option selected value="EFECTIVO">Efectivo</option>
+                                                    <option value="TRANSFERENCIA">Transferencia</option>
                                                     <option value="CHEQUE">Cheque</option>
                                                     @elseif($persona->forma_pago=="CHEQUE")
                                                     <option disabled value="">Seleccione una opción:</option>
                                                     <option value="EFECTIVO">Efectivo</option>
                                                     <option selected value="CHEQUE">Cheque</option>
+                                                    <option value="TRANSFERENCIA">Transferencia</option>
+                                                    @elseif($persona->forma_pago=="CHEQUE")
+                                                    <option disabled value="">Seleccione una opción:</option>
+                                                    <option value="EFECTIVO">Efectivo</option>
+                                                    <option value="CHEQUE">Cheque</option>
+                                                    <option selected value="TRANSFERENCIA">Transferencia</option>
                                                     @endif
+
                                                 </select>
                                                 @error('forma_pago')
                                                 <div class="alert alert-secondary">

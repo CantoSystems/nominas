@@ -51,7 +51,6 @@ class EmpleadosImport implements ToCollection
                                                                         ,rfc
                                                                         ,curp
                                                                         ,imss
-                                                                        ,ine
                                                                         ,calle
                                                                         ,numero_externo
                                                                         ,colonia
@@ -59,7 +58,6 @@ class EmpleadosImport implements ToCollection
                                                                         ,ciudad
                                                                         ,municipio
                                                                         ,estado
-                                                                        ,telefono_empleado
                                                                         ,correo
                                                                         ,sexo
                                                                         ,estado_civil
@@ -74,6 +72,7 @@ class EmpleadosImport implements ToCollection
                                                                         ,vigencia
                                                                         ,diadescanso_empleado
                                                                         ,sueldo_diario
+                                                                        ,sueldo_integrado
                                                                         ,tipo_salario
                                                                         ,tipo_jornada
                                                                         ,dias
@@ -83,7 +82,7 @@ class EmpleadosImport implements ToCollection
                                                                         values(?,?,?,?,?,?,?,?,?,?,
                                                                                 ?,?,?,?,?,?,?,?,?,?,
                                                                                 ?,?,?,?,?,?,?,?,?,?,
-                                                                                ?,?,?,?,?,?,?,?,?)',[$collection[0],$collection[1],$collection[2],
+                                                                                ?,?,?,?,?,?,?,?)',[$collection[0],$collection[1],$collection[2],
                                                                                                 $collection[3],$collection[4],$collection[5],
                                                                                                 $collection[6],$collection[7],$collection[8],
                                                                                                 $collection[9],$collection[10],$collection[11],
@@ -95,7 +94,7 @@ class EmpleadosImport implements ToCollection
                                                                                                 $collection[27],$collection[28],$collection[29],
                                                                                                 $collection[30],$collection[31],$collection[32],
                                                                                                 $collection[33],$collection[34],$collection[35],
-                                                                                                $collection[36],$collection[37],$collection[38]
+                                                                                                $collection[36],$collection[37]
                                                                             ]);
         }
     }

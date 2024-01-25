@@ -468,7 +468,7 @@ class EmpresaController extends Controller{
                 $table->string('curp',18);
                 $table->string('imss',11);
                 $table->string('afore',50)->nullable();
-                $table->string('ine',18);
+                $table->string('ine',18)->nullable();
                 $table->string('credito_infonavit',15)->nullable();
                 $table->string('credito_fonacot',15)->nullable();
                 $table->string('licencia',5)->nullable();
@@ -481,7 +481,7 @@ class EmpresaController extends Controller{
                 $table->string('ciudad',50);
                 $table->string('municipio',50);
                 $table->string('estado',50);
-                $table->string('telefono_empleado',15);
+                $table->string('telefono_empleado',15)->nullable();
                 $table->string('correo',60);
                 $table->string('sexo',6);
                 $table->string('estado_civil',20);
@@ -609,7 +609,7 @@ class EmpresaController extends Controller{
                 $table->time('horario_trabajofin')->nullable();
                 $table->string('diadescanso_empleado');
                 $table->double('sueldo_diario');
-                $table->double('sueldo_integrado')->nullable();
+                $table->double('sueldo_integrado');
                 $table->string('nivel',50)->nullable();
                 $table->string('categoria',50)->nullable();
                 $table->string('tipo_salario',30);

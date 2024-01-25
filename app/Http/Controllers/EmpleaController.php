@@ -303,7 +303,6 @@ class EmpleaController extends Controller
               'rfc' => 'required',
               'curp' => 'required',
               'imss' => 'required',
-              'ine' => 'required',
               'calle' => 'required',
               'numero_externo' => 'required',
               'colonia' => 'required',
@@ -311,7 +310,6 @@ class EmpleaController extends Controller
               'ciudad' => 'required',
               'municipio' => 'required',
               'estado' => 'required',
-              'telefono_empleado' => 'required',
               'correo' => 'required',
               'sexo' => 'required',
               'estado_civil' => 'required',
@@ -328,6 +326,7 @@ class EmpleaController extends Controller
               'horario_trabajofin' => 'required',
               'diadescanso_empleado' => 'required',
               'sueldo_diario' => 'required',
+              'sueldo_integrado' => 'required',
               'tipo_salario' => 'required',
               'tipo_jornada' => 'required',
               'dias' => 'required',
@@ -616,7 +615,7 @@ class EmpleaController extends Controller
                                                             ,$datos->direccion_compania
                                                             ,$datos->telefono_compania
                                                             ,$datos->sueldo
-                                                            ,'1000'
+                                                            ,$datos->sueldo_integrado
                                                             ,$datos->motivo_separacion
                                                             ,$datos->nombre_jefe
                                                             ,$datos->puesto_jefe
@@ -977,5 +976,6 @@ class EmpleaController extends Controller
             $file = $request->file('file');
             Excel::import(new EmpleadosImport, $file);
         }
+        return redirect()->route('emplea.index');
     }
 }
