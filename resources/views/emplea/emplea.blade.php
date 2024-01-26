@@ -71,7 +71,8 @@
                                                 <label class="titulo">Clave</label>
                                                 <input type="text" class="form-control" name="clave_empleado"
                                                     maxlength="4" onkeyup="mayus(this);"
-                                                    value="{{ $persona->clave_empleado ?? ''}}">
+                                                    value="{{ $persona->clave_empleado ?? ''}}"
+                                                    pattern="/^[a-z0-9_-]{3,16}$/">
                                                 <input type="hidden" class="form-control" name="id_emp"
                                                     value="{{ $persona->id_emp ?? ''}}">
                                                 @error('clave_empleado')

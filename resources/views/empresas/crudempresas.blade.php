@@ -18,7 +18,7 @@
         <form action="{{ route('nominas.empresas')}}" method="GET" autocomplete="off">
             <meta name="csrf-token" content="{{ csrf_token() }}">
             <div class="row">
-                <div class="col-sm-4">
+                <div class="col-sm-3">
                     <div class="form-group">
                         <label class="titulo">
                             Nombre Empresa<strong class="obligatorio">*</strong>
@@ -32,13 +32,13 @@
                         @enderror
                     </div>
                 </div>
-                <div class="col-sm-1">
+                <div class="col-sm-2">
                     <div class="form-group">
                         <label class="titulo">
                             Clave empresa<strong class="obligatorio">*</strong>
                         </label>
                         <input type="text" name="clave" class="form-control" value="{{$empresa->clave ?? ''}}"
-                            maxlength="4" onkeyup="mayus(this);">
+                            maxlength="4" onkeyup="mayus(this);" placeholder="Iniciar con una letra">
                         @error('clave')
                         <div class="alert alert-secondary">
                             {{ $message }}
@@ -46,7 +46,7 @@
                         @enderror
                     </div>
                 </div>
-                <div class="col-sm-4">
+                <div class="col-sm-3">
                     <div class="form-group">
                         <label class="titulo">
                             Nombre Nómina<strong class="obligatorio">*</strong>
