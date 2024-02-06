@@ -474,8 +474,8 @@ class EmpresaController extends Controller{
                 $table->string('licencia',5)->nullable();
                 $table->string('documento_migratorio',13)->nullable();
                 $table->string('calle',80);
-                $table->integer('numero_interno')->nullable();
-                $table->integer('numero_externo');
+                $table->string('numero_interno')->nullable();
+                $table->string('numero_externo');
                 $table->string('colonia',100);
                 $table->string('cp',10);
                 $table->string('ciudad',50);
