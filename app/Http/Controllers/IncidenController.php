@@ -20,12 +20,14 @@ class IncidenController extends Controller{
                 ->join('empleados','empleados.clave_empleado','=','incidencias.clave_empleado')
                 ->join('conceptos','conceptos.clave_concepto','=','incidencias.clave_concepto')
                 ->select('incidencias.*','empleados.*','conceptos.concepto')
+                ->where('incidencias.status_incidencias','!=',0)
                 ->orderBy('id_incidencia')->first();
 
                 $incidencias2 = DB::connection('DB_Serverr')->table('incidencias')
                 ->join('empleados','empleados.clave_empleado','=','incidencias.clave_empleado')
                 ->join('conceptos','conceptos.clave_concepto','=','incidencias.clave_concepto')
                 ->select('incidencias.*','empleados.*','conceptos.concepto')
+                ->where('incidencias.status_incidencias','!=',0)
                 ->orderBy('id_incidencia')->get();
 
                 return view('incidencias.incidencias2',compact('incidencias2','incidencias'));
@@ -173,15 +175,18 @@ class IncidenController extends Controller{
                 'concepto_clave' => 'required',
                 'cantidad' => 'required',
                 'importe' => 'required',
-                'monto' => 'required',
+                'monto'  => 'required',
+                'status_incidencias'  => 'required',
         ]);
 
         DB::connection('DB_Serverr')->insert('INSERT INTO incidencias (clave_concepto
                                                                       ,clave_empleado
                                                                       ,cantidad
                                                                       ,importe
-                                                                      ,monto)
+                                                                      ,monto
+                                                                      ,status_incidencias)
                                                                 VALUES (?
+                                                                       ,?
                                                                        ,?
                                                                        ,?
                                                                        ,?
@@ -189,7 +194,8 @@ class IncidenController extends Controller{
                                                                             ,$datos->clave_empledo
                                                                             ,$datos->cantidad
                                                                             ,$datos->importe
-                                                                            ,$datos->monto]);
+                                                                            ,$datos->monto
+                                                                            ,$datos->status_incidencias]);
     }
 
     public function actualizar($datos){
@@ -203,15 +209,17 @@ class IncidenController extends Controller{
                 'cantidad' => 'required',
                 'importe' => 'required',
                 'monto' => 'required',
+                'status_incidencias'  => 'required',
         ]);
 
         DB::connection('DB_Serverr')->table('incidencias')
         ->where('id_incidencia',$datos->idIncidencia)
         ->update(['clave_concepto'=>$datos->concepto_clave
-                 ,'clave_empleado'=>$datos->clave_empledo
-                 ,'cantidad'=>$datos->cantidad
-                 ,'importe'=>$datos->importe
-                 ,'monto'=>$datos->monto]);
+                    ,'clave_empleado'=>$datos->clave_empledo
+                    ,'cantidad'=>$datos->cantidad
+                    ,'importe'=>$datos->importe
+                    ,'monto'=>$datos->monto
+                    ,'status_incidencias'=>$datos->status_incidencias]);
     }
 
     public function show($id_incidencia){

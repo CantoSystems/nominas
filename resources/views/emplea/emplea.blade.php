@@ -1787,7 +1787,7 @@
                                                     <option value="EFECTIVO">Efectivo</option>
                                                     <option selected value="CHEQUE">Cheque</option>
                                                     <option value="TRANSFERENCIA">Transferencia</option>
-                                                    @elseif($persona->forma_pago=="CHEQUE")
+                                                    @elseif($persona->forma_pago=="TRANSFERENCIA  ")
                                                     <option disabled value="">Seleccione una opción:</option>
                                                     <option value="EFECTIVO">Efectivo</option>
                                                     <option value="CHEQUE">Cheque</option>

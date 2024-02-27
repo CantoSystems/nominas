@@ -45,7 +45,7 @@ class RegimenSeeder extends Seeder
         foreach($regimen as $reg){
             DB::table('regimen_fiscals')->insert([
                 'claveRegimen' => $reg['clave'],
-                'descripcionRegimen' => $reg['descripcion'],
+                'descripcionRegimen' => strtoupper($reg['descripcion']),
                 'created_at' => $fecha_periodo,
                 'updated_at' => $fecha_periodo
             ]);

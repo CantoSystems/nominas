@@ -42,7 +42,7 @@
                     $incidencias2 = DB::connection('DB_Serverr')->table('incidencias')
                     ->join('empleados','empleados.clave_empleado','=','incidencias.clave_empleado')
                     ->join('conceptos','conceptos.clave_concepto','=','incidencias.clave_concepto')
-                    ->select('incidencias.*','empleados.*','conceptos.concepto')
+                    ->select('incidencias.*','empleados.*','conceptos.concepto') 
                     ->get();
 
                     $emp = DB::connection('DB_Serverr')->table('empleados')->get();
@@ -74,6 +74,13 @@
                 }
             }*/
 
+            /*
+            0 inactivo
+            1 activo
+            2 pausa
+            3 finalizado
+            */
+
             $clv = Session::get('clave_empresa');
             $clv_empresa = $this->conectar($clv);
             \Config::set('database.connections.DB_Serverr', $clv_empresa);
@@ -85,14 +92,16 @@
                                                                             ,clave_empleado
                                                                             ,cantidad
                                                                             ,importe
-                                                                            ,monto,periodo_incidencia,created_at,updated_at)
-                                                                    VALUES (?,?,?,?,?,?,?,?)'
+                                                                            ,monto,periodo_incidencia,
+                                                                            status_incidencias,created_at,updated_at)
+                                                                    VALUES (?,?,?,?,?,?,?,?,?)'
                                                                                 ,[$value->concepto
                                                                                 ,$value->empleado
                                                                                 ,$value->cantidad
                                                                                 ,$value->importe
                                                                                 ,$value->monto,
                                                                                 $inciden_periodo,
+                                                                                1,
                                                                                 $fecha_periodo,
                                                                                 $fecha_periodo]);
             }
@@ -110,6 +119,8 @@
                                 ['statusPrestamo','=','0']
                          ])
                          ->count();
+
+                        
 
             if($Prestamos > 0){
                 $incidencias = DB::connection('DB_Serverr')->table('incidencias')

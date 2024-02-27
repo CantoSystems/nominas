@@ -228,10 +228,17 @@ use Illuminate\Support\Facades\Schema;
             if($request->get('consulta')){
                 $consulta = $request->get('consulta');
                 $data = DB::connection('DB_Serverr')->table('conceptos')
-                        ->where('clave_concepto','LIKE','%'.$consulta.'%')
-                        ->orWhere('concepto','LIKE','%'.$consulta.'%')
-                        ->get();
-        
+                        ->where([
+                            ['concepto','LIKE','%'.$consulta.'%'],
+                            ['seleccionado',1]
+                        ])
+                        ->orWhere([
+                            ['clave_concepto','LIKE','%'.$consulta.'%'],
+                            ['seleccionado',1]
+                        ])
+                        ->get();      
+                        
+                        
                 $output = '<ul  class="dropdpwn-menu"
                                 aria-labelledby="dropdownMenuLink"
                                 style="display:block;

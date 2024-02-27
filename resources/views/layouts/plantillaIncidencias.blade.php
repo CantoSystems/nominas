@@ -160,14 +160,14 @@
                   </a>
                 </li>
               </ul>
-              <ul class="nav nav-treeview">
+              <!--<ul class="nav nav-treeview">
                 <li class="nav-item {{!Route::is('prestamos.index') ?: 'active'}}">
                   <a href="{{ route('prestamos.index')}}" class="nav-link active">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Capturar Adicionales</p>
                   </a>
                 </li>
-              </ul>
+              </ul>-->
             </li>
             <li class="nav-item has-treeview menu-open">
               <a href="#" class="nav-link">
@@ -201,14 +201,14 @@
                   </a>
                 </li>
               </ul>
-              <ul class="nav nav-treeview">
+              <!--<ul class="nav nav-treeview">
                 <li class="nav-item {{!Route::is('prestamos.show') ?: 'active'}}">
                   <a href="{{ route('prestamos.show')}}" class="nav-link active">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Consultar Adicionales</p>
                   </a>
                 </li>
-              </ul>
+              </ul>-->
             </li>
             <li class="nav-item has-treeview menu-open">
               <a href="#" class="nav-link">
@@ -425,21 +425,31 @@
             }
         });
 
-        $(document).on('click','#concepto',function(){
+       $(document).on('click','#concepto',function(){
           let infoconcepto = $(this).text();
           let concep = infoconcepto.substring(0,4);
           let nombreConcepto = infoconcepto.substring(5);
           $('#concepto_clave').val(concep);
           $('#listaconcepto_clave').fadeOut();
           $('#nomConcepto').val(nombreConcepto);
-          switch (concep){
+        });
+
+        
+         /* switch (concep){
             case '011D':
+              //uniformes
             case '012D':
+              //Prestamos
             case '013D':
+              //Descuento compras lentes
             case '009P':
+              //Compensación
             case '010P':
+              //diferencia de sueldo
             case '015P':
+              //comnisiones
             case '017P':
+              //Bono de productividad
               $.ajax({
                 url: "{{ route('incidencias.check') }}",
                 method: "POST",
@@ -450,6 +460,7 @@
                   claveEmpleado: $('#clave_empledo').val(),
                 },
                 success: function(data){
+                  console.log(data);
                   if(data[0] != "0"){
                     $('#monto_incidencias').val(data[0]);
                     $('#importe_incidencias').val(data[1]);
@@ -464,7 +475,7 @@
                   console.log(err.Message);
                 }
               });
-            break;
+           /*break;
             default:
               $('.divPrestamos').css('display', 'none');
               $('#monto_incidencias').val("");
@@ -487,16 +498,18 @@
               });
             break;
           }
-        });
+        });*/
 
         $('#can_incidencia').focus(function(){
           getConcepto = $('#concepto_clave').val();
           console.log(getConcepto);
           switch (getConcepto) { 
             case '013P': 
+              //Vacaciones
               $('#can_incidencia').attr("title", "Captura los días a tomar");
               break;
             case '018D': 
+              //Pension alimenticia 
               $('#can_incidencia').attr("title", "Captura el % de descuento");
               break;
             default:
@@ -510,9 +523,11 @@
           switch (getConcepto) { 
             case '013P': 
               $('#importe_incidencias').attr("title", "Sueldo Diario");
+              //descuento de lentes
               break;
             case '018D': 
               $('#importe_incidencias').attr("title", "Cantidad a descontar");
+              //penson alimenticia porcentaje
               break;
             default:
               $('#importe_incidencias').attr("title", "");

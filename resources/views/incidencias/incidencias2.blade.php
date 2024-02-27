@@ -20,19 +20,30 @@
                                 <th>Cantidad</th>
                                 <th>Importe</th>
                                 <th>Monto</th>
-                                <th></th>
+                                <th>Estatus Incidencia</th>
+                                <th>Visualizar</th>
                             </tr>
                         </thead>
                         <tbody>
                             @if(!empty($incidencias2))
                                 @foreach($incidencias2 as $datos)
                                     <tr>
-                                        <th>{{ $datos->id_incidencia }}</th>
-                                        <th>{{ $datos->nombre }} {{ $datos->apellido_paterno }} {{ $datos->apellido_materno }}</th>
-                                        <th>{{ $datos->concepto }}</th>
-                                        <th>{{ $datos->cantidad }}</th>
-                                        <th>{{ $datos->importe }}</th>
-                                        <th>{{ $datos->monto }}</th>
+                                        <td>{{ $datos->id_incidencia }}</td>
+                                        <td>{{ $datos->nombre }} {{ $datos->apellido_paterno }} {{ $datos->apellido_materno }}</td>
+                                        <td>{{ $datos->concepto }}</td>
+                                        <td>{{ $datos->cantidad }}</td>
+                                        <td>{{ $datos->importe }}</td>
+                                        <td>{{ $datos->monto }}</td>
+                                        <td>
+                                            @if($datos->status_incidencias == 1)
+                                                Activo
+                                            @elseif($datos->status_incidencias == 2)
+                                                Pausa
+                                            @elseif($datos->status_incidencias == 3)
+                                                Finalizado
+                                            @endif
+                                            
+                                        </td>
                                         <td>
                                             @canany(['administrador','capturista'])
                                                 <div>
@@ -153,25 +164,55 @@
                                 onkeyup="mayus(this);">
                     </div>
                 </div>
-                <div class="col-sm-4">
+                <div class="col-sm-2">
                     <div class="form-group">
                         <label class="titulo">Cantidad</label>
                         <strong class="obligatorio">*</strong>
                         <input type="number" name="cantidad" onkeypress="return numeros(event)" value="{{ $incidencias->cantidad ?? '' }}" class="form-control" step="0.1" onkeyup="mayus(this);">
                     </div>
                 </div>
-                <div class="col-sm-4">
+                <div class="col-sm-2">
                     <div class="form-group">
                         <label class="titulo">Importe</label>
                         <strong class="obligatorio">*</strong>
                         <input type="number" name="importe" onkeypress="return numeros(event)" value="{{ $incidencias->importe ?? '' }}" class="form-control" step="0.1">
                     </div>
                 </div>
-                <div class="col-sm-4">
+                <div class="col-sm-2">
                     <div class="form-group">
                         <label class="titulo">Monto</label>
                         <strong class="obligatorio">*</strong>
                         <input type="number" name="monto" onkeypress="return numeros(event)" value="{{ $incidencias->monto ?? '' }}" class="form-control" step="0.1">
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label class="titulo">Status Incidencia</label>
+                                <strong class="obligatorio">*</strong>
+                                
+                                <select class="custom-select" id="status_incidencias" name="status_incidencias">
+                                    @if($incidencias->status_incidencias == null)
+                                        <option value="" selected>Selecciona una opción </option>
+                                        <option value="1">Activo</option>
+                                        <option value="2">Pausa</option>
+                                        <option value="3">Finalizado</option>
+                                    @elseif($incidencias->status_incidencias=="1")
+                                        <option value="">Selecciona una opción</option>
+                                        <option value="1" selected>Activo</option>
+                                        <option value="2">Pausa</option>
+                                        <option value="3">Finalizado</option>
+                                    @elseif($incidencias->status_incidencias=="2")
+                                        <option value="">Selecciona una opción</option>
+                                        <option value="1" >Activo</option>
+                                        <option value="2" selected>Pausa</option>
+                                        <option value="3">Finalizado</option>
+                                    @elseif($incidencias->status_incidencias=="3")
+                                        <option value="">Selecciona una opción</option>
+                                        <option value="1" >Activo</option>
+                                        <option value="2" >Pausa</option>
+                                        <option value="3" selected>Finalizado</option>
+                                    @endif
+                                </select>
                     </div>
                 </div>
                 <div class="col-md-12">

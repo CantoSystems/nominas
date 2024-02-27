@@ -652,6 +652,7 @@ class EmpresaController extends Controller{
                 $table->float('importe');
                 $table->float('monto');
                 $table->integer('periodo_incidencia');
+                $table->boolean('status_incidencias');
                 $table->timestamps();
             });
 
