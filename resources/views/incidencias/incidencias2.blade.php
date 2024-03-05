@@ -191,26 +191,28 @@
                                 <strong class="obligatorio">*</strong>
                                 
                                 <select class="custom-select" id="status_incidencias" name="status_incidencias">
-                                    @if($incidencias->status_incidencias == null)
-                                        <option value="" selected>Selecciona una opción </option>
+                                    @if(isset($incidencias))
+                                        @if($incidencias->status_incidencias=="1")
+                                            <option value="">Selecciona una opción</option>
+                                            <option value="1" selected>Activo</option>
+                                            <option value="2">Pausa</option>
+                                            <option value="3">Finalizado</option>
+                                        @elseif($incidencias->status_incidencias=="2")
+                                            <option value="">Selecciona una opción</option>
+                                            <option value="1" >Activo</option>
+                                            <option value="2" selected>Pausa</option>
+                                            <option value="3">Finalizado</option>
+                                        @elseif($incidencias->status_incidencias=="3")
+                                            <option value="">Selecciona una opción</option>
+                                            <option value="1" >Activo</option>
+                                            <option value="2" >Pausa</option>
+                                            <option value="3" selected>Finalizado</option>
+                                        @endif
+                                    @else
+                                        <option value="" selected disabled>Selecciona una opción </option>
                                         <option value="1">Activo</option>
                                         <option value="2">Pausa</option>
                                         <option value="3">Finalizado</option>
-                                    @elseif($incidencias->status_incidencias=="1")
-                                        <option value="">Selecciona una opción</option>
-                                        <option value="1" selected>Activo</option>
-                                        <option value="2">Pausa</option>
-                                        <option value="3">Finalizado</option>
-                                    @elseif($incidencias->status_incidencias=="2")
-                                        <option value="">Selecciona una opción</option>
-                                        <option value="1" >Activo</option>
-                                        <option value="2" selected>Pausa</option>
-                                        <option value="3">Finalizado</option>
-                                    @elseif($incidencias->status_incidencias=="3")
-                                        <option value="">Selecciona una opción</option>
-                                        <option value="1" >Activo</option>
-                                        <option value="2" >Pausa</option>
-                                        <option value="3" selected>Finalizado</option>
                                     @endif
                                 </select>
                     </div>

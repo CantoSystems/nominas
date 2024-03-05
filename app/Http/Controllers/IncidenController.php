@@ -38,6 +38,7 @@ class IncidenController extends Controller{
                 ->join('conceptos','conceptos.clave_concepto','=','incidencias.clave_concepto')
                 ->select('incidencias.*','empleados.*','conceptos.concepto')
                 ->where('id_incidencia','<',$request->idIncidencia)
+                ->where('incidencias.status_incidencias','!=',0)
                 ->orderBy('id_incidencia', 'DESC')->first();
 
                 if(is_null($incidencias)){
@@ -45,6 +46,7 @@ class IncidenController extends Controller{
                         ->join('empleados','empleados.clave_empleado','=','incidencias.clave_empleado')
                         ->join('conceptos','conceptos.clave_concepto','=','incidencias.clave_concepto')
                         ->select('incidencias.*','empleados.*','conceptos.concepto')
+                        ->where('incidencias.status_incidencias','!=',0)
                         ->orderBy('id_incidencia')
                         ->get()->last();
                 }
@@ -53,6 +55,7 @@ class IncidenController extends Controller{
                 ->join('empleados','empleados.clave_empleado','=','incidencias.clave_empleado')
                 ->join('conceptos','conceptos.clave_concepto','=','incidencias.clave_concepto')
                 ->select('incidencias.*','empleados.*','conceptos.concepto')
+                ->where('incidencias.status_incidencias','!=',0)
                 ->orderBy('id_incidencia')->get();
 
                 return view('incidencias.incidencias2',compact('incidencias2','incidencias'));
@@ -63,6 +66,7 @@ class IncidenController extends Controller{
                 ->join('conceptos','conceptos.clave_concepto','=','incidencias.clave_concepto')
                 ->select('incidencias.*','empleados.*','conceptos.concepto')
                 ->where('id_incidencia','>',$request->idIncidencia)
+                ->where('incidencias.status_incidencias','!=',0)
                 ->orderBy('id_incidencia')->first();
 
                 if(is_null($incidencias)){
@@ -70,6 +74,7 @@ class IncidenController extends Controller{
                         ->join('empleados','empleados.clave_empleado','=','incidencias.clave_empleado')
                         ->join('conceptos','conceptos.clave_concepto','=','incidencias.clave_concepto')
                         ->select('incidencias.*','empleados.*','conceptos.concepto')
+                        ->where('incidencias.status_incidencias','!=',0)
                         ->orderBy('id_incidencia')->first();
 
                 }
@@ -78,6 +83,7 @@ class IncidenController extends Controller{
                 ->join('empleados','empleados.clave_empleado','=','incidencias.clave_empleado')
                 ->join('conceptos','conceptos.clave_concepto','=','incidencias.clave_concepto')
                 ->select('incidencias.*','empleados.*','conceptos.concepto')
+                ->where('incidencias.status_incidencias','!=',0)
                 ->orderBy('id_incidencia')->get();
 
                 return view('incidencias.incidencias2',compact('incidencias2','incidencias'));
@@ -87,12 +93,14 @@ class IncidenController extends Controller{
                 ->join('empleados','empleados.clave_empleado','=','incidencias.clave_empleado')
                 ->join('conceptos','conceptos.clave_concepto','=','incidencias.clave_concepto')
                 ->select('incidencias.*','empleados.*','conceptos.concepto')
+                ->where('incidencias.status_incidencias','!=',0)
                 ->first();
 
                 $incidencias2 = DB::connection('DB_Serverr')->table('incidencias')
                 ->join('empleados','empleados.clave_empleado','=','incidencias.clave_empleado')
                 ->join('conceptos','conceptos.clave_concepto','=','incidencias.clave_concepto')
                 ->select('incidencias.*','empleados.*','conceptos.concepto')
+                ->where('incidencias.status_incidencias','!=',0)
                 ->orderBy('id_incidencia')->get();
 
 
@@ -103,12 +111,14 @@ class IncidenController extends Controller{
                 ->join('empleados','empleados.clave_empleado','=','incidencias.clave_empleado')
                 ->join('conceptos','conceptos.clave_concepto','=','incidencias.clave_concepto')
                 ->select('incidencias.*','empleados.*','conceptos.concepto')
+                ->where('incidencias.status_incidencias','!=',0)
                 ->get()->last();
 
                 $incidencias2 = DB::connection('DB_Serverr')->table('incidencias')
                 ->join('empleados','empleados.clave_empleado','=','incidencias.clave_empleado')
                 ->join('conceptos','conceptos.clave_concepto','=','incidencias.clave_concepto')
                 ->select('incidencias.*','empleados.*','conceptos.concepto')
+                ->where('incidencias.status_incidencias','!=',0)
                 ->orderBy('id_incidencia')->get();
 
                 return view('incidencias.incidencias2',compact('incidencias2','incidencias'));
